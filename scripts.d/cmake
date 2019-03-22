@@ -1,0 +1,44 @@
+
+function cmake-vcs() 
+{ 
+    echo git 
+    echo https://github.com/Kitware/CMake.git 
+} 
+
+function cmake-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo cmake-$VERSION.tar.gz 
+} 
+
+function cmake-out-of-tree()
+{
+    echo true
+}
+
+function cmake-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    ../src/configure --prefix=$PREFIX
+}
+
+function cmake-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function cmake-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}

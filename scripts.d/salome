@@ -1,0 +1,8 @@
+
+function salome-modules()
+{
+    echo cmake:#3.12.1
+    echo qt:#5.9.1
+    echo openturns:#1.12
+    echo paraview:#v5.6.0p1
+}

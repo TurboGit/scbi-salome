@@ -1,0 +1,44 @@
+
+function openturns-vcs() 
+{ 
+    echo git 
+    echo https://github.com/openturns/openturns.git 
+} 
+
+function openturns-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo openturns-$VERSION.tar.bz2 
+} 
+
+function openturns-out-of-tree()
+{
+    echo true
+}
+
+function openturns-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DUSE_SPHINX=OFF -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function openturns-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function openturns-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
