@@ -19,6 +19,14 @@ function cmake-out-of-tree()
     echo true
 }
 
+function cmake-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export PATH=$BDIR/install-tools/bin:$PATH
+}
+
 function cmake-config()
 {
     PREFIX=$1
@@ -41,4 +49,9 @@ function cmake-install()
     TARGET=$2
 
     make install
+}
+
+function cmake-prefix()
+{
+    echo $BDIR/install-tools
 }
