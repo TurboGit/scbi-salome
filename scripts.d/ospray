@@ -1,0 +1,81 @@
+
+function ospray-vcs()
+{
+    echo git
+    echo https://github.com/ospray/ospray.git
+}
+
+function ospray-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo ospray-$VERSION.tar.gz
+}
+
+function ospray-depends()
+{
+    VERSION=$1
+
+    echo cmake
+    echo ispc
+    echo embree
+}
+
+function ospray-post-setup()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    # needed for the config
+    rm -fr ../src/.git
+    cp -r $BDIR/.vcs/ispc/.git ../src
+}
+
+function ospray-out-of-tree()
+{
+    echo true
+}
+
+function ospray-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    add-to-var C_INCLUDE_PATH $PREFIX/include/ospray
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
+    add-to-var LIBRARY_PATH $PREFIX/lib
+}
+
+function ospray-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
+}
+
+function ospray-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function ospray-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
+
+function ospray-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
