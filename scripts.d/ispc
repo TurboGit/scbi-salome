@@ -1,0 +1,88 @@
+
+function ispc-vcs() 
+{ 
+    echo git 
+    echo https://github.com/ispc/ispc.git 
+} 
+
+function ispc-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo ispc-$VERSION.tar.gz 
+} 
+
+function ispc-depends()
+{
+    VERSION=$1
+
+    echo cmake
+    echo clang-4.0
+    echo llvm-4.0-tools
+    echo libclang-4.0-dev
+    echo flex
+    echo bison
+    echo m4
+}
+
+function ispc-post-setup()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    # needed for the config
+    rm -fr ../src/.git
+    cp -r $BDIR/.vcs/ispc/.git ../src
+}
+
+function ispc-out-of-tree()
+{
+    echo true
+}
+
+function ispc-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export PATH=$BDIR/install-tools/bin:$PATH
+}
+
+function ispc-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
+}
+
+function ispc-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function ispc-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
+
+function ispc-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
+
+function ispc-prefix()
+{
+    echo $BDIR/install-tools
+}
