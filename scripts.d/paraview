@@ -16,6 +16,7 @@ function paraview-depends()
     echo libqt5x11extras5-dev
     echo libqt5help5
     echo qttools5-dev
+    echo python3-dev
     echo openturns
     echo cmake:#3.12.1
 }
