@@ -1,0 +1,61 @@
+
+function embree-vcs()
+{
+    echo git
+    echo https://github.com/embree/embree.git
+}
+
+function embree-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo embree-$VERSION.tar.gz
+}
+
+function embree-depends()
+{
+    VERSION=$1
+
+    echo cmake
+    echo libglfw3-dev
+    echo ispc
+}
+
+function embree-out-of-tree()
+{
+    echo true
+}
+
+function embree-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
+}
+
+function embree-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function embree-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
+
+function embree-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
