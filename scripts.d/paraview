@@ -18,6 +18,7 @@ function paraview-depends()
     echo qttools5-dev
     echo python3-dev
     echo openturns
+    echo ospray
     echo cmake:#3.12.1
 }
 
@@ -106,6 +107,8 @@ function paraview-config()
           -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON \
           -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON \
           -DVTK_ALL_NEW_OBJECT_FACTORY=ON \
+          -DPARAVIEW_USE_OSPRAY:BOOL=ON \
+          -DOSPRAY_INSTALL_DIR=$BDIR/ospray/build/install \
           ../src
 }
 
