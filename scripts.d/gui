@@ -1,0 +1,54 @@
+
+
+function gui-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo gui-$VERSION.tar.xz 
+} 
+
+function gui-depends()
+{
+    echo cmake
+    echo qt
+    echo pyqt
+    echo configuration
+    echo paraview
+    echo kernel
+    echo libqwt-qt5-dev
+    echo occt
+}
+
+function gui-out-of-tree()
+{
+    echo true
+}
+
+function gui-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
+          -DSALOME_BUILD_WITH_QT5=ON \
+          -DCMAKE_PREFIX_PATH=$IDIR/lib/cmake -DCMAKE_BUILD_TYPE=Releas ../src
+}
+
+function gui-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function gui-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
