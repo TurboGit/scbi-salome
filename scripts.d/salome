@@ -3,6 +3,17 @@ function salome-modules()
 {
     echo cmake:#3.12.1
     echo qt:#5.9.1
+    echo sip:#4.19.3
+    echo pyqt
+    echo ispc
+    echo embree
+    echo ospray
     echo openturns:#1.12
     echo paraview:#v5.6.0p1
+    echo configuration
+    echo omniorb:#4.2.2
+    echo python-omniorb:#4.2.2
+    echo kernel
+    echo occt:#7.3.0p3
+    echo gui:V9_3_BR
 }
