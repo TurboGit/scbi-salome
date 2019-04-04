@@ -1,0 +1,52 @@
+
+function omniorb-vcs()
+{
+    echo svn
+    echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORB
+}
+
+function omniorb-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo omniORB-$VERSION.tar.gz
+}
+
+function omniorb-out-of-tree()
+{
+    echo true
+}
+
+function omniorb-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export OMNIORB_ROOT_DIR=$PREFIX
+}
+
+function omniorb-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    ../src/configure --prefix=$PREFIX
+}
+
+function omniorb-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function omniorb-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
