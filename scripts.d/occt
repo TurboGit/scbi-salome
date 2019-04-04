@@ -1,0 +1,44 @@
+
+function occt-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo OCCT-$VERSION.tar.gz 
+} 
+
+function occt-out-of-tree()
+{
+    echo true
+}
+
+function occt-env()
+{
+    export OPENCASCADE_ROOT_DIR=$BDIR/install
+}
+
+function occt-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_PREFIX_PATH=$BDIR/install ../src
+}
+
+function occt-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function occt-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
