@@ -22,6 +22,7 @@ function ispc-depends()
     echo clang-4.0
     echo llvm-4.0-tools
     echo libclang-4.0-dev
+    echo zlib1g-dev
     echo flex
     echo bison
     echo m4
@@ -47,7 +48,7 @@ function ispc-env()
     PREFIX=$1
     TARGET=$2
 
-    export PATH=$BDIR/install-tools/bin:$PATH
+    add-to-var PATH $BDIR/install-tools/bin
 }
 
 function ispc-config()
