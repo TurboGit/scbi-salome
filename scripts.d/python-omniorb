@@ -1,0 +1,53 @@
+
+function python-omniorb-vcs() 
+{ 
+    echo svn 
+    echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORBpy 
+} 
+
+function python-omniorb-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo omniORBpy-$VERSION.tar.gz 
+} 
+
+function python-omniorb-out-of-tree()
+{
+    echo true
+}
+
+function python-omniorb-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export OMNIORBPY_ROOT_DIR=$PREFIX
+}
+
+function python-omniorb-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    ../src/configure --prefix=$PREFIX --with-omniorb=$BDIR/install \
+                     PYTHON=$(which python3)
+}
+
+function python-omniorb-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function python-omniorb-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
