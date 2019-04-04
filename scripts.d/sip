@@ -1,0 +1,58 @@
+
+function sip-vcs()
+{
+    echo hg
+    echo https://www.riverbankcomputing.com/hg/sip
+}
+
+function sip-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo sip-$VERSION.tar.gz
+}
+
+function sip-depends()
+{
+    echo cmake
+    echo configuration
+}
+
+function sip-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export SIP_ROOT_DIR=$PREFIX
+    export PYQT_SIPS_DIR=$PREFIX
+    add-to-var PATH $PREFIX/bin
+}
+
+function sip-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    python3 configure.py -b $PREFIX/bin \
+            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
+            -e $PREFIX/include/python$PYTHON_VERSION \
+            -v $PREFIX/share/sip
+}
+
+function sip-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function sip-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
