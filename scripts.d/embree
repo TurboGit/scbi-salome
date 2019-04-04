@@ -19,6 +19,8 @@ function embree-depends()
     VERSION=$1
 
     echo cmake
+    echo libc6-dev
+    echo libtbb-dev
     echo libglfw3-dev
     echo ispc
 }
