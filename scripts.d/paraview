@@ -19,7 +19,15 @@ function paraview-depends()
     echo python3-dev
     echo openturns
     echo ospray
-    echo cmake:#3.12.1
+    echo cmake
+}
+
+function paraview-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export PARAVIEW_ROOT_DIR=$IDIR
 }
 
 function paraview-build-env()
