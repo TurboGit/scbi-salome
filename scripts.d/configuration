@@ -1,0 +1,44 @@
+
+function configuration-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/tools-salome.configuration
+}
+
+function configuration-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo configuration-$VERSION.tar.xz
+}
+
+function configuration-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export CONFIGURATION_ROOT_DIR=$BDIR/install-tools
+    export CONFIGURATION_CMAKE_DIR=$BDIR/install-tools/cmake
+}
+
+function configuration-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    # this is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function configuration-prefix()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    echo $BDIR/install-tools
+}
