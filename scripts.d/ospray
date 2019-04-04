@@ -19,6 +19,7 @@ function ospray-depends()
     VERSION=$1
 
     echo cmake
+    echo libtbb-dev
     echo ispc
     echo embree
 }
