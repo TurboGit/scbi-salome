@@ -1,0 +1,67 @@
+
+function kernel-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/modules-salome.kernel
+}
+
+function kernel-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo kernel-$VERSION.tar.xz
+}
+
+function kernel-out-of-tree()
+{
+    echo true
+}
+
+function kernel-depends()
+{
+    echo cmake
+    echo configuration
+    echo swig
+    echo libhdf5-dev
+    echo libboost-dev
+    echo libboost-filesystem-dev
+    echo libboost-regex-dev
+    echo libboost-signals-dev
+    echo libomniorb4-dev
+    echo omniorb
+    echo omniorb-idl
+    echo omniidl
+    echo python-omniorb
+}
+
+function kernel-env()
+{
+    export KERNEL_ROOT_DIR=$IDIR
+}
+
+function kernel-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_DOC=OFF \
+          -DCMAKE_PREFIX_PATH=$BDIR/install ../src
+}
+
+function kernel-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function kernel-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
