@@ -1,0 +1,51 @@
+
+
+function eficas-module-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo eficas-module-$VERSION.tar.xz 
+} 
+
+function eficas-module-depends()
+{
+    echo cmake
+    echo configuration
+    echo pyqt
+    echo kernel
+    echo omniorb
+    echo gui
+}
+
+function eficas-module-out-of-tree()
+{
+    echo true
+}
+
+function eficas-module-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function eficas-module-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function eficas-module-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
