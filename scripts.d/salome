@@ -23,4 +23,6 @@ function salome-modules()
     echo gui
     echo eficas-tools
     echo eficas-module
+    echo yacsgen
+    echo yacs
 }
