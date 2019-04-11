@@ -22,4 +22,5 @@ function salome-modules()
     echo occt
     echo gui
     echo eficas-tools
+    echo eficas-module
 }
