@@ -21,4 +21,5 @@ function salome-modules()
     echo kernel
     echo occt
     echo gui
+    echo eficas-tools
 }
