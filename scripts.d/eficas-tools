@@ -1,0 +1,49 @@
+
+
+function eficas-tools-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo eficas-tools-$VERSION.tar.xz 
+} 
+
+function eficas-tools-depends()
+{
+    echo cmake
+    echo configuration
+    echo pyqt
+}
+
+function eficas-tools-out-of-tree()
+{
+    echo true
+}
+
+function eficas-tools-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DWITH_TELEMAC_CATA=ON -DBUILD_DOC=ON \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function eficas-tools-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function eficas-tools-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
