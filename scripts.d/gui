@@ -26,6 +26,14 @@ function gui-depends()
     echo occt
 }
 
+function gui-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export GUI_ROOT_DIR=$IDIR
+}
+
 function gui-out-of-tree()
 {
     echo true
