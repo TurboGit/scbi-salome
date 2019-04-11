@@ -1,0 +1,46 @@
+
+function yacsgen-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/tools-salome.yacsgen
+}
+
+function yacsgen-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo yacsgen-$VERSION.tar.xz
+}
+
+function yacsgen-out-of-tree()
+{
+    echo true
+}
+
+function yacsgen-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    # this is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function yacsgen-post-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    sed -i "s#__YACSGEN_INSTALL_PATH__#${BDIR/install-tools}#" \
+        $PREFIX/Examples/exec.sh
+}
+
+function yacsgen-prefix()
+{
+    echo $BDIR/install-tools
+}
