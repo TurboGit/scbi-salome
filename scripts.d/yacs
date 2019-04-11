@@ -1,0 +1,55 @@
+
+function yacs-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/modules-salome.yacs.git
+}
+
+function yacs-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo yacs-$VERSION.tar.xz
+}
+
+function yacs-depends()
+{
+    echo configuration
+    echo omniorb
+    echo kernel
+    echo gui
+}
+
+function yacs-out-of-tree()
+{
+    echo true
+}
+
+function yacs-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
+          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) -DSALOME_BUILD_DOC=OFF \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function yacs-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function yacs-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
