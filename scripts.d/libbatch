@@ -1,0 +1,56 @@
+
+
+function libbatch-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo libbatch-$VERSION.tar.xz 
+} 
+
+function libbatch-depends()
+{
+    echo configuration
+    echo kernel
+}
+
+function libbatch-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export LibBatch_DIR=$PREFIX
+}
+
+function libbatch-out-of-tree()
+{
+    echo true
+}
+
+function libbatch-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
+          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function libbatch-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function libbatch-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
