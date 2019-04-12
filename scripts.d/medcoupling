@@ -1,0 +1,60 @@
+
+
+function medcoupling-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo medcoupling-$VERSION.tar.gz 
+} 
+
+function medcoupling-depends()
+{
+    echo scotch
+    echo libscotch-dev
+    echo metis
+    echo libmetis-dev
+    echo cmake
+    echo configuration
+    echo kernel
+    echo medfichier
+}
+
+function medcoupling-env()
+{
+    export MEDCOUPLING_ROOT_DIR=$IDIR
+    export MEDCoupling_DIR=$IDIR/cmake_files
+}
+
+function medcoupling-out-of-tree()
+{
+    echo true
+}
+
+function medcoupling-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DMEDCOUPLING_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function medcoupling-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function medcoupling-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
