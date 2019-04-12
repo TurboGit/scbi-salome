@@ -19,6 +19,11 @@ function eficas-module-depends()
     echo gui
 }
 
+function eficas-module-env()
+{
+    export EFICAS_ROOT_DIR=$IDIR
+}
+
 function eficas-module-out-of-tree()
 {
     echo true
