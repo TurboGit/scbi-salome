@@ -34,6 +34,8 @@ function kernel-depends()
 function kernel-env()
 {
     export KERNEL_ROOT_DIR=$IDIR
+    export KERNEL_INSTALL_DIR=$IDIR
+    export SalomeKERNEL_DIR=$IDIR/salome_adm/cmake_files
 }
 
 function kernel-config()
