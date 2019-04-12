@@ -1,0 +1,76 @@
+
+
+function adao-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo adao-$VERSION.tar.xz 
+} 
+
+function adao-depends()
+{
+    echo python3-docutils
+    echo configuration
+    echo omniorb
+    echo kernel
+    echo eficas-module
+    echo python-omniorb
+    echo libbatch
+}
+
+function adao-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    add-to-var LD_LIBRARY_PATH $IDIR/lib/salome
+}
+
+function adao-build-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export CURRENT_SOFTWARE_INSTALL_DIR=$PREFIX
+}
+
+function adao-out-of-tree()
+{
+    echo true
+}
+
+function adao-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    PSP=lib/python$PYTHON_VERSION/site-packages
+    INI=$PSP/salome/adao/daCore/__init__.py
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
+          -DSALOME_BUILD_DOC=OFF \
+          -DEFICAS_ROOT_DIR=$IDIR -DKERNEL_ROOT_DIR=$IDIR \
+          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DADAO_PYTHON_ROOT_DIR=$PREFIX \
+          -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/$PSP/$INI \
+          -DADAO_SALOME_MODULE=ON -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function adao-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function adao-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
