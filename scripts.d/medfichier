@@ -1,0 +1,55 @@
+
+function medfichier-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo med-$VERSION.tar.gz
+}
+
+function medfichier-depends()
+{
+    echo cmake
+    echo configuration
+    echo kernel
+}
+
+function medfichier-env()
+{
+    export MEDFILE_ROOT_DIR=$IDIR
+    export MEDFile_DIR=$IDIR/share/cmake/med-fichier-4.0.0
+}
+
+function medfichier-out-of-tree()
+{
+    echo true
+}
+
+function medfichier-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF \
+          --enable-mesgerr --with-swig=$(which swig) \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function medfichier-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function medfichier-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
