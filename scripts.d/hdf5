@@ -1,0 +1,63 @@
+
+function hdf5-vcs() 
+{ 
+    echo git 
+    echo https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git 
+} 
+
+function hdf5-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo hdf5-$VERSION.tar.gz 
+} 
+
+function hdf5-depends()
+{
+    echo cmake
+}
+
+function hdf5-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export HDF5_ROOT_DIR=$IDIR
+    export HDF5_LIBRARIES=$IDIR/lib
+    export HDF5_C_INCLUDE_DIR=$IDIR/include
+}
+
+function hdf5-out-of-tree()
+{
+    echo true
+}
+
+function hdf5-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_DOC=OFF \
+          -DHDF5_BUILD_HL_LIB=ON -DHDF5_BUILD_TOOLS=ON \
+          -DBUILD_SHARED_LIBS=ON -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function hdf5-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function hdf5-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
