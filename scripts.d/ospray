@@ -14,6 +14,14 @@ function ospray-tar()
     echo ospray-$VERSION.tar.gz 
 } 
 
+function ospray-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    add-to-var CMAKE_PREFIX_PATH $IDIR/lib/cmake/ospray-1.8.3
+}
+
 function ospray-depends()
 {
     VERSION=$1
