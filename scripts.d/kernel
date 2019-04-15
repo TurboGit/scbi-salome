@@ -19,7 +19,6 @@ function kernel-depends()
     echo cmake
     echo configuration
     echo swig
-    echo libhdf5-dev
     echo libboost-dev
     echo libboost-filesystem-dev
     echo libboost-regex-dev
