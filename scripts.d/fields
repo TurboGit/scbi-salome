@@ -1,0 +1,61 @@
+
+function fields-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/modules-salome.med.git
+}
+
+function fields-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo fields-$VERSION.tar.gz
+}
+
+function fields-depends()
+{
+    echo cmake
+    echo configuration
+    echo kernel
+    echo medcoupling
+    echo gui
+}
+
+function fields-env()
+{
+    export FIELDS_ROOT_DIR=$IDIR
+}
+
+function fields-out-of-tree()
+{
+    echo true
+}
+
+function fields-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function fields-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function fields-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
