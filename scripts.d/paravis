@@ -1,0 +1,67 @@
+
+function paravis-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/modules-salome.paravis
+}
+
+function paravis-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo paravis-$VERSION.tar.xz
+}
+
+function paravis-depends()
+{
+    echo cmake
+    echo configuration
+    echo hdf5
+    echo kernel
+    echo gui
+    echo paraview
+    echo medcoupling
+    echo fields
+}
+
+function paravis-env()
+{
+    export PARAVIS_ROOT_DIR=$IDIR
+}
+
+function paravis-out-of-tree()
+{
+    echo true
+}
+
+function paravis-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_CMAKE_DEBUG=ON \
+          -DSALOME_BUILD_DOC=OFF \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DSALOME_PARAVIS_MINIMAL_CORBA=ON \
+          -DPARAVIEW_ROOT_DIR=$PARAVIEW_ROOT_DIR \
+          -DVTK_DIR=$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-5.6 \
+          ../src
+}
+
+function paravis-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function paravis-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
