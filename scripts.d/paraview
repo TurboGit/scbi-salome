@@ -18,6 +18,7 @@ function paraview-depends()
     echo qttools5-dev
     echo python3-dev
     echo openturns
+    echo hdf5
     echo ospray
     echo cmake
 }
@@ -28,6 +29,7 @@ function paraview-env()
     TARGET=$2
 
     export PARAVIEW_ROOT_DIR=$IDIR
+    export PARAVIEW_INSTALL_DIR=$IDIR
 }
 
 function paraview-build-env()
@@ -115,6 +117,12 @@ function paraview-config()
           -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON \
           -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON \
           -DVTK_ALL_NEW_OBJECT_FACTORY=ON \
+          \
+          -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib \
+          -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
+          -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
+          -DHDF5_C_INCLUDE_DIR=$HDF5_ROOT_DIR/include \
+          \
           -DPARAVIEW_USE_OSPRAY:BOOL=ON \
           -DOSPRAY_INSTALL_DIR=$BDIR/ospray/build/install \
           ../src
