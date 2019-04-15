@@ -2,7 +2,7 @@
 function eficas-module-vcs()
 {
     echo git
-    echo https://git.forge.pleiade.edf.fr/git//eficas.module-eficas
+    echo https://git.forge.pleiade.edf.fr/git/eficas.module-eficas
 }
 
 function eficas-module-tar()
