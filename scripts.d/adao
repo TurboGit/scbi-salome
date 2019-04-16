@@ -11,6 +11,7 @@ function adao-tar()
 
 function adao-depends()
 {
+    echo cmake
     echo python3-docutils
     echo configuration
     echo omniorb
