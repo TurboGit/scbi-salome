@@ -1,0 +1,66 @@
+
+function smesh-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/modules-salome.smesh
+}
+
+function smesh-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo smesh-$VERSION.tar.xz
+}
+
+function smesh-depends()
+{
+    echo cmake
+    echo configuration
+    echo kernel
+    echo gui
+    echo qt
+    echo hdf5
+    echo omniorb
+    echo python-omniorb
+    echo geom
+    echo medfichier
+}
+
+function smesh-env()
+{
+    export SMESH_ROOT_DIR=$IDIR
+}
+
+function smesh-out-of-tree()
+{
+    echo true
+}
+
+function smesh-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function smesh-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function smesh-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
