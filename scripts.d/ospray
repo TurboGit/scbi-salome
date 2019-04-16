@@ -19,6 +19,10 @@ function ospray-env()
     PREFIX=$1
     TARGET=$2
 
+    add-to-var C_INCLUDE_PATH $PREFIX/include/ospray
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
+    add-to-var LIBRARY_PATH $PREFIX/lib
+
     add-to-var CMAKE_PREFIX_PATH $IDIR/lib/cmake/ospray-1.8.3
 }
 
@@ -47,16 +51,6 @@ function ospray-out-of-tree()
     echo true
 }
 
-function ospray-env()
-{
-    PREFIX=$1
-    TARGET=$2
-
-    add-to-var C_INCLUDE_PATH $PREFIX/include/ospray
-    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
-    add-to-var LIBRARY_PATH $PREFIX/lib
-}
-
 function ospray-config()
 {
     PREFIX=$1
@@ -71,14 +65,6 @@ function ospray-build()
     TARGET=$2
 
     make -j$JOBS
-}
-
-function ospray-install()
-{
-    PREFIX=$1
-    TARGET=$2
-
-    make install
 }
 
 function ospray-install()
