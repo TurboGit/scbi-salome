@@ -25,4 +25,13 @@ function salome-modules()
     echo eficas-module
     echo yacsgen
     echo yacs
+    echo medfichier
+    echo medcoupling
+    echo fields
+    echo smesh
+    echo geom
+    echo paravis
+    echo adao
+    echo libbatch
+    echo hdf5
 }
