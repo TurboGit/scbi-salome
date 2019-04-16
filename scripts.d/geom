@@ -1,0 +1,67 @@
+
+function geom-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/modules-salome.geom
+}
+
+function geom-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo geom-$VERSION.tar.xz
+}
+
+function geom-depends()
+{
+    echo libopencv-dev
+
+    echo cmake
+    echo configuration
+    echo kernel
+    echo gui
+    echo omniorb
+    echo python-omniorb
+    echo qt
+}
+
+function geom-env()
+{
+    export GEOM_ROOT_DIR=$IDIR
+}
+
+function geom-out-of-tree()
+{
+    echo true
+}
+
+function geom-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF \
+          -DSALOME_GEOM_USE_OPENCV=ON  \
+          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function geom-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function geom-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
