@@ -16,3 +16,5 @@ hdf5:#1.10.3
 medfichier:#4.0.0
 medcoupling:V9_3_BR
 fields:V9_3_BR
+smesh:V9_3_BR
+geom:V9_3_BR
