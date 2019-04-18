@@ -35,4 +35,5 @@ function salome-modules()
     echo libbatch
     echo hdf5
     echo atomic
+    echo atomgen
 }
