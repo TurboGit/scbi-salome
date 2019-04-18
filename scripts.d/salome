@@ -34,4 +34,5 @@ function salome-modules()
     echo adao
     echo libbatch
     echo hdf5
+    echo atomic
 }

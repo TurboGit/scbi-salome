@@ -1,0 +1,51 @@
+
+
+function atomic-depends()
+{
+    echo cmake
+    echo configuration
+    echo kernel
+    echo gui
+}
+
+function atomic-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export ATOMIC_ROOT_DIR=$IDIR
+}
+
+function atomic-out-of-tree()
+{
+    echo true
+}
+
+function atomic-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
+          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
+          -DSWIG_DIR:PATH=$(swig3.0 -swiglib) \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function atomic-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function atomic-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
