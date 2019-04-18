@@ -19,6 +19,7 @@ function paravis-depends()
     echo paraview
     echo medcoupling
     echo fields
+    echo smesh
 }
 
 function paravis-env()
