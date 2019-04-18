@@ -1,0 +1,62 @@
+
+function ghs3dplugin-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git//plugins-salome.ghs3dplugin
+}
+
+function ghs3dplugin-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo ghs3dplugin-$VERSION.tar.xz
+}
+
+function ghs3dplugin-depends()
+{
+    echo cmake
+    echo configuration
+    echo kernel
+    echo gui
+    echo geom
+    echo smesh
+}
+
+function ghs3dplugin-env()
+{
+    export GHS3DPLUGIN_ROOT_DIR=$IDIR
+}
+
+function ghs3dplugin-out-of-tree()
+{
+    echo true
+}
+
+function ghs3dplugin-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function ghs3dplugin-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function ghs3dplugin-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
