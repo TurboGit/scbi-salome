@@ -1,0 +1,54 @@
+
+
+function ydefx-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo ydefx-$VERSION.tar.xz 
+} 
+
+function ydefx-depends()
+{
+    echo cmake
+    echo configuration
+    echo py2cpp
+}
+
+function ydefx-env()
+{
+    export YDEFX_ROOT_DIR=$IDIR
+}
+
+function ydefx-out-of-tree()
+{
+    echo true
+}
+
+function ydefx-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function ydefx-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function ydefx-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
