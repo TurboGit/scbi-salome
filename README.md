@@ -10,13 +10,17 @@ Setup Configure Build Install - Scripts for building SALOME
 
 # Install
 
-  $ git clone https://gitlab.pleiade.edf.fr/pascal.obry/scbi-salome.git
-  $ cd ./scbi-salome.git
-  $ make
+      ```
+      $ git clone https://gitlab.pleiade.edf.fr/pascal.obry/scbi-salome.git
+      $ cd ./scbi-salome.git
+      $ make
+      ```
 
 # A simple tutorial to build SALOME
 
   This is still work-in-progress and only Paraview can be built at this
   stage. The other scripts are not yet done.
 
-  $ scbi -p --deps salome
+      ```
+      $ scbi -p --deps salome
+      ```
