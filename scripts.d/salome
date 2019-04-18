@@ -36,4 +36,5 @@ function salome-modules()
     echo hdf5
     echo atomic
     echo atomgen
+    echo py2cpp
 }

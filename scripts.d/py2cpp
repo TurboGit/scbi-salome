@@ -1,0 +1,65 @@
+
+function py2cpp-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/salome-prototypes.py2cpp
+}
+
+function py2cpp-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo py2cpp-$VERSION.tgz
+}
+
+function py2cpp-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export PY2CPP_ROOT_DIR=$IDIR
+
+    add-to-var CMAKE_MODULE_PATH $PREFIX
+}
+
+function py2cpp-depends()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    echo configuration
+}
+
+function py2cpp-out-of-tree()
+{
+    echo true
+}
+
+function py2cpp-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function py2cpp-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function py2cpp-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
