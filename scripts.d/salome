@@ -37,4 +37,5 @@ function salome-modules()
     echo atomic
     echo atomgen
     echo py2cpp
+    echo ydefx
 }
