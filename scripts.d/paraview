@@ -19,8 +19,13 @@ function paraview-depends()
     echo python3-dev
     echo openturns
     echo hdf5
-    echo ospray
     echo cmake
+}
+
+function paraview-ospray-depends()
+{
+    paraview-depends
+    echo ospray
 }
 
 function paraview-env()
@@ -51,83 +56,96 @@ function paraview-tar()
     echo ParaView-$VERSION-source.tar.gz
 }
 
+function paraview-common-options()
+{
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX -DPARAVIEW_USE_OPENTURNS=ON \
+         -DPARAVIEW_ENABLE_WEB=OFF -DVTK_PYTHON_VERSION=3 \
+         -DPARAVIEW_QT_VERSION=5 -DBUILD_SHARED_LIBS:BOOL=ON \
+         -DCMAKE_BUILD_TYPE:STRING=Release \
+         -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON \
+         -DVTK_USE_64BIT_IDS:BOOL=OFF -DPARAVIEW_BUILD_QT_GUI:BOOL=ON \
+         -DPARAVIEW_ENABLE_PYTHON:BOOL=ON -DVTK_USE_SYSTEM_HDF5:BOOL=ON \
+         -DVTK_USE_SYSTEM_PYGMENTS:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_Moments:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_SierraPlotTools:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_SLACTools:BOOL=OFF \
+         -DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON -DVTK_NO_PYTHON_THREADS=OFF \
+         -DPARAVIEW_ENABLE_CATALYST:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_AnalyzeNIfTIIO:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_ArrowGlyph:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_CatalystScriptGeneratorPlugin:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_GMVReader:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_MobileRemoteControl:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_NonOrthogonalSource:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_PacMan:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_RGBZView:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_SciberQuestToolKit:BOOL=OFF \
+         -DPARAVIEW_BUILD_PLUGIN_StreamingParticles:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_UncertaintyRendering:BOOL=ON \
+         -DPARAVIEW_ENABLE_MATPLOTLIB:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_EyeDomeLighting:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_H5PartReader:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_PointSprite:BOOL=ON \
+         -DPARAVIEW_BUILD_PLUGIN_SurfaceLIC:BOOL=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_DigitalRockPhysics=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_EmbossingRepresentations=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_GeodesicMeasurement=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_LagrangianParticleTracker=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_MooseXfemClip=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_StreamLinesRepresentation=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON \
+         -DVTK_USE_SYSTEM_LIBXML2:BOOL=ON -DVTK_USE_OGGTHEORA_ENCODER:BOOL=ON \
+         -DBUILD_DOCUMENTATION:BOOL=OFF -DBUILD_EXAMPLES:BOOL=OFF \
+         -DBUILD_TESTING:BOOL=OFF -DVTK_NO_PYTHON_THREADS=OFF \
+         -DVTK_PYTHON_FULL_THREADSAFE=ON \
+         -DVTK_BUILD_QT_DESIGNER_PLUGIN:BOOL=OFF \
+         -DVTK_SMP_IMPLEMENTATION_TYPE=OpenMP \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_StreamingParticles=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_UncertaintyRendering=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_EyeDomeLighting=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_H5PartReader=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_PointSprite=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_SurfaceLIC=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_CatalystScriptGeneratorPlugin=ON \
+         -DPARAVIEW_ENABLE_WEB:BOOL=OFF-DVTK_USE_SYSTEM_GL2PS:BOOL=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_DigitalRockPhysics=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_EmbossingRepresentations=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_GeodesicMeasurement=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_LagrangianParticleTracker=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_MooseXfemClip=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_StreamLinesRepresentation=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON \
+         -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON \
+         -DVTK_ALL_NEW_OBJECT_FACTORY=ON \
+         \
+         -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib \
+         -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
+         -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
+         -DHDF5_C_INCLUDE_DIR=$HDF5_ROOT_DIR/include
+}
+
+function paraview-ospray-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake $(paraview-common-options) \
+          -DPARAVIEW_USE_OSPRAY:BOOL=ON \
+          -DOSPRAY_INSTALL_DIR=$BDIR/ospray/build/install \
+          ../src
+}
+
 function paraview-config()
 {
     PREFIX=$1
     TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DPARAVIEW_USE_OPENTURNS=ON \
-          -DPARAVIEW_ENABLE_WEB=OFF -DVTK_PYTHON_VERSION=3 \
-          -DPARAVIEW_QT_VERSION=5 -DBUILD_SHARED_LIBS:BOOL=ON \
-          -DCMAKE_BUILD_TYPE:STRING=Release \
-          -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON \
-          -DVTK_USE_64BIT_IDS:BOOL=OFF -DPARAVIEW_BUILD_QT_GUI:BOOL=ON \
-          -DPARAVIEW_ENABLE_PYTHON:BOOL=ON -DVTK_USE_SYSTEM_HDF5:BOOL=ON \
-          -DVTK_USE_SYSTEM_PYGMENTS:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_Moments:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_SierraPlotTools:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_SLACTools:BOOL=OFF \
-          -DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON -DVTK_NO_PYTHON_THREADS=OFF \
-          -DPARAVIEW_ENABLE_CATALYST:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_AnalyzeNIfTIIO:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_ArrowGlyph:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_CatalystScriptGeneratorPlugin:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_GMVReader:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_MobileRemoteControl:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_NonOrthogonalSource:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_PacMan:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_RGBZView:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_SciberQuestToolKit:BOOL=OFF \
-          -DPARAVIEW_BUILD_PLUGIN_StreamingParticles:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_UncertaintyRendering:BOOL=ON \
-          -DPARAVIEW_ENABLE_MATPLOTLIB:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_EyeDomeLighting:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_H5PartReader:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_PointSprite:BOOL=ON \
-          -DPARAVIEW_BUILD_PLUGIN_SurfaceLIC:BOOL=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_DigitalRockPhysics=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_EmbossingRepresentations=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_GeodesicMeasurement=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_LagrangianParticleTracker=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_MooseXfemClip=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_StreamLinesRepresentation=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON \
-          -DVTK_USE_SYSTEM_LIBXML2:BOOL=ON -DVTK_USE_OGGTHEORA_ENCODER:BOOL=ON \
-          -DBUILD_DOCUMENTATION:BOOL=OFF -DBUILD_EXAMPLES:BOOL=OFF \
-          -DBUILD_TESTING:BOOL=OFF -DVTK_NO_PYTHON_THREADS=OFF \
-          -DVTK_PYTHON_FULL_THREADSAFE=ON -DVTK_BUILD_QT_DESIGNER_PLUGIN:BOOL=OFF \
-          -DVTK_SMP_IMPLEMENTATION_TYPE=OpenMP \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_StreamingParticles=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_UncertaintyRendering=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_EyeDomeLighting=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_H5PartReader=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_PointSprite=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_SurfaceLIC=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_CatalystScriptGeneratorPlugin=ON \
-          -DPARAVIEW_ENABLE_WEB:BOOL=OFF-DVTK_USE_SYSTEM_GL2PS:BOOL=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_DigitalRockPhysics=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_EmbossingRepresentations=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_GeodesicMeasurement=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_LagrangianParticleTracker=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_MooseXfemClip=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_StreamLinesRepresentation=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON \
-          -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON \
-          -DVTK_ALL_NEW_OBJECT_FACTORY=ON \
-          \
-          -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib \
-          -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
-          -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
-          -DHDF5_C_INCLUDE_DIR=$HDF5_ROOT_DIR/include \
-          \
-          -DPARAVIEW_USE_OSPRAY:BOOL=ON \
-          -DOSPRAY_INSTALL_DIR=$BDIR/ospray/build/install \
-          ../src
+    cmake $(paraview-common-options) ../src
 }
 
 function paraview-build()
