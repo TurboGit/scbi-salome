@@ -18,4 +18,5 @@ medcoupling:V9_3_BR
 fields:V9_3_BR
 smesh:V9_3_BR
 geom:V9_3_BR
+atomgen:V9_3_BR
 atomic:V9_3_BR

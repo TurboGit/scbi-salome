@@ -1,0 +1,55 @@
+
+function atomgen-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/samples-salome.atomgen.git
+}
+
+function atomgen-depends()
+{
+    echo cmake
+    echo configuration
+    echo atomic
+}
+
+function atomgen-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export ATOMGEN_ROOT_DIR=$IDIR
+}
+
+function atomgen-out-of-tree()
+{
+    echo true
+}
+
+function atomgen-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
+          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
+          -DSWIG_DIR:PATH=$(swig3.0 -swiglib) \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function atomgen-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function atomgen-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
