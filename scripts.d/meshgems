@@ -1,0 +1,27 @@
+
+function meshgems-tar() 
+{ 
+    VERSION=$1 
+ 
+    echo none 
+    echo none 
+    echo Meshgems-$VERSION.tgz 
+} 
+
+function meshgems-env()
+{
+    export MESHGEMS_ROOT_DIR=$IDIR
+}
+
+function meshgems-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+
+    # this is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
