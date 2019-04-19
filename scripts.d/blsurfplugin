@@ -1,0 +1,63 @@
+
+function blsurfplugin-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git//plugins-salome.blsurfplugin
+}
+
+function blsurfplugin-tar()
+{
+    VERSION=$1
+
+    echo none
+    echo none
+    echo blsurfplugin-$VERSION.tar.xz
+}
+
+function blsurfplugin-depends()
+{
+    echo cmake
+    echo configuration
+    echo kernel
+    echo gui
+    echo geom
+    echo smesh
+    echo meshgems
+}
+
+function blsurfplugin-env()
+{
+    export BLSURFPLUGIN_ROOT_DIR=$IDIR
+}
+
+function blsurfplugin-out-of-tree()
+{
+    echo true
+}
+
+function blsurfplugin-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function blsurfplugin-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function blsurfplugin-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
