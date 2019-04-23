@@ -10,17 +10,17 @@ Setup Configure Build Install - Scripts for building SALOME
 
 # Install
 
-      ```
-      $ git clone https://github.com/TurboGit/scbi-salome
-      $ cd ./scbi-salome.git
-      $ make
-      ```
+```
+$ git clone https://github.com/TurboGit/scbi-salome
+$ cd ./scbi-salome.git
+$ make
+```
 
 # A simple tutorial to build SALOME
 
   This is still work-in-progress and only Paraview can be built at this
   stage. The other scripts are not yet done.
 
-      ```
-      $ scbi -p --deps salome
-      ```
+```
+$ scbi -p --deps salome
+```
