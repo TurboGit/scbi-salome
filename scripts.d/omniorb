@@ -5,14 +5,6 @@ function omniorb-vcs()
     echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORB 
 } 
 
-function omniorb-tar() 
-{ 
-    VERSION=$1 
- 
-    echo none 
-    echo none 
-    echo omniORB-$VERSION.tar.gz 
-} 
 
 function omniorb-out-of-tree()
 {

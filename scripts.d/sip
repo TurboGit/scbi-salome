@@ -5,14 +5,6 @@ function sip-vcs()
     echo https://www.riverbankcomputing.com/hg/sip 
 } 
 
-function sip-tar() 
-{ 
-    VERSION=$1 
- 
-    echo none 
-    echo none 
-    echo sip-$VERSION.tar.gz 
-} 
 
 function sip-depends()
 {

@@ -1,12 +1,4 @@
 
-function pyqt-tar() 
-{ 
-    VERSION=$1 
- 
-    echo none 
-    echo none 
-    echo PyQt5_gpl-$VERSION.tar.gz 
-} 
 
 function pyqt-depends()
 {

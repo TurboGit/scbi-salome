@@ -5,14 +5,6 @@ function qt-vcs()
     echo https://github.com/qt/qt5.git 
 } 
 
-function qt-tar() 
-{ 
-    VERSION=$1 
- 
-    echo none 
-    echo none 
-    echo qt-everywhere-opensource-src-$VERSION.tar.xz 
-} 
 
 function qt-out-of-tree()
 {

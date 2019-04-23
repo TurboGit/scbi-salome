@@ -1,12 +1,4 @@
 
-function medfichier-tar() 
-{ 
-    VERSION=$1 
- 
-    echo none 
-    echo none 
-    echo med-$VERSION.tar.gz 
-} 
 
 function medfichier-depends()
 {
