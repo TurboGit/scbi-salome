@@ -9,8 +9,8 @@ function qt-tar()
 {
     VERSION=$1
 
-    echo none
-    echo none
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
     echo qt-everywhere-opensource-src-$VERSION.tar.xz
 }
 

@@ -5,6 +5,13 @@ function paraview-vcs()
     echo https://github.com/Kitware/ParaView.git
 }
 
+function paraview-tar()
+{
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo ParaView-$VERSION-source.tar.gz
+}
+
 function paraview-out-of-tree()
 {
     echo true

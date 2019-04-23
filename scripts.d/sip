@@ -9,8 +9,8 @@ function sip-tar()
 {
     VERSION=$1
 
-    echo none
-    echo none
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
     echo sip-$VERSION.tar.gz
 }
 
