@@ -28,6 +28,7 @@ function hdf5-env()
     export HDF5_ROOT_DIR=$IDIR
     export HDF5_LIBRARIES=$IDIR/lib
     export HDF5_C_INCLUDE_DIR=$IDIR/include
+    export HDF5_INCLUDE_DIRS=$IDIR/include
 }
 
 function hdf5-out-of-tree()
