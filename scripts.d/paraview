@@ -57,15 +57,6 @@ function paraview-build-env()
     built-compiler
 }
 
-function paraview-tar()
-{
-    VERSION=$1
-
-    echo none
-    echo none
-    echo ParaView-$VERSION-source.tar.gz
-}
-
 function paraview-common-options()
 {
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX -DPARAVIEW_USE_OPENTURNS=ON \
