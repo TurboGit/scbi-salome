@@ -41,4 +41,5 @@ function salome-modules()
     echo meshgems
     echo blsurfplugin
     echo ghs3dplugin
+    echo hybridplugin
 }
