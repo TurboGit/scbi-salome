@@ -1,0 +1,54 @@
+
+function planegcs-tar()
+{
+    VERSION=$1
+
+    echo defaut
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis/
+    echo planegcs-$VERSION.tar.gz
+}
+
+function planegcs-depends()
+{
+    echo libeigen3-dev
+
+    echo cmake
+}
+
+function planegcs-env()
+{
+    export PLANEGCS_ROOT_DIR=$IDIR
+    export EIGEN_ROOT_DIR=/usr
+}
+
+function planegcs-out-of-tree()
+{
+    echo true
+}
+
+function planegcs-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function planegcs-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function planegcs-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}

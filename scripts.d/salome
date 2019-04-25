@@ -42,4 +42,5 @@ function salome-modules()
     echo blsurfplugin
     echo ghs3dplugin
     echo hybridplugin
+    echo planegcs
 }
