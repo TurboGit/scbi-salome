@@ -3,9 +3,10 @@ function meshgems-tar()
 {
     VERSION=$1
 
-    echo none
-    echo none
-    echo Meshgems-$VERSION.tgz
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo MeshGems_$VERSION.tar.gz
 }
 
 function meshgems-env()

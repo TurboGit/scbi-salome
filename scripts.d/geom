@@ -9,6 +9,7 @@ function geom-tar()
 {
     VERSION=$1
 
+    echo default
     echo none
     echo none
     echo geom-$VERSION.tar.xz

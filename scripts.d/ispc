@@ -9,6 +9,7 @@ function ispc-tar()
 {
     VERSION=$1
 
+    echo default
     echo none
     echo none
     echo ispc-$VERSION.tar.gz

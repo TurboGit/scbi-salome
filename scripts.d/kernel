@@ -9,6 +9,7 @@ function kernel-tar()
 {
     VERSION=$1
 
+    echo default
     echo none
     echo none
     echo kernel-$VERSION.tar.xz

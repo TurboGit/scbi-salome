@@ -9,6 +9,7 @@ function cmake-tar()
 {
     VERSION=$1
 
+    echo default
     echo wget
     echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
     echo cmake-$VERSION.tar.gz
