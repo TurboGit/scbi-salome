@@ -76,14 +76,6 @@ function ispc-install()
     make install
 }
 
-function ispc-install()
-{
-    PREFIX=$1
-    TARGET=$2
-
-    make install
-}
-
 function ispc-prefix()
 {
     echo $BDIR/install-tools
