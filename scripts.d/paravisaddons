@@ -1,0 +1,50 @@
+
+
+function paravisaddons-depends()
+{
+    echo cmake
+    echo configuration
+    echo medcoupling
+    echo medfichier
+    echo paravis
+    echo hdf5
+}
+
+function paravisaddons-env()
+{
+    export PARAVISADDONS_ROOT_DIR=$IDIR
+}
+
+function paravisaddons-out-of-tree()
+{
+    echo true
+}
+
+function paravisaddons-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=Release \
+          \
+          -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
+          -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS \
+          ../src
+}
+
+function paravisaddons-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function paravisaddons-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
