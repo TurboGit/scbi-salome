@@ -43,4 +43,5 @@ function salome-modules()
     echo ghs3dplugin
     echo hybridplugin
     echo planegcs
+    echo shaper
 }
