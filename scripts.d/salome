@@ -38,4 +38,7 @@ function salome-modules()
     echo atomgen
     echo py2cpp
     echo ydefx
+    echo meshgems
+    echo blsurfplugin
+    echo ghs3dplugin
 }
