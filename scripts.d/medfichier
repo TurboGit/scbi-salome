@@ -5,6 +5,7 @@ function medfichier-depends()
     echo cmake
     echo configuration
     echo kernel
+    echo hdf5
 }
 
 function medfichier-env()
