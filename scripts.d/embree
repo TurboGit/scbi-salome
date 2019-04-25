@@ -54,11 +54,3 @@ function embree-install()
 
     make install
 }
-
-function embree-install()
-{
-    PREFIX=$1
-    TARGET=$2
-
-    make install
-}
