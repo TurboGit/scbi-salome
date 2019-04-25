@@ -1,0 +1,63 @@
+
+function hybridplugin-vcs()
+{
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git//plugins-salome.hybridplugin
+}
+
+function hybridplugin-tar()
+{
+    VERSION=$1
+
+    echo default
+    echo none
+    echo none
+    echo hybridplugin-$VERSION.tar.xz
+}
+
+function hybridplugin-depends()
+{
+    echo cmake
+    echo configuration
+    echo kernel
+    echo gui
+    echo geom
+    echo smesh
+}
+
+function hybridplugin-env()
+{
+    export HYBRIDPLUGIN_ROOT_DIR=$IDIR
+}
+
+function hybridplugin-out-of-tree()
+{
+    echo true
+}
+
+function hybridplugin-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_DOC=OFF \
+          -DCMAKE_BUILD_TYPE=Release \
+          ../src
+}
+
+function hybridplugin-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function hybridplugin-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
