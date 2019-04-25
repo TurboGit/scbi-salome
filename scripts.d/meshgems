@@ -15,5 +15,5 @@ function meshgems-install()
     # sources into install directory which seems cleaner.
 
     cd ..
-    rsync -a --delete src/. install
+    rsync -a --delete src/MeshGems*/Products/. install
 }
