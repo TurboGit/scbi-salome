@@ -4,6 +4,7 @@ function yacsgen-tar()
 { 
     VERSION=$1 
  
+    echo default 
     echo none 
     echo none 
     echo yacsgen-$VERSION.tar.xz 

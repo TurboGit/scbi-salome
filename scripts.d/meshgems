@@ -1,12 +1,4 @@
 
-function meshgems-tar() 
-{ 
-    VERSION=$1 
- 
-    echo none 
-    echo none 
-    echo Meshgems-$VERSION.tgz 
-} 
 
 function meshgems-env()
 {

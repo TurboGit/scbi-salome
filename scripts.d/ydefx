@@ -4,6 +4,7 @@ function ydefx-tar()
 { 
     VERSION=$1 
  
+    echo default 
     echo none 
     echo none 
     echo ydefx-$VERSION.tar.xz 

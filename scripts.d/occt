@@ -1,12 +1,4 @@
 
-function occt-tar() 
-{ 
-    VERSION=$1 
- 
-    echo none 
-    echo none 
-    echo OCCT-$VERSION.tar.gz 
-} 
 
 function occt-out-of-tree()
 {

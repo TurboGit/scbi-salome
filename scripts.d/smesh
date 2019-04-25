@@ -4,6 +4,7 @@ function smesh-tar()
 { 
     VERSION=$1 
  
+    echo default 
     echo none 
     echo none 
     echo smesh-$VERSION.tar.xz 

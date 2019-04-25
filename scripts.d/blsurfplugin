@@ -4,6 +4,7 @@ function blsurfplugin-tar()
 { 
     VERSION=$1 
  
+    echo default 
     echo none 
     echo none 
     echo blsurfplugin-$VERSION.tar.xz 
