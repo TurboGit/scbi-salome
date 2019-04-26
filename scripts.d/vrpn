@@ -1,0 +1,59 @@
+
+function vrpn-vcs()
+{
+    echo git
+    echo git clone https://github.com/vrpn/vrpn
+}
+
+function vrpn-tar()
+{
+    VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo vrpn-$VERSION.tar.gz
+}
+
+function vrpn-out-of-tree()
+{
+    echo true
+}
+
+function vrpn-depends()
+{
+    echo cmake
+}
+
+function vrpn-env()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    export VRPN_INCLUDE_DIR=$IDIR/include
+    export VRPN_LIBRARY=$IDIR/lib
+}
+
+function vrpn-config()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function vrpn-build()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make -j$JOBS
+}
+
+function vrpn-install()
+{
+    PREFIX=$1
+    TARGET=$2
+
+    make install
+}
