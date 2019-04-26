@@ -21,6 +21,7 @@ function vrpn-env()
     local PREFIX=$1
     local TARGET=$2
 
+    export VRPN_ROOT_DIR=$IDIR
     export VRPN_INCLUDE_DIR=$IDIR/include
     export VRPN_LIBRARY=$IDIR/lib
 }
