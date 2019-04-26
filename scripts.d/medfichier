@@ -21,8 +21,8 @@ function medfichier-out-of-tree()
 
 function medfichier-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF \
@@ -33,16 +33,16 @@ function medfichier-config()
 
 function medfichier-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function medfichier-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

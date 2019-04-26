@@ -18,8 +18,8 @@ function vrpn-depends()
 
 function vrpn-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export VRPN_INCLUDE_DIR=$IDIR/include
     export VRPN_LIBRARY=$IDIR/lib
@@ -27,24 +27,24 @@ function vrpn-env()
 
 function vrpn-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
 }
 
 function vrpn-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function vrpn-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

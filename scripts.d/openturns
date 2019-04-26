@@ -13,24 +13,24 @@ function openturns-out-of-tree()
 
 function openturns-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DUSE_SPHINX=OFF -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
 }
 
 function openturns-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function openturns-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

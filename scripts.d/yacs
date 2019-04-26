@@ -2,7 +2,7 @@
 
 function yacs-tar() 
 { 
-    VERSION=$1 
+    local VERSION=$1 
  
     echo default 
     echo none 
@@ -25,8 +25,8 @@ function yacs-out-of-tree()
 
 function yacs-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) -DSALOME_BUILD_DOC=OFF \
@@ -36,16 +36,16 @@ function yacs-config()
 
 function yacs-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function yacs-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

@@ -7,8 +7,8 @@ function meshgems-env()
 
 function meshgems-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
 
     # this is no installation for this tool, yet we do copy all

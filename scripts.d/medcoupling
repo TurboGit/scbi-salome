@@ -2,7 +2,7 @@
 
 function medcoupling-tar() 
 { 
-    VERSION=$1 
+    local VERSION=$1 
  
     echo default 
     echo none 
@@ -35,8 +35,8 @@ function medcoupling-out-of-tree()
 
 function medcoupling-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DMEDCOUPLING_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
@@ -46,16 +46,16 @@ function medcoupling-config()
 
 function medcoupling-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function medcoupling-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

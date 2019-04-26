@@ -13,8 +13,8 @@ function qt-out-of-tree()
 
 function qt-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export QT5_ROOT_DIR=$IDIR
 
@@ -24,16 +24,16 @@ function qt-env()
 
 function qt-build-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     add-to-var PATH $IDIR/bin
 }
 
 function qt-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     ../src/configure --prefix=$PREFIX -opensource -confirm-license \
                      -no-rpath -skip qtwebengine -qt-xcb
@@ -41,16 +41,16 @@ function qt-config()
 
 function qt-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function qt-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

@@ -13,32 +13,32 @@ function cmake-out-of-tree()
 
 function cmake-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export PATH=$BDIR/install-tools/bin:$PATH
 }
 
 function cmake-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     ../src/configure --prefix=$PREFIX
 }
 
 function cmake-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function cmake-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

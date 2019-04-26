@@ -2,7 +2,7 @@
 
 function gui-tar() 
 { 
-    VERSION=$1 
+    local VERSION=$1 
  
     echo default 
     echo none 
@@ -24,8 +24,8 @@ function gui-depends()
 
 function gui-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export GUI_ROOT_DIR=$IDIR
 }
@@ -37,8 +37,8 @@ function gui-out-of-tree()
 
 function gui-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
@@ -48,16 +48,16 @@ function gui-config()
 
 function gui-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function gui-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

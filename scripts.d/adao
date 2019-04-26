@@ -2,7 +2,7 @@
 
 function adao-tar() 
 { 
-    VERSION=$1 
+    local VERSION=$1 
  
     echo default 
     echo none 
@@ -24,16 +24,16 @@ function adao-depends()
 
 function adao-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     add-to-var LD_LIBRARY_PATH $IDIR/lib/salome
 }
 
 function adao-build-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export CURRENT_SOFTWARE_INSTALL_DIR=$PREFIX
 }
@@ -45,8 +45,8 @@ function adao-out-of-tree()
 
 function adao-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     PSP=lib/python$PYTHON_VERSION/site-packages
     INI=$PSP/salome/adao/daCore/__init__.py
@@ -63,16 +63,16 @@ function adao-config()
 
 function adao-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function adao-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

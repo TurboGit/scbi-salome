@@ -2,7 +2,7 @@
 
 function ydefx-tar() 
 { 
-    VERSION=$1 
+    local VERSION=$1 
  
     echo default 
     echo none 
@@ -29,8 +29,8 @@ function ydefx-out-of-tree()
 
 function ydefx-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
@@ -40,16 +40,16 @@ function ydefx-config()
 
 function ydefx-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function ydefx-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

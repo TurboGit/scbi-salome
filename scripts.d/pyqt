@@ -8,8 +8,8 @@ function pyqt-depends()
 
 function pyqt-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     add-to-var PATH $PREFIX/bin
     add-to-var LD_LIBRARY_PATH $PREFIX/lib
@@ -21,16 +21,16 @@ function pyqt-env()
 
 function pyqt-build-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     add-to-var PATH $IDIR/bin
 }
 
 function pyqt-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     python3 configure.py --confirm-license -b $PREFIX/bin \
             -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
@@ -43,16 +43,16 @@ function pyqt-config()
 
 function pyqt-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function pyqt-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

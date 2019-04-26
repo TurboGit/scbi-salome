@@ -7,7 +7,7 @@ function ispc-vcs()
 
 function ispc-tar() 
 { 
-    VERSION=$1 
+    local VERSION=$1 
  
     echo default 
     echo none 
@@ -17,7 +17,7 @@ function ispc-tar()
 
 function ispc-depends()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo cmake
     echo clang-4.0
@@ -31,8 +31,8 @@ function ispc-depends()
 
 function ispc-post-setup()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     # needed for the config
     rm -fr ../src/.git
@@ -46,32 +46,32 @@ function ispc-out-of-tree()
 
 function ispc-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     add-to-var PATH $BDIR/install-tools/bin
 }
 
 function ispc-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
 }
 
 function ispc-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function ispc-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

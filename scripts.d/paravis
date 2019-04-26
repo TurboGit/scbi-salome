@@ -2,7 +2,7 @@
 
 function paravis-tar() 
 { 
-    VERSION=$1 
+    local VERSION=$1 
  
     echo default 
     echo none 
@@ -35,8 +35,8 @@ function paravis-out-of-tree()
 
 function paravis-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_CMAKE_DEBUG=ON \
           -DSALOME_BUILD_DOC=OFF \
@@ -49,16 +49,16 @@ function paravis-config()
 
 function paravis-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function paravis-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }
