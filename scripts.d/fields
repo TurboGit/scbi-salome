@@ -7,7 +7,7 @@ function fields-vcs()
 
 function fields-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo none
@@ -36,8 +36,8 @@ function fields-out-of-tree()
 
 function fields-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
@@ -47,16 +47,16 @@ function fields-config()
 
 function fields-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function fields-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

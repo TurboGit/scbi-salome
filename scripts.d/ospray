@@ -7,7 +7,7 @@ function ospray-vcs()
 
 function ospray-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo none
@@ -17,8 +17,8 @@ function ospray-tar()
 
 function ospray-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     add-to-var C_INCLUDE_PATH $PREFIX/include/ospray
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
@@ -29,7 +29,7 @@ function ospray-env()
 
 function ospray-depends()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo cmake
     echo libtbb-dev
@@ -39,8 +39,8 @@ function ospray-depends()
 
 function ospray-post-setup()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     # needed for the config
     rm -fr ../src/.git
@@ -54,24 +54,24 @@ function ospray-out-of-tree()
 
 function ospray-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
 }
 
 function ospray-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function ospray-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

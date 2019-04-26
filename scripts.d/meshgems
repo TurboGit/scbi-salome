@@ -1,7 +1,7 @@
 
 function meshgems-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo wget
@@ -16,8 +16,8 @@ function meshgems-env()
 
 function meshgems-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
 
     # this is no installation for this tool, yet we do copy all

@@ -7,7 +7,7 @@ function kernel-vcs()
 
 function kernel-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo none
@@ -45,8 +45,8 @@ function kernel-env()
 
 function kernel-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_DOC=OFF \
           -DCMAKE_PREFIX_PATH=$BDIR/install ../src
@@ -54,16 +54,16 @@ function kernel-config()
 
 function kernel-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function kernel-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

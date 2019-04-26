@@ -7,7 +7,7 @@ function py2cpp-vcs()
 
 function py2cpp-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo none
@@ -17,8 +17,8 @@ function py2cpp-tar()
 
 function py2cpp-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export PY2CPP_ROOT_DIR=$IDIR
 
@@ -27,8 +27,8 @@ function py2cpp-env()
 
 function py2cpp-depends()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     echo configuration
 }
@@ -40,8 +40,8 @@ function py2cpp-out-of-tree()
 
 function py2cpp-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
@@ -51,16 +51,16 @@ function py2cpp-config()
 
 function py2cpp-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function py2cpp-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

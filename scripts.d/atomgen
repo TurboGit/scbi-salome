@@ -14,8 +14,8 @@ function atomgen-depends()
 
 function atomgen-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export ATOMGEN_ROOT_DIR=$IDIR
 }
@@ -27,8 +27,8 @@ function atomgen-out-of-tree()
 
 function atomgen-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
@@ -40,16 +40,16 @@ function atomgen-config()
 
 function atomgen-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function atomgen-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

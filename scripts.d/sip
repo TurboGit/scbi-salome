@@ -7,7 +7,7 @@ function sip-vcs()
 
 function sip-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo wget
@@ -23,8 +23,8 @@ function sip-depends()
 
 function sip-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export SIP_ROOT_DIR=$PREFIX
     export PYQT_SIPS_DIR=$PREFIX
@@ -34,8 +34,8 @@ function sip-env()
 
 function sip-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     python3 configure.py -b $PREFIX/bin \
             -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
@@ -45,16 +45,16 @@ function sip-config()
 
 function sip-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function sip-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

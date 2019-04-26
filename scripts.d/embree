@@ -7,7 +7,7 @@ function embree-vcs()
 
 function embree-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo none
@@ -17,7 +17,7 @@ function embree-tar()
 
 function embree-depends()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo cmake
     echo libc6-dev
@@ -33,24 +33,24 @@ function embree-out-of-tree()
 
 function embree-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
 }
 
 function embree-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function embree-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

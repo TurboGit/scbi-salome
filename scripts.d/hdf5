@@ -7,7 +7,7 @@ function hdf5-vcs()
 
 function hdf5-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo wget
@@ -22,8 +22,8 @@ function hdf5-depends()
 
 function hdf5-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export HDF5_ROOT_DIR=$IDIR
     export HDF5_LIBRARIES=$IDIR/lib
@@ -38,8 +38,8 @@ function hdf5-out-of-tree()
 
 function hdf5-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_DOC=OFF \
           -DHDF5_BUILD_HL_LIB=ON -DHDF5_BUILD_TOOLS=ON \
@@ -50,16 +50,16 @@ function hdf5-config()
 
 function hdf5-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function hdf5-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

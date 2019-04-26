@@ -7,7 +7,7 @@ function configuration-vcs()
 
 function configuration-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo none
@@ -17,8 +17,8 @@ function configuration-tar()
 
 function configuration-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export CONFIGURATION_ROOT_DIR=$BDIR/install-tools
     export CONFIGURATION_CMAKE_DIR=$BDIR/install-tools/cmake
@@ -28,8 +28,8 @@ function configuration-env()
 
 function configuration-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     # this is no installation for this tool, yet we do copy all
     # sources into install directory which seems cleaner.
@@ -40,8 +40,8 @@ function configuration-install()
 
 function configuration-prefix()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     echo $BDIR/install-tools
 }

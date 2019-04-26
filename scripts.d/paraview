@@ -7,7 +7,7 @@ function paraview-vcs()
 
 function paraview-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo wget
@@ -40,8 +40,8 @@ function paraview-ospray-depends()
 
 function paraview-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     add-to-var CMAKE_PREFIX_PATH $IDIR/lib/cmake/paraview-5.6
 
@@ -51,8 +51,8 @@ function paraview-env()
 
 function paraview-build-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     built-compiler
 }
@@ -132,8 +132,8 @@ function paraview-common-options()
 
 function paraview-ospray-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake $(paraview-common-options) \
           -DPARAVIEW_USE_OSPRAY:BOOL=ON \
@@ -143,32 +143,32 @@ function paraview-ospray-config()
 
 function paraview-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake $(paraview-common-options) ../src
 }
 
 function paraview-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function paraview-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }
 
 function paraview-ospray-post-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     # this is a patch to be able to use ParaView (dev mode) when
     # OSPRAY is activated. This is needed by ParaVIS.

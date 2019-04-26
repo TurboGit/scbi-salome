@@ -7,7 +7,7 @@ function omniorb-vcs()
 
 function omniorb-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo wget
@@ -22,32 +22,32 @@ function omniorb-out-of-tree()
 
 function omniorb-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export OMNIORB_ROOT_DIR=$PREFIX
 }
 
 function omniorb-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     ../src/configure --prefix=$PREFIX
 }
 
 function omniorb-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function omniorb-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

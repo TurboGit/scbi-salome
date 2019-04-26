@@ -7,7 +7,7 @@ function libbatch-vcs()
 
 function libbatch-tar()
 {
-    VERSION=$1
+    local VERSION=$1
 
     echo default
     echo none
@@ -23,8 +23,8 @@ function libbatch-depends()
 
 function libbatch-env()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     export LibBatch_DIR=$PREFIX
 }
@@ -36,8 +36,8 @@ function libbatch-out-of-tree()
 
 function libbatch-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
@@ -47,16 +47,16 @@ function libbatch-config()
 
 function libbatch-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function libbatch-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }

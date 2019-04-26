@@ -31,8 +31,8 @@ function shaper-out-of-tree()
 
 function shaper-config()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     # ??? Even with SHAPER_BUILD_DOC=OFF we need doxygen to be installed
 
@@ -45,16 +45,16 @@ function shaper-config()
 
 function shaper-build()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make -j$JOBS
 }
 
 function shaper-install()
 {
-    PREFIX=$1
-    TARGET=$2
+    local PREFIX=$1
+    local TARGET=$2
 
     make install
 }
