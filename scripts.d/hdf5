@@ -16,10 +16,10 @@ function hdf5-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export HDF5_ROOT_DIR=$IDIR
-    export HDF5_LIBRARIES=$IDIR/lib
-    export HDF5_C_INCLUDE_DIR=$IDIR/include
-    export HDF5_INCLUDE_DIRS=$IDIR/include
+    add-to-var HDF5_ROOT_DIR $IDIR
+    add-to-var HDF5_LIBRARIES $IDIR/lib
+    add-to-var HDF5_C_INCLUDE_DIR $IDIR/include
+    add-to-var HDF5_INCLUDE_DIRS $IDIR/include
 }
 
 function hdf5-out-of-tree()

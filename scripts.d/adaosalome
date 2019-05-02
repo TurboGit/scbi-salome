@@ -36,7 +36,7 @@ function adaosalome-build-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export CURRENT_SOFTWARE_INSTALL_DIR=$PREFIX
+    add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 }
 
 function adaosalome-out-of-tree()

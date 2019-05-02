@@ -21,7 +21,7 @@ function fields-depends()
 
 function fields-env()
 {
-    export FIELDS_ROOT_DIR=$IDIR
+    add-to-var FIELDS_ROOT_DIR $IDIR
 }
 
 function fields-out-of-tree()

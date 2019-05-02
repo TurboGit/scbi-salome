@@ -10,8 +10,8 @@ function medfichier-depends()
 
 function medfichier-env()
 {
-    export MEDFILE_ROOT_DIR=$IDIR
-    export MEDFile_DIR=$IDIR/share/cmake/med-fichier-4.0.0
+    add-to-var MEDFILE_ROOT_DIR $IDIR
+    add-to-var MEDFile_DIR $IDIR/share/cmake/med-fichier-4.0.0
 }
 
 function medfichier-out-of-tree()

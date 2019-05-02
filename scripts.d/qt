@@ -16,7 +16,7 @@ function qt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export QT5_ROOT_DIR=$IDIR
+    add-to-var QT5_ROOT_DIR $IDIR
 
     add-to-var PATH $IDIR/bin
     add-to-var LD_LIBRARY_PATH $IDIR/lib

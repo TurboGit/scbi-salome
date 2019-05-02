@@ -22,7 +22,7 @@ function ghs3dplugin-depends()
 
 function ghs3dplugin-env()
 {
-    export GHS3DPLUGIN_ROOT_DIR=$IDIR
+    add-to-var GHS3DPLUGIN_ROOT_DIR $IDIR
 }
 
 function ghs3dplugin-out-of-tree()

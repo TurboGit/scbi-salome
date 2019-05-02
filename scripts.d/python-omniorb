@@ -16,7 +16,7 @@ function python-omniorb-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export OMNIORBPY_ROOT_DIR=$PREFIX
+    add-to-var OMNIORBPY_ROOT_DIR $PREFIX
 }
 
 function python-omniorb-config()

@@ -15,8 +15,8 @@ function configuration-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export CONFIGURATION_ROOT_DIR=$BDIR/install-tools
-    export CONFIGURATION_CMAKE_DIR=$BDIR/install-tools/cmake
+    add-to-var CONFIGURATION_ROOT_DIR $BDIR/install-tools
+    add-to-var CONFIGURATION_CMAKE_DIR $BDIR/install-tools/cmake
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
 }

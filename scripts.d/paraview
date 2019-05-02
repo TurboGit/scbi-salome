@@ -49,8 +49,8 @@ function paraview-env()
 
     add-to-var CMAKE_PREFIX_PATH $IDIR/lib/cmake/paraview-5.6
 
-    export PARAVIEW_ROOT_DIR=$IDIR
-    export PARAVIEW_INSTALL_DIR=$IDIR
+    add-to-var PARAVIEW_ROOT_DIR $IDIR
+    add-to-var PARAVIEW_INSTALL_DIR $IDIR
 }
 
 function paraview-build-env()

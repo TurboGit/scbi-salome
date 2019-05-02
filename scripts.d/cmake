@@ -16,7 +16,7 @@ function cmake-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export PATH=$BDIR/install-tools/bin:$PATH
+    add-to-var PATH $BDIR/install-tools/bin
 }
 
 function cmake-config()

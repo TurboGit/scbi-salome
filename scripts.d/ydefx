@@ -19,7 +19,7 @@ function ydefx-depends()
 
 function ydefx-env()
 {
-    export YDEFX_ROOT_DIR=$IDIR
+    add-to-var YDEFX_ROOT_DIR $IDIR
 }
 
 function ydefx-out-of-tree()

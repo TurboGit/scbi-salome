@@ -7,7 +7,7 @@ function occt-out-of-tree()
 
 function occt-env()
 {
-    export OPENCASCADE_ROOT_DIR=$BDIR/install
+    add-to-var OPENCASCADE_ROOT_DIR $BDIR/install
 }
 
 function occt-config()

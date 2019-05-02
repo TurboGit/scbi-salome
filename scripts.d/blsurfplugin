@@ -23,7 +23,7 @@ function blsurfplugin-depends()
 
 function blsurfplugin-env()
 {
-    export BLSURFPLUGIN_ROOT_DIR=$IDIR
+    add-to-var BLSURFPLUGIN_ROOT_DIR $IDIR
 }
 
 function blsurfplugin-out-of-tree()

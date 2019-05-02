@@ -25,7 +25,7 @@ function paravis-depends()
 
 function paravis-env()
 {
-    export PARAVIS_ROOT_DIR=$IDIR
+    add-to-var PARAVIS_ROOT_DIR $IDIR
 }
 
 function paravis-out-of-tree()

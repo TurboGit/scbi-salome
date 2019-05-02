@@ -12,7 +12,7 @@ function paravisaddons-depends()
 
 function paravisaddons-env()
 {
-    export PARAVISADDONS_ROOT_DIR=$IDIR
+    add-to-var PARAVISADDONS_ROOT_DIR $IDIR
 }
 
 function paravisaddons-out-of-tree()

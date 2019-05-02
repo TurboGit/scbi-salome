@@ -13,7 +13,7 @@ function atomic-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export ATOMIC_ROOT_DIR=$IDIR
+    add-to-var ATOMIC_ROOT_DIR $IDIR
 }
 
 function atomic-out-of-tree()
