@@ -23,6 +23,7 @@ function py2cpp-env()
     export PY2CPP_ROOT_DIR=$IDIR
 
     add-to-var CMAKE_MODULE_PATH $PREFIX
+    add-to-var PATH $BDIR/install-tools/bin
 }
 
 function py2cpp-depends()
@@ -63,4 +64,9 @@ function py2cpp-install()
     local TARGET=$2
 
     make install
+}
+
+function py2cpp-prefix()
+{
+    echo $BDIR/install-tools
 }
