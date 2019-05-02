@@ -9,7 +9,6 @@ occt:#7.3.0p3
 gui:V9_3_BR
 pyqt:#5.9
 kernel:V9_3_BR
-adao:V9_3_BR
 libbatch:V9_3_BR
 paravis:V9_3_BR
 hdf5:#1.10.3

@@ -18,13 +18,7 @@ function adao-tar()
 function adao-depends()
 {
     echo cmake
-    echo python3-docutils
     echo configuration
-    echo omniorb
-    echo kernel
-    echo eficas-module
-    echo python-omniorb
-    echo libbatch
 }
 
 function adao-env()
@@ -32,7 +26,7 @@ function adao-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var LD_LIBRARY_PATH $IDIR/lib/salome
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function adao-build-env()
@@ -41,6 +35,7 @@ function adao-build-env()
     local TARGET=$2
 
     export CURRENT_SOFTWARE_INSTALL_DIR=$PREFIX
+    export SPHINX_ROOT_DIR=/usr
 }
 
 function adao-out-of-tree()
@@ -53,16 +48,18 @@ function adao-config()
     local PREFIX=$1
     local TARGET=$2
 
-    PSP=lib/python$PYTHON_VERSION/site-packages
-    INI=$PSP/salome/adao/daCore/__init__.py
+    # It is not possible to NOT build the documentation. When
+    # ADAO_BUILD_DOC=OFF is set the installation fails trying to
+    # install documentation even so we ask to not build it.
+    #
+    # When this is fixed we can remove from this script:
+    #    export SPHINX_ROOT_DIR=/usr
+    #    -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION)
+    #    -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
-          -DSALOME_BUILD_DOC=OFF \
-          -DEFICAS_ROOT_DIR=$IDIR -DKERNEL_ROOT_DIR=$IDIR \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
-          -DADAO_PYTHON_ROOT_DIR=$PREFIX \
-          -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/$PSP/$INI \
-          -DADAO_SALOME_MODULE=ON -DCMAKE_BUILD_TYPE=Release \
+          -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build \
           ../src
 }
 
