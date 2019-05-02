@@ -32,6 +32,7 @@ function salome-modules()
     echo geom
     echo paravis
     echo adao
+    echo adaosalome
     echo libbatch
     echo hdf5
     echo atomic
