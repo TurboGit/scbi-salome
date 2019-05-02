@@ -29,8 +29,8 @@ function medcoupling-depends()
 
 function medcoupling-env()
 {
-    export MEDCOUPLING_ROOT_DIR=$IDIR
-    export MEDCoupling_DIR=$IDIR/cmake_files
+    add-to-var MEDCOUPLING_ROOT_DIR $IDIR
+    add-to-var MEDCoupling_DIR $IDIR/cmake_files
 }
 
 function medcoupling-out-of-tree()

@@ -17,7 +17,7 @@ function atomgen-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export ATOMGEN_ROOT_DIR=$IDIR
+    add-to-var ATOMGEN_ROOT_DIR $IDIR
 }
 
 function atomgen-out-of-tree()

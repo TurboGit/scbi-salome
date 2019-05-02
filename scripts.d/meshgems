@@ -11,7 +11,7 @@ function meshgems-tar()
 
 function meshgems-env()
 {
-    export MESHGEMS_ROOT_DIR=$IDIR
+    add-to-var MESHGEMS_ROOT_DIR $IDIR
 }
 
 function meshgems-install()

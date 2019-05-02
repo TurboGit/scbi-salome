@@ -31,7 +31,7 @@ function smesh-depends()
 
 function smesh-env()
 {
-    export SMESH_ROOT_DIR=$IDIR
+    add-to-var SMESH_ROOT_DIR $IDIR
 }
 
 function smesh-out-of-tree()

@@ -27,7 +27,7 @@ function eficas-module-depends()
 
 function eficas-module-env()
 {
-    export EFICAS_ROOT_DIR=$IDIR
+    add-to-var EFICAS_ROOT_DIR $IDIR
 }
 
 function eficas-module-out-of-tree()

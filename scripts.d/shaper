@@ -21,7 +21,7 @@ function shaper-depends()
 
 function shaper-env()
 {
-    export SHAPER_ROOT_DIR=$IDIR
+    add-to-var SHAPER_ROOT_DIR $IDIR
 }
 
 function shaper-out-of-tree()

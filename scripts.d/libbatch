@@ -26,7 +26,7 @@ function libbatch-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export LibBatch_DIR=$PREFIX
+    add-to-var LibBatch_DIR $PREFIX
 }
 
 function libbatch-out-of-tree()

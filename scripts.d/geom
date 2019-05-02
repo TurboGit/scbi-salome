@@ -30,7 +30,7 @@ function geom-depends()
 
 function geom-env()
 {
-    export GEOM_ROOT_DIR=$IDIR
+    add-to-var GEOM_ROOT_DIR $IDIR
 }
 
 function geom-out-of-tree()

@@ -27,7 +27,7 @@ function hybridplugin-depends()
 
 function hybridplugin-env()
 {
-    export HYBRIDPLUGIN_ROOT_DIR=$IDIR
+    add-to-var HYBRIDPLUGIN_ROOT_DIR $IDIR
 }
 
 function hybridplugin-out-of-tree()

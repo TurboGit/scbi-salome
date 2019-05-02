@@ -18,8 +18,8 @@ function planegcs-depends()
 
 function planegcs-env()
 {
-    export PLANEGCS_ROOT_DIR=$IDIR
-    export EIGEN_ROOT_DIR=/usr
+    add-to-var PLANEGCS_ROOT_DIR $IDIR
+    add-to-var EIGEN_ROOT_DIR /usr
 }
 
 function planegcs-out-of-tree()

@@ -25,7 +25,7 @@ function omniorb-env()
     local PREFIX=$1
     local TARGET=$2
 
-    export OMNIORB_ROOT_DIR=$PREFIX
+    add-to-var OMNIORB_ROOT_DIR $PREFIX
 }
 
 function omniorb-config()
