@@ -32,7 +32,7 @@ function gui-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var GUI_ROOT_DIR $IDIR
+    add-to-var GUI_ROOT_DIR $PREFIX
 }
 
 function gui-out-of-tree()
@@ -48,7 +48,7 @@ function gui-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSALOME_BUILD_WITH_QT5=ON \
-          -DCMAKE_PREFIX_PATH=$IDIR/lib/cmake -DCMAKE_BUILD_TYPE=Release ../src
+          -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake -DCMAKE_BUILD_TYPE=Release ../src
 }
 
 function gui-build()
@@ -65,4 +65,9 @@ function gui-install()
     local TARGET=$2
 
     make install
+}
+
+function gui-prefix()
+{
+    echo NONE
 }

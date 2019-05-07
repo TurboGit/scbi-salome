@@ -58,3 +58,8 @@ function sip-install()
 
     make install
 }
+
+function sip-prefix()
+{
+    echo NONE
+}

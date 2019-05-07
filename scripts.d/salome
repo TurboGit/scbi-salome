@@ -46,3 +46,8 @@ function salome-modules()
     echo planegcs
     echo shaper
 }
+
+function salome-prefix()
+{
+    echo NONE
+}

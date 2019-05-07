@@ -31,6 +31,14 @@ function embree-out-of-tree()
     echo true
 }
 
+function embree-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/embree-3.5.2
+}
+
 function embree-config()
 {
     local PREFIX=$1
@@ -53,4 +61,9 @@ function embree-install()
     local TARGET=$2
 
     make install
+}
+
+function embree-prefix()
+{
+    echo NONE
 }

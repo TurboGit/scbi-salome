@@ -19,8 +19,11 @@ function medfichier-depends()
 
 function medfichier-env()
 {
-    add-to-var MEDFILE_ROOT_DIR $IDIR
-    add-to-var MEDFile_DIR $IDIR/share/cmake/med-fichier-4.0.0
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var MEDFILE_ROOT_DIR $PREFIX
+    add-to-var MEDFile_DIR $PREFIX/share/cmake/med-fichier-4.0.0
 }
 
 function medfichier-out-of-tree()
@@ -54,4 +57,9 @@ function medfichier-install()
     local TARGET=$2
 
     make install
+}
+
+function medfichier-prefix()
+{
+    echo NONE
 }

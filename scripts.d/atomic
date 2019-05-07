@@ -18,7 +18,7 @@ function atomic-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var ATOMIC_ROOT_DIR $IDIR
+    add-to-var ATOMIC_ROOT_DIR $PREFIX
 }
 
 function atomic-out-of-tree()
@@ -53,4 +53,9 @@ function atomic-install()
     local TARGET=$2
 
     make install
+}
+
+function atomic-prefix()
+{
+    echo NONE
 }

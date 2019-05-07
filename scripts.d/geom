@@ -30,7 +30,10 @@ function geom-depends()
 
 function geom-env()
 {
-    add-to-var GEOM_ROOT_DIR $IDIR
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GEOM_ROOT_DIR $PREFIX
 }
 
 function geom-out-of-tree()
@@ -65,4 +68,9 @@ function geom-install()
     local TARGET=$2
 
     make install
+}
+
+function geom-prefix()
+{
+    echo NONE
 }

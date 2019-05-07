@@ -29,8 +29,11 @@ function medcoupling-depends()
 
 function medcoupling-env()
 {
-    add-to-var MEDCOUPLING_ROOT_DIR $IDIR
-    add-to-var MEDCoupling_DIR $IDIR/cmake_files
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var MEDCOUPLING_ROOT_DIR $PREFIX
+    add-to-var MEDCoupling_DIR $PREFIX/cmake_files
 }
 
 function medcoupling-out-of-tree()
@@ -63,4 +66,9 @@ function medcoupling-install()
     local TARGET=$2
 
     make install
+}
+
+function medcoupling-prefix()
+{
+    echo NONE
 }

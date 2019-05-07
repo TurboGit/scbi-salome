@@ -17,10 +17,11 @@ function yacs-tar()
 
 function yacs-depends()
 {
+    echo cmake
     echo configuration
-    echo omniorb
     echo kernel
     echo gui
+    echo yacsgen
 }
 
 function yacs-out-of-tree()
@@ -53,4 +54,9 @@ function yacs-install()
     local TARGET=$2
 
     make install
+}
+
+function yacs-prefix()
+{
+    echo NONE
 }

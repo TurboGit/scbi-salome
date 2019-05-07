@@ -25,10 +25,25 @@ function hdf5-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var HDF5_ROOT_DIR $IDIR
-    add-to-var HDF5_LIBRARIES $IDIR/lib
-    add-to-var HDF5_C_INCLUDE_DIR $IDIR/include
-    add-to-var HDF5_INCLUDE_DIRS $IDIR/include
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/share/cmake/hdf5
+    add-to-var HDF5_DIR          $PREFIX/share/cmake/hdf5
+
+    add-to-var PATH $PREFIX/bin
+
+    add-to-var HDF5_C_COMPILER_EXECUTABLE $PREFIX/bin/h5cc
+    add-to-var HDF5_C_LIBRARY_hdf5        $PREFIX/lib/libhdf5.so
+    add-to-var HDF5_C_LIBRARY_hdf5_hl     $PREFIX/lib/libhdf5_hl.so
+    add-to-var HDF5_C_INCLUDE_DIR         $PREFIX/include
+    add-to-var HDF5_hdf5_LIBRARY_RELEASE  $HDF5_C_LIBRARY_hdf5
+
+    add-to-var HDF5_ROOT_DIR      $PREFIX
+    add-to-var HDF5_LIBRARIES     $PREFIX/lib
+    add-to-var HDF5_INCLUDE_DIRS  $PREFIX/include
+
+    add-to-var C_INCLUDE_PATH     $HDF5_C_INCLUDE_DIR
+    add-to-var CPLUS_INCLUDE_PATH $HDF5_C_INCLUDE_DIR
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
 function hdf5-out-of-tree()
@@ -62,4 +77,9 @@ function hdf5-install()
     local TARGET=$2
 
     make install
+}
+
+function hdf5-prefix()
+{
+    echo NONE
 }

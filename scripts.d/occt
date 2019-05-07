@@ -16,7 +16,10 @@ function occt-out-of-tree()
 
 function occt-env()
 {
-    add-to-var OPENCASCADE_ROOT_DIR $BDIR/install
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var OPENCASCADE_ROOT_DIR $PREFIX
 }
 
 function occt-config()
@@ -42,4 +45,9 @@ function occt-install()
     local TARGET=$2
 
     make install
+}
+
+function occt-prefix()
+{
+    echo NONE
 }

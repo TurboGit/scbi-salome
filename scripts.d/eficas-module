@@ -25,11 +25,6 @@ function eficas-module-depends()
     echo gui
 }
 
-function eficas-module-env()
-{
-    add-to-var EFICAS_ROOT_DIR $IDIR
-}
-
 function eficas-module-out-of-tree()
 {
     echo true
@@ -59,4 +54,9 @@ function eficas-module-install()
     local TARGET=$2
 
     make install
+}
+
+function eficas-module-prefix()
+{
+    echo NONE
 }

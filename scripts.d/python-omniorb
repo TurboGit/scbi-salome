@@ -15,6 +15,11 @@ function python-omniorb-tar()
     echo omniORBpy-$VERSION.tar.gz
 }
 
+function python-omniorb-depends()
+{
+    echo omniorb
+}
+
 function python-omniorb-out-of-tree()
 {
     echo true
@@ -33,7 +38,7 @@ function python-omniorb-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ../src/configure --prefix=$PREFIX --with-omniorb=$BDIR/install \
+    ../src/configure --prefix=$PREFIX --with-omniorb=$OMNIORB_ROOT_DIR \
                      PYTHON=$(which python3)
 }
 
@@ -51,4 +56,9 @@ function python-omniorb-install()
     local TARGET=$2
 
     make install
+}
+
+function python-omniorb-prefix()
+{
+    echo NONE
 }

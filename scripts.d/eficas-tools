@@ -27,6 +27,14 @@ function eficas-tools-out-of-tree()
     echo true
 }
 
+function eficas-tools-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var EFICAS_ROOT_DIR $PREFIX
+}
+
 function eficas-tools-config()
 {
     local PREFIX=$1
@@ -52,4 +60,9 @@ function eficas-tools-install()
     local TARGET=$2
 
     make install
+}
+
+function eficas-tools-prefix()
+{
+    echo NONE
 }

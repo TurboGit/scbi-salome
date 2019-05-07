@@ -17,7 +17,7 @@ function atomgen-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var ATOMGEN_ROOT_DIR $IDIR
+    add-to-var ATOMGEN_ROOT_DIR $PREFIX
 }
 
 function atomgen-out-of-tree()
@@ -52,4 +52,9 @@ function atomgen-install()
     local TARGET=$2
 
     make install
+}
+
+function atomgen-prefix()
+{
+    echo NONE
 }

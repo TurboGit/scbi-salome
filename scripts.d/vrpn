@@ -30,9 +30,9 @@ function vrpn-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var VRPN_ROOT_DIR $IDIR
-    add-to-var VRPN_INCLUDE_DIR $IDIR/include
-    add-to-var VRPN_LIBRARY $IDIR/lib
+    add-to-var VRPN_ROOT_DIR $PREFIX
+    add-to-var VRPN_INCLUDE_DIR $PREFIX/include
+    add-to-var VRPN_LIBRARY $PREFIX/lib
 }
 
 function vrpn-config()
@@ -57,4 +57,9 @@ function vrpn-install()
     local TARGET=$2
 
     make install
+}
+
+function vrpn-prefix()
+{
+    echo NONE
 }

@@ -22,11 +22,9 @@ function paraview-out-of-tree()
 
 function paraview-depends()
 {
-    echo qt5-default
-    echo libqt5x11extras5-dev
-    echo libqt5help5
-    echo qttools5-dev
     echo python3-dev
+
+    echo qt
     echo openturns
     echo hdf5
     echo cmake
@@ -56,10 +54,11 @@ function paraview-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CMAKE_PREFIX_PATH $IDIR/lib/cmake/paraview-5.6
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/paraview-5.6
 
-    add-to-var PARAVIEW_ROOT_DIR $IDIR
-    add-to-var PARAVIEW_INSTALL_DIR $IDIR
+    add-to-var PARAVIEW_ROOT_DIR    $PREFIX
+    add-to-var PARAVIEW_INSTALL_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH      $PREFIX/lib
 }
 
 function paraview-build-env()
@@ -87,19 +86,12 @@ function paraview-common-options()
          -DPARAVIEW_ENABLE_CATALYST:BOOL=ON \
          -DPARAVIEW_BUILD_PLUGIN_AnalyzeNIfTIIO:BOOL=OFF \
          -DPARAVIEW_BUILD_PLUGIN_ArrowGlyph:BOOL=OFF \
-         -DPARAVIEW_BUILD_PLUGIN_CatalystScriptGeneratorPlugin:BOOL=ON \
          -DPARAVIEW_BUILD_PLUGIN_GMVReader:BOOL=OFF \
-         -DPARAVIEW_BUILD_PLUGIN_MobileRemoteControl:BOOL=OFF \
          -DPARAVIEW_BUILD_PLUGIN_NonOrthogonalSource:BOOL=OFF \
          -DPARAVIEW_BUILD_PLUGIN_PacMan:BOOL=OFF \
-         -DPARAVIEW_BUILD_PLUGIN_RGBZView:BOOL=OFF \
-         -DPARAVIEW_BUILD_PLUGIN_SciberQuestToolKit:BOOL=OFF \
          -DPARAVIEW_BUILD_PLUGIN_StreamingParticles:BOOL=ON \
-         -DPARAVIEW_BUILD_PLUGIN_UncertaintyRendering:BOOL=ON \
          -DPARAVIEW_ENABLE_MATPLOTLIB:BOOL=ON \
          -DPARAVIEW_BUILD_PLUGIN_EyeDomeLighting:BOOL=ON \
-         -DPARAVIEW_BUILD_PLUGIN_H5PartReader:BOOL=ON \
-         -DPARAVIEW_BUILD_PLUGIN_PointSprite:BOOL=ON \
          -DPARAVIEW_BUILD_PLUGIN_SurfaceLIC:BOOL=ON \
          -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON \
          -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON \
@@ -118,12 +110,8 @@ function paraview-common-options()
          -DVTK_BUILD_QT_DESIGNER_PLUGIN:BOOL=OFF \
          -DVTK_SMP_IMPLEMENTATION_TYPE=OpenMP \
          -DPARAVIEW_AUTOLOAD_PLUGIN_StreamingParticles=ON \
-         -DPARAVIEW_AUTOLOAD_PLUGIN_UncertaintyRendering=ON \
          -DPARAVIEW_AUTOLOAD_PLUGIN_EyeDomeLighting=ON \
-         -DPARAVIEW_AUTOLOAD_PLUGIN_H5PartReader=ON \
-         -DPARAVIEW_AUTOLOAD_PLUGIN_PointSprite=ON \
          -DPARAVIEW_AUTOLOAD_PLUGIN_SurfaceLIC=ON \
-         -DPARAVIEW_AUTOLOAD_PLUGIN_CatalystScriptGeneratorPlugin=ON \
          -DPARAVIEW_ENABLE_WEB:BOOL=OFF-DVTK_USE_SYSTEM_GL2PS:BOOL=ON \
          -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON \
          -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON \
@@ -137,16 +125,17 @@ function paraview-common-options()
          -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON \
          -DVTK_ALL_NEW_OBJECT_FACTORY=ON \
          \
-         -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib \
-         -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
-         -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so \
-         -DHDF5_C_INCLUDE_DIR=$HDF5_ROOT_DIR/include
+         -DHDF5_C_COMPILER_EXECUTABLE=$HDF5_C_COMPILER_EXECUTABLE \
+         -DHDF5_C_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR \
+         -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5 \
+         -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5_hl \
+         -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so
 }
 
 function paraview-ospray-options()
 {
     echo -DPARAVIEW_USE_OSPRAY:BOOL=ON \
-         -DOSPRAY_INSTALL_DIR=$BDIR/ospray/build/install
+         -DOSPRAY_INSTALL_DIR=$OSPRAY_ROOT_DIR
 }
 
 function paraview-vrpn-options()
@@ -228,4 +217,9 @@ function paraview-ospray.vrpn-post-install()
     local TARGET=$2
 
     paraview-ospray-post-install
+}
+
+function paraview-prefix()
+{
+    echo NONE
 }

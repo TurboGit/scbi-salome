@@ -22,7 +22,7 @@ function adaosalome-depends()
     echo configuration
     echo omniorb
     echo kernel
-    echo eficas-module
+    echo eficas-tools
     echo python-omniorb
     echo libbatch
 }
@@ -32,7 +32,7 @@ function adaosalome-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var LD_LIBRARY_PATH $IDIR/lib/salome
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
     add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
@@ -59,7 +59,8 @@ function adaosalome-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
           -DSALOME_BUILD_DOC=OFF \
-          -DEFICAS_ROOT_DIR=$IDIR -DKERNEL_ROOT_DIR=$IDIR \
+          -DEFICAS_ROOT_DIR=$EFICAS_ROOT_DIR \
+          -DKERNEL_ROOT_DIR=$KERNEL_ROOT_DIR \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
           -DADAO_PYTHON_ROOT_DIR=$PREFIX \
           -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/$PSP/$INI \
@@ -81,4 +82,9 @@ function adaosalome-install()
     local TARGET=$2
 
     make install
+}
+
+function adaosalome-prefix()
+{
+    echo NONE
 }

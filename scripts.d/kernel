@@ -34,13 +34,17 @@ function kernel-depends()
     echo omniorb-idl
     echo omniidl
     echo python-omniorb
+    echo hdf5
 }
 
 function kernel-env()
 {
-    add-to-var KERNEL_ROOT_DIR $IDIR
-    add-to-var KERNEL_INSTALL_DIR $IDIR
-    add-to-var SalomeKERNEL_DIR $IDIR/salome_adm/cmake_files
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var KERNEL_ROOT_DIR $PREFIX
+    add-to-var KERNEL_INSTALL_DIR $PREFIX
+    add-to-var SalomeKERNEL_DIR $PREFIX/salome_adm/cmake_files
 }
 
 function kernel-config()
@@ -66,4 +70,9 @@ function kernel-install()
     local TARGET=$2
 
     make install
+}
+
+function kernel-prefix()
+{
+    echo NONE
 }

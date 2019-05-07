@@ -21,7 +21,7 @@ function shaper-depends()
 
 function shaper-env()
 {
-    add-to-var SHAPER_ROOT_DIR $IDIR
+    add-to-var SHAPER_ROOT_DIR $PREFIX
 }
 
 function shaper-out-of-tree()
@@ -57,4 +57,9 @@ function shaper-install()
     local TARGET=$2
 
     make install
+}
+
+function shaper-prefix()
+{
+    echo NONE
 }

@@ -11,7 +11,10 @@ function meshgems-tar()
 
 function meshgems-env()
 {
-    add-to-var MESHGEMS_ROOT_DIR $IDIR
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var MESHGEMS_ROOT_DIR $PREFIX
 }
 
 function meshgems-install()
@@ -19,10 +22,14 @@ function meshgems-install()
     local PREFIX=$1
     local TARGET=$2
 
-
     # this is no installation for this tool, yet we do copy all
     # sources into install directory which seems cleaner.
 
     cd ..
     rsync -a --delete src/MeshGems*/Products/. install
+}
+
+function meshgems-prefix()
+{
+    echo NONE
 }
