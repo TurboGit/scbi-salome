@@ -19,6 +19,7 @@ function configuration-env()
     add-to-var CONFIGURATION_CMAKE_DIR $BDIR/install-tools/cmake
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
+    add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
 }
 
 function configuration-install()

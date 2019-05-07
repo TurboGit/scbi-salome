@@ -26,7 +26,10 @@ function smesh-depends()
 
 function smesh-env()
 {
-    add-to-var SMESH_ROOT_DIR $IDIR
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SMESH_ROOT_DIR $PREFIX
 }
 
 function smesh-out-of-tree()
@@ -59,4 +62,9 @@ function smesh-install()
     local TARGET=$2
 
     make install
+}
+
+function smesh-prefix()
+{
+    echo NONE
 }

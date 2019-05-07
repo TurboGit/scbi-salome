@@ -9,7 +9,10 @@ function planegcs-depends()
 
 function planegcs-env()
 {
-    add-to-var PLANEGCS_ROOT_DIR $IDIR
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PLANEGCS_ROOT_DIR $PREFIX
     add-to-var EIGEN_ROOT_DIR /usr
 }
 
@@ -42,4 +45,9 @@ function planegcs-install()
     local TARGET=$2
 
     make install
+}
+
+function planegcs-prefix()
+{
+    echo NONE
 }

@@ -19,14 +19,6 @@ function pyqt-env()
     add-to-var PYQT_ROOT_DIR $PREFIX
 }
 
-function pyqt-build-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    add-to-var PATH $IDIR/bin
-}
-
 function pyqt-config()
 {
     local PREFIX=$1
@@ -38,7 +30,7 @@ function pyqt-config()
             --designer-plugindir=$PREFIX/include/python$PYTHON_VERSION \
             --qml-plugindir=$PREFIX/include/python$PYTHON_VERSION \
             --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages/PyQt5 \
-            --sip-incdir=$IDIR/include/python$PYTHON_VERSION
+            --sip-incdir=$SIP_ROOT_DIR/include/python$PYTHON_VERSION
 }
 
 function pyqt-build()
@@ -55,4 +47,9 @@ function pyqt-install()
     local TARGET=$2
 
     make install
+}
+
+function pyqt-prefix()
+{
+    echo NONE
 }

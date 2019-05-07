@@ -22,7 +22,7 @@ function hybridplugin-depends()
 
 function hybridplugin-env()
 {
-    add-to-var HYBRIDPLUGIN_ROOT_DIR $IDIR
+    add-to-var HYBRIDPLUGIN_ROOT_DIR $PREFIX
 }
 
 function hybridplugin-out-of-tree()
@@ -55,4 +55,9 @@ function hybridplugin-install()
     local TARGET=$2
 
     make install
+}
+
+function hybridplugin-prefix()
+{
+    echo NONE
 }

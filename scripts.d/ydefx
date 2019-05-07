@@ -19,7 +19,7 @@ function ydefx-depends()
 
 function ydefx-env()
 {
-    add-to-var YDEFX_ROOT_DIR $IDIR
+    add-to-var YDEFX_ROOT_DIR $PREFIX
 }
 
 function ydefx-out-of-tree()
@@ -52,4 +52,9 @@ function ydefx-install()
     local TARGET=$2
 
     make install
+}
+
+function ydefx-prefix()
+{
+    echo NONE
 }

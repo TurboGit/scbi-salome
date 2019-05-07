@@ -12,7 +12,10 @@ function paravisaddons-depends()
 
 function paravisaddons-env()
 {
-    add-to-var PARAVISADDONS_ROOT_DIR $IDIR
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PARAVISADDONS_ROOT_DIR $PREFIX
 }
 
 function paravisaddons-out-of-tree()
@@ -47,4 +50,9 @@ function paravisaddons-install()
     local TARGET=$2
 
     make install
+}
+
+function paravisaddons-prefix()
+{
+    echo NONE
 }

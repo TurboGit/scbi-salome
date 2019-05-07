@@ -25,7 +25,10 @@ function paravis-depends()
 
 function paravis-env()
 {
-    add-to-var PARAVIS_ROOT_DIR $IDIR
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PARAVIS_ROOT_DIR $PREFIX
 }
 
 function paravis-out-of-tree()
@@ -61,4 +64,9 @@ function paravis-install()
     local TARGET=$2
 
     make install
+}
+
+function paravis-prefix()
+{
+    echo NONE
 }

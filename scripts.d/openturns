@@ -11,6 +11,14 @@ function openturns-out-of-tree()
     echo true
 }
 
+function openturns-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+}
+
 function openturns-config()
 {
     local PREFIX=$1
@@ -33,4 +41,9 @@ function openturns-install()
     local TARGET=$2
 
     make install
+}
+
+function openturns-prefix()
+{
+    echo NONE
 }

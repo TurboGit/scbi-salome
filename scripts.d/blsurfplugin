@@ -23,7 +23,10 @@ function blsurfplugin-depends()
 
 function blsurfplugin-env()
 {
-    add-to-var BLSURFPLUGIN_ROOT_DIR $IDIR
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var BLSURFPLUGIN_ROOT_DIR $PREFIX
 }
 
 function blsurfplugin-out-of-tree()
@@ -56,4 +59,9 @@ function blsurfplugin-install()
     local TARGET=$2
 
     make install
+}
+
+function blsurfplugin-prefix()
+{
+    echo NONE
 }

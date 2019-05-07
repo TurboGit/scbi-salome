@@ -20,11 +20,15 @@ function ospray-env()
     local PREFIX=$1
     local TARGET=$2
 
+    add-to-var OSPRAY_ROOT_DIR $PREFIX
+    add-to-var OSPRAY_BUILD_DIR $PREFIX/../build
+
     add-to-var C_INCLUDE_PATH $PREFIX/include/ospray
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
     add-to-var LIBRARY_PATH $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
 
-    add-to-var CMAKE_PREFIX_PATH $IDIR/lib/cmake/ospray-1.8.3
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/ospray-1.8.3
 }
 
 function ospray-depends()
@@ -74,4 +78,9 @@ function ospray-install()
     local TARGET=$2
 
     make install
+}
+
+function ospray-prefix()
+{
+    echo NONE
 }

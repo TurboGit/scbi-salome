@@ -16,7 +16,10 @@ function omniorb-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var OMNIORB_ROOT_DIR $PREFIX
+    add-to-var OMNIORB_ROOT_DIR   $PREFIX
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
 function omniorb-config()
@@ -41,4 +44,9 @@ function omniorb-install()
     local TARGET=$2
 
     make install
+}
+
+function omniorb-prefix()
+{
+    echo NONE
 }

@@ -55,3 +55,8 @@ function libbatch-install()
 
     make install
 }
+
+function libbatch-prefix()
+{
+    echo NONE
+}
