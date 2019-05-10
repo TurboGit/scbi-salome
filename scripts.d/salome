@@ -35,8 +35,6 @@ function salome-modules()
     echo adaosalome
     echo libbatch
     echo hdf5
-    echo atomic
-    echo atomgen
     echo py2cpp
     echo ydefx
     echo meshgems
@@ -45,6 +43,13 @@ function salome-modules()
     echo hybridplugin
     echo planegcs
     echo shaper
+}
+
+function salome-full-modules()
+{
+    salome-modules
+    echo atomic
+    echo atomgen
 }
 
 function salome-prefix()
