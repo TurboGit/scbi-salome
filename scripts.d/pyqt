@@ -19,6 +19,11 @@ function pyqt-env()
     add-to-var PYQT_ROOT_DIR $PREFIX
 }
 
+function pyqt-out-of-tree()
+{
+    echo false
+}
+
 function pyqt-config()
 {
     local PREFIX=$1

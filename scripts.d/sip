@@ -23,6 +23,11 @@ function sip-env()
     add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
+function sip-out-of-tree()
+{
+    echo false
+}
+
 function sip-config()
 {
     local PREFIX=$1

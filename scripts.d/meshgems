@@ -8,6 +8,11 @@ function meshgems-env()
     add-to-var MESHGEMS_ROOT_DIR $PREFIX
 }
 
+function meshgems-out-of-tree()
+{
+    echo false
+}
+
 function meshgems-install()
 {
     local PREFIX=$1
