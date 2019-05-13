@@ -27,6 +27,11 @@ function configuration-env()
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
 }
 
+function configuration-out-of-tree()
+{
+    echo false
+}
+
 function configuration-install()
 {
     local PREFIX=$1
