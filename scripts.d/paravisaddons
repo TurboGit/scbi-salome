@@ -23,11 +23,6 @@ function paravisaddons-env()
     add-to-var PARAVISADDONS_ROOT_DIR $PREFIX
 }
 
-function paravisaddons-out-of-tree()
-{
-    echo true
-}
-
 function paravisaddons-config()
 {
     local PREFIX=$1

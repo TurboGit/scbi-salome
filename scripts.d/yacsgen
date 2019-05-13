@@ -15,11 +15,6 @@ function yacsgen-tar()
     echo yacsgen-$VERSION.tar.xz
 }
 
-function yacsgen-out-of-tree()
-{
-    echo true
-}
-
 function yacsgen-install()
 {
     local PREFIX=$1

@@ -46,11 +46,6 @@ function hdf5-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
-function hdf5-out-of-tree()
-{
-    echo true
-}
-
 function hdf5-config()
 {
     local PREFIX=$1

@@ -15,11 +15,6 @@ function vrpn-tar()
     echo vrpn-$VERSION.tar.gz
 }
 
-function vrpn-out-of-tree()
-{
-    echo true
-}
-
 function vrpn-depends()
 {
     echo cmake

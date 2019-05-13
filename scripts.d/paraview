@@ -15,11 +15,6 @@ function paraview-tar()
     echo ParaView-$VERSION-source.tar.gz
 }
 
-function paraview-out-of-tree()
-{
-    echo true
-}
-
 function paraview-depends()
 {
     echo python3-dev

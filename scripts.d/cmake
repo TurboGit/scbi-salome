@@ -15,11 +15,6 @@ function cmake-tar()
     echo cmake-$VERSION.tar.gz
 }
 
-function cmake-out-of-tree()
-{
-    echo true
-}
-
 function cmake-env()
 {
     local PREFIX=$1

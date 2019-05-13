@@ -33,11 +33,6 @@ function ghs3dplugin-env()
     add-to-var GHS3DPLUGIN_ROOT_DIR $PREFIX
 }
 
-function ghs3dplugin-out-of-tree()
-{
-    echo true
-}
-
 function ghs3dplugin-config()
 {
     local PREFIX=$1

@@ -21,11 +21,6 @@ function atomic-env()
     add-to-var ATOMIC_ROOT_DIR $PREFIX
 }
 
-function atomic-out-of-tree()
-{
-    echo true
-}
-
 function atomic-config()
 {
     local PREFIX=$1

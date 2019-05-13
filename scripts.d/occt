@@ -9,11 +9,6 @@ function occt-tar()
     echo OCCT-$VERSION.tar.gz
 }
 
-function occt-out-of-tree()
-{
-    echo true
-}
-
 function occt-env()
 {
     local PREFIX=$1

@@ -44,11 +44,6 @@ function adaosalome-build-env()
     add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 }
 
-function adaosalome-out-of-tree()
-{
-    echo true
-}
-
 function adaosalome-config()
 {
     local PREFIX=$1

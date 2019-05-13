@@ -36,11 +36,6 @@ function paravis-env()
     add-to-var PARAVIS_ROOT_DIR $PREFIX
 }
 
-function paravis-out-of-tree()
-{
-    echo true
-}
-
 function paravis-config()
 {
     local PREFIX=$1

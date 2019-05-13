@@ -15,11 +15,6 @@ function openturns-tar()
     echo openturns-$VERSION.tar.bz2
 }
 
-function openturns-out-of-tree()
-{
-    echo true
-}
-
 function openturns-env()
 {
     local PREFIX=$1

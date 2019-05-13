@@ -20,11 +20,6 @@ function atomgen-env()
     add-to-var ATOMGEN_ROOT_DIR $PREFIX
 }
 
-function atomgen-out-of-tree()
-{
-    echo true
-}
-
 function atomgen-config()
 {
     local PREFIX=$1

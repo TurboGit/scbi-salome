@@ -20,11 +20,6 @@ function python-omniorb-depends()
     echo omniorb
 }
 
-function python-omniorb-out-of-tree()
-{
-    echo true
-}
-
 function python-omniorb-env()
 {
     local PREFIX=$1

@@ -37,11 +37,6 @@ function smesh-env()
     add-to-var SMESH_ROOT_DIR $PREFIX
 }
 
-function smesh-out-of-tree()
-{
-    echo true
-}
-
 function smesh-config()
 {
     local PREFIX=$1

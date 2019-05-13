@@ -29,11 +29,6 @@ function libbatch-env()
     add-to-var LibBatch_DIR $PREFIX
 }
 
-function libbatch-out-of-tree()
-{
-    echo true
-}
-
 function libbatch-config()
 {
     local PREFIX=$1

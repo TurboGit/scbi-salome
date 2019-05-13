@@ -15,11 +15,6 @@ function qt-tar()
     echo qt-everywhere-opensource-src-$VERSION.tar.xz
 }
 
-function qt-out-of-tree()
-{
-    echo true
-}
-
 function qt-env()
 {
     local PREFIX=$1

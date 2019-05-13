@@ -39,11 +39,6 @@ function ispc-post-setup()
     cp -r $BDIR/.vcs/ispc/.git ../src
 }
 
-function ispc-out-of-tree()
-{
-    echo true
-}
-
 function ispc-env()
 {
     local PREFIX=$1

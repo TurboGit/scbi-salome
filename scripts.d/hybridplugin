@@ -30,11 +30,6 @@ function hybridplugin-env()
     add-to-var HYBRIDPLUGIN_ROOT_DIR $PREFIX
 }
 
-function hybridplugin-out-of-tree()
-{
-    echo true
-}
-
 function hybridplugin-config()
 {
     local PREFIX=$1

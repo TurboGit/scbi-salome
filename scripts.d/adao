@@ -38,11 +38,6 @@ function adao-build-env()
     add-to-var SPHINX_ROOT_DIR /usr
 }
 
-function adao-out-of-tree()
-{
-    echo true
-}
-
 function adao-config()
 {
     local PREFIX=$1

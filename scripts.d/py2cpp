@@ -34,11 +34,6 @@ function py2cpp-depends()
     echo configuration
 }
 
-function py2cpp-out-of-tree()
-{
-    echo true
-}
-
 function py2cpp-config()
 {
     local PREFIX=$1

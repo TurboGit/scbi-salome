@@ -26,11 +26,6 @@ function embree-depends()
     echo ispc
 }
 
-function embree-out-of-tree()
-{
-    echo true
-}
-
 function embree-env()
 {
     local PREFIX=$1
