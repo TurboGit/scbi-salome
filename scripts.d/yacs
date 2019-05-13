@@ -19,11 +19,6 @@ function yacs-depends()
     echo yacsgen
 }
 
-function yacs-out-of-tree()
-{
-    echo true
-}
-
 function yacs-config()
 {
     local PREFIX=$1

@@ -6,11 +6,6 @@ function cmake-vcs()
 } 
 
 
-function cmake-out-of-tree()
-{
-    echo true
-}
-
 function cmake-env()
 {
     local PREFIX=$1

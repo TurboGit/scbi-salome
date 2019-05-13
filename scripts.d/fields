@@ -30,11 +30,6 @@ function fields-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
 }
 
-function fields-out-of-tree()
-{
-    echo true
-}
-
 function fields-config()
 {
     local PREFIX=$1

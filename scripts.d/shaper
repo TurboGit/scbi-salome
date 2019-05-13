@@ -19,11 +19,6 @@ function shaper-env()
     add-to-var SHAPER_ROOT_DIR $PREFIX
 }
 
-function shaper-out-of-tree()
-{
-    echo true
-}
-
 function shaper-config()
 {
     local PREFIX=$1

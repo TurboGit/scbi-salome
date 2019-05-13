@@ -51,11 +51,6 @@ function ospray-post-setup()
     cp -r $BDIR/.vcs/ispc/.git ../src
 }
 
-function ospray-out-of-tree()
-{
-    echo true
-}
-
 function ospray-config()
 {
     local PREFIX=$1

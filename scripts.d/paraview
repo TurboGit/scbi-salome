@@ -6,11 +6,6 @@ function paraview-vcs()
 } 
 
 
-function paraview-out-of-tree()
-{
-    echo true
-}
-
 function paraview-depends()
 {
     echo python3-dev

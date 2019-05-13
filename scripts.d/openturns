@@ -6,11 +6,6 @@ function openturns-vcs()
 } 
 
 
-function openturns-out-of-tree()
-{
-    echo true
-}
-
 function openturns-env()
 {
     local PREFIX=$1

@@ -6,11 +6,6 @@ function vrpn-vcs()
 } 
 
 
-function vrpn-out-of-tree()
-{
-    echo true
-}
-
 function vrpn-depends()
 {
     echo cmake

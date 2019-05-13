@@ -30,11 +30,6 @@ function gui-env()
     add-to-var GUI_ROOT_DIR $PREFIX
 }
 
-function gui-out-of-tree()
-{
-    echo true
-}
-
 function gui-config()
 {
     local PREFIX=$1

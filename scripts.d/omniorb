@@ -6,11 +6,6 @@ function omniorb-vcs()
 } 
 
 
-function omniorb-out-of-tree()
-{
-    echo true
-}
-
 function omniorb-env()
 {
     local PREFIX=$1

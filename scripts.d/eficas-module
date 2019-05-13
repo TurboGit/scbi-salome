@@ -20,11 +20,6 @@ function eficas-module-depends()
     echo gui
 }
 
-function eficas-module-out-of-tree()
-{
-    echo true
-}
-
 function eficas-module-config()
 {
     local PREFIX=$1

@@ -29,11 +29,6 @@ function blsurfplugin-env()
     add-to-var BLSURFPLUGIN_ROOT_DIR $PREFIX
 }
 
-function blsurfplugin-out-of-tree()
-{
-    echo true
-}
-
 function blsurfplugin-config()
 {
     local PREFIX=$1

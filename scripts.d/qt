@@ -6,11 +6,6 @@ function qt-vcs()
 } 
 
 
-function qt-out-of-tree()
-{
-    echo true
-}
-
 function qt-env()
 {
     local PREFIX=$1

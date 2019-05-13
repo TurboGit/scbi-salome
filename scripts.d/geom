@@ -31,11 +31,6 @@ function geom-env()
     add-to-var GEOM_ROOT_DIR $PREFIX
 }
 
-function geom-out-of-tree()
-{
-    echo true
-}
-
 function geom-config()
 {
     local PREFIX=$1

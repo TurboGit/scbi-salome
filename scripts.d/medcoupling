@@ -31,11 +31,6 @@ function medcoupling-env()
     add-to-var MEDCoupling_DIR $PREFIX/cmake_files
 }
 
-function medcoupling-out-of-tree()
-{
-    echo true
-}
-
 function medcoupling-config()
 {
     local PREFIX=$1

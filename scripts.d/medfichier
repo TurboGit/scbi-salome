@@ -17,11 +17,6 @@ function medfichier-env()
     add-to-var MEDFile_DIR $PREFIX/share/cmake/med-fichier-4.0.0
 }
 
-function medfichier-out-of-tree()
-{
-    echo true
-}
-
 function medfichier-config()
 {
     local PREFIX=$1
