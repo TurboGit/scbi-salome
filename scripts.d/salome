@@ -4,45 +4,55 @@ function salome-v93-plan()
     echo v93
 }
 
-function salome-modules()
+function salome-main-modules()
 {
-    echo cmake
-    echo qt
-    echo sip
-    echo pyqt
-    echo ispc
-    echo embree
-    echo ospray
-    echo openturns
-    echo paraview
-    echo configuration
-    echo omniorb
-    echo python-omniorb
     echo kernel
-    echo occt
     echo gui
-    echo eficas-tools
-    echo eficas-module
-    echo yacsgen
-    echo yacs
-    echo medfichier
-    echo medcoupling
-    echo fields
-    echo smesh
+    echo shaper
     echo geom
+    echo smesh
     echo paravis
-    echo adao
+    echo fields
+    echo yacs
     echo adaosalome
-    echo libbatch
-    echo hdf5
-    echo py2cpp
     echo ydefx
-    echo meshgems
+    echo eficas-module
     echo blsurfplugin
     echo ghs3dplugin
     echo hybridplugin
+}
+
+function salome-prerequisite-modules()
+{
+    echo adao
+    echo omniorb
+    echo eficas-tools
+    echo python-omniorb
+    echo occt
+    echo openturns
+    echo yacsgen
+    echo medfichier
+    echo medcoupling
+    echo libbatch
+    echo hdf5
+    echo py2cpp
+    echo meshgems
     echo planegcs
-    echo shaper
+    echo qt
+    echo ospray
+    echo embree
+    echo paraview
+    echo sip
+    echo pyqt
+}
+
+function salome-modules()
+{
+    salome-main-modules
+    salome-prerequisite-modules
+    echo cmake
+    echo ispc
+    echo configuration
 }
 
 function salome-full-modules()
@@ -55,4 +65,231 @@ function salome-full-modules()
 function salome-prefix()
 {
     echo NONE
+}
+
+# support for SALOME application creation
+
+function build-salome-prerequisites()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    (
+        FILE=salome_prerequisites.sh
+
+        CURRENT_MODULE=
+        CURRENT_MODULE_INSTALL=
+
+        function add-to-var()
+        {
+            local VAR=$1
+            local DIR=$2
+
+            # compute relative directory
+            local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
+            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_DIR="${REL_TMP/$BDIR/\$\{ROOT_SALOME\}}"
+
+            case "$VAR" in
+                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                ;;
+
+                *)
+                    VSET=${VAR}_set
+                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
+
+                    # mark $VAR as set to ensure that the previous value
+                    # will be added on next call ${!VAR...} above.
+                    export ${VAR}_set=IS_SET
+                    ;;
+            esac
+        }
+
+        function env-callback()
+        {
+            local MODULE=$1
+            local MODREF=$2
+            local IS_ROOT=$3
+
+            fn-exists $MODULE-env
+            if [ $? = 0 ]; then
+                CURRENT_MODULE=${MODULE/-/_}
+                CURRENT_MODULE_INSTALL=$BDIR/$MODULE/build/install
+
+                echo ""          >> $FILE
+                echo "# $MODULE" >> $FILE
+
+                echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
+                echo "\${ROOT_SALOME}/${MODULE}"                     >> $FILE
+
+                $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
+            fi
+        }
+
+        echo                                                           > $FILE
+        echo "export ROOT_INSTALL=$BDIR/salome/application"           >> $FILE
+        echo "export ROOT_SALOME=\$ROOT_INSTALL/external"             >> $FILE
+
+        # keep current PATH setting
+        PATH_set=IS_SET
+
+        for-all-modules-with-meta env-callback salome
+    )
+}
+
+function build-salome-context()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    (
+        FILE=salome_context.cfg
+
+        CURRENT_MODULE=
+        CURRENT_MODULE_INSTALL=
+
+        function add-to-var()
+        {
+            local VAR=$1
+            local DIR=$2
+
+            # compute relative directory
+            local REPLTO="%(${CURRENT_MODULE}_ROOT_INSTALL_DIR)s"
+            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_DIR="${REL_TMP/$BDIR/%(ROOT_SALOME)s}"
+
+            case "$VAR" in
+                LD_LIBRARY_PATH|PYTHONPATH|PATH)
+                    echo "ADD_TO_$VAR: ${REL_DIR}" >> $FILE
+                    ;;
+
+                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*\
+                    |*INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                    ;;
+
+                *)
+                    echo $VAR=$REL_DIR >> $FILE
+                    ;;
+            esac
+        }
+
+        function env-callback()
+        {
+            local MODULE=$1
+            local MODREF=$2
+            local IS_ROOT=$3
+
+            fn-exists $MODULE-env
+            if [ $? = 0 ]; then
+                CURRENT_MODULE=${MODULE/-/_}
+                CURRENT_MODULE_INSTALL=$BDIR/$MODULE/build/install
+
+                echo ""          >> $FILE
+                echo "# $MODULE" >> $FILE
+
+                echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR="  >> $FILE
+                echo "%(ROOT_SALOME)s/${MODULE}"               >> $FILE
+
+                $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
+            fi
+        }
+
+        echo "[SALOME Configuration]"                                  > $FILE
+        echo "ROOT_INSTALL=$BDIR/salome/application"                  >> $FILE
+        echo "ROOT_SALOME=%(ROOT_INSTALL)s/external"                  >> $FILE
+        echo "LC_NUMERIC=C"                                           >> $FILE
+        echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_SALOME)s/plugins\"" >> $FILE
+
+        for-all-modules-with-meta env-callback salome
+    )
+}
+
+function build-config-appli()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    FILE=config_appli.xml
+
+    cat <<EOF > $FILE
+<application>
+   <prerequisites path='$PWD/salome_prerequisites.sh'/>
+   <context path='$PWD/salome_context.cfg'/>
+   <modules>
+EOF
+
+    for module in $(salome-main-modules); do
+        MODULE_NAME=$(echo $module | tr [a-z] [A-Z])
+        MODULE_PATH=$BDIR/$module/build/install
+
+        echo "      <module name='$MODULE_NAME'"    >> $FILE
+        echo "              path='$MODULE_PATH'/>"  >> $FILE
+    done
+
+    cat <<EOF >> $FILE
+   </modules>
+</application>
+EOF
+
+}
+
+function salome-wrapup()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    (
+        rm -fr application
+        mkdir application
+        cd application
+
+        #  generate salome_prerequisites.sh shell script
+        build-salome-prerequisites $PREFIX $TARGET
+
+        #  generate salome_context.cfg script
+        build-salome-context $PREFIX $TARGET
+
+        #  generate config_appli.xml
+        build-config-appli $PREFIX $TARGET
+
+        if [ $(is-enabled appli) ]; then
+            # generate the application directory
+            $BDIR/kernel/build/install/bin/salome/appli_gen.py
+
+            # salome application root dir
+            APP_DIR=$BDIR/salome
+
+            # replace all symlinks outside the APP_DIR by a copy of
+            # the corresponding files/driectories. This makes the
+            # application directory self contained.
+
+            cd $APP_DIR
+
+            find . -type l | while read link; do
+                value=$(realpath --relative-to=$APP_DIR $link)
+
+                # if link to level above $APP_DIR, copy
+
+                if [ ${value:0:3} = "../" ]; then
+                    rm -f $link
+                    cp -r $value ${link}
+                fi
+            done
+
+            # replace toplevel links to reference local scripts
+
+            cd $BDIR/salome/application
+
+            for file in envd getAppliPath.py kill_remote_containers.py \
+                        runRemote.sh update_catalogs.py .bashrc \
+                        .salome_run; do
+                rm -f $file
+                ln -s ./bin/salome/appliskel/$file $file
+            done
+
+        else
+            true
+        fi
+    )
 }
