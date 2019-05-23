@@ -1,0 +1,42 @@
+
+function pvwidgetexample-vcs()
+{
+    echo git
+    echo https://git.phimeca.com/ot-edf/pvwidgetexample.git
+}
+
+function pvwidgetexample-depends()
+{
+    echo cmake
+    echo paraview
+    echo configuration
+}
+
+function pvwidgetexample-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function pvwidgetexample-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$JOBS
+}
+
+function pvwidgetexample-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function pvwidgetexample-prefix()
+{
+    echo NONE
+}
