@@ -45,7 +45,7 @@ function geom-config()
           -DSALOME_BUILD_DOC=OFF \
           -DSALOME_GEOM_USE_OPENCV=ON  \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release) \
           ../src
 }
 

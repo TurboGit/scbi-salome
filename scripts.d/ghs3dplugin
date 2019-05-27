@@ -40,7 +40,7 @@ function ghs3dplugin-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3dplugin Release) \
           ../src
 }
 
