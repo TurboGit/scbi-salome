@@ -36,7 +36,7 @@ function blsurfplugin-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE blsurfplugin Release) \
           ../src
 }
 

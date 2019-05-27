@@ -32,7 +32,7 @@ function eficas-tools-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DWITH_TELEMAC_CATA=ON -DBUILD_DOC=ON \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE eficas_tools Release) \
           ../src
 }
 

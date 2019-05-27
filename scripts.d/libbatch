@@ -31,7 +31,7 @@ function libbatch-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE libbatch Release) \
           ../src
 }
 

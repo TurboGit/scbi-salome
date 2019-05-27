@@ -48,7 +48,8 @@ function adao-config()
     #    -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION)
     #    -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adao Release) \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
           -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build \
           ../src

@@ -25,7 +25,7 @@ function atomic-config()
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
           -DSWIG_DIR:PATH=$(swig3.0 -swiglib) \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomic Release) \
           ../src
 }
 
