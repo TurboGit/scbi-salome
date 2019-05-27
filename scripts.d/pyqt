@@ -20,12 +20,12 @@ function pyqt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH $PREFIX/bin
+    add-to-var PATH            $PREFIX/bin
     add-to-var LD_LIBRARY_PATH $PREFIX/lib
-    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PYTHONPATH      $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
     add-to-var PYQT5_ROOT_DIR $PREFIX
-    add-to-var PYQT_ROOT_DIR $PREFIX
+    add-to-var PYQT_ROOT_DIR  $PREFIX
 }
 
 function pyqt-out-of-tree()

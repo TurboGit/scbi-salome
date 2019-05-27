@@ -27,6 +27,9 @@ function hybridplugin-depends()
 
 function hybridplugin-env()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     add-to-var HYBRIDPLUGIN_ROOT_DIR $PREFIX
 }
 

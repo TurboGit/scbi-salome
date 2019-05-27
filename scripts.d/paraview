@@ -55,6 +55,8 @@ function paraview-env()
     add-to-var PARAVIEW_INSTALL_DIR $PREFIX
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
     add-to-var PATH                 $PREFIX/bin
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function paraview-build-env()

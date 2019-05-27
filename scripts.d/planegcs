@@ -22,7 +22,8 @@ function planegcs-env()
     local TARGET=$2
 
     add-to-var PLANEGCS_ROOT_DIR $PREFIX
-    add-to-var EIGEN_ROOT_DIR /usr
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var EIGEN_ROOT_DIR    /usr
 }
 
 function planegcs-config()

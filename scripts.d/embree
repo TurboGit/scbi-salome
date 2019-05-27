@@ -32,6 +32,7 @@ function embree-env()
     local TARGET=$2
 
     add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/embree-3.5.2
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
 }
 
 function embree-config()
