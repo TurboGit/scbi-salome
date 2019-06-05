@@ -127,9 +127,9 @@ function build-salome-prerequisites()
             fi
         }
 
-        echo                                                           > $FILE
-        echo "export ROOT_INSTALL=$BDIR/salome/application"           >> $FILE
-        echo "export ROOT_SALOME=\$ROOT_INSTALL/external"             >> $FILE
+        echo                                                            > $FILE
+        echo "export ROOT_INSTALL=\$(dirname \$(which \$BASH_SOURCE))" >> $FILE
+        echo "export ROOT_SALOME=\$ROOT_INSTALL/external"              >> $FILE
 
         # keep current PATH setting
         PATH_set=IS_SET
@@ -196,7 +196,7 @@ function build-salome-context()
         }
 
         echo "[SALOME Configuration]"                                  > $FILE
-        echo "ROOT_INSTALL=$BDIR/salome/application"                  >> $FILE
+        echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"                   >> $FILE
         echo "ROOT_SALOME=%(ROOT_INSTALL)s/external"                  >> $FILE
         echo "LC_NUMERIC=C"                                           >> $FILE
         echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_SALOME)s/plugins\"" >> $FILE
@@ -303,6 +303,22 @@ function salome-wrapup()
                 ln -s ./bin/salome/appliskel/$file $file
             done
 
+            # copy all prerequisites
+
+            dlog salome copy the pre-requisites
+
+            mkdir external
+
+            for p in $(salome-prerequisite-modules); do
+                cp -r $BDIR/$p/build/install external/$p
+            done
+
+            # finaly replace hard-coded path in text files
+
+            dlog salome fix absolute references in source files
+
+            salome-replace-full-path
+
             # is the installer to be created?
 
             if [ $(is-enabled installer) ]; then
@@ -311,15 +327,7 @@ function salome-wrapup()
 
                 [ $(check-tool makeself) = 1 ] && exit 1
 
-                # copy all prerequisites
-
-                mkdir external
-
-                for p in $(salome-prerequisite-modules); do
-                    cp -r $BDIR/$p/build/install external/$p
-                done
-
-                # then create the .run auto-installer to be distributed
+                # create the .run auto-installer to be distributed
 
                 create-setup-script $BDIR/salome/application
 
@@ -358,6 +366,66 @@ function salome-wrapup()
             true
         fi
     )
+}
+
+function salome-replace-full-path()
+{
+    cd $BDIR/salome/application
+
+    #
+    # PYTHON
+    #
+
+    # FROM/TO patterns
+    local ENV="os.environ['ROOT_SALOME_INSTALL']"
+
+    local PYFROM1="r\"$BDIR.*/idl/omniORB/\(.*\.idl\)"
+    local PYTO1="$ENV + r\"/external/omniorb/share/idl/omniORB/\1"
+
+    local PYFROM2="r\"$BDIR.*/idl/\(.*\.idl\)"
+    local PYTO2="$ENV + r\"/idl/salome/\1"
+
+    local PYFROM3=" $BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^ ]*[ ]\)"
+    local PYTO3=" \' + $ENV + \'/external/\1/\2 "
+
+    local PYFROM4=" $BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^\']*\)"
+    local PYTO4=" \' + $ENV + \'/external/\1/\2"
+
+    local PYFROM5="[']$BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\']*\)"
+    local PYTO5="$ENV + \'/external/\1/\2"
+
+    # Note that we add os in the first import as needed to get environment
+
+    find . -name "*.py" |
+        while read file; do
+            grep -q "$BDIR" $file
+            [ $? = 0 ] &&
+		sed -i '0,/^import /{s/import /import os, /}' $file \
+		    &&
+                sed -i "s,$PYFROM1,$PYTO1,g; \
+                        s,$PYFROM2,$PYTO2,g; \
+                        s,$PYFROM3,$PYTO3,g; \
+                        s,$PYFROM4,$PYTO4,g; \
+                        s,$PYFROM5,$PYTO5,g" $file
+        done
+
+    #
+    # CMAKE
+    #
+
+    # FROM/TO patterns
+    local ENV="\${ROOT_SALOME_INSTALL}"
+
+    local CMAKEFROM="$BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\"]*\)"
+    local CMAKETO="$ENV/external/\1/\2"
+
+    find . -name "*.cmake" |
+        while read file; do
+            grep -q "$BDIR" $file
+            [ $? = 0 ] && sed -i "s,$CMAKEFROM,$CMAKETO,g" $file
+        done
+
+    # Some other files have references to root dirs *.pc *.la *.prl
 }
 
 function create-setup-script()
