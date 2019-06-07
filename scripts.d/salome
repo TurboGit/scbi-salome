@@ -160,7 +160,7 @@ function build-salome-context()
             local REL_DIR="${REL_TMP/$BDIR/%(ROOT_SALOME)s}"
 
             case "$VAR" in
-                LD_LIBRARY_PATH|PYTHONPATH|PATH)
+                LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH)
                     echo "ADD_TO_$VAR: ${REL_DIR}" >> $FILE
                     ;;
 
