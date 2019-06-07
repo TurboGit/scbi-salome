@@ -24,6 +24,7 @@ function openturns-env()
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/openturns
+    add-to-var OPENTURNS_HOME    $PREFIX
 }
 
 function openturns-config()
