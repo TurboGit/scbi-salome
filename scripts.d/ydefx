@@ -24,6 +24,9 @@ function ydefx-depends()
 
 function ydefx-env()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     add-to-var YDEFX_ROOT_DIR $PREFIX
 }
 
@@ -34,7 +37,7 @@ function ydefx-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ydefx Release) \
           ../src
 }
 

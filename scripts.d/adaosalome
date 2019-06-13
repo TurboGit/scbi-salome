@@ -59,7 +59,8 @@ function adaosalome-config()
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
           -DADAO_PYTHON_ROOT_DIR=$PREFIX \
           -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/$PSP/$INI \
-          -DADAO_SALOME_MODULE=ON -DCMAKE_BUILD_TYPE=Release \
+          -DADAO_SALOME_MODULE=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adaosalome Release) \
           ../src
 }
 

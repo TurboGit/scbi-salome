@@ -43,7 +43,7 @@ function paravis-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_CMAKE_DEBUG=ON \
           -DSALOME_BUILD_DOC=OFF \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravis Release) \
           -DSALOME_PARAVIS_MINIMAL_CORBA=ON \
           -DPARAVIEW_ROOT_DIR=$PARAVIEW_ROOT_DIR \
           -DVTK_DIR=$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-5.6 \

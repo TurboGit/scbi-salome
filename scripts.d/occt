@@ -15,6 +15,7 @@ function occt-env()
     local TARGET=$2
 
     add-to-var OPENCASCADE_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH      $PREFIX/lib
 }
 
 function occt-config()

@@ -33,6 +33,8 @@ function fields-env()
     add-to-var C_INCLUDE_PATH     $PREFIX/include/salome
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
 function fields-config()
@@ -42,7 +44,7 @@ function fields-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE fields Release) \
           ../src
 }
 
