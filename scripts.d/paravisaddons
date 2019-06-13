@@ -8,7 +8,7 @@ function paravisaddons-vcs()
 function paravisaddons-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
     echo medcoupling
     echo medfichier
     echo paravis

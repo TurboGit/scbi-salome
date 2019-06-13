@@ -1,21 +1,21 @@
 
-function configuration-vcs()
+function salome-configuration-vcs()
 {
     echo git
     echo https://git.forge.pleiade.edf.fr/git/tools-salome.configuration
 }
 
-function configuration-tar()
+function salome-configuration-tar()
 {
     local VERSION=$1
 
     echo default
     echo none
     echo none
-    echo configuration-$VERSION.tar.xz
+    echo salome-configuration-$VERSION.tar.xz
 }
 
-function configuration-env()
+function salome-configuration-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -27,12 +27,12 @@ function configuration-env()
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
 }
 
-function configuration-out-of-tree()
+function salome-configuration-out-of-tree()
 {
     echo false
 }
 
-function configuration-install()
+function salome-configuration-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -44,7 +44,7 @@ function configuration-install()
     rsync -a --delete src/. install
 }
 
-function configuration-prefix()
+function salome-configuration-prefix()
 {
     local PREFIX=$1
     local TARGET=$2

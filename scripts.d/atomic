@@ -8,9 +8,9 @@ function atomic-vcs()
 function atomic-depends()
 {
     echo cmake
-    echo configuration
-    echo kernel
-    echo gui
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
 }
 
 function atomic-env()

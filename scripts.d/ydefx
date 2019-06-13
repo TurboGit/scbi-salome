@@ -18,7 +18,7 @@ function ydefx-tar()
 function ydefx-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
     echo py2cpp
 }
 

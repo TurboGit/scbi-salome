@@ -18,9 +18,9 @@ function smesh-tar()
 function smesh-depends()
 {
     echo cmake
-    echo configuration
-    echo kernel
-    echo gui
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
     echo qt
     echo hdf5
     echo omniorb

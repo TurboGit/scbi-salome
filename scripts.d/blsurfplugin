@@ -18,9 +18,9 @@ function blsurfplugin-tar()
 function blsurfplugin-depends()
 {
     echo cmake
-    echo configuration
-    echo kernel
-    echo gui
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
     echo geom
     echo smesh
     echo meshgems

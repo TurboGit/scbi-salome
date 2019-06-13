@@ -18,10 +18,10 @@ function paravis-tar()
 function paravis-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
     echo hdf5
-    echo kernel
-    echo gui
+    echo salome-kernel
+    echo salome-gui
     echo paraview
     echo medcoupling
     echo fields

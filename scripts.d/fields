@@ -18,10 +18,10 @@ function fields-tar()
 function fields-depends()
 {
     echo cmake
-    echo configuration
-    echo kernel
+    echo salome-configuration
+    echo salome-kernel
     echo medcoupling
-    echo gui
+    echo salome-gui
 }
 
 function fields-env()

@@ -1,33 +1,33 @@
 
-function gui-vcs()
+function salome-gui-vcs()
 {
     echo git
     echo https://git.forge.pleiade.edf.fr/git/modules-salome.gui
 }
 
-function gui-tar()
+function salome-gui-tar()
 {
     local VERSION=$1
 
     echo default
     echo none
     echo none
-    echo gui-$VERSION.tar.xz
+    echo salome-gui-$VERSION.tar.xz
 }
 
-function gui-depends()
+function salome-gui-depends()
 {
     echo cmake
     echo qt
     echo pyqt
-    echo configuration
+    echo salome-configuration
     echo paraview
-    echo kernel
+    echo salome-kernel
     echo libqwt-qt5-dev
     echo occt
 }
 
-function gui-env()
+function salome-gui-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -38,7 +38,7 @@ function gui-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
-function gui-config()
+function salome-gui-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -47,11 +47,11 @@ function gui-config()
           -DSALOME_BUILD_DOC=OFF -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSALOME_BUILD_WITH_QT5=ON \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gui Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release) \
           ../src
 }
 
-function gui-build()
+function salome-gui-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -59,7 +59,7 @@ function gui-build()
     make -j$JOBS
 }
 
-function gui-install()
+function salome-gui-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -67,7 +67,7 @@ function gui-install()
     make install
 }
 
-function gui-prefix()
+function salome-gui-prefix()
 {
     echo NONE
 }

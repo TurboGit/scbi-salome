@@ -18,7 +18,7 @@ function eficas-tools-tar()
 function eficas-tools-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
     echo pyqt
 }
 

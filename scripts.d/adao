@@ -18,7 +18,7 @@ function adao-tar()
 function adao-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
 }
 
 function adao-env()

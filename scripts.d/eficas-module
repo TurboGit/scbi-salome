@@ -18,11 +18,11 @@ function eficas-module-tar()
 function eficas-module-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
     echo pyqt
-    echo kernel
+    echo salome-kernel
     echo omniorb
-    echo gui
+    echo salome-gui
 }
 
 function eficas-module-config()
