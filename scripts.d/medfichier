@@ -3,8 +3,8 @@
 function medfichier-depends()
 {
     echo cmake
-    echo configuration
-    echo kernel
+    echo salome-configuration
+    echo salome-kernel
     echo hdf5
 }
 

@@ -1,19 +1,19 @@
 
 
-function kernel-tar() 
+function salome-kernel-tar() 
 { 
     local VERSION=$1 
  
     echo default 
     echo none 
     echo none 
-    echo kernel-$VERSION.tar.xz 
+    echo salome-kernel-$VERSION.tar.xz 
 } 
 
-function kernel-depends()
+function salome-kernel-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
     echo swig
     echo libboost-dev
     echo libboost-filesystem-dev
@@ -27,7 +27,7 @@ function kernel-depends()
     echo hdf5
 }
 
-function kernel-env()
+function salome-kernel-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -40,7 +40,7 @@ function kernel-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
-function kernel-config()
+function salome-kernel-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -49,7 +49,7 @@ function kernel-config()
           -DCMAKE_PREFIX_PATH=$BDIR/install ../src
 }
 
-function kernel-build()
+function salome-kernel-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -57,7 +57,7 @@ function kernel-build()
     make -j$JOBS
 }
 
-function kernel-install()
+function salome-kernel-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -65,7 +65,7 @@ function kernel-install()
     make install
 }
 
-function kernel-prefix()
+function salome-kernel-prefix()
 {
     echo NONE
 }

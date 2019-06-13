@@ -17,8 +17,8 @@ function medcoupling-depends()
     echo metis
     echo libmetis-dev
     echo cmake
-    echo configuration
-    echo kernel
+    echo salome-configuration
+    echo salome-kernel
     echo medfichier
 }
 

@@ -15,9 +15,9 @@ function geom-depends()
     echo libopencv-dev
 
     echo cmake
-    echo configuration
-    echo kernel
-    echo gui
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
     echo omniorb
     echo python-omniorb
     echo qt

@@ -14,9 +14,9 @@ function adaosalome-depends()
 {
     echo cmake
     echo python3-docutils
-    echo configuration
+    echo salome-configuration
     echo omniorb
-    echo kernel
+    echo salome-kernel
     echo eficas-tools
     echo python-omniorb
     echo libbatch

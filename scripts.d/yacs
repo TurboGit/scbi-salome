@@ -13,9 +13,9 @@ function yacs-tar()
 function yacs-depends()
 {
     echo cmake
-    echo configuration
-    echo kernel
-    echo gui
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
     echo yacsgen
 }
 

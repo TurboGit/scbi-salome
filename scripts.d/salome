@@ -6,8 +6,8 @@ function salome-v93-plan()
 
 function salome-main-modules()
 {
-    echo kernel
-    echo gui
+    echo salome-kernel
+    echo salome-gui
     echo shaper
     echo geom
     echo smesh
@@ -52,7 +52,7 @@ function salome-modules()
     salome-prerequisite-modules
     echo cmake
     echo ispc
-    echo configuration
+    echo salome-configuration
 }
 
 function salome-full-modules()
@@ -268,7 +268,7 @@ function salome-wrapup()
         then
             dlog salome generate application
             # generate the application directory
-            $BDIR/kernel/build/install/bin/salome/appli_gen.py
+            $BDIR/salome-kernel/build/install/bin/salome/appli_gen.py
 
             # salome application root dir
             APP_DIR=$BDIR/salome

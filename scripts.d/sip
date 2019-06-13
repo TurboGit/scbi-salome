@@ -9,7 +9,7 @@ function sip-vcs()
 function sip-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
 }
 
 function sip-env()

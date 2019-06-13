@@ -9,7 +9,7 @@ function pvwidgetexample-depends()
 {
     echo cmake
     echo paraview
-    echo configuration
+    echo salome-configuration
 }
 
 function pvwidgetexample-config()

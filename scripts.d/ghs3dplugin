@@ -13,9 +13,9 @@ function ghs3dplugin-tar()
 function ghs3dplugin-depends()
 {
     echo cmake
-    echo configuration
-    echo kernel
-    echo gui
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
     echo geom
     echo smesh
 }

@@ -3,7 +3,7 @@
 function atomgen-depends()
 {
     echo cmake
-    echo configuration
+    echo salome-configuration
     echo atomic
 }
 

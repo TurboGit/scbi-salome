@@ -5,9 +5,9 @@ function shaper-depends()
     echo doxygen
 
     echo cmake
-    echo configuration
-    echo kernel
-    echo gui
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
     echo geom
     echo planegcs
     echo qt

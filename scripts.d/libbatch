@@ -12,8 +12,8 @@ function libbatch-tar()
 
 function libbatch-depends()
 {
-    echo configuration
-    echo kernel
+    echo salome-configuration
+    echo salome-kernel
 }
 
 function libbatch-env()
