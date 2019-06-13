@@ -45,7 +45,7 @@ function hdf5-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_DOC=OFF \
           -DHDF5_BUILD_HL_LIB=ON -DHDF5_BUILD_TOOLS=ON \
           -DBUILD_SHARED_LIBS=ON -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hdf5 Release) \
           ../src
 }
 

@@ -22,6 +22,7 @@ function adao-env()
     local TARGET=$2
 
     add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var ADAO_ENGINE_ROOT_DIR $PREFIX
 }
 
 function adao-build-env()
@@ -47,7 +48,8 @@ function adao-config()
     #    -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION)
     #    -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adao Release) \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
           -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build \
           ../src

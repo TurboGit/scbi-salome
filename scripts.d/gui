@@ -27,7 +27,10 @@ function gui-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var GUI_ROOT_DIR $PREFIX
+    add-to-var GUI_ROOT_DIR       $PREFIX
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
 function gui-config()
@@ -38,7 +41,8 @@ function gui-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSALOME_BUILD_WITH_QT5=ON \
-          -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gui Release) \
           ../src
 }
 

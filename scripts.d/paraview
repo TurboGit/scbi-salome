@@ -45,6 +45,9 @@ function paraview-env()
     add-to-var PARAVIEW_ROOT_DIR    $PREFIX
     add-to-var PARAVIEW_INSTALL_DIR $PREFIX
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
+    add-to-var PATH                 $PREFIX/bin
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function paraview-build-env()
@@ -60,7 +63,7 @@ function paraview-common-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX -DPARAVIEW_USE_OPENTURNS=ON \
          -DPARAVIEW_ENABLE_WEB=OFF -DVTK_PYTHON_VERSION=3 \
          -DPARAVIEW_QT_VERSION=5 -DBUILD_SHARED_LIBS:BOOL=ON \
-         -DCMAKE_BUILD_TYPE:STRING=Release \
+         -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE paraview Release) \
          -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON \
          -DVTK_USE_64BIT_IDS:BOOL=OFF -DPARAVIEW_BUILD_QT_GUI:BOOL=ON \
          -DPARAVIEW_ENABLE_PYTHON:BOOL=ON -DVTK_USE_SYSTEM_HDF5:BOOL=ON \

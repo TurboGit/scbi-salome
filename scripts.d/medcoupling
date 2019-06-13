@@ -28,7 +28,10 @@ function medcoupling-env()
     local TARGET=$2
 
     add-to-var MEDCOUPLING_ROOT_DIR $PREFIX
-    add-to-var MEDCoupling_DIR $PREFIX/cmake_files
+    add-to-var MEDCoupling_DIR      $PREFIX/cmake_files
+    add-to-var LD_LIBRARY_PATH      $PREFIX/lib
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function medcoupling-config()
@@ -38,7 +41,7 @@ function medcoupling-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DMEDCOUPLING_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release) \
           ../src
 }
 

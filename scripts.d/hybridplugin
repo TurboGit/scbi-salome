@@ -22,6 +22,9 @@ function hybridplugin-depends()
 
 function hybridplugin-env()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     add-to-var HYBRIDPLUGIN_ROOT_DIR $PREFIX
 }
 
@@ -32,7 +35,7 @@ function hybridplugin-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybridplugin Release) \
           ../src
 }
 

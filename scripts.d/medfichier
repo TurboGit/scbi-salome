@@ -14,7 +14,8 @@ function medfichier-env()
     local TARGET=$2
 
     add-to-var MEDFILE_ROOT_DIR $PREFIX
-    add-to-var MEDFile_DIR $PREFIX/share/cmake/med-fichier-4.0.0
+    add-to-var MEDFile_DIR      $PREFIX/share/cmake/med-fichier-4.0.0
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib
 }
 
 function medfichier-config()
@@ -25,7 +26,7 @@ function medfichier-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF \
           --enable-mesgerr --with-swig=$(which swig) \
-          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medfichier Release) \
           ../src
 }
 
