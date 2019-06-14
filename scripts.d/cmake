@@ -6,6 +6,11 @@ function cmake-vcs()
 } 
 
 
+function cmake-depends()
+{
+    echo g++
+}
+
 function cmake-env()
 {
     local PREFIX=$1
