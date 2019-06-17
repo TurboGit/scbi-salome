@@ -33,5 +33,5 @@ function yacsgen-post-install()
 
 function yacsgen-prefix()
 {
-    echo $BDIR/install-tools
+    echo $SCBI_BDIR/install-tools
 }

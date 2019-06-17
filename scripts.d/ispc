@@ -36,7 +36,7 @@ function ispc-post-setup()
 
     # needed for the config
     rm -fr ../src/.git
-    cp -r $BDIR/.vcs/ispc/.git ../src
+    cp -r $SCBI_BDIR/.vcs/ispc/.git ../src
 }
 
 function ispc-env()
@@ -44,7 +44,7 @@ function ispc-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH $BDIR/install-tools/bin
+    add-to-var PATH $SCBI_BDIR/install-tools/bin
 }
 
 function ispc-config()
@@ -73,5 +73,5 @@ function ispc-install()
 
 function ispc-prefix()
 {
-    echo $BDIR/install-tools
+    echo $SCBI_BDIR/install-tools
 }
