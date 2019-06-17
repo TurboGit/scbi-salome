@@ -24,7 +24,13 @@ function salome-kernel-depends()
     echo libboost-filesystem-dev
     echo libboost-regex-dev
     echo libboost-signals-dev
+    echo libboost-chrono-dev
+    echo libboost-date-time-dev
+    echo libboost-thread-dev
     echo libomniorb4-dev
+    echo libcppunit-dev
+    echo libxml2-dev
+    echo python3-numpy
     echo omniorb
     echo omniorb-idl
     echo omniidl
