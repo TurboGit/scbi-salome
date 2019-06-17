@@ -9,6 +9,8 @@ function openturns-vcs()
 function openturns-depends()
 {
     echo cmake
+    echo libblas-dev
+    echo liblapack-dev
 }
 
 function openturns-env()
