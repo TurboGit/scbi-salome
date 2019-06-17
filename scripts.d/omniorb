@@ -6,6 +6,11 @@ function omniorb-vcs()
 } 
 
 
+function omniorb-depends()
+{
+    echo python3-dev
+}
+
 function omniorb-env()
 {
     local PREFIX=$1
