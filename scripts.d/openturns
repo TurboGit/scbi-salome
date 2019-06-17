@@ -15,6 +15,11 @@ function openturns-tar()
     echo openturns-$VERSION.tar.bz2
 }
 
+function openturns-depends()
+{
+    echo cmake
+}
+
 function openturns-env()
 {
     local PREFIX=$1
