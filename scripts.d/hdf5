@@ -18,6 +18,7 @@ function hdf5-tar()
 function hdf5-depends()
 {
     echo cmake
+    echo zlib1g-dev
 }
 
 function hdf5-env()
