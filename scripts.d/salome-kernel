@@ -63,7 +63,7 @@ function salome-kernel-build()
     local PREFIX=$1
     local TARGET=$2
 
-    make -j$JOBS
+    make -j$SCBI_JOBS
 }
 
 function salome-kernel-install()

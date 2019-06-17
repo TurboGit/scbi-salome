@@ -44,7 +44,7 @@ function hybridplugin-build()
     local PREFIX=$1
     local TARGET=$2
 
-    make -j$JOBS
+    make -j$SCBI_JOBS
 }
 
 function hybridplugin-install()

@@ -55,7 +55,7 @@ function hdf5-build()
     local PREFIX=$1
     local TARGET=$2
 
-    make -j$JOBS
+    make -j$SCBI_JOBS
 }
 
 function hdf5-install()
