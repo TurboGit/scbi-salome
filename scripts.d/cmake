@@ -25,7 +25,7 @@ function cmake-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH $BDIR/install-tools/bin
+    add-to-var PATH $SCBI_BDIR/install-tools/bin
 }
 
 function cmake-config()
@@ -54,5 +54,5 @@ function cmake-install()
 
 function cmake-prefix()
 {
-    echo $BDIR/install-tools
+    echo $SCBI_BDIR/install-tools
 }

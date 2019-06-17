@@ -24,7 +24,7 @@ function occt-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_PREFIX_PATH=$BDIR/install ../src
+          -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install ../src
 }
 
 function occt-build()

@@ -48,7 +48,7 @@ function ospray-post-setup()
 
     # needed for the config
     rm -fr ../src/.git
-    cp -r $BDIR/.vcs/ispc/.git ../src
+    cp -r $SCBI_BDIR/.vcs/ispc/.git ../src
 }
 
 function ospray-config()

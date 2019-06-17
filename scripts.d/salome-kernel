@@ -59,7 +59,7 @@ function salome-kernel-config()
     CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_DOC=OFF \
-          -DCMAKE_PREFIX_PATH=$BDIR/install \
+          -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 

@@ -88,7 +88,7 @@ function build-salome-prerequisites()
             # compute relative directory
             local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$BDIR/\$\{ROOT_SALOME\}}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_SALOME\}}"
 
             case "$VAR" in
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
@@ -115,7 +115,7 @@ function build-salome-prerequisites()
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
                 CURRENT_MODULE=${MODULE/-/_}
-                CURRENT_MODULE_INSTALL=$BDIR/$MODULE/build/install
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
 
                 echo ""          >> $FILE
                 echo "# $MODULE" >> $FILE
@@ -157,7 +157,7 @@ function build-salome-context()
             # compute relative directory
             local REPLTO="%(${CURRENT_MODULE}_ROOT_INSTALL_DIR)s"
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$BDIR/%(ROOT_SALOME)s}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_SALOME)s}"
 
             case "$VAR" in
                 LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH)
@@ -183,7 +183,7 @@ function build-salome-context()
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
                 CURRENT_MODULE=${MODULE/-/_}
-                CURRENT_MODULE_INSTALL=$BDIR/$MODULE/build/install
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
 
                 echo ""          >> $FILE
                 echo "# $MODULE" >> $FILE
@@ -221,7 +221,7 @@ EOF
 
     for module in $(salome-main-modules); do
         MODULE_NAME=$(echo $module | tr [a-z] [A-Z])
-        MODULE_PATH=$BDIR/$module/build/install
+        MODULE_PATH=$SCBI_BDIR/$module/build/install
 
         echo "      <module name='$MODULE_NAME'"    >> $FILE
         echo "              path='$MODULE_PATH'/>"  >> $FILE
@@ -268,10 +268,10 @@ function salome-wrapup()
         then
             dlog salome generate application
             # generate the application directory
-            $BDIR/salome-kernel/build/install/bin/salome/appli_gen.py
+            $SCBI_BDIR/salome-kernel/build/install/bin/salome/appli_gen.py
 
             # salome application root dir
-            APP_DIR=$BDIR/salome
+            APP_DIR=$SCBI_BDIR/salome
 
             # replace all symlinks outside the APP_DIR by a copy of
             # the corresponding files/driectories. This makes the
@@ -294,7 +294,7 @@ function salome-wrapup()
 
             # replace toplevel links to reference local scripts
 
-            cd $BDIR/salome/application
+            cd $SCBI_BDIR/salome/application
 
             for file in envd getAppliPath.py kill_remote_containers.py \
                         runRemote.sh update_catalogs.py .bashrc .salome_run;
@@ -310,7 +310,7 @@ function salome-wrapup()
             mkdir external
 
             for p in $(salome-prerequisite-modules); do
-                cp -r $BDIR/$p/build/install external/$p
+                cp -r $SCBI_BDIR/$p/build/install external/$p
             done
 
             # finaly replace hard-coded path in text files
@@ -329,9 +329,9 @@ function salome-wrapup()
 
                 # create the .run auto-installer to be distributed
 
-                create-setup-script $BDIR/salome/application
+                create-setup-script $SCBI_BDIR/salome/application
 
-                cd $BDIR/salome
+                cd $SCBI_BDIR/salome
 
                 # compute the final installer script name
 
@@ -370,7 +370,7 @@ function salome-wrapup()
 
 function salome-replace-full-path()
 {
-    cd $BDIR/salome/application
+    cd $SCBI_BDIR/salome/application
 
     #
     # PYTHON
@@ -379,26 +379,26 @@ function salome-replace-full-path()
     # FROM/TO patterns
     local ENV="os.environ['ROOT_SALOME_INSTALL']"
 
-    local PYFROM1="r\"$BDIR.*/idl/omniORB/\(.*\.idl\)"
+    local PYFROM1="r\"$SCBI_BDIR.*/idl/omniORB/\(.*\.idl\)"
     local PYTO1="$ENV + r\"/external/omniorb/share/idl/omniORB/\1"
 
-    local PYFROM2="r\"$BDIR.*/idl/\(.*\.idl\)"
+    local PYFROM2="r\"$SCBI_BDIR.*/idl/\(.*\.idl\)"
     local PYTO2="$ENV + r\"/idl/salome/\1"
 
-    local PYFROM3=" $BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^ ]*[ ]\)"
+    local PYFROM3=" $SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^ ]*[ ]\)"
     local PYTO3=" \' + $ENV + \'/external/\1/\2 "
 
-    local PYFROM4=" $BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^\']*\)"
+    local PYFROM4=" $SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^\']*\)"
     local PYTO4=" \' + $ENV + \'/external/\1/\2"
 
-    local PYFROM5="[']$BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\']*\)"
+    local PYFROM5="[']$SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\']*\)"
     local PYTO5="$ENV + \'/external/\1/\2"
 
     # Note that we add os in the first import as needed to get environment
 
     find . -name "*.py" |
         while read file; do
-            grep -q "$BDIR" $file
+            grep -q "$SCBI_BDIR" $file
             [ $? = 0 ] &&
 		sed -i '0,/^import /{s/import /import os, /}' $file \
 		    &&
@@ -416,12 +416,12 @@ function salome-replace-full-path()
     # FROM/TO patterns
     local ENV="\${ROOT_SALOME_INSTALL}"
 
-    local CMAKEFROM="$BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\"]*\)"
+    local CMAKEFROM="$SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\"]*\)"
     local CMAKETO="$ENV/external/\1/\2"
 
     find . -name "*.cmake" |
         while read file; do
-            grep -q "$BDIR" $file
+            grep -q "$SCBI_BDIR" $file
             [ $? = 0 ] && sed -i "s,$CMAKEFROM,$CMAKETO,g" $file
         done
 
