@@ -9,6 +9,7 @@ function hdf5-vcs()
 function hdf5-depends()
 {
     echo cmake
+    echo zlib1g-dev
 }
 
 function hdf5-env()
