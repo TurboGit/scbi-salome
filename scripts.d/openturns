@@ -6,6 +6,11 @@ function openturns-vcs()
 } 
 
 
+function openturns-depends()
+{
+    echo cmake
+}
+
 function openturns-env()
 {
     local PREFIX=$1
