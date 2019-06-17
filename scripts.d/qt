@@ -1,4 +1,12 @@
 
+# Note that OpenGL support is needed here as required by PyQt
+# later. We note them here as the real support depends on the
+# hardware.
+#
+# apt install libgles2-mesa-dev
+# apt install libglu1-mesa-dev
+# apt install mesa-common-dev
+
 function qt-vcs() 
 { 
     echo git 
