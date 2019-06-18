@@ -1,6 +1,8 @@
 
 function cmake-vcs() 
 { 
+    echo default 
+    echo none 
     echo git 
     echo https://github.com/Kitware/CMake.git 
 } 
