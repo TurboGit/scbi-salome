@@ -1,6 +1,8 @@
 
 function ispc-vcs()
 {
+    echo default
+    echo none
     echo git
     echo https://github.com/ispc/ispc.git
 }

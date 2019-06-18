@@ -1,6 +1,8 @@
 
 function fields-vcs()
 {
+    echo default
+    echo none
     echo git
     echo https://git.forge.pleiade.edf.fr/git/modules-salome.med.git
 }

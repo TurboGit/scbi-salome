@@ -1,6 +1,8 @@
 
 function openturns-vcs()
 {
+    echo default
+    echo none
     echo git
     echo https://github.com/openturns/openturns.git
 }

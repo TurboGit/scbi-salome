@@ -1,6 +1,8 @@
 
 function eficas-module-vcs()
 {
+    echo default
+    echo none
     echo git
     echo https://git.forge.pleiade.edf.fr/git/eficas.module-eficas
 }
