@@ -9,6 +9,16 @@ function occt-tar()
     echo OCCT-$VERSION.tar.gz
 }
 
+function occt-depends()
+{
+    echo cmake
+    echo tcl-dev
+    echo tk-dev
+    echo libfreetype6-dev
+    echo libxi-dev
+    echo libxmu-dev
+}
+
 function occt-env()
 {
     local PREFIX=$1
