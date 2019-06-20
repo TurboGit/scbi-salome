@@ -13,6 +13,8 @@ function yacs-tar()
 function yacs-depends()
 {
     echo cmake
+    echo libgraphviz-dev
+    echo graphviz
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
