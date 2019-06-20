@@ -13,6 +13,7 @@ function eficas-tools-tar()
 function eficas-tools-depends()
 {
     echo cmake
+    echo sphinx-common
     echo salome-configuration
     echo pyqt
 }
