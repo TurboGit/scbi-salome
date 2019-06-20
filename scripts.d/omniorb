@@ -30,7 +30,7 @@ function omniorb-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ../src/configure --prefix=$PREFIX
+    ../src/configure PYTHON=/usr/bin/python3 --prefix=$PREFIX
 }
 
 function omniorb-build()
