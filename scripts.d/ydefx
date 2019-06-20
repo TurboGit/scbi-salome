@@ -21,6 +21,7 @@ function ydefx-depends()
 {
     echo cmake
     echo salome-configuration
+    echo qt
     echo py2cpp
 }
 
