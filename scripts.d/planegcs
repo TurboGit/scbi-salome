@@ -12,6 +12,7 @@ function planegcs-tar()
 function planegcs-depends()
 {
     echo libeigen3-dev
+    echo libboost-graph-dev
 
     echo cmake
 }
