@@ -33,10 +33,12 @@ function yacs-config()
     local PREFIX=$1
     local TARGET=$2
 
+    CDEBUG=$(is-enabled cmake-debug)
+
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) -DSALOME_BUILD_DOC=OFF \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE yacs Release) \
-          ../src
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 
 function yacs-build()
