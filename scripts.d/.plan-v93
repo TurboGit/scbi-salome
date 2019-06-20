@@ -10,8 +10,6 @@ occt:#7.3.0p3
 salome-gui:V9_3_BR
 pyqt:#5.9
 salome-kernel:V9_3_BR
-adaosalome:V9_3_BR
-libbatch:V9_3_BR
 paravis:V9_3_BR
 hdf5:#1.10.3
 medfichier:#4.0.0
