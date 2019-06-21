@@ -1,0 +1,390 @@
+\documentclass[a4paper,12pt,twoside]{article}
+
+\nonstopmode
+\newcommand{\timestamp}{6/06/2019}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{pslatex}  % pour une meilleure portabilité des polices...
+\usepackage{hyperref} % pour avoir la structure du document dans acroread
+\usepackage[english]{babel}
+\usepackage{a4}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[all]{xy}
+\usepackage{ltablex}
+\usepackage{alltt}
+\usepackage{ulem}
+\usepackage{cite}
+\usepackage{varioref,multicol,multirow,xspace,rotating,moreverb}
+\usepackage{makeidx}
+\usepackage{enumitem}
+\usepackage{tabto}
+\usepackage{dirtree}
+
+\widowpenalty=400
+\clubpenalty=400
+\setlength{\parskip}{1ex plus 1ex minus 1ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS
+
+\hyphenation{Raven-SPARK}
+
+\lstset{numbers=none,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=8pt,
+	numberfirstline=true,
+	frame=leftline,
+	language=Bash,
+	tabsize=3,
+	breaklines=true,
+	xleftmargin=1cm,
+	emph={label},
+	basicstyle=\small\ttfamily
+}
+
+% used to add some spacing before a new item (description)
+\let\olditem=\item
+\def\myitem[#1]{\vspace{10pt}\olditem[#1]}
+%\let\oldbegin\begin
+%\def\begin{\let\item\olditem\oldbegin}
+
+% always start the description text in a new line
+\setlist[description]{%
+	style=nextline,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COMMANDS
+
+\def\myitem2[#1]{\vspace{10pt}\olditem[#1]}
+
+\newenvironment{shellcommand}{
+	\begin{list}{ % item
+			\bfseries\texttt \$
+		}{ % body
+			\ttfamily
+			\setlength{\topsep}{-0.3ex}
+			\setlength{\labelwidth}{1in}
+			\setlength{\leftmargin}{0.7in}
+			\setlength{\labelsep}{0.5ex}
+			\setlength{\rightmargin}{0.5in}
+			\setlength{\itemsep}{1ex}
+			\setlength{\parsep}{0ex}
+			\setlength{\listparindent}{0.5in}
+		}
+	}{
+	\end{list}
+}
+
+\newlist{shellcmd}{itemize}{1}
+\setlist[shellcmd,1]{label=\textbf{\$}, before=\textit, font=\textit }
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\tbd}[1]{\fbox{{\smallpencil #1 }}}
+\renewcommand{\emph}[1]{\textit{#1}}
+\newcommand{\seeref}[1]{see section \ref{#1} p.\pageref{#1}}
+\newcommand{\file}[1]{'{\path{#1}}'}
+\newcommand{\des}[1]{\tabto{4.5cm}\scriptsize\textit{: #1}}
+\newcommand{\cmd}[1]{\tabto{1cm}\hspace{0.5cm}\texttt{\textbf{\$} #1}}
+\newcommand{\ddash}{-{}-}
+
+% for all itemize, use bullet
+\setitemize[0]{font=\bfseries, label=$\bullet$ }
+
+% let section start on a new page
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
+
+% no indentation for first line
+\setlength{\parindent}{0in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TITRE
+
+\title{\huge{S C B I \hspace{2mm} Plug-ins} \\ For SALOME}
+\author{Pascal Obry}
+\date{July 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TOC
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
+
+\section{Introduction}
+
+SCBI stands for Setup Config Build Install.
+
+This document is a supplement for SCBI User's Guide and describes its use in the context of the SALOME project only.
+
+For creating a plug-in module script, and general usage of \code{scbi}, please see the SCBI User's Guide.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
+
+\section{SALOME}
+
+The SALOME application is complex and aggregating many libraries and other applications like \emph{ParaView} for example. In this document we will describe how to build it and debug it if needed.
+
+\subsection{Modules}
+\label{modules}
+
+There is around 40 SCBI plug-in module scripts for building SALOME. Some modules are pre-requisites (and their dependencies) needed by the core SALOME modules. The core SALOME modules themselves are around ten.
+
+Each pre-requisite and each SALOME module is handled in a single separate SCBI plug-in script. One self contained script per pre-requisite or module.
+
+Finally the meta-module \code{salome} aggregates all of them and contains the necessary code to build the final application and installer.
+
+\subsection{Building}
+
+Building the final application may be as simple as calling:
+
+\cmd{scbi \ddash{}deps \ddash{}env=v93 salome}
+
+This will build SALOME version v9.3 in \file{$HOME/build-salome-v93} using build plan \file{.plan-v93}. Both the \code{v93} environment file and plan are provided by default. This version is targetted to GNU/Debian 9.
+
+Not passing option \code{\ddash{env}=v93} will build SALOME master. That is, all modules will be compiled using the latest version of the code from the repository. This is generally a bad idea and won't compile properly as some specific dependencies are needed like for example \code{Qt 5.9} or \code{OmniORB 4.2.2}.
+
+Note that the default environment files and build plans can be found in \file{$HOME/.config/scbi}.
+
+\subsection{Proxy}
+
+Some modules are hosted on EDF servers and some are on GitHub. It may be needed to go through the proxy when cloning a repository. For this an EDF proxy routine is provided in all default environment files.
+
+\begin{lstlisting}
+ function proxy-edf()
+ {
+    export http_proxy=proxypac.edf.fr:3128
+    export https_proxy=proxypac.edf.fr:3128
+    export no_proxy=localhost,.edf
+ }
+\end{lstlisting}
+
+This proxy is also defined in the \code{salome} meta-module.
+
+If you are not using the \code{salome} meta-module and not using the default environment make sure this definition is set in your specific environment file. Optionally it may be defined in the working shell via the \file{.bashrc} or any other specific script.
+
+\subsection{Supported features}
+
+The SCBI driver has support for features that can be enabled or disabled (default). See option \code{\ddash{}enable-<feature>} option in SCBI User's Guide.
+
+In SALOME plug-in scripts three features are in use:
+
+\begin{description}
+	\item[application] When enabled the final application will be built.
+	\item[installer] When enabled an installer (.run) will be created. This imply option \emph{application}.
+	\item[cmake-debug] Enable the debug mode in CMAKE commands which is equivalent to passing the option \code{-DSALOME\_CMAKE\_DEBUG=ON} to \code{cmake}.
+\end{description}
+
+For example, for creating the final installer the command line is:
+
+\cmd{scbi \ddash{}deps \ddash{}env=v93 \ddash{}enable-installer salome}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
+
+\section{Builds plan}
+
+SALOME comes with some build plans described below.
+
+\begin{description}
+	\item[v93] To build SALOME v9.3, the build plan contains the following modules:
+
+	Environment \file{.env-v93}:
+	\lstinputlisting{"../scripts.d/.env-v93"}
+
+	Plan \file{.plan-v93}:
+	\lstinputlisting{"../scripts.d/.plan-v93"}
+
+	Note the use of the \code{ospray} variant for \code{paraview} module.
+
+	\item[v94] A plan to build SALOME version \code{v9.4}. This builds a more recent version of \code{ParaView} (using a SHA1). It is a work in progress at the time of writing this document.
+
+	Environment \file{.env-v94}:
+	\lstinputlisting{"../scripts.d/.env-v94"}
+
+	Plan \file{.plan-v94}:
+	\lstinputlisting{"../scripts.d/.plan-v94"}
+
+	\item[next] A plan to build \code{next} version of SALOME. This is used to prepare the next release and experiment with some new dependencies. In this script we build \code{ParaView} with the \code{vrpn} plug-in for example.
+
+	\lstinputlisting{"../scripts.d/.plan-next"}
+
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
+
+\section{Preparing a new release}
+
+Preparing a new release may require different steps:
+
+\begin{itemize}
+	\item Adding a new pre-prequisite. For this a new SCBI plug-in script is needed, see main SCBI documentation.
+	\item Raising a version of a module. For this a new build plan may be needed.
+\end{itemize}
+
+\subsection{Raising a module version}
+
+To achieve that the simple way is to copy the current build plan and update it accordingly.
+
+For example, we may copy \file{.plan-v93} to \file{.plan-v94} and edit this later to update the versions of the corresponding modules.
+
+Alternatively it is possible to inherit \code{v93} build-plan in new \file{.plan-v94} (as described above for \file{.plan-next}).
+
+\begin{lstlisting}
+ @load v93
+ ...
+\end{lstlisting}
+
+Finally to build the new version, one can just pass this build plan:
+
+\cmd{scbi \ddash{}deps \ddash{}plan=v94 salome}
+
+This is possible as a build plan is fully independent of the plug-in modules. Note that this will work as long as the new version does not introduce new dependencies and/or options as configuration step.
+
+\subsection{Module with new mandatory dependency}
+
+The current module depends on new mandatory dependency, the corresponding module dependencies plug-ins must be created if needed and referenced into the module \emph{depends} hook.
+
+The \emph{config} hook may require some update. Again see the SCBI User's Guide for a full discussion about this.
+
+\subsection{Module with new optional dependency}
+
+The current module depends on new mandatory dependency, the corresponding module dependencies plug-ins must be created if needed.
+
+The new dependency is not mandatory and we want to have a way to enable it or not at build time, a build variant should be introduced. This build variant may just require a \emph{depends} and \emph{config} variant hooks to activate the dependency at config time. This optional dependency is then activated by specifying the variant in the module reference.
+
+A good example is the \code{paraview} module where multiple variants are proposed to build \code{paraview} with or without \code{ospray} and \code{vrpn}.
+
+\subsection{New module}
+
+For a new module, one have to create a new SCBI plug-in script. See the SCBI User's Guide for a full discussion about this.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
+
+\section{Debugging}
+\label{debugging}
+
+This section is covered into the main SCBI driver documentation. As this is a quite common and important feature for developers we describe it again here with some examples based on SALOME.
+
+To debug an application one need:
+
+\begin{itemize}
+	\item To have access to the sources to change them
+	\item Setup SCBI to point to those sources
+	\item To compile in debug mode
+	\item To build the whole application using the module in debug mode
+\end{itemize}
+
+The main feature supporting this is directly built-in SCBI and is called user's checkout.
+
+\subsection{User's checkout}
+First the user need to clone the repository to debug. This gives access to the sources. It is possible to clone multiple repositories if the fix involves multiple components.
+
+Let's say that we want to debug the \code{GUI}'s salome module.
+
+\begin{shellcommand}
+	\item cd \$HOME/dev/git
+	\item git clone https://git.forge.pleiade.edf.fr/git/modules-salome.gui
+\end{shellcommand}
+
+This will create a check-out of the GUI's SALOME module in \code{\$HOME/dev}.
+
+\subsection{Build plan}
+
+We want to tell the scbi driver to use the user's checkout instead of the sandbox ones. This is achieved using the specific \code{:dev} version of the module.
+
+We copy the current build plan (assuming the work will be based on SALOME v9.3):
+
+\begin{shellcommand}
+	\item cd \$HOME/dev
+	\item cp \$HOME/.config/scbi/.plan-v93 .plan-debug
+	\item vi .plan-debug
+\end{shellcommand}
+
+We change the \code{:V9\_3\_BR} on the \code{salome-gui} line by \code{:dev}, this gives:
+
+\begin{lstlisting}
+ salome-gui:dev
+\end{lstlisting}
+
+\subsection{Environment}
+
+If the checkout is not in the default location it is needed to set \code{SCBI\_GIT\_REPO}. For the record, the default set on SALOME all environment files is:
+
+\begin{shellcommand}
+	\item export SCBI\_GIT\_REPO=\$HOME/dev/git
+\end{shellcommand}
+
+For recording a non-default environment, we copy the current default environment and add or edit the \code{SCBI\_GIT\_REPO} variable.
+
+\begin{shellcommand}
+	\item cd \$HOME/dev
+	\item cp \$HOME/.config/scbi/.env .env-debug
+	\item vi .env-debug
+\end{shellcommand}
+
+Make sure that one line reads:
+
+\begin{lstlisting}
+ SCBI_GIT_REPO=$HOME/dev/git
+\end{lstlisting}
+
+We can also record the build plan (created above) to use together with this debug environment:
+
+\begin{lstlisting}
+ SCBI_PLAN=debug
+\end{lstlisting}
+
+Alternatively the build plan can be specified on the command line.
+
+\subsection{Cleaning}
+
+It may be needed to clean the build tree for a given module to ensure a full and clean restart of the configuration step. This is often needed as \code{cmake} or \code{configure} do keep a cache of configuration and may skip some checks.
+
+To do this scbi come with a \ddash{}purge and \ddash{}purge-only options.
+
+\cmd{scbi \ddash{}purge-only salome-gui}
+
+This command will clean the \code{salome-gui} module only. No compilation will be done.
+
+\cmd{scbi \ddash{}env=debug \ddash{}deps \ddash{}purge salome}
+
+This command will restart the compilation of all modules so doing a full re-compilation of the salome application as each dependency will be cleaned and re-built.
+
+\subsection{Compiling}
+
+To compile SALOME with all dependencies with this debug environment, the simple command is:
+
+\cmd{scbi \ddash{}env=debug \ddash{}deps salome}
+
+If the default environment was sufficient (user's checkout in the default location) we have no new environment created, we just pass the build-plan:
+
+\cmd{scbi \ddash{}plan=debug \ddash{}deps salome}
+
+Finally, if the build-plan has not been specified in the environment by setting \code{SCBI\_PLAN} as described above, we can pass it explicitly on the command line:
+
+\cmd{scbi \ddash{}env=debug \ddash{}plan=debug \ddash{}deps salome}
+
+And we can of course mix the environment and different build-plans if needed.
+
+\cmd{scbi \ddash{}env=v93 \ddash{}plan=debug \ddash{}deps salome}
+
+If more than one module must be debugged and/or changed then just apply the same procedure for the other modules.
+
+\printindex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-open-quote: "« "
+%%% TeX-close-quote: " »"
+%%% time-stamp-start: "\\\\newcommand{\\\\timestamp}{"
+%%% time-stamp-end: "}"
+%%% time-stamp-format: "%02d/%02m/%04y"
+%%% End:
+
+% LocalWords:  typographiées PDF Eureka
