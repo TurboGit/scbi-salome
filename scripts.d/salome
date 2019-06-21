@@ -323,9 +323,13 @@ function salome-wrapup()
 
             if [ $(is-enabled installer) ]; then
                 dlog salome generate self installer, may take some time ...
-                # check that makeself is installed
 
-                [ $(check-tool makeself) = 1 ] && exit 1
+                # check that makeself is installed
+                check-tool makeself
+                if [ $? != 0 ]; then
+                    elog salome Required tool makeself missing
+                    exit 1
+                fi
 
                 # create the .run auto-installer to be distributed
 
