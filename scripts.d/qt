@@ -9,7 +9,7 @@
 
 function qt-vcs() 
 { 
-    echo default 
+    echo default
     echo none 
     echo git 
     echo https://github.com/qt/qt5.git 

@@ -69,6 +69,13 @@ function salome-prefix()
 
 # support for SALOME application creation
 
+function proxy-edf()
+{
+    export http_proxy=proxypac.edf.fr:3128
+    export https_proxy=proxypac.edf.fr:3128
+    export no_proxy=localhost,.edf
+}
+
 function build-salome-prerequisites()
 {
     local PREFIX=$1

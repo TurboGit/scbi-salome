@@ -1,7 +1,7 @@
 
 function paraview-vcs() 
 { 
-    echo default 
+    echo default
     echo none 
     echo git 
     echo https://github.com/Kitware/ParaView.git 

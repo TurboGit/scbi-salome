@@ -6,8 +6,8 @@ paraview/ospray:bfaf7b82ed
 omniorb:#4.2.2
 python-omniorb:#4.2.2
 occt:#7.3.0p3
-salome-gui:V9_3_BR
 pyqt:#5.9
+#salome-kernel:f963ad1ff
 salome-kernel:dev
 adaosalome:V9_3_BR
 libbatch:V9_3_BR
