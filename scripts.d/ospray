@@ -1,7 +1,7 @@
 
 function ospray-vcs()
 {
-    echo default
+    echo edf
     echo no-recursive
     echo git
     echo https://github.com/ospray/ospray.git

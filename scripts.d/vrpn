@@ -1,7 +1,7 @@
 
 function vrpn-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo git clone https://github.com/vrpn/vrpn
