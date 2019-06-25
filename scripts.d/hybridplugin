@@ -40,7 +40,7 @@ function hybridplugin-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DSALOME_BUILD_DOC=OFF \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybridplugin Release) \
           ../src
