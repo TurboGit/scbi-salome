@@ -36,13 +36,15 @@ function geom-config()
     local PREFIX=$1
     local TARGET=$2
 
+    CDEBUG=$(is-enabled cmake-debug)
+
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DSALOME_BUILD_DOC=OFF \
           -DSALOME_GEOM_USE_OPENCV=ON  \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release) \
-          ../src
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 
 function geom-build()
