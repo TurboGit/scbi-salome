@@ -38,7 +38,7 @@ function yacs-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) -DSALOME_BUILD_DOC=OFF \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE yacs Release) \
-          -DSALOME_GUI_BUILD_WITH_QT5=ON \
+          -DSALOME_GUI_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 
