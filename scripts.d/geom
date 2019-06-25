@@ -37,6 +37,7 @@ function geom-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DSALOME_BUILD_DOC=OFF \
           -DSALOME_GEOM_USE_OPENCV=ON  \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
