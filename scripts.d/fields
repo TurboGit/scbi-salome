@@ -46,6 +46,7 @@ function fields-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
+          -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE fields Release) \
           ../src
 }
