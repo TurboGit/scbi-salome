@@ -47,7 +47,7 @@ function salome-gui-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_DOC=OFF -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
-          -DSALOME_BUILD_WITH_QT5=ON \
+          -DSALOME_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release) \
           ../src
