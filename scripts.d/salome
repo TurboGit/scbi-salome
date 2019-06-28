@@ -270,7 +270,7 @@ function salome-wrapup()
         # generate config_appli.xml
         build-config-appli $PREFIX $TARGET
 
-        if [ "$(is-enabled appli)" = "yes" \
+        if [ "$(is-enabled application)" = "yes" \
              -o "$(is-enabled installer)" = "yes" ];
         then
             dlog salome generate application
