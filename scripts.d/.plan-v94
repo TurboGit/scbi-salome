@@ -9,8 +9,6 @@ omniorb:#4.2.2
 python-omniorb:#4.2.2
 occt:#7.3.0p3
 pyqt:#5.9
-adaosalome:V9_3_BR
-paravis:dev
 hdf5:#1.10.3
 medfichier:#4.0.0
 medcoupling:V9_3_BR
