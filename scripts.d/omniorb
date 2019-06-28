@@ -1,7 +1,7 @@
 
 function omniorb-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo svn
     echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORB
