@@ -6,6 +6,7 @@ function meshgems-env()
     local TARGET=$2
 
     add-to-var MESHGEMS_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
 }
 
 function meshgems-out-of-tree()
