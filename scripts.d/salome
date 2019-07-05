@@ -227,7 +227,7 @@ function build-config-appli()
 EOF
 
     for module in $(salome-main-modules); do
-        MODULE_NAME=$(echo $module | tr [a-z] [A-Z])
+        MODULE_NAME=$(echo $module | sed 's/salome-//g' | tr [a-z] [A-Z])
         MODULE_PATH=$SCBI_BDIR/$module/build/install
 
         echo "      <module name='$MODULE_NAME'"    >> $FILE
