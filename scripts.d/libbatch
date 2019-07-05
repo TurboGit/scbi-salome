@@ -20,7 +20,8 @@ function libbatch-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var LibBatch_DIR $PREFIX
+    add-to-var LibBatch_DIR    $PREFIX
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
 }
 
 function libbatch-config()
