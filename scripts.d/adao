@@ -38,7 +38,7 @@ function adao-build-env()
     local TARGET=$2
 
     add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
-    add-to-var SPHINX_ROOT_DIR /usr
+    add-to-var SPHINX_ROOT_DIR              /usr
 }
 
 function adao-config()
