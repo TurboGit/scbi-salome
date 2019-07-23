@@ -37,6 +37,8 @@ function salome-kernel-depends()
     echo omniorb-idl
     echo omniidl
     echo python-omniorb
+    echo sphinx-common
+    echo sphinx-intl
     echo hdf5
     echo libbatch
 }
@@ -61,8 +63,7 @@ function salome-kernel-config()
 
     CDEBUG=$(is-enabled cmake-debug)
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_DOC=OFF \
-          -DSALOME_USE_LIBBATCH=ON \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_USE_LIBBATCH=ON \
           -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
