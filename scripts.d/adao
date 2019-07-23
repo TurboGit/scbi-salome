@@ -19,6 +19,8 @@ function adao-tar()
 
 function adao-depends()
 {
+    echo sphinx-common
+    echo sphinx-intl
     echo cmake
     echo salome-configuration
 }
@@ -39,7 +41,6 @@ function adao-build-env()
     local TARGET=$2
 
     add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
-    add-to-var SPHINX_ROOT_DIR              /usr
 }
 
 function adao-config()
@@ -47,19 +48,9 @@ function adao-config()
     local PREFIX=$1
     local TARGET=$2
 
-    # It is not possible to NOT build the documentation. When
-    # ADAO_BUILD_DOC=OFF is set the installation fails trying to
-    # install documentation even so we ask to not build it.
-    #
-    # When this is fixed we can remove from this script:
-    #    add-to-var SPHINX_ROOT_DIR /usr
-    #    -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION)
-    #    -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build
-
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adao Release) \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
-          -DSPHINX_INTL_EXECUTABLE=/usr/bin/sphinx-build \
           ../src
 }
 
