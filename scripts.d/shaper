@@ -3,6 +3,7 @@
 function shaper-depends()
 {
     echo doxygen
+    echo sphinx-common
 
     echo cmake
     echo salome-configuration
@@ -27,12 +28,9 @@ function shaper-config()
     local PREFIX=$1
     local TARGET=$2
 
-    # ??? Even with SHAPER_BUILD_DOC=OFF we need doxygen to be installed
-
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE shaper Release) \
           -DADD_MODELS_TESTS=TRUE \
-          -DSHAPER_BUILD_DOC=OFF \
           ../src
 }
 
