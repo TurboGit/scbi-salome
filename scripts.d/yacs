@@ -22,6 +22,8 @@ function yacs-depends()
     echo cmake
     echo libgraphviz-dev
     echo graphviz
+    echo sphinx-common
+    echo sphinx-intl
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
@@ -36,7 +38,7 @@ function yacs-config()
     CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
-          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) -DSALOME_BUILD_DOC=OFF \
+          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE yacs Release) \
           -DSALOME_GUI_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
