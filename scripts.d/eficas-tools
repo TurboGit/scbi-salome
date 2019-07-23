@@ -16,6 +16,7 @@ function eficas-tools-depends()
     echo sphinx-common
     echo salome-configuration
     echo pyqt
+    echo sphinx-common
 }
 
 function eficas-tools-env()
@@ -31,8 +32,7 @@ function eficas-tools-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DWITH_TELEMAC_CATA=ON -DBUILD_DOC=ON \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DWITH_TELEMAC_CATA=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE eficas_tools Release) \
           ../src
 }
