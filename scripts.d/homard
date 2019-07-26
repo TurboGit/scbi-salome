@@ -1,0 +1,69 @@
+
+
+function homard-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo HOMARD_SRC_$VERSION.tgz 
+} 
+
+function homard-depends()
+{
+    echo cmake
+    echo qt
+    echo pyqt
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
+    echo sip
+    echo sphinx-common
+    echo medfichier
+    echo medcoupling
+    echo geom
+    echo smesh
+}
+
+function homard-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HOMARD_ROOT_DIR    $PREFIX
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function homard-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_WITH_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE homard Release) \
+          ../src
+}
+
+function homard-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function homard-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function homard-prefix()
+{
+    echo NONE
+}
