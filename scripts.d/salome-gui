@@ -19,6 +19,8 @@ function salome-gui-depends()
     echo paraview
     echo salome-kernel
     echo libqwt-qt5-dev
+    echo sphinx-common
+    echo sphinx-intl
     echo occt
 }
 
@@ -39,7 +41,7 @@ function salome-gui-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSALOME_BUILD_DOC=OFF -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
+          -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSALOME_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release) \

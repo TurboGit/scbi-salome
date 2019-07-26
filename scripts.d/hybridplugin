@@ -13,6 +13,7 @@ function hybridplugin-tar()
 function hybridplugin-depends()
 {
     echo cmake
+    echo sphinx-common
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
@@ -34,7 +35,6 @@ function hybridplugin-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DSALOME_BUILD_DOC=OFF \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybridplugin Release) \
           ../src
 }

@@ -18,6 +18,8 @@ function smesh-depends()
     echo salome-gui
     echo qt
     echo hdf5
+    echo sphinx-common
+    echo sphinx-intl
     echo omniorb
     echo python-omniorb
     echo geom
@@ -40,8 +42,7 @@ function smesh-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSALOME_BUILD_DOC=OFF -DSALOME_GUI_BUILD_WITH_QT5=ON \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release) \
           ../src
 }

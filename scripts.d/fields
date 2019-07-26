@@ -17,6 +17,8 @@ function fields-depends()
     echo salome-kernel
     echo medcoupling
     echo salome-gui
+    echo sphinx-common
+    echo sphinx-intl
 }
 
 function fields-env()
@@ -38,7 +40,6 @@ function fields-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSALOME_BUILD_DOC=OFF -DSALOME_CMAKE_DEBUG=ON \
           -DSALOME_GUI_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE fields Release) \
           ../src
