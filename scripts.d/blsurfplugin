@@ -1,14 +1,5 @@
 
 
-function blsurfplugin-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo blsurfplugin-$VERSION.tar.xz 
-} 
 
 function blsurfplugin-depends()
 {

@@ -1,14 +1,5 @@
 
 
-function ghs3dplugin-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo ghs3dplugin-$VERSION.tar.xz 
-} 
 
 function ghs3dplugin-depends()
 {

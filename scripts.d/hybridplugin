@@ -1,14 +1,5 @@
 
 
-function hybridplugin-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo hybridplugin-$VERSION.tar.xz 
-} 
 
 function hybridplugin-depends()
 {
