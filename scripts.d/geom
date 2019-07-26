@@ -20,6 +20,7 @@ function geom-tar()
 function geom-depends()
 {
     echo libopencv-dev
+    echo sphinx-common
 
     echo cmake
     echo salome-configuration
@@ -47,7 +48,6 @@ function geom-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DSALOME_BUILD_DOC=OFF \
           -DSALOME_GEOM_USE_OPENCV=ON  \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release) \

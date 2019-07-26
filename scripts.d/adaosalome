@@ -20,6 +20,7 @@ function adaosalome-tar()
 function adaosalome-depends()
 {
     echo cmake
+    echo sphinx-common
     echo python3-docutils
     echo salome-configuration
     echo omniorb
@@ -55,7 +56,6 @@ function adaosalome-config()
     INI=$PSP/salome/adao/daCore/__init__.py
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
-          -DSALOME_BUILD_DOC=OFF \
           -DEFICAS_ROOT_DIR=$EFICAS_ROOT_DIR \
           -DKERNEL_ROOT_DIR=$KERNEL_ROOT_DIR \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
