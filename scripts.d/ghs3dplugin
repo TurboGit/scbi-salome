@@ -12,9 +12,9 @@ function ghs3dplugin-tar()
     local VERSION=$1
 
     echo default
-    echo none
-    echo none
-    echo ghs3dplugin-$VERSION.tar.xz
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo GHS3DPLUGIN_SRC_$VERSION.tgz
 }
 
 function ghs3dplugin-depends()

@@ -12,8 +12,8 @@ function homard-tar()
     local VERSION=$1
 
     echo default
-    echo none
-    echo none
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
     echo HOMARD_SRC_$VERSION.tgz
 }
 
