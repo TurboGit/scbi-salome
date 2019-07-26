@@ -22,7 +22,7 @@ function yacsgen-install()
     local PREFIX=$1
     local TARGET=$2
 
-    # this is no installation for this tool, yet we do copy all
+    # there is no installation for this tool, yet we do copy all
     # sources into install directory which seems cleaner.
 
     cd ..
