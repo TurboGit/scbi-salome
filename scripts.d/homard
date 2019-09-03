@@ -35,7 +35,7 @@ function homard-config()
 
     CDEBUG=$(is-enabled cmake-debug)
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_WITH_QT5=ON \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE homard Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
