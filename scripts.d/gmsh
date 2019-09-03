@@ -1,0 +1,63 @@
+
+
+function gmsh-depends()
+{
+    echo cmake
+    echo occt
+}
+
+function gmsh-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GMSH_ROOT_DIR      $PREFIX
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+}
+
+function gmsh-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DENABLE_ACIS=OFF -DENABLE_BUILD_SHARED=ON -DENABLE_FLTK=OFF \
+          -DENABLE_MED=OFF -DENABLE_ONELAB_METAMODEL=OFF -DENABLE_PARSER=ON \
+          -DENABLE_PETSC=OFF -DENABLE_PRIVATE_API=ON -DENABLE_CGNS=OFF \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gmsh Release) \
+          ../src
+}
+
+function gmsh-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function gmsh-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function gmsh-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    find ../src -type f -name "*.h" -exec cp {} ../install/include \;
+    mv ../install/include/gmsh/* ../install/include/
+    rmdir ../install/include/gmsh
+}
+
+function gmsh-prefix()
+{
+    echo NONE
+}
