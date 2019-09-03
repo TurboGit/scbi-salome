@@ -49,9 +49,11 @@ function homard-config()
     local PREFIX=$1
     local TARGET=$2
 
+    CDEBUG=$(is-enabled cmake-debug)
+
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_WITH_QT5=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE homard Release) \
-          ../src
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 
 function homard-build()
