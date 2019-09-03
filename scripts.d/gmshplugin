@@ -1,0 +1,72 @@
+
+function gmshplugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.gmshplugin
+}
+
+function gmshplugin-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo GMSHPLUGIN_SRC_$VERSION.tgz
+}
+
+function gmshplugin-depends()
+{
+    echo cmake
+    echo sphinx-common
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
+    echo omniorb
+    echo qt
+    echo occt
+    echo geom
+    echo gmsh
+    echo smesh
+}
+
+function gmshplugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GMSHPLUGIN_ROOT_DIR $PREFIX
+}
+
+function gmshplugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gmshplugin Release) \
+          ../src
+}
+
+function gmshplugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function gmshplugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function gmshplugin-prefix()
+{
+    echo NONE
+}
