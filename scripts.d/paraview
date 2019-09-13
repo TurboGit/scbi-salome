@@ -136,7 +136,7 @@ function paraview-vrpn-options()
     echo -DPARAVIEW_USE_MPI:BOOL=ON \
          -DPARAVIEW_BUILD_PLUGIN_VRPlugin:BOOL=ON \
          -DPARAVIEW_USE_VRPN:BOOL=ON \
-         -DVRPN_LIBRARY=$VRPN_ROOT_DIR/lib \
+         -DVRPN_LIBRARY=$VRPN_ROOT_DIR/lib/libvrpn.a \
          -DVRPN_INCLUDE_DIR=$VRPN_ROOT_DIR/include
 }
 
