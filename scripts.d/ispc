@@ -7,15 +7,6 @@ function ispc-vcs()
     echo https://github.com/ispc/ispc.git 
 } 
 
-function ispc-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo ispc-$VERSION.tar.gz 
-} 
 
 function ispc-depends()
 {
