@@ -13,6 +13,8 @@ function openturns-depends()
     echo cmake
     echo libblas-dev
     echo liblapack-dev
+    # since 1.13
+    echo libcminpack-dev
 }
 
 function openturns-env()
