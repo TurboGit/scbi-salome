@@ -3,7 +3,7 @@ qt:#5.9.1
 sip:#4.19.3
 openturns:#1.12
 ospray:v1.8.3
-ispc:1f2e9af27b
+ispc:v1.12.0
 paraview/ospray:bfaf7b82ed
 omniorb:#4.2.2
 python-omniorb:#4.2.2
