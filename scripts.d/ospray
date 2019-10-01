@@ -7,15 +7,6 @@ function ospray-vcs()
     echo https://github.com/ospray/ospray.git 
 } 
 
-function ospray-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo ospray-$VERSION.tar.gz 
-} 
 
 function ospray-env()
 {
