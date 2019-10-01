@@ -7,15 +7,6 @@ function embree-vcs()
     echo https://github.com/embree/embree.git 
 } 
 
-function embree-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo embree-$VERSION.tar.gz 
-} 
 
 function embree-depends()
 {
