@@ -8,7 +8,7 @@ ispc:v1.12.0
 paraview/ospray:bfaf7b82ed
 omniorb:#4.2.2
 python-omniorb:#4.2.2
-occt:#7.3.0p3
+occt:#7.3.0p4
 pyqt:#5.9
 hdf5:#1.10.3
 medfichier:#4.0.0
