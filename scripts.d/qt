@@ -16,6 +16,11 @@ function qt-vcs()
 } 
 
 
+function qt-depends()
+{
+    echo cmake
+}
+
 function qt-env()
 {
     local PREFIX=$1
