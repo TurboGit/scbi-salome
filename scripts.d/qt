@@ -25,6 +25,11 @@ function qt-tar()
     echo qt-everywhere-opensource-src-$VERSION.tar.xz
 }
 
+function qt-depends()
+{
+    echo cmake
+}
+
 function qt-env()
 {
     local PREFIX=$1
