@@ -40,7 +40,8 @@ function paravis-config()
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravis Release) \
           -DSALOME_PARAVIS_MINIMAL_CORBA=ON \
           -DPARAVIEW_ROOT_DIR=$PARAVIEW_ROOT_DIR \
-          -DVTK_DIR=$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-5.6 \
+          -DVTK_DIR=$(last-modified-directory \
+                          "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
           ../src
 }
 
