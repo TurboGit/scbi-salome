@@ -23,7 +23,8 @@ function medfichier-env()
     local TARGET=$2
 
     add-to-var MEDFILE_ROOT_DIR $PREFIX
-    add-to-var MEDFile_DIR      $PREFIX/share/cmake/med-fichier-4.0.0
+    add-to-var MEDFile_DIR      \
+	       $(last-modified-directory "$PREFIX/share/cmake/med-fichier-*")
     add-to-var LD_LIBRARY_PATH  $PREFIX/lib
 }
 
