@@ -53,7 +53,8 @@ function paraview-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/paraview-5.6
+    add-to-var CMAKE_PREFIX_PATH \
+	       $(last-modified-directory "$PREFIX/lib/cmake/paraview-*")
 
     add-to-var PARAVIEW_ROOT_DIR    $PREFIX
     add-to-var PARAVIEW_INSTALL_DIR $PREFIX
