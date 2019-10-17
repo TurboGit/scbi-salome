@@ -128,7 +128,7 @@ function paraview-common-options()
 
 function paraview-ospray-options()
 {
-    echo -DPARAVIEW_USE_OSPRAY:BOOL=ON \
+    echo -DPARAVIEW_USE_RAYTRACING:BOOL=ON \
          -DOSPRAY_INSTALL_DIR=$OSPRAY_ROOT_DIR
 }
 
@@ -191,26 +191,6 @@ function paraview-install()
     local TARGET=$2
 
     make install
-}
-
-function paraview-ospray-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    # this is a patch to be able to use ParaView (dev mode) when
-    # OSPRAY is activated. This is needed by ParaVIS.
-
-    echo "find_package(ospray REQUIRED)" \
-         >> ../install/lib/cmake/paraview-5.6/UseParaView.cmake
-}
-
-function paraview-ospray.vrpn-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    paraview-ospray-post-install
 }
 
 function paraview-prefix()
