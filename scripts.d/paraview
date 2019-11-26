@@ -8,8 +8,25 @@ function paraview-vcs()
 } 
 
 
+function paraview-ospray-deps
+{
+    echo ospray
+}
+
+function paraview-vrpn-deps
+{
+    echo vrpn
+}
+
+function paraview-gdal-deps
+{
+    echo libgdal-dev
+}
+
 function paraview-depends()
 {
+    local VARIANT=$1
+
     echo python3-dev
     echo libx11-dev
     echo libxt-dev
@@ -18,25 +35,12 @@ function paraview-depends()
     echo openturns
     echo hdf5
     echo cmake
-}
 
-function paraview-ospray-depends()
-{
-    paraview-depends
-    echo ospray
-}
+    # add all depends for variants if any
 
-function paraview-vrpn-depends()
-{
-    paraview-depends
-    echo vrpn
-}
-
-function paraview-ospray.vrpn-depends()
-{
-    paraview-depends
-    echo ospray
-    echo vrpn
+    for v in $(all-variants $VARIANT); do
+        paraview-$v-deps
+    done
 }
 
 function paraview-env()
@@ -141,40 +145,25 @@ function paraview-vrpn-options()
          -DVRPN_INCLUDE_DIR=$VRPN_ROOT_DIR/include
 }
 
-function paraview-ospray-config()
+function paraview-gdal-options()
 {
-    local PREFIX=$1
-    local TARGET=$2
-
-    cmake $(paraview-common-options) $(paraview-ospray-options) \
-          ../src
-}
-
-function paraview-vrpn-config()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    cmake $(paraview-common-options) $(paraview-vrpn-options) \
-          ../src
-}
-
-function paraview-ospray.vrpn-config()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    cmake $(paraview-common-options) \
-          $(paraview-ospray-options) $(paraview-vrpn-options) \
-          ../src
+    echo -DPARAVIEW_ENABLE_GDAL:BOOL=ON
 }
 
 function paraview-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
+    local OPTIONS=$(paraview-common-options)
 
-    cmake $(paraview-common-options) ../src
+    # add options for all variants if any
+
+    for v in $(all-variants $VARIANT); do
+        OPTIONS="$OPTIONS $(paraview-$v-options)"
+    done
+
+    cmake $OPTIONS ../src
 }
 
 function paraview-build()
