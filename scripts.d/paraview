@@ -8,6 +8,11 @@ function paraview-vcs()
 } 
 
 
+function paraview-patches()
+{
+    echo vtk-fix-thread-safe.patch
+}
+
 function paraview-ospray-deps
 {
     echo ospray
