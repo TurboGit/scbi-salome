@@ -10,6 +10,7 @@ function paraview-vcs()
 
 function paraview-patches()
 {
+    # Fix crash when starting paravis from SALOME GUI
     echo vtk-fix-thread-safe.patch
 }
 
