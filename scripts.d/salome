@@ -460,6 +460,9 @@ read -p "Install into (/opt/salome) : " prefix
 
 [ -z \$prefix ] && prefix=/opt/salome
 
+# eval $prefix to expand environment variables if any
+prefix=$(eval echo $prefix)
+
 read -p "Ready to install SALOME in \$prefix? (y/n) "
 
 [ "\$REPLY" != "y" -a "\$REPLY" != "yes" ] && exit 1
