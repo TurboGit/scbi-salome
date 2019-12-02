@@ -23,16 +23,6 @@ function paraview-patches()
     echo vtk-fix-thread-safe.patch
 }
 
-function paraview-ospray-deps
-{
-    echo ospray
-}
-
-function paraview-vrpn-deps
-{
-    echo vrpn
-}
-
 function paraview-gdal-deps
 {
     echo libgdal-dev
@@ -54,7 +44,12 @@ function paraview-depends()
     # add all depends for variants if any
 
     for v in $(all-variants $VARIANT); do
-        paraview-$v-deps
+        fn-exists paraview-$v-deps
+        if [ $? = 0 ]; then
+            paraview-$v-deps
+        else
+            echo $v
+        fi
     done
 }
 
