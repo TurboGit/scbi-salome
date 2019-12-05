@@ -1,14 +1,5 @@
 
 
-function libbatch-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo libbatch-$VERSION.tar.xz 
-} 
 
 function libbatch-depends()
 {
