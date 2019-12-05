@@ -12,9 +12,9 @@ function libbatch-tar()
     local VERSION=$1
 
     echo default
-    echo none
-    echo none
-    echo libbatch-$VERSION.tar.xz
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/tools
+    echo libBatch-$VERSION.tar.gz
 }
 
 function libbatch-depends()
