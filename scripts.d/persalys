@@ -1,0 +1,88 @@
+
+function persalys-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/incertitudes.otgui-phimeca.git
+}
+
+function persalys-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo none
+    echo persalys-$VERSION.tar.xz
+}
+
+function persalys-depends()
+{
+    echo cmake
+    echo salome-configuration
+    echo salome-gui
+    echo salome-kernel
+    echo openturns
+    echo py2cpp
+    echo yacs
+    echo adao
+    echo ydefx
+    echo adao-interface
+}
+
+function persalys-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PERSALYS_ROOT_DIR $PREFIX
+    add-to-var PYTHONPATH        $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PATH              $PREFIX/bin
+
+    add-to-var PERSALYS_CALIBRATION_ENGINE      adao
+    add-to-var PERSALYS_HTML_DOCUMENTATION_PATH $PREFIX/share/persalys/doc/html
+    add-to-var OTGUI_HTML_DOCUMENTATION_PATH    $PREFIX/share/otgui/doc/html
+    add-to-var PV_PLUGIN_PATH                   $PREFIX/lib
+}
+
+function persalys-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+}
+
+function persalys-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DUSE_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE persalys Release) \
+          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) -DUSE_SALOME=ON \
+          -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include \
+          -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR \
+          ../src
+}
+
+function persalys-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function persalys-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function persalys-prefix()
+{
+    echo NONE
+}
