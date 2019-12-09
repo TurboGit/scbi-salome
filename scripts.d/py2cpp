@@ -19,7 +19,7 @@ function py2cpp-env()
 
     add-to-var CMAKE_MODULE_PATH $PREFIX
     add-to-var PATH              $SCBI_BDIR/install-tools/bin
-    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH   $SCBI_BDIR/install-tools/lib
 }
 
 function py2cpp-depends()
