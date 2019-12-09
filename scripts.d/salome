@@ -47,6 +47,7 @@ function salome-prerequisite-modules()
     echo sip
     echo pyqt
     echo gmsh
+    echo persalys
 }
 
 function salome-modules()
