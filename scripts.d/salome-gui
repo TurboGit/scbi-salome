@@ -33,6 +33,7 @@ function salome-gui-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
     add-to-var PYTHONPATH         \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+    add-to-var CMAKE_PREFIX_PATH  $PREFIX/adm_local/cmake_files
 }
 
 function salome-gui-config()

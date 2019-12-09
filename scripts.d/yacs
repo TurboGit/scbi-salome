@@ -23,6 +23,15 @@ function yacs-depends()
     echo yacsgen
 }
 
+function yacs-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var YACS_INSTALL_DIR  $PREFIX
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/adm_local/cmake_files
+}
+
 function yacs-config()
 {
     local PREFIX=$1
