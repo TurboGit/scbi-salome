@@ -30,7 +30,8 @@ function ydefx-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var YDEFX_ROOT_DIR $PREFIX
+    add-to-var YDEFX_ROOT_DIR    $PREFIX
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/ydefx
 }
 
 function ydefx-config()
