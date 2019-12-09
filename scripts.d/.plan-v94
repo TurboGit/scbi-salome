@@ -28,3 +28,4 @@ planegcs:#0.18
 homard:V9_4_0
 gmsh:#4.1.4
 libbatch:V2_4_2
+adao-interface:V9_4_0
