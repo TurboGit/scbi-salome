@@ -24,7 +24,7 @@ function py2cpp-env()
 
     add-to-var PY2CPP_ROOT_DIR $PREFIX
 
-    add-to-var CMAKE_PREFIX_PATH  $SCBI_BDIR/lib/cmake/py2cpp
+    add-to-var CMAKE_PREFIX_PATH  $SCBI_BDIR/install-tools/lib/cmake/py2cpp
     add-to-var PATH               $SCBI_BDIR/install-tools/bin
     add-to-var LD_LIBRARY_PATH    $SCBI_BDIR/install-tools/lib
     add-to-var C_INCLUDE_PATH     $SCBI_BDIR/install-tools/include
