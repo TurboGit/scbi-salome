@@ -122,6 +122,7 @@ function build-salome-prerequisites()
             local MODULE=$1
             local MODREF=$2
             local IS_ROOT=$3
+            local IS_EXT=$4
 
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
@@ -190,6 +191,7 @@ function build-salome-context()
             local MODULE=$1
             local MODREF=$2
             local IS_ROOT=$3
+            local IS_EXT=$4
 
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
