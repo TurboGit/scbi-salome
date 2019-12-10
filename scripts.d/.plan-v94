@@ -30,3 +30,10 @@ gmsh:#4.1.4
 libbatch:V2_4_2
 adao-interface:V9_4_0
 persalys:v7.0
+salome-kernel:V9_4_0
+salome-gui:V9_4_0
+paravis:V9_4_0
+yacs:V9_4_0
+eficas-module:V9_4_0
+eficas:V9_4_0
+adao:V9_4_0
