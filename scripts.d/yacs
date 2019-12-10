@@ -29,7 +29,7 @@ function yacs-env()
     local TARGET=$2
 
     add-to-var YACS_INSTALL_DIR  $PREFIX
-    add-to-var CMAKE_PREFIX_PATH $PREFIX/adm_local/cmake_files
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/adm/cmake
 }
 
 function yacs-config()
