@@ -18,9 +18,14 @@ $ make
 
 # A simple tutorial to build SALOME
 
-  This is still work-in-progress and only Paraview can be built at this
-  stage. The other scripts are not yet done.
+  To build SALOME just run:
 
 ```
-$ scbi -p --deps salome
+$ scbi --env=v94 --deps --update salome
+```
+
+  To build SALOME and create an installer:
+
+```
+$ scbi --env=v94 --deps --update --enable-installer salome
 ```
