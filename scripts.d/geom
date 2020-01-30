@@ -37,7 +37,7 @@ function geom-config()
     local PREFIX=$1
     local TARGET=$2
 
-    CDEBUG=$(is-enabled cmake-debug)
+    local CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_GUI_BUILD_WITH_QT5=ON \

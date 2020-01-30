@@ -54,7 +54,7 @@ function salome-kernel-config()
     local PREFIX=$1
     local TARGET=$2
 
-    CDEBUG=$(is-enabled cmake-debug)
+    local CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_USE_LIBBATCH=ON \
           -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install \

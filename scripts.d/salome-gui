@@ -41,12 +41,14 @@ function salome-gui-config()
     local PREFIX=$1
     local TARGET=$2
 
+    local CDEBUG=$(is-enabled cmake-debug)
+
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSALOME_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release) \
-          ../src
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 
 function salome-gui-build()
