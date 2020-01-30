@@ -44,7 +44,7 @@ function yacs-config()
     local PREFIX=$1
     local TARGET=$2
 
-    CDEBUG=$(is-enabled cmake-debug)
+    local CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
           -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
