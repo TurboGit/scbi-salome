@@ -49,8 +49,10 @@ function paraview-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CMAKE_PREFIX_PATH \
-	       $(last-modified-directory "$PREFIX/lib/cmake/paraview-*")
+    local CMAKE_PV=$(last-modified-directory "$PREFIX/lib/cmake/paraview-*")
+
+    add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}
+    add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}/vtk
 
     add-to-var PARAVIEW_ROOT_DIR    $PREFIX
     add-to-var PARAVIEW_INSTALL_DIR $PREFIX
@@ -76,7 +78,7 @@ function paraview-common-options()
     echo -DBUILD_EXAMPLES:BOOL=OFF
     echo -DBUILD_TESTING:BOOL=OFF
 
-    echo -DPARAVIEW_BUILD_QT_GUI:BOOL=ON
+    echo -DPARAVIEW_USE_QT:BOOL=ON
     echo -DPARAVIEW_BUILD_SHARED_LIBS:BOOL=ON
     echo -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON
     echo -DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON
@@ -84,9 +86,9 @@ function paraview-common-options()
     echo -DPARAVIEW_USE_OPENTURNS=ON
 
     echo -DPARAVIEW_ENABLE_WEB:BOOL=OFF
-    echo -DPARAVIEW_ENABLE_CATALYST:BOOL=ON
     echo -DPARAVIEW_ENABLE_MATPLOTLIB:BOOL=ON
-    echo -DPARAVIEW_ENABLE_PYTHON:BOOL=ON
+    echo -DPARAVIEW_USE_PYTHON:BOOL=ON
+    echo -DPARAVIEW_USE_MPI:BOOL=ON
 
     # VTK
 
@@ -101,6 +103,15 @@ function paraview-common-options()
     echo -DVTK_USE_SYSTEM_HDF5:BOOL=ON
     echo -DVTK_USE_SYSTEM_LIBXML2:BOOL=ON
     echo -DVTK_USE_SYSTEM_PYGMENTS:BOOL=ON
+    echo -DVTK_MODULE_ENABLE_VTK_RenderingLOD=YES
+    echo -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES
+    echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelGeometry=YES
+    echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelMPI=YES
+    echo -DVTK_MODULE_ENABLE_VTK_ParallelMPI=YES
+    echo -DVTK_MODULE_ENABLE_VTK_CommonCore=YES
+    echo -DVTK_MODULE_ENABLE_VTK_IOCore=YES
+    echo -DVTK_MODULE_ENABLE_VTK_IOEnSight=YES
+    echo -DVTK_MODULE_ENABLE_VTK_IOInfovis=YES
 
     # HDF5
 
@@ -170,18 +181,25 @@ function paraview-gdal-options()
     echo -DPARAVIEW_ENABLE_GDAL:BOOL=ON
 }
 
+function paraview-options()
+{
+    local VARIANT=$1
+
+    paraview-common-options
+
+    # add options for all variants if any
+
+    for v in $(all-variants $VARIANT); do
+        paraview-$v-options
+    done
+}
+
 function paraview-config()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
-    local OPTIONS=$(paraview-common-options)
-
-    # add options for all variants if any
-
-    for v in $(all-variants $VARIANT); do
-        OPTIONS="$OPTIONS $(paraview-$v-options)"
-    done
+    local OPTIONS="$(paraview-options $VARIANT)"
 
     cmake $OPTIONS ../src
 }

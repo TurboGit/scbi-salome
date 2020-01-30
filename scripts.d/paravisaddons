@@ -16,6 +16,8 @@ function paravisaddons-env()
     local TARGET=$2
 
     add-to-var PARAVISADDONS_ROOT_DIR $PREFIX
+    add-to-var PV_PLUGIN_PATH         $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH        $PREFIX/lib
 }
 
 function paravisaddons-config()
@@ -28,6 +30,29 @@ function paravisaddons-config()
           \
           -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
           -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS \
+	  \
+	  -DPARAVIEW_PLUGIN_ENABLE_AppendAttributesOverTime=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_AutoConvertProperties=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ComplexModePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ContactReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_DepthVsTimePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ExtractComponents=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ExtractThreeDimPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_MoveZCotePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_MyContour=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_QuadraticToLinearPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_RateOfFlowThroughSectionPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_RosetteCIH=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SedimentDeposit=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SerafinReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SinusXReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SpatialPfl=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SpatialPflOnPts=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SphereAlongLinesPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_TemporalOnPointPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_TorseurCIH=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ZJFilterPlugin=YES \
           ../src
 }
 
