@@ -36,6 +36,8 @@ function paravis-env()
     local TARGET=$2
 
     add-to-var PARAVIS_ROOT_DIR $PREFIX
+    add-to-var PV_PLUGIN_PATH   $PREFIX/lib/paraview
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib/paraview
 }
 
 function paravis-config()
@@ -46,9 +48,23 @@ function paravis-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravis Release) \
           -DSALOME_PARAVIS_MINIMAL_CORBA=ON \
-          -DPARAVIEW_ROOT_DIR=$PARAVIEW_ROOT_DIR \
+	  -DPARAVIEW_ROOT_DIR=$PARAVIEW_ROOT_DIR \
           -DVTK_DIR=$(last-modified-directory \
                           "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
+	  \
+	  -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_DifferenceTimesteps=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ElevationSurface=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_EllipseBuilderFilter=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_GaussToCellPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_JSONReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_MEDReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_MEDWriterPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ScaleVector=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SimpleModePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_StaticMesh=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_VoroGaussPlugin=YES \
           ../src
 }
 
