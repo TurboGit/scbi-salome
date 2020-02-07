@@ -1,0 +1,34 @@
+# based on v94
+@load v94
+
+persalys:skip
+
+paraview/gdal.ospray:038d76e5608063f52b8229c63456e617754e
+
+# patched modules to build with ParaView 5.8
+
+salome-gui:agy/pv58
+salome-configuration:agy/pv58
+paravis:agy/pv58
+paravisaddons:agy/pv58
+geom:po/pv58
+smesh:po/pv58
+
+# then many module using current master
+
+salome-kernel
+medcoupling
+atomgen
+atomic
+ghs3dplugin
+blsurfplugin
+gmshplugin
+hybridplugin
+shaper
+homard
+adao-interface
+yacs
+eficas-module
+eficas
+adao
+fields
