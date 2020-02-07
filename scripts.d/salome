@@ -27,6 +27,7 @@ function salome-main-modules()
 function salome-prerequisite-modules()
 {
     echo adao
+    echo adao-interface
     echo omniorb
     echo eficas-tools
     echo python-omniorb
@@ -47,6 +48,7 @@ function salome-prerequisite-modules()
     echo sip
     echo pyqt
     echo gmsh
+    echo paravisaddons
     echo persalys
 }
 
@@ -78,6 +80,21 @@ function proxy-edf()
     export http_proxy=proxypac.edf.fr:3128
     export https_proxy=proxypac.edf.fr:3128
     export no_proxy=localhost,.edf
+}
+
+function is-main-module()
+{
+    local MODULE=$1
+
+    for M in $(salome-main-modules); do
+        if [ "$M" = "$MODULE" ]; then
+            echo "yes"
+            return 0
+        fi
+    done
+
+    echo false
+    return 1
 }
 
 function build-salome-prerequisites()
@@ -123,6 +140,9 @@ function build-salome-prerequisites()
             local MODREF=$2
             local IS_ROOT=$3
             local IS_EXT=$4
+
+            # do not handle main modules here
+            [ "$(is-main-module $MODULE)" = "yes" ] && return
 
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
@@ -172,7 +192,7 @@ function build-salome-context()
             local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_SALOME)s}"
 
             case "$VAR" in
-                LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH)
+                LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH|PV_PLUGIN_PATH)
                     echo "ADD_TO_$VAR: ${REL_DIR}" >> $FILE
                     ;;
 
@@ -193,6 +213,9 @@ function build-salome-context()
             local IS_ROOT=$3
             local IS_EXT=$4
 
+            # do not handle main modules here
+            [ "$(is-main-module $MODULE)" = "yes" ] && return
+
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
                 CURRENT_MODULE=${MODULE/-/_}
@@ -208,11 +231,12 @@ function build-salome-context()
             fi
         }
 
-        echo "[SALOME Configuration]"                                  > $FILE
-        echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"                   >> $FILE
-        echo "ROOT_SALOME=%(ROOT_INSTALL)s/external"                  >> $FILE
-        echo "LC_NUMERIC=C"                                           >> $FILE
-        echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_SALOME)s/plugins\"" >> $FILE
+        echo "[SALOME Configuration]"                                    > $FILE
+        echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"                     >> $FILE
+        echo "ROOT_SALOME=%(ROOT_INSTALL)s/external"                    >> $FILE
+        echo "LC_NUMERIC=C"                                             >> $FILE
+        echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_SALOME)s/plugins\""   >> $FILE
+        echo "ADD_TO_PV_PLUGIN_PATH: \"%(ROOT_INSTALL)s/lib/paraview\"" >> $FILE
 
         for-all-modules-with-meta env-callback salome
     )
