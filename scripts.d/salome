@@ -232,8 +232,17 @@ function build-config-appli()
    <modules>
 EOF
 
+    # Note that the MODULE_NAME must have specific naming by convention,
+    # so we cannot use the plugin module name directly. The following
+    # sed commands are there to convert the plugin names to the expected
+    # names. Finally we convert the name in capital letters.
+
     for module in $(salome-main-modules); do
-        MODULE_NAME=$(echo $module | sed 's/salome-//g' | tr [a-z] [A-Z])
+        MODULE_NAME=$(echo $module | \
+			     sed 's/salome-//g' | \
+			     sed 's/adaosalome/adao/g' | \
+			     sed 's/eficas-module/eficas/g' | \
+			     tr [a-z] [A-Z])
         MODULE_PATH=$SCBI_BDIR/$module/build/install
 
         echo "      <module name='$MODULE_NAME'"    >> $FILE
