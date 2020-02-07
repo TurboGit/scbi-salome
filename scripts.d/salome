@@ -417,8 +417,8 @@ function salome-replace-full-path()
         while read file; do
             grep -q "$SCBI_BDIR" $file
             [ $? = 0 ] &&
-		sed -i '0,/^import /{s/import /import os, /}' $file \
-		    &&
+                sed -i '0,/^import /{s/import /import os, /}' $file \
+                    &&
                 sed -i "s,$PYFROM1,$PYTO1,g; \
                         s,$PYFROM2,$PYTO2,g; \
                         s,$PYFROM3,$PYTO3,g; \
