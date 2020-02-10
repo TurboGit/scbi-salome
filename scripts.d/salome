@@ -356,7 +356,10 @@ function salome-wrapup()
             mkdir external
 
             for p in $(salome-prerequisite-modules); do
-                cp -r $SCBI_BDIR/$p/build/install external/$p
+		# Some module may not be present if they have been skiped in build plan (:skip)
+		if [ -d $SCBI_BDIR/$p/build/install ]; then
+                    cp -r $SCBI_BDIR/$p/build/install external/$p
+		fi
             done
 
             # finaly replace hard-coded path in text files
