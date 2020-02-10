@@ -22,6 +22,9 @@ function salome-main-modules()
     echo hybridplugin
     echo gmshplugin
     echo homard
+    echo atomic
+    echo atomgen
+    echo openturns
 }
 
 function salome-prerequisite-modules()
@@ -32,7 +35,6 @@ function salome-prerequisite-modules()
     echo eficas-tools
     echo python-omniorb
     echo occt
-    echo openturns
     echo yacsgen
     echo medfichier
     echo medcoupling
