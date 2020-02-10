@@ -1,5 +1,5 @@
 
-function adaosalome-vcs()
+function salome-adao-vcs()
 {
     echo default
     echo none
@@ -7,17 +7,17 @@ function adaosalome-vcs()
     echo https://git.forge.pleiade.edf.fr/git/salome-adao
 }
 
-function adaosalome-tar()
+function salome-adao-tar()
 {
     local VERSION=$1
 
     echo default
     echo none
     echo none
-    echo adaosalome-$VERSION.tar.xz
+    echo salome-adao-$VERSION.tar.xz
 }
 
-function adaosalome-depends()
+function salome-adao-depends()
 {
     echo cmake
     echo sphinx-common
@@ -30,7 +30,7 @@ function adaosalome-depends()
     echo libbatch
 }
 
-function adaosalome-env()
+function salome-adao-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -39,7 +39,7 @@ function adaosalome-env()
     add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
-function adaosalome-build-env()
+function salome-adao-build-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -47,7 +47,7 @@ function adaosalome-build-env()
     add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 }
 
-function adaosalome-config()
+function salome-adao-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -62,11 +62,11 @@ function adaosalome-config()
           -DADAO_PYTHON_ROOT_DIR=$PREFIX \
           -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/$PSP/$INI \
           -DADAO_SALOME_MODULE=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adaosalome Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-adao Release) \
           ../src
 }
 
-function adaosalome-build()
+function salome-adao-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -74,7 +74,7 @@ function adaosalome-build()
     make -j$SCBI_JOBS
 }
 
-function adaosalome-install()
+function salome-adao-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -82,7 +82,7 @@ function adaosalome-install()
     make install
 }
 
-function adaosalome-prefix()
+function salome-adao-prefix()
 {
     echo NONE
 }

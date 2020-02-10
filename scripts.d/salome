@@ -14,7 +14,7 @@ function salome-main-modules()
     echo paravis
     echo fields
     echo yacs
-    echo adaosalome
+    echo salome-adao
     echo ydefx
     echo eficas-module
     echo blsurfplugin
@@ -266,7 +266,6 @@ EOF
     for module in $(salome-main-modules); do
         MODULE_NAME=$(echo $module | \
 			     sed 's/salome-//g' | \
-			     sed 's/adaosalome/adao/g' | \
 			     sed 's/eficas-module/eficas/g' | \
 			     tr [a-z] [A-Z])
         MODULE_PATH=$SCBI_BDIR/$module/build/install
