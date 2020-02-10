@@ -14,7 +14,7 @@ paravisaddons:agy/pv58
 geom:po/pv58
 smesh:po/pv58
 
-# then many module using current master
+# then many modules using current master
 
 salome-kernel
 medcoupling
