@@ -3,7 +3,7 @@
 
 persalys:skip
 
-paraview/gdal.ospray:038d76e5608063f52b8229c63456e617754e
+paraview/gdal.ospray:v5.8.0-RC2
 
 # patched modules to build with ParaView 5.8
 
