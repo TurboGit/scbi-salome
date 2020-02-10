@@ -1,4 +1,4 @@
-# based on v94, add vrpn plug-in
-@load v94
-paraview/ospray.vrpn:bfaf7b82ed
+# based on pv58, add vrpn plug-in
+@load pv58
+paraview/gdal.ospray.vrpn:v5.8.0-RC2
 vrpn:#version_07.34
