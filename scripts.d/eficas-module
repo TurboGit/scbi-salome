@@ -27,6 +27,11 @@ function eficas-module-depends()
     echo salome-gui
 }
 
+function eficas-module-env()
+{
+    add-to-var EFICAS_ROOT_DIR $PREFIX/
+}
+
 function eficas-module-config()
 {
     local PREFIX=$1
