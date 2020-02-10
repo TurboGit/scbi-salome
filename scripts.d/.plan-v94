@@ -34,6 +34,6 @@ salome-kernel:V9_4_0
 salome-gui:V9_4_0
 paravis:V9_4_0
 yacs:V9_4_0
-eficas-module:V9_4_0
+salome-eficas:V9_4_0
 eficas:V9_4_0
 adao:V9_4_0

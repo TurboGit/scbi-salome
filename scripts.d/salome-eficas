@@ -1,16 +1,16 @@
 
 
-function eficas-module-tar() 
+function salome-eficas-tar() 
 { 
     local VERSION=$1 
  
     echo default 
     echo none 
     echo none 
-    echo eficas-module-$VERSION.tar.xz 
+    echo salome-eficas-$VERSION.tar.xz 
 } 
 
-function eficas-module-depends()
+function salome-eficas-depends()
 {
     echo cmake
     echo salome-configuration
@@ -20,12 +20,12 @@ function eficas-module-depends()
     echo salome-gui
 }
 
-function eficas-module-env()
+function salome-eficas-env()
 {
     add-to-var EFICAS_ROOT_DIR $PREFIX/
 }
 
-function eficas-module-config()
+function salome-eficas-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -35,7 +35,7 @@ function eficas-module-config()
           ../src
 }
 
-function eficas-module-build()
+function salome-eficas-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -43,7 +43,7 @@ function eficas-module-build()
     make -j$SCBI_JOBS
 }
 
-function eficas-module-install()
+function salome-eficas-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -51,7 +51,7 @@ function eficas-module-install()
     make install
 }
 
-function eficas-module-prefix()
+function salome-eficas-prefix()
 {
     echo NONE
 }
