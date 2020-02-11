@@ -171,7 +171,7 @@ function paraview-common-options()
 
 function paraview-ospray-options()
 {
-    echo -DPARAVIEW_USE_RAYTRACING:BOOL=ON
+    echo -DPARAVIEW_ENABLE_RAYTRACING:BOOL=ON
     echo -DOSPRAY_INSTALL_DIR=$OSPRAY_ROOT_DIR
 }
 
