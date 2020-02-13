@@ -9,7 +9,7 @@ paraview/gdal.ospray:v5.8.0-RC2
 
 salome-gui:agy/pv58
 salome-configuration:agy/pv58
-paravis:agy/pv58
+paravis:po/pv58
 paravisaddons:agy/pv58
 geom:po/pv58
 smesh:po/pv58
