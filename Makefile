@@ -7,4 +7,7 @@ all:
 	cp scripts.d/* $(SCRDIR)
 	cp scripts.d/.env* $(SCRDIR)
 	cp scripts.d/.plan* $(SCRDIR)
-	cp -r patches/* $(SCRDIR)/patches
+
+	if [ -d "patches" ]; then         \
+		cp -r patches/* $(SCRDIR)/patches;  \
+	fi
