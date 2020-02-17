@@ -8,12 +8,6 @@ function paraview-vcs()
 } 
 
 
-function paraview-patches()
-{
-    # Fix crash when starting paravis from SALOME GUI
-    echo vtk-fix-thread-safe.patch
-}
-
 function paraview-gdal-deps
 {
     echo libgdal-dev
