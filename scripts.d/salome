@@ -17,6 +17,7 @@ function salome-main-modules()
     echo salome-adao
     echo ydefx
     echo salome-eficas
+    echo salome-jobmanager
     echo blsurfplugin
     echo ghs3dplugin
     echo hybridplugin

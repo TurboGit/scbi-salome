@@ -1,0 +1,41 @@
+
+
+
+function salome-jobmanager-depends()
+{
+    echo cmake
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
+}
+
+function salome-jobmanager-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE jobmanager Release) \
+          ../src
+}
+
+function salome-jobmanager-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function salome-jobmanager-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function salome-jobmanager-prefix()
+{
+    echo NONE
+}
