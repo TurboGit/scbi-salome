@@ -17,9 +17,13 @@ function salome-eficas-tar()
     echo salome-eficas-$VERSION.tar.xz
 }
 
-function salome-eficas-depends()
+function salome-eficas-build-depends()
 {
     echo cmake
+}
+
+function salome-eficas-depends()
+{
     echo salome-configuration
     echo pyqt
     echo salome-kernel

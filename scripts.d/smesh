@@ -17,16 +17,20 @@ function smesh-tar()
     echo smesh-$VERSION.tar.xz
 }
 
-function smesh-depends()
+function smesh-build-depends()
 {
     echo cmake
+    echo sphinx-common
+    echo sphinx-intl
+}
+
+function smesh-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
     echo qt
     echo hdf5
-    echo sphinx-common
-    echo sphinx-intl
     echo omniorb
     echo python-omniorb
     echo geom

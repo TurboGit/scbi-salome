@@ -17,9 +17,13 @@ function openturns-tar()
     echo openturns-$VERSION.tar.bz2
 }
 
-function openturns-depends()
+function openturns-build-depends()
 {
     echo cmake
+}
+
+function openturns-depends()
+{
     echo libblas-dev
     echo liblapack-dev
     # since 1.13

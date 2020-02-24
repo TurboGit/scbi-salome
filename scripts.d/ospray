@@ -34,13 +34,17 @@ function ospray-env()
                $(last-modified-directory "$PREFIX/lib/cmake/ospray-*")
 }
 
+function ospray-build-depends()
+{
+    echo cmake
+    echo ispc
+}
+
 function ospray-depends()
 {
     local VERSION=$1
 
-    echo cmake
     echo libtbb-dev
-    echo ispc
     echo embree
 }
 

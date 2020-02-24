@@ -17,11 +17,15 @@ function adao-tar()
     echo adao-$VERSION.tar.xz
 }
 
-function adao-depends()
+function adao-build-depends()
 {
+    echo cmake
     echo sphinx-common
     echo sphinx-intl
-    echo cmake
+}
+
+function adao-depends()
+{
     echo salome-configuration
 }
 

@@ -17,12 +17,16 @@ function hdf5-tar()
     echo hdf5-$VERSION.tar.gz
 }
 
-function hdf5-depends()
+function hdf5-build-depends()
 {
     echo cmake
-    echo zlib1g-dev
     echo sphinx-common
     echo sphinx-intl
+}
+
+function hdf5-depends()
+{
+    echo zlib1g-dev
 }
 
 function hdf5-env()

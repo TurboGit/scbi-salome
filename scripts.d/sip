@@ -15,9 +15,13 @@ function sip-tar()
     echo sip-$VERSION.tar.gz
 }
 
-function sip-depends()
+function sip-build-depends()
 {
     echo cmake
+}
+
+function sip-depends()
+{
     echo salome-configuration
 }
 

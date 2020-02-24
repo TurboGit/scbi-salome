@@ -22,6 +22,11 @@ function paraview-gdal-deps
     echo libgdal-dev
 }
 
+function paraview-build-depends()
+{
+    echo cmake
+}
+
 function paraview-depends()
 {
     local VARIANT=$1
@@ -33,7 +38,6 @@ function paraview-depends()
     echo qt
     echo openturns
     echo hdf5
-    echo cmake
 
     # add all depends for variants if any
 

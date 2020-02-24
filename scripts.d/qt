@@ -25,7 +25,7 @@ function qt-tar()
     echo qt-everywhere-opensource-src-$VERSION.tar.xz
 }
 
-function qt-depends()
+function qt-build-depends()
 {
     echo cmake
 }

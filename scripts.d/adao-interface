@@ -7,12 +7,16 @@ function adao-interface-vcs()
     echo https://git.forge.pleiade.edf.fr/git/salome-prototypes.adao-exchange-layer
 }
 
-function adao-interface-depends()
+function adao-interface-build-depends()
 {
     echo cmake
+    echo py2cpp
+}
+
+function adao-interface-depends()
+{
     echo salome-configuration
     echo adao
-    echo py2cpp
 }
 
 function adao-interface-env()

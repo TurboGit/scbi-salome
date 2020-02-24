@@ -9,9 +9,13 @@ function occt-tar()
     echo OCCT-$VERSION.tar.gz
 }
 
-function occt-depends()
+function occt-build-depends()
 {
     echo cmake
+}
+
+function occt-depends()
+{
     echo tcl-dev
     echo tk-dev
     echo libfreetype6-dev

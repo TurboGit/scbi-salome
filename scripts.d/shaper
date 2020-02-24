@@ -7,12 +7,15 @@ function shaper-vcs()
     echo https://git.forge.pleiade.edf.fr/git/modules-salome.shaper
 }
 
-function shaper-depends()
+function shaper-build-depends()
 {
+    echo cmake
     echo doxygen
     echo sphinx-common
+}
 
-    echo cmake
+function shaper-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

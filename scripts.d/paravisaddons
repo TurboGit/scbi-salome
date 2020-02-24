@@ -7,9 +7,13 @@ function paravisaddons-vcs()
     echo https://git.forge.pleiade.edf.fr/git/paravisaddons
 }
 
-function paravisaddons-depends()
+function paravisaddons-build-depends()
 {
     echo cmake
+}
+
+function paravisaddons-depends()
+{
     echo salome-configuration
     echo medcoupling
     echo medfichier

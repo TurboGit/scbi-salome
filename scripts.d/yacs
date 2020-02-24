@@ -17,9 +17,13 @@ function yacs-tar()
     echo yacs-$VERSION.tar.xz
 }
 
-function yacs-depends()
+function yacs-build-depends()
 {
     echo cmake
+}
+
+function yacs-depends()
+{
     echo libgraphviz-dev
     echo graphviz
     echo sphinx-common

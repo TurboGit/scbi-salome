@@ -7,9 +7,13 @@ function atomgen-vcs()
     echo https://git.forge.pleiade.edf.fr/git/samples-salome.atomgen.git
 }
 
-function atomgen-depends()
+function atomgen-build-depends()
 {
     echo cmake
+}
+
+function atomgen-depends()
+{
     echo salome-configuration
     echo atomic
 }

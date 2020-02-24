@@ -17,7 +17,7 @@ function vrpn-tar()
     echo vrpn-$VERSION.tar.gz
 }
 
-function vrpn-depends()
+function vrpn-build-depends()
 {
     echo cmake
 }

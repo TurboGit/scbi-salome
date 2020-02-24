@@ -9,9 +9,13 @@ function gmsh-tar()
     echo gmsh-$VERSION-source.tar.gz
 }
 
-function gmsh-depends()
+function gmsh-build-depends()
 {
     echo cmake
+}
+
+function gmsh-depends()
+{
     echo occt
 }
 

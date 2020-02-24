@@ -17,7 +17,7 @@ function ispc-tar()
     echo ispc-$VERSION.tar.gz
 }
 
-function ispc-depends()
+function ispc-build-depends()
 {
     local VERSION=$1
 

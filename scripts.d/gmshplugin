@@ -17,10 +17,14 @@ function gmshplugin-tar()
     echo GMSHPLUGIN_SRC_$VERSION.tgz
 }
 
-function gmshplugin-depends()
+function gmshplugin-build-depends()
 {
     echo cmake
     echo sphinx-common
+}
+
+function gmshplugin-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

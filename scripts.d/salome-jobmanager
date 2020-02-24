@@ -17,9 +17,13 @@ function salome-jobmanager-tar()
     echo JOBMANAGER_SRC_$VERSION.tgz
 }
 
-function salome-jobmanager-depends()
+function salome-jobmanager-build-depends()
 {
     echo cmake
+}
+
+function salome-jobmanager-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

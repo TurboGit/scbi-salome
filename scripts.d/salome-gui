@@ -17,17 +17,21 @@ function salome-gui-tar()
     echo salome-gui-$VERSION.tar.xz
 }
 
-function salome-gui-depends()
+function salome-gui-build-depends()
 {
     echo cmake
+    echo sphinx-common
+    echo sphinx-intl
+}
+
+function salome-gui-depends()
+{
     echo qt
     echo pyqt
     echo salome-configuration
     echo paraview
     echo salome-kernel
     echo libqwt-qt5-dev
-    echo sphinx-common
-    echo sphinx-intl
     echo occt
 }
 

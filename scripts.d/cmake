@@ -17,7 +17,7 @@ function cmake-tar()
     echo cmake-$VERSION.tar.gz
 }
 
-function cmake-depends()
+function cmake-build-depends()
 {
     echo g++
 }

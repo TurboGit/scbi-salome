@@ -17,12 +17,16 @@ function ydefx-tar()
     echo ydefx-$VERSION.tar.xz
 }
 
-function ydefx-depends()
+function ydefx-build-depends()
 {
     echo cmake
+    echo py2cpp
+}
+
+function ydefx-depends()
+{
     echo salome-configuration
     echo qt
-    echo py2cpp
 }
 
 function ydefx-env()

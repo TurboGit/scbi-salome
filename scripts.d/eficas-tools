@@ -17,13 +17,16 @@ function eficas-tools-tar()
     echo eficas-tools-$VERSION.tar.xz
 }
 
-function eficas-tools-depends()
+function eficas-tools-build-depends()
 {
     echo cmake
     echo sphinx-common
+}
+
+function eficas-tools-depends()
+{
     echo salome-configuration
     echo pyqt
-    echo sphinx-common
 }
 
 function eficas-tools-env()

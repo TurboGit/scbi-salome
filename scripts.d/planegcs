@@ -9,12 +9,15 @@ function planegcs-tar()
     echo planegcs-$VERSION.tar.gz
 }
 
+function planegcs-build-depends()
+{
+    echo cmake
+}
+
 function planegcs-depends()
 {
     echo libeigen3-dev
     echo libboost-graph-dev
-
-    echo cmake
 }
 
 function planegcs-env()
