@@ -16,7 +16,7 @@ function qt-vcs()
 } 
 
 
-function qt-depends()
+function qt-build-depends()
 {
     echo cmake
 }

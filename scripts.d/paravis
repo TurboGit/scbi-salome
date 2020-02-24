@@ -10,9 +10,13 @@ function paravis-tar()
     echo paravis-$VERSION.tar.xz 
 } 
 
-function paravis-depends()
+function paravis-build-depends()
 {
     echo cmake
+}
+
+function paravis-depends()
+{
     echo salome-configuration
     echo hdf5
     echo salome-kernel

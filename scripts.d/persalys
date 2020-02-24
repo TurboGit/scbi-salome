@@ -10,14 +10,18 @@ function persalys-tar()
     echo persalys-$VERSION.tar.xz 
 } 
 
-function persalys-depends()
+function persalys-build-depends()
 {
     echo cmake
+    echo py2cpp
+}
+
+function persalys-depends()
+{
     echo salome-configuration
     echo salome-gui
     echo salome-kernel
     echo openturns
-    echo py2cpp
     echo yacs
     echo adao
     echo ydefx

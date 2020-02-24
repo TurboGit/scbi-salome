@@ -1,8 +1,12 @@
 
 
-function atomic-depends()
+function atomic-build-depends()
 {
     echo cmake
+}
+
+function atomic-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

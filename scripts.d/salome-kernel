@@ -10,11 +10,17 @@ function salome-kernel-tar()
     echo salome-kernel-$VERSION.tar.xz 
 } 
 
-function salome-kernel-depends()
+function salome-kernel-build-depends()
 {
     echo cmake
-    echo salome-configuration
+    echo sphinx-common
+    echo sphinx-intl
     echo swig
+}
+
+function salome-kernel-depends()
+{
+    echo salome-configuration
     echo libboost-dev
     echo libboost-filesystem-dev
     echo libboost-regex-dev
@@ -30,8 +36,6 @@ function salome-kernel-depends()
     echo omniorb-idl
     echo omniidl
     echo python-omniorb
-    echo sphinx-common
-    echo sphinx-intl
     echo hdf5
     echo libbatch
 }

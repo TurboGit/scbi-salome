@@ -1,11 +1,14 @@
 
 
-function shaper-depends()
+function shaper-build-depends()
 {
+    echo cmake
     echo doxygen
     echo sphinx-common
+}
 
-    echo cmake
+function shaper-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

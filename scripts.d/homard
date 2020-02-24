@@ -1,16 +1,20 @@
 
 
 
-function homard-depends()
+function homard-build-depends()
 {
     echo cmake
+    echo sphinx-common
+}
+
+function homard-depends()
+{
     echo qt
     echo pyqt
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
     echo sip
-    echo sphinx-common
     echo medfichier
     echo medcoupling
     echo geom

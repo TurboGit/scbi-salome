@@ -10,12 +10,16 @@ function geom-tar()
     echo geom-$VERSION.tar.xz 
 } 
 
+function geom-build-depends()
+{
+    echo cmake
+    echo sphinx-common
+}
+
 function geom-depends()
 {
     echo libopencv-dev
-    echo sphinx-common
 
-    echo cmake
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

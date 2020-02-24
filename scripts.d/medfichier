@@ -1,8 +1,12 @@
 
 
-function medfichier-depends()
+function medfichier-build-depends()
 {
     echo cmake
+}
+
+function medfichier-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo hdf5

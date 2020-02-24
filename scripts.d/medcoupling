@@ -10,15 +10,19 @@ function medcoupling-tar()
     echo medcoupling-$VERSION.tar.gz 
 } 
 
+function medcoupling-build-depends()
+{
+    echo cmake
+    echo sphinx-common
+    echo sphinx-intl
+}
+
 function medcoupling-depends()
 {
     echo scotch
     echo libscotch-dev
     echo metis
     echo libmetis-dev
-    echo sphinx-common
-    echo sphinx-intl
-    echo cmake
     echo salome-configuration
     echo salome-kernel
     echo medfichier

@@ -8,7 +8,7 @@ function vrpn-vcs()
 } 
 
 
-function vrpn-depends()
+function vrpn-build-depends()
 {
     echo cmake
 }

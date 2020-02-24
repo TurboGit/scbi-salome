@@ -1,10 +1,14 @@
 
 
 
-function hybridplugin-depends()
+function hybridplugin-build-depends()
 {
     echo cmake
     echo sphinx-common
+}
+
+function hybridplugin-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

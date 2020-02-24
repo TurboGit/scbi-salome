@@ -7,9 +7,13 @@ function pvwidgetexample-vcs()
     echo https://git.phimeca.com/ot-edf/pvwidgetexample.git 
 } 
 
-function pvwidgetexample-depends()
+function pvwidgetexample-build-depends()
 {
     echo cmake
+}
+
+function pvwidgetexample-depends()
+{
     echo paraview
     echo salome-configuration
 }

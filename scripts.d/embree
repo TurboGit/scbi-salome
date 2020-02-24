@@ -8,15 +8,19 @@ function embree-vcs()
 } 
 
 
+function embree-build-depends()
+{
+    echo cmake
+    echo ispc
+}
+
 function embree-depends()
 {
     local VERSION=$1
 
-    echo cmake
     echo libc6-dev
     echo libtbb-dev
     echo libglfw3-dev
-    echo ispc
 }
 
 function embree-env()

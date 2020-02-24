@@ -10,10 +10,14 @@ function salome-adao-tar()
     echo salome-adao-$VERSION.tar.xz 
 } 
 
-function salome-adao-depends()
+function salome-adao-build-depends()
 {
     echo cmake
     echo sphinx-common
+}
+
+function salome-adao-depends()
+{
     echo python3-docutils
     echo salome-configuration
     echo omniorb

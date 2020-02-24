@@ -8,7 +8,7 @@ function cmake-vcs()
 } 
 
 
-function cmake-depends()
+function cmake-build-depends()
 {
     echo g++
 }

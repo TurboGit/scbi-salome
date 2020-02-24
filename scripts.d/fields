@@ -10,15 +10,19 @@ function fields-tar()
     echo fields-$VERSION.tar.gz 
 } 
 
-function fields-depends()
+function fields-build-depends()
 {
     echo cmake
+    echo sphinx-common
+    echo sphinx-intl
+}
+
+function fields-depends()
+{
     echo salome-configuration
     echo salome-kernel
     echo medcoupling
     echo salome-gui
-    echo sphinx-common
-    echo sphinx-intl
 }
 
 function fields-env()

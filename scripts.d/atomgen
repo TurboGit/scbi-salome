@@ -1,8 +1,12 @@
 
 
-function atomgen-depends()
+function atomgen-build-depends()
 {
     echo cmake
+}
+
+function atomgen-depends()
+{
     echo salome-configuration
     echo atomic
 }

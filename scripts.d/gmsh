@@ -1,8 +1,12 @@
 
 
-function gmsh-depends()
+function gmsh-build-depends()
 {
     echo cmake
+}
+
+function gmsh-depends()
+{
     echo occt
 }
 
