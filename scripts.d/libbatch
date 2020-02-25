@@ -1,6 +1,12 @@
 
 
 
+function libbatch-build-depends()
+{
+    echo cmake
+    echo swig
+}
+
 function libbatch-depends()
 {
     echo salome-configuration
@@ -21,7 +27,7 @@ function libbatch-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
-          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
+          -DSWIG_EXECUTABLE:PATH=$(which swig) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE libbatch Release) \
           ../src
 }
