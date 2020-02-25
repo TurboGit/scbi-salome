@@ -10,6 +10,7 @@ function atomic-vcs()
 function atomic-build-depends()
 {
     echo cmake
+    echo swig
 }
 
 function atomic-depends()
@@ -34,8 +35,8 @@ function atomic-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
-          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
-          -DSWIG_DIR:PATH=$(swig3.0 -swiglib) \
+          -DSWIG_EXECUTABLE:PATH=$(which swig) \
+          -DSWIG_DIR:PATH=$(swig -swiglib) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomic Release) \
           ../src
 }

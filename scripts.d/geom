@@ -21,6 +21,7 @@ function geom-build-depends()
 {
     echo cmake
     echo sphinx-common
+    echo swig
 }
 
 function geom-depends()
@@ -53,7 +54,7 @@ function geom-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DSALOME_GEOM_USE_OPENCV=ON  \
-          -DSWIG_EXECUTABLE:PATH=$(which swig3.0) \
+          -DSWIG_EXECUTABLE:PATH=$(which swig) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }

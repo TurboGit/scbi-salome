@@ -12,6 +12,7 @@ function medfichier-tar()
 function medfichier-build-depends()
 {
     echo cmake
+    echo swig
 }
 
 function medfichier-depends()
