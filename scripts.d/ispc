@@ -13,10 +13,9 @@ function ispc-build-depends()
     local VERSION=$1
 
     echo cmake
-    echo clang
-    echo clang-4.0
-    echo llvm-4.0-tools
-    echo libclang-4.0-dev
+    echo clang-7
+    echo llvm-7-tools
+    echo libclang-7-dev
     echo zlib1g-dev
     echo flex
     echo bison
@@ -47,7 +46,7 @@ function ispc-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_CXX_COMPILER=clang++-7 ../src
 }
 
 function ispc-build()
