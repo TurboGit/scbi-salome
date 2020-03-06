@@ -7,17 +7,21 @@ paraview/gdal.ospray:v5.8.0-RC3
 
 # patched modules to build with ParaView 5.8
 
-salome-gui:agy/pv58
-salome-configuration:agy/pv58
-paravis:po/pv58
+salome-gui:rnv/pv58_1
+salome-configuration:rnv/pv58_1
+paravis:agy/pv58
 paravisaddons:agy/pv58
-geom:po/pv58
-smesh:po/pv58
+geom:rnv/pv58_1
+smesh:rnv/pv58_1
 openturns:v1.14
 
 # then many modules using current master
 
-salome-kernel
+salome-kernel:rnv/pv58_1
+salome-jobmanager
+salome-eficas
+
+gmsh
 medcoupling
 atomgen
 atomic
@@ -29,9 +33,10 @@ shaper
 homard
 adao-interface
 yacs
-salome-eficas
 eficas-tools
 eficas
 adao
 fields
-jobmanager
+
+# should be V2_4_3 as soon as available
+# libbatch:V2_4_3
