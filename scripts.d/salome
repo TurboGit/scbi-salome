@@ -23,6 +23,7 @@ function salome-main-modules()
     echo hybrid-plugin
     echo gmsh-plugin
     echo netgen-plugin
+    echo hexotic-plugin
     echo homard
     echo atomic
     echo atomgen
