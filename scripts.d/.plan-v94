@@ -18,11 +18,11 @@ smesh:V9_4_0
 geom:V9_4_0
 atomgen:V9_4_0
 atomic:V9_4_0
-ghs3dplugin:V9_4_0
-blsurfplugin:V9_4_0
-gmshplugin:V9_4_0
+ghs3d-plugin:V9_4_0
+blsurf-plugin:V9_4_0
+gmsh-plugin:V9_4_0
 meshgems:#V2.8-6_linux
-hybridplugin:V9_4_0
+hybrid-plugin:V9_4_0
 shaper:V9_4_0
 planegcs:#0.18
 homard:V9_4_0

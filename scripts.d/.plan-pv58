@@ -25,10 +25,10 @@ gmsh:#4.1.4
 medcoupling
 atomgen
 atomic
-ghs3dplugin:rnv/pv58_2
-blsurfplugin:rnv/pv58_2
-gmshplugin:rnv/pv58_2
-hybridplugin:rnv/pv58_2
+ghs3d-plugin:rnv/pv58_2
+blsurf-plugin:rnv/pv58_2
+gmsh-plugin:rnv/pv58_2
+hybrid-plugin:rnv/pv58_2
 shaper
 homard
 adao-interface

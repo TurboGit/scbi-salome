@@ -1,13 +1,13 @@
 
-function ghs3dplugin-vcs()
+function ghs3d-plugin-vcs()
 {
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.ghs3dplugin
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.ghs3d-plugin
 }
 
-function ghs3dplugin-tar()
+function ghs3d-plugin-tar()
 {
     local VERSION=$1
 
@@ -17,13 +17,13 @@ function ghs3dplugin-tar()
     echo GHS3DPLUGIN_SRC_$VERSION.tgz
 }
 
-function ghs3dplugin-build-depends()
+function ghs3d-plugin-build-depends()
 {
     echo cmake
     echo sphinx-common
 }
 
-function ghs3dplugin-depends()
+function ghs3d-plugin-depends()
 {
     echo salome-configuration
     echo salome-kernel
@@ -32,7 +32,7 @@ function ghs3dplugin-depends()
     echo smesh
 }
 
-function ghs3dplugin-env()
+function ghs3d-plugin-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -40,17 +40,17 @@ function ghs3dplugin-env()
     add-to-var GHS3DPLUGIN_ROOT_DIR $PREFIX
 }
 
-function ghs3dplugin-config()
+function ghs3d-plugin-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3dplugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3d-plugin Release) \
           ../src
 }
 
-function ghs3dplugin-build()
+function ghs3d-plugin-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -58,7 +58,7 @@ function ghs3dplugin-build()
     make -j$SCBI_JOBS
 }
 
-function ghs3dplugin-install()
+function ghs3d-plugin-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -66,7 +66,7 @@ function ghs3dplugin-install()
     make install
 }
 
-function ghs3dplugin-prefix()
+function ghs3d-plugin-prefix()
 {
     echo NONE
 }

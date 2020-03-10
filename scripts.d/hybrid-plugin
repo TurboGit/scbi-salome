@@ -1,0 +1,72 @@
+
+function hybrid-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.hybrid-plugin
+}
+
+function hybrid-plugin-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo HYBRIDPLUGIN_SRC_$VERSION.tgz
+}
+
+function hybrid-plugin-build-depends()
+{
+    echo cmake
+    echo sphinx-common
+}
+
+function hybrid-plugin-depends()
+{
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
+    echo geom
+    echo smesh
+}
+
+function hybrid-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HYBRIDPLUGIN_ROOT_DIR $PREFIX
+}
+
+function hybrid-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybrid-plugin Release) \
+          ../src
+}
+
+function hybrid-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function hybrid-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function hybrid-plugin-prefix()
+{
+    echo NONE
+}
