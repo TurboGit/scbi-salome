@@ -31,8 +31,8 @@ function occt-env()
     add-to-var OPENCASCADE_ROOT_DIR $PREFIX
     add-to-var CASROOT              $PREFIX
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
-    add-to-var C_INCLUDE_PATH       $PREFIX/include
-    add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include
+    add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
+    add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade
     add-to-var CMAKE_MODULE_PATH    $PREFIX/lib/cmake
 }
 
