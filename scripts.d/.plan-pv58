@@ -1,34 +1,34 @@
 # based on v94
 @load v94
 
-persalys:skip
+persalys
 
 paraview/gdal.ospray:v5.8.0-RC3
+openturns:v1.14
 
 # patched modules to build with ParaView 5.8
 
-salome-gui:rnv/pv58_1
-salome-configuration:rnv/pv58_1
-paravis:agy/pv58
+salome-gui:rnv/pv58_2
+salome-configuration:rnv/pv58_2
+paravis:rnv/pv58_2
 paravisaddons:agy/pv58
-geom:rnv/pv58_1
-smesh:rnv/pv58_1
-openturns:v1.14
+geom:rnv/pv58_2
+smesh:rnv/pv58_2
+salome-kernel:rnv/pv58_2
 
 # then many modules using current master
 
-salome-kernel:rnv/pv58_1
 salome-jobmanager
 salome-eficas
 
-gmsh
+gmsh:#4.1.4
 medcoupling
 atomgen
 atomic
-ghs3dplugin
-blsurfplugin
-gmshplugin
-hybridplugin
+ghs3dplugin:rnv/pv58_2
+blsurfplugin:rnv/pv58_2
+gmshplugin:rnv/pv58_2
+hybridplugin:rnv/pv58_2
 shaper
 homard
 adao-interface
@@ -38,5 +38,5 @@ eficas
 adao
 fields
 
-# should be V2_4_3 as soon as available
+# should be tag V2_4_3 as soon as available
 # libbatch:V2_4_3
