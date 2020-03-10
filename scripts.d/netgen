@@ -1,0 +1,114 @@
+
+function netgen-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/NGSolve/ngsolve.git
+}
+
+function netgen-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/tools
+    echo netgen-$VERSION.tar.gz
+}
+
+function netgen-out-of-tree()
+{
+    echo false
+}
+
+function netgen-patches()
+{
+    echo netgen-53-for-salome.patch
+}
+
+function netgen-build-depends()
+{
+    echo autoconf
+    echo autotools-dev
+}
+
+function netgen-depends()
+{
+    echo occt
+    echo tcl-dev
+    echo tk-dev
+}
+
+function netgen-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var NETGEN_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PATH $PREFIX/bin
+    add-to-var C_INCLUDE_PATH $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+}
+
+function netgen-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    libtoolize --force --copy --automake
+    aclocal -I m4
+    autoheader
+    autoconf
+    automake --add-missing --copy --gnu
+}
+
+function netgen-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ./configure --prefix=$PREFIX --with-occ=${CASROOT} \
+                CXXFLAGS="${CXXFLAGS} -O2 -m64 -std=c++0x"
+}
+
+function netgen-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function netgen-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function netgen-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    for DIR in csg general geom2d gprim interface linalg meshing \
+                   stlgeom visualization;
+    do
+        cp -af ./libsrc/${DIR}/*.hpp $PREFIX/include
+    done
+
+    cp -af ./libsrc/include/mystdlib.h $PREFIX/include
+    cp -af ./libsrc/include/mydefs.hpp $PREFIX/include
+    cp -af ./libsrc/occ/occgeom.hpp $PREFIX/include
+    cp -af ./libsrc/occ/occmeshsurf.hpp $PREFIX/include
+    cp -af ./libsrc/general/gzstream.h $PREFIX/include
+    [ -f ./config.h ] && cp -af ./config.h $PREFIX/include
+}
+
+function netgen-prefix()
+{
+    echo NONE
+}
