@@ -21,7 +21,7 @@ function hexotic-plugin-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var HEXOTIC-PLUGIN_ROOT_DIR $PREFIX
+    add-to-var HEXOTICPLUGIN_ROOT_DIR $PREFIX
 }
 
 function hexotic-plugin-config()
