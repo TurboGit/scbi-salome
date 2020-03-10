@@ -18,10 +18,10 @@ function salome-main-modules()
     echo ydefx
     echo salome-eficas
     echo salome-jobmanager
-    echo blsurfplugin
-    echo ghs3dplugin
-    echo hybridplugin
-    echo gmshplugin
+    echo blsurf-plugin
+    echo ghs3d-plugin
+    echo hybrid-plugin
+    echo gmsh-plugin
     echo netgen-plugin
     echo homard
     echo atomic

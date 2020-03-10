@@ -1,13 +1,13 @@
 
 
 
-function blsurfplugin-build-depends()
+function blsurf-plugin-build-depends()
 {
     echo cmake
     echo sphinx-common
 }
 
-function blsurfplugin-depends()
+function blsurf-plugin-depends()
 {
     echo salome-configuration
     echo salome-kernel
@@ -17,7 +17,7 @@ function blsurfplugin-depends()
     echo meshgems
 }
 
-function blsurfplugin-env()
+function blsurf-plugin-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -25,17 +25,17 @@ function blsurfplugin-env()
     add-to-var BLSURFPLUGIN_ROOT_DIR $PREFIX
 }
 
-function blsurfplugin-config()
+function blsurf-plugin-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE blsurfplugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE blsurf-plugin Release) \
           ../src
 }
 
-function blsurfplugin-build()
+function blsurf-plugin-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -43,7 +43,7 @@ function blsurfplugin-build()
     make -j$SCBI_JOBS
 }
 
-function blsurfplugin-install()
+function blsurf-plugin-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -51,7 +51,7 @@ function blsurfplugin-install()
     make install
 }
 
-function blsurfplugin-prefix()
+function blsurf-plugin-prefix()
 {
     echo NONE
 }

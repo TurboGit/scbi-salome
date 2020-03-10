@@ -1,13 +1,13 @@
 
 
 
-function gmshplugin-build-depends()
+function gmsh-plugin-build-depends()
 {
     echo cmake
     echo sphinx-common
 }
 
-function gmshplugin-depends()
+function gmsh-plugin-depends()
 {
     echo salome-configuration
     echo salome-kernel
@@ -20,7 +20,7 @@ function gmshplugin-depends()
     echo smesh
 }
 
-function gmshplugin-env()
+function gmsh-plugin-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -28,17 +28,17 @@ function gmshplugin-env()
     add-to-var GMSHPLUGIN_ROOT_DIR $PREFIX
 }
 
-function gmshplugin-config()
+function gmsh-plugin-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gmshplugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gmsh-plugin Release) \
           ../src
 }
 
-function gmshplugin-build()
+function gmsh-plugin-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -46,7 +46,7 @@ function gmshplugin-build()
     make -j$SCBI_JOBS
 }
 
-function gmshplugin-install()
+function gmsh-plugin-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -54,7 +54,7 @@ function gmshplugin-install()
     make install
 }
 
-function gmshplugin-prefix()
+function gmsh-plugin-prefix()
 {
     echo NONE
 }

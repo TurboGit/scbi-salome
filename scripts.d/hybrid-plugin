@@ -1,13 +1,13 @@
 
 
 
-function ghs3dplugin-build-depends()
+function hybrid-plugin-build-depends()
 {
     echo cmake
     echo sphinx-common
 }
 
-function ghs3dplugin-depends()
+function hybrid-plugin-depends()
 {
     echo salome-configuration
     echo salome-kernel
@@ -16,25 +16,25 @@ function ghs3dplugin-depends()
     echo smesh
 }
 
-function ghs3dplugin-env()
+function hybrid-plugin-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var GHS3DPLUGIN_ROOT_DIR $PREFIX
+    add-to-var HYBRIDPLUGIN_ROOT_DIR $PREFIX
 }
 
-function ghs3dplugin-config()
+function hybrid-plugin-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3dplugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybrid-plugin Release) \
           ../src
 }
 
-function ghs3dplugin-build()
+function hybrid-plugin-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -42,7 +42,7 @@ function ghs3dplugin-build()
     make -j$SCBI_JOBS
 }
 
-function ghs3dplugin-install()
+function hybrid-plugin-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -50,7 +50,7 @@ function ghs3dplugin-install()
     make install
 }
 
-function ghs3dplugin-prefix()
+function hybrid-plugin-prefix()
 {
     echo NONE
 }
