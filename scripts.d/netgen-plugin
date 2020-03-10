@@ -1,0 +1,72 @@
+
+function netgen-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.netgenplugin
+}
+
+function netgen-plugin-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo NETGENPLUGIN_SRC_$VERSION.tgz
+}
+
+function netgen-plugin-build-depends()
+{
+    echo cmake
+}
+
+function netgen-plugin-depends()
+{
+    echo salome-configuration
+    echo salome-kernel
+    echo salome-gui
+    echo geom
+    echo smesh
+    echo netgen
+}
+
+function netgen-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var NETGENPLUGIN_ROOT_DIR $PREFIX
+}
+
+function netgen-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE netgen-plugin Release) \
+          ../src
+}
+
+function netgen-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function netgen-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function netgen-plugin-prefix()
+{
+    echo NONE
+}
