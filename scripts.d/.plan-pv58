@@ -29,6 +29,7 @@ ghs3d-plugin:rnv/pv58_2
 blsurf-plugin:rnv/pv58_2
 gmsh-plugin:rnv/pv58_2
 hybrid-plugin:rnv/pv58_2
+hexotic-plugin:rnv/pv58_2
 shaper
 homard
 adao-interface
