@@ -53,6 +53,7 @@ function salome-prerequisite-modules()
     echo gmsh
     echo paravisaddons
     echo persalys
+    echo netgen
 }
 
 function salome-modules()
