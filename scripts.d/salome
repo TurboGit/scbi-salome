@@ -268,8 +268,8 @@ EOF
 
     for module in $(salome-main-modules); do
         MODULE_NAME=$(echo $module | \
-			     sed 's/salome-//g;s/-plugin/plugin/g' | \
-			     tr [a-z] [A-Z])
+                             sed 's/salome-//g;s/-plugin/plugin/g' | \
+                             tr [a-z] [A-Z])
         MODULE_PATH=$SCBI_BDIR/$module/build/install
 
         echo "      <module name='$MODULE_NAME'"    >> $FILE
@@ -359,10 +359,11 @@ function salome-wrapup()
             mkdir external
 
             for p in $(salome-prerequisite-modules); do
-		# Some module may not be present if they have been skiped in build plan (:skip)
-		if [ -d $SCBI_BDIR/$p/build/install ]; then
+                # Some module may not be present if they have been skiped
+                # in build plan (:skip)
+                if [ -d $SCBI_BDIR/$p/build/install ]; then
                     cp -r $SCBI_BDIR/$p/build/install external/$p
-		fi
+                fi
             done
 
             # finaly replace hard-coded path in text files
