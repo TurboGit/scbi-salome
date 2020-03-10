@@ -22,6 +22,7 @@ function salome-main-modules()
     echo ghs3dplugin
     echo hybridplugin
     echo gmshplugin
+    echo netgen-plugin
     echo homard
     echo atomic
     echo atomgen
@@ -267,7 +268,7 @@ EOF
 
     for module in $(salome-main-modules); do
         MODULE_NAME=$(echo $module | \
-			     sed 's/salome-//g' | \
+			     sed 's/salome-//g;s/-plugin/plugin/g' | \
 			     tr [a-z] [A-Z])
         MODULE_PATH=$SCBI_BDIR/$module/build/install
 
