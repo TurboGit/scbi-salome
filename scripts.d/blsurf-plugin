@@ -4,7 +4,7 @@ function blsurf-plugin-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.blsurf-plugin
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.blsurfplugin
 }
 
 function blsurf-plugin-tar()

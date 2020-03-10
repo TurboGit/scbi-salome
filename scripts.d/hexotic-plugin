@@ -4,7 +4,7 @@ function hexotic-plugin-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.hexotic-plugin
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.hexoticplugin
 }
 
 function hexotic-plugin-tar()
@@ -14,7 +14,7 @@ function hexotic-plugin-tar()
     echo default
     echo wget
     echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
-    echo HEXOTIC-PLUGIN_SRC_$VERSION.tgz
+    echo HEXOTICPLUGIN_SRC_$VERSION.tgz
 }
 
 function hexotic-plugin-build-depends()
@@ -37,7 +37,7 @@ function hexotic-plugin-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var HEXOTIC-PLUGIN_ROOT_DIR $PREFIX
+    add-to-var HEXOTICPLUGIN_ROOT_DIR $PREFIX
 }
 
 function hexotic-plugin-config()

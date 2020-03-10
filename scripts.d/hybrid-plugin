@@ -4,7 +4,7 @@ function hybrid-plugin-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.hybrid-plugin
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.hybridplugin
 }
 
 function hybrid-plugin-tar()

@@ -4,7 +4,7 @@ function gmsh-plugin-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.gmsh-plugin
+    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.gmshplugin
 }
 
 function gmsh-plugin-tar()
