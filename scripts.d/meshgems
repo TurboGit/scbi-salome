@@ -15,7 +15,16 @@ function meshgems-env()
     local TARGET=$2
 
     add-to-var MESHGEMS_ROOT_DIR $PREFIX
-    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib/Linux_64
+    add-to-var PATH              $PREFIX/bin
+    add-to-var PATH              $PREFIX/bin/Linux_64
+
+    # and the DISTENE license
+    LICENSE_FILE="\"Use global envvar: DLIM8VAR\""
+    add-to-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
+    add-to-var DLIM8VAR "\"dlim8 $(scbi-store-get-key DLIM8)\""
+    add-to-var DISTENE_LICENCE_FILE_FOR_YAMS "$LICENSE_FILE"
+    add-to-var DISTENE_LICENCE_FILE_FOR_MGCLEANER "$LICENSE_FILE"
 }
 
 function meshgems-out-of-tree()
