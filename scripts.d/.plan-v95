@@ -1,0 +1,45 @@
+# based on v94
+@load v94
+
+persalys
+
+paraview/gdal.ospray:v5.8.0
+openturns:v1.14
+
+# patched modules to build with ParaView 5.8
+
+salome-gui
+salome-configuration
+paravis
+paravisaddons:agy/pv58
+geom
+smesh
+salome-kernel
+ghs3d-plugin
+blsurf-plugin
+gmsh-plugin
+hybrid-plugin
+hexotic-plugin
+
+# then many modules using current master
+
+salome-jobmanager
+salome-eficas
+
+gmsh:#4.1.4
+medcoupling
+medfichier:#4.1.0rc3
+atomgen
+atomic
+shaper
+homard
+adao-interface
+yacs
+eficas-tools
+eficas
+adao
+fields
+netgen:#5.3.1
+
+# should be tag V2_4_3 as soon as available
+libbatch:V2_4_3rc1
