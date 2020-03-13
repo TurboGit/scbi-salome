@@ -89,11 +89,10 @@ function paraview-common-options()
     echo -DPARAVIEW_BUILD_SHARED_LIBS:BOOL=ON
     echo -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON
     echo -DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON
-    echo -DPARAVIEW_QT_VERSION=5
-    echo -DPARAVIEW_USE_OPENTURNS=ON
 
+    echo -DPARAVIEW_ENABLE_OPENTURNS=ON
     echo -DPARAVIEW_ENABLE_WEB:BOOL=OFF
-    echo -DPARAVIEW_ENABLE_MATPLOTLIB:BOOL=ON
+
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
     echo -DPARAVIEW_USE_MPI:BOOL=ON
 
@@ -107,9 +106,6 @@ function paraview-common-options()
     echo -DVTK_SMP_IMPLEMENTATION_TYPE=OpenMP
     echo -DVTK_USE_64BIT_IDS:BOOL=OFF
     echo -DVTK_USE_OGGTHEORA_ENCODER:BOOL=ON
-    echo -DVTK_USE_SYSTEM_HDF5:BOOL=ON
-    echo -DVTK_USE_SYSTEM_LIBXML2:BOOL=ON
-    echo -DVTK_USE_SYSTEM_PYGMENTS:BOOL=ON
     echo -DVTK_MODULE_ENABLE_VTK_RenderingLOD=YES
     echo -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES
     echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelGeometry=YES
@@ -130,47 +126,21 @@ function paraview-common-options()
 
     # PLUGINS
 
-    echo -DPARAVIEW_BUILD_PLUGIN_AnalyzeNIfTIIO:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_ArrowGlyph:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_EyeDomeLighting:BOOL=ON
-    echo -DPARAVIEW_BUILD_PLUGIN_GMVReader:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_Moments:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_NonOrthogonalSource:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_PacMan:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_SLACTools:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_SierraPlotTools:BOOL=OFF
-    echo -DPARAVIEW_BUILD_PLUGIN_StreamingParticles:BOOL=ON
-    echo -DPARAVIEW_BUILD_PLUGIN_SurfaceLIC:BOOL=ON
-
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_CDIReader=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_DigitalRockPhysics=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_DigitalRockPhysics=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_EmbossingRepresentations=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_EmbossingRepresentations=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_EyeDomeLighting=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_GeodesicMeasurement=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_GeodesicMeasurement=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_LagrangianParticleTracker=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_LagrangianParticleTracker=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_MooseXfemClip=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_MooseXfemClip=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_StreamLinesRepresentation=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_StreamLinesRepresentation=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_StreamingParticles=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_SurfaceLIC=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_ThickenLayeredCells=ON
-    echo -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_VTKmFilters=ON
 }
 
 function paraview-ospray-options()
 {
     echo -DPARAVIEW_ENABLE_RAYTRACING:BOOL=ON
-    echo -DOSPRAY_INSTALL_DIR=$OSPRAY_ROOT_DIR
 }
 
 function paraview-vrpn-options()
