@@ -11,6 +11,7 @@ function cmake-vcs()
 function cmake-build-depends()
 {
     echo g++
+    echo make
 }
 
 function cmake-env()
