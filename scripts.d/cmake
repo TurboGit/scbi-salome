@@ -20,6 +20,7 @@ function cmake-tar()
 function cmake-build-depends()
 {
     echo g++
+    echo make
 }
 
 function cmake-env()
