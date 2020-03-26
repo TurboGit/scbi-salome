@@ -25,6 +25,7 @@ function paraview-depends()
     echo python3-dev
     echo libx11-dev
     echo libxt-dev
+    echo libopenmpi-dev
 
     echo qt
     echo openturns

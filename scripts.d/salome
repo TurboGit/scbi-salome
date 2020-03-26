@@ -1,4 +1,11 @@
 
+# Note that on Debian-9 sphinx-intl is not present. To install it one need
+# to allow one package from Buster to be installed:
+#
+# Package: sphinx-intl
+# Pin: release n=buster
+# Pin-Priority: 0
+
 function salome-v93-plan()
 {
     echo v93

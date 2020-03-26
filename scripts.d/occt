@@ -13,6 +13,8 @@ function occt-depends()
     echo libxi-dev
     echo libxmu-dev
     echo libfreeimage-dev
+    echo libgl2ps-dev
+    echo libtbb-dev
 }
 
 function occt-env()

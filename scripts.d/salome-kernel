@@ -16,11 +16,12 @@ function salome-kernel-build-depends()
     echo sphinx-common
     echo sphinx-intl
     echo swig
+    echo doxygen
+    echo graphviz
 }
 
 function salome-kernel-depends()
 {
-    echo salome-configuration
     echo libboost-dev
     echo libboost-filesystem-dev
     echo libboost-regex-dev
@@ -31,7 +32,10 @@ function salome-kernel-depends()
     echo libomniorb4-dev
     echo libcppunit-dev
     echo libxml2-dev
+    echo libgraphviz-dev
     echo python3-numpy
+
+    echo salome-configuration
     echo omniorb
     echo omniorb-idl
     echo omniidl
