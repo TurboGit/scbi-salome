@@ -34,7 +34,6 @@ function salome-main-modules()
     echo homard
     echo atomic
     echo atomgen
-    echo openturns
 }
 
 function salome-prerequisite-modules()
@@ -63,6 +62,7 @@ function salome-prerequisite-modules()
     echo paravisaddons
     echo persalys
     echo netgen
+    echo openturns
 }
 
 function salome-modules()
