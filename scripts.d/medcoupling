@@ -22,6 +22,7 @@ function medcoupling-build-depends()
     echo cmake
     echo sphinx-common
     echo sphinx-intl
+    echo python-sphinx-rtd-theme
 }
 
 function medcoupling-depends()
