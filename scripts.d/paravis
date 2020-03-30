@@ -26,7 +26,7 @@ function paravis-build-depends()
 function paravis-depends()
 {
     echo salome-configuration
-    echo hdf5
+    echo s-hdf5
     echo salome-kernel
     echo salome-gui
     echo paraview
