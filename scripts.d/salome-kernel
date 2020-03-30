@@ -40,7 +40,7 @@ function salome-kernel-depends()
     echo omniorb-idl
     echo omniidl
     echo python-omniorb
-    echo hdf5
+    echo s-hdf5
     echo libbatch
 }
 

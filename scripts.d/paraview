@@ -34,7 +34,7 @@ function paraview-depends()
 
     echo qt
     echo openturns
-    echo hdf5
+    echo s-hdf5
 
     # add all depends for variants if any
 
@@ -115,11 +115,11 @@ function paraview-common-options()
 
     # HDF5
 
-    echo -DHDF5_C_COMPILER_EXECUTABLE=$HDF5_C_COMPILER_EXECUTABLE
-    echo -DHDF5_C_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR
-    echo -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so
-    echo -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5
-    echo -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5_hl
+#    echo -DHDF5_C_COMPILER_EXECUTABLE=$HDF5_C_COMPILER_EXECUTABLE
+#    echo -DHDF5_C_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR
+#    echo -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so
+#    echo -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5
+#    echo -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5_hl
 
     # PLUGINS
 

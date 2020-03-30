@@ -11,7 +11,7 @@ function paravisaddons-depends()
     echo medcoupling
     echo medfichier
     echo paravis
-    echo hdf5
+    echo s-hdf5
 }
 
 function paravisaddons-env()
