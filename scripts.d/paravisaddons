@@ -35,6 +35,9 @@ function paravisaddons-config()
           -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
           -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS \
 	  \
+          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
+          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
+          \
 	  -DPARAVIEW_PLUGIN_ENABLE_AppendAttributesOverTime=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_AutoConvertProperties=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_ComplexModePlugin=YES \

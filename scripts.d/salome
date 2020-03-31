@@ -63,6 +63,8 @@ function salome-prerequisite-modules()
     echo persalys
     echo netgen
     echo openturns
+    echo s-gdal
+    echo s-netcdf
 }
 
 function salome-modules()
