@@ -1,0 +1,77 @@
+
+function s-netcdf-vcs() 
+{ 
+    echo default 
+    echo none 
+    echo git 
+    echo https://github.com/Unidata/netcdf-c.git 
+} 
+
+function s-netcdf-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo gdal-$VERSION.tar.gz 
+} 
+
+function s-netcdf-build-depends()
+{
+    echo cmake
+}
+
+function s-netcdf-depends()
+{
+    echo hdf5
+    echo libcurl4-openssl-dev
+}
+
+function s-netcdf-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var NETCDF_ROOT_DIR    $PREFIX
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+}
+
+function s-netcdf-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DHDF5_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR \
+          -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
+          -DHDF5_C_LIBRARY=$HDF5_C_LIBRARY_hdf5 \
+          -DHDF5_HL_LIBRARY=$HDF5_C_LIBRARY_hdf5_hl \
+          -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-gdal Release) \
+          ../src
+}
+
+function s-netcdf-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-netcdf-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-netcdf-prefix()
+{
+    echo NONE
+}
