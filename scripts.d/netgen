@@ -36,6 +36,7 @@ function netgen-build-depends()
 function netgen-depends()
 {
     echo occt
+    echo smesh
     echo tcl-dev
     echo tk-dev
 }
