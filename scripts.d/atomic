@@ -28,8 +28,6 @@ function atomic-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DSWIG_EXECUTABLE:PATH=$(which swig) \
           -DSWIG_DIR:PATH=$(swig -swiglib) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomic Release) \
