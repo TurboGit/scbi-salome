@@ -4,14 +4,14 @@
 persalys
 
 paraview/gdal.ospray:v5.8.0
-openturns:v1.14
+openturns:#1.14
 
 # patched modules to build with ParaView 5.8
 
 salome-gui
 salome-configuration
 paravis
-paravisaddons:agy/pv58
+paravisaddons
 geom
 smesh
 salome-kernel
@@ -26,9 +26,10 @@ hexotic-plugin
 salome-jobmanager
 salome-eficas
 
+hdf5:#1.10.3
 gmsh:#4.1.4
 medcoupling
-medfichier:#4.1.0rc3
+medfichier:#4.1.0
 atomgen
 atomic
 shaper
@@ -43,3 +44,11 @@ netgen:#5.3.1
 
 # should be tag V2_4_3 as soon as available
 libbatch:V2_4_3rc1
+
+scbi-omniorb:#4.2.2
+scbi-python-omniorb:#4.2.2
+occt:#7.4.0p3
+meshgems:#V2.8-6_linux
+
+s-netcdf:v4.6.2
+s-gdal:v2.4.3
