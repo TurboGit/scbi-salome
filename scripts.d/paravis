@@ -55,9 +55,6 @@ function paravis-config()
           -DVTK_DIR=$(last-modified-directory \
                           "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
 	  \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
-          \
 	  -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_DifferenceTimesteps=YES \

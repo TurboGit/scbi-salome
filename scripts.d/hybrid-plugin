@@ -46,8 +46,6 @@ function hybrid-plugin-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybrid-plugin Release) \
           ../src
 }

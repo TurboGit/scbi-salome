@@ -58,8 +58,6 @@ function salome-gui-config()
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSALOME_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }

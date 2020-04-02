@@ -24,7 +24,7 @@ function paraview-patches()
 
 function paraview-gdal-deps
 {
-    echo s-gdal
+    echo libgdal-dev
 }
 
 function paraview-build-depends()
@@ -161,11 +161,7 @@ function paraview-vrpn-options()
 
 function paraview-gdal-options()
 {
-    echo -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include
-    echo -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so
     echo -DPARAVIEW_ENABLE_GDAL:BOOL=ON
-    echo -DVTK_MODULE_USE_EXTERNE_VTK_gdal:BOOL=ON
-    echo -DVTK_MODULE_USE_EXTERNE_VTK_netcdf:BOOl=ON
 }
 
 function paraview-options()

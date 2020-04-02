@@ -56,8 +56,6 @@ function homard-config()
     local CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE homard Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
