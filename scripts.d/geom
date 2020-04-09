@@ -24,8 +24,8 @@ function geom-depends()
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo omniorb
-    echo python-omniorb
+    echo s-omniorb
+    echo s-python-omniorb
     echo qt5-default
 }
 

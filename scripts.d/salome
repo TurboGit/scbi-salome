@@ -41,9 +41,9 @@ function salome-prerequisite-modules()
 {
     echo adao
     echo adao-interface
-    echo omniorb
+    echo s-omniorb
+    echo s-python-omniorb
     echo eficas-tools
-    echo python-omniorb
     echo occt
     echo yacsgen
     echo medfichier
