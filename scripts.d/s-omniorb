@@ -1,5 +1,5 @@
 
-function omniorb-vcs()
+function s-omniorb-vcs()
 {
     echo edf
     echo none
@@ -7,7 +7,7 @@ function omniorb-vcs()
     echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORB
 }
 
-function omniorb-tar()
+function s-omniorb-tar()
 {
     local VERSION=$1
 
@@ -17,12 +17,12 @@ function omniorb-tar()
     echo omniORB-$VERSION.tar.gz
 }
 
-function omniorb-depends()
+function s-omniorb-depends()
 {
     echo python3-dev
 }
 
-function omniorb-env()
+function s-omniorb-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -34,7 +34,7 @@ function omniorb-env()
     add-to-var PATH               $PREFIX/bin
 }
 
-function omniorb-config()
+function s-omniorb-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -42,7 +42,7 @@ function omniorb-config()
     ../src/configure PYTHON=/usr/bin/python3 --prefix=$PREFIX
 }
 
-function omniorb-build()
+function s-omniorb-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -50,7 +50,7 @@ function omniorb-build()
     make -j$SCBI_JOBS
 }
 
-function omniorb-install()
+function s-omniorb-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -58,7 +58,7 @@ function omniorb-install()
     make install
 }
 
-function omniorb-prefix()
+function s-omniorb-prefix()
 {
     echo NONE
 }
