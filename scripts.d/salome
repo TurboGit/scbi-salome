@@ -68,8 +68,6 @@ function salome-modules()
 {
     salome-main-modules
     salome-prerequisite-modules
-    echo cmake
-    echo ispc
     echo salome-configuration
 }
 
