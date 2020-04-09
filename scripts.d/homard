@@ -9,8 +9,8 @@ function homard-build-depends()
 
 function homard-depends()
 {
-    echo qt
-    echo pyqt
+    echo qt5-default
+    echo python3-pyqt5
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

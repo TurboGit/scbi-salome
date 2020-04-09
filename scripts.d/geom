@@ -26,7 +26,7 @@ function geom-depends()
     echo salome-gui
     echo omniorb
     echo python-omniorb
-    echo qt
+    echo qt5-default
 }
 
 function geom-env()

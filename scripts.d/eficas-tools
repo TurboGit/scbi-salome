@@ -19,7 +19,7 @@ function eficas-tools-build-depends()
 function eficas-tools-depends()
 {
     echo salome-configuration
-    echo pyqt
+    echo python3-pyqt5
 }
 
 function eficas-tools-env()

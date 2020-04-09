@@ -53,12 +53,10 @@ function salome-prerequisite-modules()
     echo py2cpp
     echo meshgems
     echo planegcs
-    echo qt
     echo ospray
     echo embree
     echo paraview
     echo sip
-    echo pyqt
     echo gmsh
     echo paravisaddons
     echo persalys

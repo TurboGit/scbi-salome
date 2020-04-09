@@ -19,7 +19,7 @@ function ydefx-build-depends()
 function ydefx-depends()
 {
     echo salome-configuration
-    echo qt
+    echo qt5-default
 }
 
 function ydefx-env()
