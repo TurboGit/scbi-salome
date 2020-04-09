@@ -1,16 +1,4 @@
 
-# It may be the case that there is no default clang set or the default one
-# is not the one required. We use the alternatives support to set the proper
-# one.
-
-# update-alternatives --install /usr/bin/clang clang /usr/bin/clang-4.0 30
-# update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-4.0 30
-# update-alternatives --install /usr/bin/FileCheck FileCheck /usr/bin/FileCheck-4.0 30
-
-# update-alternatives --remove  clang /usr/bin/clang-4.0
-# update-alternatives --remove  clang++ /usr/bin/clang++-4.0
-# update-alternatives --remove  FileCheck /usr/bin/FileCheck-4.0
-
 function ispc-vcs()
 {
     echo edf
@@ -34,9 +22,7 @@ function ispc-build-depends()
     local VERSION=$1
 
     echo cmake
-    echo clang-4.0
-    echo libclang-4.0-dev
-    echo llvm-4.0-tools
+    echo s-clang
     echo zlib1g-dev
     echo flex
     echo bison
@@ -68,7 +54,9 @@ function ispc-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_C_COMPILER=clang-4.0 -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ispc Release) \
+          -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
+          -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
 function ispc-build()
