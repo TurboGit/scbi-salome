@@ -15,6 +15,7 @@ function fields-build-depends()
     echo cmake
     echo sphinx-common
     echo sphinx-intl
+    echo python3-stemmer
 }
 
 function fields-depends()
