@@ -56,7 +56,6 @@ function salome-prerequisite-modules()
     echo ospray
     echo embree
     echo paraview
-    echo sip
     echo gmsh
     echo paravisaddons
     echo persalys
