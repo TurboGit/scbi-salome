@@ -38,6 +38,7 @@ function salome-kernel-depends()
     echo libboost-thread-dev
     echo libomniorb4-dev
     echo libcppunit-dev
+    echo libgraphviz-dev
     echo libxml2-dev
     echo libgraphviz-dev
     echo python3-numpy
