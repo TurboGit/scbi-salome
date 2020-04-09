@@ -20,7 +20,7 @@ function paravis-tar()
 function paravis-build-depends()
 {
     echo cmake
-    echo qt
+    echo qt5-default
 }
 
 function paravis-depends()

@@ -30,6 +30,7 @@ function paraview-gdal-deps
 function paraview-build-depends()
 {
     echo cmake
+    echo qtxmlpatterns5-dev-tools
 }
 
 function paraview-depends()
@@ -41,7 +42,11 @@ function paraview-depends()
     echo libxt-dev
     echo libopenmpi-dev
 
-    echo qt
+    echo qt5-default
+    echo libqt5x11extras5-dev
+    echo libqt5help5
+    echo qttools5-dev
+    echo libqt5svg5-dev
     echo openturns
     echo s-hdf5
 
