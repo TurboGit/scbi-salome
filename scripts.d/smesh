@@ -26,11 +26,12 @@ function smesh-build-depends()
 
 function smesh-depends()
 {
+    echo qt5-default
+    echo libhdf5-dev
+
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo qt5-default
-    echo s-hdf5
     echo s-omniorb
     echo s-python-omniorb
     echo geom

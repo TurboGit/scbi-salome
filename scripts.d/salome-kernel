@@ -42,13 +42,13 @@ function salome-kernel-depends()
     echo libxml2-dev
     echo libgraphviz-dev
     echo python3-numpy
+    echo libhdf5-dev
 
     echo salome-configuration
     echo s-omniorb
     echo omniorb-idl
     echo omniidl
     echo s-python-omniorb
-    echo s-hdf5
     echo libbatch
 }
 
