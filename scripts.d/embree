@@ -21,7 +21,7 @@ function embree-build-depends()
 {
     echo cmake
     echo ispc
-    echo clang-4.0
+    echo s-clang
 }
 
 function embree-depends()
@@ -49,7 +49,8 @@ function embree-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_C_COMPILER=clang-4.0 -DCMAKE_CXX_COMPILER=clang++-4.0 ../src
+          -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
+          -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
 function embree-build()
