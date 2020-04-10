@@ -7,11 +7,12 @@ function paravisaddons-build-depends()
 
 function paravisaddons-depends()
 {
+    echo libhdf5-dev
+
     echo salome-configuration
     echo medcoupling
     echo medfichier
     echo paravis
-    echo s-hdf5
 }
 
 function paravisaddons-env()

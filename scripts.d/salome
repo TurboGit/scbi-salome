@@ -49,7 +49,6 @@ function salome-prerequisite-modules()
     echo medfichier
     echo medcoupling
     echo libbatch
-    echo s-hdf5
     echo py2cpp
     echo meshgems
     echo planegcs
