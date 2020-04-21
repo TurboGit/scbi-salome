@@ -7,3 +7,6 @@ all:
 	cp -r scripts.d/* $(SCRDIR)
 	cp scripts.d/.env* $(SCRDIR)
 	cp scripts.d/.plan* $(SCRDIR)
+
+doc: force
+	make -C doc
