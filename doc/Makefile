@@ -14,7 +14,7 @@ $(PDF): $(TEX) $(DIF) $(BIB) force
 	-bibtex $(NAM)
 	-makeindex $(NAM)
 	-latex $(TEX)
-	latex $(TEX)
+	pdflatex $(TEX)
 
 clean:
 	rm -f *.bbl *.blg *.log *.out *.toc *.aux *.idx $(PDF)
