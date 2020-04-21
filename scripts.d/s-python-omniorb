@@ -19,13 +19,16 @@ function s-python-omniorb-tar()
 
 function s-python-omniorb-depends()
 {
-    echo s-omniorb
+    echo omniorb
 }
 
 function s-python-omniorb-env()
 {
     local PREFIX=$1
     local TARGET=$2
+
+    add-to-var OMNIORB_ROOT_DIR   /usr
+    add-to-var LD_LIBRARY_PATH    /usr/lib
 
     add-to-var OMNIORBPY_ROOT_DIR $PREFIX
     add-to-var PYTHONPATH         $PREFIX/lib/python$PYTHON_VERSION/site-packages
