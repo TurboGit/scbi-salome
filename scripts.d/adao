@@ -19,6 +19,7 @@ function adao-build-depends()
 
 function adao-depends()
 {
+    echo python3-sphinx-rtd-theme
     echo salome-configuration
 }
 
