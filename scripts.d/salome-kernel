@@ -36,13 +36,14 @@ function salome-kernel-depends()
     echo libgraphviz-dev
     echo python3-numpy
     echo libhdf5-dev
-
-    echo salome-configuration
-    echo s-omniorb
+    echo omniorb
     echo omniorb-idl
     echo omniidl
-    echo s-python-omniorb
+    echo libcos4-dev
+
+    echo salome-configuration
     echo libbatch
+    echo s-python-omniorb
 }
 
 function salome-kernel-env()

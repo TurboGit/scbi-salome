@@ -20,13 +20,13 @@ function geom-build-depends()
 function geom-depends()
 {
     echo libopencv-dev
+    echo omniorb
+    echo qt5-default
 
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo s-omniorb
     echo s-python-omniorb
-    echo qt5-default
 }
 
 function geom-env()

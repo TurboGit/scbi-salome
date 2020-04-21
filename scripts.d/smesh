@@ -21,14 +21,14 @@ function smesh-depends()
 {
     echo qt5-default
     echo libhdf5-dev
+    echo omniorb
 
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo s-omniorb
-    echo s-python-omniorb
     echo geom
     echo medfichier
+    echo s-python-omniorb
 }
 
 function smesh-env()
