@@ -84,7 +84,7 @@ else
     DESCRIPTION="$DESCRIPTION pour l'execution de SALOME."
 fi
 
-DEB="scbi-salome$VERSION${SUFFIX}"
+DEB="scbi-salome${SUFFIX}-$VERSION"
 DIR=$DEB
 TAR="scbi-salome$VERSION_$VERSION.orig.tar.gz"
 
@@ -98,14 +98,15 @@ TAR="scbi-salome$VERSION_$VERSION.orig.tar.gz"
 # part.
 
 AUTODEPS=""
+echo $PWD
 
-# echo scbi $SCBI_OPTIONS --list-externals --list-filter=$KIND --deps salome
+#echo scbi $SCBI_OPTIONS --list-externals --list-filters=$KIND salome
 
-#for D in $(scbi $SCBI_OPTIONS --list-externals --list-filter=$KIND \
-#                --deps salome | grep -v wayland);
-#do
-#    AUTODEPS="$AUTODEPS, $D"
-#done
+for D in $(scbi $SCBI_OPTIONS --list-externals --list-filters=$KIND \
+                salome | grep -v wayland);
+do
+    AUTODEPS="$AUTODEPS, $D"
+done
 
 # Enter working directory
 
@@ -146,18 +147,22 @@ EOF
 
 cat <<EOF > debian/control
 Source: $DIR
-Section: alien
-Homepage: $HOMEPAGE
+Homepage: https://salome.der.edf.fr
 Maintainer: $USER <$MAIL>
-Priority: optional
 Build-Depends: debhelper
 Standards-Version: 3.9.6
 XC-Restricted: no
 XC-Make-Wrappers: no
 
 Package: $DIR
+Version: $VERSION
+Architecture: amd64
+Installed-Size: 8
+Section: alien
+Homepage: $HOMEPAGE
+Priority: optional
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}, libreadline6-dev, xfonts-scalable, xfonts-75dpi, net-tools${AUTODEPS}
+Depends: libreadline6-dev, xfonts-scalable, xfonts-75dpi, net-tools${AUTODEPS}
 Description: ${DESCRIPTION}
 EOF
 
