@@ -1,54 +1,53 @@
 # based on v94
 @load v94
 
-persalys
+# ---------------------------------
+# modules following common versions
+
+salome-configuration
+medcoupling:V9_5_0a2
+fields:V9_5_0a2
+geom:V9_5_0a2
+smesh:V9_5_0a2
+atomgen:V9_5_0a2
+atomic:V9_5_0a2
+ghs3d-plugin:V9_5_0a2
+blsurf-plugin:V9_5_0a2
+gmsh-plugin:V9_5_0a2
+hybrid-plugin:V9_5_0a2
+hexotic-plugin:V9_5_0a2
+shaper:V9_5_0a2
+homard:V9_5_0a2
+salome-kernel:V9_5_0a2
+salome-gui:V9_5_0a2
+paravis:V9_5_0a2
+salome-jobmanager:V9_5_0a2
+salome-eficas:V9_5_0a2
+yacs:V9_5_0a2
+eficas:V9_5_0a2
+adao:V9_5_0a2
+eficas-tools:V9_5_0a2
+
+adao-interface
+
+# -------------
+# other modules
 
 paraview/gdal.ospray:v5.8.0
 openturns:#1.14
-
-# patched modules to build with ParaView 5.8
-
-salome-gui
-salome-configuration
-paravis
+persalys
 paravisaddons
-geom
-smesh
-salome-kernel
-ghs3d-plugin
-blsurf-plugin
-gmsh-plugin
-hybrid-plugin
-hexotic-plugin
-
-# then many modules using current master
-
-salome-jobmanager
-salome-eficas
 
 hdf5:#1.10.3
 gmsh:#4.1.4
-medcoupling
 medfichier:#4.1.0
-atomgen
-atomic
-shaper
-homard
-adao-interface
-yacs
-eficas-tools
-eficas
-adao
-fields
 netgen:#5.3.1
-
-# should be tag V2_4_3 as soon as available
-libbatch:V2_4_3rc1
-
+s-netcdf:v4.6.2
+s-gdal:v2.4.3
 scbi-omniorb:#4.2.2
 scbi-python-omniorb:#4.2.2
 occt:#7.4.0p3
 meshgems:#V2.8-6_linux
 
-s-netcdf:v4.6.2
-s-gdal:v2.4.3
+# should be tag V2_4_3 as soon as available
+libbatch:V2_4_3rc1
