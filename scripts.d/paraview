@@ -17,6 +17,11 @@ function paraview-tar()
     echo ParaView-$VERSION-source.tar.gz
 }
 
+function paraview-patches()
+{
+    echo pv-58-coincident.patch
+}
+
 function paraview-gdal-deps
 {
     echo s-gdal
