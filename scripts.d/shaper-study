@@ -1,0 +1,60 @@
+
+function shaper-study-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/modules-salome.shaper_study
+}
+
+function shaper-study-build-depends()
+{
+    echo cmake
+}
+
+function shaper-study-depends()
+{
+    echo salome-configuration
+    echo salome-kernel
+    echo geom
+    echo shaper
+}
+
+function shaper-study-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SHAPER_STUDY_ROOT_DIR $PREFIX
+}
+
+function shaper-study-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE shaper Release) \
+          ../src
+}
+
+function shaper-study-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function shaper-study-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function shaper-study-prefix()
+{
+    echo NONE
+}
