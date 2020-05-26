@@ -1,7 +1,7 @@
 
 function s-gdal-vcs() 
 { 
-    echo default 
+    echo default
     echo none 
     echo git 
     echo https://github.com/OSGeo/gdal.git 
