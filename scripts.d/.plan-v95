@@ -16,6 +16,7 @@ blsurf-plugin:V9_5_0a2
 gmsh-plugin:V9_5_0a2
 hybrid-plugin:V9_5_0a2
 hexotic-plugin:V9_5_0a2
+netgen-plugin:V9_5_0a2
 shaper:V9_5_0a2
 homard:V9_5_0a2
 salome-kernel:V9_5_0a2
