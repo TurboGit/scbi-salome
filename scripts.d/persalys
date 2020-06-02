@@ -33,6 +33,7 @@ function persalys-depends()
     echo adao
     echo ydefx
     echo adao-interface
+    echo libboost-locale-dev
 }
 
 function persalys-env()
@@ -62,11 +63,12 @@ function persalys-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DUSE_QT5=ON \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE persalys Release) \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) -DUSE_SALOME=ON \
           -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include \
           -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR \
+          -DGDAL_LIBRARY=$GDAL_LIBRARY \
           ../src
 }
 
