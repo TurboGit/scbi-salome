@@ -26,6 +26,10 @@ function openturns-depends()
 {
     echo libblas-dev
     echo liblapack-dev
+    echo libpython2.7-dev
+    echo python-matplotlib
+    echo python-numpy
+    echo python-scipy
     # since 1.13
     echo libcminpack-dev
 }
@@ -35,11 +39,13 @@ function openturns-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
-    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var CMAKE_PREFIX_PATH        $PREFIX/lib/cmake
+    add-to-var LD_LIBRARY_PATH          $PREFIX/lib
+    add-to-var C_INCLUDE_PATH           $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH       $PREFIX/include
+    add-to-var OPENTURNS_HOME           $PREFIX
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/openturns
-    add-to-var OPENTURNS_HOME    $PREFIX
 }
 
 function openturns-config()
