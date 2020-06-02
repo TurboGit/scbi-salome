@@ -55,7 +55,7 @@ function s-gdal-config()
 
     cd ../src/gdal
     ./autogen.sh &&
-        ./configure -with-netcdf=$NETCDF_ROOT_DIR \
+        ./configure --with-netcdf=$NETCDF_ROOT_DIR \
                     --with-hdf5=$HDF5_ROOT_DIR --prefix=$PREFIX
 }
 
