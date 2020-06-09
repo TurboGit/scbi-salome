@@ -4,30 +4,31 @@
 # ---------------------------------
 # modules following common versions
 
-salome-configuration
-medcoupling:V9_5_0a2
-fields:V9_5_0a2
-geom:V9_5_0a2
-smesh:V9_5_0a2
-atomgen:V9_5_0a2
-atomic:V9_5_0a2
-ghs3d-plugin:V9_5_0a2
-blsurf-plugin:V9_5_0a2
-gmsh-plugin:V9_5_0a2
-hybrid-plugin:V9_5_0a2
-hexotic-plugin:V9_5_0a2
-netgen-plugin:V9_5_0a2
-shaper:V9_5_0a2
-homard:V9_5_0a2
-salome-kernel:V9_5_0a2
-salome-gui:V9_5_0a2
-paravis:V9_5_0a2
-salome-jobmanager:V9_5_0a2
-salome-eficas:V9_5_0a2
-yacs:V9_5_0a2
-eficas:V9_5_0a2
-adao:V9_5_0a2
-eficas-tools:V9_5_0a2
+salome-configuration:V9_5_BR
+medcoupling:V9_5_BR
+fields:V9_5_BR
+geom:V9_5_BR
+smesh:V9_5_BR
+atomgen:V9_5_BR
+atomic:V9_5_BR
+ghs3d-plugin:V9_5_BR
+blsurf-plugin:V9_5_BR
+gmsh-plugin:V9_5_BR
+hybrid-plugin:V9_5_BR
+hexotic-plugin:V9_5_BR
+netgen-plugin:V9_5_BR
+shaper:V9_5_BR
+homard:V9_5_BR
+salome-kernel:V9_5_BR
+salome-gui:V9_5_BR
+paravis:V9_5_BR
+salome-jobmanager:V9_5_BR
+salome-eficas:V9_5_BR
+yacs:V9_5_BR
+eficas:V9_5_BR
+adao:V9_5_BR
+eficas-tools:V9_5_BR
+persalys:V9_5_BR
 
 adao-interface
 
@@ -36,7 +37,6 @@ adao-interface
 
 paraview/gdal.ospray:v5.8.0
 openturns:#1.14
-persalys
 paravisaddons
 
 hdf5:#1.10.3
