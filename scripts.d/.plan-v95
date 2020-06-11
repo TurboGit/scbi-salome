@@ -23,12 +23,13 @@ salome-kernel:V9_5_BR
 salome-gui:V9_5_BR
 paravis:V9_5_BR
 salome-jobmanager:V9_5_BR
-salome-eficas:V9_5_BR
 yacs:V9_5_BR
 eficas:V9_5_BR
-adao:V9_5_BR
-eficas-tools:V9_5_BR
-persalys:V9_5_BR
+persalys:v8.0
+
+salome-eficas:V9_5_0a2
+eficas-tools:V9_5_0a2
+adao:V9_5_0a2
 
 adao-interface
 
