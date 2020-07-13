@@ -10,6 +10,10 @@ function embree-vcs()
 
 function embree-build-depends()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo cmake
     echo ispc
     echo s-clang
@@ -17,7 +21,9 @@ function embree-build-depends()
 
 function embree-depends()
 {
-    local VERSION=$1
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
 
     echo libc6-dev
     echo libtbb-dev
