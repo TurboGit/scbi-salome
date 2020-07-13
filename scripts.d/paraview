@@ -34,7 +34,9 @@ function paraview-build-depends()
 
 function paraview-depends()
 {
-    local VARIANT=$1
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
 
     echo python3-dev
     echo libx11-dev

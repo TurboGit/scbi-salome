@@ -43,7 +43,9 @@ function ospray-build-depends()
 
 function ospray-depends()
 {
-    local VERSION=$1
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
 
     echo libtbb-dev
     echo embree
