@@ -4,32 +4,32 @@
 # ---------------------------------
 # modules following common versions
 
-salome-configuration:V9_5_BR
-medcoupling:V9_5_BR
-fields:V9_5_BR
-geom:V9_5_BR
-smesh:V9_5_BR
-atomgen:V9_5_BR
-atomic:V9_5_BR
-ghs3d-plugin:V9_5_BR
-blsurf-plugin:V9_5_BR
-gmsh-plugin:V9_5_BR
-hybrid-plugin:V9_5_BR
-hexotic-plugin:V9_5_BR
-netgen-plugin:V9_5_BR
-shaper:V9_5_BR
-homard:V9_5_BR
-salome-kernel:V9_5_BR
-salome-gui:V9_5_BR
-paravis:V9_5_BR
-salome-jobmanager:V9_5_BR
-yacs:V9_5_BR
-eficas:V9_5_BR
+salome-configuration:V9_5_0
+medcoupling:V9_5_0
+fields:V9_5_0
+geom:V9_5_0
+smesh:V9_5_0
+atomgen:V9_5_0
+atomic:V9_5_0
+ghs3d-plugin:V9_5_0
+blsurf-plugin:V9_5_0
+gmsh-plugin:V9_5_0
+hybrid-plugin:V9_5_0
+hexotic-plugin:V9_5_0
+netgen-plugin:V9_5_0
+shaper:V9_5_0
+homard:V9_5_0
+salome-kernel:V9_5_0
+salome-gui:V9_5_0
+paravis:V9_5_0
+salome-jobmanager:V9_5_0
+yacs:V9_5_0
+eficas:V9_5_0
 persalys:v8.0
 
-salome-eficas:V9_5_0a2
-eficas-tools:V9_5_0a2
-adao:V9_5_0a2
+salome-eficas:V9_5_0
+eficas-tools:V9_5_0
+adao:V9_5_0
 
 adao-interface
 
@@ -52,4 +52,4 @@ occt:#7.4.0p3
 meshgems:#V2.8-6_linux
 
 # should be tag V2_4_3 as soon as available
-libbatch:V2_4_3rc1
+libbatch:V2_4_3
