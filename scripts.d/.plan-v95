@@ -39,7 +39,11 @@ eficas:V9_5_0
 adao:V9_5_0
 eficas-tools:V9_5_0
 
-salome-configuration
+# module patched for GNU/Debian 10/buster
+salome-configuration:po/debian-10
+shaper:po/debian-10
+geom:po/debian-10
+
 paravisaddons
 
 # then many modules using current master
