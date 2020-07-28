@@ -352,9 +352,13 @@ function salome-wrapup()
                 fi
             done
 
-            # replace toplevel links to reference local scripts
-
             cd $SCBI_BDIR/salome/application
+
+            # generate the scbi_versions.txt for tracability
+
+            scbi --version > .scbi_versions.txt
+
+            # replace toplevel links to reference local scripts
 
             for file in envd getAppliPath.py kill_remote_containers.py \
                         runRemote.sh update_catalogs.py .bashrc .salome_run;
