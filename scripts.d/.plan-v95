@@ -57,7 +57,6 @@ netgen:#5.3.1
 # should be tag V2_4_3 as soon as available
 libbatch:V2_4_3rc1
 
-s-omniorb:#4.2.2
 s-python-omniorb:#4.2.2
 occt:#7.4.0p3
 meshgems:#V2.8-6_linux
