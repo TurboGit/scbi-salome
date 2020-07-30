@@ -6,7 +6,7 @@
 
 s-clang:llvmorg-8.0.1
 
-persalys:skip
+persalys:v8.0
 s-netcdf:skip
 s-gdal:skip
 s-hdf5:skip
