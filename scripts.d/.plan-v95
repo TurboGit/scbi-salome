@@ -38,6 +38,7 @@ yacs:V9_5_0
 eficas:V9_5_0
 adao:V9_5_0
 eficas-tools:V9_5_0
+hexablock:V9_5_0
 
 # module patched for GNU/Debian 10/buster
 salome-configuration:po/debian-10
