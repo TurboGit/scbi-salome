@@ -1,0 +1,40 @@
+
+function samples-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/samples-salome.datafiles.git
+}
+
+function samples-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo SAMPLES_SRC_$VERSION.tgz
+}
+
+function samples-out-of-tree()
+{
+    echo false
+}
+
+function samples-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # there is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function samples-prefix()
+{
+    echo NONE
+}
