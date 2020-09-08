@@ -1,0 +1,24 @@
+
+
+
+function samples-out-of-tree()
+{
+    echo false
+}
+
+function samples-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # there is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function samples-prefix()
+{
+    echo NONE
+}
