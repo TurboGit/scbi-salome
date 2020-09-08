@@ -1,0 +1,12 @@
+diff --git a/src/HEXABLOCKGUI/MyGEOMBase_Skeleton.hxx b/src/HEXABLOCKGUI/MyGEOMBase_Skeleton.hxx
+index bf5d55a..4b35207 100644
+--- a/src/HEXABLOCKGUI/MyGEOMBase_Skeleton.hxx
++++ b/src/HEXABLOCKGUI/MyGEOMBase_Skeleton.hxx
+@@ -27,6 +27,7 @@
+ #include "HEXABLOCKGUI_DocumentPanel.hxx"
+ 
+ #include <QDialog>
++#include <QButtonGroup>
+ 
+ class SalomeApp_DoubleSpinBox;
+ class MyDlgRef_Skeleton;
