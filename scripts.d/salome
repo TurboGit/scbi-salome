@@ -38,6 +38,7 @@ function salome-main-modules()
     echo hexablock
     echo hexablock-plugin
     echo samples
+    echo atomsolv
 }
 
 function salome-prerequisite-modules()
