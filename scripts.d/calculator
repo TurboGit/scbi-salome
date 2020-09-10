@@ -1,0 +1,61 @@
+
+
+
+function calculator-build-depends()
+{
+    echo cmake
+    echo sphinx-common
+    echo sphinx-intl
+    echo python3-sphinx
+    echo python3-sphinx-rtd-theme
+    echo swig
+    echo libgraphviz-dev
+    echo graphviz
+    echo doxygen
+    echo python3-docutils
+    echo salome-configuration
+}
+
+function calculator-depends()
+{
+    echo fields
+}
+
+function calculator-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CALCULATOR_ROOT_DIR $PREFIX
+}
+
+function calculator-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE calculator Release) \
+          ../src
+}
+
+function calculator-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function calculator-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function calculator-prefix()
+{
+    echo NONE
+}
