@@ -36,6 +36,7 @@ function salome-main-modules()
     echo atomic
     echo atomgen
     echo hexablock
+    echo hexablock-plugin
 }
 
 function salome-prerequisite-modules()
