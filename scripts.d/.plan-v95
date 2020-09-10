@@ -42,6 +42,7 @@ hexablock:V9_5_0
 hexablock-plugin:V9_5_0
 samples:V9_5_0
 atomsolv:V9_5_0
+calculator:V9_5_0
 
 # module patched for GNU/Debian 10/buster
 salome-configuration:po/debian-10
