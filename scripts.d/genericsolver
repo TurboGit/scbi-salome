@@ -1,0 +1,70 @@
+
+function genericsolver-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/samples-salome.genericsolver.git
+}
+
+function genericsolver-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo GENERICSOLVER_SRC_$VERSION.tgz
+}
+
+function genericsolver-build-depends()
+{
+    echo cmake
+    echo swig
+    echo salome-configuration
+}
+
+function genericsolver-depends()
+{
+    echo salome-kernel
+    echo salome-gui
+}
+
+function genericsolver-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GENERICSOLVER_INSTALL_DIR  $PREFIX
+}
+
+function genericsolver-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE genericsolver Release) \
+          ../src
+}
+
+function genericsolver-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function genericsolver-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function genericsolver-prefix()
+{
+    echo NONE
+}
