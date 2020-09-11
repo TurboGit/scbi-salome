@@ -41,6 +41,7 @@ function salome-main-modules()
     echo atomsolv
     echo calculator
     echo genericsolver
+    echo hello
 }
 
 function salome-prerequisite-modules()
