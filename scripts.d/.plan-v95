@@ -46,6 +46,7 @@ calculator:V9_5_0
 genericsolver:V9_5_0
 homard-tool:#1112hdf51103med410
 hello:V9_5_0
+pyhello:V9_5_0
 
 # module patched for GNU/Debian 10/buster
 salome-configuration:po/debian-10
