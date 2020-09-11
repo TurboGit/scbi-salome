@@ -42,6 +42,7 @@ function salome-main-modules()
     echo calculator
     echo genericsolver
     echo hello
+    echo pyhello
 }
 
 function salome-prerequisite-modules()
