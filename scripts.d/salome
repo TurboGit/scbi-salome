@@ -65,6 +65,7 @@ function salome-prerequisite-modules()
     echo persalys
     echo netgen
     echo openturns
+    echo homard-tool
 }
 
 function salome-modules()
