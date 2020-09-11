@@ -1,0 +1,64 @@
+
+
+
+function hello-build-depends()
+{
+    echo cmake
+    echo libgraphviz-dev
+    echo graphviz
+    echo doxygen
+    echo python3-docutils
+    echo sphinx-common
+    echo sphinx-intl
+    echo python3-sphinx
+    echo python3-sphinx-rtd-theme
+    echo swig
+    echo salome-configuration
+}
+
+function hello-depends()
+{
+    echo qt5-default
+    echo salome-kernel
+    echo salome-gui
+}
+
+function hello-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HELLO_ROOT_DIR $PREFIX
+}
+
+function hello-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DKERNEL_ROOT_DIR=$KERNEL_ROOT_DIR \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hello1 Release) \
+          ../src
+}
+
+function hello-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function hello-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function hello-prefix()
+{
+    echo NONE
+}
