@@ -72,6 +72,7 @@ function salome-prerequisite-modules()
     echo openturns
     echo s-gdal
     echo s-netcdf
+    echo homard-tool
 }
 
 function salome-modules()
