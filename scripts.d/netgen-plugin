@@ -20,14 +20,21 @@ function netgen-plugin-tar()
 function netgen-plugin-build-depends()
 {
     echo cmake
+    echo libgraphviz-dev
+    echo graphviz
+    echo doxygen
+    echo python3-docutils
+    echo sphinx-common
+    echo sphinx-intl
+    echo python3-sphinx
+    echo python3-sphinx-rtd-theme
+    echo swig
+    echo salome-configuration
+    echo qt5-default
 }
 
 function netgen-plugin-depends()
 {
-    echo salome-configuration
-    echo salome-kernel
-    echo salome-gui
-    echo geom
     echo smesh
     echo netgen
 }
@@ -36,6 +43,9 @@ function netgen-plugin-env()
 {
     local PREFIX=$1
     local TARGET=$2
+
+    # Use system Qt5
+    add-to-var QT5_ROOT_DIR          /usr
 
     add-to-var NETGENPLUGIN_ROOT_DIR $PREFIX
 }
