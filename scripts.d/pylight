@@ -1,0 +1,77 @@
+
+function pylight-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/samples-salome.pylight.git 
+}
+
+function pylight-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo PYLIGHT_SRC_$VERSION.tgz
+}
+
+function pylight-build-depends()
+{
+    echo cmake
+    echo libgraphviz-dev
+    echo graphviz
+    echo doxygen
+    echo python3-docutils
+    echo sphinx-common
+    echo sphinx-intl
+    echo python3-sphinx
+    echo python3-sphinx-rtd-theme
+    echo swig
+    echo salome-configuration
+}
+
+function pylight-depends()
+{
+    echo salome-gui
+}
+
+function pylight-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYLIGHT_ROOT_DIR $PREFIX
+}
+
+function pylight-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE pylight Release) \
+          ../src
+}
+
+function pylight-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function pylight-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function pylight-prefix()
+{
+    echo NONE
+}
