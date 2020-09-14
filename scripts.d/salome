@@ -43,6 +43,7 @@ function salome-main-modules()
     echo genericsolver
     echo hello
     echo pyhello
+    echo light
 }
 
 function salome-prerequisite-modules()
