@@ -45,6 +45,7 @@ function salome-main-modules()
     echo pyhello
     echo light
     echo pylight
+    echo dsccode
 }
 
 function salome-prerequisite-modules()
