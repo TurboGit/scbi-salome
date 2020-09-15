@@ -1,0 +1,97 @@
+
+function dsccode-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/samples-salome.dsccode.git
+}
+
+function dsccode-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo DSCCODE_SRC_$VERSION.tgz
+}
+
+function dsccode-out-of-tree()
+{
+    echo false
+}
+
+function dsccode-build-depends()
+{
+    echo autoconf
+    echo autotools-dev
+    echo sphinx-common
+    echo sphinx-intl
+    echo python3-sphinx
+    echo python3-sphinx-rtd-theme
+    echo swig
+    echo libgraphviz-dev
+    echo graphviz
+    echo doxygen
+    echo python3-docutils
+    echo libomniorb4-dev
+    echo omniorb
+    echo python-omniorb
+    echo omniorb-idl
+    echo omniidl
+    echo python3
+}
+
+function dsccode-depends()
+{
+    echo salome-configuration
+    echo salome-kernel
+}
+
+function dsccode-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var DSCCODE_ROOT_DIR $PREFIX
+    add-to-var OMNIORB_ROOT_DIR /usr
+    add-to-var LD_LIBRARY_PATH  /usr/lib
+}
+
+function dsccode-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ./autogen.sh
+}
+
+function dsccode-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ./configure --prefix=$PREFIX
+}
+
+function dsccode-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function dsccode-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function dsccode-prefix()
+{
+    echo NONE
+}
