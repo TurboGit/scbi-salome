@@ -36,6 +36,7 @@ function persalys-env()
 
     add-to-var PERSALYS_ROOT_DIR $PREFIX
     add-to-var PYTHONPATH        $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PATH              $PREFIX/bin
 
     add-to-var PERSALYS_CALIBRATION_ENGINE      adao
@@ -56,12 +57,14 @@ function persalys-config()
     local PREFIX=$1
     local TARGET=$2
 
+    # force libqwt-qt5.so because the default qwt could be based on Qt4
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE persalys Release) \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) -DUSE_SALOME=ON \
           -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include \
           -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR \
           -DGDAL_LIBRARY=$GDAL_LIBRARY \
+          -DQWT_LIBRARY=/usr/lib/libqwt-qt5.so \
           ../src
 }
 
