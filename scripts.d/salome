@@ -71,6 +71,7 @@ function salome-prerequisite-modules()
     echo netgen
     echo openturns
     echo homard-tool
+    echo s-zeromq
 }
 
 function salome-modules()
