@@ -79,6 +79,7 @@ function salome-prerequisite-modules()
     echo s-netcdf
     echo homard-tool
     echo s-zeromq
+    echo melissa
 }
 
 function salome-modules()
