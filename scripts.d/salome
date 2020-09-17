@@ -78,6 +78,7 @@ function salome-prerequisite-modules()
     echo s-gdal
     echo s-netcdf
     echo homard-tool
+    echo s-zeromq
 }
 
 function salome-modules()
