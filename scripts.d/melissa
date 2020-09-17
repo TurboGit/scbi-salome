@@ -1,0 +1,65 @@
+
+function melissa-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis/
+    echo melissa-$VERSION.tar.gz
+}
+
+function melissa-build-depends()
+{
+    echo cmake
+}
+
+function melissa-depends()
+{
+    echo python3
+    echo python3-numpy
+    echo s-zeromq
+}
+
+function melissa-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var MELISSA_ROOT_DIR $PREFIX
+    add-to-var PATH 		$PREFIX/bin
+    add-to-var LD_LIBRARY_PATH 	$PREFIX/lib
+    add-to-var PYTHONPATH 	$PREFIX/lib
+}
+
+function melissa-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DBUILD_DOCUMENTATION=OFF \
+          -DBUILD_WITH_MPI=ON \
+          ../src
+}
+
+function melissa-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j1
+}
+
+function melissa-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function melissa-prefix()
+{
+    echo NONE
+}
