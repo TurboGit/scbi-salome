@@ -1,0 +1,46 @@
+
+
+function  s-zeromq-build-depends()
+{
+    echo cmake
+}
+
+function  s-zeromq-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var ZEROMQ_ROOT_DIR 	$PREFIX
+    add-to-var PATH 		$PREFIX/bin
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib
+}
+
+function  s-zeromq-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install ../src
+}
+
+function  s-zeromq-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function  s-zeromq-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function  s-zeromq-prefix()
+{
+    echo NONE
+}
