@@ -66,3 +66,4 @@ meshgems:#V2.8-6_linux
 
 # should be tag V2_4_3 as soon as available
 libbatch:V2_4_3
+s-zeromq:#4.3.1
