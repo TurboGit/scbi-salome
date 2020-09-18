@@ -50,6 +50,26 @@ function melissa-install()
     make install
 }
 
+function melissa-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/bin
+    cat <<EOF > $PREFIX/bin/melissa_salome_wrapper
+#! /bin/bash
+
+_term() { kill -TERM "$child" 2>/dev/null }
+
+trap _term SIGTERM SIGINT
+
+melissa_server $* &
+
+child=$! wait "$child"
+EOF
+    chmod u+x $PREFIX/bin/melissa_salome_wrapper
+}
+
 function melissa-prefix()
 {
     echo NONE
