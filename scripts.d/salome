@@ -46,6 +46,7 @@ function salome-main-modules()
     echo light
     echo pylight
     echo dsccode
+    echo melidefx
 }
 
 function salome-prerequisite-modules()
