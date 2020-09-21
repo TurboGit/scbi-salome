@@ -54,6 +54,7 @@ pylight:V9_5_0
 netgen-plugin:V9_5_0
 dsccode:V9_5_0
 melidefx:V9_5_0
+salome-openturns:V9_5_0
 
 # module patched for GNU/Debian 10/buster
 salome-configuration:po/debian-10
