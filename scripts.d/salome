@@ -47,6 +47,7 @@ function salome-main-modules()
     echo pylight
     echo dsccode
     echo melidefx
+    echo salome-openturns
 }
 
 function salome-prerequisite-modules()
