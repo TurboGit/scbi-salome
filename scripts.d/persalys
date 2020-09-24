@@ -21,6 +21,7 @@ function persalys-build-depends()
 {
     echo cmake
     echo py2cpp
+    echo libboost-locale-dev
 }
 
 function persalys-depends()
