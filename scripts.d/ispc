@@ -32,7 +32,7 @@ function ispc-build-depends()
     echo flex
     echo bison
     echo m4
-    echo libncurses-dev
+    echo libncurses5-dev
 }
 
 function ispc-post-setup()
