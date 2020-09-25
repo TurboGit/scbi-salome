@@ -21,6 +21,7 @@ function paravis-build-depends()
 {
     echo cmake
     echo qt
+    echo qtxmlpatterns5-dev-tools
 }
 
 function paravis-depends()
