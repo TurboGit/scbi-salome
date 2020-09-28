@@ -521,6 +521,35 @@ function create-setup-script()
         cat <<EOF > setup
 #!/bin/bash
 
+AUTO=0
+
+while [ ! -z \$1 ]; do
+    case "\$1" in
+        --auto)
+            AUTO=1;
+            break;
+            ;;
+        *)
+            ;;
+    esac
+    shift;
+done
+
+# check for python3
+#
+if [ -z "\$(python --version 2>&1 | grep ' 3\.')" ]; then
+   if [ -f /usr/bin/python3 ]; then
+      ln -s /usr/bin/python3 bin/python
+      ln -s /usr/bin/python3 bin/salome/python
+   else
+      echo Cannot found a Python3 installation.
+      echo SALOME will not work properly.
+   fi
+fi
+
+# In auto-mode, do nothing more
+[ \$AUTO = 1 ] && exit 0
+
 SUDO=""
 
 echo Installing SALOME
