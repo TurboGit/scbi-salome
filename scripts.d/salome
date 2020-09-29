@@ -75,6 +75,7 @@ function salome-prerequisite-modules()
     echo homard-tool
     echo s-zeromq
     echo melissa
+    echo s-python3-nlopt
 }
 
 function salome-modules()
