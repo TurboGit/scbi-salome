@@ -1,0 +1,74 @@
+function s-python3-nlopt-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo nlopt-$VERSION.tar.gz
+}
+
+function s-python3-nlopt-out-of-tree()
+{
+    echo false
+}
+
+function s-python3-nlopt-build-depends()
+{
+    echo autoconf
+    echo autotools-dev
+    echo gcc
+}
+
+function s-python3-nlopt-depends()
+{
+    echo python3
+    echo python3-numpy
+    echo libnlopt0
+}
+
+function s-python3-nlopt-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHON /usr/bin/python3
+}
+
+function s-python3-nlopt-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var NLOPT_ROOT_DIR $PREFIX
+    add-to-var PYTHONPATH   $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-python3-nlopt-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ./configure --enable-shared --prefix=$PREFIX
+}
+
+function s-python3-nlopt-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-python3-nlopt-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-python3-nlopt-prefix()
+{
+    echo NONE
+}
