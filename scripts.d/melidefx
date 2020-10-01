@@ -4,7 +4,7 @@ function melidefx-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/salome-prototypes.melidefx 
+    echo https://git.forge.pleiade.edf.fr/git/salome-prototypes.melidefx
 }
 
 function melidefx-build-depends()
