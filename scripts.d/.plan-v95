@@ -57,6 +57,7 @@ melidefx:V9_5_0
 salome-openturns:V9_5_0
 non-regression-tests-confidential:V9_5_0
 non-regression-tests:V9_5_0
+clustertests:V9_5_0b1
 
 # module patched for GNU/Debian 10/buster
 salome-configuration:po/debian-10
