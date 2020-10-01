@@ -480,9 +480,15 @@ function salome-wrapup()
                 esac
 
                 # --sha256 in 2.4 only
-                # -xz compress 40% more but is slow to compress
 
-                makeself --bzip2 --tar-quietly \
+                if [ $(is-enabled xz) ]; then
+                    # -xz compress 40% more but is slow to compress
+                    O_COMPRESS="--xz"
+                else
+                    O_COMPRESS="--bzip2"
+                fi
+
+                makeself $O_COMPRESS --tar-quietly \
                          application $script_name.run \
                          "SALOME Application" ./setup
                 res=$?
