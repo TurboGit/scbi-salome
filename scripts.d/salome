@@ -49,6 +49,7 @@ function salome-main-modules()
     echo melidefx
     echo salome-openturns
     echo non-regression-tests-confidential
+    echo non-regression-tests
 }
 
 function salome-prerequisite-modules()
