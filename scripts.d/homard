@@ -77,6 +77,29 @@ function homard-install()
     make install
 }
 
+function homard-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # When building the documentation the .py & .med have been downloaded
+    # by sphinx. We need the fr artifacts to be on top of the _downloads
+    # directory for the tests to pass.
+
+    cd ../install
+
+    local DDIR=share/doc/salome/gui/HOMARD/fr/_downloads/
+
+    if [ -d $DDIR ]; then
+        (
+            cd $DDIR
+            for dir in $(ls -d *); do
+                ln -s $dir/* .
+            done
+        )
+    fi
+}
+
 function homard-prefix()
 {
     echo NONE
