@@ -11,7 +11,7 @@ function homard-tool-env()
     local TARGET=$2
 
     add-to-var HOMARD_REP_EXE $PREFIX
-    add-to-var HOMARD_EXE $PREFIX
+    add-to-var HOMARD_EXE     $PREFIX
 }
 
 function homard-tool-install()
