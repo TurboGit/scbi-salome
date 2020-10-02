@@ -399,6 +399,8 @@ function salome-wrapup()
 
             # is the installer to be created?
 
+            res=0
+
             if [ $(is-enabled installer) ]; then
                 dlog salome generate self installer, may take some time ...
 
@@ -442,6 +444,31 @@ function salome-wrapup()
                 makeself --bzip2 --tar-quietly \
                          application $script_name.run \
                          "SALOME Application" ./setup
+                res=$?
+            fi
+
+            # check for python3
+            #
+            if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
+                dlog python2 is default, checking for python3
+                if [ -f /usr/bin/python3 ]; then
+                    dlog found python3 in /usr/bin/python3, setuup links
+                    (
+                        cd $SCBI_BDIR/salome/application
+                        rm -f ./bin/python ./bin/salome/python
+                        ln -s /usr/bin/python3 ./bin/python
+                        ln -s /usr/bin/python3 ./bin/salome/python
+                    )
+                else
+                    dlog cannot found a python3 installation.
+                    dlog SALOME will not work properly.
+                fi
+            fi
+
+            if [ $res == 0 ]; then
+                true
+            else
+                false
             fi
 
         else
