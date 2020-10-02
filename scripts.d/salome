@@ -173,9 +173,6 @@ function build-salome-prerequisites()
             local IS_ROOT=$3
             local IS_EXT=$4
 
-            # do not handle main modules here
-            [ "$(is-main-module $MODULE)" = "yes" ] && return
-
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
                 CURRENT_MODULE=${MODULE/-/_}
@@ -244,9 +241,6 @@ function build-salome-context()
             local MODREF=$2
             local IS_ROOT=$3
             local IS_EXT=$4
-
-            # do not handle main modules here
-            [ "$(is-main-module $MODULE)" = "yes" ] && return
 
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
