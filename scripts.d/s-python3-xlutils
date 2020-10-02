@@ -1,0 +1,43 @@
+function s-python3-xlutils-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo xlutils-$VERSION.tar.gz
+}
+
+function s-python3-xlutils-out-of-tree()
+{
+    echo false
+}
+
+function s-python3-xlutils-depends()
+{
+    echo python3
+    echo python3-xlrd
+    echo python3-xlwt
+}
+
+function s-python3-xlutils-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var XLUTILS_HOME $PREFIX
+    add-to-var PYTHONPATH   $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-python3-xlutils-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    python3 setup.py install --prefix=$PREFIX
+}
+
+function s-python3-xlutils-prefix()
+{
+    echo NONE
+}

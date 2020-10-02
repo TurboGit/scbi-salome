@@ -74,6 +74,7 @@ gmsh:#4.1.4
 medfichier:#4.1.0
 netgen:#5.3.1
 s-python3-nlopt:#2.4.2
+s-python3-xlutils:#2.0.0
 
 # should be tag V2_4_3 as soon as available
 libbatch:V2_4_3rc1
