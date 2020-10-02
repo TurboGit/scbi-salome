@@ -64,7 +64,7 @@ salome-configuration:po/debian-10
 shaper:po/debian-10
 geom:po/debian-10
 
-paravisaddons
+paravisaddons:V9_5_0
 
 # then many modules using current master
 
