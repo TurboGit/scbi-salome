@@ -79,6 +79,7 @@ function salome-prerequisite-modules()
     echo s-zeromq
     echo melissa
     echo s-python3-nlopt
+    echo s-python3-xlutils
 }
 
 function salome-modules()
