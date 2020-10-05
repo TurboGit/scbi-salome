@@ -114,6 +114,21 @@ if [ $? -ne 0 ]; then
     }
 fi
 
+function is-main-module()
+{
+    local MODULE=$1
+
+    for M in $(salome-main-modules); do
+        if [ "$M" = "$MODULE" ]; then
+            echo "yes"
+            return 0
+        fi
+    done
+
+    echo false
+    return 1
+}
+
 function build-salome-prerequisites()
 {
     local PREFIX=$1
