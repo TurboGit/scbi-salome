@@ -1,11 +1,11 @@
 
 
-function shaper-study-build-depends()
+function shaperstudy-build-depends()
 {
     echo cmake
 }
 
-function shaper-study-depends()
+function shaperstudy-depends()
 {
     echo salome-configuration
     echo salome-kernel
@@ -13,15 +13,15 @@ function shaper-study-depends()
     echo shaper
 }
 
-function shaper-study-env()
+function shaperstudy-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var SHAPER_STUDY_ROOT_DIR $PREFIX
+    add-to-var SHAPERSTUDY_ROOT_DIR $PREFIX
 }
 
-function shaper-study-config()
+function shaperstudy-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -31,7 +31,7 @@ function shaper-study-config()
           ../src
 }
 
-function shaper-study-build()
+function shaperstudy-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -39,7 +39,7 @@ function shaper-study-build()
     make -j$SCBI_JOBS
 }
 
-function shaper-study-install()
+function shaperstudy-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -47,7 +47,7 @@ function shaper-study-install()
     make install
 }
 
-function shaper-study-prefix()
+function shaperstudy-prefix()
 {
     echo NONE
 }
