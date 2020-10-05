@@ -26,6 +26,7 @@ function openturns-depends()
 {
     echo libblas-dev
     echo liblapack-dev
+    echo python3
     # since 1.13
     echo libcminpack-dev
 }
@@ -38,7 +39,7 @@ function openturns-env()
     add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PYTHONPATH        \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/openturns
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
     add-to-var OPENTURNS_HOME    $PREFIX
 }
 
