@@ -180,8 +180,8 @@ function build-salome-prerequisites()
 
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
-                CURRENT_MODULE=${MODULE/-/_}
                 CURRENT_MODULE_NAME=$MODULE
+                CURRENT_MODULE=${MODULE//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
 
                 echo ""          >> $FILE
@@ -260,8 +260,8 @@ function build-salome-context()
 
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
-                CURRENT_MODULE=${MODULE/-/_}
                 CURRENT_MODULE_NAME=$MODULE
+                CURRENT_MODULE=${MODULE//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
 
                 echo ""          >> $FILE
