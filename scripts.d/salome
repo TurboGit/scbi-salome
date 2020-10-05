@@ -16,7 +16,7 @@ function salome-main-modules()
     echo salome-kernel
     echo salome-gui
     echo shaper
-    echo shaper-study
+    echo shaperstudy
     echo geom
     echo smesh
     echo paravis
