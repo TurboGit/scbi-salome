@@ -137,6 +137,7 @@ function build-salome-prerequisites()
     (
         FILE=salome_prerequisites.sh
 
+        CURRENT_MODULE_NAME=
         CURRENT_MODULE=
         CURRENT_MODULE_INSTALL=
 
@@ -148,7 +149,11 @@ function build-salome-prerequisites()
             # compute relative directory
             local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_SALOME\}}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
+
+            if [ "$(is-main-module $CURRENT_MODULE_NAME)" = "yes" ]; then
+                REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
+            fi
 
             case "$VAR" in
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
@@ -176,13 +181,19 @@ function build-salome-prerequisites()
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
                 CURRENT_MODULE=${MODULE/-/_}
+                CURRENT_MODULE_NAME=$MODULE
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
 
                 echo ""          >> $FILE
                 echo "# $MODULE" >> $FILE
 
                 echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
-                echo "\${ROOT_SALOME}/${MODULE}"                     >> $FILE
+
+                if [ "$(is-main-module $MODULE)" = "yes" ]; then
+                    echo "\${ROOT_INSTALL}"                         >> $FILE
+                else
+                    echo "\${ROOT_EXTERNAL}/${MODULE}"              >> $FILE
+                fi
 
                 $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
             fi
@@ -190,7 +201,7 @@ function build-salome-prerequisites()
 
         echo                                                            > $FILE
         echo "export ROOT_INSTALL=\$(dirname \$(which \$BASH_SOURCE))" >> $FILE
-        echo "export ROOT_SALOME=\$ROOT_INSTALL/external"              >> $FILE
+        echo "export ROOT_EXTERNAL=\$ROOT_INSTALL/external"            >> $FILE
 
         # keep current PATH setting
         PATH_set=IS_SET
@@ -207,6 +218,7 @@ function build-salome-context()
     (
         FILE=salome_context.cfg
 
+        CURRENT_MODULE_NAME=
         CURRENT_MODULE=
         CURRENT_MODULE_INSTALL=
 
@@ -218,7 +230,11 @@ function build-salome-context()
             # compute relative directory
             local REPLTO="%(${CURRENT_MODULE}_ROOT_INSTALL_DIR)s"
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_SALOME)s}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_EXTERNAL)s}"
+
+            if [ "$(is-main-module $CURRENT_MODULE_NAME)" = "yes" ]; then
+                REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_INSTALL)s}"
+            fi
 
             case "$VAR" in
                 LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH|PV_PLUGIN_PATH)
@@ -245,13 +261,19 @@ function build-salome-context()
             fn-exists $MODULE-env
             if [ $? = 0 ]; then
                 CURRENT_MODULE=${MODULE/-/_}
+                CURRENT_MODULE_NAME=$MODULE
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
 
                 echo ""          >> $FILE
                 echo "# $MODULE" >> $FILE
 
                 echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR="  >> $FILE
-                echo "%(ROOT_SALOME)s/${MODULE}"               >> $FILE
+
+                if [ "$(is-main-module $MODULE)" = "yes" ]; then
+                    echo "%(ROOT_INSTALL)s"                   >> $FILE
+                else
+                    echo "%(ROOT_EXTERNAL)s/${MODULE}"        >> $FILE
+                fi
 
                 $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
             fi
@@ -259,9 +281,9 @@ function build-salome-context()
 
         echo "[SALOME Configuration]"                                    > $FILE
         echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"                     >> $FILE
-        echo "ROOT_SALOME=%(ROOT_INSTALL)s/external"                    >> $FILE
+        echo "ROOT_EXTERNAL=%(ROOT_INSTALL)s/external"                  >> $FILE
         echo "LC_NUMERIC=C"                                             >> $FILE
-        echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_SALOME)s/plugins\""   >> $FILE
+        echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_EXTERNAL)s/plugins\"" >> $FILE
         echo "ADD_TO_PV_PLUGIN_PATH: \"%(ROOT_INSTALL)s/lib/paraview\"" >> $FILE
 
         for-all-modules-with-meta env-callback salome
