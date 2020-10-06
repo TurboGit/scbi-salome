@@ -17,6 +17,7 @@ paraview/ospray.gdal:v5.8.0
 openturns:#1.14
 openturns-fftw:#0.6
 openturns-mixmod:#0.9
+openturns-morris:#0.7
 embree:#3.5.2
 ospray:#1.8.4
 
