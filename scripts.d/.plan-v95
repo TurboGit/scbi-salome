@@ -18,6 +18,7 @@ openturns:#1.14
 openturns-fftw:#0.6
 openturns-mixmod:#0.9
 openturns-morris:#0.7
+openturns-pmml:#1.8
 embree:#3.5.2
 ospray:#1.8.4
 
