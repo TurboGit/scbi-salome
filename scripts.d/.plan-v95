@@ -15,6 +15,7 @@ melissa:#0.0.0
 
 paraview/ospray.gdal:v5.8.0
 openturns:#1.14
+openturns-fftw:#0.6
 embree:#3.5.2
 ospray:#1.8.4
 

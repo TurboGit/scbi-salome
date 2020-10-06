@@ -1,0 +1,65 @@
+
+
+function openturns-fftw-build-depends()
+{
+    echo cmake
+    echo swig
+    echo python3-sphinx
+}
+
+function openturns-fftw-depends()
+{
+    echo openturns
+    echo python3
+}
+
+function openturns-fftw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+    add-to-var OTFFTW_HOME    $PREFIX
+}
+
+function openturns-fftw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DUSE_SPHINX=OFF \
+          -DBUILD_DOC=OFF \
+          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DCMAKE_FIND_ROOT_PATH=ON \
+          -DSWIG_EXECUTABLE:PATH=$(which swig) \
+          -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
+          -DSPHINX_ROOT_DIR:FILEPATH=$(dirname dpkg -L python3-sphinx | grep sphinx-build) \
+          -DSPHINX_EXECUTABLE:FILEPATH=$(dpkg -L python3-sphinx | grep sphinx-build) \
+          -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          ../src
+}
+
+function openturns-fftw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function openturns-fftw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+    mv $PREFIX/lib/python$PYTHON_VERSION/site-packages/otfftw/__otfftw.so $PREFIX/lib/python$PYTHON_VERSION/site-packages/otfftw/_otfftw.so
+}
+
+function openturns-fftw-prefix()
+{
+    echo NONE
+}
