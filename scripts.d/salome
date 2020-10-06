@@ -79,6 +79,7 @@ function salome-prerequisite-modules()
     echo openturns-mixmod
     echo openturns-morris
     echo openturns-pmml
+    echo openturns-robopt
     echo homard-tool
     echo s-zeromq
     echo melissa
