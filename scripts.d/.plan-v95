@@ -20,6 +20,7 @@ openturns-mixmod:#0.9
 openturns-morris:#0.7
 openturns-pmml:#1.8
 openturns-robopt:#0.6
+openturns-subsetinverse:#1.5
 embree:#3.5.2
 ospray:#1.8.4
 
