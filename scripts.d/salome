@@ -81,6 +81,7 @@ function salome-prerequisite-modules()
     echo openturns-pmml
     echo openturns-robopt
     echo openturns-subsetinverse
+    echo openturns-svm
     echo homard-tool
     echo s-zeromq
     echo melissa
