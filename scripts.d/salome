@@ -75,6 +75,7 @@ function salome-prerequisite-modules()
     echo persalys
     echo netgen
     echo openturns
+    echo openturns-fftw
     echo homard-tool
     echo s-zeromq
     echo melissa
