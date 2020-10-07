@@ -1,0 +1,52 @@
+
+function openturns-wrapy-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo otwrapy-$VERSION.tar.bz2
+}
+
+function openturns-wrapy-out-of-tree()
+{
+    echo false
+}
+
+function openturns-wrapy-build-depends()
+{
+    echo python3-setuptools
+}
+
+function openturns-wrapy-depends()
+{
+    echo openturns
+    echo python3
+}
+
+function openturns-wrapy-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+    add-to-var OTWRAPY_HOME    $PREFIX
+}
+
+function openturns-wrapy-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    echo "[easy_install]" >> setup.cfg ; echo "index-url = http://nexus.retd.edf.fr/repository/pypi.python.org/simple/" >> setup.cfg
+    python3 setup.py install --prefix=$PREFIX
+}
+
+function openturns-wrapy-prefix()
+{
+    echo NONE
+}
