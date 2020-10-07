@@ -27,6 +27,8 @@ function persalys-depends()
     echo adao
     echo ydefx
     echo adao-interface
+
+    echo openturns-morris
 }
 
 function persalys-env()
@@ -64,6 +66,7 @@ function persalys-config()
           -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include \
           -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR \
           -DQWT_LIBRARY=/usr/lib/libqwt-qt5.so \
+          -DOTMORRIS_DIR=$OTMORRIS_HOME/lib/cmake/otmorris \
           ../src
 }
 
