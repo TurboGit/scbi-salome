@@ -22,6 +22,7 @@ openturns-pmml:#1.8
 openturns-robopt:#0.6
 openturns-subsetinverse:#1.5
 openturns-svm:#0.7
+openturns-wrapy:#0.9
 embree:#3.5.2
 ospray:#1.8.4
 
