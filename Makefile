@@ -4,7 +4,7 @@ VER=$(shell git describe)
 
 all: clean.install
 	mkdir -p $(SCRDIR) $(SCRDIR)/patches
-	rm -f $(SCRDIR)/*~ scripts.d/*~ $(SCRDIR)/patches/*
+	rm -f $(SCRDIR)/*~ scripts.d/*~
 	cp -r scripts.d/* $(SCRDIR)
 	cp scripts.d/.env* $(SCRDIR)
 	cp scripts.d/.plan* $(SCRDIR)
