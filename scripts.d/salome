@@ -423,6 +423,10 @@ function salome-wrapup()
 
             res=0
 
+            cp $SCBI_DEFS/support/create_catalog.py \
+               $SCBI_BDIR/salome/application/
+            chmod a+x $SCBI_BDIR/salome/application/create_catalog.py
+
             if [ $(is-enabled installer) ]; then
                 dlog salome generate self installer, may take some time ...
 
