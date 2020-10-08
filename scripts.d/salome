@@ -6,9 +6,9 @@
 # Pin: release n=buster
 # Pin-Priority: 0
 
-function salome-v93-plan()
+function salome-v95-plan()
 {
-    echo v93
+    echo v95
 }
 
 function salome-main-modules()
