@@ -5,6 +5,11 @@
 # modules following common versions
 
 salome-configuration:V9_5_0
+
+# the salome meta-module version is used to name the .run and as the
+# version in create_catalog.py
+salome:V9_5_0
+
 medcoupling:V9_5_0
 fields:V9_5_0
 geom:V9_5_0
