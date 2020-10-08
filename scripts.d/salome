@@ -431,8 +431,21 @@ function salome-wrapup()
 
             res=0
 
+            # compute the final installer script name
+
+            local module_info=( $(get-module-ref salome) )
+            local module=${module_info[0]}
+            local variant=${module_info[1]}
+            local kind=${module_info[2]}
+            local ref=${module_info[3]}
+
+            # install catalog script & patch version
+
             cp $SCBI_DEFS/support/create_catalog.py \
                $SCBI_BDIR/salome/application/
+
+            sed -i "s/<salome_version>/$ref/g" \
+                $SCBI_BDIR/salome/application/create_catalog.py
             chmod a+x $SCBI_BDIR/salome/application/create_catalog.py
 
             if [ $(is-enabled installer) ]; then
@@ -452,14 +465,6 @@ function salome-wrapup()
                 chmod a+x $SCBI_BDIR/salome/application/setup
 
                 cd $SCBI_BDIR/salome
-
-                # compute the final installer script name
-
-                local module_info=( $(get-module-ref salome) )
-                local module=${module_info[0]}
-                local variant=${module_info[1]}
-                local kind=${module_info[2]}
-                local ref=${module_info[3]}
 
                 local script_name=salome-$TARGET-$variant
 
