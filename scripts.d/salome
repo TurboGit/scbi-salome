@@ -435,7 +435,9 @@ function salome-wrapup()
 
                 # create the .run auto-installer to be distributed
 
-                create-setup-script $SCBI_BDIR/salome/application
+                cp $SCBI_DEFS/support/install-setup \
+                   $SCBI_BDIR/salome/application/setup
+                chmod a+x $SCBI_BDIR/salome/application/setup
 
                 cd $SCBI_BDIR/salome
 
@@ -557,77 +559,4 @@ function salome-replace-full-path()
         done
 
     # Some other files have references to root dirs *.pc *.la *.prl
-}
-
-function create-setup-script()
-{
-    DIR=$1
-
-    (
-        cd $DIR
-
-        cat <<EOF > setup
-#!/bin/bash
-
-AUTO=0
-
-while [ ! -z \$1 ]; do
-    case "\$1" in
-        --auto)
-            AUTO=1;
-            break;
-            ;;
-        *)
-            ;;
-    esac
-    shift;
-done
-
-# check for python3
-#
-if [ -z "\$(python --version 2>&1 | grep ' 3\.')" ]; then
-   echo Python2 is default, checking for python3
-   if [ -f /usr/bin/python3 ]; then
-      echo Found Python3 in /usr/bin/python3, setuup links
-      ln -s /usr/bin/python3 bin/python
-      ln -s /usr/bin/python3 bin/salome/python
-   else
-      echo Cannot found a Python3 installation.
-      echo SALOME will not work properly.
-   fi
-fi
-
-# In auto-mode, do nothing more
-[ \$AUTO = 1 ] && exit 0
-
-SUDO=""
-
-echo Installing SALOME
-echo
-read -p "Install into (/opt/salome) : " prefix
-
-[ -z \$prefix ] && prefix=/opt/salome
-
-# eval $prefix to expand environment variables if any
-prefix=\$(eval echo \$prefix)
-
-read -p "Ready to install SALOME in \$prefix? (y/n) "
-
-[ "\$REPLY" != "y" -a "\$REPLY" != "yes" ] && exit 1
-
-[ ! -w \$(dirname \$prefix) ] && SUDO=sudo
-
-\$SUDO mkdir -p \$prefix
-\$SUDO mv * .[a-z]* \$prefix/
-
-\$SUDO rm -f \$prefix/setup
-
-\$SUDO chown \$USER -R \$prefix
-
-echo "SALOME installation terminated, to start:"
-echo "\$ \$prefix/salome"
-EOF
-
-        chmod a+x setup
-    )
 }
