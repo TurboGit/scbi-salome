@@ -21,11 +21,11 @@ $ make
   To build SALOME just run:
 
 ```
-$ scbi --env=v94 --deps --update salome
+$ scbi --env=v95 --deps --update --safe salome
 ```
 
   To build SALOME and create an installer:
 
 ```
-$ scbi --env=v94 --deps --update --enable-installer salome
+$ scbi --env=v95 --deps --update --safe --enable-installer salome
 ```
