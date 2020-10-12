@@ -11,6 +11,7 @@ function openturns-fftw-depends()
 {
     echo openturns
     echo python3
+    echo libfftw3-dev
 }
 
 function openturns-fftw-env()
