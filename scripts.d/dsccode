@@ -21,7 +21,7 @@ function dsccode-build-depends()
     echo python3-docutils
     echo libomniorb4-dev
     echo omniorb
-    echo python-omniorb
+    echo s-python-omniorb
     echo omniorb-idl
     echo omniidl
     echo python3

@@ -18,7 +18,7 @@ function salome-eficas-build-depends()
 function salome-eficas-depends()
 {
     echo salome-configuration
-    echo pyqt
+    echo python3-pyqt5
     echo salome-kernel
     echo omniorb
     echo salome-gui
@@ -35,8 +35,6 @@ function salome-eficas-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE eficas_module Release) \
           ../src
 }

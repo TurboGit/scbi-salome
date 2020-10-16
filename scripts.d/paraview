@@ -15,12 +15,13 @@ function paraview-patches()
 
 function paraview-gdal-deps
 {
-    echo s-gdal
+    echo libgdal-dev
 }
 
 function paraview-build-depends()
 {
     echo cmake
+    echo qtxmlpatterns5-dev-tools
 }
 
 function paraview-depends()
@@ -34,9 +35,13 @@ function paraview-depends()
     echo libxt-dev
     echo libopenmpi-dev
 
-    echo qt
+    echo qt5-default
+    echo libqt5x11extras5-dev
+    echo libqt5help5
+    echo qttools5-dev
+    echo libqt5svg5-dev
     echo openturns
-    echo hdf5
+    echo libhdf5-dev
 
     # add all depends for variants if any
 
@@ -115,14 +120,6 @@ function paraview-common-options()
     echo -DVTK_MODULE_ENABLE_VTK_IOEnSight=YES
     echo -DVTK_MODULE_ENABLE_VTK_IOInfovis=YES
 
-    # HDF5
-
-    echo -DHDF5_C_COMPILER_EXECUTABLE=$HDF5_C_COMPILER_EXECUTABLE
-    echo -DHDF5_C_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR
-    echo -DHDF5_HL_LIBRARY=$HDF5_ROOT_DIR/lib/libhdf5_hl.so
-    echo -DHDF5_hdf5_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5
-    echo -DHDF5_hdf5_hl_LIBRARY_RELEASE=$HDF5_C_LIBRARY_hdf5_hl
-
     # PLUGINS
 
     echo -DPARAVIEW_AUTOLOAD_PLUGIN_AcceleratedAlgorithms=ON
@@ -154,11 +151,7 @@ function paraview-vrpn-options()
 
 function paraview-gdal-options()
 {
-    echo -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include
-    echo -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so
     echo -DPARAVIEW_ENABLE_GDAL:BOOL=ON
-    echo -DVTK_MODULE_USE_EXTERNE_VTK_gdal:BOOL=ON
-    echo -DVTK_MODULE_USE_EXTERNE_VTK_netcdf:BOOl=ON
 }
 
 function paraview-options()

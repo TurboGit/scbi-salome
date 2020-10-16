@@ -9,12 +9,13 @@ function homard-build-depends()
 
 function homard-depends()
 {
-    echo qt
-    echo pyqt
+    echo qt5-default
+    echo python3-pyqt5
+    echo python3-sip-dev
+
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo sip
     echo medfichier
     echo medcoupling
     echo geom
@@ -40,8 +41,6 @@ function homard-config()
     local CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE homard Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
@@ -60,6 +59,29 @@ function homard-install()
     local TARGET=$2
 
     make install
+}
+
+function homard-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # When building the documentation the .py & .med have been downloaded
+    # by sphinx. We need the fr artifacts to be on top of the _downloads
+    # directory for the tests to pass.
+
+    cd ../install
+
+    local DDIR=share/doc/salome/gui/HOMARD/fr/_downloads/
+
+    if [ -d $DDIR ]; then
+        (
+            cd $DDIR
+            for dir in $(ls -d *); do
+                ln -s $dir/* .
+            done
+        )
+    fi
 }
 
 function homard-prefix()

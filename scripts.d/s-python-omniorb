@@ -1,5 +1,5 @@
 
-function python-omniorb-vcs() 
+function s-python-omniorb-vcs() 
 { 
     echo default
     echo none 
@@ -8,15 +8,18 @@ function python-omniorb-vcs()
 } 
 
 
-function python-omniorb-depends()
+function s-python-omniorb-depends()
 {
     echo omniorb
 }
 
-function python-omniorb-env()
+function s-python-omniorb-env()
 {
     local PREFIX=$1
     local TARGET=$2
+
+    add-to-var OMNIORB_ROOT_DIR   /usr
+    add-to-var LD_LIBRARY_PATH    /usr/lib
 
     add-to-var OMNIORBPY_ROOT_DIR $PREFIX
     add-to-var PYTHONPATH         $PREFIX/lib/python$PYTHON_VERSION/site-packages
@@ -24,7 +27,7 @@ function python-omniorb-env()
 	$PREFIX/lib/python$PYTHON_VERSION/site-packages/omniidl_be
 }
 
-function python-omniorb-config()
+function s-python-omniorb-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -33,7 +36,7 @@ function python-omniorb-config()
                      PYTHON=$(which python3)
 }
 
-function python-omniorb-build()
+function s-python-omniorb-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -41,7 +44,7 @@ function python-omniorb-build()
     make -j$SCBI_JOBS
 }
 
-function python-omniorb-install()
+function s-python-omniorb-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -49,7 +52,7 @@ function python-omniorb-install()
     make install
 }
 
-function python-omniorb-prefix()
+function s-python-omniorb-prefix()
 {
     echo NONE
 }

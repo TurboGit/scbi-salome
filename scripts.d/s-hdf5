@@ -1,5 +1,5 @@
 
-function hdf5-vcs() 
+function s-hdf5-vcs() 
 { 
     echo default 
     echo none 
@@ -8,19 +8,19 @@ function hdf5-vcs()
 } 
 
 
-function hdf5-build-depends()
+function s-hdf5-build-depends()
 {
     echo cmake
     echo sphinx-common
     echo sphinx-intl
 }
 
-function hdf5-depends()
+function s-hdf5-depends()
 {
     echo zlib1g-dev
 }
 
-function hdf5-env()
+function s-hdf5-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -46,7 +46,7 @@ function hdf5-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
-function hdf5-config()
+function s-hdf5-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -58,7 +58,7 @@ function hdf5-config()
           ../src
 }
 
-function hdf5-build()
+function s-hdf5-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -66,7 +66,7 @@ function hdf5-build()
     make -j$SCBI_JOBS
 }
 
-function hdf5-install()
+function s-hdf5-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -74,7 +74,7 @@ function hdf5-install()
     make install
 }
 
-function hdf5-prefix()
+function s-hdf5-prefix()
 {
     echo NONE
 }

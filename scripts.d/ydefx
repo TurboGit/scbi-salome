@@ -19,7 +19,10 @@ function ydefx-build-depends()
 function ydefx-depends()
 {
     echo salome-configuration
-    echo qt
+    echo qt5-default
+
+    echo salome-kernel
+    echo yacs
 }
 
 function ydefx-env()
@@ -28,7 +31,10 @@ function ydefx-env()
     local TARGET=$2
 
     add-to-var YDEFX_ROOT_DIR    $PREFIX
-    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/ydefx
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/salome_adm/cmake_files
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib/
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
 function ydefx-config()

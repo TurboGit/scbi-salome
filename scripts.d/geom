@@ -20,13 +20,13 @@ function geom-build-depends()
 function geom-depends()
 {
     echo libopencv-dev
+    echo omniorb
+    echo qt5-default
 
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo omniorb
-    echo python-omniorb
-    echo qt
+    echo s-python-omniorb
 }
 
 function geom-env()
@@ -47,8 +47,6 @@ function geom-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DSALOME_GEOM_USE_OPENCV=ON  \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DSWIG_EXECUTABLE:PATH=$(which swig) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src

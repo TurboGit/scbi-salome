@@ -19,7 +19,11 @@ function adao-build-depends()
 
 function adao-depends()
 {
+    echo python3-sphinx-rtd-theme
     echo salome-configuration
+    echo python3-matplotlib
+    echo s-python3-nlopt
+    echo python3-scipy
 }
 
 function adao-env()

@@ -19,15 +19,16 @@ function smesh-build-depends()
 
 function smesh-depends()
 {
+    echo qt5-default
+    echo libhdf5-dev
+    echo omniorb
+
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo qt
-    echo hdf5
-    echo omniorb
-    echo python-omniorb
     echo geom
     echo medfichier
+    echo s-python-omniorb
 }
 
 function smesh-env()
@@ -39,6 +40,8 @@ function smesh-env()
     add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
     add-to-var PYTHONPATH      \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+    add-to-var PYTHONPATH      \
+               $PREFIX/share/salome/plugins/smesh/Verima
 }
 
 function smesh-config()
@@ -47,8 +50,7 @@ function smesh-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
+          -DSALOME_SMESH_USE_CGNS=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release) \
           ../src
 }

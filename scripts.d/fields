@@ -15,6 +15,7 @@ function fields-build-depends()
     echo cmake
     echo sphinx-common
     echo sphinx-intl
+    echo python3-stemmer
 }
 
 function fields-depends()
@@ -45,8 +46,6 @@ function fields-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_GUI_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE fields Release) \
           ../src
 }
