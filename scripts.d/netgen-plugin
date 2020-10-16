@@ -56,8 +56,6 @@ function netgen-plugin-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE netgen-plugin Release) \
           ../src
 }

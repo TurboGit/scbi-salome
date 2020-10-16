@@ -19,7 +19,9 @@ function medfichier-depends()
 {
     echo salome-configuration
     echo salome-kernel
-    echo hdf5
+    echo libhdf5-dev
+    echo python3
+    echo swig
 }
 
 function medfichier-env()
@@ -30,9 +32,13 @@ function medfichier-env()
     add-to-var MEDFILE_ROOT_DIR   $PREFIX
     add-to-var MEDFile_DIR      \
 	       $(last-modified-directory "$PREFIX/share/cmake/med-fichier-*")
+    add-to-var PATH               $PREFIX/bin
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var C_INCLUDE_PATH     $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function medfichier-config()
@@ -42,6 +48,7 @@ function medfichier-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           --enable-mesgerr --with-swig=$(which swig) \
+          -DMEDFILE_BUILD_PYTHON=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medfichier Release) \
           ../src
 }

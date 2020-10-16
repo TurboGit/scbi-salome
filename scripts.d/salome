@@ -48,48 +48,52 @@ function salome-main-modules()
     echo dsccode
     echo melidefx
     echo salome-openturns
+    echo non-regression-tests-confidential
+    echo non-regression-tests
+    echo clustertests
 }
 
 function salome-prerequisite-modules()
 {
     echo adao
     echo adao-interface
-    echo omniorb
+    echo s-python-omniorb
     echo eficas-tools
-    echo python-omniorb
     echo occt
     echo yacsgen
     echo medfichier
     echo medcoupling
     echo libbatch
-    echo hdf5
     echo py2cpp
     echo meshgems
     echo planegcs
-    echo qt
     echo ospray
     echo embree
     echo paraview
-    echo sip
-    echo pyqt
     echo gmsh
     echo paravisaddons
     echo persalys
     echo netgen
     echo openturns
-    echo s-gdal
-    echo s-netcdf
+    echo openturns-fftw
+    echo openturns-mixmod
+    echo openturns-morris
+    echo openturns-pmml
+    echo openturns-robopt
+    echo openturns-subsetinverse
+    echo openturns-svm
+    echo openturns-wrapy
     echo homard-tool
     echo s-zeromq
     echo melissa
+    echo s-python3-nlopt
+    echo s-python3-xlutils
 }
 
 function salome-modules()
 {
     salome-main-modules
     salome-prerequisite-modules
-    echo cmake
-    echo ispc
     echo salome-configuration
 }
 
@@ -107,12 +111,16 @@ function salome-prefix()
 
 # support for SALOME application creation
 
-function proxy-edf()
-{
-    export http_proxy=proxypac.edf.fr:3128
-    export https_proxy=proxypac.edf.fr:3128
-    export no_proxy=localhost,.edf
-}
+fn-exists proxy-edf
+
+if [ $? -ne 0 ]; then
+    function proxy-edf()
+    {
+        export http_proxy=proxypac.edf.fr:3128
+        export https_proxy=proxypac.edf.fr:3128
+        export no_proxy=localhost,.edf
+    }
+fi
 
 function is-main-module()
 {

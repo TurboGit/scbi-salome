@@ -20,14 +20,14 @@ function paravis-tar()
 function paravis-build-depends()
 {
     echo cmake
-    echo qt
-    echo qtxmlpatterns5-dev-tools
+    echo qt5-default
 }
 
 function paravis-depends()
 {
+    echo libhdf5-dev
+
     echo salome-configuration
-    echo hdf5
     echo salome-kernel
     echo salome-gui
     echo paraview
@@ -56,9 +56,6 @@ function paravis-config()
           -DVTK_DIR=$(last-modified-directory \
                           "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
 	  \
-          -DGDAL_INCLUDE_DIR=$GDAL_ROOT_DIR/include \
-          -DGDAL_LIBRARY=$GDAL_ROOT_DIR/lib/libgdal.so \
-          \
 	  -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_DifferenceTimesteps=YES \

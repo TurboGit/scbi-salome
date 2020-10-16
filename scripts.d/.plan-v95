@@ -1,10 +1,30 @@
 # based on v94
 @load v94
 
-# ---------------------------------
-# modules following common versions
+###########################################
+# TOOLS
 
-salome-configuration:V9_5_0
+s-clang:llvmorg-8.0.1
+
+persalys:v8.0
+s-netcdf:skip
+s-gdal:skip
+s-hdf5:skip
+s-zeromq:#4.3.1
+melissa:#0.0.0
+
+paraview/ospray.gdal:v5.8.0
+openturns:#1.14
+openturns-fftw:#0.6
+openturns-mixmod:#0.9
+openturns-morris:#0.7
+openturns-pmml:#1.8
+openturns-robopt:#0.6
+openturns-subsetinverse:#1.5
+openturns-svm:#0.7
+openturns-wrapy:#0.9
+embree:#3.5.2
+ospray:#1.8.4
 
 # the salome meta-module version is used to name the .run and as the
 # version in create_catalog.py
@@ -21,16 +41,17 @@ blsurf-plugin:V9_5_0
 gmsh-plugin:V9_5_0
 hybrid-plugin:V9_5_0
 hexotic-plugin:V9_5_0
-netgen-plugin:V9_5_0
 shaper:V9_5_0
 homard:V9_5_0
 salome-kernel:V9_5_0
 salome-gui:V9_5_0
 paravis:V9_5_0
 salome-jobmanager:V9_5_0
+salome-eficas:V9_5_0
 yacs:V9_5_0
 eficas:V9_5_0
-persalys:v8.0
+adao:V9_5_0
+eficas-tools:V9_5_0
 hexablock:V9_5_0
 hexablock-plugin:V9_5_0
 samples:V9_5_0
@@ -46,32 +67,30 @@ netgen-plugin:V9_5_0
 dsccode:V9_5_0
 melidefx:V9_5_0
 salome-openturns:V9_5_0
+non-regression-tests-confidential:V9_5_0
+non-regression-tests:V9_5_0
+clustertests:V9_5_0b1
 
-salome-eficas:V9_5_0
-eficas-tools:V9_5_0
-adao:V9_5_0
+# module patched for GNU/Debian 10/buster
+salome-configuration:po/debian-10
+shaper:po/debian-10
+geom:po/debian-10
+
+paravisaddons:V9_5_0
+
+# then many modules using current master
 
 adao-interface
 
-# -------------
-# other modules
-
-paraview/gdal.ospray:v5.8.0
-openturns:#1.14
-paravisaddons
-
-hdf5:#1.10.3
 gmsh:#4.1.4
 medfichier:#4.1.0
 netgen:#5.3.1
-s-netcdf:v4.6.2
-s-gdal:v2.4.3
-scbi-omniorb:#4.2.2
-scbi-python-omniorb:#4.2.2
-occt:#7.4.0p3
-meshgems:#V2.8-6_linux
+s-python3-nlopt:#2.4.2
+s-python3-xlutils:#2.0.0
 
 # should be tag V2_4_3 as soon as available
-libbatch:V2_4_3
-s-zeromq:#4.3.1
-melissa:#0.0.0
+libbatch:V2_4_3rc1
+
+s-python-omniorb:#4.2.2
+occt:#7.4.0p3
+meshgems:#V2.8-6_linux

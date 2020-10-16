@@ -26,12 +26,13 @@ function salome-adao-build-depends()
 function salome-adao-depends()
 {
     echo python3-docutils
-    echo salome-configuration
     echo omniorb
+
+    echo salome-configuration
     echo salome-kernel
     echo eficas-tools
-    echo python-omniorb
     echo libbatch
+    echo s-python-omniorb
 }
 
 function salome-adao-env()
