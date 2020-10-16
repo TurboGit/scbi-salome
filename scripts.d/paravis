@@ -56,6 +56,7 @@ function paravis-config()
           -DVTK_DIR=$(last-modified-directory \
                           "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
 	  \
+          -DMEDCOUPLING_USE_64BIT_IDS=ON \
 	  -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES \
 	  -DPARAVIEW_PLUGIN_ENABLE_DifferenceTimesteps=YES \

@@ -55,6 +55,7 @@ function medcoupling-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release) \
+          -DMEDCOUPLING_USE_64BIT_IDS=ON \
           ../src
 }
 
