@@ -99,6 +99,7 @@ function paraview-common-options()
 
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
     echo -DPARAVIEW_USE_MPI:BOOL=ON
+    echo -DVTK_USE_64BIT_IDS:BOOL=ON
 
     # VTK
 

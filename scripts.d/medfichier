@@ -37,11 +37,8 @@ function medfichier-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          --enable-mesgerr --with-swig=$(which swig) \
-          -DMEDFILE_BUILD_PYTHON=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medfichier Release) \
-          ../src
+    ../src/configure --prefix=$PREFIX --with-swig=$(which swig) \
+                     --enable-mesgerr --with-med_int=long
 }
 
 function medfichier-build()
