@@ -27,6 +27,11 @@ function paraview-gdal-deps
     echo libgdal-dev
 }
 
+function paraview-headless-deps
+{
+    echo libegl1-mesa-dev
+}
+
 function paraview-build-depends()
 {
     echo cmake
@@ -163,16 +168,30 @@ function paraview-gdal-options()
     echo -DPARAVIEW_ENABLE_GDAL:BOOL=ON
 }
 
+function paraview-headless-options()
+{
+    local TARGET=$1
+
+    echo -DVTK_OPENGL_HAS_EGL:BOOL=ON
+    echo -DEGL_INCLUDE_DIR=/usr/include/EGL/egl.h.
+    echo -DEGL_LIBRARY=/usr/lib/$TARGET/libEGL.so.
+    echo -DEGL_opengl_LIBRARY=/usr/lib/$TARGET/libOpenGL.so
+}
+
 function paraview-options()
 {
     local VARIANT=$1
+    local TARGET=$2
 
-    paraview-common-options
+    paraview-common-options $TARGET
 
     # add options for all variants if any
 
     for v in $(all-variants $VARIANT); do
-        paraview-$v-options
+        fn-exists paraview-$v-options
+        if [ $? = 0 ]; then
+            paraview-$v-options $TARGET
+        fi
     done
 }
 
@@ -181,7 +200,7 @@ function paraview-config()
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
-    local OPTIONS="$(paraview-options $VARIANT)"
+    local OPTIONS="$(paraview-options $VARIANT $TARGET)"
 
     cmake $OPTIONS ../src
 }
