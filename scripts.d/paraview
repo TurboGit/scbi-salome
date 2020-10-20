@@ -23,6 +23,16 @@ function paraview-headless-deps
     echo libegl1-mesa-dev
 }
 
+function paraview-ospray-deps
+{
+    echo ospray
+}
+
+function paraview-vrpn-deps
+{
+    echo vrpn
+}
+
 function paraview-build-depends()
 {
     echo cmake
@@ -54,8 +64,6 @@ function paraview-depends()
         fn-exists paraview-$v-deps
         if [ $? = 0 ]; then
             paraview-$v-deps
-        else
-            echo $v
         fi
     done
 }
