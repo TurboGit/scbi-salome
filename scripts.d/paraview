@@ -108,7 +108,6 @@ function paraview-common-options()
 
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
     echo -DPARAVIEW_USE_MPI:BOOL=ON
-    echo -DVTK_USE_64BIT_IDS:BOOL=ON
 
     # VTK
 
@@ -118,7 +117,7 @@ function paraview-common-options()
     echo -DVTK_PYTHON_FULL_THREADSAFE=ON
     echo -DVTK_PYTHON_VERSION=3
     echo -DVTK_SMP_IMPLEMENTATION_TYPE=OpenMP
-    echo -DVTK_USE_64BIT_IDS:BOOL=OFF
+    echo -DVTK_USE_64BIT_IDS:BOOL=ON
     echo -DVTK_USE_OGGTHEORA_ENCODER:BOOL=ON
     echo -DVTK_MODULE_ENABLE_VTK_RenderingLOD=YES
     echo -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES
