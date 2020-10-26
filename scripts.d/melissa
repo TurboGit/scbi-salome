@@ -68,13 +68,16 @@ function melissa-post-install()
     cat <<EOF > $PREFIX/bin/melissa_salome_wrapper
 #! /bin/bash
 
-_term() { kill -TERM "\$child" 2>/dev/null }
+_term() {
+  kill -TERM "\$child" 2>/dev/null
+}
 
 trap _term SIGTERM SIGINT
 
 melissa_server \$* &
 
-child=\$! wait "\$child"
+child=\$!
+wait "\$child"
 EOF
     chmod u+x $PREFIX/bin/melissa_salome_wrapper
 }
