@@ -63,5 +63,9 @@ cd $prefix
 sed -i "s,/home.*install,$prefix,g" config_appli.xml
 sed -i "s,/home.*application,$prefix,g" config_appli.xml
 
+# copy servers.pvsc to $HOME/.config/ParaView
+mkdir -p $HOME/.config/ParaView
+cp servers.pvsc $HOME/.config/ParaView/
+
 echo "SALOME installation terminated, to start:"
 echo "$ $prefix/salome"
