@@ -464,6 +464,9 @@ function salome-wrapup()
                    $SCBI_BDIR/salome/application/setup
                 chmod a+x $SCBI_BDIR/salome/application/setup
 
+                cp $SCBI_DEFS/support/servers.pvsc \
+                   $SCBI_BDIR/salome/application/
+
                 cd $SCBI_BDIR/salome
 
                 local script_name=salome-$TARGET-$variant
