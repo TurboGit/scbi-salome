@@ -392,7 +392,8 @@ function salome-wrapup()
                 fi
             done
 
-            cd $SCBI_BDIR/salome/application
+            local APP=$SCBI_BDIR/salome/application
+            cd $APP
 
             # generate the scbi_versions.txt for tracability
 
@@ -466,6 +467,9 @@ function salome-wrapup()
 
                 cp $SCBI_DEFS/support/servers.pvsc \
                    $SCBI_BDIR/salome/application/
+
+                cp $SCBI_DEFS/support/salome_hpc_visu_servers.py $APP/
+                chmod a+x $APP/salome_hpc_visu_servers.py
 
                 cd $SCBI_BDIR/salome
 

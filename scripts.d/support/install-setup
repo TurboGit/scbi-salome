@@ -63,9 +63,10 @@ cd $prefix
 sed -i "s,/home.*install,$prefix,g" config_appli.xml
 sed -i "s,/home.*application,$prefix,g" config_appli.xml
 
-# copy servers.pvsc to $HOME/.config/ParaView
-mkdir -p $HOME/.config/ParaView
-cp servers.pvsc $HOME/.config/ParaView/
+# Setup the HPC servers, the template file servers.pvsc
+# will be used by the following script to create or update
+# the file $HOME/.config/ParaView
+./salome_hpc_visu_servers.py
 
 echo "SALOME installation terminated, to start:"
 echo "$ $prefix/salome"
