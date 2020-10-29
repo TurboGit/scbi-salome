@@ -227,7 +227,6 @@ function paraview-install()
     local TARGET=$2
 
     make install
-    cp $SCBI_DEFS/support/servers.pvsc $HOME/.config/ParaView/
 }
 
 function paraview-prefix()
