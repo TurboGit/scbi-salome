@@ -442,12 +442,10 @@ function salome-wrapup()
 
             # install catalog script & patch version
 
-            cp $SCBI_DEFS/support/create_catalog.py \
-               $SCBI_BDIR/salome/application/
+            cp $SCBI_DEFS/support/create_catalog.py $APP/
 
-            sed -i "s/<salome_version>/$ref/g" \
-                $SCBI_BDIR/salome/application/create_catalog.py
-            chmod a+x $SCBI_BDIR/salome/application/create_catalog.py
+            sed -i "s/<salome_version>/$ref/g" $APP/create_catalog.py
+            chmod a+x $APP/create_catalog.py
 
             if [ $(is-enabled installer) ]; then
                 dlog salome generate self installer, may take some time ...
@@ -461,12 +459,10 @@ function salome-wrapup()
 
                 # create the .run auto-installer to be distributed
 
-                cp $SCBI_DEFS/support/install-setup \
-                   $SCBI_BDIR/salome/application/setup
-                chmod a+x $SCBI_BDIR/salome/application/setup
+                cp $SCBI_DEFS/support/install-setup $APP/setup
+                chmod a+x $APP/setup
 
-                cp $SCBI_DEFS/support/servers.pvsc \
-                   $SCBI_BDIR/salome/application/
+                cp $SCBI_DEFS/support/servers.pvsc $APP/
 
                 cp $SCBI_DEFS/support/salome_hpc_visu_servers.py $APP/
                 chmod a+x $APP/salome_hpc_visu_servers.py
@@ -508,7 +504,7 @@ function salome-wrapup()
                 if [ -f /usr/bin/python3 ]; then
                     dlog found python3 in /usr/bin/python3, setuup links
                     (
-                        cd $SCBI_BDIR/salome/application
+                        cd $APP
                         rm -f ./bin/python ./bin/salome/python
                         ln -s /usr/bin/python3 ./bin/python
                         ln -s /usr/bin/python3 ./bin/salome/python
