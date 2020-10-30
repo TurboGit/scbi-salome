@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function get-deps()
+{
+    local MODULE=$1
+
+    if [ ! -f $MODULE.deps ]; then
+        scbi --list-depends:direct $MODULE > $MODULE.deps
+
+        while read m; do
+            get-deps $m
+        done < $MODULE.deps
+    fi
+}
+
+rm -fr .deps && mkdir .deps && cd .deps
+[ $? == 1 ] && exit 1
+
+get-deps salome
