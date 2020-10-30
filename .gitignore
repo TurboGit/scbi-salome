@@ -1,0 +1,8 @@
+/.deps
+doc/*.aux
+doc/*.dvi
+doc/*.toc
+doc/*.out
+doc/*.log
+doc/*.blg
+doc/*.bbl
