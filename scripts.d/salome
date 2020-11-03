@@ -28,6 +28,7 @@ function salome-main-modules()
     echo salome-jobmanager
     echo blsurf-plugin
     echo ghs3d-plugin
+    echo ghs3dprl-plugin
     echo hybrid-plugin
     echo gmsh-plugin
     echo netgen-plugin
