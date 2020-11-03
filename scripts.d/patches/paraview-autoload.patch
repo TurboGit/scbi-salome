@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d7e8f1dfec..12f8064b5f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -566,6 +566,7 @@ paraview_plugin_build(
+   INSTALL_HEADERS   "${PARAVIEW_INSTALL_DEVELOPMENT_FILES}"
+   TARGET_COMPONENT  "development"
+   PLUGINS_COMPONENT "plugins"
++  AUTOLOAD ${paraview_plugins}
+   PLUGINS ${paraview_plugins})
+ 
+ set(CMAKE_INSTALL_RPATH

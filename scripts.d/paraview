@@ -19,7 +19,7 @@ function paraview-tar()
 
 function paraview-patches()
 {
-    echo pv-58-coincident.patch
+    echo paraview-autoload.patch
 }
 
 function paraview-gdal-deps
