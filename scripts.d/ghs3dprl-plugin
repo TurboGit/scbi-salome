@@ -1,0 +1,60 @@
+
+
+
+function ghs3dprl-plugin-build-depends()
+{
+    echo cmake
+    echo salome-configuration
+    echo swig
+    echo doxygen
+}
+
+function ghs3dprl-plugin-depends()
+{
+    echo qt5-default
+    echo qtbase5-dev
+    echo meshgems
+
+    echo smesh
+    echo ghs3d-plugin
+}
+
+function ghs3dprl-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GHS3DPRLPLUGIN_ROOT_DIR $PREFIX
+}
+
+function ghs3dprl-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3dprl-plugin Release) \
+          -DMESHGEMS_ROOT_DIR=$MESHGEMS_ROOT_DIR \
+          ../src
+}
+
+function ghs3dprl-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function ghs3dprl-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function ghs3dprl-plugin-prefix()
+{
+    echo NONE
+}
