@@ -37,6 +37,7 @@ smesh:V9_6_0rc1
 atomgen:V9_6_0rc1
 atomic:V9_6_0rc1
 ghs3d-plugin:V9_6_0rc1
+ghs3dprl-plugin:V9_6_0rc1
 blsurf-plugin:V9_6_0rc1
 gmsh-plugin:V9_6_0rc1
 hybrid-plugin:V9_6_0rc1
