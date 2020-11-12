@@ -87,6 +87,7 @@
 \newcommand{\file}[1]{'{\path{#1}}'}
 \newcommand{\des}[1]{\tabto{4.5cm}\scriptsize\textit{: #1}}
 \newcommand{\cmd}[1]{\tabto{1cm}\hspace{0.5cm}\texttt{\textbf{\$} #1}}
+\newcommand{\cmdc}[1]{\tabto{1cm}\hspace{1.5cm}\texttt{#1}}
 \newcommand{\ddash}{-{}-}
 
 % for all itemize, use bullet
@@ -103,7 +104,7 @@
 
 \title{\huge{S C B I \hspace{2mm} Plug-ins} \\ For SALOME}
 \author{Pascal Obry}
-\date{July 2019}
+\date{November 2020}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TOC
 \begin{document}
@@ -120,7 +121,7 @@ SCBI stands for Setup Config Build Install.
 
 This document is a supplement for SCBI User's Guide and describes its use in the context of the SALOME project only.
 
-For creating a plug-in module script, and general usage of \code{scbi}, please see the SCBI User's Guide.
+It presents the procedure for creating a plug-in module script, and general usage of \code{scbi}. Readers of this manual is expected to have read the SCBI User's Guide first.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
 
@@ -131,7 +132,7 @@ The SALOME application is complex and aggregating many libraries and other appli
 \subsection{Modules}
 \label{modules}
 
-There is around 40 SCBI plug-in module scripts for building SALOME. Some modules are pre-requisites (and their dependencies) needed by the core SALOME modules. The core SALOME modules themselves are around ten.
+There is around 100 SCBI plug-in module scripts for building SALOME. Some modules are pre-requisites (and theirs dependencies) needed by the core SALOME modules. The core SALOME modules themselves are around ten.
 
 Each pre-requisite and each SALOME module is handled in a single separate SCBI plug-in script. One self contained script per pre-requisite or module.
 
@@ -141,11 +142,11 @@ Finally the meta-module \code{salome} aggregates all of them and contains the ne
 
 Building the final application may be as simple as calling:
 
-\cmd{scbi \ddash{}deps \ddash{}env=v93 salome}
+\cmd{scbi \ddash{}deps \ddash{}env=v96 salome}
 
-This will build SALOME version v9.3 in \file{$HOME/build-salome-v93} using build plan \file{.plan-v93}. Both the \code{v93} environment file and plan are provided by default. This version is targetted to GNU/Debian 9.
+This will build SALOME version v9.6 in \file{$HOME/dev/build-salome-v96} using build plan \file{.plan-v96}. Both the \code{v96} environment file and plan are provided by default. This version is targetted to GNU/Debian 10.
 
-Not passing option \code{\ddash{env}=v93} will build SALOME master. That is, all modules will be compiled using the latest version of the code from the repository. This is generally a bad idea and won't compile properly as some specific dependencies are needed like for example \code{Qt 5.9} or \code{OmniORB 4.2.2}.
+Not passing option \code{\ddash{env}=v96} will build SALOME master. That is, all modules will be compiled using the latest version of the code from the repository. This is generally a bad idea and won't compile properly as some specific dependencies are needed like for example \code{Qt 5.9} or \code{OmniORB 4.2.2}.
 
 Note that the default environment files and build plans can be found in \file{$HOME/.config/scbi}.
 
@@ -158,7 +159,7 @@ Some modules are hosted on EDF servers and some are on GitHub. It may be needed 
  {
     export http_proxy=proxypac.edf.fr:3128
     export https_proxy=proxypac.edf.fr:3128
-    export no_proxy=localhost,.edf
+    export no_proxy=localhost,.edf.fr,127.0.0.1
  }
 \end{lstlisting}
 
@@ -174,13 +175,17 @@ In SALOME plug-in scripts three features are in use:
 
 \begin{description}
 	\item[application] When enabled the final application will be built.
+
 	\item[installer] When enabled an installer (.run) will be created. This imply option \emph{application}.
+
 	\item[cmake-debug] Enable the debug mode in CMAKE commands which is equivalent to passing the option \code{-DSALOME\_CMAKE\_DEBUG=ON} to \code{cmake}.
+
+	\item[xz] Compresses the installer using the xz algorithm. It can reduce the size of the installer by 50% at the price of a slower generation of the installer.
 \end{description}
 
 For example, for creating the final installer the command line is:
 
-\cmd{scbi \ddash{}deps \ddash{}env=v93 \ddash{}enable-installer salome}
+\cmd{scbi \ddash{}deps \ddash{}env=v96 \ddash{}enable-installer salome}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
 
@@ -189,23 +194,23 @@ For example, for creating the final installer the command line is:
 SALOME comes with some build plans described below.
 
 \begin{description}
-	\item[v93] To build SALOME v9.3, the build plan contains the following modules:
+	\item[v95] To build SALOME v9.5, the build plan contains the following modules:
 
-	Environment \file{.env-v93}:
-	\lstinputlisting{"../scripts.d/.env-v93"}
+	Environment \file{.env-v95}:
+	\lstinputlisting{"../scripts.d/.env-v95"}
 
-	Plan \file{.plan-v93}:
-	\lstinputlisting{"../scripts.d/.plan-v93"}
+	Plan \file{.plan-v95}:
+	\lstinputlisting{"../scripts.d/.plan-v95"}
 
-	Note the use of the \code{ospray} variant for \code{paraview} module.
+	Note the use of the \code{ospray} and \code{gdal} variant for \code{paraview} module.
 
-	\item[v94] A plan to build SALOME version \code{v9.4}. This builds a more recent version of \code{ParaView} (using a SHA1). It is a work in progress at the time of writing this document.
+	\item[v96] A plan to build SALOME version \code{v9.6}.
 
-	Environment \file{.env-v94}:
-	\lstinputlisting{"../scripts.d/.env-v94"}
+	Environment \file{.env-v96}:
+	\lstinputlisting{"../scripts.d/.env-v96"}
 
-	Plan \file{.plan-v94}:
-	\lstinputlisting{"../scripts.d/.plan-v94"}
+	Plan \file{.plan-v96}:
+	\lstinputlisting{"../scripts.d/.plan-v96"}
 
 	\item[next] A plan to build \code{next} version of SALOME. This is used to prepare the next release and experiment with some new dependencies. In this script we build \code{ParaView} with the \code{vrpn} plug-in for example.
 
@@ -224,47 +229,209 @@ Preparing a new release may require different steps:
 	\item Raising a version of a module. For this a new build plan may be needed.
 \end{itemize}
 
-\subsection{Raising a module version}
+\subsection{Raising modules' version}
 
 To achieve that the simple way is to copy the current build plan and update it accordingly.
 
-For example, we may copy \file{.plan-v93} to \file{.plan-v94} and edit this later to update the versions of the corresponding modules.
+For example, we may copy \file{.plan-v95} to \file{.plan-v96} and edit this later to update the versions of the corresponding modules.
 
-Alternatively it is possible to inherit \code{v93} build-plan in new \file{.plan-v94} (as described above for \file{.plan-next}).
+Alternatively it is possible to inherit \code{v95} build-plan in new \file{.plan-v96} (as described above for \file{.plan-next}).
 
 \begin{lstlisting}
- @load v93
+ @load v95
  ...
 \end{lstlisting}
 
 Finally to build the new version, one can just pass this build plan:
 
-\cmd{scbi \ddash{}deps \ddash{}plan=v94 salome}
+\cmd{scbi \ddash{}deps \ddash{}plan=v96 salome}
 
 This is possible as a build plan is fully independent of the plug-in modules. Note that this will work as long as the new version does not introduce new dependencies and/or options as configuration step.
 
+If for a quick test, a solution is to specify on the command line the module version needed. For example, let's use build-plan for \code{v96} but use a specific \code{paraview} version based on a sha-1:
+
+\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}plan=v96}
+\cmdc{paraview/gdal.ospray:2a6cc49e5f salome}
+
+Or, as another example, just build paraview with headless support (which is not the default):
+
+\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}plan=v96}
+\cmdc{paraview/gdal.ospray.headless:5.8.0 salome}
+
+Note that \code{ospray}, \code{gdal} and \code{headless} are all variants that can be mixed as needed.
+
 \subsection{Module with new mandatory dependency}
 
-The current module depends on new mandatory dependency, the corresponding module dependencies plug-ins must be created if needed and referenced into the module \emph{depends} hook.
+The current module depends on new mandatory dependencies, the corresponding module dependencies plug-ins must be created if needed and referenced into the module \emph{depends} hook.
 
 The \emph{config} hook may require some update. Again see the SCBI User's Guide for a full discussion about this.
 
 \subsection{Module with new optional dependency}
 
-The current module depends on new mandatory dependency, the corresponding module dependencies plug-ins must be created if needed.
+The current module depends on new optional dependencies, the corresponding module dependencies plug-ins must be created if needed.
 
-The new dependency is not mandatory and we want to have a way to enable it or not at build time, a build variant should be introduced. This build variant may just require a \emph{depends} and \emph{config} variant hooks to activate the dependency at config time. This optional dependency is then activated by specifying the variant in the module reference.
+The new dependency is not mandatory and we want to have a way to enable it or not at build time. In this case a build variant should be introduced. This build variant may just require a \emph{depends} and \emph{config} variant hooks to activate the dependency at config time. This optional dependency is then activated by specifying the variant in the module reference.
 
-A good example is the \code{paraview} module where multiple variants are proposed to build \code{paraview} with or without \code{ospray} and \code{vrpn}.
+A good example is the \code{paraview} module where multiple variants are proposed to build \code{paraview} with or without \code{ospray}, \code{gdal}, \code{headless} and \code{vrpn}.
 
 \subsection{New module}
 
 For a new module, one have to create a new SCBI plug-in script. See the SCBI User's Guide for a full discussion about this.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INFORMATION
+
+\section{Information about modules}
+\label{information}
+
+There is many ways to get information for a module and possible dependencies. We call external in the following section the module that are from the operating system.
+
+\subsection{module's direct dependencies}
+
+The direct dependencies for paraview:
+
+\begin{shellcommand}
+	\item scbi \ddash{}env=v96 \ddash{}list-depends:direct paraview
+\end{shellcommand}
+
+\begin{lstlisting}
+openturns:1.14
+ospray:1.8.4
+\end{lstlisting}
+
+\subsection{module's dependencies}
+
+\begin{shellcommand}
+	\item scbi \ddash{}env=v96 \ddash{}list-depends paraview
+\end{shellcommand}
+
+\begin{lstlisting}
+embree:3.5.2
+ispc:v1.12.0
+openturns:1.14
+ospray:1.8.4
+paraview:v5.8.0
+s-clang:llvmorg-8.0.1
+\end{lstlisting}
+
+\subsection{module's direct dependencies with externals}
+
+\begin{shellcommand}
+	\item scbi \ddash{}env=v96 \ddash{}list-depends:direct \ddash{}list-externals paraview
+\end{shellcommand}
+
+\begin{lstlisting}
+cmake:3.13.4-1
+libgdal-dev:2.4.0+dfsg-1+b1
+libhdf5-dev:1.10.4+repack-10
+libopenmpi-dev:3.1.3-11
+libqt5help5:5.11.3-4
+libqt5svg5-dev:5.11.3-2
+libqt5x11extras5-dev:5.11.3-2
+libx11-dev:2:1.6.7-1+deb10u1
+libxt-dev:1:1.1.5-1+b3
+openturns:1.14
+ospray:1.8.4
+python3-dev:3.7.3-1
+qt5-default:5.11.3+dfsg1-1+deb10u4
+qttools5-dev:5.11.3-4
+qtxmlpatterns5-dev-tools:5.11.3-2
+\end{lstlisting}
+
+\subsection{module's dependencies with externals}
+
+\begin{shellcommand}
+	\item scbi \ddash{}env=v96 \ddash{}list-externals paraview
+\end{shellcommand}
+
+\begin{lstlisting}
+bison:2:3.3.2.dfsg-1
+cmake:3.13.4-1
+embree:3.5.2
+flex:2.6.4-6.2
+ispc:v1.12.0
+libblas-dev:3.8.0-2
+libc6-dev:2.28-10
+libcminpack-dev:1.3.6-4
+libgdal-dev:2.4.0+dfsg-1+b1
+libglfw3-dev:3.2.1-1
+libhdf5-dev:1.10.4+repack-10
+liblapack-dev:3.8.0-2
+libncurses-dev:6.1+20181013-2+deb10u2
+libopenmpi-dev:3.1.3-11
+libqt5help5:5.11.3-4
+libqt5svg5-dev:5.11.3-2
+libqt5x11extras5-dev:5.11.3-2
+libtbb-dev:2018~U6-4
+libx11-dev:2:1.6.7-1+deb10u1
+libxt-dev:1:1.1.5-1+b3
+m4:1.4.18-2
+openturns:1.14
+ospray:1.8.4
+paraview:v5.8.0
+python3:3.7.3-1
+python3-dev:3.7.3-1
+qt5-default:5.11.3+dfsg1-1+deb10u4
+qttools5-dev:5.11.3-4
+qtxmlpatterns5-dev-tools:5.11.3-2
+s-clang:llvmorg-8.0.1
+zlib1g-dev:1:1.2.11.dfsg-1
+\end{lstlisting}
+
+We can also get modules without the version information with option \ddash{}list-no-version:
+
+\begin{shellcommand}
+	\item scbi \ddash{}env=v96 \ddash{}list-externals \ddash{}list-no-version paraview
+\end{shellcommand}
+
+\begin{lstlisting}
+bison
+cmake
+embree
+flex
+ispc
+libblas-dev
+libc6-dev
+libcminpack-dev
+libgdal-dev
+libglfw3-dev
+libhdf5-dev
+liblapack-dev
+libncurses-dev
+libopenmpi-dev
+libqt5help5
+libqt5svg5-dev
+libqt5x11extras5-dev
+libtbb-dev
+libx11-dev
+libxt-dev
+m4
+openturns
+ospray
+paraview
+python3
+python3-dev
+qt5-default
+qttools5-dev
+qtxmlpatterns5-dev-tools
+s-clang
+zlib1g-dev
+\end{lstlisting}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
 
 \section{Debugging}
 \label{debugging}
+
+There is two solutions to debug a code:
+
+\begin{itemize}
+	\item User's checkout
+	\item SCBI shell
+\end{itemize}
+
+Those solutions are discussed below.
+
+\subsection{User's checkout}
 
 This section is covered into the main SCBI driver documentation. As this is a quite common and important feature for developers we describe it again here with some examples based on SALOME.
 
@@ -279,7 +446,8 @@ To debug an application one need:
 
 The main feature supporting this is directly built-in SCBI and is called user's checkout.
 
-\subsection{User's checkout}
+\subsubsection{User's checkout}
+\label{user:checkout}
 First the user need to clone the repository to debug. This gives access to the sources. It is possible to clone multiple repositories if the fix involves multiple components.
 
 Let's say that we want to debug the \code{GUI}'s salome module.
@@ -291,7 +459,7 @@ Let's say that we want to debug the \code{GUI}'s salome module.
 
 This will create a check-out of the GUI's SALOME module in \code{\$HOME/dev}.
 
-\subsection{Build plan}
+\subsubsection{Build plan}
 
 We want to tell the scbi driver to use the user's checkout instead of the sandbox ones. This is achieved using the specific \code{:dev} version of the module.
 
@@ -299,7 +467,7 @@ We copy the current build plan (assuming the work will be based on SALOME v9.3):
 
 \begin{shellcommand}
 	\item cd \$HOME/dev
-	\item cp \$HOME/.config/scbi/.plan-v93 .plan-debug
+	\item cp \$HOME/.config/scbi/.plan-v96 .plan-debug
 	\item vi .plan-debug
 \end{shellcommand}
 
@@ -309,7 +477,11 @@ We change the \code{:V9\_3\_BR} on the \code{salome-gui} line by \code{:dev}, th
  salome-gui:dev
 \end{lstlisting}
 
-\subsection{Environment}
+Alternatively it is possible to specify the \code{:dev} version directly from the commande line. This may be easier as a quick solution:
+
+\cmd{scbi \ddash{}deps \ddash{}plan=v96 salome-gui:dev salome}
+
+\subsubsection{Environment}
 
 If the checkout is not in the default location it is needed to set \code{SCBI\_GIT\_REPO}. For the record, the default set on SALOME all environment files is:
 
@@ -339,7 +511,7 @@ We can also record the build plan (created above) to use together with this debu
 
 Alternatively the build plan can be specified on the command line.
 
-\subsection{Cleaning}
+\subsubsection{Cleaning}
 
 It may be needed to clean the build tree for a given module to ensure a full and clean restart of the configuration step. This is often needed as \code{cmake} or \code{configure} do keep a cache of configuration and may skip some checks.
 
@@ -353,25 +525,37 @@ This command will clean the \code{salome-gui} module only. No compilation will b
 
 This command will restart the compilation of all modules so doing a full re-compilation of the salome application as each dependency will be cleaned and re-built.
 
-\subsection{Compiling}
+\subsubsection{Compiling}
 
 To compile SALOME with all dependencies with this debug environment, the simple command is:
 
-\cmd{scbi \ddash{}env=debug \ddash{}deps salome}
+\cmd{scbi \ddash{}env=debug \ddash{}safe \ddash{}deps salome}
 
 If the default environment was sufficient (user's checkout in the default location) we have no new environment created, we just pass the build-plan:
 
-\cmd{scbi \ddash{}plan=debug \ddash{}deps salome}
+\cmd{scbi \ddash{}plan=debug \ddash{}safe \ddash{}deps salome}
 
 Finally, if the build-plan has not been specified in the environment by setting \code{SCBI\_PLAN} as described above, we can pass it explicitly on the command line:
 
-\cmd{scbi \ddash{}env=debug \ddash{}plan=debug \ddash{}deps salome}
+\cmd{scbi \ddash{}env=debug \ddash{}safe \ddash{}plan=debug \ddash{}deps salome}
 
 And we can of course mix the environment and different build-plans if needed.
 
-\cmd{scbi \ddash{}env=v93 \ddash{}plan=debug \ddash{}deps salome}
+\cmd{scbi \ddash{}env=v96 \ddash{}safe \ddash{}plan=debug \ddash{}deps salome}
 
 If more than one module must be debugged and/or changed then just apply the same procedure for the other modules.
+
+Note that the \ddash{}safe option ensure that every module for which the context has changed (including the SCBI module's script) will be recompiled.
+
+\subsection{Using the SCBI shell}
+
+Another alternative is to go into the sandbox with proper environment and debug in-place the module.
+
+\cmd{scbi \ddash{}env=v96 \ddash{}shell:sandbox paraview}
+
+This command will open a sub-shell into the build directory of paraview in the sandbox. The environment variables are set exactly with the same values as when compiling in the sandbox. The sources can be changed directly in directory whose relative path is \file{../src}. After changing the paraview sources a simple \code{make} will recompile paraview.
+
+Note that it is discouraged to use this method and the preferred solution is to use a user's checkout, \seeref{user:checkout}. This is because in the sandbox the sources will be overwritten when starting a standard compilation. Remember the sandbox is a controlled environment which is fully handled by \code{SCBI}.
 
 \printindex
 
