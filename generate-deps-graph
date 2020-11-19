@@ -1,15 +1,31 @@
 #!/bin/bash
 
+ENV=v96
+
 function get-deps()
 {
     local MODULE=$1
 
     if [ ! -f $MODULE.deps ]; then
-        scbi --list-depends:direct $MODULE > $MODULE.deps
+        VER=$(scbi --env=$ENV --module-version $MODULE)
+        echo $MODULE:$VER
 
-        while read m; do
-            get-deps $m
+        echo salome: $MODULE:$VER > $MODULE.deps
+
+        scbi --env=$ENV --list-depends:direct $MODULE |
+            while read m; do
+                echo "salome: $m"
+            done >> $MODULE.deps
+
+        while read p m; do
+            mm=$(echo $m | cut -d':' -f1)
+            get-deps $mm
         done < $MODULE.deps
+
+        scbi --env=$ENV --list-depends:direct --list-externals:only $MODULE |
+            while read m; do
+                echo "external: $m"
+            done >> $MODULE.deps
     fi
 }
 
