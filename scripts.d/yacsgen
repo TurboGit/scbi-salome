@@ -34,11 +34,6 @@ function yacsgen-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    sed -i "s#__YACSGEN_INSTALL_PATH__#${BDIR/install-tools}#" \
+    sed -i "s#__YACSGEN_INSTALL_PATH__#${BDIR/install}#" \
         $PREFIX/Examples/exec.sh
-}
-
-function yacsgen-prefix()
-{
-    echo $SCBI_BDIR/install-tools
 }
