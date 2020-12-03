@@ -36,7 +36,7 @@ function ispc-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH $SCBI_BDIR/install-tools/bin
+    add-to-var PATH $SCBI_BDIR/install/bin
 }
 
 function ispc-config()
@@ -64,9 +64,4 @@ function ispc-install()
     local TARGET=$2
 
     make install
-}
-
-function ispc-prefix()
-{
-    echo $SCBI_BDIR/install-tools
 }

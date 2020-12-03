@@ -15,8 +15,8 @@ function salome-configuration-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CONFIGURATION_ROOT_DIR $SCBI_BDIR/install-tools
-    add-to-var CONFIGURATION_CMAKE_DIR $SCBI_BDIR/install-tools/cmake
+    add-to-var CONFIGURATION_ROOT_DIR $SCBI_BDIR/install
+    add-to-var CONFIGURATION_CMAKE_DIR $SCBI_BDIR/install/cmake
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
@@ -37,12 +37,4 @@ function salome-configuration-install()
 
     cd ..
     rsync -a --delete src/. install
-}
-
-function salome-configuration-prefix()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    echo $SCBI_BDIR/install-tools
 }
