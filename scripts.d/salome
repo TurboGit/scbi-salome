@@ -49,7 +49,6 @@ function salome-main-modules()
     echo dsccode
     echo melidefx
     echo salome-openturns
-    echo non-regression-tests-confidential
     echo non-regression-tests
     echo clustertests
 }
