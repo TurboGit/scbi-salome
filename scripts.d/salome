@@ -97,13 +97,6 @@ function salome-modules()
     echo salome-configuration
 }
 
-function salome-full-modules()
-{
-    salome-modules
-    echo atomic
-    echo atomgen
-}
-
 function salome-prefix()
 {
     echo NONE
