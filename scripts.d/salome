@@ -15,6 +15,7 @@ function salome-main-modules()
 {
     echo salome-kernel
     echo salome-gui
+    echo salome-plugins
     echo shaper
     echo shaperstudy
     echo geom
@@ -26,18 +27,10 @@ function salome-main-modules()
     echo ydefx
     echo salome-eficas
     echo salome-jobmanager
-    echo blsurf-plugin
-    echo ghs3d-plugin
-    echo ghs3dprl-plugin
-    echo hybrid-plugin
-    echo gmsh-plugin
-    echo netgen-plugin
-    echo hexotic-plugin
     echo homard
     echo atomic
     echo atomgen
     echo hexablock
-    echo hexablock-plugin
     echo samples
     echo atomsolv
     echo calculator
@@ -119,7 +112,7 @@ function is-main-module()
 {
     local MODULE=$1
 
-    for M in $(salome-main-modules); do
+    for M in $(for-final-module $(salome-main-module)); do
         if [ "$M" = "$MODULE" ]; then
             echo "yes"
             return 0
@@ -310,7 +303,7 @@ EOF
     # sed commands are there to convert the plugin names to the expected
     # names. Finally we convert the name in capital letters.
 
-    for module in $(salome-main-modules); do
+    for module in $(for-final-modules $(salome-main-modules)); do
         MODULE_NAME=$(echo $module | \
                              sed 's/salome-//g;s/-plugin/plugin/g' | \
                              tr [a-z] [A-Z])
