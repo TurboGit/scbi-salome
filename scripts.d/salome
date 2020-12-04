@@ -126,7 +126,7 @@ function is-main-module()
         fi
     done
 
-    echo false
+    echo "no"
     return 1
 }
 
