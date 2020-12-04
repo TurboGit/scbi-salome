@@ -152,7 +152,7 @@ function build-salome-prerequisites()
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
 
-            if [ "$(is-main-module $CURRENT_MODULE_NAME)" = "yes" ]; then
+            if [[ "$(is-main-module $CURRENT_MODULE_NAME)" == "yes" ]]; then
                 REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
             fi
 
@@ -494,7 +494,7 @@ function salome-wrapup()
             #
             if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
                 dlog python2 is default, checking for python3
-                if [ -f /usr/bin/python3 ]; then
+                if [[ -f /usr/bin/python3 ]]; then
                     dlog found python3 in /usr/bin/python3, setuup links
                     (
                         cd $APP
@@ -508,7 +508,7 @@ function salome-wrapup()
                 fi
             fi
 
-            if [ $res == 0 ]; then
+            if [[ $res == 0 ]]; then
                 true
             else
                 false
