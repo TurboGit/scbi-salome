@@ -181,8 +181,8 @@ function paraview-headless-options()
     local TARGET=$1
 
     echo -DVTK_OPENGL_HAS_EGL:BOOL=ON
-    echo -DEGL_INCLUDE_DIR=/usr/include/EGL/egl.h.
-    echo -DEGL_LIBRARY=/usr/lib/$TARGET/libEGL.so.
+    echo -DEGL_INCLUDE_DIR=/usr/include/EGL/egl.h
+    echo -DEGL_LIBRARY=/usr/lib/$TARGET/libEGL.so
     echo -DEGL_opengl_LIBRARY=/usr/lib/$TARGET/libOpenGL.so
 }
 
