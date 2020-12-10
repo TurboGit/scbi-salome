@@ -16,7 +16,7 @@ function embree-build-depends()
 
     echo cmake
     echo ispc
-    echo s-clang
+    echo s-clang-edf
 }
 
 function embree-depends()
