@@ -18,9 +18,19 @@ function paraview-gdal-deps
     echo libgdal-dev
 }
 
-function paraview-headless-deps
+function paraview-egl-deps
 {
     echo libegl1-mesa-dev
+}
+
+function paraview-mesa-deps
+{
+    echo libosmesa6-dev
+}
+
+function paraview-headless-deps
+{
+    paraview-egl-deps
 }
 
 function paraview-ospray-deps
@@ -167,14 +177,30 @@ function paraview-gdal-options()
     echo -DPARAVIEW_ENABLE_GDAL:BOOL=ON
 }
 
-function paraview-headless-options()
+function paraview-egl-options()
 {
     local TARGET=$1
 
     echo -DVTK_OPENGL_HAS_EGL:BOOL=ON
-    echo -DEGL_INCLUDE_DIR=/usr/include/EGL/egl.h
+    echo -DEGL_INCLUDE_DIR=/usr/include
     echo -DEGL_LIBRARY=/usr/lib/$TARGET/libEGL.so
     echo -DEGL_opengl_LIBRARY=/usr/lib/$TARGET/libOpenGL.so
+}
+
+function paraview-mesa-options()
+{
+    local TARGET=$1
+
+    echo -DVTK_OPENGL_HAS_MESA:BOOL=ON
+    echo -DOSMESA_INCLUDE_DIR=/usr/include
+    echo -DOSMESA_LIBRARY=/usr/lib/$TARGET/libOSMesa.so
+}
+
+function paraview-headless-options()
+{
+    local TARGET=$1
+
+    paraview-egl-options $TARGET
 }
 
 function paraview-options()
