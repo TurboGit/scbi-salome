@@ -1,0 +1,9 @@
+inherit-plugin s-llvm
+
+function s-llvm-edf-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/llvm/llvm-project.git
+}
