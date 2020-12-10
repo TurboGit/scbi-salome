@@ -20,6 +20,7 @@ function openturns-tar()
 function openturns-build-depends()
 {
     echo cmake
+    echo libxml2-utils
 }
 
 function openturns-depends()
@@ -27,6 +28,10 @@ function openturns-depends()
     echo libblas-dev
     echo liblapack-dev
     echo python3
+    echo python3-dev
+    echo libbz2-dev
+    echo python3-matplotlib
+    echo python3-numpy
     # since 1.13
     echo libcminpack-dev
 }
@@ -48,7 +53,10 @@ function openturns-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DUSE_SPHINX=OFF -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+    cmake -DUSE_SPHINX=OFF \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          ../src
 }
 
 function openturns-build()
