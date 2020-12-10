@@ -1,7 +1,7 @@
 ###########################################
 # TOOLS
 
-s-clang:llvmorg-8.0.1
+s-clang-edf:llvmorg-8.0.1
 ispc:v1.12.0
 
 persalys:v8.0

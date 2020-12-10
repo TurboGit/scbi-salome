@@ -38,7 +38,7 @@ function ospray-build-depends()
 {
     echo cmake
     echo ispc
-    echo s-clang
+    echo s-clang-edf
 }
 
 function ospray-depends()
