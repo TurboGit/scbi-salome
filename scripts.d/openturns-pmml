@@ -44,7 +44,7 @@ function openturns-pmml-config()
           -DCMAKE_FIND_ROOT_PATH=ON \
           -DSWIG_EXECUTABLE:PATH=$(which swig) \
           -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
-          -DSPHINX_ROOT_DIR:FILEPATH=$(dirname dpkg -L python3-sphinx | grep sphinx-build) \
+          -DSPHINX_ROOT_DIR:FILEPATH=$(dirname $(dpkg -L python3-sphinx | grep sphinx-build)) \
           -DSPHINX_EXECUTABLE:FILEPATH=$(dpkg -L python3-sphinx | grep sphinx-build) \
           -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
           -DCMAKE_INSTALL_PREFIX=$PREFIX \
