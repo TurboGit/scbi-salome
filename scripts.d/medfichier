@@ -20,7 +20,9 @@ function medfichier-depends()
     echo salome-configuration
     echo salome-kernel
     echo libhdf5-dev
+    echo hdf5-tools
     echo python3
+    echo libpython3-dev
     echo swig
 }
 
