@@ -26,6 +26,12 @@ function medfichier-depends()
     echo swig
 }
 
+function medfichier-build-env()
+{
+
+    add-to-var PYTHON /usr/bin/python$PYTHON_VERSION
+}
+
 function medfichier-env()
 {
     local PREFIX=$1
