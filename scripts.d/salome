@@ -356,6 +356,11 @@ function salome-wrapup()
             # generate the application directory
             $SCBI_BDIR/salome-kernel/build/install/bin/salome/appli_gen.py
 
+            if [[ $? != 0 ]]; then
+                elog salome Error while running appli_gen
+                exit 1
+            fi
+
             # salome application root dir
             APP_DIR=$SCBI_BDIR/salome
 
