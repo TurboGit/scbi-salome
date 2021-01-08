@@ -7,3 +7,13 @@ function s-clang-edf-vcs()
     echo git
     echo https://github.com/llvm/llvm-project.git
 }
+
+function s-clang-edf-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo $VERSION.tar.gz
+}
