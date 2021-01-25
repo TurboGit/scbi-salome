@@ -27,41 +27,60 @@ ospray:#1.8.4
 
 # the salome meta-module version is used to name the .run and as the
 # version in create_catalog.py
-salome:V9_6_0
 
-medcoupling:V9_6_0
-fields:V9_6_0
-geom:V9_6_0
-smesh:V9_6_0
-atomgen:V9_6_0
-atomic:V9_6_0
-ghs3d-plugin:V9_6_0
-ghs3dprl-plugin:V9_6_0
-blsurf-plugin:V9_6_0
-gmsh-plugin:V9_6_0
-hybrid-plugin:V9_6_0
-hexotic-plugin:V9_6_0
-shaperstudy:V9_6_0
-homard:V9_6_0
-salome-kernel:V9_6_0
-salome-gui:V9_6_0
-paravis:V9_6_0
-salome-jobmanager:V9_6_0
-yacs:V9_6_0
-yacsgen:V9_6_0
-hexablock:V9_6_0
-hexablock-plugin:V9_6_0
-samples:V9_6_0
-atomsolv:V9_6_0
-calculator:V9_6_0
-genericsolver:V9_6_0
+# First master repository at CEA
+[
+        salome
+        medcoupling
+        fields
+        geom
+        smesh
+        atomgen
+        atomic
+        ghs3d-plugin
+        ghs3dprl-plugin
+        blsurf-plugin
+        gmsh-plugin
+        hybrid-plugin
+        hexotic-plugin
+        shaperstudy
+        homard
+        salome-kernel
+        salome-gui
+        paravis
+        salome-jobmanager
+        yacs
+        yacsgen
+        hexablock
+        hexablock-plugin
+        samples
+        atomsolv
+        calculator
+        genericsolver
+        hello
+        pyhello
+        light
+        pylight
+        netgen-plugin
+        dsccode
+] :V9_6_0
+
+# Second, master repository at EDF
+[
+        salome-eficas
+        eficas-tools
+        salome-adao
+        adao
+        adao-interface
+] :V9_6_0
+
+# module patched for GNU/Debian 10/buster
+[
+        salome-configuration
+        shaper
+] :po/debian-10-v96
+
 homard-tool:#1112hdf51103med410
-hello:V9_6_0
-pyhello:V9_6_0
-light:V9_6_0
-pylight:V9_6_0
-netgen-plugin:V9_6_0
-dsccode:V9_6_0
 melidefx:master
 ydefx:master
 salome-openturns:master
@@ -69,16 +88,6 @@ non-regression-tests-confidential:occ/python3_porting
 non-regression-tests:occ/python3_porting
 clustertests
 py2cpp:master
-
-salome-eficas:V9_6_0
-eficas-tools:V9_6_0
-salome-adao:V9_6_0
-adao:V9_6_0
-adao-interface:V9_6_0
-
-# module patched for GNU/Debian 10/buster
-salome-configuration:po/debian-10-v96
-shaper:po/debian-10-v96
 
 paravisaddons:master
 

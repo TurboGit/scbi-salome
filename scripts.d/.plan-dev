@@ -29,58 +29,57 @@ ospray:#1.8.4
 # version in create_catalog.py
 salome:DEV
 
-medcoupling:master
-fields:master
-geom:master
-smesh:master
-atomgen:master
-atomic:master
-ghs3d-plugin:master
-ghs3dprl-plugin:master
-blsurf-plugin:master
-gmsh-plugin:master
-hybrid-plugin:master
-hexotic-plugin:master
-shaperstudy:master
-homard:master
-salome-kernel:master
-salome-gui:master
-paravis:master
-salome-jobmanager:master
-yacs:master
-yacsgen:master
-hexablock:master
-hexablock-plugin:master
-samples:master
-atomsolv:master
-calculator:master
-genericsolver:master
-homard-tool:#1112hdf51103med410
-hello:master
-pyhello:master
-light:master
-pylight:master
-netgen-plugin:master
-dsccode:master
-melidefx:master
-ydefx:master
-salome-openturns:master
-non-regression-tests-confidential:occ/python3_porting
-non-regression-tests:occ/python3_porting
-clustertests
-py2cpp:master
+[
+        salome-configuration
+        medcoupling
+        fields
+        geom
+        smesh
+        atomgen
+        atomic
+        ghs3d-plugin
+        ghs3dprl-plugin
+        blsurf-plugin
+        gmsh-plugin
+        hybrid-plugin
+        hexotic-plugin
+        shaper
+        shaperstudy
+        homard
+        salome-kernel
+        salome-gui
+        paravis
+        salome-jobmanager
+        yacs
+        yacsgen
+        hexablock
+        hexablock-plugin
+        samples
+        atomsolv
+        calculator
+        genericsolver
+        homard-tool:#1112hdf51103med410
+        hello
+        pyhello
+        light
+        pylight
+        netgen-plugin
+        dsccode
+        melidefx
+        ydefx
+        salome-openturns
+        non-regression-tests-confidential:occ/python3_porting
+        non-regression-tests:occ/python3_porting
+        clustertests
+        py2cpp
+        paravisaddons
 
-salome-eficas:master
-eficas-tools:master
-salome-adao:master
-adao:master
-adao-interface:master
-
-# module patched for GNU/Debian 10/buster
-salome-configuration:po/debian-10-v96
-shaper:po/debian-10-v96
-
-paravisaddons:master
+        salome-eficas
+        eficas-tools
+        salome-adao
+        adao
+        adao-interface
+] :master
 
 gmsh:#4.1.4
 medfichier:#4.1.0
