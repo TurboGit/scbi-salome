@@ -112,7 +112,7 @@ function is-main-module()
 {
     local MODULE=$1
 
-    for M in $(for-final-module $(salome-main-module)); do
+    for M in $(for-final-modules $(salome-main-modules)); do
         if [ "$M" = "$MODULE" ]; then
             echo "yes"
             return 0
