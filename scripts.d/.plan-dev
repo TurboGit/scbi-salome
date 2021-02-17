@@ -68,8 +68,6 @@ salome:DEV
         melidefx
         ydefx
         salome-openturns
-        non-regression-tests-confidential:occ/python3_porting
-        non-regression-tests:occ/python3_porting
         clustertests
         py2cpp
         paravisaddons
@@ -80,6 +78,10 @@ salome:DEV
         adao
         adao-interface
 ] :master
+
+# Use occ/python3_porting for non_regression_tests
+non-regression-tests-confidential:occ/python3_porting
+non-regression-tests:occ/python3_porting
 
 gmsh:#4.1.4
 medfichier:#4.1.0
