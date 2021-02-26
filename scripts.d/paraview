@@ -43,6 +43,11 @@ function paraview-vrpn-deps
     echo vrpn
 }
 
+function paraview-uranie-deps
+{
+    echo uranie
+}
+
 function paraview-build-depends()
 {
     echo cmake
