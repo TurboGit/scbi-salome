@@ -1,0 +1,94 @@
+
+function s-root-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/root-project/root.git
+}
+
+function s-root-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo root-$VERSION-src.tar.gz
+}
+
+function s-root-build-depends()
+{
+    echo cmake
+    echo dpkg-dev
+}
+
+function s-root-depends()
+{
+    echo libx11-dev
+    echo libxpm-dev
+    echo libxft-dev
+    echo libxext-dev
+    echo libpng-dev
+    echo libjpeg-dev
+    echo libssl-dev
+    echo libgraphviz-dev
+    echo libpcre3-dev
+    echo libglu1-mesa-dev
+    echo libglew-dev
+    echo libftgl-dev
+    echo libfftw3-dev
+    echo libcfitsio-dev
+}
+
+function s-root-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # proxy needed as some git clone are done during build
+    proxy-edf
+}
+
+function s-root-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CLING_STANDARD_PCH none
+
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+    add-to-var ROOTSYS           $PREFIX
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        $PREFIX/lib
+    add-to-var PATH              $PREFIX/bin
+}
+
+function s-root-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function s-root-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-root-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-root-prefix()
+{
+    echo NONE
+}
