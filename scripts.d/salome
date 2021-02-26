@@ -76,6 +76,8 @@ function salome-prerequisite-modules()
     echo openturns-subsetinverse
     echo openturns-svm
     echo openturns-wrapy
+    echo uranie
+    echo s-root
     echo homard-tool
     echo s-zeromq
     echo melissa
