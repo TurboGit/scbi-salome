@@ -1,0 +1,59 @@
+
+
+function uranie-build-depends()
+{
+    echo cmake
+    echo libxml2-utils
+}
+
+function uranie-depends()
+{
+    echo s-root
+    echo python3
+    echo python3-dev
+    echo libboost-dev
+}
+
+function uranie-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function uranie-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DUSE_SPHINX=OFF \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DLOCAL_PYTHON_EXEC=$(which python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE_FROMROOT=$(which python$PYTHON_VERSION) \
+          ../src
+}
+
+function uranie-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function uranie-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function uranie-prefix()
+{
+    echo NONE
+}
