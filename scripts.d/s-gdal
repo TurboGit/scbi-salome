@@ -1,4 +1,6 @@
 
+with-variant native s-hdf5 s-netcdf libproj-dev libgdal-dev
+
 function s-gdal-vcs()
 {
     echo edf

@@ -24,7 +24,7 @@ function paraview-patches()
 
 function paraview-gdal-deps
 {
-    echo libgdal-dev
+    echo s-gdal
 }
 
 function paraview-egl-deps

@@ -9,12 +9,18 @@ s-zeromq:#4.3.1
 melissa:#0.0.0
 planegcs:#0.18
 
-# s-root:v6-22-00-patches
+# Some native modules
 
 [
         s-netcdf
         s-gdal
         s-hdf5
+] /native
+
+# uranie:#4.5.0
+# s-root:v6-22-00-patches
+
+[
         uranie
         s-root
 ] :skip

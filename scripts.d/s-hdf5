@@ -1,7 +1,9 @@
 
+with-variant native libhdf5-dev hdf5-tools
+
 function s-hdf5-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git
@@ -14,7 +16,7 @@ function s-hdf5-tar()
     echo default
     echo wget
     echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
-    echo s-hdf5-$VERSION.tar.gz
+    echo hdf5-$VERSION.tar.gz
 }
 
 function s-hdf5-build-depends()
