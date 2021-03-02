@@ -14,7 +14,6 @@ planegcs:#0.18
 [
         s-netcdf
         s-gdal
-        s-hdf5
 ] /native
 
 # uranie:#4.5.0
@@ -44,7 +43,6 @@ salome:DEV
 
 [
         salome-configuration
-        medcoupling
         fields
         geom
         smesh
@@ -92,6 +90,18 @@ salome:DEV
 ] :master
 
 homard-tool:#1112hdf51103med410
+
+# cannot use hdf5_1_10_7 ; medficher won't config with specific error
+# saying it is not supported.
+# s-hdf5/mpi:hdf5-1_10_6
+
+# Debian come with HDF5 openmpi & serial support
+# for openmpi:
+#s-hdf5/native-mpi
+#medcoupling/mpi
+
+# for serial:
+s-hdf5/native-serial
 
 # Use occ/python3_porting for non_regression_tests
 non-regression-tests-confidential:occ/python3_porting

@@ -45,6 +45,9 @@ function medfichier-config()
     local TARGET=$2
 
     ../src/configure --prefix=$PREFIX --with-swig=$(which swig) \
+                     --with-hdf5-include=$HDF5_INC \
+                     --with-hdf5-lib=$HDF5_LIB \
+                     --with-hdf5-bin=$HDF5_BIN \
                      --enable-mesgerr --with-med_int=long
 }
 
