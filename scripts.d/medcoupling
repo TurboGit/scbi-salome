@@ -27,8 +27,8 @@ function medcoupling-build-depends()
 
 function medcoupling-depends()
 {
-    echo scotch
-    echo libscotch-dev
+    echo ptscotch
+    echo libptscotch-dev
     echo metis
     echo libmetis-dev
     echo salome-configuration
@@ -54,15 +54,39 @@ function medcoupling-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
+function medcoupling-mpi-options()
+{
+    echo -DSALOME_USE_MPI=ON
+}
+
+function medcoupling-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release)
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DMEDCOUPLING_USE_MPI=ON
+    echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
+    echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
+    echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
+    echo -DMEDCOUPLING_BUILD_TESTS=OFF
+    echo -DPTSCOTCH_INCLUDE_DIRS=/usr/include/scotch-long
+
+    call-variant-hooks options $PREFIX $TARGET $VARIANT
+}
+
 function medcoupling-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release) \
-          -DMEDCOUPLING_USE_64BIT_IDS=ON \
-          ../src
+    local OPTIONS="$(medcoupling-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function medcoupling-build()

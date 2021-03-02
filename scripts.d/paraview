@@ -120,6 +120,8 @@ function paraview-build-env()
 
 function paraview-common-options()
 {
+    local PREFIX=$1
+
     echo -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE paraview Release)
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
 
@@ -219,19 +221,13 @@ function paraview-headless-options()
 
 function paraview-options()
 {
-    local VARIANT=$1
+    local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    paraview-common-options $TARGET
+    paraview-common-options $PREFIX $TARGET
 
-    # add options for all variants if any
-
-    for v in $(all-variants $VARIANT); do
-        fn-exists paraview-$v-options
-        if [ $? = 0 ]; then
-            paraview-$v-options $TARGET
-        fi
-    done
+    call-variant-hooks options $PREFIX $TARGET $VARIANT
 }
 
 function paraview-config()
@@ -239,7 +235,7 @@ function paraview-config()
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
-    local OPTIONS="$(paraview-options $VARIANT $TARGET)"
+    local OPTIONS="$(paraview-options $PREFIX $TARGET $VARIANT)"
 
     cmake $OPTIONS ../src
 }
