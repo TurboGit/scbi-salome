@@ -1,7 +1,9 @@
 
+with-variant native libhdf5-dev hdf5-tools
+
 function s-hdf5-vcs() 
 { 
-    echo default 
+    echo default
     echo none 
     echo git 
     echo https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git 

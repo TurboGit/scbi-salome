@@ -38,6 +38,8 @@ function medcoupling-env()
     add-to-var MEDCoupling_DIR      $PREFIX/cmake_files
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
     add-to-var LIBRARY_PATH         $PREFIX/lib
+    add-to-var C_INCLUDE_PATH       $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include
     add-to-var PYTHONPATH           $PREFIX/tests/MEDLoader_Swig
     add-to-var PYTHONPATH           $PREFIX/tests/MEDCoupling_Swig
     add-to-var PYTHONPATH           $PREFIX/tests/MEDPartitioner_Swig
@@ -50,7 +52,7 @@ function medcoupling-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release) \
           -DMEDCOUPLING_USE_64BIT_IDS=ON \
           ../src

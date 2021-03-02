@@ -1,4 +1,6 @@
 
+with-variant native s-hdf5 libnetcdf-dev
+
 function s-netcdf-vcs() 
 { 
     echo default
