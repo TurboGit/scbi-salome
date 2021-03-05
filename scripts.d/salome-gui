@@ -41,6 +41,8 @@ function salome-gui-depends()
     echo paraview
     echo salome-kernel
     echo occt
+
+    echo s-hdf5
 }
 
 function salome-gui-env()
