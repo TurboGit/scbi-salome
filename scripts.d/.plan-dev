@@ -45,7 +45,6 @@ salome:DEV
         salome-configuration
         fields
         geom
-        smesh
         atomgen
         atomic
         ghs3d-plugin
@@ -57,8 +56,6 @@ salome:DEV
         shaper
         shaperstudy
         homard
-        salome-kernel
-        salome-gui
         paravis
         salome-jobmanager
         yacs
@@ -87,21 +84,28 @@ salome:DEV
         salome-adao
         adao
         adao-interface
+        salome-kernel
+        salome-gui
 ] :master
+
+[
+        medcoupling
+        smesh
+] /mpi:master
 
 homard-tool:#1112hdf51103med410
 
 # cannot use hdf5_1_10_7 ; medficher won't config with specific error
 # saying it is not supported.
-# s-hdf5/mpi:hdf5-1_10_6
+#   s-hdf5/mpi:hdf5-1_10_6
 
 # Debian come with HDF5 openmpi & serial support
 # for openmpi:
-#s-hdf5/native-mpi
-#medcoupling/mpi
+#    s-hdf5/native-mpi
 
 # for serial:
-s-hdf5/native-serial
+    s-hdf5/native-serial
+#    medcoupling:dev
 
 # Use occ/python3_porting for non_regression_tests
 non-regression-tests-confidential:occ/python3_porting

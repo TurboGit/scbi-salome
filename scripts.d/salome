@@ -8,7 +8,7 @@
 
 function salome-v95-plan()
 {
-    echo v95
+    echo dev
 }
 
 function salome-main-modules()

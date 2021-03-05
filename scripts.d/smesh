@@ -20,8 +20,8 @@ function smesh-build-depends()
 function smesh-depends()
 {
     echo qt5-default
-    echo libhdf5-dev
     echo omniorb
+    echo s-hdf5
 
     echo salome-configuration
     echo salome-kernel
@@ -46,15 +46,33 @@ function smesh-env()
                $PREFIX/share/salome/plugins/smesh/Verima
 }
 
+function smesh-mpi-options()
+{
+    echo -DSALOME_USE_MPI=ON
+}
+
+function smesh-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
+    echo -DSALOME_SMESH_USE_CGNS=ON
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release)
+
+    apply-variant-options $PREFIX $TARGET $VARIANT
+}
+
 function smesh-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DSALOME_SMESH_USE_CGNS=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release) \
-          ../src
+    local OPTIONS="$(smesh-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function smesh-build()
