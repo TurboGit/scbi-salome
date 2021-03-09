@@ -9,9 +9,9 @@ function padder-out-of-tree()
 function padder-depends()
 {
     echo medfichier
-    echo libboost-dev
-    echo libcgal-dev
-    echo libhdf5-dev
+    echo os@-boost-dev
+    echo os@-cgal-dev
+    echo os@-hdf5-dev
 }
 
 function padder-build-env()

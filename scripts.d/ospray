@@ -27,7 +27,7 @@ function ospray-env()
 
 function ospray-build-depends()
 {
-    echo cmake
+    echo os@-cmake
     echo ispc
     echo s-clang-edf
 }
@@ -38,7 +38,7 @@ function ospray-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo libtbb-dev
+    echo os@-tbb-dev
     echo embree
 }
 

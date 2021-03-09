@@ -3,18 +3,18 @@
 
 function salome-openturns-build-depends()
 {
-    echo cmake
-    echo python3-sphinx
-    echo swig
-    echo libgraphviz-dev
-    echo doxygen
-    echo python3-docutils
+    echo os@-cmake
+    echo os@-python3-sphinx
+    echo os@-swig
+    echo os@-graphviz-dev
+    echo os@-doxygen
+    echo os@-python3-docutils
     echo salome-configuration
 }
 
 function salome-openturns-depends()
 {
-    echo qt5-default
+    echo os@-qt5-default
     echo qtbase5-dev
     echo persalys
 

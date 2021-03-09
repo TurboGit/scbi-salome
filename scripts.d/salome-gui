@@ -12,23 +12,23 @@ function salome-gui-tar()
 
 function salome-gui-build-depends()
 {
-    echo cmake
-    echo sphinx-common
-    echo sphinx-intl
+    echo os@-cmake
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
 }
 
 function salome-gui-depends()
 {
-    echo qt5-default
+    echo os@-qt5-default
     echo qtbase5-dev
-    echo python3-pyqt5
+    echo os@-python3-pyqt5
     echo pyqt5-dev
     echo pyqt5-dev-tools
-    echo libqwt-qt5-dev
-    echo python3-sip-dev
-    echo python3-sip
-    echo libqt5opengl5-dev
-    echo libqt5printsupport5
+    echo os@-qwt-qt5-dev
+    echo os@-python3-sip-dev
+    echo os@-python3-sip
+    echo os@-qt5opengl5-dev
+    echo os@-qt5printsupport5
 
     echo salome-configuration
     echo paraview

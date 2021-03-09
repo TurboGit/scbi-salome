@@ -7,13 +7,13 @@ function openturns-wrapy-out-of-tree()
 
 function openturns-wrapy-build-depends()
 {
-    echo python3-setuptools
+    echo os@-python3-setuptools
 }
 
 function openturns-wrapy-depends()
 {
     echo openturns
-    echo python3
+    echo os@-python3
 }
 
 function openturns-wrapy-env()

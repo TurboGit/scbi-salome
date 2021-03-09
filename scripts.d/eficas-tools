@@ -12,14 +12,14 @@ function eficas-tools-tar()
 
 function eficas-tools-build-depends()
 {
-    echo cmake
-    echo sphinx-common
+    echo os@-cmake
+    echo os@-sphinx-common
 }
 
 function eficas-tools-depends()
 {
     echo salome-configuration
-    echo python3-pyqt5
+    echo os@-python3-pyqt5
 }
 
 function eficas-tools-env()

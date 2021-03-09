@@ -3,8 +3,8 @@
 
 function hybrid-plugin-build-depends()
 {
-    echo cmake
-    echo sphinx-common
+    echo os@-cmake
+    echo os@-sphinx-common
 }
 
 function hybrid-plugin-depends()

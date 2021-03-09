@@ -6,9 +6,9 @@ function s-python3-xlutils-out-of-tree()
 
 function s-python3-xlutils-depends()
 {
-    echo python3
-    echo python3-xlrd
-    echo python3-xlwt
+    echo os@-python3
+    echo os@-python3-xlrd
+    echo os@-python3-xlwt
 }
 
 function s-python3-xlutils-env()

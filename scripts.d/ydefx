@@ -12,14 +12,14 @@ function ydefx-tar()
 
 function ydefx-build-depends()
 {
-    echo cmake
+    echo os@-cmake
     echo py2cpp
 }
 
 function ydefx-depends()
 {
     echo salome-configuration
-    echo qt5-default
+    echo os@-qt5-default
 
     echo salome-kernel
     echo yacs

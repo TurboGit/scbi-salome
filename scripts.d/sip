@@ -8,7 +8,7 @@ function sip-vcs()
 
 function sip-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function sip-depends()

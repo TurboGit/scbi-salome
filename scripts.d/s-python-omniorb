@@ -10,7 +10,7 @@ function s-python-omniorb-vcs()
 
 function s-python-omniorb-depends()
 {
-    echo omniorb
+    echo os@-omniorb
 }
 
 function s-python-omniorb-env()

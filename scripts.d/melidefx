@@ -2,7 +2,7 @@
 
 function melidefx-build-depends()
 {
-    echo cmake
+    echo os@-cmake
     echo salome-configuration
 }
 
@@ -10,7 +10,7 @@ function melidefx-depends()
 {
     echo salome-kernel
     echo yacs
-    echo python3
+    echo os@-python3
     echo melissa
     echo py2cpp
     echo ydefx

@@ -12,16 +12,16 @@ function yacs-tar()
 
 function yacs-build-depends()
 {
-    echo cmake
-    echo swig
+    echo os@-cmake
+    echo os@-swig
 }
 
 function yacs-depends()
 {
-    echo libgraphviz-dev
-    echo graphviz
-    echo sphinx-common
-    echo sphinx-intl
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

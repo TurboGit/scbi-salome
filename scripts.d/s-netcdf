@@ -1,5 +1,5 @@
 
-with-variant native s-hdf5 libnetcdf-dev
+with-variant native s-hdf5 os@-netcdf-dev
 
 function s-netcdf-vcs() 
 { 
@@ -21,13 +21,13 @@ function s-netcdf-tar()
 
 function s-netcdf-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function s-netcdf-depends()
 {
     echo s-hdf5
-    echo libcurl4-openssl-dev
+    echo os@-curl4-openssl-dev
 }
 
 function s-netcdf-env()

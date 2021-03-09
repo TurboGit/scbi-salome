@@ -2,9 +2,9 @@
 
 function shaper-build-depends()
 {
-    echo cmake
-    echo doxygen
-    echo sphinx-common
+    echo os@-cmake
+    echo os@-doxygen
+    echo os@-sphinx-common
 }
 
 function shaper-depends()
@@ -14,7 +14,7 @@ function shaper-depends()
     echo salome-gui
     echo geom
     echo planegcs
-    echo qt5-default
+    echo os@-qt5-default
     echo occt
 }
 

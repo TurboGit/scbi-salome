@@ -12,16 +12,16 @@ function geom-tar()
 
 function geom-build-depends()
 {
-    echo cmake
-    echo sphinx-common
-    echo swig
+    echo os@-cmake
+    echo os@-sphinx-common
+    echo os@-swig
 }
 
 function geom-depends()
 {
-    echo libopencv-dev
-    echo omniorb
-    echo qt5-default
+    echo os@-opencv-dev
+    echo os@-omniorb
+    echo os@-qt5-default
 
     echo salome-configuration
     echo salome-kernel

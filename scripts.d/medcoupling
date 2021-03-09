@@ -12,18 +12,19 @@ function medcoupling-tar()
 
 function medcoupling-build-depends()
 {
-    echo cmake
-    echo sphinx-common
-    echo sphinx-intl
-    echo python3-sphinx-rtd-theme
+    echo os@-cmake
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx-rtd-theme
 }
 
 function medcoupling-depends()
 {
-    echo ptscotch
-    echo libptscotch-dev
+    echo os@-ptscotch
+    echo os@-ptscotch-dev
+    echo os@-metis-dev
+
     echo metis
-    echo libmetis-dev
     echo salome-configuration
     echo salome-kernel
     echo medfichier

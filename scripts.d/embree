@@ -14,7 +14,7 @@ function embree-build-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo cmake
+    echo os@-cmake
     echo ispc
     echo s-clang-edf
 }
@@ -25,9 +25,9 @@ function embree-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo libc6-dev
-    echo libtbb-dev
-    echo libglfw3-dev
+    echo os@-c6-dev
+    echo os@-tbb-dev
+    echo os@-glfw3-dev
 }
 
 function embree-env()

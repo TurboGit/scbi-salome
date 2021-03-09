@@ -3,8 +3,8 @@
 
 function libbatch-build-depends()
 {
-    echo cmake
-    echo swig
+    echo os@-cmake
+    echo os@-swig
 }
 
 function libbatch-depends()

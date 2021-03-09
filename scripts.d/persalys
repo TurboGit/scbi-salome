@@ -12,9 +12,9 @@ function persalys-tar()
 
 function persalys-build-depends()
 {
-    echo cmake
+    echo os@-cmake
     echo py2cpp
-    echo libboost-locale-dev
+    echo os@-boost-locale-dev
 }
 
 function persalys-depends()

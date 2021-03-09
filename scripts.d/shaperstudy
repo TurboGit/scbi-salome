@@ -2,7 +2,7 @@
 
 function shaperstudy-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function shaperstudy-depends()

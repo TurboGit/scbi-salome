@@ -2,16 +2,16 @@
 
 function openturns-fftw-build-depends()
 {
-    echo cmake
-    echo swig
-    echo python3-sphinx
+    echo os@-cmake
+    echo os@-swig
+    echo os@-python3-sphinx
 }
 
 function openturns-fftw-depends()
 {
     echo openturns
-    echo python3
-    echo libfftw3-dev
+    echo os@-python3
+    echo os@-fftw3-dev
 }
 
 function openturns-fftw-env()

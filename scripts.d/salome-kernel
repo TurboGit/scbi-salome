@@ -12,45 +12,56 @@ function salome-kernel-tar()
 
 function salome-kernel-build-depends()
 {
-    echo cmake
-    echo sphinx-common
-    echo sphinx-intl
-    echo swig
-    echo doxygen
-    echo graphviz
+    echo os@-cmake
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-swig
+    echo os@-doxygen
+    echo os@-graphviz
+}
+
+function salome-kernel-mpi-depends()
+{
+    echo os@-python3-mpi4py
 }
 
 function salome-kernel-depends()
 {
-    echo libboost-dev
-    echo libboost-filesystem-dev
-    echo libboost-regex-dev
-    echo libboost-signals-dev
-    echo libboost-chrono-dev
-    echo libboost-date-time-dev
-    echo libboost-thread-dev
-    echo libomniorb4-dev
-    echo libcppunit-dev
-    echo libgraphviz-dev
-    echo libxml2-dev
-    echo libgraphviz-dev
-    echo python3-numpy
-    echo libhdf5-dev
-    echo omniorb
-    echo omniorb-idl
-    echo omniidl
-    echo libcos4-dev
-    echo python3-mpi4py
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo os@-boost-dev
+    echo os@-boost-filesystem-dev
+    echo os@-boost-regex-dev
+    echo os@-boost-signals-dev
+    echo os@-boost-chrono-dev
+    echo os@-boost-date-time-dev
+    echo os@-boost-thread-dev
+    echo os@-omniorb4-dev
+    echo os@-cppunit-dev
+    echo os@-graphviz-dev
+    echo os@-xml2-dev
+    echo os@-graphviz-dev
+    echo os@-python3-numpy
+    echo os@-hdf5-dev
+    echo os@-omniorb
+    echo os@-omniorb-idl
+    echo os@-omniidl
+    echo os@-cos4-dev
 
     echo salome-configuration
     echo libbatch
     echo s-python-omniorb
+
+    call-variant-hooks depends $PREFIX $TARGET $VARIANT
 }
 
 function salome-kernel-env()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     add-to-var MPI_ROOT_DIR       /usr
 

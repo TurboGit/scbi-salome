@@ -12,17 +12,17 @@ function smesh-tar()
 
 function smesh-build-depends()
 {
-    echo cmake
-    echo sphinx-common
-    echo sphinx-intl
+    echo os@-cmake
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
 }
 
 function smesh-depends()
 {
-    echo qt5-default
-    echo omniorb
-    echo s-hdf5
+    echo os@-qt5-default
+    echo os@-omniorb
 
+    echo s-hdf5
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

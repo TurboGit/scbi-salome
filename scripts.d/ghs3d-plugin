@@ -3,8 +3,8 @@
 
 function ghs3d-plugin-build-depends()
 {
-    echo cmake
-    echo sphinx-common
+    echo os@-cmake
+    echo os@-sphinx-common
 }
 
 function ghs3d-plugin-depends()

@@ -1,5 +1,5 @@
 
-with-variant native s-hdf5 s-netcdf libproj-dev libgdal-dev
+with-variant native s-hdf5 s-netcdf os@-proj-dev os@-gdal-dev
 
 function s-gdal-vcs() 
 { 
@@ -21,7 +21,7 @@ function s-gdal-tar()
 
 function s-gdal-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function s-gdal-out-of-tree()
@@ -31,7 +31,7 @@ function s-gdal-out-of-tree()
 
 function s-gdal-depends()
 {
-    echo libproj-dev
+    echo os@-proj-dev
     echo s-netcdf
     echo s-hdf5
 }

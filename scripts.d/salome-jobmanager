@@ -3,7 +3,7 @@
 
 function salome-jobmanager-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function salome-jobmanager-depends()

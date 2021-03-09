@@ -2,13 +2,13 @@
 
 function planegcs-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function planegcs-depends()
 {
-    echo libeigen3-dev
-    echo libboost-graph-dev
+    echo os@-eigen3-dev
+    echo os@-boost-graph-dev
 }
 
 function planegcs-env()

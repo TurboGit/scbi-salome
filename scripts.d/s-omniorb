@@ -10,7 +10,7 @@ function s-omniorb-vcs()
 
 function s-omniorb-depends()
 {
-    echo python3-dev
+    echo os@-python3-dev
 }
 
 function s-omniorb-env()
