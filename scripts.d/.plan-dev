@@ -65,7 +65,6 @@ salome:DEV
         atomsolv
         calculator
         genericsolver
-        homard-tool:#1112hdf51103med410
         hello
         pyhello
         light
@@ -85,6 +84,8 @@ salome:DEV
         adao
         adao-interface
 ] :master
+
+homard-tool:#1112hdf51103med410
 
 # Use occ/python3_porting for non_regression_tests
 non-regression-tests-confidential:occ/python3_porting
