@@ -29,12 +29,12 @@ function paraview-gdal-deps
 
 function paraview-egl-deps
 {
-    echo libegl1-mesa-dev
+    echo os@-egl1-mesa-dev
 }
 
 function paraview-mesa-deps
 {
-    echo libosmesa6-dev
+    echo os@-osmesa6-dev
 }
 
 function paraview-headless-deps
@@ -59,7 +59,7 @@ function paraview-uranie-deps
 
 function paraview-build-depends()
 {
-    echo cmake
+    echo os@-cmake
     echo qtxmlpatterns5-dev-tools
 }
 
@@ -69,17 +69,17 @@ function paraview-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo python3-dev
-    echo libx11-dev
-    echo libxt-dev
-    echo libopenmpi-dev
-    echo s-hdf5
+    echo os@-python3-dev
+    echo os@-x11-dev
+    echo os@-xt-dev
+    echo os@-openmpi-dev
+    echo os@-qt5-default
+    echo os@-qt5x11extras5-dev
+    echo os@-qt5help5
+    echo os@-qt5svg5-dev
 
-    echo qt5-default
-    echo libqt5x11extras5-dev
-    echo libqt5help5
+    echo s-hdf5
     echo qttools5-dev
-    echo libqt5svg5-dev
     echo openturns
 
     # add all depends for variants if any

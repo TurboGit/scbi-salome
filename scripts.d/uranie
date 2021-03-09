@@ -11,16 +11,16 @@ function uranie-tar()
 
 function uranie-build-depends()
 {
-    echo cmake
-    echo libxml2-utils
+    echo os@-cmake
+    echo os@-xml2-utils
 }
 
 function uranie-depends()
 {
     echo s-root
-    echo python3
-    echo python3-dev
-    echo libboost-dev
+    echo os@-python3
+    echo os@-python3-dev
+    echo os@-boost-dev
 }
 
 function uranie-env()

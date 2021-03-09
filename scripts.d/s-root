@@ -19,27 +19,27 @@ function s-root-tar()
 
 function s-root-build-depends()
 {
-    echo cmake
+    echo os@-cmake
     echo dpkg-dev
 }
 
 function s-root-depends()
 {
-    echo libx11-dev
-    echo libxpm-dev
-    echo libxft-dev
-    echo libxext-dev
-    echo libpng-dev
-    echo libjpeg-dev
-    echo libssl-dev
-    echo libgraphviz-dev
-    echo libpcre3-dev
-    echo libglu1-mesa-dev
-    echo libglew-dev
-    echo libftgl-dev
-    echo libfftw3-dev
-    echo libcfitsio-dev
-    echo uuid-dev
+    echo os@-x11-dev
+    echo os@-xpm-dev
+    echo os@-xft-dev
+    echo os@-xext-dev
+    echo os@-png-dev
+    echo os@-jpeg-dev
+    echo os@-ssl-dev
+    echo os@-graphviz-dev
+    echo os@-pcre3-dev
+    echo os@-glu1-mesa-dev
+    echo os@-glew-dev
+    echo os@-ftgl-dev
+    echo os@-fftw3-dev
+    echo os@-cfitsio-dev
+    echo os@-uuid-dev
 }
 
 function s-root-build-env()

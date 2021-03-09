@@ -19,14 +19,13 @@ function paravis-tar()
 
 function paravis-build-depends()
 {
-    echo cmake
-    echo qt5-default
+    echo os@-cmake
+    echo os@-qt5-default
 }
 
 function paravis-depends()
 {
     echo s-hdf5
-
     echo salome-configuration
     echo salome-kernel
     echo salome-gui

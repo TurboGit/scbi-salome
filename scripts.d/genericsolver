@@ -19,8 +19,8 @@ function genericsolver-tar()
 
 function genericsolver-build-depends()
 {
-    echo cmake
-    echo swig
+    echo os@-cmake
+    echo os@-swig
     echo salome-configuration
 }
 

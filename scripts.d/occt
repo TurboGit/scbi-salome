@@ -11,19 +11,19 @@ function occt-tar()
 
 function occt-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function occt-depends()
 {
-    echo tcl-dev
-    echo tk-dev
-    echo libfreetype6-dev
-    echo libxi-dev
-    echo libxmu-dev
-    echo libfreeimage-dev
-    echo libgl2ps-dev
-    echo libtbb-dev
+    echo os@-tcl-dev
+    echo os@-tk-dev
+    echo os@-freetype6-dev
+    echo os@-xi-dev
+    echo os@-xmu-dev
+    echo os@-freeimage-dev
+    echo os@-gl2ps-dev
+    echo os@-tbb-dev
 }
 
 function occt-env()

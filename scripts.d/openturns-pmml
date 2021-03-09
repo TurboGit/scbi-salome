@@ -11,15 +11,15 @@ function openturns-pmml-tar()
 
 function openturns-pmml-build-depends()
 {
-    echo cmake
-    echo swig
-    echo python3-sphinx
+    echo os@-cmake
+    echo os@-swig
+    echo os@-python3-sphinx
 }
 
 function openturns-pmml-depends()
 {
     echo openturns
-    echo python3
+    echo os@-python3
 }
 
 function openturns-pmml-env()

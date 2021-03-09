@@ -9,12 +9,12 @@ function clustertests-vcs()
 
 function clustertests-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function clustertests-depends()
 {
-    echo qt5-default
+    echo os@-qt5-default
     echo qtbase5-dev
 
     echo salome-kernel

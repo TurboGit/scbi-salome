@@ -1,5 +1,5 @@
 
-with-variant native-serial libhdf5-dev hdf5-tools \
+with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
        --env 'add-to-var HDF5_ROOT /usr/lib/x86_64-linux-gnu/hdf5/serial' \
              'add-to-var HDF5_DIR /usr/lib/x86_64-linux-gnu/hdf5/serial' \
              'add-to-var HDF5_INC /usr/include/hdf5/serial' \
@@ -7,7 +7,7 @@ with-variant native-serial libhdf5-dev hdf5-tools \
              'add-to-var HDF5_LIB /usr/lib/x86_64-linux-gnu/hdf5/serial' \
              'add-to-var HDF5_BIN /usr/bin'
 
-with-variant native-mpi libhdf5-dev libhdf5-openmpi-dev hdf5-tools libopenmpi-dev \
+with-variant native-mpi os@-hdf5-dev os@-hdf5-openmpi-dev os@-hdf5-tools os@-openmpi-dev \
        --env 'add-to-var HDF5_ROOT /usr/lib/x86_64-linux-gnu/hdf5/openmpi' \
              'add-to-var HDF5_DIR /usr/lib/x86_64-linux-gnu/hdf5/openmpi' \
              'add-to-var HDF5_PREFER_PARALLEL true' \
@@ -36,9 +36,9 @@ function s-hdf5-tar()
 
 function s-hdf5-build-depends()
 {
-    echo cmake
-    echo sphinx-common
-    echo sphinx-intl
+    echo os@-cmake
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
 }
 
 function s-hdf5-depends()

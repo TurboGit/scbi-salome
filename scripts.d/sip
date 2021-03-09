@@ -17,7 +17,7 @@ function sip-tar()
 
 function sip-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function sip-depends()

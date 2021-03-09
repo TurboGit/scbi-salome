@@ -9,7 +9,7 @@ function non-regression-tests-vcs()
 
 function non-regression-tests-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function non-regression-tests-depends()
@@ -27,7 +27,7 @@ function non-regression-tests-depends()
     echo hexotic-plugin
     echo hybrid-plugin
 
-    echo python3-requests
+    echo os@-python3-requests
 }
 
 function non-regression-tests-env()

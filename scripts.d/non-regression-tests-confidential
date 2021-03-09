@@ -9,7 +9,7 @@ function non-regression-tests-confidential-vcs()
 
 function non-regression-tests-confidential-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function non-regression-tests-confidential-depends()

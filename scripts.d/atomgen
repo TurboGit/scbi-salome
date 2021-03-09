@@ -9,8 +9,8 @@ function atomgen-vcs()
 
 function atomgen-build-depends()
 {
-    echo cmake
-    echo swig
+    echo os@-cmake
+    echo os@-swig
 }
 
 function atomgen-depends()

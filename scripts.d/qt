@@ -4,7 +4,7 @@
 # hardware.
 #
 # apt install libgles2-mesa-dev
-# apt install libglu1-mesa-dev
+# apt install os@-glu1-mesa-dev
 # apt install mesa-common-dev
 
 function qt-vcs()
@@ -27,7 +27,7 @@ function qt-tar()
 
 function qt-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function qt-env()

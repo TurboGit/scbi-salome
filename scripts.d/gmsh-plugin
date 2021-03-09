@@ -19,8 +19,8 @@ function gmsh-plugin-tar()
 
 function gmsh-plugin-build-depends()
 {
-    echo cmake
-    echo sphinx-common
+    echo os@-cmake
+    echo os@-sphinx-common
 }
 
 function gmsh-plugin-depends()
@@ -28,8 +28,8 @@ function gmsh-plugin-depends()
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo omniorb
-    echo qt5-default
+    echo os@-omniorb
+    echo os@-qt5-default
     echo occt
     echo geom
     echo gmsh

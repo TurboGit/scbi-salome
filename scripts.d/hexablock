@@ -24,19 +24,19 @@ function hexablock-patches()
 
 function hexablock-build-depends()
 {
-    echo cmake
-    echo python3-sphinx
-    echo python3-sphinx-rtd-theme
-    echo swig
-    echo libgraphviz-dev
-    echo doxygen
-    echo python3-docutils
+    echo os@-cmake
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
+    echo os@-graphviz-dev
+    echo os@-doxygen
+    echo os@-python3-docutils
     echo salome-configuration
 }
 
 function hexablock-depends()
 {
-    echo qt5-default
+    echo os@-qt5-default
     echo qtbase5-dev
 
     echo geom

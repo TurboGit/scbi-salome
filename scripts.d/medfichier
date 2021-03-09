@@ -11,18 +11,18 @@ function medfichier-tar()
 
 function medfichier-build-depends()
 {
-    echo cmake
-    echo swig
+    echo os@-cmake
+    echo os@-swig
 }
 
 function medfichier-depends()
 {
+    echo os@-python3
+    echo os@-python3-dev
+
+    echo s-hdf5
     echo salome-configuration
     echo salome-kernel
-    echo s-hdf5
-    echo python3
-    echo libpython3-dev
-    echo swig
 }
 
 function medfichier-build-env()

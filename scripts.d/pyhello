@@ -18,11 +18,11 @@ function pyhello-tar()
 
 function pyhello-build-depends()
 {
-    echo cmake
-    echo swig
-    echo doxygen
+    echo os@-cmake
+    echo os@-swig
+    echo os@-doxygen
     echo salome-configuration
-    echo qt5-default
+    echo os@-qt5-default
 }
 
 function pyhello-depends()

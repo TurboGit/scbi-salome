@@ -19,16 +19,16 @@ function pylight-tar()
 
 function pylight-build-depends()
 {
-    echo cmake
-    echo libgraphviz-dev
-    echo graphviz
-    echo doxygen
-    echo python3-docutils
-    echo sphinx-common
-    echo sphinx-intl
-    echo python3-sphinx
-    echo python3-sphinx-rtd-theme
-    echo swig
+    echo os@-cmake
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
     echo salome-configuration
 }
 

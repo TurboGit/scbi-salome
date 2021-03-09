@@ -9,7 +9,7 @@ function pvwidgetexample-vcs()
 
 function pvwidgetexample-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function pvwidgetexample-depends()

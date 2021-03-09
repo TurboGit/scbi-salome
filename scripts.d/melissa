@@ -11,13 +11,13 @@ function melissa-tar()
 
 function melissa-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function melissa-depends()
 {
-    echo python3
-    echo python3-numpy
+    echo os@-python3
+    echo os@-python3-numpy
     echo s-zeromq
 }
 

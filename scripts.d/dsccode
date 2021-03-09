@@ -24,23 +24,23 @@ function dsccode-out-of-tree()
 
 function dsccode-build-depends()
 {
-    echo autoconf
-    echo autotools-dev
-    echo sphinx-common
-    echo sphinx-intl
-    echo python3-sphinx
-    echo python3-sphinx-rtd-theme
-    echo swig
-    echo libgraphviz-dev
-    echo graphviz
-    echo doxygen
-    echo python3-docutils
-    echo libomniorb4-dev
-    echo omniorb
+    echo os@-autoconf
+    echo os@-autotools-dev
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo os@-omniorb4-dev
+    echo os@-omniorb
     echo s-python-omniorb
-    echo omniorb-idl
-    echo omniidl
-    echo python3
+    echo os@-omniorb-idl
+    echo os@-omniidl
+    echo os@-python3
 }
 
 function dsccode-depends()

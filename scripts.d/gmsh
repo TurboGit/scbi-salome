@@ -11,7 +11,7 @@ function gmsh-tar()
 
 function gmsh-build-depends()
 {
-    echo cmake
+    echo os@-cmake
 }
 
 function gmsh-depends()

@@ -19,15 +19,15 @@ function ghs3dprl-plugin-tar()
 
 function ghs3dprl-plugin-build-depends()
 {
-    echo cmake
+    echo os@-cmake
     echo salome-configuration
-    echo swig
-    echo doxygen
+    echo os@-swig
+    echo os@-doxygen
 }
 
 function ghs3dprl-plugin-depends()
 {
-    echo qt5-default
+    echo os@-qt5-default
     echo qtbase5-dev
     echo meshgems
 
