@@ -1,0 +1,10 @@
+inherit-plugin s-cmake
+
+with-variant native os@-cmake
+
+
+function s-cmake-tool-build-depends()
+{
+    echo os@-g++
+    echo os@-make
+}
