@@ -47,6 +47,7 @@ function embree-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
+          -DEMBREE_TUTORIALS:bool=OFF \
           -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
