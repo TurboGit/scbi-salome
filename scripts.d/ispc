@@ -21,16 +21,6 @@ function ispc-build-depends()
     echo libncurses-dev
 }
 
-function ispc-post-setup()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    # needed for the config
-    rm -fr ../src/.git
-    cp -r $SCBI_BDIR/.vcs/ispc/.git ../src
-}
-
 function ispc-env()
 {
     local PREFIX=$1
