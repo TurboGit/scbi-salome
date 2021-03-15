@@ -72,9 +72,11 @@ function salome-kernel-config()
     local TARGET=$2
 
     local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_USE_LIBBATCH=ON \
           -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 
