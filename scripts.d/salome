@@ -31,7 +31,6 @@ function salome-main-modules()
     echo atomic
     echo atomgen
     echo hexablock
-    echo samples
     echo atomsolv
     echo calculator
     echo genericsolver
@@ -50,6 +49,7 @@ function salome-prerequisite-modules()
 {
     echo adao
     echo adao-interface
+    echo samples
     echo s-python-omniorb
     echo eficas-tools
     echo occt
