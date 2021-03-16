@@ -101,7 +101,7 @@ function salome-prefix()
 
 fn-exists proxy-edf
 
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
     function proxy-edf()
     {
         export http_proxy=proxypac.edf.fr:3128
@@ -367,8 +367,8 @@ function salome-wrapup()
         # generate config_appli.xml
         build-config-appli $PREFIX $TARGET
 
-        if [ "$(is-enabled application)" = "yes" \
-             -o "$(is-enabled installer)" = "yes" ];
+        if [[ "$(is-enabled application)" = "yes" ]] \
+               || [[ "$(is-enabled installer)" = "yes" ]];
         then
             dlog salome generate application
             # generate the application directory
@@ -395,7 +395,7 @@ function salome-wrapup()
 
                 # if link to level above $APP_DIR, copy
 
-                if [ ${value:0:3} = "../" ]; then
+                if [[ ${value:0:3} = "../" ]]; then
                     rm -f $link
                     cp -r $value ${link}
                 fi
@@ -493,7 +493,7 @@ function salome-wrapup()
 
                 # --sha256 in 2.4 only
 
-                if [ $(is-enabled xz) ]; then
+                if [[ $(is-enabled xz) ]]; then
                     # -xz compress 40% more but is slow to compress
                     O_COMPRESS="--xz"
                 else
@@ -567,7 +567,7 @@ function salome-replace-full-path()
     find . -name "*.py" |
         while read file; do
             grep -q "^[^#]*$SCBI_BDIR" $file
-            [ $? = 0 ] &&
+            [[ $? = 0 ]] &&
                 sed -i '0,/^import /{s/^import /import os, /}' $file \
                     &&
                 sed -i "s,$PYFROM1,$PYTO1,g; \
@@ -590,7 +590,7 @@ function salome-replace-full-path()
     find . -name "*.cmake" |
         while read file; do
             grep -q "$SCBI_BDIR" $file
-            [ $? = 0 ] && sed -i "s,$CMAKEFROM,$CMAKETO,g" $file
+            [[ $? = 0 ]] && sed -i "s,$CMAKEFROM,$CMAKETO,g" $file
         done
 
     # Some other files have references to root dirs *.pc *.la *.prl
