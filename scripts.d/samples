@@ -12,6 +12,7 @@ function samples-env()
     local TARGET=$2
 
     add-to-var SAMPLES_ROOT_DIR $PREFIX
+    add-to-var DATA_DIR         $PREFIX
 }
 
 function samples-install()
