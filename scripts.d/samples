@@ -6,6 +6,14 @@ function samples-out-of-tree()
     echo false
 }
 
+function samples-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SAMPLES_ROOT_DIR $PREFIX
+}
+
 function samples-install()
 {
     local PREFIX=$1
