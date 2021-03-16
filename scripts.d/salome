@@ -175,7 +175,7 @@ function build-salome-prerequisites()
             local IS_EXT=$4
 
             fn-exists $MODULE-env
-            if [ $? = 0 ]; then
+            if [[ $? = 0 ]]; then
                 CURRENT_MODULE_NAME=$MODULE
                 CURRENT_MODULE=${MODULE//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
@@ -255,7 +255,7 @@ function build-salome-context()
             local IS_EXT=$4
 
             fn-exists $MODULE-env
-            if [ $? = 0 ]; then
+            if [[ $? = 0 ]]; then
                 CURRENT_MODULE_NAME=$MODULE
                 CURRENT_MODULE=${MODULE//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
@@ -410,7 +410,7 @@ function salome-wrapup()
             for p in $(salome-prerequisite-modules); do
                 # Some module may not be present if they have been skiped
                 # in build plan (:skip)
-                if [ -d $SCBI_BDIR/$p/build/install ]; then
+                if [[ -d $SCBI_BDIR/$p/build/install ]]; then
                     cp -r $SCBI_BDIR/$p/build/install external/$p
                 fi
             done
@@ -440,12 +440,12 @@ function salome-wrapup()
             sed -i "s/<salome_version>/$ref/g" $APP/create_catalog.py
             chmod a+x $APP/create_catalog.py
 
-            if [ $(is-enabled installer) ]; then
+            if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...
 
                 # check that makeself is installed
                 check-tool makeself
-                if [ $? != 0 ]; then
+                if [[ $? != 0 ]]; then
                     elog salome Required tool makeself missing
                     exit 1
                 fi
@@ -492,7 +492,7 @@ function salome-wrapup()
 
             # check for python3
             #
-            if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
+            if [[ -z "$(python --version 2>&1 | grep ' 3\.')" ]]; then
                 dlog python2 is default, checking for python3
                 if [[ -f /usr/bin/python3 ]]; then
                     dlog found python3 in /usr/bin/python3, setuup links
