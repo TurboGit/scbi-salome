@@ -110,18 +110,26 @@ if [ $? -ne 0 ]; then
     }
 fi
 
+declare -g MAIN_MODULE_LIST=()
+
 function is-main-module()
 {
     local MODULE=$1
 
-    for M in $(for-final-modules $(salome-main-modules)); do
+    # Not yet cacched
+
+    if [[ -z $MAIN_MODULE_LIST ]]; then
+        for M in $(for-final-modules $(salome-main-modules)); do
+            MAIN_MODULE_LIST+=($M)
+        done
+    fi
+
+    for M in ${MAIN_MODULE_LIST[@]}; do
         if [[ "$M" = "$MODULE" ]]; then
-            echo "yes"
             return 0
         fi
     done
 
-    echo "no"
     return 1
 }
 
@@ -147,7 +155,9 @@ function build-salome-prerequisites()
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
 
-            if [[ "$(is-main-module $CURRENT_MODULE_NAME)" == "yes" ]]; then
+            is-main-module $CURRENT_MODULE_NAME
+
+            if [[ $? = 0 ]]; then
                 REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
             fi
 
@@ -185,7 +195,9 @@ function build-salome-prerequisites()
 
                 echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                if [ "$(is-main-module $MODULE)" = "yes" ]; then
+                is-main-module $MODULE
+
+                if [[ $? = 0 ]]; then
                     echo "\${ROOT_INSTALL}"                         >> $FILE
                 else
                     echo "\${ROOT_EXTERNAL}/${MODULE}"              >> $FILE
@@ -228,7 +240,9 @@ function build-salome-context()
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_EXTERNAL)s}"
 
-            if [ "$(is-main-module $CURRENT_MODULE_NAME)" = "yes" ]; then
+            is-main-module $CURRENT_MODULE_NAME
+
+            if [[ $? = 0 ]]; then
                 REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_INSTALL)s}"
             fi
 
@@ -265,7 +279,9 @@ function build-salome-context()
 
                 echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR="  >> $FILE
 
-                if [ "$(is-main-module $MODULE)" = "yes" ]; then
+                is-main-module $MODULE
+
+                if [[ $? = 0 ]]; then
                     echo "%(ROOT_INSTALL)s"                   >> $FILE
                 else
                     echo "%(ROOT_EXTERNAL)s/${MODULE}"        >> $FILE
