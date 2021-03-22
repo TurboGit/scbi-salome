@@ -2,6 +2,18 @@
 
 AUTO=0
 
+# check that directory "$1" can be created
+function check-writable()
+{
+    local DIR=$1
+
+    while [[ ! -d $(dirname $DIR) ]]; do
+          DIR=$(dirname $DIR)
+    done
+
+    [[ -w $(dirname $DIR) ]]
+}
+
 while [ ! -z $1 ]; do
     case "$1" in
         --auto)
@@ -46,7 +58,7 @@ read -p "Ready to install SALOME in $prefix? (y/n) "
 
 [ "$REPLY" != "y" -a "$REPLY" != "yes" ] && exit 1
 
-[ ! -w $(dirname $prefix) ] && SUDO=sudo
+check-writable $prefix || SUDO=sudo
 
 $SUDO mkdir -p $prefix
 $SUDO mv * .[a-z]* $prefix/
