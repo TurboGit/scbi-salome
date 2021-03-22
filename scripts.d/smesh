@@ -27,7 +27,9 @@ function smesh-depends()
     echo salome-kernel
     echo salome-gui
     echo geom
+    echo shaperstudy
     echo medfichier
+    echo medcoupling
     echo s-python-omniorb
 }
 
