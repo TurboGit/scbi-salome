@@ -1,0 +1,92 @@
+
+function paravisaddons-common-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/paravisaddons_common
+}
+
+function paravisaddons-common-build-depends()
+{
+    echo cmake
+}
+
+function paravisaddons-common-depends()
+{
+    echo libhdf5-dev
+
+    echo salome-configuration
+    echo medcoupling
+    echo medfichier
+    echo paravis
+}
+
+function paravisaddons-common-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PARAVISADDONS_COMMON_ROOT_DIR $PREFIX
+    add-to-var PV_PLUGIN_PATH                $PREFIX/lib/paraview
+    add-to-var LD_LIBRARY_PATH               $PREFIX/lib/paraview
+}
+
+function paravisaddons-common-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type \
+                                   CMAKE paravisaddons-common Release) \
+          \
+          -DMEDCOUPLING_USE_64BIT_IDS=ON \
+          \
+          -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
+          -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS \
+	  \
+	  -DPARAVIEW_PLUGIN_ENABLE_AppendAttributesOverTime=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_AutoConvertProperties=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ComplexModePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ContactReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_DepthVsTimePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ExtractComponents=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ExtractThreeDimPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_MoveZCotePlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_MyContour=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_QuadraticToLinearPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_RateOfFlowThroughSectionPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_RosetteCIH=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SedimentDeposit=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SerafinReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SinusXReader=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SpatialPfl=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SpatialPflOnPts=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_SphereAlongLinesPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_TemporalOnPointPlugin=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_TorseurCIH=YES \
+	  -DPARAVIEW_PLUGIN_ENABLE_ZJFilterPlugin=YES \
+          ../src
+}
+
+function paravisaddons-common-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function paravisaddons-common-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function paravisaddons-common-prefix()
+{
+    echo NONE
+}

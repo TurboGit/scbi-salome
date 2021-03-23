@@ -65,6 +65,7 @@ function salome-prerequisite-modules()
     echo paraview
     echo gmsh
     echo paravisaddons
+    echo paravisaddons-common
     echo persalys
     echo netgen
     echo openturns
