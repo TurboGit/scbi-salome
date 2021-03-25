@@ -12,7 +12,7 @@ Setup Configure Build Install - Scripts for building SALOME
 
 ```
 $ git clone https://github.com/TurboGit/scbi-salome
-$ cd ./scbi-salome.git
+$ cd ./scbi-salome
 $ make
 ```
 
@@ -21,11 +21,11 @@ $ make
   To build SALOME just run:
 
 ```
-$ scbi --env=v95 --deps --update --safe salome
+$ scbi --env=v96 --deps --update --safe salome
 ```
 
   To build SALOME and create an installer:
 
 ```
-$ scbi --env=v95 --deps --update --safe --enable-installer salome
+$ scbi --env=v96 --deps --update --safe --enable-installer salome
 ```
