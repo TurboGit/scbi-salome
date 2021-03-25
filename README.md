@@ -11,8 +11,8 @@ Setup Configure Build Install - Scripts for building SALOME
 # Install
 
 ```
-$ git clone https://gitlab.pleiade.edf.fr/pascal.obry/scbi-salome.git
-$ cd ./scbi-salome.git
+$ git clone https://gitlab.pleiade.edf.fr/salome/scbi-salome.git
+$ cd ./scbi-salome
 $ make
 ```
 
@@ -21,11 +21,11 @@ $ make
   To build SALOME just run:
 
 ```
-$ scbi --env=v95 --deps --update --safe salome
+$ scbi --env=v96 --deps --update --safe salome
 ```
 
   To build SALOME and create an installer:
 
 ```
-$ scbi --env=v95 --deps --update --safe --enable-installer salome
+$ scbi --env=v96 --deps --update --safe --enable-installer salome
 ```
