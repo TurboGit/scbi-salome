@@ -42,16 +42,6 @@ function ospray-depends()
     echo embree
 }
 
-function ospray-post-setup()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    # needed for the config
-    rm -fr ../src/.git
-    cp -r $SCBI_BDIR/.vcs/ispc/.git ../src
-}
-
 function ospray-config()
 {
     local PREFIX=$1
