@@ -31,6 +31,7 @@ function blsurf-plugin-depends()
     echo geom
     echo smesh
     echo meshgems
+    echo medcoupling
 }
 
 function blsurf-plugin-env()
