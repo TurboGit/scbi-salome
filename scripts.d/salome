@@ -332,11 +332,24 @@ EOF
         echo "              path='$MODULE_PATH'/>"  >> $FILE
     done
 
-    cat <<EOF >> $FILE
-   </modules>
-</application>
-EOF
+    echo "   </modules>"                            >> $FILE
 
+    # Generate extra configuration for SAMPLES & MEDCOUPLING
+
+    for module in $(salome-prerequisite-modules); do
+        MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+        if [[ "$module" == "samples" ]]; then
+            echo "   <samples path=\"$MODULE_PATH\"/>"        >> $FILE
+        elif [[ "$module" == "medcoupling" ]]; then
+            echo "   <extra_tests>"                           >> $FILE
+            echo "      <extra_test name='MEDCOUPLING'"       >> $FILE
+            echo "             path=\"$MODULE_PATH/tests\"/>" >> $FILE
+            echo "   </extra_tests>"                          >> $FILE
+        fi
+    done
+
+    echo "</application>"                                     >> $FILE
 }
 
 function salome-wrapup()
