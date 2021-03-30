@@ -431,6 +431,20 @@ function salome-wrapup()
                 ln -s ./bin/salome/appliskel/$file $file
             done
 
+            # copy module dev support
+
+            dlog salome "copy the modules' dev support files"
+
+            for module in $(for-final-modules $(salome-main-modules)); do
+                MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+                for dir in include salome_adm adm_local; do
+                    if [[ -d $MODULE_PATH/$dir ]]; then
+                        cp -r $MODULE_PATH/$dir .
+                    fi
+                done
+            done
+
             # copy all prerequisites
 
             dlog salome copy the pre-requisites
