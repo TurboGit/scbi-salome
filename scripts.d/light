@@ -4,7 +4,7 @@ function light-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/samples-salome.light.git
+    echo https://gitlab.pleiade.edf.fr/salome/light
 }
 
 function light-tar()

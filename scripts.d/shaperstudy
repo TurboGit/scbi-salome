@@ -4,7 +4,7 @@ function shaperstudy-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/modules-salome.shaper_study
+    echo https://gitlab.pleiade.edf.fr/salome/shaper_study
 }
 
 function shaperstudy-build-depends()

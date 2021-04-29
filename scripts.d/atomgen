@@ -4,7 +4,7 @@ function atomgen-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/samples-salome.atomgen.git
+    echo https://gitlab.pleiade.edf.fr/salome/atomgen
 }
 
 function atomgen-build-depends()

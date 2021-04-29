@@ -4,7 +4,7 @@ function salome-gui-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/modules-salome.gui
+    echo https://gitlab.pleiade.edf.fr/salome/gui
 }
 
 function salome-gui-tar()

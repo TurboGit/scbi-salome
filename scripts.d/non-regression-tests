@@ -4,7 +4,7 @@ function non-regression-tests-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/salome-tests.non_regression_tests.git
+    echo https://gitlab.pleiade.edf.fr/salome/salome-tests.non_regression_tests.git
 }
 
 function non-regression-tests-build-depends()

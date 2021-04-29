@@ -4,7 +4,7 @@ function atomsolv-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/samples-salome.atomsolv.git
+    echo https://gitlab.pleiade.edf.fr/salome/atomsolv
 }
 
 function atomsolv-tar()

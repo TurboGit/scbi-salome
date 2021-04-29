@@ -4,7 +4,7 @@ function salome-jobmanager-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/modules-salome.jobmanager
+    echo https://gitlab.pleiade.edf.fr/salome/jobmanager
 }
 
 function salome-jobmanager-tar()

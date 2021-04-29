@@ -4,7 +4,7 @@ function adao-interface-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/salome-prototypes.adao-exchange-layer
+    echo https://gitlab.pleiade.edf.fr/salome/adao_interface
 }
 
 function adao-interface-build-depends()

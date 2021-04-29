@@ -4,7 +4,7 @@ function medcoupling-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/tools-salome.medcoupling
+    echo https://gitlab.pleiade.edf.fr/salome/medcoupling
 }
 
 function medcoupling-tar()

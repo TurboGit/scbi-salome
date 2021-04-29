@@ -4,7 +4,7 @@ function shaper-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/modules-salome.shaper
+    echo https://gitlab.pleiade.edf.fr/salome/shaper
 }
 
 function shaper-build-depends()

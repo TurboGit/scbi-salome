@@ -4,7 +4,7 @@ function hexablock-plugin-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.hexablockplugin.git
+    echo https://gitlab.pleiade.edf.fr/salome/hexablockplugin
 }
 
 function hexablock-plugin-tar()

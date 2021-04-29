@@ -4,7 +4,7 @@ function fields-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/modules-salome.med.git
+    echo https://gitlab.pleiade.edf.fr/salome/med
 }
 
 function fields-tar()

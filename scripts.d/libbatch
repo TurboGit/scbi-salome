@@ -4,7 +4,7 @@ function libbatch-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/tools-salome.libbatch
+    echo https://gitlab.pleiade.edf.fr/salome/libbatch
 }
 
 function libbatch-tar()

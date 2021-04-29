@@ -4,7 +4,7 @@ function ghs3dprl-plugin-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/plugins-salome.ghs3dprlplugin
+    echo https://gitlab.pleiade.edf.fr/salome/ghs3dprlplugin
 }
 
 function ghs3dprl-plugin-tar()

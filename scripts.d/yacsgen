@@ -4,7 +4,7 @@ function yacsgen-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/tools-salome.yacsgen
+    echo https://gitlab.pleiade.edf.fr/salome/yacsgen
 }
 
 function yacsgen-tar()

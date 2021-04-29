@@ -4,7 +4,7 @@ function atomic-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/samples-salome.atomic.git
+    echo https://gitlab.pleiade.edf.fr/salome/atomic
 }
 
 function atomic-build-depends()
