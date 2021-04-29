@@ -4,7 +4,7 @@ function ydefx-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/salome-prototypes.ydefx
+    echo https://gitlab.pleiade.edf.fr/salome/ydefx
 }
 
 function ydefx-tar()

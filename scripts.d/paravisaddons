@@ -4,7 +4,7 @@ function paravisaddons-vcs()
     echo default
     echo none
     echo git
-    echo https://gitlab.pleiade.edf.fr/salome/paravisaddons
+    echo https://git.forge.pleiade.edf.fr/git/paravisaddons
 }
 
 function paravisaddons-build-depends()
