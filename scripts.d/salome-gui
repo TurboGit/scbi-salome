@@ -54,20 +54,39 @@ function salome-gui-env()
     add-to-var CMAKE_PREFIX_PATH  $PREFIX/adm_local/cmake_files
 }
 
-function salome-gui-config()
+function salome-gui-mpi-options()
+{
+    echo -DSALOME_USE_MPI=ON
+}
+
+function salome-gui-options()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     local CDEBUG=$(is-enabled cmake-debug)
     local DISDOC=$(is-enabled no-doc)
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSALOME_BUILD_TESTS=OFF \
-          -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release) \
-          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DSALOME_BUILD_TESTS=OFF
+    echo -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release)
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+
+    call-variant-hooks options $PREFIX $TARGET $VARIANT
+}
+
+function salome-gui-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(salome-gui-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS -DSALOME_USE_MPI=ON ../src
 }
 
 function salome-gui-build()
