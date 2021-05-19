@@ -40,6 +40,7 @@ function salome-kernel-depends()
     echo omniorb-idl
     echo omniidl
     echo libcos4-dev
+    echo python3-mpi4py
 
     echo salome-configuration
     echo libbatch
@@ -51,6 +52,8 @@ function salome-kernel-env()
     local PREFIX=$1
     local TARGET=$2
 
+    add-to-var MPI_ROOT_DIR       /usr
+
     add-to-var KERNEL_ROOT_DIR    $PREFIX
     add-to-var KERNEL_INSTALL_DIR $PREFIX
     add-to-var SalomeKERNEL_DIR   $PREFIX/salome_adm/cmake_files
@@ -59,24 +62,48 @@ function salome-kernel-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
-function salome-kernel-config()
+function salome-kernel-mpi-options()
+{
+    echo -DSALOME_USE_MPI=ON
+}
+
+function salome-kernel-options()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     local CDEBUG=$(is-enabled cmake-debug)
     local DISDOC=$(is-enabled no-doc)
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_USE_LIBBATCH=ON \
-          -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install \
-          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
+    echo -DSALOME_USE_LIBBATCH=ON
+    echo -DSALOME_USE_64BIT_IDS=ON
+    echo -DSALOME_BUILD_TESTS=OFF
+    echo -DSWIG_EXECUTABLE:PATH=$(which swig)
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+
+    call-variant-hooks options $PREFIX $TARGET $VARIANT
+}
+
+function salome-kernel-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(salome-kernel-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function salome-kernel-build()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     make -j$SCBI_JOBS
 }
@@ -85,6 +112,7 @@ function salome-kernel-install()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     make install
 }
