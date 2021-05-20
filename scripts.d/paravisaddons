@@ -25,21 +25,29 @@ function paravisaddons-env()
     add-to-var LD_LIBRARY_PATH        $PREFIX/lib
 }
 
+function paravisaddons-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravisaddons Release)
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
+    echo -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS
+    echo -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES
+}
+
 function paravisaddons-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravisaddons Release) \
-          \
-          -DMEDCOUPLING_USE_64BIT_IDS=ON \
-          \
-          -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
-          -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS \
-	  \
-	  -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES \
-          ../src
+    local OPTIONS="$(paravisaddons-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function paravisaddons-build()
