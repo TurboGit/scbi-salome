@@ -32,42 +32,50 @@ function paravisaddons-common-env()
     add-to-var LD_LIBRARY_PATH               $PREFIX/lib/paraview
 }
 
+function paravisaddons-common-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravisaddons-common Release)
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
+    echo -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS
+
+    echo -DPARAVIEW_PLUGIN_ENABLE_AppendAttributesOverTime=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_AutoConvertProperties=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ComplexModePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ContactReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_DepthVsTimePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ExtractComponents=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ExtractThreeDimPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_MoveZCotePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_MyContour=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_QuadraticToLinearPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_RateOfFlowThroughSectionPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_RosetteCIH=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SedimentDeposit=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SerafinReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SinusXReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SpatialPfl=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SpatialPflOnPts=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SphereAlongLinesPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_TemporalOnPointPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_TorseurCIH=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ZJFilterPlugin=YES
+}
+
 function paravisaddons-common-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type \
-                                   CMAKE paravisaddons-common Release) \
-          \
-          -DMEDCOUPLING_USE_64BIT_IDS=ON \
-          \
-          -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
-          -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS \
-	  \
-	  -DPARAVIEW_PLUGIN_ENABLE_AppendAttributesOverTime=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_AutoConvertProperties=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_ComplexModePlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_ContactReader=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_DepthVsTimePlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_ExtractComponents=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_ExtractThreeDimPlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_MoveZCotePlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_MyContour=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_QuadraticToLinearPlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_RateOfFlowThroughSectionPlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_RosetteCIH=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_SedimentDeposit=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_SerafinReader=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_SinusXReader=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_SpatialPfl=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_SpatialPflOnPts=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_SphereAlongLinesPlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_TemporalOnPointPlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_TorseurCIH=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_ZJFilterPlugin=YES \
-          ../src
+    local OPTIONS="$(paravisaddons-common-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function paravisaddons-common-build()
