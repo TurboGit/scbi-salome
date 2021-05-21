@@ -55,12 +55,12 @@ function medcoupling-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
-function medcoupling-mpi-options()
+function medcoupling-mpi-config-options()
 {
     echo -DSALOME_USE_MPI=ON
 }
 
-function medcoupling-options()
+function medcoupling-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -75,8 +75,6 @@ function medcoupling-options()
     echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
     echo -DMEDCOUPLING_BUILD_TESTS=OFF
     echo -DPTSCOTCH_INCLUDE_DIRS=/usr/include/scotch-long
-
-    call-variant-hooks options $PREFIX $TARGET $VARIANT
 }
 
 function medcoupling-config()
@@ -85,7 +83,7 @@ function medcoupling-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(medcoupling-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
     cmake $OPTIONS ../src
 }
