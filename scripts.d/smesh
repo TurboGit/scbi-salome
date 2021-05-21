@@ -46,12 +46,12 @@ function smesh-env()
                $PREFIX/share/salome/plugins/smesh/Verima
 }
 
-function smesh-mpi-options()
+function smesh-mpi-config-options()
 {
     echo -DSALOME_USE_MPI=ON
 }
 
-function smesh-options()
+function smesh-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -61,8 +61,6 @@ function smesh-options()
     echo -DSALOME_GUI_BUILD_WITH_QT5=ON
     echo -DSALOME_SMESH_USE_CGNS=ON
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release)
-
-    apply-variant-options $PREFIX $TARGET $VARIANT
 }
 
 function smesh-config()
@@ -70,7 +68,7 @@ function smesh-config()
     local PREFIX=$1
     local TARGET=$2
 
-    local OPTIONS="$(smesh-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
     cmake $OPTIONS ../src
 }

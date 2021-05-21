@@ -25,7 +25,7 @@ function paravisaddons-common-env()
     add-to-var LD_LIBRARY_PATH               $PREFIX/lib/paraview
 }
 
-function paravisaddons-common-options()
+function paravisaddons-common-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -66,7 +66,7 @@ function paravisaddons-common-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(paravisaddons-common-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
     cmake $OPTIONS ../src
 }

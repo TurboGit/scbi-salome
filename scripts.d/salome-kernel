@@ -54,8 +54,6 @@ function salome-kernel-depends()
     echo salome-configuration
     echo libbatch
     echo s-python-omniorb
-
-    call-variant-hooks depends $PREFIX $TARGET $VARIANT
 }
 
 function salome-kernel-env()
@@ -74,12 +72,12 @@ function salome-kernel-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
-function salome-kernel-mpi-options()
+function salome-kernel-mpi-config-options()
 {
     echo -DSALOME_USE_MPI=ON
 }
 
-function salome-kernel-options()
+function salome-kernel-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -96,8 +94,6 @@ function salome-kernel-options()
     echo -DSWIG_EXECUTABLE:PATH=$(which swig)
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
-
-    call-variant-hooks options $PREFIX $TARGET $VARIANT
 }
 
 function salome-kernel-config()
@@ -106,7 +102,7 @@ function salome-kernel-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(salome-kernel-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
     cmake $OPTIONS ../src
 }
