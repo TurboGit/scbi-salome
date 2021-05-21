@@ -27,7 +27,7 @@ function s-netcdf-build-depends()
 function s-netcdf-depends()
 {
     echo s-hdf5
-    echo os@-curl4-openssl-dev
+    echo os@-curl4-gnutls-dev
 }
 
 function s-netcdf-env()
