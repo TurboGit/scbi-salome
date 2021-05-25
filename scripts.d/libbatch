@@ -9,6 +9,7 @@ function libbatch-build-depends()
 
 function libbatch-depends()
 {
+    echo os@-python3-dev
     echo salome-configuration
 }
 
