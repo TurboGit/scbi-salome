@@ -29,6 +29,7 @@ function salome-kernel-build-depends()
 
 function salome-kernel-mpi-depends()
 {
+    echo os@-boost-regexp-dev
     echo os@-python3-mpi4py
 }
 
