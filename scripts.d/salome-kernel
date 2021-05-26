@@ -42,7 +42,6 @@ function salome-kernel-depends()
     echo os@-boost-dev
     echo os@-boost-filesystem-dev
     echo os@-boost-regex-dev
-    echo os@-boost-signals-dev
     echo os@-boost-chrono-dev
     echo os@-boost-date-time-dev
     echo os@-boost-thread-dev
