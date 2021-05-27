@@ -22,6 +22,7 @@ function geom-build-depends()
     echo os@-cmake
     echo os@-sphinx-common
     echo os@-swig
+    echo os@-python3-psutil
 }
 
 function geom-depends()
