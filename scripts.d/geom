@@ -26,7 +26,6 @@ function geom-build-depends()
 
 function geom-depends()
 {
-    echo os@-opencv-dev
     echo os@-omniorb
     echo os@-qt5-default
 
@@ -34,6 +33,11 @@ function geom-depends()
     echo salome-kernel
     echo salome-gui
     echo s-python-omniorb
+}
+
+function geom-opencv-depends()
+{
+    echo s-opencv
 }
 
 function geom-env()
@@ -44,19 +48,34 @@ function geom-env()
     add-to-var GEOM_ROOT_DIR $PREFIX
 }
 
+function geom-default-config-options()
+{
+    echo -DSALOME_GEOM_USE_OPENCV=OFF
+}
+
+function geom-opencv-config-options()
+{
+    echo -DSALOME_GEOM_USE_OPENCV=ON
+}
+
+function geom-common-config-options()
+{
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
+    echo -DSWIG_EXECUTABLE:PATH=$(which swig)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release)
+}
+
 function geom-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    local CDEBUG=$(is-enabled cmake-debug)
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DSALOME_GEOM_USE_OPENCV=ON  \
-          -DSWIG_EXECUTABLE:PATH=$(which swig) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release) \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
+    cmake $OPTIONS ../src
 }
 
 function geom-build()

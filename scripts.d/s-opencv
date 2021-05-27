@@ -1,0 +1,9 @@
+
+with-variant native os@-opencv-dev \
+             --env "if  [[ -d /usr/include/opencv4 ]]; then
+                       add-to-var OpenCV_INCLUDE_DIRS /usr/include/opencv4;
+                       add-to-var C_INCLUDE_PATH /usr/include/opencv4;
+                       add-to-var CPLUS_INCLUDE_PATH /usr/include/opencv4;
+                    else
+                       add-to-var OpenCV_INCLUDE_DIRS /usr/include;
+                    fi"
