@@ -28,6 +28,7 @@ function smesh-depends()
 {
     echo os@-qt5-default
     echo os@-omniorb
+    echo os@-cgns-dev
 
     echo s-hdf5
     echo salome-configuration
