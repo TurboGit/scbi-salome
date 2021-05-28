@@ -194,16 +194,6 @@ For example, for creating the final installer the command line is:
 SALOME comes with some build plans described below.
 
 \begin{description}
-	\item[v95] To build SALOME v9.5, the build plan contains the following modules:
-
-	Environment \file{.env-v95}:
-	\lstinputlisting{"../scripts.d/.env-v95"}
-
-	Plan \file{.plan-v95}:
-	\lstinputlisting{"../scripts.d/.plan-v95"}
-
-	Note the use of the \code{ospray} and \code{gdal} variant for \code{paraview} module.
-
 	\item[v96] A plan to build SALOME version \code{v9.6}.
 
 	Environment \file{.env-v96}:
@@ -216,6 +206,13 @@ SALOME comes with some build plans described below.
 
 	\lstinputlisting{"../scripts.d/.plan-next"}
 
+	\item[dev] A build plan and environment to build latest SALOME sources.
+
+	Environment \file{.env-dev}:
+	\lstinputlisting{"../scripts.d/.env-dev"}
+
+	Plan \file{.plan-dev}:
+	\lstinputlisting{"../scripts.d/.plan-dev"}
 \end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
@@ -426,6 +423,7 @@ There is two solutions to debug a code:
 
 \begin{itemize}
 	\item User's checkout
+	\item Running only configuration or build step
 	\item SCBI shell
 \end{itemize}
 
@@ -546,6 +544,22 @@ And we can of course mix the environment and different build-plans if needed.
 If more than one module must be debugged and/or changed then just apply the same procedure for the other modules.
 
 Note that the \ddash{}safe option ensure that every module for which the context has changed (including the SCBI module's script) will be recompiled.
+
+\subsection{Running configuration or build step}
+
+When debugging it may also be useful to just restart a configuration or build step of a specific module after having modified the sources. Note that changes in the sandbox will be lost as soon as a full SCBI build will be done. So be sure to get the modified sources out of the sandbox when the issue is resolved.
+
+\subsubsection{Configuration only}
+
+To run only the configuration step, and have the output on the console:
+
+\cmd{scbi \ddash{}env=debug \ddash{}log:yes \ddash{}config salome-kernel}
+
+\subsubsection{Build only}
+
+To run only the build step, and have the output on the console:
+
+\cmd{scbi \ddash{}env=debug \ddash{}log:yes \ddash{}build salome-kernel}
 
 \subsection{Using the SCBI shell}
 
