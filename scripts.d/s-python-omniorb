@@ -4,7 +4,8 @@ function s-python-omniorb-vcs()
     echo default
     echo none 
     echo svn 
-    echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORBpy 
+    echo https://svn.code.sf.net/p/omniorb/svn 
+    echo omniORBpy 
 } 
 
 
