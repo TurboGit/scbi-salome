@@ -4,7 +4,8 @@ function s-python-omniorb-vcs()
     echo edf
     echo none
     echo svn
-    echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORBpy
+    echo https://svn.code.sf.net/p/omniorb/svn
+    echo omniORBpy
 }
 
 function s-python-omniorb-tar()
