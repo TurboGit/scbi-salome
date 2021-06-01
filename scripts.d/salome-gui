@@ -27,10 +27,10 @@ function salome-gui-build-depends()
 function salome-gui-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
     echo os@-python3-pyqt5
-    echo pyqt5-dev
-    echo pyqt5-dev-tools
+    echo os@-pyqt5-dev
+    echo os@-pyqt5-dev-tools
     echo os@-qwt-qt5-dev
     echo os@-python3-sip-dev
     echo os@-python3-sip

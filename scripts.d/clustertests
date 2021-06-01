@@ -15,7 +15,7 @@ function clustertests-build-depends()
 function clustertests-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
 
     echo salome-kernel
     echo salome-gui

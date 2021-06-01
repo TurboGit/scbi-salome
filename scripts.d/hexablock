@@ -37,7 +37,7 @@ function hexablock-build-depends()
 function hexablock-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
 
     echo geom
 }
