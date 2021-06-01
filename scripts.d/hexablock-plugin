@@ -15,7 +15,7 @@ function hexablock-plugin-build-depends()
 function hexablock-plugin-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
 
     echo salome-gui
     echo smesh

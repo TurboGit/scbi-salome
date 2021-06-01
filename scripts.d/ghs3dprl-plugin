@@ -12,7 +12,7 @@ function ghs3dprl-plugin-build-depends()
 function ghs3dprl-plugin-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
     echo meshgems
 
     echo smesh
