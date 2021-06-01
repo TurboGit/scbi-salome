@@ -1,5 +1,21 @@
 @load dev
 
-s-cmake-tool:v3.13.5
+s-cmake-tool:v3.18.1
 s-omniorb:4_2
 s-python-omniorb:4_2
+
+openturns:1.14
+openturns-fftw:0.6
+openturns-mixmod:0.9
+openturns-morris:0.7
+openturns-pmml:1.8
+openturns-robopt:0.6
+openturns-subsetinverse:1.5
+openturns-svm:0.7
+openturns-wrapy:0.9
+
+s-clang-edf:llvmorg-8.0.1
+ispc:v1.12.0
+embree:v3.5.2
+ospray:v1.8.4
+paraview/ospray.gdal:v5.8.0
