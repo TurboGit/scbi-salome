@@ -47,6 +47,7 @@ function embree-env()
     add-to-var CMAKE_PREFIX_PATH \
                $(last-modified-directory "$PREFIX/lib/cmake/embree-*")
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var embree_DIR        $PREFIX
 }
 
 function embree-config()

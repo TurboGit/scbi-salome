@@ -16,4 +16,5 @@ function s-cmake-tool-build-depends()
 {
     echo os@-g++
     echo os@-make
+    echo os@-openssl-dev
 }

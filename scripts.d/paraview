@@ -25,7 +25,7 @@ function paraview-patches()
 function paraview-build-depends()
 {
     echo s-cmake-tool
-    echo qtxmlpatterns5-dev-tools
+    echo os@-qtxmlpatterns5-dev-tools
 }
 
 function paraview-gdal-depends
@@ -40,7 +40,7 @@ function paraview-egl-depends
 
 function paraview-mesa-depends
 {
-    echo os@-osmesa6-dev
+    echo os@-osmesa-dev
 }
 
 function paraview-headless-depends
@@ -78,9 +78,9 @@ function paraview-depends()
     echo os@-qt5x11extras5-dev
     echo os@-qt5help5
     echo os@-qt5svg5-dev
+    echo os@-qttools5-dev
 
     echo s-hdf5
-    echo qttools5-dev
     echo openturns
 }
 
