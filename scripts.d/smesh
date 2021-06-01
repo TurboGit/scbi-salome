@@ -20,9 +20,10 @@ function smesh-build-depends()
 function smesh-depends()
 {
     echo os@-qt5-default
-    echo os@-omniorb
     echo os@-cgns-dev
 
+    echo s-python-omniorb
+    echo s-omniorb
     echo s-hdf5
     echo salome-configuration
     echo salome-kernel
@@ -31,7 +32,6 @@ function smesh-depends()
     echo shaperstudy
     echo medfichier
     echo medcoupling
-    echo s-python-omniorb
 }
 
 function smesh-env()

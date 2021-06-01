@@ -1,3 +1,5 @@
 @load dev
 
 s-cmake-tool:v3.13.5
+s-omniorb:4_2
+s-python-omniorb:4_2

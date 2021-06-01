@@ -19,11 +19,8 @@ function dsccode-build-depends()
     echo os@-graphviz
     echo os@-doxygen
     echo os@-python3-docutils
-    echo os@-omniorb4-dev
-    echo os@-omniorb
+    echo s-omniorb
     echo s-python-omniorb
-    echo os@-omniorb-idl
-    echo os@-omniidl
     echo os@-python3
 }
 
