@@ -39,7 +39,7 @@ function s-hdf5-mpi-depends()
 
 function s-hdf5-depends()
 {
-    echo zlib1g-dev
+    echo os@-zlib1g-dev
 }
 
 function s-hdf5-env()
