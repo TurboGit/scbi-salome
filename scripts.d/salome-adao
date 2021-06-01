@@ -12,7 +12,7 @@ function salome-adao-tar()
 
 function salome-adao-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
 }
 

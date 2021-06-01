@@ -2,7 +2,7 @@
 
 function gmsh-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function gmsh-depends()

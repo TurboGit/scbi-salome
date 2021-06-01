@@ -27,7 +27,7 @@ function ospray-env()
 
 function ospray-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo ispc
     echo s-clang-edf
 }

@@ -2,7 +2,7 @@
 
 function paravisaddons-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function paravisaddons-depends()

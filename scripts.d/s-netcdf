@@ -21,7 +21,7 @@ function s-netcdf-tar()
 
 function s-netcdf-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function s-netcdf-depends()

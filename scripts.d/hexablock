@@ -8,7 +8,7 @@ function hexablock-patches()
 
 function hexablock-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
     echo os@-swig

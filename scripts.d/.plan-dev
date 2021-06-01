@@ -15,6 +15,7 @@ planegcs:#0.18
         s-netcdf
         s-gdal
         s-opencv
+        s-cmake-tool
 ] /native
 
 # uranie:#4.5.0

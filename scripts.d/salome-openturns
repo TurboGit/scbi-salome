@@ -3,7 +3,7 @@
 
 function salome-openturns-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-python3-sphinx
     echo os@-swig
     echo os@-graphviz-dev

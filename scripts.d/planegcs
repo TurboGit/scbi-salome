@@ -2,7 +2,7 @@
 
 function planegcs-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function planegcs-depends()

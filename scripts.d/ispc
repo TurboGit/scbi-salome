@@ -12,7 +12,7 @@ function ispc-build-depends()
 {
     local VERSION=$1
 
-    echo os@-cmake
+    echo s-cmake-tool
     echo s-clang-edf
     echo zlib1g-dev
     echo flex

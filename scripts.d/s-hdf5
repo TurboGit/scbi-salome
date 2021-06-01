@@ -27,7 +27,7 @@ function s-hdf5-vcs()
 
 function s-hdf5-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-sphinx-intl
 }

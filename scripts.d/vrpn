@@ -10,7 +10,7 @@ function vrpn-vcs()
 
 function vrpn-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function vrpn-env()

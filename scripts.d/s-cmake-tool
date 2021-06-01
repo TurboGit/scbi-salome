@@ -1,6 +1,6 @@
 inherit-plugin s-cmake
 
-with-variant native os@-cmake
+with-variant native s-cmake-tool os@-cmake
 
 
 function s-cmake-tool-build-depends()

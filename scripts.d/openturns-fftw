@@ -2,7 +2,7 @@
 
 function openturns-fftw-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
     echo os@-python3-sphinx
 }
