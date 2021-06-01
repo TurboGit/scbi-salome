@@ -11,7 +11,7 @@ function melissa-tar()
 
 function melissa-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function melissa-depends()

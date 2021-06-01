@@ -9,7 +9,7 @@ function adao-interface-vcs()
 
 function adao-interface-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo py2cpp
 }
 

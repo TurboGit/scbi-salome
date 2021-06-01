@@ -21,7 +21,7 @@ function s-gdal-tar()
 
 function s-gdal-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function s-gdal-out-of-tree()

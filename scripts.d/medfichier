@@ -11,7 +11,7 @@ function medfichier-tar()
 
 function medfichier-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
 }
 

@@ -19,7 +19,7 @@ function hybrid-plugin-tar()
 
 function hybrid-plugin-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
 }
 

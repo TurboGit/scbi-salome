@@ -18,7 +18,7 @@ function pyhello-tar()
 
 function pyhello-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
     echo os@-doxygen
     echo salome-configuration

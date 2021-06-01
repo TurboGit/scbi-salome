@@ -19,7 +19,7 @@ function yacs-tar()
 
 function yacs-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
 }
 

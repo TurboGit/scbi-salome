@@ -24,7 +24,7 @@ function paraview-patches()
 
 function paraview-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo qtxmlpatterns5-dev-tools
 }
 

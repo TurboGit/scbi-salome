@@ -19,7 +19,7 @@ function atomsolv-tar()
 
 function atomsolv-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
 }
 

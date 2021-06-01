@@ -9,7 +9,7 @@ function shaperstudy-vcs()
 
 function shaperstudy-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function shaperstudy-depends()

@@ -19,7 +19,7 @@ function s-root-tar()
 
 function s-root-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo dpkg-dev
 }
 

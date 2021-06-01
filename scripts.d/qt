@@ -27,7 +27,7 @@ function qt-tar()
 
 function qt-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function qt-env()

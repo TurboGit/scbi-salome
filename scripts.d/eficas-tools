@@ -19,7 +19,7 @@ function eficas-tools-tar()
 
 function eficas-tools-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
 }
 

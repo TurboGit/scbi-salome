@@ -19,7 +19,7 @@ function hexablock-plugin-tar()
 
 function hexablock-plugin-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-python3-sphinx
     echo os@-swig
     echo os@-graphviz-dev

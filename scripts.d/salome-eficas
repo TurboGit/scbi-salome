@@ -19,7 +19,7 @@ function salome-eficas-tar()
 
 function salome-eficas-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function salome-eficas-depends()

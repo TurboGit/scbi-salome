@@ -19,7 +19,7 @@ function hello-tar()
 
 function hello-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen
