@@ -27,7 +27,7 @@ function geom-build-depends()
 
 function geom-depends()
 {
-    echo os@-omniorb
+    echo s-omniorb
     echo os@-qt5-default
 
     echo salome-configuration

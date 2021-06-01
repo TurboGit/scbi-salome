@@ -26,7 +26,7 @@ function salome-adao-build-depends()
 function salome-adao-depends()
 {
     echo os@-python3-docutils
-    echo os@-omniorb
+    echo s-omniorb
 
     echo salome-configuration
     echo salome-kernel

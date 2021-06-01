@@ -1,10 +1,15 @@
 
+with-variant native os@-omniorb os@-omniorb-idl os@-omniidl \
+	     --env 'add-to-var OMNIORB_ROOT_DIR   /usr'     \
+	           'add-to-var LD_LIBRARY_PATH    /usr/lib'
+
 function s-omniorb-vcs()
 {
     echo edf
     echo none
     echo svn
-    echo https://svn.code.sf.net/p/omniorb/svn/trunk/omniORB
+    echo https://svn.code.sf.net/p/omniorb/svn
+    echo omniORB
 }
 
 function s-omniorb-tar()
