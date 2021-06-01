@@ -1,0 +1,3 @@
+@load dev
+
+s-cmake-tool:v3.13.5
