@@ -7,6 +7,14 @@ function salome-jobmanager-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/jobmanager
 }
 
+function salome-jobmanager-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/jobmanager
+}
+
 function salome-jobmanager-tar()
 {
     local VERSION=$1

@@ -9,6 +9,16 @@ function medfichier-tar()
     echo med-$VERSION.tar.gz
 }
 
+function medfichier-cea-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/
+    echo med-$VERSION.tar.gz
+}
+
 function medfichier-build-depends()
 {
     echo s-cmake-tool

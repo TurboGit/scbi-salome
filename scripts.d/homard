@@ -7,6 +7,14 @@ function homard-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/homard
 }
 
+function homard-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/homard
+}
+
 function homard-tar()
 {
     local VERSION=$1

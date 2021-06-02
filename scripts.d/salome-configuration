@@ -7,6 +7,14 @@ function salome-configuration-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/configuration
 }
 
+function salome-configuration-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/configuration
+}
+
 function salome-configuration-tar()
 {
     local VERSION=$1

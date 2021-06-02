@@ -7,6 +7,14 @@ function py2cpp-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/py2cpp
 }
 
+function py2cpp-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/py2cpp
+}
+
 function py2cpp-tar()
 {
     local VERSION=$1

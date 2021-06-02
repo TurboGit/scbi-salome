@@ -7,6 +7,14 @@ function shaper-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/shaper
 }
 
+function shaper-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/shaper
+}
+
 function shaper-build-depends()
 {
     echo s-cmake-tool

@@ -7,6 +7,14 @@ function salome-kernel-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/kernel
 }
 
+function salome-kernel-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/kernel
+}
+
 function salome-kernel-tar()
 {
     local VERSION=$1

@@ -7,6 +7,14 @@ function yacs-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/yacs
 }
 
+function yacs-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/yacs
+}
+
 function yacs-tar()
 {
     local VERSION=$1

@@ -7,6 +7,14 @@ function shaperstudy-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/shaper_study
 }
 
+function shaperstudy-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/shaper_study
+}
+
 function shaperstudy-build-depends()
 {
     echo s-cmake-tool
