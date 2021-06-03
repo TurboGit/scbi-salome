@@ -1,5 +1,9 @@
 @load dev
 
+[
+	melidefx
+] :skip
+
 s-cmake-tool:v3.18.1
 s-omniorb:4_2
 s-python-omniorb:4_2
@@ -19,3 +23,5 @@ ispc:v1.12.0
 embree:v3.5.2
 ospray:v1.8.4
 paraview/ospray.gdal:v5.8.0
+occt:85f78ac
+meshgems:V2.10-4_linux_EU
