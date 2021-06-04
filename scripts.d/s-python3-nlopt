@@ -1,4 +1,7 @@
 
+with-variant native os@-python3-nlopt
+
+
 function s-python3-nlopt-out-of-tree()
 {
     echo false
