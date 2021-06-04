@@ -1,4 +1,12 @@
 
+function gmsh-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://gitlab.onelab.info/gmsh/gmsh.git 
+} 
+
 
 function gmsh-build-depends()
 {
