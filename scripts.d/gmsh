@@ -1,4 +1,12 @@
 
+function gmsh-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://gitlab.onelab.info/gmsh/gmsh.git
+}
+
 function gmsh-tar()
 {
     local VERSION=$1
