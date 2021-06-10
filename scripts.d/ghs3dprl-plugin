@@ -7,6 +7,14 @@ function ghs3dprl-plugin-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/ghs3dprlplugin
 }
 
+function ghs3dprl-plugin-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/ghs3dprlplugin
+}
+
 function ghs3dprl-plugin-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function ghs3dprl-plugin-tar()
 
 function ghs3dprl-plugin-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo salome-configuration
     echo os@-swig
     echo os@-doxygen
@@ -28,7 +36,7 @@ function ghs3dprl-plugin-build-depends()
 function ghs3dprl-plugin-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
     echo meshgems
 
     echo smesh

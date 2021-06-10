@@ -7,9 +7,17 @@ function atomgen-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/atomgen
 }
 
+function atomgen-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/atomgen
+}
+
 function atomgen-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
 }
 

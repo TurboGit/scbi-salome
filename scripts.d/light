@@ -7,6 +7,14 @@ function light-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/light
 }
 
+function light-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/light
+}
+
 function light-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function light-tar()
 
 function light-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen

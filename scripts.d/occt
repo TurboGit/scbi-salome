@@ -1,4 +1,12 @@
 
+function occt-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://git.dev.opencascade.org/repos/occt.git
+}
+
 function occt-tar()
 {
     local VERSION=$1
@@ -11,7 +19,7 @@ function occt-tar()
 
 function occt-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function occt-depends()

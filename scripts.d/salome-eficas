@@ -7,6 +7,14 @@ function salome-eficas-vcs()
     echo https://git.forge.pleiade.edf.fr/git/eficas.module-eficas
 }
 
+function salome-eficas-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/eficas
+}
+
 function salome-eficas-tar()
 {
     local VERSION=$1
@@ -19,15 +27,16 @@ function salome-eficas-tar()
 
 function salome-eficas-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function salome-eficas-depends()
 {
-    echo salome-configuration
+    echo s-omniorb
     echo os@-python3-pyqt5
+
+    echo salome-configuration
     echo salome-kernel
-    echo os@-omniorb
     echo salome-gui
 }
 

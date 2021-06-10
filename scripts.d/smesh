@@ -7,6 +7,14 @@ function smesh-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/smesh
 }
 
+function smesh-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/smesh
+}
+
 function smesh-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function smesh-tar()
 
 function smesh-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-sphinx-intl
 }
@@ -27,9 +35,10 @@ function smesh-build-depends()
 function smesh-depends()
 {
     echo os@-qt5-default
-    echo os@-omniorb
     echo os@-cgns-dev
 
+    echo s-python-omniorb
+    echo s-omniorb
     echo s-hdf5
     echo salome-configuration
     echo salome-kernel
@@ -38,7 +47,6 @@ function smesh-depends()
     echo shaperstudy
     echo medfichier
     echo medcoupling
-    echo s-python-omniorb
 }
 
 function smesh-env()

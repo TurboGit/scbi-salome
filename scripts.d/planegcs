@@ -9,9 +9,19 @@ function planegcs-tar()
     echo planegcs-$VERSION.tar.gz
 }
 
+function planegcs-cea-tar()
+{
+    local VERSION=$1
+
+    echo defaut
+    echo wget
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/
+    echo planegcs-$VERSION.tar.gz
+}
+
 function planegcs-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function planegcs-depends()

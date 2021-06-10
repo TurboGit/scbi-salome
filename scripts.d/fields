@@ -7,6 +7,14 @@ function fields-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/med
 }
 
+function fields-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/med
+}
+
 function fields-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function fields-tar()
 
 function fields-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-python3-stemmer

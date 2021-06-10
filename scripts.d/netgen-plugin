@@ -7,6 +7,14 @@ function netgen-plugin-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/netgenplugin
 }
 
+function netgen-plugin-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/netgenplugin
+}
+
 function netgen-plugin-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function netgen-plugin-tar()
 
 function netgen-plugin-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen

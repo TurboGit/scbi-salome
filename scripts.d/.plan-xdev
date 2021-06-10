@@ -1,0 +1,46 @@
+@load dev
+
+[
+	melidefx
+	blsurf-plugin
+	ghs3dprl-plugin
+	hexotic-plugin
+	persalys
+	openturns-fftw
+	openturns-mixmod
+	openturns-morris
+	openturns-pmml
+	openturns-robopt
+	openturns-subsetinverse
+	openturns-svm
+	openturns-wrapy
+	salome-openturns
+	non-regression-tests
+	s-zeromq
+	uranie
+	melissa
+	clustertests
+	meshgems
+	paravisaddons
+	homard-tool
+	s-python3-xlutils
+] :skip
+
+[
+	s-python3-nlopt
+] /native
+
+s-cmake-tool:v3.18.1
+s-omniorb/auto:4_2
+s-python-omniorb:4_2
+
+openturns:1.14
+
+s-clang-edf:llvmorg-8.0.1
+ispc:v1.12.0
+embree:v3.5.2
+ospray:v1.8.4
+paraview/ospray.gdal:v5.8.0
+occt:85f78ac
+gmsh:gmsh_4_1_4
+planegcs:#0.18-3cb6890

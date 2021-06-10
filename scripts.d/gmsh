@@ -1,4 +1,12 @@
 
+function gmsh-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://gitlab.onelab.info/gmsh/gmsh.git
+}
+
 function gmsh-tar()
 {
     local VERSION=$1
@@ -11,7 +19,7 @@ function gmsh-tar()
 
 function gmsh-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function gmsh-depends()

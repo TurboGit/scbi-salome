@@ -7,6 +7,14 @@ function ydefx-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/ydefx
 }
 
+function ydefx-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/ydefx
+}
+
 function ydefx-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function ydefx-tar()
 
 function ydefx-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo py2cpp
 }
 

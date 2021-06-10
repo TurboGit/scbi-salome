@@ -7,6 +7,14 @@ function salome-adao-vcs()
     echo https://git.forge.pleiade.edf.fr/git/salome-adao
 }
 
+function salome-adao-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/adao
+}
+
 function salome-adao-tar()
 {
     local VERSION=$1
@@ -19,14 +27,14 @@ function salome-adao-tar()
 
 function salome-adao-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
 }
 
 function salome-adao-depends()
 {
     echo os@-python3-docutils
-    echo os@-omniorb
+    echo s-omniorb
 
     echo salome-configuration
     echo salome-kernel

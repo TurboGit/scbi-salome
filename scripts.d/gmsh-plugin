@@ -7,6 +7,14 @@ function gmsh-plugin-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/gmshplugin
 }
 
+function gmsh-plugin-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/gmshplugin
+}
+
 function gmsh-plugin-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function gmsh-plugin-tar()
 
 function gmsh-plugin-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
 }
 
@@ -28,7 +36,7 @@ function gmsh-plugin-depends()
     echo salome-configuration
     echo salome-kernel
     echo salome-gui
-    echo os@-omniorb
+    echo s-omniorb
     echo os@-qt5-default
     echo occt
     echo geom

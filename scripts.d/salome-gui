@@ -7,6 +7,14 @@ function salome-gui-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/gui
 }
 
+function salome-gui-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/gui
+}
+
 function salome-gui-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function salome-gui-tar()
 
 function salome-gui-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-sphinx-intl
 }
@@ -27,10 +35,10 @@ function salome-gui-build-depends()
 function salome-gui-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
     echo os@-python3-pyqt5
-    echo pyqt5-dev
-    echo pyqt5-dev-tools
+    echo os@-pyqt5-dev
+    echo os@-pyqt5-dev-tools
     echo os@-qwt-qt5-dev
     echo os@-python3-sip-dev
     echo os@-python3-sip

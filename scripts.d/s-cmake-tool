@@ -1,0 +1,20 @@
+inherit-plugin s-cmake
+
+with-variant native os@-cmake
+
+function s-cmake-tool-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo cmake-$VERSION.tar.gz
+}
+
+function s-cmake-tool-build-depends()
+{
+    echo os@-g++
+    echo os@-make
+    echo os@-openssl-dev
+}

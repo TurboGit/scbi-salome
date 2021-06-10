@@ -7,9 +7,17 @@ function atomic-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/atomic
 }
 
+function atomic-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/atomic
+}
+
 function atomic-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
 }
 

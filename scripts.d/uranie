@@ -11,7 +11,7 @@ function uranie-tar()
 
 function uranie-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-xml2-utils
 }
 

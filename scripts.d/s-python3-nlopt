@@ -1,3 +1,6 @@
+
+with-variant native os@-python3-nlopt
+
 function s-python3-nlopt-tar()
 {
     local VERSION=$1

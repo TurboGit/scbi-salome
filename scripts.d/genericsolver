@@ -7,6 +7,14 @@ function genericsolver-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/genericsolver
 }
 
+function genericsolver-cea-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/genericsolver
+}
+
 function genericsolver-tar()
 {
     local VERSION=$1
@@ -19,7 +27,7 @@ function genericsolver-tar()
 
 function genericsolver-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-swig
     echo salome-configuration
 }
