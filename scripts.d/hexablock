@@ -8,7 +8,7 @@ function hexablock-patches()
 
 function hexablock-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
     echo os@-swig
@@ -21,7 +21,7 @@ function hexablock-build-depends()
 function hexablock-depends()
 {
     echo os@-qt5-default
-    echo qtbase5-dev
+    echo os@-qtbase5-dev
 
     echo geom
 }

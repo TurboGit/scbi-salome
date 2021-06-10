@@ -1,8 +1,16 @@
 
+function occt-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://git.dev.opencascade.org/repos/occt.git 
+} 
+
 
 function occt-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function occt-depends()

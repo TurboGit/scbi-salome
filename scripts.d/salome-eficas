@@ -12,15 +12,16 @@ function salome-eficas-tar()
 
 function salome-eficas-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function salome-eficas-depends()
 {
-    echo salome-configuration
+    echo s-omniorb
     echo os@-python3-pyqt5
+
+    echo salome-configuration
     echo salome-kernel
-    echo os@-omniorb
     echo salome-gui
 }
 

@@ -12,13 +12,14 @@ function ispc-build-depends()
 {
     local VERSION=$1
 
-    echo os@-cmake
+    echo os@-zlib1g-dev
+    echo os@-ncurses-dev
+
+    echo s-cmake-tool
     echo s-clang-edf
-    echo zlib1g-dev
     echo flex
     echo bison
     echo m4
-    echo os@-ncurses-dev
 }
 
 function ispc-env()

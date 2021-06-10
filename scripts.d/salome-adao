@@ -12,14 +12,14 @@ function salome-adao-tar()
 
 function salome-adao-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
 }
 
 function salome-adao-depends()
 {
     echo os@-python3-docutils
-    echo os@-omniorb
+    echo s-omniorb
 
     echo salome-configuration
     echo salome-kernel

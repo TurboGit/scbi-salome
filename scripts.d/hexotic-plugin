@@ -3,7 +3,7 @@
 
 function hexotic-plugin-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
 }
 
 function hexotic-plugin-depends()

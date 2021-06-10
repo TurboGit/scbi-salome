@@ -12,7 +12,7 @@ function geom-tar()
 
 function geom-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-swig
     echo os@-python3-psutil
@@ -20,7 +20,7 @@ function geom-build-depends()
 
 function geom-depends()
 {
-    echo os@-omniorb
+    echo s-omniorb
     echo os@-qt5-default
 
     echo salome-configuration

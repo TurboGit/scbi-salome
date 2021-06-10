@@ -12,7 +12,7 @@ function salome-kernel-tar()
 
 function salome-kernel-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-swig
@@ -38,16 +38,13 @@ function salome-kernel-depends()
     echo os@-boost-chrono-dev
     echo os@-boost-date-time-dev
     echo os@-boost-thread-dev
-    echo os@-omniorb4-dev
     echo os@-cppunit-dev
     echo os@-graphviz-dev
     echo os@-xml2-dev
     echo os@-graphviz-dev
     echo os@-python3-numpy
     echo os@-hdf5-dev
-    echo os@-omniorb
-    echo os@-omniorb-idl
-    echo os@-omniidl
+    echo s-omniorb
     echo os@-cos4-dev
 
     echo salome-configuration

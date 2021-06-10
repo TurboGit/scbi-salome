@@ -12,7 +12,7 @@ function ydefx-tar()
 
 function ydefx-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake-tool
     echo py2cpp
 }
 
