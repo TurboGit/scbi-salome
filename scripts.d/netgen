@@ -21,7 +21,7 @@ function netgen-cea-tar()
 {
     local VERSION=$1
 
-    echo defaut
+    echo edf
     echo wget
     echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/
     echo netgen-$VERSION.tar.gz

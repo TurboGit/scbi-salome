@@ -13,7 +13,7 @@ function planegcs-cea-tar()
 {
     local VERSION=$1
 
-    echo defaut
+    echo edf
     echo wget
     echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/
     echo planegcs-$VERSION.tar.gz
