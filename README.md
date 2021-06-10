@@ -11,21 +11,21 @@ Setup Configure Build Install - Scripts for building SALOME
 # Install
 
 ```
-$ git clone https://github.com/TurboGit/scbi-salome
+$ git clone https://github.com/TurboGit/scbi-salome.git
 $ cd ./scbi-salome
 $ make
 ```
 
 # A simple tutorial to build SALOME
 
-  To build SALOME just run:
+  To build SALOME master just run:
 
 ```
-$ scbi --env=v96 --deps --update --safe salome
+$ scbi --env=xdev --deps --update --safe salome
 ```
 
-  To build SALOME and create an installer:
+  To build SALOME master and create an installer:
 
 ```
-$ scbi --env=v96 --deps --update --safe --enable-installer salome
+$ scbi --env=xdev --deps --update --safe --enable-installer salome
 ```
