@@ -1,0 +1,80 @@
+
+# Intel RenderKit Common library
+
+function s-rkcommon-vcs()
+{
+    echo edf
+    echo no-recursive
+    echo git
+    echo https://github.com/ospray/rkcommon.git
+}
+
+function s-rkcommon-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo s-rkcommon-$VERSION.tar.gz
+}
+
+function s-rkcommon-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-rkcommon-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo os@-tbb-dev
+}
+
+function s-rkcommon-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var RKCOMMON_ROOT_DIR    $PREFIX
+    add-to-var RKCOMMON_BUILD_DIR   $PREFIX/../build
+
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/rkcommon
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/rkcommon
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+
+    add-to-var CMAKE_PREFIX_PATH \
+               $(last-modified-directory "$PREFIX/lib*/cmake/rkcommon-*")
+}
+
+function s-rkcommon-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function s-rkcommon-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-rkcommon-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-rkcommon-prefix()
+{
+    echo NONE
+}
