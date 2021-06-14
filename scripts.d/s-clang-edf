@@ -15,5 +15,5 @@ function s-clang-edf-tar()
     echo default
     echo wget
     echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
-    echo $VERSION.tar.gz
+    echo llvm-$VERSION.src.tar.gz
 }
