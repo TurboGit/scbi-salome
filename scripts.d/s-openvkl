@@ -1,0 +1,75 @@
+
+# Intel® Open Volume Kernel Library
+
+function s-openvkl-vcs() 
+{ 
+    echo default
+    echo no-recursive 
+    echo git 
+    echo https://github.com/openvkl/openvkl.git 
+} 
+
+
+function s-openvkl-build-depends()
+{
+    echo s-cmake-tool
+    echo ispc
+}
+
+function s-openvkl-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo embree
+    echo s-rkcommon
+}
+
+function s-openvkl-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var OPENVKL_ROOT_DIR    $PREFIX
+    add-to-var OPENVKL_BUILD_DIR   $PREFIX/../build
+
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/openvkl
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/openvkl
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+
+    add-to-var CMAKE_PREFIX_PATH \
+               $(last-modified-directory "$PREFIX/lib*/cmake/openvkl-*")
+}
+
+function s-openvkl-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
+          -DCMAKE_CXX_COMPILER=clang++ ../src
+}
+
+function s-openvkl-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-openvkl-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-openvkl-prefix()
+{
+    echo NONE
+}
