@@ -50,6 +50,7 @@ function salome-prerequisite-modules()
     echo adao
     echo adao-interface
     echo samples
+    echo s-omniorb
     echo s-python-omniorb
     echo eficas-tools
     echo occt
