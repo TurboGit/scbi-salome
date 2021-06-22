@@ -20,9 +20,13 @@ function s-python-omniorb-env()
     local TARGET=$2
 
     add-to-var OMNIORBPY_ROOT_DIR $PREFIX
-    add-to-var PYTHONPATH         $PREFIX/lib/python$PYTHON_VERSION/site-packages
     add-to-var PYTHONPATH         \
-	$PREFIX/lib/python$PYTHON_VERSION/site-packages/omniidl_be
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/omniidl_be
+    add-to-var PYTHONPATH         \
+               $(dirname $(get-os-bin \
+               $PREFIX/lib*/python$PYTHON_VERSION/site-packages/_omnipy*so))
 }
 
 function s-python-omniorb-config()

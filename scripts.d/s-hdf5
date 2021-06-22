@@ -1,20 +1,21 @@
 
 with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
-       --env 'add-to-var HDF5_ROOT /usr/lib/x86_64-linux-gnu/hdf5/serial' \
-             'add-to-var HDF5_DIR /usr/lib/x86_64-linux-gnu/hdf5/serial' \
-             'add-to-var HDF5_INC /usr/include/hdf5/serial' \
-             'add-to-var HDF5_INCLUDE_DIRS /usr/include/hdf5/serial' \
-             'add-to-var HDF5_LIB /usr/lib/x86_64-linux-gnu/hdf5/serial' \
+      --env  'add-to-var HDF5_ROOT_DIR /usr' \
+             'add-to-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
+             'add-to-var HDF5_INC $(get-os-inc-dir serial/hdf5.h)' \
+             'add-to-var HDF5_ROOT $HDF5_LIB' \
+             'add-to-var HDF5_DIR $HDF5_LIB' \
+             'add-to-var HDF5_INCLUDE_DIRS $HDF5_INC' \
              'add-to-var HDF5_BIN /usr/bin'
 
 with-variant native-mpi os@-hdf5-dev os@-hdf5-openmpi-dev os@-hdf5-tools os@-openmpi-dev \
-       --env 'add-to-var HDF5_ROOT /usr/lib/x86_64-linux-gnu/hdf5/openmpi' \
-             'add-to-var HDF5_DIR /usr/lib/x86_64-linux-gnu/hdf5/openmpi' \
-             'add-to-var HDF5_PREFER_PARALLEL true' \
-             'add-to-var HDF5_INC /usr/include/hdf5/openmpi' \
-             'add-to-var HDF5_INCLUDE_DIRS /usr/include/hdf5/openmpi' \
-             'add-to-var HDF5_LIB /usr/lib/x86_64-linux-gnu/hdf5/openmpi' \
-             'add-to-var HDF5_BIN /usr/bin'
+       --env 'add-to-var HDF5_ROOT_DIR /usr' \
+             'add-to-var HDF5_LIB $(get-os-lib-dir openmpi/libhdf5.so)' \
+             'add-to-var HDF5_INC $(get-os-inc-dir openmpi/hdf5.h)' \
+             'add-to-var HDF5_ROOT $HDF5_LIB' \
+             'add-to-var HDF5_DIR $HDF5_LIB' \
+             'add-to-var HDF5_INCLUDE_DIRS $HDF5_INC' \
+             'add-to-var HDF5_PREFER_PARALLEL true'
 
 function s-hdf5-vcs() 
 { 
