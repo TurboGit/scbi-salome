@@ -9,7 +9,7 @@ function salome-kernel-vcs()
 
 function salome-kernel-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/kernel

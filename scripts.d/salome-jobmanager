@@ -9,7 +9,7 @@ function salome-jobmanager-vcs()
 
 function salome-jobmanager-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/jobmanager

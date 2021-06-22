@@ -9,7 +9,7 @@ function salome-gui-vcs()
 
 function salome-gui-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/gui
