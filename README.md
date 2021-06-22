@@ -29,3 +29,14 @@ $ scbi --env=xdev --deps --update --safe salome
 ```
 $ scbi --env=xdev --deps --update --safe --enable-installer salome
 ```
+
+# OS Specific Instructions
+
+## CentOS
+
+For now on CentOS the documentation cannot be built. The compilation must
+be done with the `--enable-no-doc` option:
+
+```
+$ scbi --env=xdev --deps --update --enable-no-doc --safe salome
+```
