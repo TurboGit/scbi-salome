@@ -28,11 +28,14 @@
 
 [
 	s-python3-nlopt
+	s-openmpi
+	s-ptscotch
+	s-scotch
 ] /native
 
-s-cmake-tool:v3.18.1
-s-omniorb/auto:4_2
-s-python-omniorb:4_2
+s-cmake-tool:v3.13.5
+s-omniorb/auto:#4.2.2
+s-python-omniorb:#4.2.2
 
 openturns:1.14
 
@@ -44,3 +47,4 @@ paraview/ospray.gdal:v5.8.0
 occt:85f78ac
 gmsh:gmsh_4_1_4
 planegcs:#0.18-3cb6890
+medcoupling/scotch
