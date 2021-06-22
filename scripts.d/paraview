@@ -89,17 +89,20 @@ function paraview-env()
     local PREFIX=$1
     local TARGET=$2
 
-    local CMAKE_PV=$(last-modified-directory "$PREFIX/lib/cmake/paraview-*")
+    local CMAKE_PV=$(last-modified-directory "$PREFIX/lib*/cmake/paraview-*")
 
     add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}
     add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}/vtk
 
     add-to-var PARAVIEW_ROOT_DIR    $PREFIX
     add-to-var PARAVIEW_INSTALL_DIR $PREFIX
-    add-to-var LD_LIBRARY_PATH      $PREFIX/lib
     add-to-var PATH                 $PREFIX/bin
-    add-to-var PYTHONPATH           \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+    for PLIB in $(ls -d $PREFIX/lib* 2> /dev/null); do
+	add-to-var LD_LIBRARY_PATH  $PLIB
+	add-to-var PYTHONPATH       \
+		   $PLIB/python$PYTHON_VERSION/site-packages
+    done
 }
 
 function paraview-common-config-options()
