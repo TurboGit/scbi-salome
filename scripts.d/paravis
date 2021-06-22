@@ -43,10 +43,15 @@ function paravis-config()
     local PREFIX=$1
     local TARGET=$2
 
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravis Release) \
           -DVTK_DIR=$(last-modified-directory \
                           "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
 	  \
           -DMEDCOUPLING_USE_64BIT_IDS=ON \
 	  -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES \

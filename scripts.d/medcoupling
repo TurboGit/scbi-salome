@@ -60,8 +60,9 @@ function medcoupling-common-config-options()
     local VARIANT=$3
 
     local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
 
-    echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release)
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DMEDCOUPLING_USE_MPI=ON
@@ -69,6 +70,8 @@ function medcoupling-common-config-options()
     echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
     echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
     echo -DMEDCOUPLING_BUILD_TESTS=OFF
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DMEDCOUPLING_BUILD_DOC=OFF"}
     echo -DPTSCOTCH_INCLUDE_DIRS=/usr/include/scotch-long
 }
 

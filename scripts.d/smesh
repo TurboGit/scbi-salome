@@ -58,10 +58,15 @@ function smesh-common-config-options()
     local TARGET=$2
     local VARIANT=$3
 
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release)
     echo -DSALOME_GUI_BUILD_WITH_QT5=ON
     echo -DSALOME_SMESH_USE_CGNS=ON
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release)
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
 }
 
 function smesh-config()
