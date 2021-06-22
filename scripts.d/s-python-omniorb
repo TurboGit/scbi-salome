@@ -8,6 +8,16 @@ function s-python-omniorb-vcs()
     echo omniORBpy 
 } 
 
+function s-omniorb-cea-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/
+    echo omniORBpy-$VERSION.tar.gz
+}
+
 
 function s-python-omniorb-depends()
 {
