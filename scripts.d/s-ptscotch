@@ -1,0 +1,7 @@
+
+with-variant native os@-ptscotch os@-ptscotch-dev \
+	     --env \
+	     'add-to-var PTSCOTCH_ROOT_DIR $(get-os-inc-dir ptscotch.h)' \
+	     'add-to-var PTSCOTCH_INCLUDE_DIRS $(get-os-inc-dir ptscotch.h):$(get-os-inc ptscotch.h)' \
+	     'add-to-var PTSCOTCH_LIBRARIES $(get-os-lib libptscotch.so)' \
+	     'add-to-var PTSCOTCH_ERR_LIBRARIES $(get-os-lib libptscotcherr.so)'
