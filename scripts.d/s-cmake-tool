@@ -2,6 +2,14 @@ inherit-plugin s-cmake
 
 with-variant native os@-cmake
 
+function s-cmake-tool-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/Kitware/CMake.git
+}
+
 function s-cmake-tool-tar()
 {
     local VERSION=$1
