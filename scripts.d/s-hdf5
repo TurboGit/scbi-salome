@@ -50,7 +50,7 @@ function s-hdf5-env()
 
     add-to-var CMAKE_PREFIX_PATH  $PREFIX/share/cmake/hdf5
     add-to-var HDF5_ROOT_DIR      $PREFIX
-    add-to-var HDF5_DIR          $PREFIX/share/cmake/hdf5
+    add-to-var HDF5_DIR           $PREFIX/share/cmake/hdf5
 
     add-to-var HDF5_C_COMPILER_EXECUTABLE $PREFIX/bin/h5cc
     add-to-var HDF5_C_LIBRARY_hdf5        $PREFIX/lib/libhdf5.so
