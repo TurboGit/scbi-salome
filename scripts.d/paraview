@@ -73,7 +73,6 @@ function paraview-depends()
     echo os@-python3-dev
     echo os@-x11-dev
     echo os@-xt-dev
-    echo os@-openmpi-dev
     echo os@-qt5-default
     echo os@-qt5x11extras5-dev
     echo os@-qt5help5
@@ -81,6 +80,7 @@ function paraview-depends()
     echo os@-qttools5-dev
 
     echo s-hdf5
+    echo s-openmpi
     echo openturns
 }
 
