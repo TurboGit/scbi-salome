@@ -53,8 +53,13 @@ function ghs3d-plugin-config()
     local PREFIX=$1
     local TARGET=$2
 
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3d-plugin Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ../src
 }
 
