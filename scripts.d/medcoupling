@@ -33,11 +33,21 @@ function medcoupling-build-depends()
     echo os@-python3-sphinx-rtd-theme
 }
 
+function medcoupling-ptscotch-depends()
+{
+    echo s-ptscotch
+}
+
+function medcoupling-scotch-depends()
+{
+    echo s-scotch
+}
+
 function medcoupling-depends()
 {
-    echo os@-ptscotch
-    echo os@-ptscotch-dev
     echo os@-metis-dev
+    echo os@-libtirpc-dev
+    echo s-openmpi
 
     echo metis
     echo salome-configuration
@@ -68,6 +78,22 @@ function medcoupling-mpi-config-options()
     echo -DSALOME_USE_MPI=ON
 }
 
+function medcoupling-ptscotch-config-options()
+{
+    echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
+    echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
+
+    echo -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
+    echo -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
+    echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
+}
+
+function medcoupling-scotch-config-options()
+{
+    echo -DMEDCOUPLING_PARTITIONER_SCOTCH=ON
+    echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=OFF
+}
+
 function medcoupling-common-config-options()
 {
     local PREFIX=$1
@@ -81,13 +107,10 @@ function medcoupling-common-config-options()
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release)
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DMEDCOUPLING_USE_MPI=ON
-    echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
-    echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
     echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
     echo -DMEDCOUPLING_BUILD_TESTS=OFF
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DMEDCOUPLING_BUILD_DOC=OFF"}
-    echo -DPTSCOTCH_INCLUDE_DIRS=/usr/include/scotch-long
 }
 
 function medcoupling-config()
