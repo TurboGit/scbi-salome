@@ -51,7 +51,7 @@ function ospray-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 
     add-to-var CMAKE_PREFIX_PATH \
-               $(last-modified-directory "$PREFIX/lib/cmake/ospray-*")
+               $(last-modified-directory "$PREFIX/lib*/cmake/ospray-*")
 }
 
 function ospray-config()

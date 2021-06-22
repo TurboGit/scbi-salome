@@ -199,8 +199,8 @@ function paraview-egl-config-options()
 
     echo -DVTK_OPENGL_HAS_EGL:BOOL=ON
     echo -DEGL_INCLUDE_DIR=/usr/include
-    echo -DEGL_LIBRARY=/usr/lib/$TARGET/libEGL.so
-    echo -DEGL_opengl_LIBRARY=/usr/lib/$TARGET/libOpenGL.so
+    echo -DEGL_LIBRARY=$(get-os-lib libEGL.so)
+    echo -DEGL_opengl_LIBRARY=$(get-os-lib libOpenGL.so)
 }
 
 function paraview-mesa-config-options()
@@ -211,7 +211,7 @@ function paraview-mesa-config-options()
 
     echo -DVTK_OPENGL_HAS_MESA:BOOL=ON
     echo -DOSMESA_INCLUDE_DIR=/usr/include
-    echo -DOSMESA_LIBRARY=/usr/lib/$TARGET/libOSMesa.so
+    echo -DOSMESA_LIBRARY=$(get-os-lib libOSMesa.so)
 }
 
 function paraview-headless-config-options()
