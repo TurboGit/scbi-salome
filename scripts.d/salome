@@ -216,6 +216,8 @@ function build-salome-prerequisites()
         PATH_set=IS_SET
 
         for-all-modules-with-meta env-callback salome
+
+	chmod u+x $FILE
     )
 }
 
@@ -490,7 +492,7 @@ function salome-wrapup()
                 # check that makeself is installed
                 check-tool makeself
                 if [[ $? != 0 ]]; then
-                    elog salome Required tool makeself missing
+                    dlog salome Required tool makeself missing
                     exit 1
                 fi
 
