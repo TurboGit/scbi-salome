@@ -44,6 +44,7 @@ function salome-gui-depends()
     echo os@-python3-sip
     echo os@-qt5opengl5-dev
     echo os@-qt5printsupport5
+    echo os@-glu1-mesa-dev
 
     echo salome-configuration
     echo paraview
@@ -74,6 +75,11 @@ function salome-gui-mpi-config-options()
     echo -DSALOME_USE_MPI=ON
 }
 
+function salome-gui-default-config-options()
+{
+    echo -DSALOME_USE_MPI=OFF
+}
+
 function salome-gui-common-config-options()
 {
     local PREFIX=$1
@@ -99,7 +105,7 @@ function salome-gui-config()
 
     local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
-    cmake $OPTIONS -DSALOME_USE_MPI=ON ../src
+    cmake $OPTIONS ../src
 }
 
 function salome-gui-build()
