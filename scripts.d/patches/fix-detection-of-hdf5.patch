@@ -1,0 +1,27 @@
+From fc6462498bb71d3096807037604f4571e6ce8517 Mon Sep 17 00:00:00 2001
+From: Pascal Obry <pascal.obry@edf.fr>
+Date: Thu, 1 Jul 2021 08:53:57 +0200
+Subject: [PATCH] Fix detection of HDF5.
+
+Same fix already put in place for Qt5. Use the standard CMake
+macro make the detection sucessful.
+---
+ cmake/FindSalomeHDF5.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/FindSalomeHDF5.cmake b/cmake/FindSalomeHDF5.cmake
+index 271a585..868060c 100644
+--- a/cmake/FindSalomeHDF5.cmake
++++ b/cmake/FindSalomeHDF5.cmake
+@@ -36,7 +36,7 @@ IF(HDF5_ROOT_DIR)
+   ENDIF()
+ ENDIF()
+ 
+-SALOME_FIND_PACKAGE_AND_DETECT_CONFLICTS(HDF5 HDF5_INCLUDE_DIR 1)
++FIND_PACKAGE(HDF5)
+ MARK_AS_ADVANCED(FORCE HDF5_INCLUDE_DIR HDF5_LIB HDF5_DIR)
+ 
+ # Stupidly enough, CONFIG mode and MODULE mode for HDF5 do not return the same thing ...!
+-- 
+2.11.0
+
