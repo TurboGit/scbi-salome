@@ -1,7 +1,6 @@
 
 with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
-      --env  'add-to-var HDF5_ROOT_DIR /usr' \
-             'add-to-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
+      --env  'add-to-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
              'add-to-var HDF5_INC $(get-os-inc-dir serial/hdf5.h)' \
              'add-to-var HDF5_ROOT $HDF5_LIB' \
              'add-to-var HDF5_DIR $HDF5_LIB' \
