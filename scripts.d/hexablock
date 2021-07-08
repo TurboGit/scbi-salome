@@ -77,7 +77,8 @@ function hexablock-config()
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hexablock Release) \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ../src
 }
 
 function hexablock-build()
