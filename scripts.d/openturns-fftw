@@ -66,7 +66,6 @@ function openturns-fftw-install()
     local TARGET=$2
 
     make install
-    mv $PREFIX/lib/python$PYTHON_VERSION/site-packages/otfftw/__otfftw.so $PREFIX/lib/python$PYTHON_VERSION/site-packages/otfftw/_otfftw.so
 }
 
 function openturns-fftw-prefix()
