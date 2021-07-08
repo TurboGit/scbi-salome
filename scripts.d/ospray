@@ -26,6 +26,8 @@ function ospray-depends()
     echo os@-libxinerama-dev
     echo os@-libxcursor-dev
     echo embree
+    echo s-rkcommon
+    echo s-openvkl
 }
 
 function ospray-env()
