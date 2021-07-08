@@ -1,0 +1,121 @@
+###########################################
+# TOOLS
+
+# clang 12 & ispc 1.16 are matching versions
+s-clang-edf:release/12.x
+# using binary version 1.16.0, must be available in ispc GitHub
+ispc/bin:#v1.16.0
+
+persalys:v10.0.4
+s-hdf5/native-serial
+s-zeromq:#4.3.1
+melissa:#0.0.0
+planegcs:#0.18
+
+paraview/ospray.gdal:v5.9.0
+openturns:#1.16
+openturns-fftw:#0.10
+openturns-mixmod:#0.11
+openturns-morris:#0.9
+openturns-pmml:#1.10
+openturns-robopt:#0.8
+openturns-subsetinverse:#1.7
+openturns-svm:#0.9
+openturns-wrapy:#0.9
+embree:#3.12.2
+s-rkcommon:v1.6.0
+s-openvkl:v0.11.0
+ospray:#2.4.0
+uranie:#4.5.0
+s-root:v6-22-00-patches
+
+[
+        # homard tool is now merged into homard module
+        homard-tool:#1112hdf51103med410
+] :skip
+
+[
+        s-netcdf
+        s-gdal
+        s-cmake-tool
+        s-openmpi
+        s-opencv
+        s-scotch
+        s-ptscotch
+] /native
+
+# the salome meta-module version is used to name the .run and as the
+# version in create_catalog.py
+
+# First, for repositories where master is at CEA
+[
+        salome
+        medcoupling/mpi.ptscotch
+        fields
+        geom
+        smesh/mpi
+        atomgen
+        atomic
+        ghs3d-plugin
+        ghs3dprl-plugin
+        blsurf-plugin
+        gmsh-plugin
+        hybrid-plugin
+        hexotic-plugin
+        shaperstudy
+        homard
+        salome-configuration
+        salome-kernel
+        salome-gui
+        paravis
+        salome-jobmanager
+        yacs
+        yacsgen
+        hexablock
+        hexablock-plugin
+        samples
+        atomsolv
+        calculator
+        genericsolver
+        hello
+        pyhello
+        light
+        pylight
+        netgen-plugin
+        dsccode
+        shaper
+        melidefx
+        ydefx
+        salome-openturns
+        py2cpp
+        paravisaddons-common
+] :V9_7_0
+
+paravisaddons:V9_7_0rc2_3
+
+# Second, for repositories where master is at EDF
+[
+        salome-eficas
+        eficas-tools
+        salome-adao
+        adao
+        adao-interface
+] :V9_7_0
+
+non-regression-tests-confidential:occ/python3_porting
+non-regression-tests:occ/python3_porting
+clustertests
+
+gmsh:#4.1.4
+medfichier:#4.1.0
+netgen:#5.3.1
+s-python3-nlopt:#2.4.2
+s-python3-xlutils:#2.0.0
+
+# should be tag V2_4_3 as soon as available
+libbatch:V2_4_4rc2
+
+s-python-omniorb:#4.2.2
+s-omniorb/auto
+occt:#0c61d938
+meshgems:#V2.12-1_linux_EU
