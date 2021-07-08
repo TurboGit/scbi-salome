@@ -1,7 +1,6 @@
 
 
 
-
 function salome-openturns-build-depends()
 {
     echo s-cmake-tool
