@@ -10,6 +10,7 @@ function dsccode-build-depends()
 {
     echo os@-autoconf
     echo os@-autotools-dev
+    echo os@-libtool
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-python3-sphinx
