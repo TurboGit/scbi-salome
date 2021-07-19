@@ -29,6 +29,7 @@ function medfichier-depends()
 {
     echo os@-python3
     echo os@-python3-dev
+    echo os@-gfortran
 
     echo s-hdf5
     echo salome-configuration
@@ -47,7 +48,7 @@ function medfichier-env()
     local TARGET=$2
 
     add-to-var MEDFILE_ROOT_DIR   $PREFIX
-    add-to-var MEDFile_DIR      \
+    add-to-var MEDFile_DIR        \
 	       $(last-modified-directory "$PREFIX/share/cmake/med-fichier-*")
     add-to-var PATH               $PREFIX/bin
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib

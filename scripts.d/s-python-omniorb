@@ -8,7 +8,7 @@ function s-python-omniorb-vcs()
     echo omniORBpy
 }
 
-function s-omniorb-cea-tar()
+function s-python-omniorb-cea-tar()
 {
     local VERSION=$1
 
@@ -53,8 +53,9 @@ function s-python-omniorb-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ../src/configure --prefix=$PREFIX --with-omniorb=$OMNIORB_ROOT_DIR \
-                     PYTHON=$(which python3)
+    CXXFLAGS="-fpermissive" ../src/configure \
+	    --prefix=$PREFIX --with-omniorb=$OMNIORB_ROOT_DIR \
+            PYTHON=$(which python3)
 }
 
 function s-python-omniorb-build()

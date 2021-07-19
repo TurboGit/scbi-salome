@@ -24,6 +24,7 @@
 	paravisaddons
 	homard-tool
 	s-python3-xlutils
+	s-root
 ] :skip
 
 [
@@ -37,14 +38,14 @@ s-cmake-tool:v3.13.5
 s-omniorb/auto:#4.2.2
 s-python-omniorb:#4.2.2
 
-openturns:1.14
+openturns:1.16
 
-s-clang-edf:llvmorg-8.0.1
-ispc:v1.12.0
-embree:v3.5.2
-ospray:v1.8.4
-paraview/ospray.gdal:v5.8.0
-occt:85f78ac
+embree:v3.12.2
+s-rkcommon:v1.6.0
+s-openvkl:v0.11.0
+ospray:v2.4.0
+paraview/ospray.gdal:v5.9.0
+occt:0c61d938
 gmsh:gmsh_4_1_4
 planegcs:#0.18-3cb6890
 medcoupling/scotch

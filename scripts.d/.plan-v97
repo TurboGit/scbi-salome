@@ -35,13 +35,13 @@ s-root:v6-22-00-patches
 ] :skip
 
 [
+        s-netcdf
+        s-gdal
         s-cmake-tool
         s-openmpi
         s-opencv
         s-scotch
         s-ptscotch
-        s-netcdf
-        s-gdal
 ] /native
 
 # the salome meta-module version is used to name the .run and as the
@@ -89,8 +89,9 @@ s-root:v6-22-00-patches
         salome-openturns
         py2cpp
         paravisaddons-common
-        paravisaddons
-] :master
+] :V9_7_0
+
+paravisaddons:V9_7_0rc2_3
 
 # Second, for repositories where master is at EDF
 [
@@ -99,7 +100,7 @@ s-root:v6-22-00-patches
         salome-adao
         adao
         adao-interface
-] :master
+] :V9_7_0
 
 non-regression-tests-confidential:occ/python3_porting
 non-regression-tests:occ/python3_porting
