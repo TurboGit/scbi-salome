@@ -10,7 +10,14 @@ function paraview-vcs()
 
 function paraview-patches()
 {
-    echo paraview-autoload.patch
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "5.8" ]] && echo paraview-autoload.patch
+    [[ $REF =~ "5.9" ]] && echo paraview-5.9.patch
 }
 
 function paraview-build-depends()
@@ -242,6 +249,27 @@ function paraview-install()
     local TARGET=$2
 
     make install
+}
+
+function paraview-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # FIXME
+    # Hack to make paravis configure without issue otherwise we get
+    # an error message:
+    #
+    # CMake Error at /...paraview-5.9/ParaViewPlugin.cmake:1380 (add_library):
+    # Target "StaticMesh" links to target "MPI::MPI_C" but the target was not
+    # found.  Perhaps a find_package() call is missing for an IMPORTED target,
+    # or an ALIAS target is missing?
+
+    IDIR=$(ls -d ../install/lib*/cmake/paraview-5.9)
+
+    [[ -d $IDIR ]] &&
+        sed -i 's/COMPONENTS          C/#COMPONENTS          C/g' \
+            $IDIR/vtk/VTK-vtk-module-find-packages.cmake
 }
 
 function paraview-prefix()

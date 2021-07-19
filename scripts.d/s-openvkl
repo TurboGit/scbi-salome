@@ -1,53 +1,49 @@
 
-function ospray-vcs() 
+# Intel® Open Volume Kernel Library
+
+function s-openvkl-vcs() 
 { 
     echo default
     echo no-recursive 
     echo git 
-    echo https://github.com/ospray/ospray.git 
+    echo https://github.com/openvkl/openvkl.git 
 } 
 
 
-function ospray-build-depends()
+function s-openvkl-build-depends()
 {
     echo s-cmake-tool
     echo ispc
-    echo s-clang-edf
 }
 
-function ospray-depends()
+function s-openvkl-depends()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
-    echo os@-tbb-dev
-    echo os@-libxrandr-dev
-    echo os@-libxinerama-dev
-    echo os@-libxcursor-dev
     echo embree
     echo s-rkcommon
-    echo s-openvkl
 }
 
-function ospray-env()
+function s-openvkl-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var OSPRAY_ROOT_DIR    $PREFIX
-    add-to-var OSPRAY_BUILD_DIR   $PREFIX/../build
+    add-to-var OPENVKL_ROOT_DIR    $PREFIX
+    add-to-var OPENVKL_BUILD_DIR   $PREFIX/../build
 
-    add-to-var C_INCLUDE_PATH     $PREFIX/include/ospray
-    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/openvkl
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/openvkl
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 
     add-to-var CMAKE_PREFIX_PATH \
-               $(last-modified-directory "$PREFIX/lib*/cmake/ospray-*")
+               $(last-modified-directory "$PREFIX/lib*/cmake/openvkl-*")
 }
 
-function ospray-config()
+function s-openvkl-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -57,7 +53,7 @@ function ospray-config()
           -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
-function ospray-build()
+function s-openvkl-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -65,7 +61,7 @@ function ospray-build()
     make -j$SCBI_JOBS
 }
 
-function ospray-install()
+function s-openvkl-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -73,7 +69,7 @@ function ospray-install()
     make install
 }
 
-function ospray-prefix()
+function s-openvkl-prefix()
 {
     echo NONE
 }

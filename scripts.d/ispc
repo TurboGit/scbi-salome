@@ -8,6 +8,16 @@ function ispc-vcs()
 } 
 
 
+function ispc-bin-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default
+    echo wget 
+    echo https://github.com/ispc/ispc/releases/download/$VERSION 
+    echo ispc-$VERSION-linux.tar.gz 
+} 
+
 function ispc-build-depends()
 {
     local VERSION=$1
@@ -22,12 +32,27 @@ function ispc-build-depends()
     echo m4
 }
 
+function ispc-build-bin-depends()
+{
+    local VERSION=$1
+
+    true
+}
+
 function ispc-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
     add-to-var PATH $SCBI_BDIR/install/bin
+}
+
+function ispc-bin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH $PREFIX/bin
 }
 
 function ispc-config()
@@ -41,6 +66,14 @@ function ispc-config()
           -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
+function ispc-bin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    true
+}
+
 function ispc-build()
 {
     local PREFIX=$1
@@ -49,10 +82,38 @@ function ispc-build()
     make -j$SCBI_JOBS
 }
 
+function ispc-bin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    true
+}
+
 function ispc-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function ispc-bin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  The src directory is the extracted binaries
+    #  Just create a symlink
+
+    rm -fr ../install
+    ln -s src ../install
+}
+
+function ispc-bin-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo NONE
 }

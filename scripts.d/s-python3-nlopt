@@ -11,7 +11,8 @@ function s-python3-nlopt-build-depends()
 {
     echo os@-autoconf
     echo os@-autotools-dev
-    echo gcc
+    echo os@-libtool
+    echo os@-gcc
 }
 
 function s-python3-nlopt-depends()
@@ -35,7 +36,7 @@ function s-python3-nlopt-env()
     local TARGET=$2
 
     add-to-var NLOPT_ROOT_DIR $PREFIX
-    add-to-var PYTHONPATH   $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PYTHONPATH     $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-python3-nlopt-config()

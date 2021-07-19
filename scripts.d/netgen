@@ -33,6 +33,7 @@ function netgen-build-depends()
     echo os@-autoconf
     echo os@-automake
     echo os@-autotools-dev
+    echo os@-libtool
 }
 
 function netgen-depends()
