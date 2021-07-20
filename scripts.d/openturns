@@ -53,7 +53,7 @@ function openturns-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DUSE_SPHINX=OFF \
+    cmake -DUSE_SPHINX=OFF -DUSE_DOXYGEN=OFF \
           -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
           ../src
