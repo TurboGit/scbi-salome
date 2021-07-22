@@ -31,8 +31,9 @@ function paraview-patches()
 
 function paraview-build-depends()
 {
-    echo s-cmake-tool
     echo os@-qtxmlpatterns5-dev-tools
+
+    echo s-cmake-tool
 }
 
 function paraview-gdal-depends
