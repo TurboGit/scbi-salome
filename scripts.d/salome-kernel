@@ -12,12 +12,13 @@ function salome-kernel-tar()
 
 function salome-kernel-build-depends()
 {
-    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-swig
     echo os@-doxygen
     echo os@-graphviz
+
+    echo s-cmake-tool
 }
 
 function salome-kernel-mpi-depends()
@@ -44,11 +45,11 @@ function salome-kernel-depends()
     echo os@-graphviz-dev
     echo os@-python3-numpy
     echo os@-hdf5-dev
-    echo s-omniorb
     echo os@-cos4-dev
 
     echo salome-configuration
     echo libbatch
+    echo s-omniorb
     echo s-python-omniorb
 }
 

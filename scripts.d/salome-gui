@@ -12,9 +12,10 @@ function salome-gui-tar()
 
 function salome-gui-build-depends()
 {
-    echo s-cmake-tool
     echo os@-sphinx-common
     echo os@-sphinx-intl
+
+    echo s-cmake-tool
 }
 
 function salome-gui-depends()
@@ -35,7 +36,6 @@ function salome-gui-depends()
     echo paraview
     echo salome-kernel
     echo occt
-
     echo s-hdf5
 }
 
