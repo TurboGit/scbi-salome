@@ -85,6 +85,7 @@ function paraview-depends()
     echo os@-qt5help5
     echo os@-qt5svg5-dev
     echo os@-qttools5-dev
+    echo os@-qtbase5-dev
 
     echo s-hdf5
     echo s-openmpi
