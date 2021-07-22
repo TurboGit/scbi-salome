@@ -9,7 +9,7 @@ function py2cpp-vcs()
 
 function py2cpp-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/py2cpp

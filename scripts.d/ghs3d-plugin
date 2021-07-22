@@ -9,7 +9,7 @@ function ghs3d-plugin-vcs()
 
 function ghs3d-plugin-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/ghs3dplugin
