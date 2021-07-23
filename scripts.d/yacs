@@ -9,7 +9,7 @@ function yacs-vcs()
 
 function yacs-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/yacs

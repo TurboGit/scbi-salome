@@ -9,7 +9,7 @@ function hybrid-plugin-vcs()
 
 function hybrid-plugin-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/hybridplugin

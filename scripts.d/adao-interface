@@ -9,7 +9,7 @@ function adao-interface-vcs()
 
 function adao-interface-cea-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/adao_interface

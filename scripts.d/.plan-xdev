@@ -49,3 +49,10 @@ occt:0c61d938
 gmsh:gmsh_4_1_4
 planegcs:#0.18-3cb6890
 medcoupling/scotch
+
+# On Fedora, skip gmsh has ld (GCC-10) reports duplicate symbol definitions
+# More recent version of GMSH work, but then not compatible with gmsh-plugin
+# More generally any version of GCC > 9 causes troubles with various parts
+# of SALOME.
+@on fed gmsh:skip
+@on fed gmsh-plugin:skip
