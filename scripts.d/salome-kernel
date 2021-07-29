@@ -40,6 +40,7 @@ function salome-kernel-mpi-depends()
 {
     echo os@-boost-regex-dev
     echo os@-python3-mpi4py
+    echo s-openmpi
 }
 
 function salome-kernel-depends()
@@ -73,8 +74,6 @@ function salome-kernel-env()
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
-
-    add-to-var MPI_ROOT_DIR       /usr
 
     add-to-var KERNEL_ROOT_DIR    $PREFIX
     add-to-var KERNEL_INSTALL_DIR $PREFIX

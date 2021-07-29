@@ -7,7 +7,6 @@ s-clang-edf:release/12.x
 ispc/bin:#v1.16.0
 
 persalys:v10.0.4
-s-hdf5/native-serial
 s-zeromq:#4.3.1
 melissa:#0.0.0
 planegcs:#0.18
@@ -50,14 +49,10 @@ s-root:v6-22-00-patches
 # First, for repositories where master is at CEA
 [
         salome
-        medcoupling/mpi.ptscotch
         fields
         geom
-        smesh/mpi
         atomgen
         atomic
-        ghs3d-plugin
-        ghs3dprl-plugin
         blsurf-plugin
         gmsh-plugin
         hybrid-plugin
@@ -65,8 +60,6 @@ s-root:v6-22-00-patches
         shaperstudy
         homard
         salome-configuration
-        salome-kernel
-        salome-gui
         paravis
         salome-jobmanager
         yacs
@@ -99,6 +92,29 @@ s-root:v6-22-00-patches
         salome-adao
         adao
         adao-interface
+] :master
+
+# Third, the modules with MPI support or depending on
+# MPI like the two plugins.
+
+[ = mpi
+        s-hdf5/native-mpi
+        medcoupling/mpi.ptscotch
+        smesh/mpi
+        salome-kernel/mpi
+        salome-gui/mpi
+        ghs3d-plugin/mpi
+        ghs3dprl-plugin/mpi
+] :master
+
+[ /= mpi
+        s-hdf5/native-serial
+        medcoupling/ptscotch
+        smesh
+        salome-kernel
+        salome-gui
+        ghs3d-plugin
+        ghs3dprl-plugin
 ] :master
 
 non-regression-tests-confidential:occ/python3_porting

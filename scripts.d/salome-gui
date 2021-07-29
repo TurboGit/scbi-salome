@@ -33,6 +33,11 @@ function salome-gui-build-depends()
     echo s-cmake-tool
 }
 
+function salome-mpi-depends()
+{
+    echo s-openmpi
+}
+
 function salome-gui-depends()
 {
     echo os@-qt5-default

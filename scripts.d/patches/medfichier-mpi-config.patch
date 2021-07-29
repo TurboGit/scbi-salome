@@ -1,0 +1,28 @@
+*** a/include/med.h.in.orig	2021-07-26 17:12:06.416841133 +0200
+--- b/include/med.h.in	2021-07-26 22:45:02.825772905 +0200
+***************
+*** 19,24 ****
+--- 19,30 ----
+  #ifndef MED_H
+  #define MED_H
+  
++ @MED_DEFINE_MED_HAVE_MPI@
++ 
++ #ifdef MED_HAVE_MPI
++ #include <mpi.h>
++ #endif
++ 
+  #include <hdf5.h>
+  #ifdef HAVE_STDINT_H
+  #include <stdint.h>   // Use the C99 official header
+***************
+*** 70,77 ****
+  #define _MED_VERSION(x,y,z) STR(x) "." STR(y) "." STR(z)
+  #define MED_VERSION_STR _MED_VERSION(MED_NUM_MAJEUR,MED_NUM_MINEUR,MED_NUM_RELEASE)
+  
+- @MED_DEFINE_MED_HAVE_MPI@
+- 
+  #define MED_NULL       (void *) NULL
+  #define MED_MAX_PARA        20
+  
+--- 76,81 ----

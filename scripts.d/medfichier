@@ -19,6 +19,11 @@ function medfichier-cea-tar()
     echo med-$VERSION.tar.gz
 }
 
+function medfichier-patches()
+{
+    echo medfichier-mpi-config.patch
+}
+
 function medfichier-build-depends()
 {
     echo s-cmake-tool
@@ -34,6 +39,11 @@ function medfichier-depends()
     echo s-hdf5
     echo salome-configuration
     echo salome-kernel
+}
+
+function medfichier-mpi-depends()
+{
+    echo s-openmpi
 }
 
 function medfichier-build-env()
@@ -59,16 +69,31 @@ function medfichier-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
+function medfichier-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo --prefix=$PREFIX
+    echo --with-swig=$(which swig)
+    echo --with-hdf5=$HDF5_LIB
+    echo --with-hdf5-include=$HDF5_INC
+    echo --with-hdf5-lib=$HDF5_LIB
+    echo --with-hdf5-bin=$HDF5_BIN
+    echo --enable-mesgerr
+    echo --with-med_int=long
+}
+
 function medfichier-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    ../src/configure --prefix=$PREFIX --with-swig=$(which swig) \
-                     --with-hdf5-include=$HDF5_INC \
-                     --with-hdf5-lib=$HDF5_LIB \
-                     --with-hdf5-bin=$HDF5_BIN \
-                     --enable-mesgerr --with-med_int=long
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    ../src/configure $OPTIONS
 }
 
 function medfichier-build()

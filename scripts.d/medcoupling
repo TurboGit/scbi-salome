@@ -43,16 +43,21 @@ function medcoupling-scotch-depends()
     echo s-scotch
 }
 
+function medcoupling-mpi-depends()
+{
+    echo s-openmpi
+}
+
 function medcoupling-depends()
 {
     echo os@-metis-dev
     echo os@-libtirpc-dev
-    echo s-openmpi
 
     echo metis
     echo salome-configuration
     echo salome-kernel
     echo medfichier
+    echo s-openmpi
 }
 
 function medcoupling-env()
@@ -106,11 +111,16 @@ function medcoupling-common-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release)
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DMED_INT_IS_LONG=ON
+    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
     echo -DMEDCOUPLING_USE_MPI=ON
     echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
     echo -DMEDCOUPLING_BUILD_TESTS=OFF
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DMEDCOUPLING_BUILD_DOC=OFF"}
+
+    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
+    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
 function medcoupling-config()
