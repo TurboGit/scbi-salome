@@ -32,7 +32,7 @@ function ispc-build-depends()
     echo m4
 }
 
-function ispc-build-bin-depends()
+function ispc-bin-build-depends()
 {
     local VERSION=$1
 
