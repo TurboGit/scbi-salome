@@ -17,6 +17,11 @@ function smesh-build-depends()
     echo os@-sphinx-intl
 }
 
+function smesh-mpi-depends()
+{
+    echo s-openmpi
+}
+
 function smesh-depends()
 {
     echo os@-qt5-default
@@ -49,7 +54,13 @@ function smesh-env()
 
 function smesh-mpi-config-options()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo -DSALOME_USE_MPI=ON
+    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
+    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
 function smesh-common-config-options()
@@ -73,6 +84,7 @@ function smesh-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 

@@ -24,19 +24,41 @@ function ghs3d-plugin-env()
     add-to-var GHS3DPLUGIN_ROOT_DIR $PREFIX
 }
 
-function ghs3d-plugin-config()
+function ghs3d-plugin-mpi-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
+    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+}
+
+function ghs3d-plugin-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
 
     local CDEBUG=$(is-enabled cmake-debug)
     local DISDOC=$(is-enabled no-doc)
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3d-plugin Release) \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
-          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-          ../src
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release)
+    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+}
+
+function ghs3d-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function ghs3d-plugin-build()
