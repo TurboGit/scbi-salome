@@ -57,7 +57,6 @@ function medcoupling-depends()
     echo salome-configuration
     echo salome-kernel
     echo medfichier
-    echo s-openmpi
 }
 
 function medcoupling-env()
@@ -81,6 +80,10 @@ function medcoupling-env()
 function medcoupling-mpi-config-options()
 {
     echo -DSALOME_USE_MPI=ON
+    echo -DMEDCOUPLING_USE_MPI=ON
+
+    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
+    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
 function medcoupling-ptscotch-config-options()
@@ -113,14 +116,10 @@ function medcoupling-common-config-options()
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DMED_INT_IS_LONG=ON
     echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
-    echo -DMEDCOUPLING_USE_MPI=ON
     echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
     echo -DMEDCOUPLING_BUILD_TESTS=OFF
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DMEDCOUPLING_BUILD_DOC=OFF"}
-
-    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
-    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
 function medcoupling-config()
