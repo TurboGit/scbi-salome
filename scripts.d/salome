@@ -103,17 +103,6 @@ function salome-prefix()
 
 # support for SALOME application creation
 
-fn-exists proxy-edf
-
-if [[ $? -ne 0 ]]; then
-    function proxy-edf()
-    {
-        export http_proxy=proxypac.edf.fr:3128
-        export https_proxy=proxypac.edf.fr:3128
-        export no_proxy=localhost,.edf
-    }
-fi
-
 declare -g MAIN_MODULE_LIST=()
 
 function is-main-module()
