@@ -85,6 +85,8 @@ function salome-prerequisite-modules()
     echo melissa
     echo s-python3-nlopt
     echo s-python3-xlutils
+    echo s-rkcommon
+    echo s-openvkl
 }
 
 function salome-modules()
