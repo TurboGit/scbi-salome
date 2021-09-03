@@ -18,7 +18,7 @@ function s-omniorb-cea-tar()
  
     echo default
     echo wget 
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/ 
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
     echo omniORB-$VERSION.tar.gz 
 } 
 

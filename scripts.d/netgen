@@ -14,7 +14,7 @@ function netgen-cea-tar()
  
     echo default
     echo wget 
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/ 
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
     echo netgen-$VERSION.tar.gz 
 } 
 

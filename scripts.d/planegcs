@@ -6,7 +6,7 @@ function planegcs-cea-tar()
  
     echo default
     echo wget 
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/ 
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
     echo planegcs-$VERSION.tar.gz 
 } 
 
