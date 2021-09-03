@@ -16,7 +16,7 @@
           <Range default="4" max="64" min="1" step="1" type="int"/>
         </Option>
         <Option label="Gaia Info here:" name="INFO" save="false">
-          <String default="http://ftp.pleiade.edf.fr/projets/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
+          <String default="https://minio.retd.edf.fr/salome/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
         </Option>
       </Options>
       <Command delay="5" exec="setsid ssh" timeout="0">
@@ -60,7 +60,7 @@
           <Range default="4" max="64" min="1" step="1" type="int"/>
         </Option>
         <Option label="Eole Info here:" name="INFO" save="false">
-          <String default="http://ftp.pleiade.edf.fr/projets/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
+          <String default="https://minio.retd.edf.fr/salome/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
         </Option>
       </Options>
       <Command delay="5" exec="setsid ssh" timeout="0">

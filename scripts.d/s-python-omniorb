@@ -24,7 +24,7 @@ function s-python-omniorb-tar()
 
     echo default
     echo wget
-    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo omniORBpy-$VERSION.tar.gz
 }
 

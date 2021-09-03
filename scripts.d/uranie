@@ -5,7 +5,7 @@ function uranie-tar()
 
     echo default
     echo wget
-    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
     echo URANIE-$VERSION-Source.tar.gz
 }
 

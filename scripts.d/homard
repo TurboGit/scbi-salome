@@ -21,7 +21,7 @@ function homard-tar()
 
     echo default
     echo wget
-    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/modules
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
     echo HOMARD_SRC_$VERSION.tgz
 }
 

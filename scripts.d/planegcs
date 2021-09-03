@@ -3,9 +3,9 @@ function planegcs-tar()
 {
     local VERSION=$1
 
-    echo defaut
+    echo default
     echo wget
-    echo http://ftp.pleiade.edf.fr/projets/YAMM/Public/SALOME/sources/prerequis/
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo planegcs-$VERSION.tar.gz
 }
 
