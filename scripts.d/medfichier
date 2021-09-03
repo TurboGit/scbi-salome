@@ -15,7 +15,7 @@ function medfichier-cea-tar()
 
     echo edf
     echo wget
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites/
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo med-$VERSION.tar.gz
 }
 
