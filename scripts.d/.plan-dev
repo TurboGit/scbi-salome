@@ -117,8 +117,8 @@ s-root:v6-22-00-patches
         ghs3dprl-plugin
 ] :master
 
-non-regression-tests-confidential:occ/python3_porting
-non-regression-tests:occ/python3_porting
+non-regression-tests-confidential
+non-regression-tests
 clustertests
 
 gmsh:#4.1.4
