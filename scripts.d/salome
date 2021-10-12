@@ -391,7 +391,7 @@ function salome-wrapup()
             APP_DIR=$SCBI_BDIR/salome
 
             # replace all symlinks outside the APP_DIR by a copy of
-            # the corresponding files/driectories. This makes the
+            # the corresponding files/directories. This makes the
             # application directory self contained.
 
             dlog salome fix links to be relative to application directory
