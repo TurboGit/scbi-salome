@@ -453,12 +453,6 @@ function salome-wrapup()
                 fi
             done
 
-            # finaly replace hard-coded path in text files
-
-            dlog salome fix absolute references in source files
-
-            salome-replace-full-path
-
             # is the installer to be created?
 
             res=0
@@ -556,64 +550,4 @@ function salome-wrapup()
             true
         fi
     )
-}
-
-function salome-replace-full-path()
-{
-    cd $SCBI_BDIR/salome/application
-
-    #
-    # PYTHON
-    #
-
-    # FROM/TO patterns
-    local ENV="os.environ['ROOT_SALOME_INSTALL']"
-
-    local PYFROM1="r\"$SCBI_BDIR.*/idl/omniORB/\(.*\.idl\)"
-    local PYTO1="$ENV + r\"/external/omniorb/share/idl/omniORB/\1"
-
-    local PYFROM2="r\"$SCBI_BDIR.*/idl/\(.*\.idl\)"
-    local PYTO2="$ENV + r\"/idl/salome/\1"
-
-    local PYFROM3=" $SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^ ]*[ ]\)"
-    local PYTO3=" \' + $ENV + \'/external/\1/\2 "
-
-    local PYFROM4=" $SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^\']*\)"
-    local PYTO4=" \' + $ENV + \'/external/\1/\2"
-
-    local PYFROM5="[']$SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\']*\)"
-    local PYTO5="$ENV + \'/external/\1/\2"
-
-    # Note that we add os in the first import as needed to get environment
-
-    find . -name "*.py" |
-        while read file; do
-            grep -q "^[^#]*$SCBI_BDIR" $file
-            [[ $? = 0 ]] &&
-                sed -i '0,/^import /{s/^import /import os, /}' $file \
-                    &&
-                sed -i "s,$PYFROM1,$PYTO1,g; \
-                        s,$PYFROM2,$PYTO2,g; \
-                        s,$PYFROM3,$PYTO3,g; \
-                        s,$PYFROM4,$PYTO4,g; \
-                        s,$PYFROM5,$PYTO5,g" $file
-        done
-
-    #
-    # CMAKE
-    #
-
-    # FROM/TO patterns
-    local ENV="\${ROOT_SALOME_INSTALL}"
-
-    local CMAKEFROM="$SCBI_BDIR/\([^/]*\)/build/\(install\|build\)/\?\([^;\"]*\)"
-    local CMAKETO="$ENV/external/\1/\2"
-
-    find . -name "*.cmake" |
-        while read file; do
-            grep -q "$SCBI_BDIR" $file
-            [[ $? = 0 ]] && sed -i "s,$CMAKEFROM,$CMAKETO,g" $file
-        done
-
-    # Some other files have references to root dirs *.pc *.la *.prl
 }
