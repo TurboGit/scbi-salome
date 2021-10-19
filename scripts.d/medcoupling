@@ -48,7 +48,7 @@ function medcoupling-mpi-depends()
     echo s-openmpi
 }
 
-function medcoupling-depends()
+function medcoupling-common-depends()
 {
     echo os@-metis-dev
     echo os@-libtirpc-dev

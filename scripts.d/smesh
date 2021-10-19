@@ -37,7 +37,7 @@ function smesh-mpi-depends()
     echo s-openmpi
 }
 
-function smesh-depends()
+function smesh-common-depends()
 {
     echo os@-qt5-default
     echo os@-cgns-dev
