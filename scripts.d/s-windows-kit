@@ -1,0 +1,10 @@
+
+SCBI_W_KIT=$(cygpath -w -s "$SCBI_WINDOWS_KIT")
+SCBI_C_KIT=$(cygpath -c -s "$SCBI_WINDOWS_KIT")
+
+with-variant native \
+  --env \
+  'add-to-var LIB     "$SCBI_W_KIT/Lib/$SCBI_WINDOWS_KIT_VERSION/um/x64"'   \
+  'add-to-var LIB     "$SCBI_W_KIT/Lib/$SCBI_WINDOWS_KIT_VERSION/ucrt/x64"' \
+  'add-to-var INCLUDE "$SCBI_W_KIT/Include/$SCBI_WINDOWS_KIT_VERSION/ucrt"' \
+  'add-to-var PATH    "$SCBI_C_KIT/Bin/$SCBI_WINDOWS_KIT_VERSION/x64"'
