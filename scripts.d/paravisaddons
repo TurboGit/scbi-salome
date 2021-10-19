@@ -1,15 +1,19 @@
 
 
-function paravisaddons-build-depends()
+function paravisaddons-common-build-depends()
 {
     echo s-cmake-tool
 }
 
 function paravisaddons-common-depends()
 {
+    echo salome-configuration
+}
+
+function paravisaddons-default-depends()
+{
     echo s-hdf5
 
-    echo salome-configuration
     echo medcoupling
     echo medfichier
     echo paravis
@@ -23,7 +27,7 @@ function paravisaddons-win-build-depends()
 
 function paravisaddons-win-depends()
 {
-    echo salome-configuration
+    true
 }
 
 function paravisaddons-env()
@@ -48,6 +52,9 @@ function paravisaddons-common-config-options()
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES
+
+    echo -DHDF5_LIBRARIES="$HDF5_LIBRARIES"
+    echo -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIRS"
 }
 
 function paravisaddons-config-options()
@@ -57,8 +64,6 @@ function paravisaddons-config-options()
     local VARIANT=$3
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
-    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
-    echo -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS
 }
 
 function paravisaddons-win-config-options()
@@ -70,9 +75,6 @@ function paravisaddons-win-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
 
     echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w $CONFIGURATION_ROOT_DIR)
-
-    echo -DHDF5_LIBRARIES="$HDF5_LIBRARIES"
-    echo -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIRS"
 
     echo -DPython3_EXECUTABLE="$Python3_EXECUTABLE"
     echo -DPython3_LIBRARIES="$Python3_LIBRARIES"
