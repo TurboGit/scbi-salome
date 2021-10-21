@@ -151,3 +151,8 @@ function paravisaddons-prefix()
 {
     echo NONE
 }
+
+function paravisaddons-win-prefix()
+{
+    echo $(cygpath -c -s "C:/opt/plugins")
+}
