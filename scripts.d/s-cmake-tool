@@ -2,6 +2,10 @@ inherit-plugin s-cmake
 
 with-variant native os@-cmake
 
+#  Adds a Windows variant using the MingW64 cmake version
+with-variant win \
+  --env 'add-to-var PATH $(cygpath -c -s "c:\opt\msys64\mingw64in")'
+
 
 function s-cmake-tool-build-depends()
 {

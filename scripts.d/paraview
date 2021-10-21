@@ -63,7 +63,7 @@ function paraview-uranie-depends
     echo uranie
 }
 
-function paraview-depends()
+function paraview-common-depends()
 {
     local PREFIX=$1
     local TARGET=$2

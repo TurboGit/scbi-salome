@@ -28,7 +28,7 @@ function salome-kernel-mpi-depends()
     echo s-openmpi
 }
 
-function salome-kernel-depends()
+function salome-kernel-common-depends()
 {
     local PREFIX=$1
     local TARGET=$2

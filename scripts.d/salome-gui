@@ -23,7 +23,7 @@ function salome-mpi-depends()
     echo s-openmpi
 }
 
-function salome-gui-depends()
+function salome-gui-common-depends()
 {
     echo os@-qt5-default
     echo os@-qtbase5-dev
