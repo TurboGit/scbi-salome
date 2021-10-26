@@ -46,6 +46,7 @@ function netgen-plugin-config()
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE netgen-plugin Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
+          -DSALOME_CXX_STANDARD:STRING=17 \
           ../src
 }
 
