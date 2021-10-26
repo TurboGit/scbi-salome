@@ -13,7 +13,7 @@ function netgen-tar()
 
     echo default
     echo wget
-    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/tools
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo netgen-$VERSION.tar.gz
 }
 
@@ -34,7 +34,13 @@ function netgen-out-of-tree()
 
 function netgen-patches()
 {
-    echo netgen-53-for-salome.patch
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "5.3" ]] && echo netgen-53-for-salome.patch
 }
 
 function netgen-build-depends()
