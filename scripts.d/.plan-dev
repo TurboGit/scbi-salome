@@ -82,7 +82,6 @@ s-root:v6-22-00-patches
         salome-openturns
         py2cpp
         paravisaddons-common
-        paravisaddons
 ] :master
 
 # Second, for repositories where master is at EDF
@@ -92,6 +91,7 @@ s-root:v6-22-00-patches
         salome-adao
         adao
         adao-interface
+        paravisaddons
 ] :master
 
 # Third, the modules with MPI support or depending on
