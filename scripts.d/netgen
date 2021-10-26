@@ -27,9 +27,14 @@ function netgen-cea-tar()
     echo netgen-$VERSION.tar.gz
 }
 
-function netgen-out-of-tree()
+function netgen-autotools-out-of-tree()
 {
     echo false
+}
+
+function netgen-cmake-out-of-tree()
+{
+    echo true
 }
 
 function netgen-patches()
@@ -43,12 +48,17 @@ function netgen-patches()
     [[ $REF =~ "5.3" ]] && echo netgen-53-for-salome.patch
 }
 
-function netgen-build-depends()
+function netgen-autotools-build-depends()
 {
     echo os@-autoconf
     echo os@-automake
     echo os@-autotools-dev
     echo os@-libtool
+}
+
+function netgen-cmake-build-depends()
+{
+    echo os@-cmake
 }
 
 function netgen-depends()
@@ -70,7 +80,10 @@ function netgen-env()
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
 }
 
-function netgen-pre-config()
+#  Version 5.x where using autotools, starting with
+#  version 6.x CMake is used.
+
+function netgen-autotools-pre-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -82,13 +95,42 @@ function netgen-pre-config()
     automake --add-missing --copy --gnu
 }
 
-function netgen-config()
+function netgen-autotools-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
     ./configure --prefix=$PREFIX --with-occ=${CASROOT} \
                 CXXFLAGS="${CXXFLAGS} -O2 -m64 -std=c++0x"
+}
+
+function netgen-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DUSE_SUPERBUILD=OFF
+    echo -DUSE_PYTHON=OFF
+    echo -DUSE_GUI=OFF
+    echo -DUSE_MPI=OFF
+    echo -DUSE_OCC=ON
+    echo -DUSE_INTERNAL_TCL=OFF
+    echo -DBUILD_STUB_FILES=OFF
+    echo -DOCC_INCLUDE_DIR=$OPENCASCADE_ROOT_DIR/include/opencascade
+    echo -DOCC_LIBRARY_DIR=$OPENCASCADE_ROOT_DIR/lib
+}
+
+function netgen-cmake-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function netgen-build()
@@ -107,7 +149,7 @@ function netgen-install()
     make install
 }
 
-function netgen-post-install()
+function netgen-autotools-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
