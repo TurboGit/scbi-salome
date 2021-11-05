@@ -15,15 +15,28 @@ function atomic-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/atomic
 }
 
-function atomic-build-depends()
+function atomic-common-build-depends()
 {
     echo s-cmake-tool
+}
+
+function atomic-build-depends()
+{
     echo os@-swig
 }
 
-function atomic-depends()
+function atomic-linux-build-depends()
+{
+    echo s-salome-bin
+}
+
+function atomic-common-depends()
 {
     echo salome-configuration
+}
+
+function atomic-default-depends()
+{
     echo salome-kernel
     echo salome-gui
 }
