@@ -5,7 +5,7 @@
     echo SCBI_SALOME_BIN must be defined and pointing to a SALOME install &&
     exit 1
 
-function s-salome-bin-common-env()
+function s-salome-bin-win-env()
 {
     add-to-var INCLUDE \
                $SCBI_SALOME_BIN/EXT/include
@@ -14,12 +14,31 @@ function s-salome-bin-common-env()
                $SCBI_SALOME_BIN/EXT
     add-to-var HDF5_INCLUDE_DIRS \
 	       $SCBI_SALOME_BIN/EXT/include
+    add-to-var HDF5_LIBRARIES \
+	       $SCBI_SALOME_BIN/EXT/lib/libhdf5.lib
+    add-to-var HDF5_HL_LIBRARIES \
+	       $SCBI_SALOME_BIN/EXT/lib/libhdf5_hl.lib
 
     add-to-var LIBXML2_INCLUDE_DIR \
 	       $SCBI_SALOME_BIN/EXT/include
+    add-to-var LIBXML2_LIBRARY \
+	       $SCBI_SALOME_BIN/EXT/lib/libxml2.lib
 
     add-to-var Python3_INCLUDE_DIRS \
 	       $SCBI_SALOME_BIN/Python/include
+    add-to-var Python3_EXECUTABLE \
+	       $SCBI_SALOME_BIN/Python/python3.exe
+    add-to-var Python3_LIBRARIES \
+	       $SCBI_SALOME_BIN/Python/python3.lib
+
+    add-to-var FREETYPE_LIBRARY \
+	       $SCBI_SALOME_BIN/EXT/lib/freetype.lib
+
+    add-to-var ZLIB_LIBRARY \
+               $SCBI_SALOME_BIN/EXT/bin/zlib.lib
+
+    add-to-var CGNS_LIBRARY \
+               $SCBI_SALOME_BIN/EXT/lib/cgns.lib
 
     add-to-var CMAKE_PREFIX_PATH \
 	       $SCBI_SALOME_BIN/cmake/share/cmake-3.12/Modules
@@ -41,52 +60,24 @@ function s-salome-bin-common-env()
                $SCBI_SALOME_BIN/EXT
 }
 
-function s-salome-bin-win-env()
-{
-    add-to-var Python3_EXECUTABLE \
-	       $SCBI_SALOME_BIN/Python/python3.exe
-    add-to-var Python3_LIBRARIES \
-	       $SCBI_SALOME_BIN/Python/python3.lib
-
-    add-to-var HDF5_LIBRARIES \
-	       $SCBI_SALOME_BIN/EXT/lib/libhdf5.lib
-    add-to-var HDF5_HL_LIBRARIES \
-	       $SCBI_SALOME_BIN/EXT/lib/libhdf5_hl.lib
-
-    add-to-var LIBXML2_LIBRARY \
-	       $SCBI_SALOME_BIN/EXT/lib/libxml2.lib
-
-    add-to-var FREETYPE_LIBRARY \
-	       $SCBI_SALOME_BIN/EXT/lib/freetype.lib
-
-    add-to-var ZLIB_LIBRARY \
-               $SCBI_SALOME_BIN/EXT/bin/zlib.lib
-
-    add-to-var CGNS_LIBRARY \
-               $SCBI_SALOME_BIN/EXT/lib/cgns.lib
-}
-
 function s-salome-bin-linux-env()
 {
-    add-to-var Python3_EXECUTABLE \
-	       $SCBI_SALOME_BIN/Python/python3
-    add-to-var Python3_LIBRARIES \
-	       $SCBI_SALOME_BIN/Python/python3.so
+    local IROOT=$SCBI_SALOME_BIN/BINARIES-DB10
+    local IPROD=$IROOT/PRODUCTS
 
-    add-to-var HDF5_LIBRARIES \
-	       $SCBI_SALOME_BIN/EXT/lib/libhdf5.so
-    add-to-var HDF5_HL_LIBRARIES \
-	       $SCBI_SALOME_BIN/EXT/lib/libhdf5_hl.so
+    add-to-var INCLUDE              $IPROD/include
 
-    add-to-var LIBXML2_LIBRARY \
-	       $SCBI_SALOME_BIN/EXT/lib/libxml2.so
+    add-to-var HDF5_ROOT            $IPROD
+    add-to-var HDF5_INCLUDE_DIRS    $IPROD/include
+    add-to-var HDF5_LIBRARIES       $IPROD/lib/libhdf5.lib
+    add-to-var HDF5_HL_LIBRARIES    $IPROD/lib/libhdf5_hl.lib
 
-    add-to-var FREETYPE_LIBRARY \
-	       $SCBI_SALOME_BIN/EXT/lib/freetype.so
+    add-to-var CGNS_LIBRARY         $IPROD/lib/cgns.so
+    add-to-var KERNEL_ROOT_DIR      $IROOT/KERNEL
+    add-to-var OMNIORB_ROOT_DIR     $IROOT/omniORB
+    add-to-var GUI_ROOT_DIR         $IROOT/GUI
 
-    add-to-var ZLIB_LIBRARY \
-               $SCBI_SALOME_BIN/EXT/bin/zlib.so
-
-    add-to-var CGNS_LIBRARY \
-               $SCBI_SALOME_BIN/EXT/lib/cgns.so
+    while read CMP; do
+        add-to-var CMAKE_PREFIX_PATH "$CMP"
+    done < <( find $IROOT -name "*onfig.cmake" -exec dirname {} \; | uniq )
 }
