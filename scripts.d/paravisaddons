@@ -5,6 +5,17 @@ function paravisaddons-common-build-depends()
     echo s-cmake-tool
 }
 
+function paravisaddons-win-build-depends()
+{
+    echo s-visual-c
+    echo s-salome-bin
+}
+
+function paravisaddons-linux-build-depends()
+{
+    echo s-salome-bin
+}
+
 function paravisaddons-common-depends()
 {
     echo salome-configuration
@@ -17,17 +28,6 @@ function paravisaddons-default-depends()
     echo medcoupling
     echo medfichier
     echo paravis
-}
-
-function paravisaddons-win-build-depends()
-{
-    echo s-visual-c
-    echo s-salome-bin
-}
-
-function paravisaddons-win-depends()
-{
-    true
 }
 
 function paravisaddons-env()

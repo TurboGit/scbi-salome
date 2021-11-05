@@ -1,0 +1,4 @@
+# This plan is to build some modules on top of a SALOME binary distribution
+s-cmake-tool/native
+s-salome-bin/linux
+paravisaddons/linux
