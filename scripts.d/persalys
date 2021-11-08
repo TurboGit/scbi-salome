@@ -10,25 +10,38 @@ function persalys-tar()
     echo persalys-$VERSION.tar.xz 
 } 
 
-function persalys-build-depends()
+function persalys-common-build-depends()
 {
     echo s-cmake-tool
-    echo py2cpp
     echo os@-boost-locale-dev
 }
 
-function persalys-depends()
+function persalys-default-build-depends()
+{
+    echo py2cpp
+}
+
+function persalys-common-depends()
 {
     echo salome-configuration
+    # And other modules not part of binary installation
+    echo openturns
+    echo openturns-morris
+    echo ydefx
+}
+
+function persalys-default-depends()
+{
     echo salome-gui
     echo salome-kernel
-    echo openturns
     echo yacs
     echo adao
-    echo ydefx
     echo adao-interface
+}
 
-    echo openturns-morris
+function persalys-linux-depends()
+{
+    echo s-salome-bin
 }
 
 function persalys-env()
@@ -47,26 +60,17 @@ function persalys-env()
     add-to-var PV_PLUGIN_PATH                   $PREFIX/lib
 }
 
-function persalys-build-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-}
-
 function persalys-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    # force libqwt-qt5.so because the default qwt could be based on Qt4
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE persalys Release) \
-          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) -DUSE_SALOME=ON \
+          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DUSE_SALOME=ON \
           -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include \
           -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR \
-          -DQWT_LIBRARY=/usr/lib/libqwt-qt5.so \
-          -DOTMORRIS_DIR=$OTMORRIS_HOME/lib/cmake/otmorris \
           ../src
 }
 
