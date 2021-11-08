@@ -275,6 +275,71 @@ A good example is the \code{paraview} module where multiple variants are propose
 
 For a new module, one have to create a new SCBI plug-in script. See the SCBI User's Guide for a full discussion about this.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
+
+\section{Building modules on top of a binary installation}
+
+To build some modules on top of a binary installation the specific plug-in \code{s-salome-bin} is provided.
+
+Also two variants are introduced:
+
+\begin{enumerate}
+	\item \code{linux} : to build on top of a Linux binary installation.
+	\item \code{win} : to build on top of a Windows binary installation.
+\end{enumerate}
+
+\subsection{Plug-in s-salome-bin}
+
+This plug-ins must be used as a dependency of the module to build. It setups the necessary environment like the CMake paths, the include and library paths.
+
+\begin{enumerate}
+	\item Set \code{SCBI\_SAOME\_BIN} to point to the SALOME root installation directory.
+	\item Add \code{s-salome-bin} in module's build-depends hook.
+	\item Update the \code{build-depends} and \code{depends} hook to take the new variant into account.
+\end{enumerate}
+
+Taking the example of the \code{atomic} plug-in:
+
+\begin{itemize}
+	\item Rename \code{atomic-build-depends} hook to \code{atomic-common-build-depends}. This is to share the hook with the standard build.
+
+	\item Rename \code{atomic-depends} hook to \code{atomic-default-depends}. This is to use the dependencies only for the standard variant and not with the linux one.
+
+	\item Add \code{atomic-linux-build-depends} hook:
+	\begin{lstlisting}
+	function atomic-linux-build-depends()
+	{
+		echo s-salome-bin
+	}
+	\end{lstlisting}
+\end{itemize}
+
+And that's all is needed. The other hooks to configure, build and install the module are shared with the standard build.
+
+\subsection{Plug-ins s-windows-kit and s-visual-c}
+
+For the special case of Windows there is furthermore two other plug-ins (\code{s-windows-kit} and \code{s-visual-c}) that a project must depends on to provide access to Visual Studio and the Windows libraries.
+
+Some variables must be set in the SCBI environment before using those plug-ins.
+
+\begin{description}
+	\item[s-windows-kit] To use this plug-in as dependency, the following environment variables must be set:
+	\begin{description}
+		\item[SCBI\_WINDOWS\_VERSION] The current windows version, for example 10.
+		\item[SCBI\_WINDOWS\_KIT\_VERSION] The Windows kit version, for example 10.0.19041.0.
+		\item[SCBI\_WINDOWS\_KIT] The path to the Windows kit installation, for example \code{C:/Program Files (x86)/Windows Kits/\$SCBI\_WINDOWS\_VERSION}.
+	\end{description}
+
+	\item[s-visual-c] To use the Microsoft visual C compiler, the following environment variable must be set:
+
+	\begin{description}
+	\item[SCBI\_WINDOWS\_VC] The path to the Visual C compiler, for example \code{C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133}.
+	\end{description}
+
+\end{description}
+
+A good example is the \code{paravisaddons} plug-in which can be used to build paravisaddons as part of a full build, on top of a SALOME Linux installation or on top of a SALOME Windows installation.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INFORMATION
 
 \section{Information about modules}
