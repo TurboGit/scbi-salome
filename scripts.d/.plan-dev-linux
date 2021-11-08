@@ -1,5 +1,13 @@
 # This plan is to build some modules on top of a SALOME binary distribution
+
+@load dev
+
 s-cmake-tool/native
-s-salome-bin/linux
-paravisaddons/linux
-atomic/linux
+
+[
+        s-salome-bin
+        paravisaddons
+        atomic
+        persalys:v11.0rc1
+        ydefx
+] /linux
