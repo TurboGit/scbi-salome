@@ -25,17 +25,29 @@ function ydefx-tar()
     echo ydefx-$VERSION.tar.xz
 }
 
-function ydefx-build-depends()
+function ydefx-common-build-depends()
 {
     echo s-cmake-tool
+}
+
+function ydefx-default-build-depends()
+{
     echo py2cpp
 }
 
-function ydefx-depends()
+function ydefx-linux-build-depends()
+{
+    echo s-salome-bin
+}
+
+function ydefx-common-depends()
 {
     echo salome-configuration
     echo os@-qt5-default
+}
 
+function ydefx-default-depends()
+{
     echo salome-kernel
     echo yacs
 }
