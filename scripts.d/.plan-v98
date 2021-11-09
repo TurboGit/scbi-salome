@@ -80,7 +80,7 @@ s-root:v6-22-00-patches
         salome-openturns
         py2cpp
         paravisaddons-common
-] :V9_8_0a2
+] :V9_8_0b1
 
 # Second, for repositories where master is at EDF
 [
@@ -105,7 +105,7 @@ s-root:v6-22-00-patches
         salome-gui/mpi
         ghs3d-plugin/mpi
         ghs3dprl-plugin/mpi
-] :V9_8_0a2
+] :V9_8_0b1
 
 [ /= mpi
         s-hdf5/native-serial
@@ -115,7 +115,7 @@ s-root:v6-22-00-patches
         salome-gui
         ghs3d-plugin
         ghs3dprl-plugin
-] :V9_8_0a2
+] :V9_8_0b1
 
 non-regression-tests-confidential
 non-regression-tests
