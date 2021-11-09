@@ -32,7 +32,6 @@ function s-salome-bin-win-env()
 
     add-to-var TBB_ROOT              $IEXT
 
-    # ??? to be checked, probably too slow on Windows
     while read CMP; do
         add-to-var CMAKE_PREFIX_PATH "$CMP"
     done < <( find $IROOT -name "*onfig.cmake" -exec dirname {} \; | uniq )
@@ -43,12 +42,12 @@ function s-salome-bin-linux-env()
     local IROOT=$SCBI_SALOME_BIN/BINARIES-DB10
     local IPROD=$IROOT/PRODUCTS
 
-    add-to-var INCLUDE              $IPROD/include
+    add-to-var C_INCLUDE_PATH       $IPROD/include
 
     add-to-var HDF5_ROOT            $IPROD
     add-to-var HDF5_INCLUDE_DIRS    $IPROD/include
-    add-to-var HDF5_LIBRARIES       $IPROD/lib/libhdf5.lib
-    add-to-var HDF5_HL_LIBRARIES    $IPROD/lib/libhdf5_hl.lib
+    add-to-var HDF5_LIBRARIES       $IPROD/lib/libhdf5.so
+    add-to-var HDF5_HL_LIBRARIES    $IPROD/lib/libhdf5_hl.so
 
     add-to-var CGNS_LIBRARY         $IPROD/lib/cgns.so
     add-to-var KERNEL_ROOT_DIR      $IROOT/KERNEL
