@@ -92,6 +92,8 @@ s-root:v6-22-00-patches
         paravisaddons
         ydefx
         melidefx
+        non-regression-tests
+        clustertests
 ] :V9_8_0b1
 
 # Third, the modules with MPI support or depending on
@@ -116,10 +118,6 @@ s-root:v6-22-00-patches
         ghs3d-plugin
         ghs3dprl-plugin
 ] :V9_8_0b1
-
-non-regression-tests-confidential
-non-regression-tests
-clustertests
 
 netgen/cmake:#6.2.2104
 gmsh:#4.8.4
