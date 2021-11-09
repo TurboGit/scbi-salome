@@ -77,8 +77,6 @@ s-root:v6-22-00-patches
         pylight
         dsccode
         shaper
-        melidefx
-        ydefx
         salome-openturns
         py2cpp
         paravisaddons-common
@@ -92,6 +90,8 @@ s-root:v6-22-00-patches
         adao
         adao-interface
         paravisaddons
+        ydefx
+        melidefx
 ] :master
 
 # Third, the modules with MPI support or depending on
