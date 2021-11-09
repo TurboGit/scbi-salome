@@ -92,7 +92,7 @@ s-root:v6-22-00-patches
         paravisaddons
         ydefx
         melidefx
-] :master
+] :V9_8_0b1
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
