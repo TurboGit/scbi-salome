@@ -1,0 +1,78 @@
+
+function s-genericsolver-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/genericsolver
+}
+
+function s-genericsolver-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/genericsolver
+}
+
+function s-genericsolver-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo GENERICSOLVER_SRC_$VERSION.tgz
+}
+
+function s-genericsolver-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-swig
+    echo s-salome-configuration
+}
+
+function s-genericsolver-depends()
+{
+    echo s-salome-kernel
+    echo s-salome-gui
+}
+
+function s-genericsolver-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GENERICSOLVER_INSTALL_DIR  $PREFIX
+}
+
+function s-genericsolver-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE genericsolver Release) \
+          ../src
+}
+
+function s-genericsolver-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-genericsolver-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-genericsolver-prefix()
+{
+    echo NONE
+}

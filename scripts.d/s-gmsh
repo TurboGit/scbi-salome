@@ -1,0 +1,105 @@
+
+function s-gmsh-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://gitlab.onelab.info/gmsh/gmsh.git
+}
+
+function s-gmsh-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo gmsh-$VERSION-source.tar.gz
+}
+
+function s-gmsh-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-gmsh-depends()
+{
+    echo s-occt
+}
+
+function s-gmsh-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GMSH_ROOT_DIR      $PREFIX
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+}
+
+function s-gmsh-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gmsh Release)
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DENABLE_ACIS=OFF
+    echo -DENABLE_BUILD_SHARED=ON
+    echo -DENABLE_FLTK=OFF
+    echo -DENABLE_MED=OFF
+    echo -DENABLE_ONELAB_METAMODEL=OFF
+    echo -DENABLE_PARSER=ON
+    echo -DENABLE_PETSC=OFF
+    echo -DENABLE_PRIVATE_API=ON
+    echo -DENABLE_CGNS=OFF
+    echo -DENABLE_OPENMP=ON
+}
+
+function s-gmsh-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-gmsh-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-gmsh-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-gmsh-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    find ../src -type f -name "*.h" -exec cp {} ../install/include \;
+    mv ../install/include/gmsh/* ../install/include/
+    rmdir ../install/include/gmsh
+}
+
+function s-gmsh-prefix()
+{
+    echo NONE
+}

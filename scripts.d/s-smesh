@@ -1,0 +1,128 @@
+
+function s-smesh-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/smesh
+}
+
+function s-smesh-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/smesh
+}
+
+function s-smesh-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo none
+    echo smesh-$VERSION.tar.xz
+}
+
+function s-smesh-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+}
+
+function s-smesh-mpi-depends()
+{
+    echo s-openmpi
+}
+
+function s-smesh-common-depends()
+{
+    echo os@-qt5-default
+    echo os@-cgns-dev
+
+    echo s-python-omniorb
+    echo s-omniorb
+    echo s-hdf5
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-geom
+    echo s-shaperstudy
+    echo s-medfichier
+    echo s-medcoupling
+}
+
+function s-smesh-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SMESH_ROOT_DIR  $PREFIX
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+    add-to-var PYTHONPATH      \
+               $PREFIX/share/salome/plugins/smesh/Verima
+}
+
+function s-smesh-mpi-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DSALOME_USE_MPI=ON
+    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
+    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+}
+
+function s-smesh-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release)
+    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
+    echo -DSALOME_SMESH_USE_CGNS=ON
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+}
+
+function s-smesh-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-smesh-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-smesh-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-smesh-prefix()
+{
+    echo NONE
+}

@@ -1,0 +1,88 @@
+
+function s-hello-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/hello
+}
+
+function s-hello-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/hello
+}
+
+function s-hello-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo HELLO_SRC_$VERSION.tgz
+}
+
+function s-hello-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
+    echo s-salome-configuration
+}
+
+function s-hello-depends()
+{
+    echo os@-qt5-default
+    echo s-salome-kernel
+    echo s-salome-gui
+}
+
+function s-hello-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HELLO_ROOT_DIR $PREFIX
+}
+
+function s-hello-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DKERNEL_ROOT_DIR=$KERNEL_ROOT_DIR \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hello1 Release) \
+          ../src
+}
+
+function s-hello-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-hello-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-hello-prefix()
+{
+    echo NONE
+}

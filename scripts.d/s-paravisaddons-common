@@ -1,0 +1,111 @@
+
+function s-paravisaddons-common-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/paravisaddons_common
+}
+
+function s-paravisaddons-common-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/paravisaddons_common
+}
+
+function s-paravisaddons-common-build-depends()
+{
+    echo os@-cmake
+}
+
+function s-paravisaddons-common-depends()
+{
+    echo os@-hdf5-dev
+
+    echo s-salome-configuration
+    echo s-medcoupling
+    echo s-medfichier
+    echo s-paravis
+}
+
+function s-paravisaddons-common-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PARAVISADDONS_COMMON_ROOT_DIR $PREFIX
+    add-to-var PV_PLUGIN_PATH                $PREFIX/lib/paraview
+    add-to-var LD_LIBRARY_PATH               $PREFIX/lib/paraview
+}
+
+function s-paravisaddons-common-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravisaddons-common Release)
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
+    echo -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS
+
+    echo -DPARAVIEW_PLUGIN_ENABLE_AppendAttributesOverTime=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_AutoConvertProperties=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ComplexModePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ContactReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_DepthVsTimePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ExtractComponents=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ExtractThreeDimPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_MoveZCotePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_MyContour=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_QuadraticToLinearPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_RateOfFlowThroughSectionPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_RosetteCIH=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SedimentDeposit=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SerafinReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SinusXReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SpatialPfl=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SpatialPflOnPts=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SphereAlongLinesPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_TemporalOnPointPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_TorseurCIH=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ZJFilterPlugin=YES
+}
+
+function s-paravisaddons-common-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-paravisaddons-common-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-paravisaddons-common-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-paravisaddons-common-prefix()
+{
+    echo NONE
+}

@@ -1,0 +1,79 @@
+
+function s-libbatch-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/libbatch
+}
+
+function s-libbatch-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/libbatch
+}
+
+function s-libbatch-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/tools
+    echo libBatch-$VERSION.tar.gz
+}
+
+function s-libbatch-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-swig
+}
+
+function s-libbatch-depends()
+{
+    echo os@-python3-dev
+    echo s-salome-configuration
+}
+
+function s-libbatch-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var LibBatch_DIR    $PREFIX
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+}
+
+function s-libbatch-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE libbatch Release) \
+          ../src
+}
+
+function s-libbatch-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-libbatch-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-libbatch-prefix()
+{
+    echo NONE
+}

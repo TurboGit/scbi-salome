@@ -1,0 +1,73 @@
+
+function s-openturns-subsetinverse-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo otsubsetinverse-$VERSION.tar.bz2
+}
+
+function s-openturns-subsetinverse-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-swig
+    echo os@-python3-sphinx
+}
+
+function s-openturns-subsetinverse-depends()
+{
+    echo s-openturns
+    echo os@-python3
+}
+
+function s-openturns-subsetinverse-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+    add-to-var OTSUBSETINVERSE_HOME    $PREFIX
+}
+
+function s-openturns-subsetinverse-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DUSE_SPHINX=OFF \
+          -DBUILD_DOC=OFF \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DCMAKE_FIND_ROOT_PATH=ON \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
+          -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
+          -DSPHINX_ROOT_DIR:FILEPATH=$(get-os-bin-dir sphinx-build) \
+          -DSPHINX_EXECUTABLE:FILEPATH=$(get-os-bin sphinx-build) \
+          -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          ../src
+}
+
+function s-openturns-subsetinverse-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-openturns-subsetinverse-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-openturns-subsetinverse-prefix()
+{
+    echo NONE
+}

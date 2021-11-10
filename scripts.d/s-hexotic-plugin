@@ -1,0 +1,80 @@
+
+function s-hexotic-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/hexoticplugin
+}
+
+function s-hexotic-plugin-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/hexoticplugin
+}
+
+function s-hexotic-plugin-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo HEXOTICPLUGIN_SRC_$VERSION.tgz
+}
+
+function s-hexotic-plugin-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-hexotic-plugin-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-geom
+    echo s-smesh
+    echo s-meshgems
+}
+
+function s-hexotic-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HEXOTICPLUGIN_ROOT_DIR $PREFIX
+}
+
+function s-hexotic-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hexotic-plugin Release) \
+          ../src
+}
+
+function s-hexotic-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-hexotic-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-hexotic-plugin-prefix()
+{
+    echo NONE
+}

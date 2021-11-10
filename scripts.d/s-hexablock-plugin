@@ -1,0 +1,96 @@
+
+function s-hexablock-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/hexablockplugin
+}
+
+function s-hexablock-plugin-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/hexablockplugin
+}
+
+function s-hexablock-plugin-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo HEXABLOCKPLUGIN_SRC_$VERSION.tgz
+}
+
+function s-hexablock-plugin-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-python3-sphinx
+    echo os@-swig
+    echo os@-graphviz-dev
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo s-salome-configuration
+}
+
+function s-hexablock-plugin-depends()
+{
+    echo os@-qt5-default
+    echo os@-qtbase5-dev
+
+    echo s-salome-gui
+    echo s-smesh
+    echo s-hexablock
+}
+
+function s-hexablock-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # Use system Qt5
+    add-to-var QT5_ROOT_DIR              /usr
+
+    add-to-var HEXABLOCKPLUGIN_ROOT_DIR  $PREFIX
+    add-to-var LD_LIBRARY_PATH           $PREFIX/lib/salome
+    add-to-var PYTHONPATH                \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function s-hexablock-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_BUILD_TESTS=OFF \
+          -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hexablock-plugin Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
+}
+
+function s-hexablock-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-hexablock-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-hexablock-plugin-prefix()
+{
+    echo NONE
+}

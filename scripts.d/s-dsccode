@@ -1,0 +1,103 @@
+
+function s-dsccode-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/dsccode
+}
+
+function s-dsccode-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/dsccode
+}
+
+function s-dsccode-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo DSCCODE_SRC_$VERSION.tgz
+}
+
+function s-dsccode-out-of-tree()
+{
+    echo false
+}
+
+function s-dsccode-build-depends()
+{
+    echo os@-autoconf
+    echo os@-autotools-dev
+    echo os@-libtool
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo s-omniorb
+    echo s-python-omniorb
+    echo os@-python3
+}
+
+function s-dsccode-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+}
+
+function s-dsccode-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var DSCCODE_ROOT_DIR $PREFIX
+    add-to-var OMNIORB_ROOT_DIR /usr
+    add-to-var LD_LIBRARY_PATH  /usr/lib
+}
+
+function s-dsccode-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ./autogen.sh
+}
+
+function s-dsccode-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ./configure --prefix=$PREFIX
+}
+
+function s-dsccode-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-dsccode-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-dsccode-prefix()
+{
+    echo NONE
+}

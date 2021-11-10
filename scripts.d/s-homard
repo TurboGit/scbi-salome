@@ -1,0 +1,117 @@
+
+function s-homard-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/homard
+}
+
+function s-homard-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/homard
+}
+
+function s-homard-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo HOMARD_SRC_$VERSION.tgz
+}
+
+function s-homard-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+}
+
+function s-homard-depends()
+{
+    echo os@-qt5-default
+    echo os@-python3-pyqt5
+    echo os@-python3-sip-dev
+
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-medfichier
+    echo s-medcoupling
+    echo s-geom
+    echo s-smesh
+}
+
+function s-homard-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HOMARD_ROOT_DIR    $PREFIX
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function s-homard-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE homard Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
+          ../src
+}
+
+function s-homard-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-homard-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-homard-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # When building the documentation the .py & .med have been downloaded
+    # by sphinx. We need the fr artifacts to be on top of the _downloads
+    # directory for the tests to pass.
+
+    cd ../install
+
+    local DDIR=share/doc/salome/gui/HOMARD/fr/_downloads/
+
+    if [ -d $DDIR ]; then
+        (
+            cd $DDIR
+            for dir in $(ls -d *); do
+                ln -s $dir/* .
+            done
+        )
+    fi
+}
+
+function s-homard-prefix()
+{
+    echo NONE
+}

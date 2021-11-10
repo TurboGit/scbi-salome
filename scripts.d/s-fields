@@ -1,0 +1,93 @@
+
+function s-fields-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/med
+}
+
+function s-fields-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/med
+}
+
+function s-fields-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo none
+    echo fields-$VERSION.tar.gz
+}
+
+function s-fields-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-stemmer
+}
+
+function s-fields-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-medcoupling
+    echo s-salome-gui
+}
+
+function s-fields-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var FIELDS_ROOT_DIR    $PREFIX
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/salome
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function s-fields-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DSALOME_GUI_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
+          -DMEDCOUPLING_USE_64BIT_IDS=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE fields Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
+          ../src
+}
+
+function s-fields-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-fields-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-fields-prefix()
+{
+    echo NONE
+}

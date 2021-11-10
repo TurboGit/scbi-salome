@@ -1,0 +1,80 @@
+
+function s-atomsolv-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/atomsolv
+}
+
+function s-atomsolv-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/atomsolv
+}
+
+function s-atomsolv-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo ATOMSOLV_SRC_$VERSION.tgz
+}
+
+function s-atomsolv-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-swig
+}
+
+function s-atomsolv-depends()
+{
+    echo s-salome-configuration
+    echo s-atomgen
+}
+
+function s-atomsolv-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var ATOMSOLV_ROOT_DIR $PREFIX
+}
+
+function s-atomsolv-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
+          -DSWIG_DIR:PATH=$(swig -swiglib) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomsolv Release) \
+          ../src
+}
+
+function s-atomsolv-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-atomsolv-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-atomsolv-prefix()
+{
+    echo NONE
+}

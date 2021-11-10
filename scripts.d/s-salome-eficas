@@ -1,0 +1,77 @@
+
+function s-salome-eficas-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/eficas.module-eficas
+}
+
+function s-salome-eficas-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/eficas
+}
+
+function s-salome-eficas-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo none
+    echo salome-eficas-$VERSION.tar.xz
+}
+
+function s-salome-eficas-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-salome-eficas-depends()
+{
+    echo s-omniorb
+    echo os@-python3-pyqt5
+
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+}
+
+function s-salome-eficas-env()
+{
+    add-to-var EFICAS_ROOT_DIR $PREFIX/
+}
+
+function s-salome-eficas-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE eficas_module Release) \
+          ../src
+}
+
+function s-salome-eficas-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-salome-eficas-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-salome-eficas-prefix()
+{
+    echo NONE
+}

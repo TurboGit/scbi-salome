@@ -1,0 +1,80 @@
+
+function s-pyhello-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/pyhello
+}
+
+function s-pyhello-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/pyhello
+}
+
+function s-pyhello-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo PYHELLO_SRC_$VERSION.tgz
+}
+
+function s-pyhello-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-swig
+    echo os@-doxygen
+    echo s-salome-configuration
+    echo os@-qt5-default
+}
+
+function s-pyhello-depends()
+{
+    echo s-salome-gui
+}
+
+function s-pyhello-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYHELLO_ROOT_DIR $PREFIX
+    add-to-var PYQT5_ROOT_DIR   $PREFIX
+}
+
+function s-pyhello-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE pyhello Release) \
+          ../src
+}
+
+function s-pyhello-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-pyhello-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-pyhello-prefix()
+{
+    echo NONE
+}

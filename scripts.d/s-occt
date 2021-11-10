@@ -1,0 +1,79 @@
+
+function s-occt-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://git.dev.opencascade.org/repos/occt.git
+}
+
+function s-occt-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo OCCT-$VERSION.tar.gz
+}
+
+function s-occt-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-occt-depends()
+{
+    echo os@-tcl-dev
+    echo os@-tk-dev
+    echo os@-freetype6-dev
+    echo os@-xi-dev
+    echo os@-xmu-dev
+    echo os@-freeimage-dev
+    echo os@-gl2ps-dev
+    echo os@-tbb-dev
+}
+
+function s-occt-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var OPENCASCADE_ROOT_DIR $PREFIX
+    add-to-var CASROOT              $PREFIX
+    add-to-var LD_LIBRARY_PATH      $PREFIX/lib
+    add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
+    add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade
+    add-to-var CMAKE_MODULE_PATH    $PREFIX/lib/cmake
+}
+
+function s-occt-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+	  -DUSE_FREEIMAGE=ON -DUSE_TBB=ON -DUSE_GL2PS=ON \
+          -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install ../src
+}
+
+function s-occt-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-occt-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-occt-prefix()
+{
+    echo NONE
+}

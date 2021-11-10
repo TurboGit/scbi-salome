@@ -1,0 +1,85 @@
+
+function s-calculator-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/calculator
+}
+
+function s-calculator-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/calculator
+}
+
+function s-calculator-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo CALCULATOR_SRC_$VERSION.tgz
+}
+
+function s-calculator-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo s-salome-configuration
+}
+
+function s-calculator-depends()
+{
+    echo s-fields
+}
+
+function s-calculator-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CALCULATOR_ROOT_DIR $PREFIX
+}
+
+function s-calculator-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE calculator Release) \
+          ../src
+}
+
+function s-calculator-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-calculator-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-calculator-prefix()
+{
+    echo NONE
+}

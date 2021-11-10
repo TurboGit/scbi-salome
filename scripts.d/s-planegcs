@@ -1,0 +1,72 @@
+
+function s-planegcs-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo planegcs-$VERSION.tar.gz
+}
+
+function s-planegcs-cea-tar()
+{
+    local VERSION=$1
+
+    echo edf
+    echo wget
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo planegcs-$VERSION.tar.gz
+}
+
+function s-planegcs-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-planegcs-depends()
+{
+    echo os@-eigen3-dev
+    echo os@-boost-graph-dev
+}
+
+function s-planegcs-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PLANEGCS_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var EIGEN_ROOT_DIR    /usr
+}
+
+function s-planegcs-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE planegcs Release) \
+          ../src
+}
+
+function s-planegcs-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-planegcs-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-planegcs-prefix()
+{
+    echo NONE
+}

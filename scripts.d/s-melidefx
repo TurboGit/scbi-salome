@@ -1,0 +1,70 @@
+
+function s-melidefx-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/salome-prototypes.melidefx
+}
+
+function s-melidefx-build-depends()
+{
+    echo s-cmake-tool
+    echo s-salome-configuration
+}
+
+function s-melidefx-depends()
+{
+    echo s-salome-kernel
+    echo s-yacs
+    echo os@-python3
+    echo s-melissa
+    echo s-py2cpp
+    echo s-ydefx
+}
+
+function s-melidefx-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var MELIDEFX_ROOT_DIR       $PREFIX
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function s-melidefx-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCONFIGURATION_ROOT_DIR=$CONFIGURATION_ROOT_DIR \
+          -DCMAKE_PREFIX_PATH=$KERNEL_ROOT_DIR/salome_adm/cmake_files \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE melidefx Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
+}
+
+function s-melidefx-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-melidefx-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-melidefx-prefix()
+{
+    echo NONE
+}

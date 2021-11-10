@@ -1,0 +1,79 @@
+
+function s-non-regression-tests-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/tests/non-regression.git
+}
+
+function s-non-regression-tests-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-non-regression-tests-depends()
+{
+    echo s-salome-gui
+    echo s-medcoupling
+    echo s-homard
+    echo s-shaper
+    echo s-paravis
+    echo s-geom
+    echo s-smesh
+    echo s-blsurf-plugin
+    echo s-netgen-plugin
+    echo s-ghs3d-plugin
+    echo s-hexotic-plugin
+    echo s-hybrid-plugin
+
+    echo os@-python3-requests
+}
+
+function s-non-regression-tests-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH  $PREFIX/bin
+}
+
+function s-non-regression-tests-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DWITH_GUI_TESTS:BOOL=ON \
+          -DWITH_CAOMAILLAGE_TESTS:BOOL=ON \
+          -DWITH_USECASES_TESTS:BOOL=ON \
+          -DWITH_LARGECASES_TESTS:BOOL=ON \
+          -DWITH_ARCHITECTURE_TESTS:BOOL=ON \
+          -DWITH_MEDCOUPLING_TESTS:BOOL=ON \
+          -DWITH_YACS_TESTS:BOOL=OFF \
+          -DWITH_PARAVIS_TESTS:BOOL=ON \
+          -DWITH_SHAPER_TESTS:BOOL=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE non-regression-tests Release) \
+           ../src
+}
+
+function s-non-regression-tests-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-non-regression-tests-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-non-regression-tests-prefix()
+{
+    echo NONE
+}

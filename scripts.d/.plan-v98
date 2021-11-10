@@ -1,36 +1,36 @@
 ###########################################
 # TOOLS
 
-# clang 12 & ispc 1.16 are matching versions
+# clang 12 & s-ispc 1.16 are matching versions
 s-clang-edf:release/12.x
-# using binary version 1.16.0, must be available in ispc GitHub
-ispc/bin:#v1.16.0
+# using binary version 1.16.0, must be available in s-ispc GitHub
+s-ispc/bin:#v1.16.0
 
-persalys:v11.0rc1
+s-persalys:v11.0rc1
 s-zeromq:#4.3.1
-melissa:#0.0.0
-planegcs:#0.18
+s-melissa:#0.0.0
+s-planegcs:#0.18
 
-paraview/ospray.gdal:v5.9.0
-openturns:#1.17
-openturns-fftw:#0.11
-openturns-mixmod:#0.12
-openturns-morris:#0.10
-openturns-pmml:#1.11
-openturns-robopt:#0.9
-openturns-subsetinverse:#1.8
-openturns-svm:#0.10
-openturns-wrapy:#0.10
-embree:#3.12.2
+s-paraview/ospray.gdal:v5.9.0
+s-openturns:#1.17
+s-openturns-fftw:#0.11
+s-openturns-mixmod:#0.12
+s-openturns-morris:#0.10
+s-openturns-pmml:#1.11
+s-openturns-robopt:#0.9
+s-openturns-subsetinverse:#1.8
+s-openturns-svm:#0.10
+s-openturns-wrapy:#0.10
+s-embree:#3.12.2
 s-rkcommon:v1.6.0
 s-openvkl:v0.11.0
-ospray:#2.4.0
-uranie:#4.5.0
+s-ospray:#2.4.0
+s-uranie:#4.5.0
 s-root:v6-22-00-patches
 
 [
-        # homard tool is now merged into homard module
-        homard-tool:#1112hdf51103med410
+        # s-homard tool is now merged into s-homard module
+        s-homard-tool:#1112hdf51103med410
 ] :skip
 
 [
@@ -43,57 +43,57 @@ s-root:v6-22-00-patches
         s-gdal
 ] /native
 
-# the salome meta-module version is used to name the .run and as the
+# the s-salome meta-module version is used to name the .run and as the
 # version in create_catalog.py
 
 # First, for repositories where master is at CEA
 [
-        salome
-        fields
-        geom
-        atomgen
-        atomic
-        blsurf-plugin
-        gmsh-plugin
-        hybrid-plugin
-        hexotic-plugin
-        netgen-plugin
-        shaperstudy
-        homard
-        salome-configuration
-        paravis
-        salome-jobmanager
-        yacs
-        yacsgen
-        hexablock
-        hexablock-plugin
-        samples
-        atomsolv
-        calculator
-        genericsolver
-        hello
-        pyhello
-        light
-        pylight
-        dsccode
-        shaper
-        salome-openturns
-        py2cpp
-        paravisaddons-common
+        s-salome
+        s-fields
+        s-geom
+        s-atomgen
+        s-atomic
+        s-blsurf-plugin
+        s-gmsh-plugin
+        s-hybrid-plugin
+        s-hexotic-plugin
+        s-netgen-plugin
+        s-shaperstudy
+        s-homard
+        s-salome-configuration
+        s-paravis
+        s-salome-jobmanager
+        s-yacs
+        s-yacsgen
+        s-hexablock
+        s-hexablock-plugin
+        s-samples
+        s-atomsolv
+        s-calculator
+        s-genericsolver
+        s-hello
+        s-pyhello
+        s-light
+        s-pylight
+        s-dsccode
+        s-shaper
+        s-salome-s-openturns
+        s-py2cpp
+        s-paravisaddons-common
 ] :V9_8_0b1
 
 # Second, for repositories where master is at EDF
 [
-        salome-eficas
-        eficas-tools
-        salome-adao
-        adao
-        adao-interface
-        paravisaddons
-        ydefx
-        melidefx
-        non-regression-tests
-        clustertests
+        s-salome-eficas
+        s-eficas-tools
+        s-salome-s-adao
+        s-adao
+        s-adao-interface
+        s-paravisaddons
+        s-ydefx
+        s-melidefx
+        s-non-regression-tests
+        s-clustertests
 ] :V9_8_0b1
 
 # Third, the modules with MPI support or depending on
@@ -101,35 +101,35 @@ s-root:v6-22-00-patches
 
 [ = mpi
         s-hdf5/native-mpi
-        medcoupling/mpi.ptscotch
-        smesh/mpi
-        salome-kernel/mpi
-        salome-gui/mpi
-        ghs3d-plugin/mpi
-        ghs3dprl-plugin/mpi
+        s-medcoupling/mpi.ptscotch
+        s-smesh/mpi
+        s-salome-kernel/mpi
+        s-salome-gui/mpi
+        s-ghs3d-plugin/mpi
+        s-ghs3dprl-plugin/mpi
 ] :V9_8_0b1
 
 [ /= mpi
         s-hdf5/native-serial
-        medcoupling/ptscotch
-        smesh
-        salome-kernel
-        salome-gui
-        ghs3d-plugin
-        ghs3dprl-plugin
+        s-medcoupling/ptscotch
+        s-smesh
+        s-salome-kernel
+        s-salome-gui
+        s-ghs3d-plugin
+        s-ghs3dprl-plugin
 ] :V9_8_0b1
 
-netgen/cmake:#6.2.2104
-gmsh:#4.8.4
+s-netgen/cmake:#6.2.2104
+s-gmsh:#4.8.4
 
-medfichier:#4.1.1
+s-medfichier:#4.1.1
 s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
 
 # should be tag V2_4_3 as soon as available
-libbatch:V2_4_4rc2
+s-libbatch:V2_4_4rc2
 
 s-python-omniorb:#4.2.2
 s-omniorb/auto
-occt:#b08cd04
-meshgems:#V2.12-1_linux_EU
+s-occt:#b08cd04
+s-meshgems:#V2.12-1_linux_EU

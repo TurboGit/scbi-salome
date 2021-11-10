@@ -1,0 +1,72 @@
+
+function s-clustertests-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.forge.pleiade.edf.fr/git/clustertests.git
+}
+
+function s-clustertests-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-clustertests-depends()
+{
+    echo os@-qt5-default
+    echo os@-qtbase5-dev
+
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-salome-jobmanager
+    echo s-yacs
+    echo s-melidefx
+    echo s-melissa
+    echo s-salome-openturns
+    echo s-medcoupling
+    echo s-ydefx
+}
+
+function s-clustertests-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH  $PREFIX/bin
+}
+
+function s-clustertests-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DWITH_KERNEL_TESTS:BOOL=ON \
+          -DWITH_TESTCONNECTION:BOOL=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE clustertests Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
+}
+
+function s-clustertests-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-clustertests-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-clustertests-prefix()
+{
+    echo NONE
+}

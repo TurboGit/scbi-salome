@@ -1,0 +1,65 @@
+
+function s-non-regression-tests-confidential-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/salome-tests.non_regression_tests_confidential.git
+}
+
+function s-non-regression-tests-confidential-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-non-regression-tests-confidential-depends()
+{
+    echo s-geom
+    echo s-smesh
+    echo s-blsurf-plugin
+    echo s-netgen-plugin
+    echo s-ghs3d-plugin
+    echo s-hexotic-plugin
+    echo s-hybrid-plugin
+}
+
+function s-non-regression-tests-confidential-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH  $PREFIX/bin
+}
+
+function s-non-regression-tests-confidential-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DWITH_CAOMAILLAGE_TESTS:BOOL=ON \
+          -DWITH_USECASES_TESTS:BOOL=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE non-regression-tests-confidential Release) \
+           ../src
+}
+
+function s-non-regression-tests-confidential-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-non-regression-tests-confidential-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-non-regression-tests-confidential-prefix()
+{
+    echo NONE
+}

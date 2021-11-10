@@ -1,0 +1,57 @@
+
+function s-samples-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/datafiles
+}
+
+function s-samples-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/datafiles
+}
+
+function s-samples-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo SAMPLES_SRC_$VERSION.tgz
+}
+
+function s-samples-out-of-tree()
+{
+    echo false
+}
+
+function s-samples-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SAMPLES_ROOT_DIR $PREFIX
+    add-to-var DATA_DIR         $PREFIX
+}
+
+function s-samples-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # there is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function s-samples-prefix()
+{
+    echo NONE
+}

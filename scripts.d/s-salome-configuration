@@ -1,0 +1,68 @@
+
+function s-salome-configuration-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/configuration
+}
+
+function s-salome-configuration-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/configuration
+}
+
+function s-salome-configuration-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo none
+    echo salome-configuration-$VERSION.tar.xz
+}
+
+function s-salome-configuration-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # the following patch is for V9_7_0 only as the corresponding
+    # fix has been merged in master.
+    [[ $REF =~ "9_7" ]] && echo fix-detection-of-hdf5.patch
+}
+
+function s-salome-configuration-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CONFIGURATION_ROOT_DIR $SCBI_BDIR/install
+    add-to-var CONFIGURATION_CMAKE_DIR $SCBI_BDIR/install/cmake
+
+    add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
+    add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
+}
+
+function s-salome-configuration-out-of-tree()
+{
+    echo false
+}
+
+function s-salome-configuration-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # this is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}

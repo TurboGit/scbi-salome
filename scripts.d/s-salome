@@ -1,0 +1,555 @@
+
+# Note that on Debian-9 sphinx-intl is not present. To install it one need
+# to allow one package from Buster to be installed:
+#
+# Package: sphinx-intl
+# Pin: release n=buster
+# Pin-Priority: 0
+
+function s-salome-v95-plan()
+{
+    echo dev
+}
+
+function s-salome-main-modules()
+{
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-salome-plugins
+    echo s-shaper
+    echo s-shaperstudy
+    echo s-geom
+    echo s-smesh
+    echo s-paravis
+    echo s-fields
+    echo s-yacs
+    echo s-salome-adao
+    echo s-ydefx
+    echo s-salome-eficas
+    echo s-salome-jobmanager
+    echo s-homard
+    echo s-atomic
+    echo s-atomgen
+    echo s-hexablock
+    echo s-atomsolv
+    echo s-calculator
+    echo s-genericsolver
+    echo s-hello
+    echo s-pyhello
+    echo s-light
+    echo s-pylight
+    echo s-dsccode
+    echo s-melidefx
+    echo s-salome-openturns
+    echo s-non-regression-tests
+    echo s-clustertests
+}
+
+function s-salome-prerequisite-modules()
+{
+    echo s-adao
+    echo s-adao-interface
+    echo s-samples
+    echo s-omniorb
+    echo s-python-omniorb
+    echo s-eficas-tools
+    echo s-occt
+    echo s-yacsgen
+    echo s-medfichier
+    echo s-medcoupling
+    echo s-libbatch
+    echo s-py2cpp
+    echo s-meshgems
+    echo s-planegcs
+    echo s-ospray
+    echo s-embree
+    echo s-paraview
+    echo s-gmsh
+    echo s-paravisaddons
+    echo s-paravisaddons-common
+    echo s-persalys
+    echo s-netgen
+    echo s-openturns
+    echo s-openturns-fftw
+    echo s-openturns-mixmod
+    echo s-openturns-morris
+    echo s-openturns-pmml
+    echo s-openturns-robopt
+    echo s-openturns-subsetinverse
+    echo s-openturns-svm
+    echo s-openturns-wrapy
+    echo s-uranie
+    echo s-root
+    echo s-homard-tool
+    echo s-zeromq
+    echo s-melissa
+    echo s-python3-nlopt
+    echo s-python3-xlutils
+    echo s-rkcommon
+    echo s-openvkl
+}
+
+function s-salome-modules()
+{
+    s-salome-main-modules
+    s-salome-prerequisite-modules
+    echo s-salome-configuration
+}
+
+function s-salome-prefix()
+{
+    echo NONE
+}
+
+# support for SALOME application creation
+
+declare -g MAIN_MODULE_LIST=()
+
+function is-main-module()
+{
+    local MODULE=$1
+
+    # Not yet cacched
+
+    if [[ -z $MAIN_MODULE_LIST ]]; then
+        for M in $(for-final-modules $(s-salome-main-modules)); do
+            MAIN_MODULE_LIST+=($M)
+        done
+    fi
+
+    for M in ${MAIN_MODULE_LIST[@]}; do
+        if [[ "$M" = "$MODULE" ]]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+function build-salome-prerequisites()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    (
+        FILE=salome_prerequisites.sh
+
+        CURRENT_MODULE_NAME=
+        CURRENT_MODULE=
+        CURRENT_MODULE_INSTALL=
+
+        function add-to-var()
+        {
+            local VAR=$1
+            local DIR=$2
+
+            # compute relative directory
+            local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
+            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
+
+            is-main-module $CURRENT_MODULE_NAME
+
+            if [[ $? = 0 ]]; then
+                REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
+            fi
+
+            case "$VAR" in
+                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                ;;
+
+                *)
+                    VSET=${VAR}_set
+                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
+
+                    # mark $VAR as set to ensure that the previous value
+                    # will be added on next call ${!VAR...} above.
+                    export ${VAR}_set=IS_SET
+                    ;;
+            esac
+        }
+
+        function env-callback()
+        {
+            local MODULE=$1
+            local MODREF=$2
+            local IS_ROOT=$3
+            local IS_EXT=$4
+
+            fn-exists $MODULE-env
+            if [[ $? = 0 ]]; then
+                CURRENT_MODULE_NAME=$MODULE
+                CURRENT_MODULE=${MODULE//-/_}
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
+
+                echo ""          >> $FILE
+                echo "# $MODULE" >> $FILE
+
+                echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
+
+                is-main-module $MODULE
+
+                if [[ $? = 0 ]]; then
+                    echo "\${ROOT_INSTALL}"                          >> $FILE
+                else
+                    echo "\${ROOT_EXTERNAL}/${MODULE}"               >> $FILE
+                fi
+
+                $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
+            fi
+        }
+
+        echo                                                            > $FILE
+        echo "export ROOT_INSTALL=\$(dirname \$(command -v \$BASH_SOURCE))" >> $FILE
+        echo "export ROOT_EXTERNAL=\$ROOT_INSTALL/external"            >> $FILE
+
+        # keep current PATH setting
+        PATH_set=IS_SET
+
+        for-all-modules-with-meta env-callback s-salome
+
+	chmod u+x $FILE
+    )
+}
+
+function build-salome-context()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    (
+        FILE=salome_context.cfg
+
+        CURRENT_MODULE_NAME=
+        CURRENT_MODULE=
+        CURRENT_MODULE_INSTALL=
+
+        function add-to-var()
+        {
+            local VAR=$1
+            local DIR=$2
+
+            # compute relative directory
+            local REPLTO="%(${CURRENT_MODULE}_ROOT_INSTALL_DIR)s"
+            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_EXTERNAL)s}"
+
+            is-main-module $CURRENT_MODULE_NAME
+
+            if [[ $? = 0 ]]; then
+                REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_INSTALL)s}"
+            fi
+
+            case "$VAR" in
+                LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH|PV_PLUGIN_PATH)
+                    echo "ADD_TO_$VAR: ${REL_DIR}" >> $FILE
+                    ;;
+
+                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*\
+                    |*INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                    ;;
+
+                *)
+                    echo $VAR=$REL_DIR >> $FILE
+                    ;;
+            esac
+        }
+
+        function env-callback()
+        {
+            local MODULE=$1
+            local MODREF=$2
+            local IS_ROOT=$3
+            local IS_EXT=$4
+
+            fn-exists $MODULE-env
+            if [[ $? = 0 ]]; then
+                CURRENT_MODULE_NAME=$MODULE
+                CURRENT_MODULE=${MODULE//-/_}
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
+
+                echo ""          >> $FILE
+                echo "# $MODULE" >> $FILE
+
+                echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
+
+                is-main-module $MODULE
+
+                if [[ $? = 0 ]]; then
+                    echo "%(ROOT_INSTALL)s"                   >> $FILE
+                else
+                    echo "%(ROOT_EXTERNAL)s/${MODULE}"        >> $FILE
+                fi
+
+                $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
+            fi
+        }
+
+        echo "[SALOME Configuration]"                                    > $FILE
+        echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"                     >> $FILE
+        echo "ROOT_EXTERNAL=%(ROOT_INSTALL)s/external"                  >> $FILE
+        echo "LC_NUMERIC=C"                                             >> $FILE
+        echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_EXTERNAL)s/plugins\"" >> $FILE
+        echo "ADD_TO_PV_PLUGIN_PATH: \"%(ROOT_INSTALL)s/lib/paraview\"" >> $FILE
+
+        for-all-modules-with-meta env-callback s-salome
+    )
+}
+
+function build-config-appli()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    FILE=config_appli.xml
+
+    cat <<EOF > $FILE
+<application>
+   <prerequisites path='$PWD/salome_prerequisites.sh'/>
+   <context path='$PWD/salome_context.cfg'/>
+   <modules>
+EOF
+
+    # Note that the MODULE_NAME must have specific naming by convention,
+    # so we cannot use the plugin module name directly. The following
+    # sed commands are there to convert the plugin names to the expected
+    # names. Finally we convert the name in capital letters.
+
+    for module in $(for-final-modules $(s-salome-main-modules)); do
+        MODULE_NAME=${module##s-}                 # remove leading s-
+        MODULE_NAME=${MODULE_NAME##salome-}       # remove leading salome-
+        MODULE_NAME=${MODULE_NAME/-plugin/plugin} # replace trailing -plugin
+        MODULE_NAME=${MODULE_NAME^^}              # all upper-case
+
+        MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+        echo "      <module name='$MODULE_NAME'"    >> $FILE
+        echo "              path='$MODULE_PATH'/>"  >> $FILE
+    done
+
+    echo "   </modules>"                            >> $FILE
+
+    # Generate extra configuration for SAMPLES & MEDCOUPLING
+
+    for module in $(s-salome-prerequisite-modules); do
+        MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+        if [[ "$module" == "samples" ]]; then
+            echo "   <samples path=\"$MODULE_PATH\"/>"        >> $FILE
+        elif [[ "$module" == "medcoupling" ]]; then
+            echo "   <extra_tests>"                           >> $FILE
+            echo "      <extra_test name='MEDCOUPLING'"       >> $FILE
+            echo "             path=\"$MODULE_PATH/tests\"/>" >> $FILE
+            echo "   </extra_tests>"                          >> $FILE
+        fi
+    done
+
+    echo "</application>"                                     >> $FILE
+}
+
+function s-salome-wrapup()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # Finaly we create here:
+    #
+    # - salome_prerequisites.sh
+    # - salome_context.cfg
+    # - config_appli.xml
+    # - the application directory
+    # - the self installer
+
+    (
+        rm -fr application
+        mkdir application
+        cd application
+
+        dlog salome create application context
+
+        # generate salome_prerequisites.sh shell script
+        build-salome-prerequisites $PREFIX $TARGET
+
+        # generate salome_context.cfg script
+        build-salome-context $PREFIX $TARGET
+
+        # generate config_appli.xml
+        build-config-appli $PREFIX $TARGET
+
+        if [[ "$(is-enabled application)" = "yes" ]] \
+               || [[ "$(is-enabled installer)" = "yes" ]];
+        then
+            dlog salome generate application
+            # generate the application directory
+            $SCBI_BDIR/s-salome-kernel/build/install/bin/salome/appli_gen.py
+
+            if [[ $? != 0 ]]; then
+                elog salome Error while running appli_gen
+                exit 1
+            fi
+
+            # salome application root dir
+            APP_DIR=$SCBI_BDIR/s-salome
+
+            # replace all symlinks outside the APP_DIR by a copy of
+            # the corresponding files/directories. This makes the
+            # application directory self contained.
+
+            dlog salome fix links to be relative to application directory
+
+            cd $APP_DIR
+
+            find . -type l | while read link; do
+                value=$(realpath --relative-to=$APP_DIR $link)
+
+                # if link to level above $APP_DIR, copy
+
+                if [[ ${value:0:3} = "../" ]]; then
+                    rm -f $link
+                    cp -r $value ${link}
+                fi
+            done
+
+            local APP=$SCBI_BDIR/s-salome/application
+            cd $APP
+
+            # generate the scbi_versions.txt for tracability
+
+            scbi --version > .scbi_versions.txt
+
+            # replace toplevel links to reference local scripts
+
+            for file in envd getAppliPath.py kill_remote_containers.py \
+                        runRemote.sh update_catalogs.py .bashrc .salome_run;
+            do
+                rm -f $file
+                ln -s ./bin/salome/appliskel/$file $file
+            done
+
+            # copy module dev support
+
+            dlog salome "copy the modules' dev support files"
+
+            for module in $(for-final-modules $(s-salome-main-modules)); do
+                MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+                for dir in include salome_adm adm_local; do
+                    if [[ -d $MODULE_PATH/$dir ]]; then
+                        cp -r $MODULE_PATH/$dir .
+                    fi
+                done
+            done
+
+            # copy all prerequisites
+
+            dlog salome copy the pre-requisites
+
+            mkdir external
+
+            for p in $(s-salome-prerequisite-modules); do
+                # Some module may not be present if they have been skiped
+                # in build plan (:skip)
+                if [[ -d $SCBI_BDIR/$p/build/install ]]; then
+                    cp -r $SCBI_BDIR/$p/build/install external/$p
+                fi
+            done
+
+            # is the installer to be created?
+
+            res=0
+
+            # compute the final installer script name
+
+            local module_info=( $(get-module-ref s-salome) )
+            local module=${module_info[0]}
+            local variant=${module_info[1]}
+            local kind=${module_info[2]}
+            local ref=${module_info[3]}
+
+            # install catalog script & patch version
+
+            cp $SCBI_DEFS/support/create_catalog.py $APP/
+
+            sed -i "s/<salome_version>/$ref/g" $APP/create_catalog.py
+            chmod a+x $APP/create_catalog.py
+
+            if [[ $(is-enabled installer) ]]; then
+                dlog salome generate self installer, may take some time ...
+
+                # check that makeself is installed
+                check-tool makeself
+                if [[ $? != 0 ]]; then
+                    dlog salome Required tool makeself missing
+                    exit 1
+                fi
+
+                # create the .run auto-installer to be distributed
+
+                cp $SCBI_DEFS/support/install-setup $APP/setup
+                chmod a+x $APP/setup
+
+                cp $SCBI_DEFS/support/servers.pvsc $APP/
+
+                cp $SCBI_DEFS/support/salome_hpc_visu_servers.py $APP/
+                chmod a+x $APP/salome_hpc_visu_servers.py
+
+                cd $SCBI_BDIR/s-salome
+
+                local script_name=salome-$TARGET-$variant
+
+                case $kind in
+                    DEV)
+                        script_name=$script_name-dev
+                        ;;
+                    BRANCH|VERSION)
+                        script_name=$script_name-$ref
+                        ;;
+                    *)
+                        ;;
+                esac
+
+                # --sha256 in 2.4 only
+
+                if [[ $(is-enabled xz) ]]; then
+                    # -xz compress 40% more but is slow to compress
+                    O_COMPRESS="--xz"
+                else
+                    O_COMPRESS="--bzip2"
+                fi
+
+                makeself $O_COMPRESS --tar-quietly \
+                         application $script_name.run \
+                         "SALOME Application" ./setup
+                res=$?
+            fi
+
+            # check for python3
+            #
+            if [[ -z "$(python --version 2>&1 | grep ' 3\.')" ]]; then
+                dlog python2 is default, checking for python3
+                if [[ -f /usr/bin/python3 ]]; then
+                    dlog found python3 in /usr/bin/python3, setuup links
+                    (
+                        cd $APP
+                        rm -f ./bin/python ./bin/salome/python
+                        ln -s /usr/bin/python3 ./bin/python
+                        ln -s /usr/bin/python3 ./bin/salome/python
+                    )
+                else
+                    dlog cannot found a python3 installation.
+                    dlog SALOME will not work properly.
+                fi
+            fi
+
+            if [[ $res == 0 ]]; then
+                true
+            else
+                false
+            fi
+
+        else
+            true
+        fi
+    )
+}

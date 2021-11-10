@@ -1,0 +1,96 @@
+
+function s-netgen-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/netgenplugin
+}
+
+function s-netgen-plugin-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/netgenplugin
+}
+
+function s-netgen-plugin-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo NETGENPLUGIN_SRC_$VERSION.tgz
+}
+
+function s-netgen-plugin-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
+    echo s-salome-configuration
+    echo os@-qt5-default
+}
+
+function s-netgen-plugin-depends()
+{
+    echo s-smesh
+    echo s-netgen
+}
+
+function s-netgen-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # Use system Qt5
+    add-to-var QT5_ROOT_DIR          /usr
+
+    add-to-var NETGENPLUGIN_ROOT_DIR $PREFIX
+}
+
+function s-netgen-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE netgen-plugin Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
+          -DSALOME_CXX_STANDARD:STRING=17 \
+          ../src
+}
+
+function s-netgen-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-netgen-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-netgen-plugin-prefix()
+{
+    echo NONE
+}
