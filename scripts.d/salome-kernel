@@ -102,7 +102,7 @@ function salome-kernel-common-config-options()
     echo -DSALOME_USE_LIBBATCH=ON
     echo -DSALOME_USE_64BIT_IDS=ON
     echo -DSALOME_BUILD_TESTS=OFF
-    echo -DSWIG_EXECUTABLE:PATH=$(which swig)
+    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
 }

@@ -69,7 +69,7 @@ function adao-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adao Release) \
-          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DADAO_BUILD_DOC=OFF"} \
           ../src

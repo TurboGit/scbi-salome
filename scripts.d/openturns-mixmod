@@ -40,9 +40,9 @@ function openturns-mixmod-config()
 
     cmake -DUSE_SPHINX=OFF \
           -DBUILD_DOC=OFF \
-          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           -DCMAKE_FIND_ROOT_PATH=ON \
-          -DSWIG_EXECUTABLE:PATH=$(which swig) \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
           -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
           -DSPHINX_ROOT_DIR:FILEPATH=$(dirname dpkg -L python3-sphinx | grep sphinx-build) \
           -DSPHINX_EXECUTABLE:FILEPATH=$(dpkg -L python3-sphinx | grep sphinx-build) \
