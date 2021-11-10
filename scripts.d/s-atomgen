@@ -1,0 +1,55 @@
+
+
+function s-atomgen-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-swig
+}
+
+function s-atomgen-depends()
+{
+    echo s-salome-configuration
+    echo s-atomic
+}
+
+function s-atomgen-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var ATOMGEN_ROOT_DIR $PREFIX
+}
+
+function s-atomgen-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
+          -DSWIG_DIR:PATH=$(swig -swiglib) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomgen Release) \
+          ../src
+}
+
+function s-atomgen-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-atomgen-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-atomgen-prefix()
+{
+    echo NONE
+}

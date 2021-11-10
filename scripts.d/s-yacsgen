@@ -1,0 +1,32 @@
+
+
+function s-yacsgen-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo yacsgen-$VERSION.tar.xz 
+} 
+
+function s-yacsgen-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # there is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function s-yacsgen-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    sed -i "s#__YACSGEN_INSTALL_PATH__#${BDIR/install}#" \
+        $PREFIX/Examples/exec.sh
+}

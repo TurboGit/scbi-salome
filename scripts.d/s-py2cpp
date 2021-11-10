@@ -1,0 +1,65 @@
+
+
+function s-py2cpp-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo py2cpp-$VERSION.tgz 
+} 
+
+function s-py2cpp-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PY2CPP_ROOT_DIR $PREFIX
+
+    add-to-var CMAKE_PREFIX_PATH  $PREFIX/lib/cmake/py2cpp
+    add-to-var PATH               $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+}
+
+function s-py2cpp-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo s-salome-configuration
+}
+
+function s-py2cpp-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE py2cpp Release) \
+          ../src
+}
+
+function s-py2cpp-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-py2cpp-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-py2cpp-prefix()
+{
+    echo NONE
+}

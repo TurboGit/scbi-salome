@@ -1,0 +1,94 @@
+
+
+function s-geom-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo geom-$VERSION.tar.xz 
+} 
+
+function s-geom-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+    echo os@-swig
+    echo os@-python3-psutil
+}
+
+function s-geom-depends()
+{
+    echo s-omniorb
+    echo os@-qt5-default
+
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-python-omniorb
+}
+
+function s-geom-opencv-depends()
+{
+    echo s-opencv
+}
+
+function s-geom-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GEOM_ROOT_DIR $PREFIX
+}
+
+function s-geom-default-config-options()
+{
+    echo -DSALOME_GEOM_USE_OPENCV=OFF
+}
+
+function s-geom-opencv-config-options()
+{
+    echo -DSALOME_GEOM_USE_OPENCV=ON
+}
+
+function s-geom-common-config-options()
+{
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
+    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release)
+}
+
+function s-geom-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-geom-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-geom-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-geom-prefix()
+{
+    echo NONE
+}

@@ -1,0 +1,59 @@
+
+
+function s-shaper-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-doxygen
+    echo os@-sphinx-common
+}
+
+function s-shaper-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-geom
+    echo s-planegcs
+    echo os@-qt5-default
+    echo s-occt
+}
+
+function s-shaper-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SHAPER_ROOT_DIR $PREFIX
+}
+
+function s-shaper-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE shaper Release) \
+          -DADD_MODELS_TESTS=TRUE \
+          ../src
+}
+
+function s-shaper-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-shaper-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-shaper-prefix()
+{
+    echo NONE
+}

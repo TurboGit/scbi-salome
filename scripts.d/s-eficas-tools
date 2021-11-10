@@ -1,0 +1,64 @@
+
+
+function s-eficas-tools-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo eficas-tools-$VERSION.tar.xz 
+} 
+
+function s-eficas-tools-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+}
+
+function s-eficas-tools-depends()
+{
+    echo s-salome-configuration
+    echo os@-python3-pyqt5
+}
+
+function s-eficas-tools-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var EFICAS_ROOT $PREFIX
+    add-to-var PYTHONPATH  $PREFIX
+    add-to-var PYTHONPATH  $PREFIX/UiQt5
+}
+
+function s-eficas-tools-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DWITH_TELEMAC_CATA=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE eficas_tools Release) \
+          ../src
+}
+
+function s-eficas-tools-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-eficas-tools-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-eficas-tools-prefix()
+{
+    echo NONE
+}

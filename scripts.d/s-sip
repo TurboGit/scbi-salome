@@ -1,0 +1,65 @@
+
+function s-sip-vcs() 
+{ 
+    echo hg 
+    echo https://www.riverbankcomputing.com/hg/sip 
+} 
+
+
+function s-sip-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-sip-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-sip-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SIP_ROOT_DIR  $PREFIX
+    add-to-var PYQT_SIPS_DIR $PREFIX
+    add-to-var PATH          $PREFIX/bin
+    add-to-var PYTHONPATH    $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-sip-out-of-tree()
+{
+    echo false
+}
+
+function s-sip-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    python3 configure.py -b $PREFIX/bin \
+            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
+            -e $PREFIX/include/python$PYTHON_VERSION \
+            -v $PREFIX/share/sip
+}
+
+function s-sip-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-sip-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-sip-prefix()
+{
+    echo NONE
+}

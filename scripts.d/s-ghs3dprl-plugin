@@ -1,0 +1,85 @@
+
+
+
+function s-ghs3dprl-plugin-build-depends()
+{
+    echo s-cmake-tool
+    echo s-salome-configuration
+    echo os@-swig
+    echo os@-doxygen
+}
+
+function s-ghs3dprl-plugin-depends()
+{
+    echo os@-qt5-default
+    echo os@-qtbase5-dev
+
+    echo s-smesh
+    echo s-ghs3d-plugin
+}
+
+function s-ghs3dprl-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GHS3DPRLPLUGIN_ROOT_DIR $PREFIX
+}
+
+function s-ghs3dprl-plugin-mpi-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
+    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+}
+
+function s-ghs3dprl-plugin-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3dprl-plugin Release)
+    echo -DMESHGEMS_ROOT_DIR=$MESHGEMS_ROOT_DIR
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+}
+
+function s-ghs3dprl-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-ghs3dprl-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-ghs3dprl-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-ghs3dprl-plugin-prefix()
+{
+    echo NONE
+}

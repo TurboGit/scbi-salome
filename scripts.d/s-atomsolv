@@ -1,0 +1,56 @@
+
+
+
+function s-atomsolv-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-swig
+}
+
+function s-atomsolv-depends()
+{
+    echo s-salome-configuration
+    echo s-atomgen
+}
+
+function s-atomsolv-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var ATOMSOLV_ROOT_DIR $PREFIX
+}
+
+function s-atomsolv-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
+          -DSWIG_DIR:PATH=$(swig -swiglib) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomsolv Release) \
+          ../src
+}
+
+function s-atomsolv-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-atomsolv-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-atomsolv-prefix()
+{
+    echo NONE
+}

@@ -1,0 +1,61 @@
+
+
+
+function s-light-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-graphviz-dev
+    echo os@-graphviz
+    echo os@-doxygen
+    echo os@-python3-docutils
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-swig
+    echo s-salome-configuration
+}
+
+function s-light-depends()
+{
+    echo s-salome-gui
+}
+
+function s-light-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var LIGHT_ROOT_DIR $PREFIX
+}
+
+function s-light-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE light Release) \
+          ../src
+}
+
+function s-light-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-light-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-light-prefix()
+{
+    echo NONE
+}

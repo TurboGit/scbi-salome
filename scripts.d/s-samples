@@ -1,0 +1,33 @@
+
+
+
+function s-samples-out-of-tree()
+{
+    echo false
+}
+
+function s-samples-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var SAMPLES_ROOT_DIR $PREFIX
+    add-to-var DATA_DIR         $PREFIX
+}
+
+function s-samples-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # there is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function s-samples-prefix()
+{
+    echo NONE
+}

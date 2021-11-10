@@ -1,0 +1,32 @@
+
+
+function s-homard-tool-out-of-tree()
+{
+    echo false
+}
+
+function s-homard-tool-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HOMARD_REP_EXE $PREFIX
+    add-to-var HOMARD_EXE     homard
+}
+
+function s-homard-tool-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # this is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function s-homard-tool-prefix()
+{
+    echo NONE
+}

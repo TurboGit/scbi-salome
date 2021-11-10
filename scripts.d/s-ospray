@@ -1,49 +1,53 @@
 
-# Intel® Open Volume Kernel Library
-
-function s-openvkl-vcs() 
+function s-ospray-vcs() 
 { 
     echo default
     echo no-recursive 
     echo git 
-    echo https://github.com/openvkl/openvkl.git 
+    echo https://github.com/ospray/ospray.git 
 } 
 
 
-function s-openvkl-build-depends()
+function s-ospray-build-depends()
 {
     echo s-cmake-tool
     echo s-ispc
+    echo s-clang-edf
 }
 
-function s-openvkl-depends()
+function s-ospray-depends()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
+    echo os@-tbb-dev
+    echo os@-libxrandr-dev
+    echo os@-libxinerama-dev
+    echo os@-libxcursor-dev
     echo s-embree
     echo s-rkcommon
+    echo s-openvkl
 }
 
-function s-openvkl-env()
+function s-ospray-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var OPENVKL_ROOT_DIR    $PREFIX
-    add-to-var OPENVKL_BUILD_DIR   $PREFIX/../build
+    add-to-var OSPRAY_ROOT_DIR    $PREFIX
+    add-to-var OSPRAY_BUILD_DIR   $PREFIX/../build
 
-    add-to-var C_INCLUDE_PATH     $PREFIX/include/openvkl
-    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/openvkl
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/ospray
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 
     add-to-var CMAKE_PREFIX_PATH \
-               $(last-modified-directory "$PREFIX/lib*/cmake/openvkl-*")
+               $(last-modified-directory "$PREFIX/lib*/cmake/ospray-*")
 }
 
-function s-openvkl-config()
+function s-ospray-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -53,7 +57,7 @@ function s-openvkl-config()
           -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
-function s-openvkl-build()
+function s-ospray-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -61,7 +65,7 @@ function s-openvkl-build()
     make -j$SCBI_JOBS
 }
 
-function s-openvkl-install()
+function s-ospray-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -69,7 +73,7 @@ function s-openvkl-install()
     make install
 }
 
-function s-openvkl-prefix()
+function s-ospray-prefix()
 {
     echo NONE
 }

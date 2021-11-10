@@ -1,0 +1,61 @@
+
+
+
+function s-hybrid-plugin-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+}
+
+function s-hybrid-plugin-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-geom
+    echo s-smesh
+}
+
+function s-hybrid-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var HYBRIDPLUGIN_ROOT_DIR $PREFIX
+}
+
+function s-hybrid-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybrid-plugin Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
+          ../src
+}
+
+function s-hybrid-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-hybrid-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-hybrid-plugin-prefix()
+{
+    echo NONE
+}

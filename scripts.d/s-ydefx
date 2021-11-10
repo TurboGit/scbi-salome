@@ -1,0 +1,82 @@
+
+
+function s-ydefx-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo ydefx-$VERSION.tar.xz 
+} 
+
+function s-ydefx-common-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-ydefx-default-build-depends()
+{
+    echo s-py2cpp
+}
+
+function s-ydefx-linux-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-ydefx-common-depends()
+{
+    echo s-salome-configuration
+    echo os@-qt5-default
+}
+
+function s-ydefx-default-depends()
+{
+    echo s-salome-kernel
+    echo s-yacs
+}
+
+function s-ydefx-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var YDEFX_ROOT_DIR    $PREFIX
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/salome_adm/cmake_files
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib/
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function s-ydefx-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ydefx Release) \
+          ../src
+}
+
+function s-ydefx-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-ydefx-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-ydefx-prefix()
+{
+    echo NONE
+}

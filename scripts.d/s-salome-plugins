@@ -1,0 +1,14 @@
+
+# Meta-modules with all plug-ins
+
+function s-salome-plugins-modules()
+{
+    echo s-blsurf-plugin
+    echo s-ghs3d-plugin
+    echo s-ghs3dprl-plugin
+    echo s-hybrid-plugin
+    echo s-gmsh-plugin
+    echo s-netgen-plugin
+    echo s-hexotic-plugin
+    echo s-hexablock-plugin
+}

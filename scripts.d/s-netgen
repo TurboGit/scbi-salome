@@ -1,0 +1,165 @@
+
+function s-netgen-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/NGSolve/netgen.git 
+} 
+
+
+function s-netgen-cea-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default
+    echo wget 
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
+    echo netgen-$VERSION.tar.gz 
+} 
+
+function s-netgen-autotools-out-of-tree()
+{
+    echo false
+}
+
+function s-netgen-cmake-out-of-tree()
+{
+    echo true
+}
+
+function s-netgen-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "5.3" ]] && echo netgen-53-for-salome.patch
+}
+
+function s-netgen-autotools-build-depends()
+{
+    echo os@-autoconf
+    echo os@-automake
+    echo os@-autotools-dev
+    echo os@-libtool
+}
+
+function s-netgen-cmake-build-depends()
+{
+    echo os@-cmake
+}
+
+function s-netgen-depends()
+{
+    echo s-occt
+    echo os@-tcl-dev
+    echo os@-tk-dev
+}
+
+function s-netgen-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var NETGEN_ROOT_DIR    $PREFIX
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+}
+
+#  Version 5.x where using autotools, starting with
+#  version 6.x CMake is used.
+
+function s-netgen-autotools-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    libtoolize --force --copy --automake
+    aclocal -I m4
+    autoheader
+    autoconf
+    automake --add-missing --copy --gnu
+}
+
+function s-netgen-autotools-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ./configure --prefix=$PREFIX --with-occ=${CASROOT} \
+                CXXFLAGS="${CXXFLAGS} -O2 -m64 -std=c++0x"
+}
+
+function s-netgen-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DUSE_SUPERBUILD=OFF
+    echo -DUSE_PYTHON=OFF
+    echo -DUSE_GUI=OFF
+    echo -DUSE_MPI=OFF
+    echo -DUSE_OCC=ON
+    echo -DUSE_INTERNAL_TCL=OFF
+    echo -DBUILD_STUB_FILES=OFF
+    echo -DOCC_INCLUDE_DIR=$OPENCASCADE_ROOT_DIR/include/opencascade
+    echo -DOCC_LIBRARY_DIR=$OPENCASCADE_ROOT_DIR/lib
+}
+
+function s-netgen-cmake-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-netgen-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-netgen-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-netgen-autotools-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    for DIR in csg general geom2d gprim interface linalg meshing \
+                   stlgeom visualization;
+    do
+        cp -af ./libsrc/${DIR}/*.hpp $PREFIX/include
+    done
+
+    cp -af ./libsrc/include/mystdlib.h $PREFIX/include
+    cp -af ./libsrc/include/mydefs.hpp $PREFIX/include
+    cp -af ./libsrc/occ/occgeom.hpp $PREFIX/include
+    cp -af ./libsrc/occ/occmeshsurf.hpp $PREFIX/include
+    cp -af ./libsrc/general/gzstream.h $PREFIX/include
+    [ -f ./config.h ] && cp -af ./config.h $PREFIX/include
+}
+
+function s-netgen-prefix()
+{
+    echo NONE
+}

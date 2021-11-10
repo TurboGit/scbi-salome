@@ -1,0 +1,66 @@
+
+
+
+function s-gmsh-plugin-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+}
+
+function s-gmsh-plugin-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-omniorb
+    echo os@-qt5-default
+    echo s-occt
+    echo s-geom
+    echo s-gmsh
+    echo s-smesh
+}
+
+function s-gmsh-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GMSHPLUGIN_ROOT_DIR $PREFIX
+}
+
+function s-gmsh-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE gmsh-plugin Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
+          -DSALOME_CXX_STANDARD:STRING=17 \
+          ../src
+}
+
+function s-gmsh-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-gmsh-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-gmsh-plugin-prefix()
+{
+    echo NONE
+}

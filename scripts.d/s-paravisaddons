@@ -1,0 +1,151 @@
+
+
+function s-paravisaddons-common-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-paravisaddons-win-build-depends()
+{
+    echo s-visual-c
+    echo s-salome-bin
+}
+
+function s-paravisaddons-linux-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-paravisaddons-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-paravisaddons-default-depends()
+{
+    echo s-hdf5
+
+    echo s-medcoupling
+    echo s-medfichier
+    echo s-paravis
+}
+
+function s-paravisaddons-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PARAVISADDONS_ROOT_DIR $PREFIX
+    add-to-var PV_PLUGIN_PATH         $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH        $PREFIX/lib
+}
+
+function s-paravisaddons-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravisaddons Release)
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES
+
+    echo -DHDF5_LIBRARIES="$HDF5_LIBRARIES"
+    echo -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIRS"
+}
+
+function s-paravisaddons-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+}
+
+function s-paravisaddons-win-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
+
+    echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w $CONFIGURATION_ROOT_DIR)
+
+    echo -DPython3_EXECUTABLE="$Python3_EXECUTABLE"
+    echo -DPython3_LIBRARIES="$Python3_LIBRARIES"
+    echo -DPython3_INCLUDE_DIRS="$Python3_INCLUDE_DIRS"
+
+    echo -DLIBXML2_LIBRARY="$LIBXML2_LIBRARY"
+    echo -DFREETYPE_LIBRARY="$FREETYPE_LIBRARY"
+    echo -DZLIB_LIBRARY="$ZLIB_LIBRARY"
+    echo -DCGNS_LIBRARY="$CGNS_LIBRARY"
+}
+
+function s-paravisaddons-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-paravisaddons-win-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake -G "NMake Makefiles" $OPTIONS ../src
+}
+
+function s-paravisaddons-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-paravisaddons-win-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    nmake
+}
+
+function s-paravisaddons-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-paravisaddons-win-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    nmake install
+}
+
+function s-paravisaddons-prefix()
+{
+    echo NONE
+}
+
+function s-paravisaddons-win-prefix()
+{
+    echo $(cygpath -c -s "C:/opt/plugins")
+}

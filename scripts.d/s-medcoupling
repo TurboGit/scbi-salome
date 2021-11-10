@@ -1,0 +1,140 @@
+
+
+function s-medcoupling-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo none 
+    echo medcoupling-$VERSION.tar.gz 
+} 
+
+function s-medcoupling-build-depends()
+{
+    echo s-cmake-tool
+    echo os@-sphinx-common
+    echo os@-sphinx-intl
+    echo os@-python3-sphinx-rtd-theme
+}
+
+function s-medcoupling-ptscotch-depends()
+{
+    echo s-ptscotch
+}
+
+function s-medcoupling-scotch-depends()
+{
+    echo s-scotch
+}
+
+function s-medcoupling-mpi-depends()
+{
+    echo s-openmpi
+}
+
+function s-medcoupling-common-depends()
+{
+    echo os@-metis-dev
+    echo os@-libtirpc-dev
+
+    echo metis
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-medfichier
+}
+
+function s-medcoupling-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var MEDCOUPLING_ROOT_DIR $PREFIX
+    add-to-var MEDCoupling_DIR      $PREFIX/cmake_files
+    add-to-var LD_LIBRARY_PATH      $PREFIX/lib
+    add-to-var LIBRARY_PATH         $PREFIX/lib
+    add-to-var C_INCLUDE_PATH       $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include
+    add-to-var PYTHONPATH           $PREFIX/tests/MEDLoader_Swig
+    add-to-var PYTHONPATH           $PREFIX/tests/MEDCoupling_Swig
+    add-to-var PYTHONPATH           $PREFIX/tests/MEDPartitioner_Swig
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-medcoupling-mpi-config-options()
+{
+    echo -DSALOME_USE_MPI=ON
+    echo -DMEDCOUPLING_USE_MPI=ON
+
+    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
+    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+}
+
+function s-medcoupling-ptscotch-config-options()
+{
+    echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
+    echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
+
+    echo -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
+    echo -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
+    echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
+}
+
+function s-medcoupling-scotch-config-options()
+{
+    echo -DMEDCOUPLING_PARTITIONER_SCOTCH=ON
+    echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=OFF
+}
+
+function s-medcoupling-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE medcoupling Release)
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DMED_INT_IS_LONG=ON
+    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
+    echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
+    echo -DMEDCOUPLING_BUILD_TESTS=OFF
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DMEDCOUPLING_BUILD_DOC=OFF"}
+}
+
+function s-medcoupling-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-medcoupling-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-medcoupling-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-medcoupling-prefix()
+{
+    echo NONE
+}

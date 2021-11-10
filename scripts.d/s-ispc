@@ -1,0 +1,119 @@
+
+function s-ispc-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/ispc/ispc.git 
+} 
+
+
+function s-ispc-bin-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default
+    echo wget 
+    echo https://github.com/ispc/ispc/releases/download/$VERSION 
+    echo ispc-$VERSION-linux.tar.gz 
+} 
+
+function s-ispc-build-depends()
+{
+    local VERSION=$1
+
+    echo os@-zlib1g-dev
+    echo os@-ncurses-dev
+
+    echo s-cmake-tool
+    echo s-clang-edf
+    echo flex
+    echo bison
+    echo m4
+}
+
+function s-ispc-bin-build-depends()
+{
+    local VERSION=$1
+
+    true
+}
+
+function s-ispc-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH $SCBI_BDIR/install/bin
+}
+
+function s-ispc-bin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH $PREFIX/bin
+}
+
+function s-ispc-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ispc Release) \
+          -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
+          -DCMAKE_CXX_COMPILER=clang++ ../src
+}
+
+function s-ispc-bin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    true
+}
+
+function s-ispc-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-ispc-bin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    true
+}
+
+function s-ispc-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-ispc-bin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  The src directory is the extracted binaries
+    #  Just create a symlink
+
+    rm -fr ../install
+    ln -s src ../install
+}
+
+function s-ispc-bin-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo NONE
+}

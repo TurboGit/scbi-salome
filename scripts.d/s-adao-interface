@@ -1,0 +1,66 @@
+
+
+function s-adao-interface-build-depends()
+{
+    echo s-cmake-tool
+    echo s-py2cpp
+}
+
+function s-adao-interface-depends()
+{
+    echo s-salome-configuration
+    echo s-adao
+}
+
+function s-adao-interface-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var ADAO_INTERFACE_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH         $PREFIX/lib
+    add-to-var PYTHONPATH              \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-adao-interface-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+    add-to-var SPHINX_ROOT_DIR              /usr
+}
+
+function s-adao-interface-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adao Release) \
+          -DPY2CPP_ROOT_DIR=$PY2CPP_ROOT_DIR \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          ../src
+}
+
+function s-adao-interface-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-adao-interface-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-adao-interface-prefix()
+{
+    echo NONE
+}

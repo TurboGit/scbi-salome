@@ -1,0 +1,60 @@
+
+
+function s-pyqt-depends()
+{
+    echo s-qt
+    echo s-sip
+}
+
+function s-pyqt-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PYTHONPATH      $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+    add-to-var PYQT5_ROOT_DIR $PREFIX
+    add-to-var PYQT_ROOT_DIR  $PREFIX
+}
+
+function s-pyqt-out-of-tree()
+{
+    echo false
+}
+
+function s-pyqt-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    python3 configure.py --confirm-license -b $PREFIX/bin \
+            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
+            -v $PREFIX/share/sip \
+            --designer-plugindir=$PREFIX/include/python$PYTHON_VERSION \
+            --qml-plugindir=$PREFIX/include/python$PYTHON_VERSION \
+            --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages/PyQt5 \
+            --sip-incdir=$SIP_ROOT_DIR/include/python$PYTHON_VERSION
+}
+
+function s-pyqt-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-pyqt-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-pyqt-prefix()
+{
+    echo NONE
+}

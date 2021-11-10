@@ -1,0 +1,50 @@
+
+
+
+function s-salome-jobmanager-build-depends()
+{
+    echo s-cmake-tool
+}
+
+function s-salome-jobmanager-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-salome-gui
+}
+
+function s-salome-jobmanager-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE jobmanager Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
+          ../src
+}
+
+function s-salome-jobmanager-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-salome-jobmanager-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-salome-jobmanager-prefix()
+{
+    echo NONE
+}
