@@ -58,7 +58,7 @@ function geom-common-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DSALOME_GUI_BUILD_WITH_QT5=ON
-    echo -DSWIG_EXECUTABLE:PATH=$(which swig)
+    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE geom Release)
 }
 

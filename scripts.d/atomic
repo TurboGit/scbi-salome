@@ -41,7 +41,7 @@ function atomic-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
-          -DSWIG_EXECUTABLE:PATH=$(which swig) \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
           -DSWIG_DIR:PATH=$(swig -swiglib) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomic Release) \
           ../src

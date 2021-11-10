@@ -46,7 +46,7 @@ function s-python-omniorb-config()
 
     CXXFLAGS="-fpermissive" ../src/configure \
 	    --prefix=$PREFIX --with-omniorb=$OMNIORB_ROOT_DIR \
-            PYTHON=$(which python3)
+            PYTHON=$(command -v python3)
 }
 
 function s-python-omniorb-build()

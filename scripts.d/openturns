@@ -46,7 +46,7 @@ function openturns-config()
 
     cmake -DUSE_SPHINX=OFF -DUSE_DOXYGEN=OFF \
           -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           ../src
 }
 

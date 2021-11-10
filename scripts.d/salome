@@ -201,7 +201,7 @@ function build-salome-prerequisites()
         }
 
         echo                                                            > $FILE
-        echo "export ROOT_INSTALL=\$(dirname \$(which \$BASH_SOURCE))" >> $FILE
+        echo "export ROOT_INSTALL=\$(dirname \$(command -v \$BASH_SOURCE))" >> $FILE
         echo "export ROOT_EXTERNAL=\$ROOT_INSTALL/external"            >> $FILE
 
         # keep current PATH setting

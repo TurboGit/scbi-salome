@@ -53,7 +53,7 @@ function s-root-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(which python3) \
+          -DPYTHON_EXECUTABLE=$(command -v python3) \
           ../src
 }
 

@@ -67,7 +67,7 @@ function medfichier-common-config-options()
     local VARIANT=$3
 
     echo --prefix=$PREFIX
-    echo --with-swig=$(which swig)
+    echo --with-swig=$(command -v swig)
     echo --with-hdf5=$HDF5_LIB
     echo --with-hdf5-include=$HDF5_INC
     echo --with-hdf5-lib=$HDF5_LIB

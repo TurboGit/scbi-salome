@@ -38,7 +38,7 @@ function py2cpp-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(which python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE py2cpp Release) \
           ../src
 }

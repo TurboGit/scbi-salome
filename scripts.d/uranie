@@ -32,8 +32,8 @@ function uranie-config()
 
     cmake -DUSE_SPHINX=OFF \
           -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DLOCAL_PYTHON_EXEC=$(which python$PYTHON_VERSION) \
-          -DPYTHON_EXECUTABLE_FROMROOT=$(which python$PYTHON_VERSION) \
+          -DLOCAL_PYTHON_EXEC=$(command -v python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE_FROMROOT=$(command -v python$PYTHON_VERSION) \
           ../src
 }
 
