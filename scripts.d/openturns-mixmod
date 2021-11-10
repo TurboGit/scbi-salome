@@ -44,8 +44,8 @@ function openturns-mixmod-config()
           -DCMAKE_FIND_ROOT_PATH=ON \
           -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
           -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
-          -DSPHINX_ROOT_DIR:FILEPATH=$(dirname dpkg -L python3-sphinx | grep sphinx-build) \
-          -DSPHINX_EXECUTABLE:FILEPATH=$(dpkg -L python3-sphinx | grep sphinx-build) \
+          -DSPHINX_ROOT_DIR:FILEPATH=$(get-os-bin-dir sphinx-build) \
+          -DSPHINX_EXECUTABLE:FILEPATH=$(get-os-bin sphinx-build) \
           -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
           -DCMAKE_INSTALL_PREFIX=$PREFIX \
           ../src
