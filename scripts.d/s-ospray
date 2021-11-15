@@ -19,9 +19,9 @@ function s-ospray-tar()
 
 function s-ospray-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo s-ispc
-    echo s-clang-edf
+    echo s-clang
 }
 
 function s-ospray-depends()

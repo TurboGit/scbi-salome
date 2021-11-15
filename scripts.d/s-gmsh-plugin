@@ -27,7 +27,7 @@ function s-gmsh-plugin-tar()
 
 function s-gmsh-plugin-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-sphinx-common
 }
 

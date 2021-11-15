@@ -27,7 +27,7 @@ function s-salome-jobmanager-tar()
 
 function s-salome-jobmanager-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-salome-jobmanager-depends()

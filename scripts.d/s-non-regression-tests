@@ -9,7 +9,7 @@ function s-non-regression-tests-vcs()
 
 function s-non-regression-tests-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-non-regression-tests-depends()

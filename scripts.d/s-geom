@@ -27,7 +27,7 @@ function s-geom-tar()
 
 function s-geom-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-sphinx-common
     echo os@-swig
     echo os@-python3-psutil

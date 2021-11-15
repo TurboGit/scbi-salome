@@ -1,6 +1,6 @@
-inherit-plugin s-llvm
+inherit-plugin c-llvm
 
-function s-llvm-edf-vcs()
+function s-llvm-vcs()
 {
     echo edf
     echo none

@@ -27,7 +27,7 @@ function s-libbatch-tar()
 
 function s-libbatch-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-swig
 }
 

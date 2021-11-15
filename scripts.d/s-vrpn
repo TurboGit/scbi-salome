@@ -19,7 +19,7 @@ function s-vrpn-tar()
 
 function s-vrpn-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-vrpn-env()

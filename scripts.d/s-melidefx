@@ -9,7 +9,7 @@ function s-melidefx-vcs()
 
 function s-melidefx-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo s-salome-configuration
 }
 

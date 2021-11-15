@@ -19,7 +19,7 @@ function s-occt-tar()
 
 function s-occt-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-occt-depends()

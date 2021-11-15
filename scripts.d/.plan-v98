@@ -2,7 +2,7 @@
 # TOOLS
 
 # clang 12 & s-ispc 1.16 are matching versions
-s-clang-edf:release/12.x
+s-clang:release/12.x
 # using binary version 1.16.0, must be available in s-ispc GitHub
 s-ispc/bin:#v1.16.0
 
@@ -34,7 +34,7 @@ s-root:v6-22-00-patches
 ] :skip
 
 [
-        s-cmake-tool
+        s-cmake
         s-openmpi
         s-opencv
         s-scotch

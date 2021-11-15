@@ -17,7 +17,7 @@ function s-atomgen-cea-vcs()
 
 function s-atomgen-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-swig
 }
 

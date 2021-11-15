@@ -9,7 +9,7 @@ function s-paravisaddons-vcs()
 
 function s-paravisaddons-common-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-paravisaddons-win-build-depends()

@@ -19,7 +19,7 @@ function s-salome-openturns-tar()
 
 function s-salome-openturns-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-python3-sphinx
     echo os@-swig
     echo os@-graphviz-dev

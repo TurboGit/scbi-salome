@@ -30,7 +30,7 @@ function s-salome-gui-build-depends()
     echo os@-sphinx-common
     echo os@-sphinx-intl
 
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function salome-mpi-depends()

@@ -21,7 +21,7 @@ function s-openvkl-tar()
 
 function s-openvkl-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo s-ispc
 }
 

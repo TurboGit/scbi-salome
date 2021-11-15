@@ -17,7 +17,7 @@ function s-atomic-cea-vcs()
 
 function s-atomic-common-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-atomic-build-depends()

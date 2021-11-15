@@ -21,7 +21,7 @@ function s-planegcs-cea-tar()
 
 function s-planegcs-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-planegcs-depends()

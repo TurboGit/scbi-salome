@@ -2,7 +2,7 @@
 
 @load dev
 
-s-cmake-tool/native
+s-cmake/native
 
 [
         s-salome-bin

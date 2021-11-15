@@ -27,7 +27,7 @@ function s-netgen-plugin-tar()
 
 function s-netgen-plugin-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen

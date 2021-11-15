@@ -27,7 +27,7 @@ function s-ghs3dprl-plugin-tar()
 
 function s-ghs3dprl-plugin-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo s-salome-configuration
     echo os@-swig
     echo os@-doxygen

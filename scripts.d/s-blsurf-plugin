@@ -27,7 +27,7 @@ function s-blsurf-plugin-tar()
 
 function s-blsurf-plugin-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-sphinx-common
 }
 

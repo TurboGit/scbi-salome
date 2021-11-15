@@ -33,7 +33,7 @@ function s-salome-kernel-build-depends()
     echo os@-doxygen
     echo os@-graphviz
 
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-salome-kernel-mpi-depends()

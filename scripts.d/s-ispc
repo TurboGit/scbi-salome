@@ -34,8 +34,8 @@ function s-ispc-build-depends()
     echo os@-zlib1g-dev
     echo os@-ncurses-dev
 
-    echo s-cmake-tool
-    echo s-clang-edf
+    echo s-cmake
+    echo s-clang
     echo flex
     echo bison
     echo m4

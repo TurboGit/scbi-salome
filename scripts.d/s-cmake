@@ -1,4 +1,4 @@
-inherit-plugin s-cmake
+inherit-plugin c-cmake
 
 with-variant native os@-cmake
 
@@ -6,7 +6,7 @@ with-variant native os@-cmake
 with-variant win \
   --env 'add-to-var PATH $(cygpath -c -s "c:\opt\msys64\mingw64\bin")'
 
-function s-cmake-tool-cea-vcs()
+function s-cmake-cea-vcs()
 {
     echo edf
     echo none
@@ -14,7 +14,7 @@ function s-cmake-tool-cea-vcs()
     echo https://github.com/Kitware/CMake.git
 }
 
-function s-cmake-tool-tar()
+function s-cmake-tar()
 {
     local VERSION=$1
 
@@ -24,7 +24,7 @@ function s-cmake-tool-tar()
     echo cmake-$VERSION.tar.gz
 }
 
-function s-cmake-tool-build-depends()
+function s-cmake-build-depends()
 {
     echo os@-g++
     echo os@-make

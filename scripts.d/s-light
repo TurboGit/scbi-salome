@@ -27,7 +27,7 @@ function s-light-tar()
 
 function s-light-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen

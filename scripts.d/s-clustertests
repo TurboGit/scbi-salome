@@ -9,7 +9,7 @@ function s-clustertests-vcs()
 
 function s-clustertests-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-clustertests-depends()

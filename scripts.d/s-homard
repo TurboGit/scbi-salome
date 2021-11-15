@@ -27,7 +27,7 @@ function s-homard-tar()
 
 function s-homard-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-sphinx-common
 }
 
