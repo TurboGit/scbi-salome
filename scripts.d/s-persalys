@@ -12,7 +12,7 @@ function s-persalys-tar()
 
 function s-persalys-common-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-boost-locale-dev
 }
 

@@ -10,7 +10,7 @@ function s-openturns-vcs()
 
 function s-openturns-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-xml2-utils
 }
 

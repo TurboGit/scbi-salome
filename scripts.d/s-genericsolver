@@ -3,7 +3,7 @@
 
 function s-genericsolver-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-swig
     echo s-salome-configuration
 }

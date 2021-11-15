@@ -2,7 +2,7 @@
 
 function s-shaperstudy-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-shaperstudy-depends()

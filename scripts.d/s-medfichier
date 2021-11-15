@@ -17,7 +17,7 @@ function s-medfichier-patches()
 
 function s-medfichier-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-swig
 }
 

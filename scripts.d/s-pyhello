@@ -3,7 +3,7 @@
 
 function s-pyhello-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-swig
     echo os@-doxygen
     echo s-salome-configuration

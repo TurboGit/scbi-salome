@@ -12,7 +12,7 @@ function s-fields-tar()
 
 function s-fields-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-python3-stemmer

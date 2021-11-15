@@ -10,7 +10,7 @@ function s-gmsh-vcs()
 
 function s-gmsh-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-gmsh-depends()

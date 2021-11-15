@@ -12,7 +12,7 @@ function s-rkcommon-vcs()
 
 function s-rkcommon-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-rkcommon-depends()

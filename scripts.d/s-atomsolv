@@ -3,7 +3,7 @@
 
 function s-atomsolv-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-swig
 }
 

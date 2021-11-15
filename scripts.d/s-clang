@@ -1,9 +1,10 @@
-inherit-plugin s-llvm
+inherit-plugin c-clang
 
-function s-llvm-edf-vcs() 
+function s-clang-vcs() 
 { 
     echo default
     echo none 
     echo git 
     echo https://github.com/llvm/llvm-project.git 
 } 
+

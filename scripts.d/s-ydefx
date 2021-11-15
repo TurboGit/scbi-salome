@@ -12,7 +12,7 @@ function s-ydefx-tar()
 
 function s-ydefx-common-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-ydefx-default-build-depends()

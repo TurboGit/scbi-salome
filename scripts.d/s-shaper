@@ -2,7 +2,7 @@
 
 function s-shaper-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-doxygen
     echo os@-sphinx-common
 }

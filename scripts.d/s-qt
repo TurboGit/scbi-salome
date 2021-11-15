@@ -18,7 +18,7 @@ function s-qt-vcs()
 
 function s-qt-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-qt-env()

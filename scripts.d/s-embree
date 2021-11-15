@@ -14,9 +14,9 @@ function s-embree-build-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo s-cmake-tool
+    echo s-cmake
     echo s-ispc
-    echo s-clang-edf
+    echo s-clang
 }
 
 function s-embree-depends()

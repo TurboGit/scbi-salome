@@ -12,7 +12,7 @@ function s-smesh-tar()
 
 function s-smesh-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-sphinx-common
     echo os@-sphinx-intl
 }

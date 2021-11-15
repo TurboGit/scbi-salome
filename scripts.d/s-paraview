@@ -24,7 +24,7 @@ function s-paraview-build-depends()
 {
     echo os@-qtxmlpatterns5-dev-tools
 
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-paraview-gdal-depends

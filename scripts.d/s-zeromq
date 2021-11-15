@@ -2,7 +2,7 @@
 
 function s-zeromq-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-zeromq-env()

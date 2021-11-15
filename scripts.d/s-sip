@@ -8,7 +8,7 @@ function s-sip-vcs()
 
 function s-sip-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
 }
 
 function s-sip-depends()

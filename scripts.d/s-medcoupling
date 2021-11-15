@@ -12,7 +12,7 @@ function s-medcoupling-tar()
 
 function s-medcoupling-build-depends()
 {
-    echo s-cmake-tool
+    echo s-cmake
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-python3-sphinx-rtd-theme
