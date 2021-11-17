@@ -45,9 +45,10 @@ s-root:v6-22-00-patches
 # the s-salome meta-module version is used to name the .run and as the
 # version in create_catalog.py
 
+s-salome:dev
+
 # First, for repositories where master is at CEA
 [
-        s-salome
         s-fields
         s-geom
         s-atomgen

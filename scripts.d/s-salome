@@ -494,7 +494,7 @@ function s-salome-wrapup()
 
                 case $kind in
                     DEV)
-                        script_name=$script_name-dev
+                        script_name=$script_name-DEV
                         ;;
                     BRANCH|VERSION)
                         script_name=$script_name-$ref
