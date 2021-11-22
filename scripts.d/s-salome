@@ -172,31 +172,36 @@ function build-salome-prerequisites()
 
         function env-callback()
         {
-            local MODULE=$1
+            local FORMODULE=$1
             local MODREF=$2
-            local IS_ROOT=$3
-            local IS_EXT=$4
+            local LEVEL=$3
+            local IS_BUILD_DEPENDS=$4
+            local IS_EXT=$5
+            local IS_META=$6
 
-            fn-exists $MODULE-env
+            local module_info=( $(get-module-ref $FORMODULE $MODREF) )
+            local module=${module_info[0]}
+
+            fn-exists $module-env
             if [[ $? = 0 ]]; then
-                CURRENT_MODULE_NAME=$MODULE
-                CURRENT_MODULE=${MODULE//-/_}
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
+                CURRENT_MODULE_NAME=$module
+                CURRENT_MODULE=${module//-/_}
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
                 echo ""          >> $FILE
-                echo "# $MODULE" >> $FILE
+                echo "# $module" >> $FILE
 
                 echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                is-main-module $MODULE
+                is-main-module $module
 
                 if [[ $? = 0 ]]; then
                     echo "\${ROOT_INSTALL}"                          >> $FILE
                 else
-                    echo "\${ROOT_EXTERNAL}/${MODULE}"               >> $FILE
+                    echo "\${ROOT_EXTERNAL}/${module}"               >> $FILE
                 fi
 
-                $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
+                $module-env $CURRENT_MODULE_INSTALL $TARGET
             fi
         }
 
@@ -258,31 +263,36 @@ function build-salome-context()
 
         function env-callback()
         {
-            local MODULE=$1
+            local FORMODULE=$1
             local MODREF=$2
-            local IS_ROOT=$3
-            local IS_EXT=$4
+            local LEVEL=$3
+            local IS_BUILD_DEPENDS=$4
+            local IS_EXT=$5
+            local IS_META=$6
 
-            fn-exists $MODULE-env
+            local module_info=( $(get-module-ref $FORMODULE $MODREF) )
+            local module=${module_info[0]}
+
+            fn-exists $module-env
             if [[ $? = 0 ]]; then
-                CURRENT_MODULE_NAME=$MODULE
-                CURRENT_MODULE=${MODULE//-/_}
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$MODULE/build/install
+                CURRENT_MODULE_NAME=$module
+                CURRENT_MODULE=${module//-/_}
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
                 echo ""          >> $FILE
-                echo "# $MODULE" >> $FILE
+                echo "# $module" >> $FILE
 
                 echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                is-main-module $MODULE
+                is-main-module $module
 
                 if [[ $? = 0 ]]; then
                     echo "%(ROOT_INSTALL)s"                   >> $FILE
                 else
-                    echo "%(ROOT_EXTERNAL)s/${MODULE}"        >> $FILE
+                    echo "%(ROOT_EXTERNAL)s/${module}"        >> $FILE
                 fi
 
-                $MODULE-env $CURRENT_MODULE_INSTALL $TARGET
+                $module-env $CURRENT_MODULE_INSTALL $TARGET
             fi
         }
 
