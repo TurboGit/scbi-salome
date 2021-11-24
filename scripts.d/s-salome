@@ -179,7 +179,7 @@ function build-salome-prerequisites()
             local IS_EXT=$5
             local IS_META=$6
 
-            local module_info=( $(get-module-ref $FORMODULE $MODREF) )
+            local module_info=( $(get-module-ref $MODREF $FORMODULE) )
             local module=${module_info[0]}
 
             fn-exists $module-env
@@ -270,7 +270,7 @@ function build-salome-context()
             local IS_EXT=$5
             local IS_META=$6
 
-            local module_info=( $(get-module-ref $FORMODULE $MODREF) )
+            local module_info=( $(get-module-ref $MODREF $FORMODULE) )
             local module=${module_info[0]}
 
             fn-exists $module-env
@@ -471,7 +471,7 @@ function s-salome-wrapup()
 
             # compute the final installer script name
 
-            local module_info=( $(get-module-ref "@root" s-salome) )
+            local module_info=( $(get-module-ref s-salome) )
             local module=${module_info[0]}
             local variant=${module_info[1]}
             local kind=${module_info[2]}
