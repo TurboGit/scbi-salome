@@ -19,6 +19,9 @@ function s-meshgems-env()
     add-to-var PATH              $PREFIX/bin
     add-to-var PATH              $PREFIX/bin/Linux_64
 
+    # The actual values for the variables are set in the GitLab CI script
+    add-to-var SALOME_MG_KEYGEN_LIB_PATH "$(scbi-store-get-key MGKEYGEN)"
+
     # and the DISTENE license
     LICENSE_FILE="\"Use global envvar: DLIM8VAR\""
     add-to-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
