@@ -33,6 +33,11 @@ function s-salome-configuration-env()
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
+
+    # And some other global configuration options
+
+    add-to-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
+    add-to-var SALOME_ACTOR_DELEGATE_TO_VTK   1
 }
 
 function s-salome-configuration-out-of-tree()
