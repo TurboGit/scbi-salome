@@ -54,7 +54,6 @@ function s-persalys-env()
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PATH              $PREFIX/bin
 
-    add-to-var PERSALYS_CALIBRATION_ENGINE      adao
     add-to-var PERSALYS_HTML_DOCUMENTATION_PATH $PREFIX/share/persalys/doc/html
     add-to-var OTGUI_HTML_DOCUMENTATION_PATH    $PREFIX/share/otgui/doc/html
     add-to-var PV_PLUGIN_PATH                   $PREFIX/lib
