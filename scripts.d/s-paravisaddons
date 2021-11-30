@@ -48,7 +48,7 @@ function s-paravisaddons-common-config-options()
 
     local CDEBUG=$(is-enabled cmake-debug)
 
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravisaddons Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-paravisaddons Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES

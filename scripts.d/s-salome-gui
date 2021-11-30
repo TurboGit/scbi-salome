@@ -82,7 +82,7 @@ function s-salome-gui-common-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DSALOME_BUILD_TESTS=OFF
     echo -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE salome-gui Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-salome-gui Release)
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
 }

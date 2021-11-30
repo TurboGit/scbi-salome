@@ -44,7 +44,7 @@ function s-ghs3d-plugin-common-config-options()
     local DISDOC=$(is-enabled no-doc)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE smesh Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-ghs3d-plugin Release)
     echo -DSALOME_GUI_BUILD_WITH_QT5=ON
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}

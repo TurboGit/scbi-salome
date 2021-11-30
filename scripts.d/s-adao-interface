@@ -38,7 +38,7 @@ function s-adao-interface-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE adao Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-adao-interface Release) \
           -DPY2CPP_ROOT_DIR=$PY2CPP_ROOT_DIR \
           -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           ../src

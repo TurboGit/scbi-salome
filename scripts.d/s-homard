@@ -45,7 +45,7 @@ function s-homard-config()
     local DISDOC=$(is-enabled no-doc)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE homard Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-homard Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ../src

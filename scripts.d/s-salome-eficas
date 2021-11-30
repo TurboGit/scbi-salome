@@ -36,7 +36,7 @@ function s-salome-eficas-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE eficas_module Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-salome-eficas Release) \
           ../src
 }
 

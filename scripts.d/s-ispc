@@ -61,7 +61,7 @@ function s-ispc-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ispc Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-ispc Release) \
           -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
           -DCMAKE_CXX_COMPILER=clang++ ../src
 }

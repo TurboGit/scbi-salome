@@ -29,7 +29,7 @@ function s-libbatch-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
           -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE libbatch Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-libbatch Release) \
           ../src
 }
 

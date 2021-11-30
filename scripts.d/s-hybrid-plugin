@@ -33,7 +33,7 @@ function s-hybrid-plugin-config()
     local DISDOC=$(is-enabled no-doc)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_GUI_BUILD_WITH_QT5=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hybrid-plugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-hybrid-plugin Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ../src

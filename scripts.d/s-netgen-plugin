@@ -43,7 +43,7 @@ function s-netgen-plugin-config()
     local DISDOC=$(is-enabled no-doc)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE netgen-plugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-netgen-plugin Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           -DSALOME_CXX_STANDARD:STRING=17 \

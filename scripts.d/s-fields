@@ -50,7 +50,7 @@ function s-fields-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_GUI_BUILD_WITH_QT5=ON -DSALOME_BUILD_TESTS=OFF \
           -DMEDCOUPLING_USE_64BIT_IDS=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE fields Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-fields Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ../src

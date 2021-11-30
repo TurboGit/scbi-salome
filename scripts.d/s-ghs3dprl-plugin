@@ -46,7 +46,7 @@ function s-ghs3dprl-plugin-common-config-options()
     local DISDOC=$(is-enabled no-doc)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE ghs3dprl-plugin Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-ghs3dprl-plugin Release)
     echo -DMESHGEMS_ROOT_DIR=$MESHGEMS_ROOT_DIR
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}

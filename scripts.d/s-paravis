@@ -47,7 +47,7 @@ function s-paravis-config()
     local DISDOC=$(is-enabled no-doc)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE paravis Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-paravis Release) \
           -DVTK_DIR=$(last-modified-directory \
                           "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
