@@ -19,12 +19,13 @@ function s-salome-openturns-tar()
 
 function s-salome-openturns-build-depends()
 {
-    echo s-cmake
     echo os@-python3-sphinx
     echo os@-swig
     echo os@-graphviz-dev
     echo os@-doxygen
     echo os@-python3-docutils
+
+    echo s-cmake
     echo s-salome-configuration
 }
 
@@ -32,8 +33,8 @@ function s-salome-openturns-depends()
 {
     echo os@-qt5-default
     echo os@-qtbase5-dev
-    echo s-persalys
 
+    echo s-persalys
     echo s-salome-kernel
     echo s-openturns
     echo s-yacs
