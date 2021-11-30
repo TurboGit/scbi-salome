@@ -39,15 +39,27 @@ function s-openturns-env()
     add-to-var OPENTURNS_HOME    $PREFIX
 }
 
+function s-openturns-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DUSE_SPHINX=OFF
+    echo -DUSE_DOXYGEN=OFF
+    echo -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+}
+
 function s-openturns-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DUSE_SPHINX=OFF -DUSE_DOXYGEN=OFF \
-          -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
-          ../src
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake ${OPTIONS} ../src
 }
 
 function s-openturns-build()
