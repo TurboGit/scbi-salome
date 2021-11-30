@@ -44,7 +44,7 @@ function s-melidefx-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCONFIGURATION_ROOT_DIR=$CONFIGURATION_ROOT_DIR \
           -DCMAKE_PREFIX_PATH=$KERNEL_ROOT_DIR/salome_adm/cmake_files \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE melidefx Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-melidefx Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 

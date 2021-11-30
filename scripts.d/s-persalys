@@ -73,7 +73,7 @@ function s-persalys-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE persalys Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-persalys Release) \
           -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           -DUSE_SALOME=ON \
           -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include \

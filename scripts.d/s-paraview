@@ -120,7 +120,7 @@ function s-paraview-common-config-options()
     local TARGET=$2
     local VARIANT=$3
 
-    echo -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE paraview Release)
+    echo -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE s-paraview Release)
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
 
     echo -DBUILD_EXAMPLES:BOOL=OFF

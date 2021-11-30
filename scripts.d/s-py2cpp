@@ -54,7 +54,7 @@ function s-py2cpp-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE py2cpp Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-py2cpp Release) \
           ../src
 }
 

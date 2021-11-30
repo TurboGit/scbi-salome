@@ -54,7 +54,7 @@ function s-atomsolv-config()
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
           -DSWIG_DIR:PATH=$(swig -swiglib) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE atomsolv Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-atomsolv Release) \
           ../src
 }
 

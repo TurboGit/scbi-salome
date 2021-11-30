@@ -54,7 +54,7 @@ function s-hexotic-plugin-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE hexotic-plugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-hexotic-plugin Release) \
           ../src
 }
 

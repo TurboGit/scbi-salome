@@ -53,7 +53,7 @@ function s-non-regression-tests-config()
           -DWITH_YACS_TESTS:BOOL=OFF \
           -DWITH_PARAVIS_TESTS:BOOL=ON \
           -DWITH_SHAPER_TESTS:BOOL=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE non-regression-tests Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-non-regression-tests Release) \
            ../src
 }
 

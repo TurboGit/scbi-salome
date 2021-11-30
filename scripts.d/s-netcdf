@@ -53,7 +53,7 @@ function s-netcdf-config()
           -DHDF5_C_LIBRARY=$HDF5_C_LIBRARY_hdf5 \
           -DHDF5_HL_LIBRARY=$HDF5_C_LIBRARY_hdf5_hl \
           -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-gdal Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-netcdf Release) \
           ../src
 }
 
