@@ -21,6 +21,7 @@ function s-persalys-common-build-depends()
 {
     echo s-cmake
     echo os@-boost-locale-dev
+    echo os@-swig
 }
 
 function s-persalys-default-build-depends()
@@ -66,18 +67,29 @@ function s-persalys-env()
     add-to-var PV_PLUGIN_PATH                   $PREFIX/lib
 }
 
+function s-persalys-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-persalys Release)
+    echo -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DUSE_SALOME=ON
+    echo -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include
+    echo -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR
+}
+
 function s-persalys-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-persalys Release) \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
-          -DUSE_SALOME=ON \
-          -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include \
-          -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR \
-          ../src
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake ${OPTIONS} ../src
 }
 
 function s-persalys-build()
