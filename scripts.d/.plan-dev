@@ -90,7 +90,7 @@ s-salome:dev
         s-salome-s-adao
         s-adao
         s-adao-interface
-        s-paravisaddons
+        s-paravisaddons-edf
         s-ydefx
         s-melidefx
         s-non-regression-tests

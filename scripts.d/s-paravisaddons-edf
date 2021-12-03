@@ -1,5 +1,5 @@
 
-function s-paravisaddons-vcs()
+function s-paravisaddons-edf-vcs()
 {
     echo default
     echo none
@@ -7,28 +7,28 @@ function s-paravisaddons-vcs()
     echo https://git.forge.pleiade.edf.fr/git/paravisaddons
 }
 
-function s-paravisaddons-common-build-depends()
+function s-paravisaddons-edf-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-paravisaddons-win-build-depends()
+function s-paravisaddons-edf-win-build-depends()
 {
     echo s-visual-c
     echo s-salome-bin
 }
 
-function s-paravisaddons-linux-build-depends()
+function s-paravisaddons-edf-linux-build-depends()
 {
     echo s-salome-bin
 }
 
-function s-paravisaddons-common-depends()
+function s-paravisaddons-edf-common-depends()
 {
     echo s-salome-configuration
 }
 
-function s-paravisaddons-default-depends()
+function s-paravisaddons-edf-default-depends()
 {
     echo s-hdf5
 
@@ -37,7 +37,7 @@ function s-paravisaddons-default-depends()
     echo s-paravis
 }
 
-function s-paravisaddons-env()
+function s-paravisaddons-edf-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -47,7 +47,7 @@ function s-paravisaddons-env()
     add-to-var LD_LIBRARY_PATH        $PREFIX/lib
 }
 
-function s-paravisaddons-common-config-options()
+function s-paravisaddons-edf-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -55,12 +55,12 @@ function s-paravisaddons-common-config-options()
 
     local CDEBUG=$(is-enabled cmake-debug)
 
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-paravisaddons Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-paravisaddons-edf Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES
 }
 
-function s-paravisaddons-config-options()
+function s-paravisaddons-edf-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -69,7 +69,7 @@ function s-paravisaddons-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
 }
 
-function s-paravisaddons-win-config-options()
+function s-paravisaddons-edf-win-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -89,7 +89,7 @@ function s-paravisaddons-win-config-options()
     echo -DCGNS_LIBRARY="$CGNS_LIBRARY"
 }
 
-function s-paravisaddons-config()
+function s-paravisaddons-edf-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -100,7 +100,7 @@ function s-paravisaddons-config()
     cmake $OPTIONS ../src
 }
 
-function s-paravisaddons-win-config()
+function s-paravisaddons-edf-win-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -111,7 +111,7 @@ function s-paravisaddons-win-config()
     cmake -G "NMake Makefiles" $OPTIONS ../src
 }
 
-function s-paravisaddons-build()
+function s-paravisaddons-edf-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -119,7 +119,7 @@ function s-paravisaddons-build()
     make -j$SCBI_JOBS
 }
 
-function s-paravisaddons-win-build()
+function s-paravisaddons-edf-win-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -127,7 +127,7 @@ function s-paravisaddons-win-build()
     nmake
 }
 
-function s-paravisaddons-install()
+function s-paravisaddons-edf-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -135,7 +135,7 @@ function s-paravisaddons-install()
     make install
 }
 
-function s-paravisaddons-win-install()
+function s-paravisaddons-edf-win-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -143,12 +143,12 @@ function s-paravisaddons-win-install()
     nmake install
 }
 
-function s-paravisaddons-prefix()
+function s-paravisaddons-edf-prefix()
 {
     echo NONE
 }
 
-function s-paravisaddons-win-prefix()
+function s-paravisaddons-edf-win-prefix()
 {
     echo $(cygpath -c -s "C:/opt/plugins")
 }

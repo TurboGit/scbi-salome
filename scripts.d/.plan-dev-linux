@@ -6,7 +6,7 @@ s-cmake/native
 
 [
         s-salome-bin
-        s-paravisaddons
+        s-paravisaddons-edf
         s-atomic
         s-persalys:v11.0rc1
         s-ydefx

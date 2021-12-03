@@ -2,4 +2,4 @@ s-cmake/win
 s-visual-c/native
 s-windows-kit/native
 s-salome-bin/win
-s-paravisaddons/win
+s-paravisaddons-edf/win
