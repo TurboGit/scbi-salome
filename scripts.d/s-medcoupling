@@ -82,7 +82,6 @@ function s-medcoupling-mpi-config-options()
     echo -DSALOME_USE_MPI=ON
     echo -DMEDCOUPLING_USE_MPI=ON
 
-    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
     echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 

@@ -62,7 +62,6 @@ function s-salome-openturns-config()
     local CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSALOME_BUILD_TESTS=OFF \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-salome-openturns Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src

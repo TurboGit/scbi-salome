@@ -50,7 +50,6 @@ function s-gmsh-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-gmsh Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
-    echo -DENABLE_ACIS=OFF
     echo -DENABLE_BUILD_SHARED=ON
     echo -DENABLE_FLTK=OFF
     echo -DENABLE_MED=OFF

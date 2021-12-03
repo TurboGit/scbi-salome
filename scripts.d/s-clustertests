@@ -44,7 +44,6 @@ function s-clustertests-config()
     local CDEBUG=$(is-enabled cmake-debug)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DWITH_KERNEL_TESTS:BOOL=ON \
           -DWITH_TESTCONNECTION:BOOL=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-clustertests Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src

@@ -74,7 +74,6 @@ function s-smesh-mpi-config-options()
     local VARIANT=$3
 
     echo -DSALOME_USE_MPI=ON
-    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
     echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
@@ -89,7 +88,6 @@ function s-smesh-common-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-smesh Release)
-    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
     echo -DSALOME_SMESH_USE_CGNS=ON
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
