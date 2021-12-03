@@ -30,13 +30,10 @@ function s-openturns-svm-config()
     local TARGET=$2
 
     cmake -DUSE_SPHINX=OFF \
-          -DBUILD_DOC=OFF \
           -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           -DCMAKE_FIND_ROOT_PATH=ON \
           -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
           -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
-          -DSPHINX_ROOT_DIR:FILEPATH=$(get-os-bin-dir sphinx-build) \
-          -DSPHINX_EXECUTABLE:FILEPATH=$(get-os-bin sphinx-build) \
           -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
           -DCMAKE_INSTALL_PREFIX=$PREFIX \
           ../src

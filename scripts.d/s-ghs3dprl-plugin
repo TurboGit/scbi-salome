@@ -32,7 +32,6 @@ function s-ghs3dprl-plugin-mpi-config-options()
     local TARGET=$2
     local VARIANT=$3
 
-    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
     echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 

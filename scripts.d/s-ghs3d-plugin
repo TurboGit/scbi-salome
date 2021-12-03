@@ -30,7 +30,6 @@ function s-ghs3d-plugin-mpi-config-options()
     local TARGET=$2
     local VARIANT=$3
 
-    echo -DCMAKE_CC_COMPILER=$(get-os-bin mpicc)
     echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
@@ -45,7 +44,6 @@ function s-ghs3d-plugin-common-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-ghs3d-plugin Release)
-    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
 }

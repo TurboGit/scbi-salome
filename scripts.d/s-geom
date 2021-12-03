@@ -57,7 +57,6 @@ function s-geom-common-config-options()
     local CDEBUG=$(is-enabled cmake-debug)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
-    echo -DSALOME_GUI_BUILD_WITH_QT5=ON
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-geom Release)
 }

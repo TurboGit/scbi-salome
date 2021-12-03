@@ -50,11 +50,7 @@ function s-paravisaddons-common-config-options()
 
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-paravisaddons Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
-    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES
-
-    echo -DHDF5_LIBRARIES="$HDF5_LIBRARIES"
-    echo -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIRS"
 }
 
 function s-paravisaddons-config-options()
