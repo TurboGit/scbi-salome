@@ -91,7 +91,6 @@ s-paravisaddons-common:V9_8_0rc1
         s-salome-s-adao
         s-adao
         s-adao-interface
-        s-paravisaddons
         s-ydefx
 ] :V9_8_0rc1
 

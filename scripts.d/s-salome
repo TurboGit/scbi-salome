@@ -60,7 +60,6 @@ function s-salome-prerequisite-modules()
     echo s-embree
     echo s-paraview
     echo s-gmsh
-    echo s-paravisaddons
     echo s-paravisaddons-common
     echo s-persalys
     echo s-netgen

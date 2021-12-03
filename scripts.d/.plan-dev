@@ -88,7 +88,6 @@ s-salome:dev
         s-salome-s-adao
         s-adao
         s-adao-interface
-        s-paravisaddons
         s-ydefx
         clustertest
 ] :master
