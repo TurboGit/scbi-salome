@@ -80,11 +80,11 @@ s-root:v6-22-00-patches
         s-salome-s-openturns
         s-py2cpp
         s-paravisaddons-common
-] :V9_8_BR
+] :V9_8_0rc1
 
-# Some modules have no branches created for the release
-s-py2cpp:V9_8_0b1
-s-paravisaddons-common:V9_8_0b1
+# Some modules have no branches created for the release only tags
+s-py2cpp:V9_8_0rc1
+s-paravisaddons-common:V9_8_0rc1
 
 # Second, for repositories where master is at EDF
 [
@@ -98,7 +98,7 @@ s-paravisaddons-common:V9_8_0b1
         s-melidefx
         s-non-regression-tests
         s-clustertests
-] :V9_8_0b1
+] :V9_8_0rc1
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -111,7 +111,7 @@ s-paravisaddons-common:V9_8_0b1
         s-salome-gui/mpi
         s-ghs3d-plugin/mpi
         s-ghs3dprl-plugin/mpi
-] :V9_8_BR
+] :V9_8_0rc1
 
 [ /= mpi
         s-hdf5/native-serial
@@ -121,7 +121,7 @@ s-paravisaddons-common:V9_8_0b1
         s-salome-gui
         s-ghs3d-plugin
         s-ghs3dprl-plugin
-] :V9_8_BR
+] :V9_8_0rc1
 
 s-netgen/cmake:#6.2.2104
 s-gmsh:#4.8.4
