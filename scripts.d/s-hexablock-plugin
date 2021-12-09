@@ -70,7 +70,7 @@ function s-hexablock-plugin-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DSALOME_BUILD_TESTS=OFF \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-hexablock-plugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 

@@ -61,7 +61,7 @@ function s-gmsh-plugin-config()
     local DISDOC=$(is-enabled no-doc)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-gmsh-plugin Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ../src

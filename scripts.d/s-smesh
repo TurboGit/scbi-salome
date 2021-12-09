@@ -87,7 +87,7 @@ function s-smesh-common-config-options()
     local DISDOC=$(is-enabled no-doc)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-smesh Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DSALOME_SMESH_USE_CGNS=ON
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}

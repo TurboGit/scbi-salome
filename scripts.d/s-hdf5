@@ -121,7 +121,7 @@ function s-hdf5-common-config-options()
     echo -DHDF5_BUILD_TOOLS=ON
     echo -DBUILD_SHARED_LIBS=ON
     echo -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-hdf5 Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 }
 
 function s-hdf5-config()

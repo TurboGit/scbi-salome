@@ -68,7 +68,7 @@ function s-adao-config()
     local DISDOC=$(is-enabled no-doc)
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-adao Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DADAO_BUILD_DOC=OFF"} \

@@ -55,7 +55,7 @@ function s-paravisaddons-edf-common-config-options()
 
     local CDEBUG=$(is-enabled cmake-debug)
 
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-paravisaddons-edf Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DPARAVIEW_PLUGIN_ENABLE_pqEDFVisuClusterServerLauncher=YES
 }

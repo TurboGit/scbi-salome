@@ -59,7 +59,7 @@ function s-calculator-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-calculator Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }
 

@@ -62,7 +62,7 @@ function s-hello-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DKERNEL_ROOT_DIR=$KERNEL_ROOT_DIR \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-hello Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }
 

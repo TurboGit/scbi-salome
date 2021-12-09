@@ -39,7 +39,7 @@ function s-non-regression-tests-confidential-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DWITH_CAOMAILLAGE_TESTS:BOOL=ON \
           -DWITH_USECASES_TESTS:BOOL=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-non-regression-tests-confidential Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
            ../src
 }
 

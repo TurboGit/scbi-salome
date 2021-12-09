@@ -42,7 +42,7 @@ function s-atomgen-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-atomgen Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }
 
