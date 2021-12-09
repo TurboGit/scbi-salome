@@ -34,7 +34,7 @@ function s-paravisaddons-common-common-config-options()
     local CDEBUG=$(is-enabled cmake-debug)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-paravisaddons-common Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES

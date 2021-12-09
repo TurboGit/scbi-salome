@@ -39,7 +39,7 @@ function s-gmsh-config-options()
     local CDEBUG=$(is-enabled cmake-debug)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-gmsh Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DENABLE_BUILD_SHARED=ON
     echo -DENABLE_FLTK=OFF

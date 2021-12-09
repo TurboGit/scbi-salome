@@ -47,7 +47,7 @@ function s-salome-openturns-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-salome-openturns Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} ../src
 }
 

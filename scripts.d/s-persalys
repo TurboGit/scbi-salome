@@ -68,7 +68,7 @@ function s-persalys-config-options()
     local VARIANT=$3
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-persalys Release)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DUSE_SALOME=ON
     echo -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include

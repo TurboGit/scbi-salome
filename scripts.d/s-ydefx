@@ -56,7 +56,7 @@ function s-ydefx-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-ydefx Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }
 

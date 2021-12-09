@@ -38,7 +38,7 @@ function s-eficas-tools-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DWITH_TELEMAC_CATA=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-eficas_tools Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }
 

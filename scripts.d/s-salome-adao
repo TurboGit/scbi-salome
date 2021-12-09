@@ -60,7 +60,7 @@ function s-salome-adao-config()
           -DADAO_PYTHON_ROOT_DIR=$PREFIX \
           -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/$PSP/$INI \
           -DADAO_SALOME_MODULE=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE s-salome-adao Release) \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }
 
