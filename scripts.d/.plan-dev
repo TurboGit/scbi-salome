@@ -78,7 +78,7 @@ s-salome:dev
         s-pylight
         s-dsccode
         s-shaper
-        s-salome-s-openturns
+        s-salome-openturns
         s-py2cpp
         s-paravisaddons-common
 ] :master
@@ -94,7 +94,7 @@ s-salome:dev
         s-ydefx
         s-melidefx
         s-non-regression-tests
-        clustertest
+        s-clustertests
 ] :master
 
 # Third, the modules with MPI support or depending on
