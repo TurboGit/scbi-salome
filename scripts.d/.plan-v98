@@ -90,7 +90,7 @@ s-paravisaddons-common:V9_8_0rc1
 [
         s-salome-eficas
         s-eficas-tools
-        s-salome-s-adao
+        s-salome-adao
         s-adao
         s-adao-interface
         s-paravisaddons-edf
