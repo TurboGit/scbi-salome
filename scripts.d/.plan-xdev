@@ -1,28 +1,28 @@
 @load dev
 
 [
-	melidefx
-	blsurf-plugin
-	ghs3dprl-plugin
-	hexotic-plugin
-	persalys
-	openturns-fftw
-	openturns-mixmod
-	openturns-morris
-	openturns-pmml
-	openturns-robopt
-	openturns-subsetinverse
-	openturns-svm
-	openturns-wrapy
-	salome-openturns
-	non-regression-tests
+	s-melidefx
+	s-blsurf-plugin
+	s-ghs3dprl-plugin
+	s-hexotic-plugin
+	s-persalys
+	s-openturns-fftw
+	s-openturns-mixmod
+	s-openturns-morris
+	s-openturns-pmml
+	s-openturns-robopt
+	s-openturns-subsetinverse
+	s-openturns-svm
+	s-openturns-wrapy
+	s-salome-openturns
+	s-non-regression-tests
 	s-zeromq
-	uranie
-	melissa
-	clustertests
-	meshgems
-	paravisaddons
-	homard-tool
+	s-uranie
+	s-melissa
+	s-clustertests
+	s-meshgems
+	s-paravisaddons
+	s-homard-tool
 	s-python3-xlutils
 	s-root
 ] :skip
@@ -34,25 +34,25 @@
 	s-scotch
 ] /native
 
-s-cmake-tool:v3.13.5
+s-cmake:v3.13.5
 s-omniorb/auto:#4.2.2
 s-python-omniorb:#4.2.2
 
-openturns:1.16
+s-openturns:1.16
 
-embree:v3.12.2
+s-embree:v3.12.2
 s-rkcommon:v1.6.0
 s-openvkl:v0.11.0
-ospray:v2.4.0
-paraview/ospray.gdal:v5.9.0
-occt:0c61d938
-gmsh:gmsh_4_1_4
-planegcs:#0.18-3cb6890
-medcoupling/scotch
+s-ospray:v2.4.0
+s-paraview/ospray.gdal:v5.9.0
+s-occt:0c61d938
+s-gmsh:gmsh_4_1_4
+s-planegcs:#0.18-3cb6890
+s-medcoupling/scotch
 
 # On Fedora, skip gmsh has ld (GCC-10) reports duplicate symbol definitions
 # More recent version of GMSH work, but then not compatible with gmsh-plugin
 # More generally any version of GCC > 9 causes troubles with various parts
 # of SALOME.
-@on fed gmsh:skip
-@on fed gmsh-plugin:skip
+@on fed s-gmsh:skip
+@on fed s-gmsh-plugin:skip
