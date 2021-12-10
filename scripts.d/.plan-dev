@@ -76,7 +76,7 @@ s-salome:dev
         s-light
         s-pylight
         s-shaper
-        s-salome-s-openturns
+        s-salome-openturns
         s-py2cpp
         s-paravisaddons-common
 ] :master
@@ -89,7 +89,6 @@ s-salome:dev
         s-adao
         s-adao-interface
         s-ydefx
-        clustertest
 ] :master
 
 # Third, the modules with MPI support or depending on
