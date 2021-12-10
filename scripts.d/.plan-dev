@@ -85,7 +85,7 @@ s-salome:dev
 [
         s-salome-eficas
         s-eficas-tools
-        s-salome-s-adao
+        s-salome-adao
         s-adao
         s-adao-interface
         s-ydefx
