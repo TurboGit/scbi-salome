@@ -77,14 +77,14 @@ s-root:v6-22-00-patches
         s-pylight
         s-dsccode
         s-shaper
-        s-salome-s-openturns
+        s-salome-openturns
         s-py2cpp
         s-paravisaddons-common
-] :V9_8_0rc1
+] :V9_8_0
 
 # Some modules have no branches created for the release only tags
-s-py2cpp:V9_8_0rc1
-s-paravisaddons-common:V9_8_0rc1
+s-py2cpp:V9_8_0
+s-paravisaddons-common:V9_8_0
 
 # Second, for repositories where master is at EDF
 [
@@ -98,7 +98,7 @@ s-paravisaddons-common:V9_8_0rc1
         s-melidefx
         s-non-regression-tests
         s-clustertests
-] :V9_8_0rc1
+] :V9_8_0
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -111,7 +111,7 @@ s-paravisaddons-common:V9_8_0rc1
         s-salome-gui/mpi
         s-ghs3d-plugin/mpi
         s-ghs3dprl-plugin/mpi
-] :V9_8_0rc1
+] :V9_8_0
 
 [ /= mpi
         s-hdf5/native-serial
@@ -121,7 +121,7 @@ s-paravisaddons-common:V9_8_0rc1
         s-salome-gui
         s-ghs3d-plugin
         s-ghs3dprl-plugin
-] :V9_8_0rc1
+] :V9_8_0
 
 s-netgen/cmake:#6.2.2104
 s-gmsh:#4.8.4
@@ -131,9 +131,9 @@ s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
 
 # should be tag V2_4_3 as soon as available
-s-libbatch:V2_4_4rc2
+s-libbatch:V2_4_5
 
 s-python-omniorb:#4.2.2
 s-omniorb/auto
-s-occt:#b08cd04
+s-occt:V7_5_3p1
 s-meshgems:#V2.13-3_linux_EU
