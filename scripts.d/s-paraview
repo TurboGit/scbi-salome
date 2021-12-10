@@ -97,6 +97,8 @@ function s-paraview-env()
     add-to-var PARAVIEW_ROOT_DIR    $PREFIX
     add-to-var PARAVIEW_INSTALL_DIR $PREFIX
     add-to-var PATH                 $PREFIX/bin
+    add-to-var PV_PLUGIN_PATH       \
+               $(last-modified-directory "$PREFIX/lib/paraview*/plugins")
 
     for PLIB in $(ls -d $PREFIX/lib* 2> /dev/null); do
 	add-to-var LD_LIBRARY_PATH  $PLIB
