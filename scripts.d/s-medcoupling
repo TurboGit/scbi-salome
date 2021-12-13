@@ -38,7 +38,6 @@ function s-medcoupling-common-depends()
     echo os@-metis-dev
     echo os@-libtirpc-dev
 
-    echo metis
     echo s-salome-configuration
     echo s-salome-kernel
     echo s-medfichier
