@@ -1,4 +1,7 @@
 
+with-variant native os@-python3-pyqt5 os@-pyqt5-dev os@-pyqt5-dev-tools \
+       --env 'add-to-var PYQT5_ROOT_DIR /usr'
+
 
 function s-pyqt-depends()
 {
