@@ -61,7 +61,6 @@ function s-salome-kernel-common-depends()
     echo os@-graphviz-dev
     echo os@-python3-numpy
     echo os@-hdf5-dev
-    echo os@-cos4-dev
 
     echo s-salome-configuration
     echo s-libbatch
