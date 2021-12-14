@@ -51,21 +51,28 @@ function s-qt-env()
     add-to-var QT_QPA_PLATFORM_PLUGIN_PATH $PREFIX/plugins/platforms
 }
 
-function s-qt-build-env()
+function s-qt-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    add-to-var PATH $PREFIX/bin
+    echo --prefix=$PREFIX
+    echo -opensource
+    echo -confirm-license
+    echo -nomake examples
+    echo -nomake tests
 }
 
 function s-qt-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    ../src/configure --prefix=$PREFIX -opensource -confirm-license \
-                     -no-rpath -skip qtwebengine -qt-xcb
+    local OPTIONS=( $(get-config-options $PREFIX $TARGET $VARIANT) )
+
+    ../src/configure ${OPTIONS[*]}
 }
 
 function s-qt-build()
