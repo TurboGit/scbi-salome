@@ -35,7 +35,7 @@ function s-qt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var QT5_ROOT_DIR $PREFIX
+    add-to-var QT5_ROOT_DIR      $PREFIX
     add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
 
     add-to-var PATH                        $PREFIX/bin
