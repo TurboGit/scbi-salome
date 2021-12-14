@@ -22,7 +22,7 @@ function s-qt-tar()
     echo default
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
-    echo qt-everywhere-opensource-src-$VERSION.tar.xz
+    echo qt-everywhere-opensource-src-$VERSION.tar.gz
 }
 
 function s-qt-build-depends()
