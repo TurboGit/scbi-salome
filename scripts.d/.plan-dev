@@ -34,6 +34,8 @@ s-root:v6-22-00-patches
 ] :skip
 
 [
+        s-qt
+        s-pyqt
         s-cmake
         s-openmpi
         s-opencv
@@ -41,6 +43,7 @@ s-root:v6-22-00-patches
         s-ptscotch
         s-netcdf
         s-gdal
+        s-eigen
 ] /native
 
 # the s-salome meta-module version is used to name the .run and as the
