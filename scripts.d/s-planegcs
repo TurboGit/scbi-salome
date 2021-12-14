@@ -26,8 +26,8 @@ function s-planegcs-build-depends()
 
 function s-planegcs-depends()
 {
-    echo os@-eigen3-dev
     echo os@-boost-graph-dev
+    echo s-eigen
 }
 
 function s-planegcs-env()
@@ -37,7 +37,6 @@ function s-planegcs-env()
 
     add-to-var PLANEGCS_ROOT_DIR $PREFIX
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
-    add-to-var EIGEN_ROOT_DIR    /usr
 }
 
 function s-planegcs-config()
