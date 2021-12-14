@@ -27,7 +27,7 @@ function s-qt-tar()
 
 function s-qt-build-depends()
 {
-    echo s-cmake
+    echo os@-autoconf
 }
 
 function s-qt-env()
