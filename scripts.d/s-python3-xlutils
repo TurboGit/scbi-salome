@@ -20,6 +20,14 @@ function s-python3-xlutils-depends()
     echo os@-python3-xlwt
 }
 
+function s-python3-xlutils-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
 function s-python3-xlutils-env()
 {
     local PREFIX=$1
