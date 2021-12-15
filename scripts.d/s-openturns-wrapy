@@ -25,6 +25,15 @@ function s-openturns-wrapy-depends()
     echo os@-python3
 }
 
+function s-openturns-wrapy-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
 function s-openturns-wrapy-env()
 {
     local PREFIX=$1
