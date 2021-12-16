@@ -21,20 +21,18 @@ function s-persalys-common-build-depends()
 {
     echo s-cmake
     echo os@-boost-locale-dev
-    echo os@-swig
 }
 
 function s-persalys-default-build-depends()
 {
     echo s-py2cpp
+    echo os@-swig
 }
 
 function s-persalys-common-depends()
 {
     echo s-salome-configuration
     # And other modules not part of binary installation
-    echo s-openturns
-    echo s-openturns-morris
     echo s-ydefx
 }
 
@@ -42,6 +40,8 @@ function s-persalys-default-depends()
 {
     echo s-salome-gui
     echo s-salome-kernel
+    echo s-openturns
+    echo s-openturns-morris
     echo s-yacs
     echo s-adao
     echo s-adao-interface

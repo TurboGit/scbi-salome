@@ -1,8 +1,12 @@
 
 #  These are settings to use an installed SALOME binary (Windows or Linux)
 
-[[ -z $SCBI_SALOME_BIN ]] &&
-    echo SCBI_SALOME_BIN must be defined and pointing to a SALOME install &&
+[[ ! -f $SCBI_SALOME_BIN_ARCHIVE ]] &&
+    echo SCBI_SALOME_BIN_ARCHIVE must be set and pointing to a SALOME tarball &&
+    exit 1
+
+[[ ! -f ${SCBI_SALOME_BIN_ARCHIVE}.md5 ]] &&
+    echo SCBI_SALOME_BIN_ARCHIVE must have an md5 checksum file &&
     exit 1
 
 function s-salome-bin-win-env()
@@ -39,22 +43,16 @@ function s-salome-bin-win-env()
 
 function s-salome-bin-linux-env()
 {
-    local IROOT=$SCBI_SALOME_BIN/BINARIES-DB10
-    local IPROD=$IROOT/PRODUCTS
+    . $SCBI_BDIR/s-salome-ng/application/env_launch.sh
 
-    add-to-var C_INCLUDE_PATH       $IPROD/include
+    #  Some missing settings in env_launch.sh
 
-    add-to-var HDF5_ROOT            $IPROD
-    add-to-var HDF5_INCLUDE_DIRS    $IPROD/include
-    add-to-var HDF5_LIBRARIES       $IPROD/lib/libhdf5.so
-    add-to-var HDF5_HL_LIBRARIES    $IPROD/lib/libhdf5_hl.so
+    add-to-var CMAKE_PREFIX_PATH  $KERNEL_ROOT_DIR/salome_adm/cmake_files
+    add-to-var CMAKE_PREFIX_PATH  $GUI_ROOT_DIR/adm_local/cmake_files
+    add-to-var CMAKE_PREFIX_PATH  $YACS_ROOT_DIR/adm/cmake
+    add-to-var CMAKE_PREFIX_PATH  $OPENTURNS_ROOT_DIR/lib/cmake/openturns
+    add-to-var CMAKE_PREFIX_PATH  $OPENTURNS_ROOT_DIR/lib/cmake/otmoris
 
-    add-to-var CGNS_LIBRARY         $IPROD/lib/cgns.so
-    add-to-var KERNEL_ROOT_DIR      $IROOT/KERNEL
-    add-to-var OMNIORB_ROOT_DIR     $IROOT/omniORB
-    add-to-var GUI_ROOT_DIR         $IROOT/GUI
-
-    while read CMP; do
-        add-to-var CMAKE_PREFIX_PATH "$CMP"
-    done < <( find $IROOT -name "*onfig.cmake" -exec dirname {} \; | uniq )
+    add-to-var C_INCLUDE_PATH     $PY2CPP_ROOT_DIR/include
+    add-to-var CPLUS_INCLUDE_PATH $PY2CPP_ROOT_DIR/include
 }
