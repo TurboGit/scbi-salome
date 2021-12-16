@@ -1,13 +1,13 @@
 
 
-function s-openturns-morris-build-depends()
+function s-openturns-morris-default-build-depends()
 {
     echo s-cmake
     echo os@-swig
     echo os@-python3-sphinx
 }
 
-function s-openturns-morris-depends()
+function s-openturns-morris-default-depends()
 {
     echo s-openturns
     echo os@-python3
