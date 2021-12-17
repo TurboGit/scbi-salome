@@ -28,8 +28,8 @@ function s-salome-configuration-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CONFIGURATION_ROOT_DIR $SCBI_BDIR/install
-    add-to-var CONFIGURATION_CMAKE_DIR $SCBI_BDIR/install/cmake
+    add-to-var CONFIGURATION_ROOT_DIR  $PREFIX
+    add-to-var CONFIGURATION_CMAKE_DIR $PREFIX/cmake
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
