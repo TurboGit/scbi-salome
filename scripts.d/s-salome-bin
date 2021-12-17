@@ -9,6 +9,8 @@
     echo SCBI_SALOME_BIN_ARCHIVE must have an md5 checksum file &&
     exit 1
 
+####################################################### WINDOWS
+
 function s-salome-bin-win-env()
 {
     local IROOT=$SCBI_SALOME_BIN
@@ -41,9 +43,16 @@ function s-salome-bin-win-env()
     done < <( find $IROOT -name "*onfig.cmake" -exec dirname {} \; | uniq )
 }
 
+####################################################### LINUX
+
+function s-salome-bin-linux-depends()
+{
+    echo s-salome-tar
+}
+
 function s-salome-bin-linux-env()
 {
-    . $SCBI_BDIR/s-salome-ng/application/env_launch.sh
+    . ${SALOME_BIN_APPLICATION}/env_launch.sh
 
     #  Some missing settings in env_launch.sh
 
