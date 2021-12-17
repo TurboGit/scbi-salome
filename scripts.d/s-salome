@@ -460,7 +460,7 @@ function s-salome-wrapup()
 
             # install catalog script & patch version
 
-            cp $SCBI_DEFS/support/create_catalog.py $APP/
+            cp $SCBI_PLUGINS/support/create_catalog.py $APP/
 
             sed -i "s/<salome_version>/$ref/g" $APP/create_catalog.py
             chmod a+x $APP/create_catalog.py
@@ -477,12 +477,12 @@ function s-salome-wrapup()
 
                 # create the .run auto-installer to be distributed
 
-                cp $SCBI_DEFS/support/install-setup $APP/setup
+                cp $SCBI_PLUGINS/support/install-setup $APP/setup
                 chmod a+x $APP/setup
 
-                cp $SCBI_DEFS/support/servers.pvsc $APP/
+                cp $SCBI_PLUGINS/support/servers.pvsc $APP/
 
-                cp $SCBI_DEFS/support/salome_hpc_visu_servers.py $APP/
+                cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py $APP/
                 chmod a+x $APP/salome_hpc_visu_servers.py
 
                 cd $SCBI_BDIR/s-salome
