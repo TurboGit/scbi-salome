@@ -46,7 +46,10 @@ function s-salome-tar-env()
     local TARGET=$2
     local VARIANT=$3
 
+    local BINDIR=$(basename $(ls -1d $PREFIX/BINARIES-*))
+
     add-to-var SALOME_BIN_APPLICATION $PREFIX
+    add-to-var SALOME_BIN_MODULES     $PREFIX/$BINDIR
 }
 
 function s-salome-tar-install()
@@ -84,7 +87,7 @@ function s-salome-tar-install()
 
     #  Fix PATH in CMake pointing to the build-time environment
 
-    ORIGDIR="/volatile/salome/jenkins/workspace/SALOMEBuilder/SALOME-9.8.0-native-DB10/INSTALL"
+    ORIGDIR="/volatile/salome/jenkins/workspace/SALOMEBuilder/.*/INSTALL"
 
     BINDIR=$(basename $(ls -d $APPLICATION/BINARIES-*))
 
