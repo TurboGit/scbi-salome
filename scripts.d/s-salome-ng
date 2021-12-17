@@ -1,6 +1,7 @@
 
 function s-salome-ng-modules()
 {
+    echo s-salome-tar
     echo s-atomic
     echo s-persalys
 }
