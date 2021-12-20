@@ -87,9 +87,9 @@ function s-salome-tar-install()
 
     #  Fix PATH in CMake pointing to the build-time environment
 
-    ORIGDIR="/volatile/salome/jenkins/workspace/SALOMEBuilder/.*/INSTALL"
+    local ORIGDIR="/volatile/salome/jenkins/workspace/SALOMEBuilder/[^/]*/INSTALL"
 
-    BINDIR=$(basename $(ls -d $APPLICATION/BINARIES-*))
+    local BINDIR=$(basename $(ls -d $APPLICATION/BINARIES-*))
 
     find $APPLICATION/ -type f -name "*.cmake" | while read F; do
         sed -i "s,$ORIGDIR/,$APPLICATION/$BINDIR/,g" $F
