@@ -59,7 +59,6 @@ function s-salome-tar-install()
     local VARIANT=$3
 
     local BIN_ARCHIVE=$(basename ${SCBI_SALOME_BIN_ARCHIVE})
-    local APPLICATION=$PREFIX
 
     #  Copy the tarball content into the application directory. This will
     #  be the part changed (see below) and used to create the new installer.
@@ -67,7 +66,7 @@ function s-salome-tar-install()
     dlog salome-tar Init SALOME sources
 
     cd ..
-    mkdir -p $APPLICATION
+    mkdir -p $PREFIX
 
     #  The copy is done using hard links, so the actual new size on disk is 0.
 
@@ -83,29 +82,29 @@ function s-salome-tar-install()
     #  we use our own checkout.
 
     sed -i 's/^export\(.*CONFIGURATION_ROOT_DIR.*\)/# export \1/g' \
-        $APPLICATION/env_launch.sh
+        $PREFIX/env_launch.sh
 
     #  Fix PATH in CMake pointing to the build-time environment
 
     local ORIGDIR="/volatile/salome/jenkins/workspace/SALOMEBuilder/[^/]*/INSTALL"
 
-    local BINDIR=$(basename $(ls -d $APPLICATION/BINARIES-*))
+    local BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
 
-    find $APPLICATION/ -type f -name "*.cmake" |
+    find $PREFIX/ -type f -name "*.cmake" |
         while read F; do
-            sed -i "s,$ORIGDIR/,$APPLICATION/$BINDIR/,g" $F
+            sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
     # Fix wrong libtbb PATH pointing to the build-time environment
 
-    find $APPLICATION/$BINDIR/openturns -name "*.cmake" \
+    find $PREFIX/$BINDIR/openturns -name "*.cmake" \
          -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
 
     # fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
-    find $APPLICATION/$BINDIR/sip/bin -type f -name "*sip*" |
+    find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
         while read F; do
-            sed -i "s,$ORIGDIR/,$APPLICATION/$BINDIR/,g" $F
+            sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 }
 
