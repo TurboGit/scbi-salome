@@ -91,9 +91,10 @@ function s-salome-tar-install()
 
     local BINDIR=$(basename $(ls -d $APPLICATION/BINARIES-*))
 
-    find $APPLICATION/ -type f -name "*.cmake" | while read F; do
-        sed -i "s,$ORIGDIR/,$APPLICATION/$BINDIR/,g" $F
-    done
+    find $APPLICATION/ -type f -name "*.cmake" |
+        while read F; do
+            sed -i "s,$ORIGDIR/,$APPLICATION/$BINDIR/,g" $F
+        done
 
     # Fix wrong libtbb PATH pointing to the build-time environment
 
@@ -101,7 +102,11 @@ function s-salome-tar-install()
          -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
 
     # fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
-    # NEED TO BE DONE for Scibian-9.
+
+    find $APPLICATION/$BINDIR/sip/bin -type f -name "*sip*" |
+        while read F; do
+            sed -i "s,$ORIGDIR/,$APPLICATION/$BINDIR/,g" $F
+        done
 }
 
 function s-salome-tar-prefix()
