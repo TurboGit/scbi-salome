@@ -17,6 +17,19 @@ function s-persalys-tar()
     echo persalys-$VERSION.tar.xz
 }
 
+function s-persalys-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # the following patch is for V9_7_0 only as the corresponding
+    # fix has been merged in master.
+    [[ $REF =~ "9.7" ]] && echo persalys_find_boost.patch
+}
+
 function s-persalys-common-build-depends()
 {
     echo s-cmake
