@@ -18,9 +18,7 @@ function s-persalys-patches()
     local KIND=$4
     local REF=$5
 
-    # the following patch is for V9_7_0 only as the corresponding
-    # fix has been merged in master.
-    [[ $REF =~ "9.7" ]] && echo persalys_find_boost.patch
+    echo persalys-find-boost.patch
 }
 
 function s-persalys-common-build-depends()
