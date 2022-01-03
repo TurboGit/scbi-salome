@@ -31,27 +31,6 @@ function build-salome-prerequisites()
             local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
-
-            is-main-module $CURRENT_MODULE_NAME
-
-            if [[ $? = 0 ]]; then
-                REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
-            fi
-
-            case "$VAR" in
-                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                ;;
-
-                *)
-                    VSET=${VAR}_set
-                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
-
-                    # mark $VAR as set to ensure that the previous value
-                    # will be added on next call ${!VAR...} above.
-                    export ${VAR}_set=IS_SET
-                    ;;
-            esac
         }
 
         function env-callback()
@@ -72,33 +51,17 @@ function build-salome-prerequisites()
                 CURRENT_MODULE=${module//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-                echo ""          >> $FILE
-                echo "# $module" >> $FILE
-
-                echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
-
-                is-main-module $module
-
-                if [[ $? = 0 ]]; then
-                    echo "\${ROOT_INSTALL}"                          >> $FILE
-                else
-                    echo "\${ROOT_EXTERNAL}/${module}"               >> $FILE
-                fi
+                # Call <module>-env hook which will be using the add-to-var
+                # above.
 
                 $module-env $CURRENT_MODULE_INSTALL $TARGET
             fi
         }
 
-        echo                                                            > $FILE
-        echo "export ROOT_INSTALL=\$(dirname \$(command -v \$BASH_SOURCE))" >> $FILE
-        echo "export ROOT_EXTERNAL=\$ROOT_INSTALL/external"            >> $FILE
-
         # keep current PATH setting
         PATH_set=IS_SET
 
         for-all-modules-with-meta env-callback s-salome-ng
-
-	chmod u+x $FILE
     )
 }
 
@@ -107,205 +70,5 @@ function s-salome-wrapup()
     local PREFIX=$1
     local TARGET=$2
 
-    # MUST be rewritten when all dependencies compile.
-
-    # Finaly here we do:
-    # - copy the built modules into the binary installation
-    # - update the env_launch.sh
-    # - create the self installer
-
-    dlog salome DUMMY OUT FOR NOW
-    exit 0
-
-    (
-        rm -fr application
-        mkdir application
-        cd application
-
-        dlog salome create application context
-
-        # generate salome_prerequisites.sh shell script
-        build-salome-prerequisites $PREFIX $TARGET
-
-        # generate salome_context.cfg script
-        build-salome-context $PREFIX $TARGET
-
-        # generate config_appli.xml
-        build-config-appli $PREFIX $TARGET
-
-        if [[ "$(is-enabled application)" = "yes" ]] \
-               || [[ "$(is-enabled installer)" = "yes" ]];
-        then
-            dlog salome generate application
-            # generate the application directory
-            $SCBI_BDIR/s-salome-kernel/build/install/bin/salome/appli_gen.py
-
-            if [[ $? != 0 ]]; then
-                elog salome Error while running appli_gen
-                exit 1
-            fi
-
-            # salome application root dir
-            APP_DIR=$SCBI_BDIR/s-salome
-
-            # replace all symlinks outside the APP_DIR by a copy of
-            # the corresponding files/directories. This makes the
-            # application directory self contained.
-
-            dlog salome fix links to be relative to application directory
-
-            cd $APP_DIR
-
-            find . -type l | while read link; do
-                value=$(realpath --relative-to=$APP_DIR $link)
-
-                # if link to level above $APP_DIR, copy
-
-                if [[ ${value:0:3} = "../" ]]; then
-                    rm -f $link
-                    cp -r $value ${link}
-                fi
-            done
-
-            local APP=$SCBI_BDIR/s-salome/application
-            cd $APP
-
-            # generate the scbi_versions.txt for tracability
-
-            scbi --version > .scbi_versions.txt
-
-            # replace toplevel links to reference local scripts
-
-            for file in envd getAppliPath.py kill_remote_containers.py \
-                        runRemote.sh update_catalogs.py .bashrc .salome_run;
-            do
-                rm -f $file
-                ln -s ./bin/salome/appliskel/$file $file
-            done
-
-            # copy module dev support
-
-            dlog salome "copy the modules' dev support files"
-
-            for module in $(for-final-modules $(s-salome-main-modules)); do
-                MODULE_PATH=$SCBI_BDIR/$module/build/install
-
-                for dir in include salome_adm adm_local; do
-                    if [[ -d $MODULE_PATH/$dir ]]; then
-                        cp -r $MODULE_PATH/$dir .
-                    fi
-                done
-            done
-
-            # copy all prerequisites
-
-            dlog salome copy the pre-requisites
-
-            mkdir external
-
-            for p in $(s-salome-prerequisite-modules); do
-                # Some module may not be present if they have been skiped
-                # in build plan (:skip)
-                if [[ -d $SCBI_BDIR/$p/build/install ]]; then
-                    cp -r $SCBI_BDIR/$p/build/install external/$p
-                fi
-            done
-
-            # is the installer to be created?
-
-            res=0
-
-            # compute the final installer script name
-
-            local module_info=( $(get-module-ref s-salome) )
-            local module=${module_info[0]}
-            local variant=${module_info[1]}
-            local kind=${module_info[2]}
-            local ref=${module_info[3]}
-
-            # install catalog script & patch version
-
-            cp $SCBI_DEFS/support/create_catalog.py $APP/
-
-            sed -i "s/<salome_version>/$ref/g" $APP/create_catalog.py
-            chmod a+x $APP/create_catalog.py
-
-            if [[ $(is-enabled installer) ]]; then
-                dlog salome generate self installer, may take some time ...
-
-                # check that makeself is installed
-                check-tool makeself
-                if [[ $? != 0 ]]; then
-                    dlog salome Required tool makeself missing
-                    exit 1
-                fi
-
-                # create the .run auto-installer to be distributed
-
-                cp $SCBI_DEFS/support/install-setup $APP/setup
-                chmod a+x $APP/setup
-
-                cp $SCBI_DEFS/support/servers.pvsc $APP/
-
-                cp $SCBI_DEFS/support/salome_hpc_visu_servers.py $APP/
-                chmod a+x $APP/salome_hpc_visu_servers.py
-
-                cd $SCBI_BDIR/s-salome
-
-                local script_name=salome-$TARGET-$variant
-
-                case $kind in
-                    DEV)
-                        script_name=$script_name-DEV
-                        ;;
-                    BRANCH|VERSION)
-                        script_name=$script_name-$ref
-                        ;;
-                    *)
-                        ;;
-                esac
-
-                # --sha256 in 2.4 only
-
-                if [[ $(is-enabled xz) ]]; then
-                    # -xz compress 40% more but is slow to compress
-                    O_COMPRESS="--xz"
-                else
-                    O_COMPRESS="--bzip2"
-                fi
-
-                makeself $O_COMPRESS --tar-quietly \
-                         application $script_name.run \
-                         "SALOME Application" ./setup
-                res=$?
-            fi
-
-            # check for python3
-            #
-            if [[ -z "$(python --version 2>&1 | grep ' 3\.')" ]]; then
-                dlog python2 is default, checking for python3
-                if [[ -f /usr/bin/python3 ]]; then
-                    dlog found python3 in /usr/bin/python3, setup links
-                    (
-                        cd $APP
-                        rm -f ./bin/python ./bin/salome/python
-                        ln -s /usr/bin/python3 ./bin/python
-                        ln -s /usr/bin/python3 ./bin/salome/python
-                    )
-                else
-                    dlog cannot found a python3 installation.
-                    dlog SALOME will not work properly.
-                fi
-            fi
-
-            if [[ $res == 0 ]]; then
-                true
-            else
-                false
-            fi
-
-        else
-            true
-        fi
-    )
+    dlog salome not yet implemented
 }
