@@ -1,0 +1,75 @@
+
+function s-salome-ng-modules()
+{
+    echo s-salome-tar
+    echo s-atomic
+    echo s-paravisaddons-edf
+    echo s-persalys
+}
+
+function build-salome-prerequisites()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  THIS ROUTINE should be used to loop over all NEW dependencies (modules
+    #  built on top of the binary archive) and patch the env_launch.sh
+    #  to add the necessary configs.
+
+    (
+        FILE=salome_prerequisites.sh
+
+        CURRENT_MODULE_NAME=
+        CURRENT_MODULE=
+        CURRENT_MODULE_INSTALL=
+
+        function add-to-var()
+        {
+            local VAR=$1
+            local DIR=$2
+
+            # compute relative directory
+            local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
+            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
+        }
+
+        function env-callback()
+        {
+            local FORMODULE=$1
+            local MODREF=$2
+            local LEVEL=$3
+            local IS_BUILD_DEPENDS=$4
+            local IS_EXT=$5
+            local IS_META=$6
+
+            local module_info=( $(get-module-ref $MODREF $FORMODULE) )
+            local module=${module_info[0]}
+
+            fn-exists $module-env
+            if [[ $? = 0 ]]; then
+                CURRENT_MODULE_NAME=$module
+                CURRENT_MODULE=${module//-/_}
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
+
+                # Call <module>-env hook which will be using the add-to-var
+                # above.
+
+                $module-env $CURRENT_MODULE_INSTALL $TARGET
+            fi
+        }
+
+        # keep current PATH setting
+        PATH_set=IS_SET
+
+        for-all-modules-with-meta env-callback s-salome-ng
+    )
+}
+
+function s-salome-wrapup()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    dlog salome not yet implemented
+}

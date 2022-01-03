@@ -43,11 +43,11 @@ function s-ydefx-linux-build-depends()
 function s-ydefx-common-depends()
 {
     echo s-salome-configuration
-    echo os@-qt5-default
 }
 
 function s-ydefx-default-depends()
 {
+    echo os@-qt5-default
     echo s-salome-kernel
     echo s-yacs
 }
