@@ -95,12 +95,12 @@ function s-salome-tar-install()
             sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
-    # Fix wrong libtbb PATH pointing to the build-time environment
+    #  Fix wrong libtbb PATH pointing to the build-time environment
 
     find $PREFIX/$BINDIR/openturns -name "*.cmake" \
          -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
 
-    # fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
+    #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
         while read F; do
