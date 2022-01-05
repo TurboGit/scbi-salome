@@ -1,43 +1,8 @@
 
-function s-salome-tar-setup()
+
+function s-salome-tar-out-of-tree()
 {
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    local BIN_ARCHIVE=$(basename ${SCBI_SALOME_BIN_ARCHIVE})
-    local APPDIR=$(basename $BIN_ARCHIVE .tar.gz)
-    local DO_EXTRACT=no
-
-    #  If the md5 is not present locally
-
-    if [[ ! -f ${BIN_ARCHIVE}.md5 ]]; then
-        DO_EXTRACT=yes
-    else
-        #  Or the tarball is not the same
-        diff -q \
-             <( cat ${SCBI_SALOME_BIN_ARCHIVE}.md5 | cut -d' ' -f1 ) \
-             <( cat ${BIN_ARCHIVE}.md5 | cut -d' ' -f1 )
-
-        if [[ $? -ne 0 ]]; then
-            DO_EXTRACT=yes
-        fi
-    fi
-
-    #  We do extract it if needed
-
-    if [[ $DO_EXTRACT == yes ]]; then
-        dlog salome-tar Update SALOME bin from tarball
-        rm -fr ../build/*
-        tar --extract --directory=. --file=${SCBI_SALOME_BIN_ARCHIVE}
-
-        if [[ $? == 0 ]]; then
-            cp ${SCBI_SALOME_BIN_ARCHIVE}.md5 .
-        else
-            dlog salome-ng Fail to extract tarball
-            exit 1
-        fi
-    fi
+    echo false
 }
 
 function s-salome-tar-env()
@@ -66,14 +31,7 @@ function s-salome-tar-install()
     dlog salome-tar Init SALOME sources
 
     cd ..
-    mkdir -p $PREFIX
-
-    #  The copy is done using hard links, so the actual new size on disk is 0.
-
-    local APPDIR=$(basename $BIN_ARCHIVE .tar.gz)
-    rsync -a --link-dest=../../$APPDIR ../$APPDIR/* install/.
-
-    [[ $? -ne 0 ]] && dlog salome-ng Fail to copy sources && exit 1
+    ln -s build $PREFIX
 
     dlog salome-tar Fix some paths
 
