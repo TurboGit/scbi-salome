@@ -11,3 +11,7 @@ s-cmake/native
         s-persalys:v11.0rc1
         s-ydefx
 ] /linux
+
+# The version has two parts, the version of the code and the version of the OS
+# See tar hook in s-salome-tar for the MinIO download.
+s-salome-tar:#9.8.0:DB10
