@@ -1,13 +1,8 @@
 
-#  These are settings to use an installed SALOME binary (Windows or Linux)
-
-[[ ! -f $SCBI_SALOME_BIN_ARCHIVE ]] &&
-    echo SCBI_SALOME_BIN_ARCHIVE must be set and pointing to a SALOME tarball &&
-    exit 1
-
-[[ ! -f ${SCBI_SALOME_BIN_ARCHIVE}.md5 ]] &&
-    echo SCBI_SALOME_BIN_ARCHIVE must have an md5 checksum file &&
-    exit 1
+function s-salome-bin-depends()
+{
+    echo s-salome-tar
+}
 
 ####################################################### WINDOWS
 
@@ -44,11 +39,6 @@ function s-salome-bin-win-env()
 }
 
 ####################################################### LINUX
-
-function s-salome-bin-linux-depends()
-{
-    echo s-salome-tar
-}
 
 function s-salome-bin-linux-env()
 {
