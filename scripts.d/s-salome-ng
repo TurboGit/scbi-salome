@@ -17,7 +17,7 @@ function setup-salome-ng-env()
     #  to add the necessary configs.
 
     (
-        FILE=env_launch.sh
+        FILE=env_edf.sh
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -85,7 +85,8 @@ function setup-salome-ng-env()
             fi
         }
 
-        echo "export ROOT_EDF=\${out_dir_path}/EDF" >> $FILE
+        echo "# environement for the EDF specific modules" > $FILE
+        echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $FILE
 
         # keep current PATH setting
         PATH_set=IS_SET
