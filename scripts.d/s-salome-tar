@@ -37,8 +37,6 @@ function s-salome-tar-install()
     local TARGET=$2
     local VARIANT=$3
 
-    local BIN_ARCHIVE=$(basename ${SCBI_SALOME_BIN_ARCHIVE})
-
     #  Copy the tarball content into the application directory. This will
     #  be the part changed (see below) and used to create the new installer.
 
