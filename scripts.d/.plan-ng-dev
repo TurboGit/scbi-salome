@@ -11,6 +11,20 @@ s-cmake/native
         s-ydefx
 ] /linux
 
-# The version has two parts, the version of the code and the version of the OS
-# See tar hook in s-salome-tar for the MinIO download.
-s-salome-tar:#9.8.0:DB10
+#  The version has two parts, the version of the code and the version
+#  of the OS See tar hook in s-salome-tar for the MinIO download.
+
+[ = win
+
+        s-salome-tar:#9.8.0:WIN
+]
+
+[ = sc9
+
+        s-salome-tar:#9.8.0:DB9
+]
+
+[ = sc10
+
+        s-salome-tar:#9.8.0:DB10
+]
