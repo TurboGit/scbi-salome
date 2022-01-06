@@ -43,8 +43,6 @@ function s-persalys-default-build-depends()
 function s-persalys-common-depends()
 {
     echo s-salome-configuration
-    # And other modules not part of binary installation
-    echo s-ydefx
 }
 
 function s-persalys-default-depends()
@@ -56,6 +54,7 @@ function s-persalys-default-depends()
     echo s-yacs
     echo s-adao
     echo s-adao-interface
+    echo s-ydefx
 }
 
 function s-persalys-linux-depends()
