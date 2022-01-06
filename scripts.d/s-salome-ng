@@ -5,9 +5,10 @@ function s-salome-ng-modules()
     echo s-atomic
     echo s-paravisaddons-edf
     echo s-persalys
+    echo s-salome-configuration
 }
 
-function build-salome-prerequisites()
+function setup-salome-ng-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -17,7 +18,7 @@ function build-salome-prerequisites()
     #  to add the necessary configs.
 
     (
-        FILE=salome_prerequisites.sh
+        FILE=env_launch.sh
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -28,10 +29,25 @@ function build-salome-prerequisites()
             local VAR=$1
             local DIR=$2
 
-            # compute relative directory
+            #  Compute relative directory
             local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
+
+            case "$VAR" in
+                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                ;;
+
+                *)
+                    VSET=${VAR}_set
+                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
+
+                    # mark $VAR as set to ensure that the previous value
+                    # will be added on next call ${!VAR...} above.
+                    export ${VAR}_set=IS_SET
+                    ;;
+            esac
         }
 
         function env-callback()
@@ -46,18 +62,31 @@ function build-salome-prerequisites()
             local module_info=( $(get-module-ref $MODREF $FORMODULE) )
             local module=${module_info[0]}
 
-            fn-exists $module-env
-            if [[ $? = 0 ]]; then
-                CURRENT_MODULE_NAME=$module
-                CURRENT_MODULE=${module//-/_}
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
+            #  Skip some s-salome-tar & s-salome-bin
 
-                # Call <module>-env hook which will be using the add-to-var
-                # above.
+            if [[ $module != "s-salome-bin" ]] \
+                   && [[ $module != "s-salome-tar" ]];
+            then
+                fn-exists $module-env
+                if [[ $? = 0 ]]; then
+                    CURRENT_MODULE_NAME=$module
+                    CURRENT_MODULE=${module//-/_}
+                    CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-                $module-env $CURRENT_MODULE_INSTALL $TARGET
+                    # Call <module>-env hook which will be using the add-to-var
+                    # above.
+
+                    echo ""          >> $FILE
+                    echo "# $module" >> $FILE
+
+                    echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $FILE
+
+                    $module-env $CURRENT_MODULE_INSTALL $TARGET
+                fi
             fi
         }
+
+        echo "export ROOT_EDF=\${out_dir_path}/EDF" >> $FILE
 
         # keep current PATH setting
         PATH_set=IS_SET
@@ -66,10 +95,52 @@ function build-salome-prerequisites()
     )
 }
 
-function s-salome-wrapup()
+function s-salome-ng-wrapup()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    dlog salome not yet implemented
+    (
+        #  Clean-up previous installation if any
+
+        rm -fr application
+        mkdir application
+        cd application
+
+        if [[ "$(is-enabled application)" = "yes" ]] \
+               || [[ "$(is-enabled installer)" = "yes" ]];
+        then
+            dlog salome-ng prepare the application
+
+            #  Copy CEA's binaries
+
+            cp -r $SCBI_BDIR/s-salome-tar/build/install/* .
+
+            #  Copy EDF's modules into sub-directory EDF
+
+            mkdir EDF
+
+            for module in $(for-final-modules $(s-salome-ng-modules)); do
+                #  Skip s-salome-tar as it is the root install and already
+                #  handled above.
+
+                if [[ $module != "s-salome-tar" ]]; then
+                    MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+                    if [[ -d $MODULE_PATH ]]; then
+                        mkdir EDF/$module
+                        cp -r $MODULE_PATH/* EDF/$module
+                    fi
+                fi
+            done
+
+            dlog salome-ng setup application environment
+
+            setup-salome-ng-env $PREFIX $TARGET
+        fi
+
+        if [[ "$(is-enabled installer)" = "yes" ]]; then
+            true;
+        fi
+    )
 }
