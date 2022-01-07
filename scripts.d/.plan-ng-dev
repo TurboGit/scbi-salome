@@ -12,7 +12,6 @@ s-cmake/native
         s-salome-bin
         s-atomic
         s-persalys:v11.0rc1
-        s-ydefx
 ] /linux
 
 #  The version has two parts, the version of the code and the version
