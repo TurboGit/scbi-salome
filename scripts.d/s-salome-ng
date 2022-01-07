@@ -89,6 +89,8 @@ function setup-salome-ng-env()
         echo "# environement for the EDF specific modules" > $FILE
         echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $FILE
 
+        chmod a+x $FILE
+
         # keep current PATH setting
         PATH_set=IS_SET
 
@@ -111,7 +113,9 @@ function s-salome-ng-wrapup()
         if [[ "$(is-enabled application)" = "yes" ]] \
                || [[ "$(is-enabled installer)" = "yes" ]];
         then
-            dlog salome-ng prepare the application
+            scbi --version > .scbi_versions.txt
+
+            dlog salome-ng prepare the application directory
 
             #  Copy CEA's binaries
 
@@ -138,10 +142,102 @@ function s-salome-ng-wrapup()
             dlog salome-ng setup application environment
 
             setup-salome-ng-env $PREFIX $TARGET
-        fi
 
-        if [[ "$(is-enabled installer)" = "yes" ]]; then
-            true;
+            # is the installer to be created?
+
+            res=0
+
+            # compute the final installer script name
+
+            local module_info=( $(get-module-ref s-salome-ng) )
+            local module=${module_info[0]}
+            local variant=${module_info[1]}
+            local kind=${module_info[2]}
+            local ref=${module_info[3]}
+
+            # install catalog script & patch version
+
+            cp $SCBI_PLUGINS/support/create_catalog.py .
+
+            sed -i "s/<salome_version>/$ref/g" create_catalog.py
+            chmod a+x create_catalog.py
+
+            if [[ $(is-enabled installer) ]]; then
+                dlog salome generate self installer, may take some time ...
+
+                # check that makeself is installed
+                check-tool makeself
+                if [[ $? != 0 ]]; then
+                    dlog salome Required tool makeself missing
+                    exit 1
+                fi
+
+                # create the .run auto-installer to be distributed
+
+                cp $SCBI_PLUGINS/support/install-setup setup
+                chmod a+x setup
+
+                cp $SCBI_PLUGINS/support/servers.pvsc .
+
+                cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py .
+                chmod a+x salome_hpc_visu_servers.py
+
+                cd $SCBI_BDIR/s-salome-ng
+
+                local script_name=salome-$TARGET-$variant
+
+                case $kind in
+                    DEV)
+                        script_name=$script_name-DEV
+                        ;;
+                    BRANCH|VERSION)
+                        script_name=$script_name-$ref
+                        ;;
+                    *)
+                        ;;
+                esac
+
+                # --sha256 in 2.4 only
+
+                if [[ $(is-enabled xz) ]]; then
+                    # -xz compress 40% more but is slow to compress
+                    O_COMPRESS="--xz"
+                else
+                    O_COMPRESS="--bzip2"
+                fi
+
+                makeself $O_COMPRESS --tar-quietly \
+                         application $script_name.run \
+                         "SALOME Application" ./setup
+                res=$?
+            fi
+
+            # check for python3
+            #
+            if [[ -z "$(python --version 2>&1 | grep ' 3\.')" ]]; then
+                dlog python2 is default, checking for python3
+                if [[ -f /usr/bin/python3 ]]; then
+                    dlog found python3 in /usr/bin/python3, setup links
+                    (
+                        cd $APP
+                        rm -f ./bin/python ./bin/salome/python
+                        ln -s /usr/bin/python3 ./bin/python
+                        ln -s /usr/bin/python3 ./bin/salome/python
+                    )
+                else
+                    dlog cannot found a python3 installation.
+                    dlog SALOME will not work properly.
+                fi
+            fi
+
+            if [[ $res == 0 ]]; then
+                true
+            else
+                false
+            fi
+
+        else
+            true
         fi
     )
 }
