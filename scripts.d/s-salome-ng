@@ -17,7 +17,8 @@ function setup-salome-ng-env()
     #  to add the necessary configs.
 
     (
-        FILE=env_edf.sh
+        SFILE=env_edf.sh
+        PFILE=env_edf.py
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -29,9 +30,16 @@ function setup-salome-ng-env()
             local DIR=$2
 
             #  Compute relative directory
-            local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
+            local CURRENT_MODULE_VAR=${CURRENT_MODULE}_ROOT_INSTALL_DIR
+            local REPLTO="\${${CURRENT_MODULE_VAR}}"
             local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
+            local REL_PDIR="${DIR#$CURRENT_MODULE_INSTALL}"
+
+            #  Remove possible leading directory separator
+            [[ ${REL_PDIR:0:1} == '/' ]] && REL_PDIR=${REL_PDIR:1}
+
+            #  For shell script
 
             case "$VAR" in
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
@@ -40,11 +48,41 @@ function setup-salome-ng-env()
 
                 *)
                     VSET=${VAR}_set
-                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
+                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $SFILE
 
                     # mark $VAR as set to ensure that the previous value
                     # will be added on next call ${!VAR...} above.
                     export ${VAR}_set=IS_SET
+                    ;;
+            esac
+
+            #  For Python
+
+            local DVAR="os.path.join(ROOT_EDF, $CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
+
+            case "$VAR" in
+                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                ;;
+
+                PATH)
+                    echo "   context.addToPath($DVAR)"                >> $PFILE
+                    ;;
+                LD_LIBRARY_PATH)
+                    echo "   context.addToLdLibraryPath($DVAR)"       >> $PFILE
+                    ;;
+                PYTHONPATH)
+                    echo "   context.addToPythonPath($DVAR)"          >> $PFILE
+                    ;;
+                PV_PLUGIN_PATH)
+                    echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
+                    ;;
+                *)
+                    if [[ "$REL_PDIR" == "$DIR" ]]; then
+                        echo "   context.setVariable(r\"$VAR\", r\"$DIR\")" >> $PFILE
+                    else
+                        echo "   context.setVariable(r\"$VAR\", $DVAR)"     >> $PFILE
+                    fi
                     ;;
             esac
         }
@@ -75,25 +113,41 @@ function setup-salome-ng-env()
                     # Call <module>-env hook which will be using the add-to-var
                     # above.
 
-                    echo ""          >> $FILE
-                    echo "# $module" >> $FILE
+                    echo ""          >> $SFILE
+                    echo "# $module" >> $SFILE
 
-                    echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $FILE
+                    echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $SFILE
+
+                    echo ""             >> $PFILE
+                    echo "   # $module" >> $PFILE
+
+                    echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")" >> $PFILE
 
                     $module-env $CURRENT_MODULE_INSTALL $TARGET
                 fi
             fi
         }
 
-        echo "# environement for the EDF specific modules" > $FILE
-        echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $FILE
+        echo "# environement for the EDF specific modules" > $SFILE
+        echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $SFILE
+        chmod a+x $SFILE
 
-        chmod a+x $FILE
+        echo "# environement for the EDF specific modules"    > $PFILE
+        echo "import os.path"                                >> $PFILE
+        echo "def edfenv(context, root_dir):"                >> $PFILE
+        echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"  >> $PFILE
 
-        # keep current PATH setting
+        #  keep current PATH setting
         PATH_set=IS_SET
 
         for-all-modules-with-meta env-callback s-salome-ng
+
+        #  Now temprarily patch salome main to call the EDF specific env
+
+        sed -i 's/import subprocess/import subprocess, env_edf/' salome
+        sed -i 's/salome_system]/salome_system]
+    env_edf.edfenv(context, out_dir_Path)
+/' salome
     )
 }
 
