@@ -100,11 +100,11 @@ function s-paraview-env()
 
     local CMAKE_PV=$(last-modified-directory "$PREFIX/lib*/cmake/paraview-*")
 
+    set-var    PARAVIEW_ROOT_DIR    $PREFIX
+    set-var    PARAVIEW_INSTALL_DIR $PREFIX
+
     add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}
     add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}/vtk
-
-    add-to-var PARAVIEW_ROOT_DIR    $PREFIX
-    add-to-var PARAVIEW_INSTALL_DIR $PREFIX
     add-to-var PATH                 $PREFIX/bin
     add-to-var PV_PLUGIN_PATH       \
                $(last-modified-directory "$PREFIX/lib/paraview*/plugins")

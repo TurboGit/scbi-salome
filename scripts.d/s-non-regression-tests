@@ -35,7 +35,7 @@ function s-non-regression-tests-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH  $PREFIX/bin
+    add-to-var PATH $PREFIX/bin
 }
 
 function s-non-regression-tests-config()

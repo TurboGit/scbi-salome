@@ -53,9 +53,9 @@ function s-netgen-plugin-env()
     local TARGET=$2
 
     # Use system Qt5
-    add-to-var QT5_ROOT_DIR          /usr
+    set-var QT5_ROOT_DIR          /usr
 
-    add-to-var NETGENPLUGIN_ROOT_DIR $PREFIX
+    set-var NETGENPLUGIN_ROOT_DIR $PREFIX
 }
 
 function s-netgen-plugin-config()

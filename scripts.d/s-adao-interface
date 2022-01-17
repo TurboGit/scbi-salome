@@ -32,7 +32,8 @@ function s-adao-interface-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var ADAO_INTERFACE_ROOT_DIR $PREFIX
+    set-var    ADAO_INTERFACE_ROOT_DIR $PREFIX
+
     add-to-var LD_LIBRARY_PATH         $PREFIX/lib
     add-to-var PYTHONPATH              \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages
@@ -43,8 +44,8 @@ function s-adao-interface-build-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
-    add-to-var SPHINX_ROOT_DIR              /usr
+    set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+    set-var SPHINX_ROOT_DIR              /usr
 }
 
 function s-adao-interface-config()

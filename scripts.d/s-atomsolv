@@ -42,7 +42,7 @@ function s-atomsolv-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var ATOMSOLV_ROOT_DIR $PREFIX
+    set-var ATOMSOLV_ROOT_DIR $PREFIX
 }
 
 function s-atomsolv-config()

@@ -14,20 +14,22 @@ function s-meshgems-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var MESHGEMS_ROOT_DIR $PREFIX
+    set-var    MESHGEMS_ROOT_DIR $PREFIX
+
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib/Linux_64
     add-to-var PATH              $PREFIX/bin
     add-to-var PATH              $PREFIX/bin/Linux_64
 
     # The actual values for the variables are set in the GitLab CI script
-    add-to-var SALOME_MG_KEYGEN_LIB_PATH "$(scbi-store-get-key MGKEYGEN)"
+
+    set-var SALOME_MG_KEYGEN_LIB_PATH "$(scbi-store-get-key MGKEYGEN)"
 
     # and the DISTENE license
     LICENSE_FILE="\"Use global envvar: DLIM8VAR\""
-    add-to-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
-    add-to-var DLIM8VAR "\"dlim8 $(scbi-store-get-key DLIM8)\""
-    add-to-var DISTENE_LICENCE_FILE_FOR_YAMS "$LICENSE_FILE"
-    add-to-var DISTENE_LICENCE_FILE_FOR_MGCLEANER "$LICENSE_FILE"
+    set-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
+    set-var DLIM8VAR "\"dlim8 $(scbi-store-get-key DLIM8)\""
+    set-var DISTENE_LICENCE_FILE_FOR_YAMS "$LICENSE_FILE"
+    set-var DISTENE_LICENCE_FILE_FOR_MGCLEANER "$LICENSE_FILE"
 }
 
 function s-meshgems-out-of-tree()

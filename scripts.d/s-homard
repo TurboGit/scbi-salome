@@ -51,13 +51,13 @@ function s-homard-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var HOMARD_ROOT_DIR    $PREFIX
+    set-var    HOMARD_ROOT_DIR    $PREFIX
+    set-var    HOMARD_REP_EXE     $PREFIX/bin/salome
+    set-var    HOMARD_EXE         homard
+
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
     add-to-var PYTHONPATH         \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
-
-    add-to-var HOMARD_REP_EXE     $PREFIX/bin/salome
-    add-to-var HOMARD_EXE         homard
 }
 
 function s-homard-config()

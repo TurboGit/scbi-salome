@@ -35,8 +35,8 @@ function s-samples-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var SAMPLES_ROOT_DIR $PREFIX
-    add-to-var DATA_DIR         $PREFIX
+    set-var SAMPLES_ROOT_DIR $PREFIX
+    set-var DATA_DIR         $PREFIX
 }
 
 function s-samples-install()

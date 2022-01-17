@@ -26,10 +26,11 @@ function s-melissa-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var MELISSA_ROOT_DIR $PREFIX
-    add-to-var PATH 		$PREFIX/bin
-    add-to-var LD_LIBRARY_PATH 	$PREFIX/lib
-    add-to-var PYTHONPATH 	$PREFIX/lib
+    set-var    MELISSA_ROOT_DIR $PREFIX
+
+    add-to-var PATH             $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib
+    add-to-var PYTHONPATH       $PREFIX/lib
 }
 
 function s-melissa-config()

@@ -27,10 +27,11 @@ function s-openturns-subsetinverse-env()
     local PREFIX=$1
     local TARGET=$2
 
+    set-var OTSUBSETINVERSE_HOME $PREFIX
+
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
-    add-to-var OTSUBSETINVERSE_HOME    $PREFIX
 }
 
 function s-openturns-subsetinverse-config()

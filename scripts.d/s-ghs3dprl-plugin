@@ -48,7 +48,7 @@ function s-ghs3dprl-plugin-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var GHS3DPRLPLUGIN_ROOT_DIR $PREFIX
+    set-var GHS3DPRLPLUGIN_ROOT_DIR $PREFIX
 }
 
 function s-ghs3dprl-plugin-mpi-config-options()

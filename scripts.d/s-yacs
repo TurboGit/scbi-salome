@@ -48,7 +48,8 @@ function s-yacs-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var YACS_INSTALL_DIR  $PREFIX
+    set-var    YACS_INSTALL_DIR  $PREFIX
+
     add-to-var CMAKE_PREFIX_PATH $PREFIX/adm/cmake
 }
 

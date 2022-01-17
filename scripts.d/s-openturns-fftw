@@ -28,10 +28,11 @@ function s-openturns-fftw-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
-    add-to-var PYTHONPATH        \
+    set-var    OTFFTW_HOME     $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PYTHONPATH      \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
-    add-to-var OTFFTW_HOME    $PREFIX
 }
 
 function s-openturns-fftw-config()

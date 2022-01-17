@@ -42,7 +42,7 @@ function s-salome-eficas-depends()
 
 function s-salome-eficas-env()
 {
-    add-to-var EFICAS_ROOT_DIR $PREFIX/
+    set-var EFICAS_ROOT_DIR $PREFIX
 }
 
 function s-salome-eficas-config()

@@ -57,7 +57,8 @@ function s-ydefx-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var YDEFX_ROOT_DIR    $PREFIX
+    set-var    YDEFX_ROOT_DIR    $PREFIX
+
     add-to-var CMAKE_PREFIX_PATH $PREFIX/salome_adm/cmake_files
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib/
     add-to-var PYTHONPATH        \

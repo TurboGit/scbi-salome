@@ -52,7 +52,7 @@ function s-hello-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var HELLO_ROOT_DIR $PREFIX
+    set-var HELLO_ROOT_DIR $PREFIX
 }
 
 function s-hello-config()

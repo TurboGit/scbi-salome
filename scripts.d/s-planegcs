@@ -35,7 +35,8 @@ function s-planegcs-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PLANEGCS_ROOT_DIR $PREFIX
+    set-var    PLANEGCS_ROOT_DIR $PREFIX
+
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
 }
 

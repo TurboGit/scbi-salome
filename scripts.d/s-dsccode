@@ -60,8 +60,9 @@ function s-dsccode-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var DSCCODE_ROOT_DIR $PREFIX
-    add-to-var OMNIORB_ROOT_DIR /usr
+    set-var    DSCCODE_ROOT_DIR $PREFIX
+    set-var    OMNIORB_ROOT_DIR /usr
+
     add-to-var LD_LIBRARY_PATH  /usr/lib
 }
 

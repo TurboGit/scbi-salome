@@ -42,7 +42,8 @@ function s-paravisaddons-edf-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PARAVISADDONS_ROOT_DIR $PREFIX
+    set-var    PARAVISADDONS_ROOT_DIR $PREFIX
+
     add-to-var PV_PLUGIN_PATH         $PREFIX/lib
     add-to-var LD_LIBRARY_PATH        $PREFIX/lib
 }

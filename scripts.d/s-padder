@@ -35,9 +35,9 @@ function s-padder-build-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CGALHOME           /usr
-    add-to-var HDF5HOME           /usr
-    add-to-var BOOSTDIR           /usr
+    set-var    CGALHOME           /usr
+    set-var    HDF5HOME           /usr
+    set-var    BOOSTDIR           /usr
 
     # HDF5
     add-to-var C_INCLUDE_PATH     /usr/include/hdf5/openmpi
@@ -55,9 +55,9 @@ function s-padder-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PADDER_ROOT_DIR $PREFIX
-    add-to-var PADDERHOME      $PREFIX
-    add-to-var MED3HOME        $MEDFILE_ROOT_DIR/include
+    set-var PADDER_ROOT_DIR $PREFIX
+    set-var PADDERHOME      $PREFIX
+    set-var MED3HOME        $MEDFILE_ROOT_DIR/include
 }
 
 function s-padder-build()

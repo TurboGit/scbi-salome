@@ -126,14 +126,15 @@ function build-salome-prerequisites()
         CURRENT_MODULE=
         CURRENT_MODULE_INSTALL=
 
-        function add-to-var()
+        function define-var()
         {
-            local VAR=$1
-            local DIR=$2
+            local ACTION=$1
+            local VAR=$2
+            local VALUE=$3
 
             # compute relative directory
             local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
-            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
 
             is-main-module $CURRENT_MODULE_NAME
@@ -218,14 +219,15 @@ function build-salome-context()
         CURRENT_MODULE=
         CURRENT_MODULE_INSTALL=
 
-        function add-to-var()
+        function define-var()
         {
-            local VAR=$1
-            local DIR=$2
+            local ACTION=$1
+            local VAR=$2
+            local VALUE=$3
 
             # compute relative directory
             local REPLTO="%(${CURRENT_MODULE}_ROOT_INSTALL_DIR)s"
-            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_EXTERNAL)s}"
 
             is-main-module $CURRENT_MODULE_NAME

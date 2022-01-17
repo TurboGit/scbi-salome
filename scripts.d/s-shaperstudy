@@ -33,7 +33,7 @@ function s-shaperstudy-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var SHAPERSTUDY_ROOT_DIR $PREFIX
+    set-var SHAPERSTUDY_ROOT_DIR $PREFIX
 }
 
 function s-shaperstudy-config()

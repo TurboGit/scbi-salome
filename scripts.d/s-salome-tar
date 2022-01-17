@@ -27,8 +27,8 @@ function s-salome-tar-env()
 
     local BINDIR=$(basename $(ls -1d $PREFIX/BINARIES-*))
 
-    add-to-var SALOME_BIN_APPLICATION $PREFIX
-    add-to-var SALOME_BIN_MODULES     $PREFIX/$BINDIR
+    set-var SALOME_BIN_APPLICATION $PREFIX
+    set-var SALOME_BIN_MODULES     $PREFIX/$BINDIR
 }
 
 function s-salome-tar-install()

@@ -46,7 +46,7 @@ function s-atomic-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var ATOMIC_ROOT_DIR $PREFIX
+    set-var ATOMIC_ROOT_DIR $PREFIX
 }
 
 function s-atomic-config()

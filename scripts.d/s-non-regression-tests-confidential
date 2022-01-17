@@ -28,7 +28,7 @@ function s-non-regression-tests-confidential-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH  $PREFIX/bin
+    add-to-var PATH $PREFIX/bin
 }
 
 function s-non-regression-tests-confidential-config()

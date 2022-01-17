@@ -32,7 +32,7 @@ function s-atomgen-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var ATOMGEN_ROOT_DIR $PREFIX
+    set-var ATOMGEN_ROOT_DIR $PREFIX
 }
 
 function s-atomgen-config()

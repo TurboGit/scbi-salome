@@ -41,11 +41,12 @@ function s-openturns-env()
     local PREFIX=$1
     local TARGET=$2
 
+    set-var    OPENTURNS_HOME    $PREFIX
+
     add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
-    add-to-var OPENTURNS_HOME    $PREFIX
 }
 
 function s-openturns-config-options()

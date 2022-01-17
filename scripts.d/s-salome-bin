@@ -13,7 +13,7 @@ function s-salome-bin-win-env()
 
     add-to-var INCLUDE               $IEXT/include
 
-    add-to-var HDF5_ROOT             $IEXT
+    set-var    HDF5_ROOT             $IEXT
     add-to-var HDF5_INCLUDE_DIRS     $IEXT/include
     add-to-var HDF5_LIBRARIES        $IEXT/lib/libhdf5.lib
     add-to-var HDF5_HL_LIBRARIES     $IEXT/lib/libhdf5_hl.lib
@@ -25,13 +25,13 @@ function s-salome-bin-win-env()
     add-to-var Python3_EXECUTABLE    $IROOT/Python/python3.exe
     add-to-var Python3_LIBRARIES     $IROOT/Python/python3.lib
 
-    add-to-var FREETYPE_LIBRARY      $IEXT/lib/freetype.lib
+    set-var    FREETYPE_LIBRARY      $IEXT/lib/freetype.lib
 
-    add-to-var ZLIB_LIBRARY          $IEXT/bin/zlib.lib
+    set-var    ZLIB_LIBRARY          $IEXT/bin/zlib.lib
 
-    add-to-var CGNS_LIBRARY          $IEXT/lib/cgns.lib
+    set-var    CGNS_LIBRARY          $IEXT/lib/cgns.lib
 
-    add-to-var TBB_ROOT              $IEXT
+    set-var    TBB_ROOT              $IEXT
 
     while read CMP; do
         add-to-var CMAKE_PREFIX_PATH "$CMP"

@@ -19,7 +19,8 @@ function s-zeromq-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var ZEROMQ_ROOT_DIR 	$PREFIX
+    set-var    ZEROMQ_ROOT_DIR  $PREFIX
+
     add-to-var PATH 		$PREFIX/bin
     add-to-var LD_LIBRARY_PATH  $PREFIX/lib
 }

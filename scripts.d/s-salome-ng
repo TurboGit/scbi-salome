@@ -25,17 +25,18 @@ function setup-salome-ng-env()
         CURRENT_MODULE=
         CURRENT_MODULE_INSTALL=
 
-        function add-to-var()
+        function define-var()
         {
-            local VAR=$1
-            local DIR=$2
+            local ACTION=$1
+            local VAR=$2
+            local VALUE=$3
 
             #  Compute relative directory
             local CURRENT_MODULE_VAR=${CURRENT_MODULE}_ROOT_INSTALL_DIR
             local REPLTO="\${${CURRENT_MODULE_VAR}}"
-            local REL_TMP="${DIR/$CURRENT_MODULE_INSTALL/$REPLTO}"
+            local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
-            local REL_PDIR="${DIR#$CURRENT_MODULE_INSTALL}"
+            local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
 
             #  Remove possible leading directory separator
             [[ ${REL_PDIR:0:1} == '/' ]] && REL_PDIR=${REL_PDIR:1}
@@ -79,8 +80,8 @@ function setup-salome-ng-env()
                     echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
                     ;;
                 *)
-                    if [[ "$REL_PDIR" == "$DIR" ]]; then
-                        echo "   context.setVariable(r\"$VAR\", r\"$DIR\")" >> $PFILE
+                    if [[ "$REL_PDIR" == "$VALUE" ]]; then
+                        echo "   context.setVariable(r\"$VAR\", r\"$VALUE\")" >> $PFILE
                     else
                         echo "   context.setVariable(r\"$VAR\", $DVAR)"     >> $PFILE
                     fi
