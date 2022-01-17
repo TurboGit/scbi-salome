@@ -53,6 +53,8 @@ function s-salome-tar-install()
 
     sed -i 's/^export\(.*CONFIGURATION_ROOT_DIR.*\)/# export \1/g' \
         $PREFIX/env_launch.sh
+    sed -i 's/    context\.\(.*CONFIGURATION_ROOT_DIR.*\)/#    context.setVariable(r"\1/g' \
+        $PREFIX/salome
 
     #  Fix PATH in CMake pointing to the build-time environment
 
