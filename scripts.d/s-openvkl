@@ -31,14 +31,13 @@ function s-openvkl-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var OPENVKL_ROOT_DIR    $PREFIX
-    add-to-var OPENVKL_BUILD_DIR   $PREFIX/../build
+    set-var    OPENVKL_ROOT_DIR   $PREFIX
+    set-var    OPENVKL_BUILD_DIR  $PREFIX/../build
 
     add-to-var C_INCLUDE_PATH     $PREFIX/include/openvkl
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/openvkl
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
-
     add-to-var CMAKE_PREFIX_PATH \
                $(last-modified-directory "$PREFIX/lib*/cmake/openvkl-*")
 }

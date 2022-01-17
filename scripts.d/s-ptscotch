@@ -1,7 +1,7 @@
 
 with-variant native os@-ptscotch os@-ptscotch-dev \
 	     --env \
-	     'add-to-var PTSCOTCH_ROOT_DIR $(get-os-inc-dir scotch-long/ptscotch.h)' \
+	     'set-var    PTSCOTCH_ROOT_DIR $(get-os-inc-dir scotch-long/ptscotch.h)' \
 	     'add-to-var PTSCOTCH_INCLUDE_DIRS $PTSCOTCH_ROOT_DIR' \
 	     'add-to-var PTSCOTCH_LIBRARIES $(get-os-lib libptscotch.so)' \
 	     'add-to-var PTSCOTCH_ERR_LIBRARIES $(get-os-lib libptscotcherr.so)'

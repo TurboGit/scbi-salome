@@ -23,7 +23,7 @@ function s-shaper-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var SHAPER_ROOT_DIR $PREFIX
+    set-var SHAPER_ROOT_DIR $PREFIX
 }
 
 function s-shaper-config()

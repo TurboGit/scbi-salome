@@ -29,7 +29,8 @@ function s-python-omniorb-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var OMNIORBPY_ROOT_DIR $PREFIX
+    set-var    OMNIORBPY_ROOT_DIR $PREFIX
+
     add-to-var PYTHONPATH         \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages
     add-to-var PYTHONPATH         \

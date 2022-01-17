@@ -1,6 +1,6 @@
 
 with-variant native os@-openmpi-dev \
-	     --env 'add-to-var MPI_ROOT_DIR $(get-os-lib openmpi)' \
+	     --env 'set-var    MPI_ROOT_DIR $(get-os-lib openmpi)' \
                    'add-to-var MPI_LIB $(get-os-lib openmpi/lib/libmpi.so)' \
                    'add-to-var MPI_CXX_LIB $(get-os-lib openmpi/lib/libmpi_cxx.so)' \
                    'add-to-var C_INCLUDE_PATH $(get-os-inc-dir openmpi/mpi.h)' \

@@ -20,8 +20,8 @@ function s-pyhello-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PYHELLO_ROOT_DIR $PREFIX
-    add-to-var PYQT5_ROOT_DIR   $PREFIX
+    set-var PYHELLO_ROOT_DIR $PREFIX
+    set-var PYQT5_ROOT_DIR   $PREFIX
 }
 
 function s-pyhello-config()

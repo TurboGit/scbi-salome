@@ -40,7 +40,7 @@ function s-medfichier-mpi-depends()
 function s-medfichier-build-env()
 {
 
-    add-to-var PYTHON /usr/bin/python$PYTHON_VERSION
+    set-var PYTHON /usr/bin/python$PYTHON_VERSION
 }
 
 function s-medfichier-env()
@@ -48,9 +48,10 @@ function s-medfichier-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var MEDFILE_ROOT_DIR   $PREFIX
-    add-to-var MEDFile_DIR        \
-	       $(last-modified-directory "$PREFIX/share/cmake/med-fichier-*")
+    set-var    MEDFILE_ROOT_DIR   $PREFIX
+    set-var    MEDFile_DIR        \
+               $(last-modified-directory "$PREFIX/share/cmake/med-fichier-*")
+
     add-to-var PATH               $PREFIX/bin
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
     add-to-var LIBRARY_PATH       $PREFIX/lib

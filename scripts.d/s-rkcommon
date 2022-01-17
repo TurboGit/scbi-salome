@@ -29,8 +29,8 @@ function s-rkcommon-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var RKCOMMON_ROOT_DIR    $PREFIX
-    add-to-var RKCOMMON_BUILD_DIR   $PREFIX/../build
+    set-var    RKCOMMON_ROOT_DIR  $PREFIX
+    set-var    RKCOMMON_BUILD_DIR $PREFIX/../build
 
     add-to-var C_INCLUDE_PATH     $PREFIX/include/rkcommon
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/rkcommon

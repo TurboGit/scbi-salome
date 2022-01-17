@@ -31,9 +31,11 @@ function s-adao-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
-    add-to-var ADAO_ENGINE_ROOT_DIR $PREFIX
+    set-var    ADAO_ENGINE_ROOT_DIR $PREFIX
+
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-adao-build-env()
@@ -41,7 +43,7 @@ function s-adao-build-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+    set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 }
 
 function s-adao-config()

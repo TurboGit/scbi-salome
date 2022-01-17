@@ -42,7 +42,7 @@ function s-salome-adao-build-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+    set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 }
 
 function s-salome-adao-config()

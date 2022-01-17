@@ -26,7 +26,7 @@ function s-pylight-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PYLIGHT_ROOT_DIR $PREFIX
+    set-var PYLIGHT_ROOT_DIR $PREFIX
 }
 
 function s-pylight-config()

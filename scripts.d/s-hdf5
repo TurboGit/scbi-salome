@@ -3,12 +3,12 @@ with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
       --env  'add-to-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
              'add-to-var HDF5_LIBRARIES $(get-os-lib serial/libhdf5.so)' \
              'add-to-var HDF5_INC $(get-os-inc-dir serial/hdf5.h)' \
-             'add-to-var HDF5_ROOT_DIR /usr' \
-             'add-to-var HDF5_ROOT $HDF5_LIB' \
-             'add-to-var HDF5_DIR $HDF5_LIB' \
+             'set-var HDF5_ROOT_DIR /usr' \
+             'set-var HDF5_ROOT $HDF5_LIB' \
+             'set-var HDF5_DIR $HDF5_LIB' \
              'add-to-var HDF5_INCLUDE_DIRS $HDF5_INC' \
              'add-to-var HDF5_INCLUDE_DIR $HDF5_INC' \
-             'add-to-var HDF5_BIN /usr/bin' \
+             'set-var HDF5_BIN /usr/bin' \
              'add-to-var C_INCLUDE_PATH $HDF5_INC'  \
              'add-to-var CPLUS_INCLUDE_PATH $HDF5_INC'  \
              'add-to-var LIBRARY_PATH $HDF5_LIB
@@ -18,13 +18,13 @@ with-variant native-mpi os@-hdf5-dev os@-hdf5-openmpi-dev os@-hdf5-tools os@-ope
        --env 'add-to-var HDF5_LIB $(get-os-lib-dir openmpi/libhdf5.so)' \
              'add-to-var HDF5_LIBRARIES $(get-os-lib openmpi/libhdf5.so)' \
              'add-to-var HDF5_INC $(get-os-inc-dir openmpi/hdf5.h)' \
-             'add-to-var HDF5_ROOT_DIR /usr' \
-             'add-to-var HDF5_ROOT $HDF5_LIB' \
-             'add-to-var HDF5_DIR $HDF5_LIB' \
+             'set-var HDF5_ROOT_DIR /usr' \
+             'set-var HDF5_ROOT $HDF5_LIB' \
+             'set-var HDF5_DIR $HDF5_LIB' \
              'add-to-var HDF5_INCLUDE_DIRS $HDF5_INC' \
              'add-to-var HDF5_INCLUDE_DIR $HDF5_INC' \
-             'add-to-var HDF5_BIN /usr/bin' \
-             'add-to-var HDF5_PREFER_PARALLEL true' \
+             'set-var HDF5_BIN /usr/bin' \
+             'set-var HDF5_PREFER_PARALLEL true' \
              'add-to-var C_INCLUDE_PATH $HDF5_INC'  \
              'add-to-var CPLUS_INCLUDE_PATH $HDF5_INC'  \
              'add-to-var LIBRARY_PATH $HDF5_LIB'
@@ -62,11 +62,10 @@ function s-hdf5-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CMAKE_PREFIX_PATH  $PREFIX/share/cmake/hdf5
-    add-to-var HDF5_ROOT_DIR      $PREFIX
-    add-to-var HDF5_DIR           $PREFIX/share/cmake/hdf5
+    set-var    HDF5_ROOT_DIR      $PREFIX
+    set-var    HDF5_DIR           $PREFIX/share/cmake/hdf5
 
-    add-to-var HDF5_C_COMPILER_EXECUTABLE $PREFIX/bin/h5cc
+    set-var    HDF5_C_COMPILER_EXECUTABLE $PREFIX/bin/h5cc
     add-to-var HDF5_C_LIBRARY_hdf5        $PREFIX/lib/libhdf5.so
     add-to-var HDF5_C_LIBRARY_hdf5_hl     $PREFIX/lib/libhdf5_hl.so
     add-to-var HDF5_C_INCLUDE_DIR         $PREFIX/include
@@ -85,6 +84,7 @@ function s-hdf5-env()
     add-to-var CPLUS_INCLUDE_PATH $HDF5_C_INCLUDE_DIR
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var CMAKE_PREFIX_PATH  $PREFIX/share/cmake/hdf5
 }
 
 function s-hdf5-mpi-config-options()

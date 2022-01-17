@@ -10,8 +10,8 @@ function s-homard-tool-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var HOMARD_REP_EXE $PREFIX
-    add-to-var HOMARD_EXE     homard
+    set-var HOMARD_REP_EXE $PREFIX
+    set-var HOMARD_EXE     homard
 }
 
 function s-homard-tool-install()

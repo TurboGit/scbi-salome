@@ -26,7 +26,7 @@ function s-calculator-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CALCULATOR_ROOT_DIR $PREFIX
+    set-var CALCULATOR_ROOT_DIR $PREFIX
 }
 
 function s-calculator-config()

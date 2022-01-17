@@ -28,16 +28,16 @@ function s-salome-configuration-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var CONFIGURATION_ROOT_DIR  $PREFIX
-    add-to-var CONFIGURATION_CMAKE_DIR $PREFIX/cmake
+    set-var    CONFIGURATION_ROOT_DIR  $PREFIX
+    set-var    CONFIGURATION_CMAKE_DIR $PREFIX/cmake
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
 
     # And some other global configuration options
 
-    add-to-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
-    add-to-var SALOME_ACTOR_DELEGATE_TO_VTK   1
+    set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
+    set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
 }
 
 function s-salome-configuration-out-of-tree()

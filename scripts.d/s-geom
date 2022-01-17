@@ -39,7 +39,7 @@ function s-geom-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var GEOM_ROOT_DIR $PREFIX
+    set-var GEOM_ROOT_DIR $PREFIX
 }
 
 function s-geom-default-config-options()

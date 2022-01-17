@@ -26,7 +26,7 @@ function s-light-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var LIGHT_ROOT_DIR $PREFIX
+    set-var LIGHT_ROOT_DIR $PREFIX
 }
 
 function s-light-config()

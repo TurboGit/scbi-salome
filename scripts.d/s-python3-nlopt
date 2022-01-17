@@ -35,7 +35,8 @@ function s-python3-nlopt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var NLOPT_ROOT_DIR $PREFIX
+    set-var    NLOPT_ROOT_DIR $PREFIX
+
     add-to-var PYTHONPATH     $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 

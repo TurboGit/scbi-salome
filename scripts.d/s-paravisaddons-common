@@ -20,7 +20,8 @@ function s-paravisaddons-common-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PARAVISADDONS_COMMON_ROOT_DIR $PREFIX
+    set-var    PARAVISADDONS_COMMON_ROOT_DIR $PREFIX
+
     add-to-var PV_PLUGIN_PATH                $PREFIX/lib/paraview
     add-to-var LD_LIBRARY_PATH               $PREFIX/lib/paraview
 }

@@ -10,7 +10,7 @@
 with-variant native \
              os@-qt5-default os@-qtbase5-dev \
              os@-qt5opengl5-dev os@-qt5printsupport5 \
-       --env 'add-to-var QT5_ROOT_DIR /usr'
+       --env 'set-var QT5_ROOT_DIR /usr'
 
 function s-qt-vcs() 
 { 
@@ -31,9 +31,9 @@ function s-qt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var QT5_ROOT_DIR      $PREFIX
-    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+    set-var    QT5_ROOT_DIR      $PREFIX
 
+    add-to-var CMAKE_PREFIX_PATH           $PREFIX/lib/cmake
     add-to-var PATH                        $PREFIX/bin
     add-to-var LD_LIBRARY_PATH             $PREFIX/lib
     add-to-var C_INCLUDE_PATH              $PREFIX/include

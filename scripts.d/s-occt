@@ -30,8 +30,9 @@ function s-occt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var OPENCASCADE_ROOT_DIR $PREFIX
-    add-to-var CASROOT              $PREFIX
+    set-var    OPENCASCADE_ROOT_DIR $PREFIX
+    set-var    CASROOT              $PREFIX
+
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
     add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
     add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade

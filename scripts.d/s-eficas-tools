@@ -27,7 +27,8 @@ function s-eficas-tools-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var EFICAS_ROOT $PREFIX
+    set-var    EFICAS_ROOT $PREFIX
+
     add-to-var PYTHONPATH  $PREFIX
     add-to-var PYTHONPATH  $PREFIX/UiQt5
 }

@@ -25,7 +25,7 @@ function s-gmsh-plugin-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var GMSHPLUGIN_ROOT_DIR $PREFIX
+    set-var GMSHPLUGIN_ROOT_DIR $PREFIX
 }
 
 function s-gmsh-plugin-config()

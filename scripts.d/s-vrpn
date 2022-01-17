@@ -18,7 +18,8 @@ function s-vrpn-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var VRPN_ROOT_DIR $PREFIX
+    set-var    VRPN_ROOT_DIR $PREFIX
+
     add-to-var VRPN_INCLUDE_DIR $PREFIX/include
     add-to-var VRPN_LIBRARY $PREFIX/lib
 }

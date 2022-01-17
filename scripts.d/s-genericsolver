@@ -19,7 +19,7 @@ function s-genericsolver-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var GENERICSOLVER_INSTALL_DIR  $PREFIX
+    set-var GENERICSOLVER_INSTALL_DIR $PREFIX
 }
 
 function s-genericsolver-config()

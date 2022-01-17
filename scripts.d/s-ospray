@@ -35,14 +35,13 @@ function s-ospray-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var OSPRAY_ROOT_DIR    $PREFIX
-    add-to-var OSPRAY_BUILD_DIR   $PREFIX/../build
+    set-var    OSPRAY_ROOT_DIR    $PREFIX
+    set-var    OSPRAY_BUILD_DIR   $PREFIX/../build
 
     add-to-var C_INCLUDE_PATH     $PREFIX/include/ospray
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/ospray
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
-
     add-to-var CMAKE_PREFIX_PATH \
                $(last-modified-directory "$PREFIX/lib*/cmake/ospray-*")
 }

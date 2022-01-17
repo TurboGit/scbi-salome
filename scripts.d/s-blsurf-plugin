@@ -22,7 +22,7 @@ function s-blsurf-plugin-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var BLSURFPLUGIN_ROOT_DIR $PREFIX
+    set-var BLSURFPLUGIN_ROOT_DIR $PREFIX
 }
 
 function s-blsurf-plugin-config()
