@@ -26,6 +26,7 @@ s-cmake/native
 [ = sc9
 
         s-salome-tar:#9.8.0:DB09
+        s-cmake:skip
 ]
 
 [ = sc10
