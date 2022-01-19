@@ -17,8 +17,8 @@ function setup-salome-ng-env()
     #  to add the necessary configs.
 
     (
-        SFILE=env_edf.sh
-        PFILE=env_edf.py
+        SFILE=""
+        PFILE=""
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -114,14 +114,18 @@ function setup-salome-ng-env()
                     # Call <module>-env hook which will be using the add-to-var
                     # above.
 
-                    echo ""          >> $SFILE
-                    echo "# $module" >> $SFILE
+                    SFILE="extra.env.d/${CURRENT_MODULE}.sh"
+                    PFILE="extra.env.d/${CURRENT_MODULE}.py"
 
+                     echo "# $module"                                  > $SFILE
+                    echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $SFILE
                     echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $SFILE
+                    chmod a+x $SFILE
 
-                    echo ""             >> $PFILE
-                    echo "   # $module" >> $PFILE
-
+                    echo "# $module"                                     > $PFILE
+                    echo "import os.path"                               >> $PFILE
+                    echo "def init(context, root_dir):"                 >> $PFILE
+                    echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")" >> $PFILE
                     echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")" >> $PFILE
 
                     $module-env $CURRENT_MODULE_INSTALL $TARGET
@@ -129,14 +133,8 @@ function setup-salome-ng-env()
             fi
         }
 
-        echo "# environement for the EDF specific modules" > $SFILE
-        echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $SFILE
-        chmod a+x $SFILE
-
-        echo "# environement for the EDF specific modules"    > $PFILE
-        echo "import os.path"                                >> $PFILE
-        echo "def edfenv(context, root_dir):"                >> $PFILE
-        echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"  >> $PFILE
+        #  The directory where the environment files are stored
+        mkdir -p extra.env.d
 
         #  keep current PATH setting
         PATH_set=IS_SET
@@ -145,9 +143,17 @@ function setup-salome-ng-env()
 
         #  Now temprarily patch salome main to call the EDF specific env
 
-        sed -i 's/import subprocess/import subprocess, env_edf/' salome
+        sed -i 's/import subprocess/import subprocess, os.path, imp/' salome
         sed -i 's/salome_system]/salome_system]
-    env_edf.edfenv(context, out_dir_Path)
+    if os.path.exists("extra.env.d"):
+        sys.path.insert(0, os.path.join(os.getcwd(), "extra.env.d"))
+        for filename in os.listdir("extra.env.d"):
+            if filename.endswith(".py"):
+                f = os.path.join("extra.env.d", filename)
+                module_name = os.path.splitext(os.path.basename(f))[0]
+                fp, path, desc = imp.find_module(module_name)
+                module = imp.load_module(module_name, fp, path, desc)
+                module.init(context, out_dir_Path)
 /' salome
     )
 }
