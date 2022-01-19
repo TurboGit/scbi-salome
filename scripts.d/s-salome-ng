@@ -1,10 +1,8 @@
 
 function s-salome-ng-modules()
 {
-    echo s-salome-tar
     echo s-atomic
     echo s-persalys
-    echo s-salome-configuration
 }
 
 function setup-salome-ng-env()
@@ -17,8 +15,9 @@ function setup-salome-ng-env()
     #  to add the necessary configs.
 
     (
-        SFILE=""
-        PFILE=""
+        local SFILE=""
+        local PFILE=""
+        local N=0
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -31,6 +30,7 @@ function setup-salome-ng-env()
             local VALUE=$3
 
             #  Compute relative directory
+
             local CURRENT_MODULE_VAR=${CURRENT_MODULE}_ROOT_INSTALL_DIR
             local REPLTO="\${${CURRENT_MODULE_VAR}}"
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
@@ -38,7 +38,13 @@ function setup-salome-ng-env()
             local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
 
             #  Remove possible leading directory separator
+
             [[ ${REL_PDIR:0:1} == '/' ]] && REL_PDIR=${REL_PDIR:1}
+
+            #  We set values as some are used in depends modules like
+            #  s-salome-bin using SALOME_BIN_APPLICATION set in s-salome-tar.
+
+            [[ $ACTION == SET ]] && export $VAR=$VALUE
 
             #  For shell script
 
@@ -99,37 +105,36 @@ function setup-salome-ng-env()
 
             local module_info=( $(get-module-ref $MODREF $FORMODULE) )
             local module=${module_info[0]}
+            local variant=${module_info[1]}
 
             #  Skip some s-salome-tar & s-salome-bin
 
-            if [[ $module != "s-salome-bin" ]] \
-                   && [[ $module != "s-salome-tar" ]];
-            then
-                fn-exists $module-env
-                if [[ $? = 0 ]]; then
-                    CURRENT_MODULE_NAME=$module
-                    CURRENT_MODULE=${module//-/_}
-                    CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
+            FCT=$(get-hook $module $variant env)
 
-                    # Call <module>-env hook which will be using the add-to-var
-                    # above.
+            if [[ ! -z $FCT ]]; then
+                CURRENT_MODULE_NAME=$module
+                CURRENT_MODULE=${module//-/_}
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-                    SFILE="extra.env.d/${CURRENT_MODULE}.sh"
-                    PFILE="extra.env.d/${CURRENT_MODULE}.py"
+                # Call <module>-env hook which will be using the add-to-var
+                # above.
 
-                     echo "# $module"                                  > $SFILE
-                    echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $SFILE
-                    echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $SFILE
-                    chmod a+x $SFILE
+                SFILE="extra.env.d/${N}_${CURRENT_MODULE}.sh"
+                PFILE="extra.env.d/${N}_${CURRENT_MODULE}.py"
+                N=$(( N + 1 ))
 
-                    echo "# $module"                                     > $PFILE
-                    echo "import os.path"                               >> $PFILE
-                    echo "def init(context, root_dir):"                 >> $PFILE
-                    echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")" >> $PFILE
-                    echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")" >> $PFILE
+                echo "# $module"                                   > $SFILE
+                echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $SFILE
+                echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $SFILE
+                chmod a+x $SFILE
 
-                    $module-env $CURRENT_MODULE_INSTALL $TARGET
-                fi
+                echo "# $module"                                     > $PFILE
+                echo "import os.path"                               >> $PFILE
+                echo "def init(context, root_dir):"                 >> $PFILE
+                echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")" >> $PFILE
+                echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")" >> $PFILE
+
+                $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
             fi
         }
 
