@@ -163,9 +163,11 @@ function build-salome-prerequisites()
 
             local module_info=( $(get-module-ref $MODREF $FORMODULE) )
             local module=${module_info[0]}
+            local variant=${module_info[1]}
 
-            fn-exists $module-env
-            if [[ $? = 0 ]]; then
+            FCT=$(get-hook $module $variant env)
+
+            if [[ ! -z $FCT ]]; then
                 CURRENT_MODULE_NAME=$module
                 CURRENT_MODULE=${module//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
@@ -183,7 +185,7 @@ function build-salome-prerequisites()
                     echo "\${ROOT_EXTERNAL}/${module}"               >> $FILE
                 fi
 
-                $module-env $CURRENT_MODULE_INSTALL $TARGET
+                $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
             fi
         }
 
@@ -255,9 +257,11 @@ function build-salome-context()
 
             local module_info=( $(get-module-ref $MODREF $FORMODULE) )
             local module=${module_info[0]}
+            local variant=${module_info[1]}
 
-            fn-exists $module-env
-            if [[ $? = 0 ]]; then
+            FCT=$(get-hook $module $variant env)
+
+            if [[ ! -z $FCT ]]; then
                 CURRENT_MODULE_NAME=$module
                 CURRENT_MODULE=${module//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
@@ -275,7 +279,7 @@ function build-salome-context()
                     echo "%(ROOT_EXTERNAL)s/${module}"        >> $FILE
                 fi
 
-                $module-env $CURRENT_MODULE_INSTALL $TARGET
+                $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
             fi
         }
 
