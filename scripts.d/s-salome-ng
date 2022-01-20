@@ -3,6 +3,7 @@ function s-salome-ng-modules()
 {
     echo s-atomic
     echo s-persalys
+    echo s-salome-openturns
 }
 
 function setup-salome-ng-env()
