@@ -31,7 +31,7 @@ done
 if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
    echo Python2 is default, checking for python3
    if [ -f /usr/bin/python3 ]; then
-      echo Found Python3 in /usr/bin/python3, setuup links
+      echo Found Python3 in /usr/bin/python3, setup links
       ln -s /usr/bin/python3 bin/python
       ln -s /usr/bin/python3 bin/salome/python
    else
