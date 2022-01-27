@@ -23,13 +23,13 @@ s-cmake/native
         s-salome-tar:#9.8.0:WIN
 ]
 
-[ = sc9
+[ = deb,9
 
         s-salome-tar:#9.8.0:DB09
         s-cmake:skip
 ]
 
-[ = sc10
+[ = deb,10
 
         s-salome-tar:#9.8.0:DB10
 ]
