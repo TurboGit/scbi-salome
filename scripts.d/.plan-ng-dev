@@ -26,11 +26,11 @@ s-cmake/native
 
 [ = deb,9
 
-        s-salome-tar:#9.8.0:DB09
+        s-salome-tar:#master:DB09
         s-cmake:skip
 ]
 
 [ = deb,10
 
-        s-salome-tar:#9.8.0:DB10
+        s-salome-tar:#master-native:DB10
 ]
