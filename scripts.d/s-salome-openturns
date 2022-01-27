@@ -66,6 +66,13 @@ function s-salome-openturns-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
+function s-salome-openturns-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-salome-openturns-config()
 {
     local PREFIX=$1
