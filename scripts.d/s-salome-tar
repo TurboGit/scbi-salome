@@ -85,6 +85,10 @@ function s-salome-tar-install()
         while read F; do
             sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
+
+    #  Add env-var ROOT_SALOME_INSTALL that is needed by OPENTURNS tests
+
+    sed -i "/    \#\[SALOME\]/a     \    context.setVariable(r\"ROOT_SALOME_INSTALL\", out_dir_Path,overwrite=True)" $PREFIX/salome
 }
 
 function s-salome-tar-prefix()
