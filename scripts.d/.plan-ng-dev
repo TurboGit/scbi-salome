@@ -28,6 +28,7 @@ s-cmake/native
 
         s-salome-tar:#9.8.0:DB09
         s-cmake:skip
+        os@-boost-locale-dev:skip
 ]
 
 [ = deb,10
