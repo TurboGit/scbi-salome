@@ -95,7 +95,7 @@ function setup-salome-ng-env()
             esac
         }
 
-        function env-callback()
+        function mod-callback()
         {
             local FORMODULE=$1
             local MODREF=$2
@@ -111,7 +111,6 @@ function setup-salome-ng-env()
             #  Skip some s-salome-tar & s-salome-bin
 
             FCT=$(get-hook $module $variant env)
-
             if [[ ! -z $FCT ]]; then
                 CURRENT_MODULE_NAME=$module
                 CURRENT_MODULE=${module//-/_}
@@ -137,6 +136,12 @@ function setup-salome-ng-env()
 
                 $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
             fi
+
+            FCT=$(get-hook $module $variant ctest-dir)
+            if [[ ! -z $FCT ]]; then
+                local BINDIR=$(basename $(ls -1d BINARIES-*))
+                echo "SUBDIRS(../../../../../$($FCT EDF/$module))" >> $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
+            fi
         }
 
         #  The directory where the environment files are stored
@@ -145,7 +150,7 @@ function setup-salome-ng-env()
         #  keep current PATH setting
         PATH_set=IS_SET
 
-        for-all-modules-with-meta env-callback s-salome-ng
+        for-all-modules-with-meta mod-callback s-salome-ng
 
         #  Now temprarily patch salome main to call the EDF specific env
 
