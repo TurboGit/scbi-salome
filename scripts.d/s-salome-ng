@@ -245,7 +245,7 @@ function s-salome-ng-wrapup()
 
                 # create the .run auto-installer to be distributed
 
-                cp $SCBI_PLUGINS/support/install-setup setup
+                cp $SCBI_PLUGINS/support/install-setup-ng setup
                 chmod a+x setup
 
                 cp $SCBI_PLUGINS/support/servers.pvsc .

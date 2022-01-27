@@ -1,0 +1,91 @@
+#!/bin/bash
+
+AUTO=0
+
+# check that directory "$1" can be created
+function check-writable()
+{
+    local DIR=$1
+
+    while [[ ! -d $(dirname $DIR) ]]; do
+          DIR=$(dirname $DIR)
+    done
+
+    [[ -w $(dirname $DIR) ]]
+}
+
+while [ ! -z $1 ]; do
+    case "$1" in
+        --auto)
+            AUTO=1;
+            break;
+            ;;
+        *)
+            ;;
+    esac
+    shift;
+done
+
+# check for python3
+#
+DISTRIBUTION_ID=$(lsb_release -a |grep "Distributor ID:"| awk -F ":" '{print $2}' |xargs )
+OS_VERSION=$(lsb_release -a |grep "Release:"| awk -F ":" '{print $2}' |xargs |awk -F "." '{print $1}')
+
+if [ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9"  ]; then
+    echo Python is embedded into salome on debian9
+else
+    if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
+       echo Python2 is default, checking for python3
+       if [ -f /usr/bin/python3 ]; then
+          echo Found Python3 in /usr/bin/python3, setuup links
+          BINDIR=$(basename $(ls -1d BINARIES-*))
+          ln -s /usr/bin/python3 $BINDIR/SALOME/bin/salome/python
+       else
+          echo Cannot found a Python3 installation.
+          echo SALOME will not work properly.
+       fi
+    fi
+fi
+
+# In auto-mode, do nothing more
+[ $AUTO = 1 ] && exit 0
+
+SUDO=""
+
+echo Installing SALOME
+echo
+read -p "Install into (/opt/salome) : " prefix
+
+[ -z $prefix ] && prefix=/opt/salome
+
+# eval $prefix to expand environment variables if any
+prefix=$(eval echo $prefix)
+
+read -p "Ready to install SALOME in $prefix? (y/n) "
+
+[ "$REPLY" != "y" -a "$REPLY" != "yes" ] && exit 1
+
+check-writable $prefix || SUDO=sudo
+
+$SUDO mkdir -p $prefix
+$SUDO mv * .[a-z]* $prefix/
+
+$SUDO rm -f $prefix/setup
+
+$SUDO chown $USER -R $prefix
+
+# run create_catalog for clusters setup
+cd $prefix
+[ -f create_catalog.py ] && ./create_catalog.py
+
+# fix paths in config_appli.xml
+sed -i "s,/home.*install,$prefix,g" config_appli.xml
+sed -i "s,/home.*application,$prefix,g" config_appli.xml
+
+# Setup the HPC servers, the template file servers.pvsc
+# will be used by the following script to create or update
+# the file $HOME/.config/ParaView
+./salome_hpc_visu_servers.py
+
+echo "SALOME installation terminated, to start:"
+echo "$ $prefix/salome"
