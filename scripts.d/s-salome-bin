@@ -58,6 +58,7 @@ function s-salome-bin-linux-env()
     add-to-var CMAKE_PREFIX_PATH  $BOOST_ROOT_DIR/lib/cmake
     add-to-var CMAKE_PREFIX_PATH  $LIBBATCH_ROOT_DIR/share/cmake/libbatch
     add-to-var CMAKE_PREFIX_PATH  $YDEFX_ROOT_DIR/salome_adm/cmake_files
+    add-to-var CMAKE_PREFIX_PATH  $QWT_ROOT_DIR
 
     add-to-var C_INCLUDE_PATH     $PY2CPP_ROOT_DIR/include
     add-to-var CPLUS_INCLUDE_PATH $PY2CPP_ROOT_DIR/include
