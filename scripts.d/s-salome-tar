@@ -44,7 +44,13 @@ function s-salome-tar-install()
 
     #  Fix PATH in CMake pointing to the build-time environment
 
-    local ORIGDIR="/volatile/projet/salome/jenkins/workspace/SALOMEBuilder/[^/]*/INSTALL"
+    #  ??? Note that this part may be tricky as we really want to replace
+    #  individual strings.
+    #  In "/volatile/.../INSTALL/dir1:/volatile/.../INSTALL/dir2" we don't
+    #  want to replace by /new/path/dir2 because sed regular expressions
+    #  are greedy. So we break the strings match using : ; or back-slash.
+
+    local ORIGDIR="/volatile/[^:;\"]*SALOMEBuilder/[^/]*/INSTALL"
 
     local BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
 
