@@ -62,7 +62,7 @@ function s-salome-tar-install()
     #  individual strings.
     #  In "/volatile/.../INSTALL/dir1:/volatile/.../INSTALL/dir2" we don't
     #  want to replace by /new/path/dir2 because sed regular expressions
-    #  are greedy. So we break the strings match using : ; or back-slash.
+    #  are greedy. So we break the strings match using : ; or double-quotes.
 
     local ORIGDIR="/volatile/[^:;\"]*SALOMEBuilder/[^/]*/INSTALL"
 
