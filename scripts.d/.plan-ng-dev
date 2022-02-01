@@ -8,7 +8,7 @@ s-salome-ng:dev
 
 s-cmake/native
 
-[
+[ = linux
         s-salome-bin
         s-atomic
         s-persalys:v11.0rc1
@@ -19,8 +19,11 @@ s-cmake/native
 #  of the OS See tar hook in s-salome-tar for the MinIO download.
 
 [ = win
-
-        s-salome-tar:#9.8.0:WIN
+        s-cmake/win
+        s-visual-c/native
+        s-windows-kit/native
+        s-salome-bin/win
+        s-salome-tar:#9.7.0-native:WIN
 ]
 
 [ = deb,9
