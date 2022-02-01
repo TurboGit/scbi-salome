@@ -9,7 +9,7 @@ function s-salome-tar-tar()
     local OS=${VERSION/*:}
 
     echo edf
-    echo none
+    echo --no-check-certificate
     echo wget
     echo https://minio.retd.edf.fr/salome/Releases/development/CEA_archive
     echo SALOME-$VER-$OS-SRC.tar.gz
