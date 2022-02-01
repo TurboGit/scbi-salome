@@ -25,6 +25,7 @@ function s-qt-tar()
     local VERSION=$1
 
     echo default
+    echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo qt-everywhere-opensource-src-$VERSION.tar.gz

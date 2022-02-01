@@ -20,6 +20,7 @@ function s-libbatch-tar()
     local VERSION=$1
 
     echo default
+    echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/tools
     echo libBatch-$VERSION.tar.gz

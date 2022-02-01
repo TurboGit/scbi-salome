@@ -22,6 +22,7 @@ function s-salome-gui-tar()
     echo default
     echo none
     echo none
+    echo none
     echo salome-gui-$VERSION.tar.xz
 }
 

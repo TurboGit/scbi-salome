@@ -14,6 +14,7 @@ function s-persalys-tar()
     echo default
     echo none
     echo none
+    echo none
     echo persalys-$VERSION.tar.xz
 }
 

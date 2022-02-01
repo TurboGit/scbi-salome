@@ -4,6 +4,7 @@ function s-openturns-morris-tar()
     local VERSION=$1
 
     echo default
+    echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo otmorris-$VERSION.tar.bz2

@@ -22,6 +22,7 @@ function s-salome-kernel-tar()
     echo default
     echo none
     echo none
+    echo none
     echo salome-kernel-$VERSION.tar.xz
 }
 
