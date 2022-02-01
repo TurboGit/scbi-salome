@@ -22,6 +22,7 @@ function s-paravis-tar()
     echo default
     echo none
     echo none
+    echo none
     echo paravis-$VERSION.tar.xz
 }
 

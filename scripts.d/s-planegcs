@@ -4,6 +4,7 @@ function s-planegcs-tar()
     local VERSION=$1
 
     echo default
+    echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo planegcs-$VERSION.tar.gz
@@ -14,6 +15,7 @@ function s-planegcs-cea-tar()
     local VERSION=$1
 
     echo edf
+    echo none
     echo wget
     echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo planegcs-$VERSION.tar.gz

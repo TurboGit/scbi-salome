@@ -10,6 +10,7 @@ function s-sip-tar()
     local VERSION=$1
 
     echo default
+    echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo sip-$VERSION.tar.gz
