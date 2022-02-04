@@ -5,6 +5,7 @@ function s-salome-ng-modules()
     echo s-paravisaddons-edf
     echo s-persalys
     echo s-salome-openturns
+    echo s-melissa
 }
 
 function setup-salome-ng-env()
