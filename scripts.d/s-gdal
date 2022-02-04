@@ -16,6 +16,7 @@ function s-gdal-tar()
     echo default
     echo none
     echo none
+    echo none
     echo gdal-$VERSION.tar.gz
 }
 

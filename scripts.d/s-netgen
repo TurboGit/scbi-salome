@@ -12,6 +12,7 @@ function s-netgen-tar()
     local VERSION=$1
 
     echo default
+    echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo netgen-$VERSION.tar.gz
@@ -22,6 +23,7 @@ function s-netgen-cea-tar()
     local VERSION=$1
 
     echo edf
+    echo none
     echo wget
     echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo netgen-$VERSION.tar.gz

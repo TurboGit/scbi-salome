@@ -12,6 +12,7 @@ function s-salome-openturns-tar()
     local VERSION=$1
 
     echo default
+    echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
     echo OPENTURNS_SRC_$VERSION.tgz

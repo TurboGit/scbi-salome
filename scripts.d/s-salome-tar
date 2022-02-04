@@ -9,9 +9,10 @@ function s-salome-tar-tar()
     local OS=${VERSION/*:}
 
     echo edf
+    echo --no-check-certificate
     echo wget
     echo https://minio.retd.edf.fr/salome/Releases/development/CEA_archive
-    echo SALOME-$VER-native-$OS-SRC.tar.gz
+    echo SALOME-$VER-$OS-SRC.tar.gz
 }
 
 function s-salome-tar-out-of-tree()
@@ -58,7 +59,13 @@ function s-salome-tar-install()
 
     #  Fix PATH in CMake pointing to the build-time environment
 
-    local ORIGDIR="/volatile/salome/jenkins/workspace/SALOMEBuilder/[^/]*/INSTALL"
+    #  ??? Note that this part may be tricky as we really want to replace
+    #  individual strings.
+    #  In "/volatile/.../INSTALL/dir1:/volatile/.../INSTALL/dir2" we don't
+    #  want to replace by /new/path/dir2 because sed regular expressions
+    #  are greedy. So we break the strings match using : ; or double-quotes.
+
+    local ORIGDIR="/volatile/[^:;\"]*SALOMEBuilder/[^/]*/INSTALL"
 
     local BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
 
