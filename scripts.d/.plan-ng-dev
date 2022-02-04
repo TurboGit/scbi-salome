@@ -14,6 +14,7 @@ s-cmake/native
         s-atomic
         s-persalys:v11.0rc1
         s-salome-openturns
+        s-melissa:#0.0.0
 ] /linux
 
 #  The version has two parts, the version of the code and the version
@@ -33,6 +34,8 @@ s-cmake/native
         s-salome-tar:#master:DB09
         s-cmake:skip
         os@-boost-locale-dev:skip
+        os@-python3:skip
+        os@-python3-numpy:skip
 ]
 
 [ = deb,10
