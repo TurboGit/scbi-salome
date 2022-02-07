@@ -10,12 +10,12 @@ function s-melissa-tar()
     echo melissa-$VERSION.tar.gz
 }
 
-function s-melissa-build-depends()
+function s-melissa-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-melissa-depends()
+function s-melissa-common-depends()
 {
     echo os@-python3
     echo os@-python3-numpy

@@ -5,6 +5,8 @@ function s-salome-ng-modules()
     echo s-paravisaddons-edf
     echo s-persalys
     echo s-salome-openturns
+    echo s-zeromq
+    echo s-melissa
 }
 
 function setup-salome-ng-env()
@@ -19,7 +21,7 @@ function setup-salome-ng-env()
     (
         local SFILE=""
         local PFILE=""
-        local N=0
+        local N=1
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -88,15 +90,15 @@ function setup-salome-ng-env()
                     ;;
                 *)
                     if [[ "$REL_PDIR" == "$VALUE" ]]; then
-                        echo "   context.setVariable(r\"$VAR\", r\"$VALUE\")" >> $PFILE
+                        echo "   context.setVariable(r\"$VAR\", r\"$VALUE\", overwrite=True)" >> $PFILE
                     else
-                        echo "   context.setVariable(r\"$VAR\", $DVAR)"     >> $PFILE
+                        echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
                     fi
                     ;;
             esac
         }
 
-        function env-callback()
+        function mod-callback()
         {
             local FORMODULE=$1
             local MODREF=$2
@@ -112,7 +114,6 @@ function setup-salome-ng-env()
             #  Skip some s-salome-tar & s-salome-bin
 
             FCT=$(get-hook $module $variant env)
-
             if [[ ! -z $FCT ]]; then
                 CURRENT_MODULE_NAME=$module
                 CURRENT_MODULE=${module//-/_}
@@ -138,15 +139,33 @@ function setup-salome-ng-env()
 
                 $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
             fi
+
+            #  Handle possible ctest support
+
+            FCT=$(get-hook $module $variant ctest-dir)
+
+            if [[ ! -z $FCT ]]; then
+                local BINDIR=$(basename $(ls -1d BINARIES-*))
+                echo "SUBDIRS(../../../../../$($FCT EDF/$module))" >> $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
+            fi
         }
 
         #  The directory where the environment files are stored
         mkdir -p extra.env.d
 
+        #  Override some possible values
+
+        PFILE="extra.env.d/0_setup.py"
+
+        echo "def init(context, root_dir):"                 > $PFILE
+        echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)' >> $PFILE
+        echo '   context.setVariable(r"MESHGEMS_VERSION", r"213", overwrite=True)' >> $PFILE
+        echo '   context.setVariable(r"SALOME_MG_KEYGEN_LIB_PATH", r"https://meshgems-licence.retd.edf.fr/MESHGEMS" + r"${MESHGEMS_VERSION}", overwrite=True)' >> $PFILE
+
         #  keep current PATH setting
         PATH_set=IS_SET
 
-        for-all-modules-with-meta env-callback s-salome-ng
+        for-all-modules-with-meta mod-callback s-salome-ng
 
         #  Now temprarily patch salome main to call the EDF specific env
 
@@ -231,7 +250,7 @@ function s-salome-ng-wrapup()
 
                 # create the .run auto-installer to be distributed
 
-                cp $SCBI_PLUGINS/support/install-setup setup
+                cp $SCBI_PLUGINS/support/install-setup-ng setup
                 chmod a+x setup
 
                 cp $SCBI_PLUGINS/support/servers.pvsc .

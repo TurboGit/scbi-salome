@@ -15,6 +15,11 @@ function s-zeromq-build-depends()
     echo s-cmake
 }
 
+function s-zeromq-linux-depends()
+{
+    echo s-salome-bin
+}
+
 function s-zeromq-env()
 {
     local PREFIX=$1
