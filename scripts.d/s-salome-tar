@@ -70,15 +70,6 @@ function s-salome-tar-install()
         while read F; do
             sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
-
-    #  Add env-var ROOT_SALOME_INSTALL that is needed by OPENTURNS tests
-
-    sed -i "/    \#\[SALOME\]/a     \    context.setVariable(r\"ROOT_SALOME_INSTALL\", out_dir_Path,overwrite=True)" $PREFIX/salome
-
-    #  Fix meshgems-licence url
-
-    sed -i "/    \#\[MeshGems\]/a     \    context.setVariable(r\"MESHGEMS_VERSION\", r\"213\",overwrite=True)" $PREFIX/salome
-    sed -i "/.*SALOME_MG_KEYGEN_LIB_PATH.*/c \    context.setVariable(r\"SALOME_MG_KEYGEN_LIB_PATH\", r\"https://meshgems-licence.retd.edf.fr/MESHGEMS\" + r\"\${MESHGEMS_VERSION}\", overwrite=True)" $PREFIX/salome
 }
 
 function s-salome-tar-prefix()

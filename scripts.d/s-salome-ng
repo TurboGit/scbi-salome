@@ -19,7 +19,7 @@ function setup-salome-ng-env()
     (
         local SFILE=""
         local PFILE=""
-        local N=0
+        local N=1
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -138,7 +138,10 @@ function setup-salome-ng-env()
                 $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
             fi
 
+            #  Handle possible ctest support
+
             FCT=$(get-hook $module $variant ctest-dir)
+
             if [[ ! -z $FCT ]]; then
                 local BINDIR=$(basename $(ls -1d BINARIES-*))
                 echo "SUBDIRS(../../../../../$($FCT EDF/$module))" >> $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
@@ -147,6 +150,15 @@ function setup-salome-ng-env()
 
         #  The directory where the environment files are stored
         mkdir -p extra.env.d
+
+        #  Override some possible values
+
+        PFILE="extra.env.d/0_setup.py"
+
+        echo "def init(context, root_dir):"                 > $PFILE
+        echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)' >> $PFILE
+        echo '   context.setVariable(r"MESHGEMS_VERSION", r"213", overwrite=True)' >> $PFILE
+        echo '   context.setVariable(r"SALOME_MG_KEYGEN_LIB_PATH", r"https://meshgems-licence.retd.edf.fr/MESHGEMS" + r"${MESHGEMS_VERSION}", overwrite=True)' >> $PFILE
 
         #  keep current PATH setting
         PATH_set=IS_SET
