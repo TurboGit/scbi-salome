@@ -27,7 +27,12 @@ s-cmake/native
         s-windows-kit/native
         s-salome-bin/win
         s-paravisaddons-edf/win:dev
-        s-salome-tar:#9.7.0-native:WIN
+        s-salome-tar/win:#9.7.0-native:WIN
+        s-atomic/win
+	s-persalys:skip
+	s-salome-openturns:skip
+	s-zeromq:skip
+	s-melissa:skip
 ]
 
 [ = deb,9

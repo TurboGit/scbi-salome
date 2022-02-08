@@ -32,6 +32,18 @@ function s-salome-tar-env()
     set-var SALOME_BIN_MODULES     $PREFIX/$BINDIR
 }
 
+function s-salome-tar-win-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local BINDIR=$(basename $(ls -1d $PREFIX/W64))
+
+    set-var SALOME_BIN_APPLICATION $PREFIX
+    set-var SALOME_BIN_MODULES     $PREFIX/$BINDIR
+}
+
 function s-salome-tar-install()
 {
     local PREFIX=$1

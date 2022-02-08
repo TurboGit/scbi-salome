@@ -25,6 +25,12 @@ function s-atomic-build-depends()
     echo os@-swig
 }
 
+function s-atomic-win-build-depends()
+{
+    echo s-visual-c
+    echo s-salome-bin
+}
+
 function s-atomic-linux-build-depends()
 {
     echo s-salome-bin

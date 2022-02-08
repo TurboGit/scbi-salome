@@ -8,7 +8,7 @@ function s-salome-bin-depends()
 
 function s-salome-bin-win-env()
 {
-    local IROOT=$SCBI_SALOME_BIN
+    local IROOT=$SALOME_BIN_MODULES
     local IEXT=$IROOT/EXT
 
     add-to-var INCLUDE               $IEXT/include
