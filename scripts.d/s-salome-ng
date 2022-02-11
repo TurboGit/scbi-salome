@@ -167,18 +167,7 @@ function setup-salome-ng-env()
 
         #  Now temprarily patch salome main to call the EDF specific env
 
-        sed -i 's/import subprocess/import subprocess, os.path, imp/' salome
-        sed -i 's/salome_system]/salome_system]
-    if os.path.exists("extra.env.d"):
-        sys.path.insert(0, os.path.join(os.getcwd(), "extra.env.d"))
-        for filename in os.listdir("extra.env.d"):
-            if filename.endswith(".py"):
-                f = os.path.join("extra.env.d", filename)
-                module_name = os.path.splitext(os.path.basename(f))[0]
-                fp, path, desc = imp.find_module(module_name)
-                module = imp.load_module(module_name, fp, path, desc)
-                module.init(context, out_dir_Path)
-/' salome
+        sed -i 's/import subprocess/import subprocess, imp/' salome
     )
 }
 
