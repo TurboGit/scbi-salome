@@ -164,10 +164,6 @@ function setup-salome-ng-env()
         PATH_set=IS_SET
 
         for-all-modules-with-meta mod-callback s-salome-ng
-
-        #  Now temprarily patch salome main to call the EDF specific env
-
-        sed -i 's/import subprocess/import subprocess, imp/' salome
     )
 }
 
