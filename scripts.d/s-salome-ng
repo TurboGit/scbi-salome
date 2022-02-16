@@ -83,8 +83,13 @@ function setup-salome-ng-env()
                 PYTHONPATH)
                     echo "   context.addToPythonPath($DVAR)"          >> $PFILE
                     ;;
-                PV_PLUGIN_PATH)
+                PV_PLUGIN_PATH|SalomeAppConfig)
                     echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
+                    ;;
+                SALOME_MODULES)
+                    echo "   os.environ[\"SALOME_MODULES\"] = \
+                    os.getenv(\"SALOME_MODULES\") + \
+                    \",\" + \"$VALUE\""                               >> $PFILE
                     ;;
                 *)
                     if [[ "$REL_PDIR" == "$VALUE" ]]; then
