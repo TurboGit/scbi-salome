@@ -78,10 +78,6 @@ $SUDO chown $USER -R $prefix
 cd $prefix
 [ -f create_catalog.py ] && ./create_catalog.py
 
-# fix paths in config_appli.xml
-sed -i "s,/home.*install,$prefix,g" config_appli.xml
-sed -i "s,/home.*application,$prefix,g" config_appli.xml
-
 # Setup the HPC servers, the template file servers.pvsc
 # will be used by the following script to create or update
 # the file $HOME/.config/ParaView
