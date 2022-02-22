@@ -47,7 +47,7 @@ SUDO=""
 
 echo Installing SALOME
 echo
-read -p "Install into (/opt/salome) : " prefix
+read -e -p "Install into (/opt/salome) : " prefix
 
 [ -z $prefix ] && prefix=/opt/salome
 
