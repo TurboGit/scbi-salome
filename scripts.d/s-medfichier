@@ -86,6 +86,11 @@ function s-medfichier-common-config-options()
     echo --with-hdf5-bin=$HDF5_BIN
     echo --enable-mesgerr
     echo --with-med_int=long
+
+    echo FFLAGS=-fdefault-integer-8
+    echo FCLAGS=-fdefault-integer-8
+    echo CFLAGS=-m64
+    echo CXXFLAGS=-m64
 }
 
 function s-medfichier-config()
