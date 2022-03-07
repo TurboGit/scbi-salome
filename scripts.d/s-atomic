@@ -25,6 +25,12 @@ function s-atomic-build-depends()
     echo os@-swig
 }
 
+function s-atomic-win-build-depends()
+{
+    echo s-visual-c
+    echo s-salome-bin
+}
+
 function s-atomic-linux-build-depends()
 {
     echo s-salome-bin
@@ -49,15 +55,53 @@ function s-atomic-env()
     set-var ATOMIC_ROOT_DIR $PREFIX
 }
 
+function s-atomic-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-atomic-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+}
+
+function s-stomic-win-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
+}
+
+function s-atomic-win-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake -G "NMake Makefiles" $OPTIONS ../src
+}
+
 function s-atomic-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          ../src
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function s-atomic-build()

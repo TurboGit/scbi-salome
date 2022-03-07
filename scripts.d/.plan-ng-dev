@@ -29,7 +29,7 @@ s-cmake/native
         s-windows-kit/native
         s-salome-bin/win
         s-paravisaddons-edf/win
-        s-atomic:skip
+        s-atomic/win
         s-salome-tar/win:#9.7.0-native:WIN
         s-salome-openturns:skip
         s-zeromq:skip
