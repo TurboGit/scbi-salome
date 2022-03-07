@@ -1,0 +1,11 @@
+--- otpod/setup.py	2021-09-20 15:07:55.000000000 +0200
++++ otpod_patch/setup.py	2022-03-07 13:12:38.096614440 +0100
+@@ -13,7 +13,7 @@
+ 
+ install_requires=['statsmodels>=0.6.1',
+                   'numpy>=1.10.4',
+-                  'scikit-learn>=0.17',
++                  'scikit-learn==1.0',
+                   'matplotlib>=1.5.1',
+                   'scipy>=0.17.0',
+                   'decorator>=4.0.9']

@@ -1,0 +1,65 @@
+
+
+function s-openturns-pod-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo otpod_dep.patch
+}
+
+function s-openturns-pod-out-of-tree()
+{
+    echo false
+}
+
+function s-openturns-pod-build-depends()
+{
+    echo os@-python3-setuptools
+}
+
+function s-openturns-pod-depends()
+{
+    echo s-openturns
+    echo os@-python3
+}
+
+function s-openturns-pod-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-openturns-pod-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    OTpod_HOME    $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-openturns-pod-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    echo "[easy_install]" > setup.cfg
+    echo "index-url = https://pypi.python.org/simple" >> setup.cfg
+    python3 setup.py install --prefix=$PREFIX
+}
+
+function s-openturns-pod-prefix()
+{
+    echo NONE
+}
