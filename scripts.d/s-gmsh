@@ -96,8 +96,6 @@ function s-gmsh-post-install()
     local TARGET=$2
 
     find ../src -type f -name "*.h" -exec cp {} ../install/include \;
-    mv ../install/include/gmsh/* ../install/include/
-    rmdir ../install/include/gmsh
 }
 
 function s-gmsh-prefix()
