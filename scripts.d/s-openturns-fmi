@@ -1,0 +1,56 @@
+
+
+function s-openturns-fmi-out-of-tree()
+{
+    echo false
+}
+
+function s-openturns-fmi-build-depends()
+{
+    echo os@-python3-setuptools
+}
+
+function s-openturns-fmi-depends()
+{
+    echo s-openturns
+    echo s-fmil
+    echo s-pyfmi
+    echo os@-python3
+}
+
+function s-openturns-fmi-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-openturns-fmi-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    OTfmi_HOME    $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-openturns-fmi-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    echo "[easy_install]" > setup.cfg
+    echo "index-url = https://pypi.python.org/simple" >> setup.cfg
+    python3 setup.py install --prefix=$PREFIX
+}
+
+function s-openturns-fmi-prefix()
+{
+    echo NONE
+}
