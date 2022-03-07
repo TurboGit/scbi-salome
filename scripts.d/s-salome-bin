@@ -8,8 +8,11 @@ function s-salome-bin-depends()
 
 function s-salome-bin-win-env()
 {
-    local IROOT=$SCBI_SALOME_BIN
+    local IROOT=$(cygpath -m $SALOME_BIN_MODULES)
     local IEXT=$IROOT/EXT
+
+    [[ -d $IROOT/cmake/bin ]] &&
+        add-to-var PATH $IROOT/cmake/bin
 
     add-to-var INCLUDE               $IEXT/include
 
@@ -21,9 +24,14 @@ function s-salome-bin-win-env()
     add-to-var LIBXML2_INCLUDE_DIR   $IEXT/include
     add-to-var LIBXML2_LIBRARY       $IEXT/lib/libxml2.lib
 
+    add-to-var PATH                  $IROOT/Python
     add-to-var Python3_INCLUDE_DIRS  $IROOT/Python/include
     add-to-var Python3_EXECUTABLE    $IROOT/Python/python3.exe
     add-to-var Python3_LIBRARIES     $IROOT/Python/python3.lib
+    set-var    PYTHON_VERSION        3.6
+    set-var    PYTHON_INCLUDE        $IROOT/Python/include
+    set-var    PYTHON_SITE_PACKAGES  $IROOT/Python/lib/site-packages
+    set-var    PYTHON_LIBDIR         lib/python$PYTHON_VERSION/site-packages
 
     set-var    FREETYPE_LIBRARY      $IEXT/lib/freetype.lib
 
@@ -32,10 +40,40 @@ function s-salome-bin-win-env()
     set-var    CGNS_LIBRARY          $IEXT/lib/cgns.lib
 
     set-var    TBB_ROOT              $IEXT
+    set-var    TBB_INCLUDE_DIRS      $IEXT/include
 
-    while read CMP; do
-        add-to-var CMAKE_PREFIX_PATH "$CMP"
-    done < <( find $IROOT -name "*onfig.cmake" -exec dirname {} \; | uniq )
+    set-var    KERNEL_ROOT_DIR       $IROOT/KERNEL
+    set-var    GUI_ROOT_DIR          $IROOT/GUI
+    set-var    PARAVIEW_ROOT_DIR     $IROOT/ParaView
+    set-var    EMBREE_ROOT_DIR       $IROOT/embree
+    set-var    RKCOMMON_ROOT_DIR     $IROOT/rkcommon
+    set-var    OPENVKL_ROOT_DIR      $IROOT/openVKL
+    set-var    QT5_ROOT_DIR          $IROOT/qt
+    set-var    PYTHON_ROOT_DIR       $IROOT/Python
+    set-var    BOOST_ROOT_DIR        $IEXT
+    set-var    OSPRAY_ROOT_DIR       $IEXT
+    set-var    CPPUNIT_ROOT_DIR      $IEXT
+
+    add-to-var PATH               $(cygpath -m $QT5_ROOT_DIR/bin)
+
+    add-to-var CMAKE_PREFIX_PATH  $IROOT/cmake/share/cmake-3.12/Modules
+    add-to-var CMAKE_PREFIX_PATH  $IEXT
+    add-to-var CMAKE_PREFIX_PATH  $IEXT/cmake
+    add-to-var CMAKE_PREFIX_PATH  $KERNEL_ROOT_DIR/salome_adm/cmake_files
+    add-to-var CMAKE_PREFIX_PATH  $GUI_ROOT_DIR/adm_local/cmake_files
+    add-to-var CMAKE_PREFIX_PATH  $BOOST_ROOT_DIR/lib/cmake/tbb
+    add-to-var CMAKE_PREFIX_PATH  $PARAVIEW_ROOT_DIR/lib/cmake/paraview-5.9
+    add-to-var CMAKE_PREFIX_PATH  $PARAVIEW_ROOT_DIR/lib/cmake/paraview-5.9/vtk
+    add-to-var CMAKE_PREFIX_PATH  $OSPRAY_ROOT_DIR/lib/cmake/ospray-2.4.0
+    add-to-var CMAKE_PREFIX_PATH  $EMBREE_ROOT_DIR/lib/cmake/embree-3.12.2
+    add-to-var CMAKE_PREFIX_PATH  $RKCOMMON_ROOT_DIR/lib/cmake/rkcommon-1.5.1
+    add-to-var CMAKE_PREFIX_PATH  $OPENVKL_ROOT_DIR/lib/cmake/openvkl-0.11.0
+    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5
+    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Test
+    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5UiTools
+    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5OpenGL
+    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Xml
+    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5DataVisualization
 }
 
 ####################################################### LINUX
