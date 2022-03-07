@@ -78,7 +78,7 @@ function s-paravisaddons-edf-win-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
 
-    echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w $CONFIGURATION_ROOT_DIR)
+    echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
 
     echo -DPython3_EXECUTABLE="$Python3_EXECUTABLE"
     echo -DPython3_LIBRARIES="$Python3_LIBRARIES"

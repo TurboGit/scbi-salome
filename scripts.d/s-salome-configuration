@@ -56,6 +56,25 @@ function s-salome-configuration-env()
     set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
 }
 
+function s-salome-configuration-win-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local WPREFIX=$(cygpath -w "$PREFIX")
+
+    set-var    CONFIGURATION_ROOT_DIR  $WPREFIX
+    set-var    CONFIGURATION_CMAKE_DIR $WPREFIX/cmake
+
+    add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
+    add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
+
+    # And some other global configuration options
+
+    set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
+    set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
+}
+
 function s-salome-configuration-out-of-tree()
 {
     echo false

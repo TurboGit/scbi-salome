@@ -32,6 +32,16 @@ function s-salome-tar-env()
     set-var SALOME_BIN_MODULES     $PREFIX/$BINDIR
 }
 
+function s-salome-tar-win-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var SALOME_BIN_APPLICATION $PREFIX
+    set-var SALOME_BIN_MODULES     $PREFIX/W64
+}
+
 function s-salome-tar-install()
 {
     local PREFIX=$1
@@ -65,19 +75,32 @@ function s-salome-tar-install()
     #  want to replace by /new/path/dir2 because sed regular expressions
     #  are greedy. So we break the strings match using : ; or double-quotes.
 
-    local ORIGDIR="/volatile/[^:;\"]*SALOMEBuilder/[^/]*/INSTALL"
+    local ORIGDIR
+    local BINDIR
 
-    local BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
+    if [[ $VARIANT == "win" ]]; then
+	ORIGDIR="E:/S/[^/]*/W64"
+	BINDIR=W64
+	TGTDIR=$(cygpath -m $PREFIX/$BINDIR)
+
+	chmod u+x $BINDIR/qt
+    else
+	ORIGDIR="/volatile/[^:;\"]*SALOMEBuilder/[^/]*/INSTALL"
+	BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
+	TGTDIR=$PREFIX/$BINDIR
+    fi
 
     find $PREFIX/ -type f -name "*.cmake" |
         while read F; do
-            sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i "s,$ORIGDIR/,$TGTDIR/,g" $F
         done
 
-    #  Fix wrong libtbb PATH pointing to the build-time environment
+    if [[ $VARIANT != "win" ]]; then
+	#  Fix wrong libtbb PATH pointing to the build-time environment
 
-    find $PREFIX/$BINDIR/openturns -name "*.cmake" \
-         -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
+	find $PREFIX/$BINDIR/openturns -name "*.cmake" \
+             -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
+    fi
 
     #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
