@@ -1,0 +1,67 @@
+
+function s-pyfmi-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo PyFMI-$VERSION.tar.gz
+}
+
+function s-pyfmi-out-of-tree()
+{
+    echo false
+}
+
+function s-pyfmi-build-depends()
+{
+    echo os@-python3-setuptools
+}
+
+function s-pyfmi-depends()
+{
+    echo os@-python3
+    echo os@-python3-numpy
+    echo os@-python3-scipy
+    echo python3-lxml
+    echo cython3
+    echo s-fmil
+}
+
+function s-pyfmi-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-pyfmi-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-pyfmi-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    echo "[easy_install]" > setup.cfg
+    echo "index-url = http://nexus.retd.edf.fr/repository/pypi.python.org/simple/" >> setup.cfg
+    rm -rf src/pyfmi/*.c
+    python3 setup.py install --prefix=$PREFIX
+}
+
+function s-pyfmi-prefix()
+{
+    echo NONE
+}
