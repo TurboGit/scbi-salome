@@ -66,6 +66,10 @@ function s-salome-prerequisite-modules()
     echo s-openturns-subsetinverse
     echo s-openturns-svm
     echo s-openturns-wrapy
+    echo s-openturns-pod
+    echo s-openturns-fmi
+    echo s-fmil
+    echo s-pyfmi
     echo s-uranie
     echo s-root
     echo s-homard-tool
