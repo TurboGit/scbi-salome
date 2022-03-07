@@ -1,0 +1,50 @@
+
+
+function s-fmil-build-depends()
+{
+    echo s-cmake
+    echo os@-doxygen
+}
+
+function s-fmil-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var FMIL_HOME $PREFIX
+
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PATH              $PREFIX/bin
+}
+
+function s-fmil-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          -DFMILIB_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function s-fmil-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-fmil-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-fmil-prefix()
+{
+    echo NONE
+}
