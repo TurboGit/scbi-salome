@@ -90,14 +90,6 @@ function s-gmsh-install()
     make install
 }
 
-function s-gmsh-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    find ../src -type f -name "*.h" -exec cp {} ../install/include \;
-}
-
 function s-gmsh-prefix()
 {
     echo NONE
