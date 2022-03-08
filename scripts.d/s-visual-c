@@ -1,8 +1,7 @@
 
 SCBI_W_VC=$(cygpath -w -s "$SCBI_WINDOWS_VC")
-SCBI_C_VC=$(cygpath -c -s "$SCBI_WINDOWS_VC")
 
 with-variant native s-windows-kit \
-  --env 'add-to-var PATH    "$SCBI_C_VC/bin/Hostx64/x64"' \
+  --env 'add-to-var PATH    "$SCBI_W_VC/bin/Hostx64/x64"' \
         'add-to-var INCLUDE "$SCBI_W_VC/include"'         \
         'add-to-var LIB     "$SCBI_W_VC/lib/x64"'
