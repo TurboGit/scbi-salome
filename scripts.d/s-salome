@@ -76,8 +76,8 @@ function s-salome-prerequisite-modules()
 
 function s-salome-modules()
 {
-    s-salome-main-modules
     s-salome-prerequisite-modules
+    s-salome-main-modules
     echo s-salome-configuration
 }
 
