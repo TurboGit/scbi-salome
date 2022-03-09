@@ -40,36 +40,48 @@ function s-paravis-env()
     add-to-var LD_LIBRARY_PATH  $PREFIX/lib/paraview
 }
 
-function s-paravis-config()
+function s-paravis-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     local CDEBUG=$(is-enabled cmake-debug)
     local DISDOC=$(is-enabled no-doc)
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          -DVTK_DIR=$(last-modified-directory \
-                          "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*") \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
-          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-	  \
-          -DMEDCOUPLING_USE_64BIT_IDS=ON \
-	  -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_DifferenceTimesteps=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_ElevationSurface=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_EllipseBuilderFilter=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_GaussToCellPlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_JSONReader=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_MEDReader=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_MEDWriterPlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_ScaleVector=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_SimpleModePlugin=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_StaticMesh=YES \
-	  -DPARAVIEW_PLUGIN_ENABLE_VoroGaussPlugin=YES \
-          ../src
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DVTK_DIR=$(last-modified-directory
+                     "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*")
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+
+    echo -DSALOME_USE_MPI=ON
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_DifferenceTimesteps=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ElevationSurface=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_EllipseBuilderFilter=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_GaussToCellPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_JSONReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_MEDReader=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_MEDWriterPlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_ScaleVector=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_SimpleModePlugin=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_StaticMesh=YES
+    echo -DPARAVIEW_PLUGIN_ENABLE_VoroGaussPlugin=YES
+}
+
+function s-paravis-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function s-paravis-build()
