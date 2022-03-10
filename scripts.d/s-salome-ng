@@ -3,7 +3,6 @@ function s-salome-ng-modules()
 {
     echo s-atomic
     echo s-salome-openturns
-    echo s-zeromq
 }
 
 function setup-salome-ng-env()
