@@ -12,7 +12,6 @@ s-cmake/native
         s-salome-bin
         s-paravisaddons-edf
         s-atomic
-        s-persalys:v11.0rc1
         s-salome-openturns
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
