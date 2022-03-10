@@ -4,7 +4,6 @@ function s-salome-ng-modules()
     echo s-atomic
     echo s-paravisaddons-edf
     echo s-salome-openturns
-    echo s-zeromq
     echo s-melissa
     echo s-distene
 }

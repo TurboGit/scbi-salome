@@ -15,7 +15,12 @@ function s-melissa-common-build-depends()
     echo s-cmake
 }
 
-function s-melissa-common-depends()
+function s-melissa-linux-depends()
+{
+    echo s-salome-bin
+}
+
+function s-melissa-default-depends()
 {
     echo os@-python3
     echo os@-python3-numpy
