@@ -136,7 +136,7 @@ function s-paraview-common-config-options()
 
     echo -DPARAVIEW_ENABLE_OPENTURNS=ON
     echo -DPARAVIEW_ENABLE_WEB:BOOL=OFF
-    echi -DPARAVIEW_ENABLE_PYTHON=ON
+    echo -DPARAVIEW_ENABLE_PYTHON=ON
 
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
     echo -DPARAVIEW_USE_MPI:BOOL=ON
