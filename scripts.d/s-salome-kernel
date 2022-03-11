@@ -13,8 +13,10 @@ function s-salome-kernel-tar()
 
 function s-salome-kernel-build-depends()
 {
-    echo os@-sphinx-common
-    echo os@-sphinx-intl
+    local DISDOC=$(is-enabled no-doc)
+
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-common
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
     echo os@-swig
     echo os@-doxygen
     echo os@-graphviz
