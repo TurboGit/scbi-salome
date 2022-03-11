@@ -63,9 +63,11 @@ function s-openturns-pod-install()
     local PREFIX=$1
     local TARGET=$2
 
+    PYPIURL=$(scbi-store-get-key PYPIURL)
+
     mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
     echo "[easy_install]" > setup.cfg
-    echo "index-url = http://nexus.retd.edf.fr/repository/pypi.python.org/simple/" >> setup.cfg
+    echo "index-url = $PYPIURL" >> setup.cfg
     python3 setup.py install --prefix=$PREFIX
 }
 
