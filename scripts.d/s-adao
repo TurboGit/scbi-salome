@@ -28,9 +28,11 @@ function s-adao-tar()
 
 function s-adao-build-depends()
 {
+    local DISDOC=$(is-enabled no-doc)
+
     echo s-cmake
-    echo os@-sphinx-common
-    echo os@-sphinx-intl
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-common
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
 }
 
 function s-adao-depends()
