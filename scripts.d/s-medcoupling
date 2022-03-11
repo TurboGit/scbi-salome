@@ -28,10 +28,13 @@ function s-medcoupling-tar()
 
 function s-medcoupling-build-depends()
 {
-    echo s-cmake
-    echo os@-sphinx-common
-    echo os@-sphinx-intl
+    local DISDOC=$(is-enabled no-doc)
+
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-common
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
     echo os@-python3-sphinx-rtd-theme
+
+    echo s-cmake
 }
 
 function s-medcoupling-ptscotch-depends()
