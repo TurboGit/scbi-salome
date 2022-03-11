@@ -121,6 +121,10 @@ s-salome:dev
         s-ghs3dprl-plugin
 ] :master
 
+[ = deb,9
+        s-hdf5/mpi:#1.10.3
+]
+
 s-netgen/cmake:#6.2.2104
 s-gmsh:#4.8.4
 
