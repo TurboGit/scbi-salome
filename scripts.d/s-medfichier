@@ -95,8 +95,11 @@ function s-medfichier-config()
     local OPTIONS=( $(get-config-options $PREFIX $TARGET $VARIANT) )
 
     ../src/configure ${OPTIONS[*]}
+    res=$?
 
     unset IFS
+
+    return $res
 }
 
 function s-medfichier-build()
