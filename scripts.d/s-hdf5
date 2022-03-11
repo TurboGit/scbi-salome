@@ -64,27 +64,22 @@ function s-hdf5-env()
     local TARGET=$2
 
     set-var    HDF5_ROOT_DIR      $PREFIX
-    set-var    HDF5_DIR           $PREFIX/share/cmake/hdf5
-
-    set-var    HDF5_C_COMPILER_EXECUTABLE $PREFIX/bin/h5cc
-    add-to-var HDF5_C_LIBRARY_hdf5        $PREFIX/lib/libhdf5.so
-    add-to-var HDF5_C_LIBRARY_hdf5_hl     $PREFIX/lib/libhdf5_hl.so
-    add-to-var HDF5_C_INCLUDE_DIR         $PREFIX/include
-    add-to-var HDF5_hdf5_LIBRARY_RELEASE  $HDF5_C_LIBRARY_hdf5
-
-    add-to-var HDF5_LIBRARIES     $PREFIX/lib
-    add-to-var HDF5_INCLUDE_DIRS  $PREFIX/include
 
     #  For medfichier autoconf:
     add-to-var HDF5_INC           $PREFIX/include
     add-to-var HDF5_LIB           $PREFIX/lib
     add-to-var HDF5_BIN           $PREFIX/bin
+    set-var    HDF5_ROOT          $PREFIX/lib
+    set-var    HDF5_DIR           $PREFIX/lib
+
+    add-to-var HDF5_INCLUDE_DIRS  $HDF5_INC
+    add-to-var HDF5_INCLUDE_DIR   $HDF5_INC
 
     add-to-var PATH               $PREFIX/bin
-    add-to-var C_INCLUDE_PATH     $HDF5_C_INCLUDE_DIR
-    add-to-var CPLUS_INCLUDE_PATH $HDF5_C_INCLUDE_DIR
-    add-to-var LIBRARY_PATH       $PREFIX/lib
-    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var C_INCLUDE_PATH     $HDF5_INC
+    add-to-var CPLUS_INCLUDE_PATH $HDF5_INC
+    add-to-var LIBRARY_PATH       $HDF5_LIB
+    add-to-var LD_LIBRARY_PATH    $HDF5_LIB
     add-to-var CMAKE_PREFIX_PATH  $PREFIX/share/cmake/hdf5
 }
 
