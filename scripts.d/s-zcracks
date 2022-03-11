@@ -1,0 +1,43 @@
+
+function s-zcracks-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo Zcracks_lite-$VERSION.tar.gz
+}
+
+function s-zcracks-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    ZCRACKSHOME $PREFIX
+    add-to-var PATH        $PREFIX/bin
+    add-to-var PYTHONPATH  $PREFIX/plugin
+}
+
+function s-zcracks-out-of-tree()
+{
+    echo false
+}
+
+function s-zcracks-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # this is no installation for this tool, yet we do copy all
+    # sources into install directory which seems cleaner.
+
+    cd ..
+    rsync -a --delete src/. install
+}
+
+function s-zcracks-prefix()
+{
+    echo NONE
+}
