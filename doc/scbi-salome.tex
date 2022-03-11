@@ -138,6 +138,15 @@ Each pre-requisite and each SALOME module is handled in a single separate SCBI p
 
 Finally the meta-module \code{salome} aggregates all of them and contains the necessary code to build the final application and installer.
 
+\subsection{setup}
+
+Some modules require a PyPi serveur to be setup. This is done using the PYPIURL key in SCBI's store. For example:
+
+\begin{shellcommand}
+\item scbi --env=v96 --store PYPIURL \\
+ http://nexus.retd.edf.fr/repository/pypi.python.org/simple/
+\end{shellcommand}
+
 \subsection{Building}
 
 Building the final application may be as simple as calling:
@@ -293,7 +302,6 @@ Also two variants are introduced:
 This plug-ins must be used as a dependency of the module to build. It setups the necessary environment like the CMake paths, the include and library paths.
 
 \begin{enumerate}
-	\item Set \code{SCBI\_SAOME\_BIN} to point to the SALOME root installation directory.
 	\item Add \code{s-salome-bin} in module's build-depends hook.
 	\item Update the \code{build-depends} and \code{depends} hook to take the new variant into account.
 \end{enumerate}
