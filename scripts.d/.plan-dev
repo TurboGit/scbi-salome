@@ -131,5 +131,5 @@ s-python3-xlutils:#2.0.0
 s-libbatch:V2_4_5
 
 s-python-omniorb:#4.2.2
-s-omniorb/auto
+s-omniorb/auto:#4.2.2
 s-occt:#b08cd04
