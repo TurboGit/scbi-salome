@@ -83,6 +83,12 @@ function s-salome-prerequisite-modules()
     echo s-openvkl
     echo s-zcracks
     echo s-cgns
+    echo s-qt
+    echo s-sip
+    echo s-pyqt
+    echo s-pyqt-sip
+    echo s-hdf5
+    echo s-tbb
 }
 
 function s-salome-modules()
