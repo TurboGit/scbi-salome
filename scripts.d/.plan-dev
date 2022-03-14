@@ -32,6 +32,9 @@ s-ospray:#2.4.0
 s-uranie:#4.5.0
 s-root:v6-22-00-patches
 s-zcracks:#3.2.1
+s-qt/auto:#5.11
+s-pyqt/auto:#5.11
+s-sip/auto:#4.19
 
 [
         # s-homard tool is now merged into s-homard module
@@ -40,8 +43,6 @@ s-zcracks:#3.2.1
 ] :skip
 
 [
-        s-qt
-        s-pyqt
         s-cmake
         s-openmpi
         s-opencv
@@ -132,6 +133,7 @@ s-salome:dev
 [ = deb,9
         s-hdf5/mpi:#1.10.3
         s-tbb/auto:#4.4.6
+        # this should be also for debian-10
 ]
 
 s-netgen/cmake:#6.2.2104

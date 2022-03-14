@@ -35,8 +35,8 @@ function s-eficas-tools-build-depends()
 function s-eficas-tools-depends()
 {
     echo s-salome-configuration
-    echo os@-pyqt5-dev-tools
-    echo os@-qttools5-dev
+    echo s-pyqt
+    echo s-qt
 }
 
 function s-eficas-tools-env()

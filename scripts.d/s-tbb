@@ -29,7 +29,7 @@ function s-tbb-env()
     local TARGET=$2
     local VARIANT=$3
 
-    set-var TBB_ROOT           $PREFIX
+    set-var    TBB_ROOT        $PREFIX
     add-to-var TBB_INCLUDE_DIR $PREFIX/include
     add-to-var LB_LIBRARY_PATH $PREFIX/lb
 }
