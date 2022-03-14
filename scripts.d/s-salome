@@ -94,7 +94,7 @@ function is-main-module()
 {
     local MODULE=$1
 
-    # Not yet cacched
+    # Not yet cached
 
     if [[ -z $MAIN_MODULE_LIST ]]; then
         for M in $(for-final-modules $(s-salome-main-modules)); do
