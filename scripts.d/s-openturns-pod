@@ -25,6 +25,11 @@ function s-openturns-pod-depends()
 {
     echo s-openturns
     echo os@-python3
+    echo python3-statsmodels
+    echo python3-decorator
+    echo python3-matplotlib
+    echo python3-numpy
+    echo python3-scipy
 }
 
 function s-openturns-pod-build-env()
