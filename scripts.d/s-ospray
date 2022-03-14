@@ -21,13 +21,14 @@ function s-ospray-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo os@-tbb-dev
     echo os@-libxrandr-dev
     echo os@-libxinerama-dev
     echo os@-libxcursor-dev
+
     echo s-embree
     echo s-rkcommon
     echo s-openvkl
+    echo s-tbb
 }
 
 function s-ospray-env()
