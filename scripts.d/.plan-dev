@@ -36,6 +36,7 @@ s-zcracks:#3.2.1
 [
         # s-homard tool is now merged into s-homard module
         s-homard-tool:#1112hdf51103med410
+        s-tbb
 ] :skip
 
 [
@@ -130,6 +131,7 @@ s-salome:dev
 
 [ = deb,9
         s-hdf5/mpi:#1.10.3
+        s-tbb/auto:#4.4.6
 ]
 
 s-netgen/cmake:#6.2.2104
