@@ -36,6 +36,7 @@ s-cmake/auto:#3.14.4
 s-qt/auto:#5.12.10
 s-pyqt/auto:#5.15.3
 s-pyqt-sip/auto:#12.8.1
+s-sip/auto:#4.19.25
 
 [
         # s-homard tool is now merged into s-homard module

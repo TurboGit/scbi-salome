@@ -1,5 +1,6 @@
 
-with-variant native os@-sip-dev:[v]
+with-variant native os@-sip-dev:[v] \
+             --env 'set-var SIP_ROOT_DIR  /usr'
 
 function s-sip-vcs()
 {
@@ -18,16 +19,6 @@ function s-sip-tar()
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo sip-$VERSION.tar.gz
-}
-
-function s-sip-build-depends()
-{
-    echo s-cmake
-}
-
-function s-sip-depends()
-{
-    echo s-salome-configuration
 }
 
 function s-sip-env()
