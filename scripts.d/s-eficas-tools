@@ -36,6 +36,7 @@ function s-eficas-tools-depends()
 {
     echo s-salome-configuration
     echo s-pyqt
+    echo s-pyqt-sip
     echo s-qt
 }
 
