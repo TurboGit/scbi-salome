@@ -73,7 +73,8 @@ function s-openturns-pod-install()
     mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
     echo "[easy_install]" > setup.cfg
     echo "index-url = $PYPIURL" >> setup.cfg
-    python3 setup.py install --prefix=$PREFIX
+
+    ./setup.py install --prefix=$PREFIX
 }
 
 function s-openturns-pod-prefix()
