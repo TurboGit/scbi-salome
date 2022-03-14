@@ -54,6 +54,7 @@ function s-smesh-common-depends()
 
 function s-smesh-default-depends()
 {
+    echo s-python
     echo s-qt
     echo s-python-omniorb
     echo s-omniorb
