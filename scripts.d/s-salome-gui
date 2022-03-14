@@ -55,12 +55,11 @@ function s-salome-gui-common-depends()
 function s-salome-gui-default-depends()
 {
     echo os@-qwt-qt5-dev
-    echo os@-python3-sip-dev
-    echo os@-python3-sip
     echo os@-glu1-mesa-dev
 
     echo s-qt
     echo s-pyqt
+    echo s-pyqt-sip
     echo s-paraview
     echo s-salome-kernel
     echo s-occt
