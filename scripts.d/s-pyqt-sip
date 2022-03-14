@@ -1,0 +1,61 @@
+
+with-variant native python3-sip-dev:[v] \
+             --env 'set-var PYQT_SIP_DIR  /usr'
+
+function s-pyqt-sip-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo pyqt5-sip-$VERSION.tar.gz
+}
+
+function s-pyqt-sip-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-pyqt-sip-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    PYQT_SIP_DIR  $PREFIX
+
+    add-to-var PATH          $PREFIX/bin
+    add-to-var PYTHONPATH    $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-pyqt-sip-out-of-tree()
+{
+    echo false
+}
+
+function s-pyqt-sip-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    python3 setup.py build
+}
+
+function s-pyqt-sip-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+    python3 setup.py install --prefix $PREFIX
+}
+
+function s-pyqt-sip-prefix()
+{
+    echo NONE
+}
