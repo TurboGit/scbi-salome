@@ -11,9 +11,7 @@ function s-ghs3dprl-plugin-build-depends()
 
 function s-ghs3dprl-plugin-depends()
 {
-    echo os@-qt5-default
-    echo os@-qtbase5-dev
-
+    echo s-qt
     echo s-smesh
     echo s-ghs3d-plugin
 }
