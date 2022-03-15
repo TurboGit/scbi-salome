@@ -33,6 +33,7 @@ function s-ydefx-common-build-depends()
 
 function s-ydefx-default-build-depends()
 {
+    echo s-python
     echo s-py2cpp
 }
 
@@ -72,7 +73,7 @@ function s-ydefx-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$PYTHON_BIN \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }

@@ -30,12 +30,13 @@ function s-fields-build-depends()
 {
     echo s-cmake
     echo os@-sphinx-common
-    echo os@-sphinx-intl
+    [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
     echo os@-python3-stemmer
 }
 
 function s-fields-depends()
 {
+    echo s-python
     echo s-salome-configuration
     echo s-salome-kernel
     echo s-medcoupling

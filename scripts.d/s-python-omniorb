@@ -32,6 +32,7 @@ function s-python-omniorb-tar()
 
 function s-python-omniorb-depends()
 {
+    echo s-python
     echo s-omniorb
 }
 
@@ -57,8 +58,8 @@ function s-python-omniorb-config()
     local TARGET=$2
 
     CXXFLAGS="-fpermissive" ../src/configure \
-	    --prefix=$PREFIX --with-omniorb=$OMNIORB_ROOT_DIR \
-            PYTHON=$(command -v python3)
+            --prefix=$PREFIX --with-omniorb=$OMNIORB_ROOT_DIR \
+            PYTHON=$PYTHON_BIN
 }
 
 function s-python-omniorb-build()

@@ -41,6 +41,7 @@ function s-salome-adao-depends()
     echo s-salome-kernel
     echo s-eficas-tools
     echo s-libbatch
+    echo s-python
     echo s-python-omniorb
 }
 
@@ -72,7 +73,7 @@ function s-salome-adao-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DADAO_PYTHON_MODULE=OFF \
           -DEFICAS_ROOT_DIR=$EFICAS_ROOT \
           -DKERNEL_ROOT_DIR=$KERNEL_ROOT_DIR \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$PYTHON_BIN \
           -DADAO_PYTHON_ROOT_DIR=$PREFIX \
           -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/$PSP/$INI \
           -DADAO_SALOME_MODULE=ON \

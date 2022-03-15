@@ -1,0 +1,93 @@
+
+with-variant native os@-python3-dev:[v] \
+     --env 'set-var PYTHON_VERSION $(python3 --version | cut -d" " -f2 | cut -c1-3)' \
+           'set-var PYTHON_BIN $(command -v python3)'
+
+function s-python-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo Python-$VERSION.tgz
+}
+
+function s-python-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local DIR=$(ls -d $PREFIX/lib/python*)
+
+    set-var    PYTHON_ROOT_DIR    $PREFIX
+    set-var    PYTHON_BIN         $PREFIX/bin/python3
+    set-var    PYTHON_VERSION     ${DIR##*python}
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/python$PYTHON_VERSION
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/python$PYTHON_VERSION
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PYTHONPATH         $PREFIX/lib/python$PYTHON_VERSION
+}
+
+function s-python-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo --prefix=$PREFIX
+    echo --enable-shared
+    echo --with-threads
+    echo --without-pymalloc
+    echo --with-ensurepip=install
+    echo --with-ssl
+    echo --enable-loadable-sqlite-extensions
+}
+
+function s-python-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=( $(get-config-options $PREFIX $TARGET $VARIANT) )
+
+    ../src/configure ${OPTIONS[*]}
+}
+
+function s-python-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-python-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-python-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cd $PREFIX/bin
+    ln -s python3 python
+    ln -s pip3 pip
+}
+
+function s-python-prefix()
+{
+    echo NONE
+}

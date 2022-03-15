@@ -75,6 +75,7 @@ function s-salome-kernel-default-depends()
     echo os@-python3-numpy
     echo os@-hdf5-dev
 
+    echo s-python
     echo s-libbatch
     echo s-omniorb
     echo s-python-omniorb

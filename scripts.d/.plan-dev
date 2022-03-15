@@ -5,6 +5,10 @@
 s-clang:#12.x
 # using binary version 1.16.0, must be available in s-ispc GitHub
 s-ispc/bin:#v1.16.0
+s-cmake/auto:#3.14.4
+
+# should be using 3.13.4 (version on debian-10) and min required for paraview
+# s-cmake/auto:#3.13.4
 
 s-persalys:v12.0
 s-zeromq:#4.3.1
@@ -33,6 +37,7 @@ s-root:v6-22-02
 s-zcracks:#3.2.6
 s-sip/auto:#4.19
 s-cmake/auto:#3.14.4
+s-python/auto:#3.6.5
 s-qt/auto:#5.12.10
 s-pyqt/auto:#5.15.3
 s-pyqt-sip/auto:#12.8.1
@@ -135,9 +140,14 @@ s-salome:dev
         s-paraview/default.ospray.gdal:#v5.9.0
 ]
 
+[ = deb,10
+        s-hdf5/native-serial
+]
+
 [ = deb,9
-        s-hdf5/mpi:#1.10.3
+        s-hdf5:#1.10.3
         s-tbb/auto:#4.4.6
+        s-sip/auto:#5.5.0
         # this should be also for debian-10
 ]
 
@@ -160,4 +170,3 @@ s-occt:#7.5.3p2
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
-s-hdf5/native-serial

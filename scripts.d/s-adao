@@ -49,8 +49,10 @@ function s-adao-default-depends()
 {
     echo os@-python3-sphinx-rtd-theme
     echo os@-python3-matplotlib
-    echo s-python3-nlopt
     echo os@-python3-scipy
+    echo s-salome-configuration
+    echo s-python3-nlopt
+    echo s-python
 }
 
 function s-adao-env()
@@ -83,7 +85,7 @@ function s-adao-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$PYTHON_BIN \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DADAO_BUILD_DOC=OFF"} \
           ../src

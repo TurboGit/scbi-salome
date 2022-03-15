@@ -16,8 +16,10 @@ function s-pyqt-tar()
 
 function s-pyqt-depends()
 {
+    echo s-python
     echo s-qt
     echo s-sip
+    echo s-pyqt-sip
 }
 
 function s-pyqt-env()
@@ -38,18 +40,34 @@ function s-pyqt-out-of-tree()
     echo false
 }
 
+# /usr/include/python3.5m/sip.h
+
 function s-pyqt-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    python3 configure.py --confirm-license -b $PREFIX/bin \
-            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
-            -v $PREFIX/share/sip \
-            --designer-plugindir=$PREFIX/include/python$PYTHON_VERSION \
-            --qml-plugindir=$PREFIX/include/python$PYTHON_VERSION \
-            --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages/PyQt5 \
-            --sip-incdir=$SIP_ROOT_DIR/include/python$PYTHON_VERSION
+#    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+    python3 ./configure.py --confirm-license \
+            --no-designer-plugin \
+            --verbose \
+            --bindir=${PREFIX}/bin \
+            --destdir=${PREFIX}/lib/python$PYTHON_VERSION/site-packages \
+            --sipdir=${PYQT_SIPS} \
+            --sip-incdir=${PYQT_SIPS}/include \
+            --disable=QtNetwork \
+            --disable=QtWebSocket
+
+
+#    python3 configure.py --confirm-license \
+#            -b $PREFIX/bin \
+#            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
+#            -v $PREFIX/share/sip \
+#            --designer-plugindir=$PREFIX/include/python$PYTHON_VERSION \
+#            --qml-plugindir=$PREFIX/include/python$PYTHON_VERSION \
+#            --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages/PyQt5 \
+#            --sip-incdir=$SIP_ROOT_DIR/include/python$PYTHON_VERSION
 }
 
 function s-pyqt-build()

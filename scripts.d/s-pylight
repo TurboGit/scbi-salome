@@ -34,7 +34,7 @@ function s-pylight-build-depends()
     echo os@-doxygen
     echo os@-python3-docutils
     echo os@-sphinx-common
-    echo os@-sphinx-intl
+    [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
     echo os@-swig

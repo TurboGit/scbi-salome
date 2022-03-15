@@ -37,7 +37,7 @@ function s-omniorb-tar()
 
 function s-omniorb-depends()
 {
-    echo os@-python3-dev
+    echo s-python
 }
 
 function s-omniorb-env()
@@ -58,7 +58,7 @@ function s-omniorb-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ../src/configure PYTHON=/usr/bin/python3 --prefix=$PREFIX
+    ../src/configure PYTHON=$PYTHON_BIN --prefix=$PREFIX
 }
 
 function s-omniorb-build()

@@ -25,6 +25,7 @@ function s-adao-interface-depends()
 {
     echo s-salome-configuration
     echo s-adao
+    echo s-python
 }
 
 function s-adao-interface-env()
@@ -56,7 +57,7 @@ function s-adao-interface-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           -DPY2CPP_ROOT_DIR=$PY2CPP_ROOT_DIR \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$PYTHON_BIN \
           ../src
 }
 

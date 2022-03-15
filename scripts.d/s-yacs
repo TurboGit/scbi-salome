@@ -51,7 +51,7 @@ function s-yacs-default-depends()
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-sphinx-common
-    echo os@-sphinx-intl
+    [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
     echo s-salome-kernel
     echo s-salome-gui
     echo s-yacsgen

@@ -27,6 +27,7 @@ function s-python3-xlutils-common-depends()
 
 function s-python3-xlutils-default-depends()
 {
+    echo s-python
     echo os@-python3
 }
 

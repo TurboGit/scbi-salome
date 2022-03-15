@@ -46,6 +46,7 @@ function s-py2cpp-depends()
     local TARGET=$2
 
     echo s-salome-configuration
+    echo s-python
 }
 
 function s-py2cpp-config()
@@ -54,7 +55,7 @@ function s-py2cpp-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DPYTHON_EXECUTABLE=$PYTHON_BIN \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }

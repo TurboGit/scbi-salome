@@ -37,7 +37,7 @@ function s-dsccode-build-depends()
     echo os@-autotools-dev
     echo os@-libtool
     echo os@-sphinx-common
-    echo os@-sphinx-intl
+    [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
     echo os@-swig

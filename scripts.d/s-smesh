@@ -39,7 +39,7 @@ function s-smesh-ng-build-depends()
 function s-smesh-default-build-depends()
 {
     echo os@-sphinx-common
-    echo os@-sphinx-intl
+    [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
 }
 
 function s-smesh-mpi-depends()

@@ -17,8 +17,8 @@ function s-melidefx-depends()
 {
     echo s-salome-kernel
     echo s-yacs
-    echo os@-python3
     echo s-melissa
+    echo s-python
     echo s-py2cpp
     echo s-ydefx
 }

@@ -91,10 +91,10 @@ function s-paraview-default-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo os@-python3-dev
     echo os@-x11-dev
     echo os@-xt-dev
 
+    echo s-python
     echo s-qt
     echo s-hdf5
     echo s-openturns

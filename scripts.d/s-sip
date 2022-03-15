@@ -21,16 +21,29 @@ function s-sip-tar()
     echo sip-$VERSION.tar.gz
 }
 
+function s-sip-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo python3-toml
+    echo python3-packaging
+
+    echo s-python
+}
+
 function s-sip-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    SIP_ROOT_DIR  $PREFIX
-    set-var    PYQT_SIPS_DIR $PREFIX
+    set-var    SIP_ROOT_DIR       $PREFIX
+    set-var    PYQT_SIPS_DIR      $PREFIX
 
-    add-to-var PATH          $PREFIX/bin
-    add-to-var PYTHONPATH    $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PATH               $PREFIX/bin
+    add-to-var PYTHONPATH         $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/python$PYTHON_VERSION
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/python$PYTHON_VERSION
 }
 
 function s-sip-out-of-tree()
@@ -43,10 +56,12 @@ function s-sip-config()
     local PREFIX=$1
     local TARGET=$2
 
-    python3 configure.py -b $PREFIX/bin \
-            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
-            -e $PREFIX/include/python$PYTHON_VERSION \
-            -v $PREFIX/share/sip
+    if [[ -f configure.py ]]; then
+        python3 configure.py -b $PREFIX/bin \
+                -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
+                -e $PREFIX/include/python$PYTHON_VERSION \
+                -v $PREFIX/share/sip
+    fi
 }
 
 function s-sip-build()
@@ -54,7 +69,11 @@ function s-sip-build()
     local PREFIX=$1
     local TARGET=$2
 
-    make -j$SCBI_JOBS
+    if [[ -f setup.py ]]; then
+        python3 setup.py build
+    else
+        make -j$SCBI_JOBS
+    fi
 }
 
 function s-sip-install()
@@ -62,7 +81,23 @@ function s-sip-install()
     local PREFIX=$1
     local TARGET=$2
 
-    make install
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+    if [[ -f setup.py ]]; then
+        mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+        python3 setup.py install --prefix=$PREFIX
+    else
+        make install
+    fi
+}
+
+function s-sip-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd $PREFIX/bin
+    ln -s sip5 sip
 }
 
 function s-sip-prefix()

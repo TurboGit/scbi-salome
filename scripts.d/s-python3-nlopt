@@ -27,7 +27,7 @@ function s-python3-nlopt-build-depends()
 
 function s-python3-nlopt-depends()
 {
-    echo os@-python3
+    echo s-python
     echo os@-python3-numpy
     echo os@-nlopt0
 }
@@ -37,7 +37,7 @@ function s-python3-nlopt-build-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PYTHON /usr/bin/python3
+    add-to-var PYTHON $PYTHON_BIN
 }
 
 function s-python3-nlopt-env()
