@@ -89,6 +89,16 @@ function s-paravisaddons-common-install()
     make install
 }
 
+function s-paravisaddons-common-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # Add paravisaddons-common ctest on salome_test
+    mkdir -p $PREFIX/bin/salome
+    cp -rf $PREFIX/tests/ $PREFIX/bin/salome/test
+}
+
 function s-paravisaddons-common-prefix()
 {
     echo NONE
