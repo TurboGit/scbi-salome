@@ -26,6 +26,17 @@ function s-homard-tar()
     echo HOMARD_SRC_$VERSION.tgz
 }
 
+function s-homard-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo to_active_homard_test.patch
+}
+
 function s-homard-build-depends()
 {
     echo s-cmake
