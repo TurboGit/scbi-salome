@@ -1,0 +1,25 @@
+From b497262a3386b556900a1837a364136a643c68f3 Mon Sep 17 00:00:00 2001
+From: DUC ANH HOANG <duc-anh-externe.hoang@edf.fr>
+Date: Wed, 16 Mar 2022 14:51:43 +0100
+Subject: [PATCH] [PATCH] to install the homard test in edf env
+
+---
+ src/tests/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/tests/CMakeLists.txt b/src/tests/CMakeLists.txt
+index d17e1fc..5a4c85a 100644
+--- a/src/tests/CMakeLists.txt
++++ b/src/tests/CMakeLists.txt
+@@ -16,7 +16,7 @@
+ #
+ # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
+ #
+-
++SET(MED_INT_IS_LONG TRUE)
+ IF(MED_INT_IS_LONG)
+   # Homard tests are unavailable if medfile is built with 32-bits UIDs
+   IF(SALOME_BUILD_TESTS)
+-- 
+2.20.1
+
