@@ -153,6 +153,9 @@ function build-salome-prerequisites()
                     *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
                 ;;
 
+                SalomeAppConfig|SALOME_MODULES)
+                ;;
+
                 *)
                     VSET=${VAR}_set
                     echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
@@ -250,6 +253,9 @@ function build-salome-context()
 
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*\
                     |*INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                    ;;
+
+                SalomeAppConfig|SALOME_MODULES)
                     ;;
 
                 *)
