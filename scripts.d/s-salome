@@ -80,6 +80,7 @@ function s-salome-prerequisite-modules()
     echo s-python3-xlutils
     echo s-rkcommon
     echo s-openvkl
+    echo s-zcracks
 }
 
 function s-salome-modules()
