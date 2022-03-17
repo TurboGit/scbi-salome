@@ -344,27 +344,27 @@ EOF
         MODULE_PATH=$SCBI_BDIR/$module/build/install
 
 	case "$module" in
-		"samples")
-			echo "   <samples path=\"$MODULE_PATH\"/>"        >> $FILE
-			;;
-		*"medcoupling"*)
-			echo "   <extra_tests>"                           >> $FILE
-			echo "      <extra_test name='MEDCOUPLING'"       >> $FILE
-			echo "             path=\"$MODULE_PATH/tests\"/>" >> $FILE
-			echo "   </extra_tests>"                          >> $FILE
-			;;
-		*"paravisaddons-common"*)
-			echo "   <extra_tests>"                           >> $FILE
-                        echo "      <extra_test name='paravisaddons-common'"       >> $FILE
-                        echo "             path=\"$MODULE_PATH/tests\"/>" >> $FILE
-                        echo "   </extra_tests>"                          >> $FILE
-                        ;;
-		*)
-			;;
+	    "samples")
+		echo "   <samples path=\"$MODULE_PATH\"/>"           >> $FILE
+		;;
+	    *"medcoupling"*)
+		echo "   <extra_tests>"                              >> $FILE
+		echo "      <extra_test name='MEDCOUPLING'"          >> $FILE
+		echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
+		echo "   </extra_tests>"                             >> $FILE
+		;;
+	    *"paravisaddons-common"*)
+		echo "   <extra_tests>"                              >> $FILE
+                echo "      <extra_test name='paravisaddons-common'" >> $FILE
+                echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
+                echo "   </extra_tests>"                             >> $FILE
+                ;;
+	    *)
+		;;
 	esac
     done
 
-    echo "</application>"                                     >> $FILE
+    echo "</application>"                           >> $FILE
 }
 
 function s-salome-wrapup()
