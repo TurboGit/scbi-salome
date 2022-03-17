@@ -9,7 +9,7 @@ function s-homard-patches()
     local KIND=$4
     local REF=$5
 
-    echo to_active_homard_test.patch
+    echo activate-homard-tests.patch
 }
 
 function s-homard-build-depends()
