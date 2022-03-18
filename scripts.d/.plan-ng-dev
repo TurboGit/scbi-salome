@@ -39,6 +39,8 @@ s-cmake/native
         os@-boost-locale-dev:skip
         os@-python3:skip
         os@-python3-numpy:skip
+        os@-python3-xlrd:skip
+        os@-python3-xlwt:skip
 ]
 
 [ = deb,10

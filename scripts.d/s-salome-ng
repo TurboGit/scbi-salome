@@ -3,6 +3,7 @@ function s-salome-ng-modules()
 {
     echo s-atomic
     echo s-salome-openturns
+    echo s-python3-xlutils
 }
 
 function setup-salome-ng-env()
