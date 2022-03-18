@@ -103,4 +103,8 @@ function s-salome-bin-linux-env()
     add-to-var CPLUS_INCLUDE_PATH $PY2CPP_ROOT_DIR/include
 
     export PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -c1-3)
+
+    add-to-var PYTHONPATH $SMESH_ROOT_DIR/share/salome/plugins/smesh
+    add-to-var PYTHONPATH $SMESH_ROOT_DIR/share/salome/plugins/smesh/Verima
+    add-to-var PYTHONPATH $SMESH_ROOT_DIR/share/salome/plugins/smesh/MacMesh
 }
