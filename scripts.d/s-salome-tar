@@ -72,7 +72,7 @@ function s-salome-tar-install()
     else
 	ORIGDIR="/volatile/[^:;\"]*SALOMEBuilder/[^/]*/INSTALL"
 	BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
-	TGTDIR=$PREFIX/$BINDIR
+	TGTDIR=\$ENV{KERNEL_ROOT_DIR}/../../$BINDIR
     fi
 
     find $PREFIX/ -type f -name "*.cmake" |
