@@ -11,6 +11,16 @@ function s-yacsgen-tar()
     echo yacsgen-$VERSION.tar.xz 
 } 
 
+function s-yacsgen-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    YACSGEN_ROOT_DIR $PREFIX
+    add-to-var PATH             $PREFIX/script
+    add-to-var PYTHONPATH       $PREFIX/module_generator
+}
+
 function s-yacsgen-install()
 {
     local PREFIX=$1
