@@ -95,7 +95,11 @@ function setup-salome-ng-env()
                     ;;
                 *)
                     if [[ "$REL_PDIR" == "$VALUE" ]]; then
-                        echo "   context.setVariable(r\"$VAR\", r\"$VALUE\", overwrite=True)" >> $PFILE
+                        if [[ $VALUE == \"*\" ]]; then
+                            echo "   context.setVariable(r\"$VAR\", r$VALUE, overwrite=True)" >> $PFILE
+                        else
+                            echo "   context.setVariable(r\"$VAR\", r\"$VALUE\", overwrite=True)" >> $PFILE
+                        fi
                     else
                         echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
                     fi
