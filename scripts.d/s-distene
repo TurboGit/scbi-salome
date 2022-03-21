@@ -25,7 +25,7 @@ function s-distene-env()
     local LICENSE_FILE="Use global envvar: DLIM8VAR"
 
     set-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
-    set-var DLIM8VAR "\"dlim8 $(scbi-store-get-key DLIM8)\""
+    set-var DLIM8VAR "dlim8 $(scbi-store-get-key DLIM8)"
     set-var DISTENE_LICENCE_FILE_FOR_YAMS "$LICENSE_FILE"
     set-var DISTENE_LICENCE_FILE_FOR_MGCLEANER "$LICENSE_FILE"
     set-var MESHGEMS_OLD_STYLE 1
