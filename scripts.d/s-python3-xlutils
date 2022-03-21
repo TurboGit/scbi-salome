@@ -14,11 +14,20 @@ function s-python3-xlutils-out-of-tree()
     echo false
 }
 
-function s-python3-xlutils-depends()
+function s-python3-xlutils-linux-depends()
 {
-    echo os@-python3
+    echo s-salome-bin
+}
+
+function s-python3-xlutils-common-depends()
+{
     echo os@-python3-xlrd
     echo os@-python3-xlwt
+}
+
+function s-python3-xlutils-default-depends()
+{
+    echo os@-python3
 }
 
 function s-python3-xlutils-build-env()
