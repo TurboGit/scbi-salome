@@ -12,6 +12,7 @@ s-cmake/native
         s-salome-bin
         s-atomic
         s-salome-openturns
+        s-python3-xutils
         s-zeromq:#4.3.1
 ] /linux
 
