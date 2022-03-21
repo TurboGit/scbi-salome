@@ -166,6 +166,9 @@ function setup-salome-ng-env()
         echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)' >> $PFILE
         echo '   context.setVariable(r"MESHGEMS_VERSION", r"213", overwrite=True)' >> $PFILE
         echo '   context.setVariable(r"SALOME_MG_KEYGEN_LIB_PATH", r"https://meshgems-licence.retd.edf.fr/MESHGEMS" + r"${MESHGEMS_VERSION}", overwrite=True)' >> $PFILE
+        echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh")' >> $PFILE
+        echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")' >> $PFILE
+        echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")' >> $PFILE
 
         #  keep current PATH setting
         PATH_set=IS_SET
