@@ -65,7 +65,7 @@ function s-yacs-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
           -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          -DSALOME_BUILD_TESTS=OFF \
+          -DSALOME_BUILD_TESTS=ON \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ../src
