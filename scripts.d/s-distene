@@ -21,12 +21,14 @@ function s-distene-env()
     add-to-var PATH              $PREFIX/bin/Linux_64
 
     # and the DISTENE license
-    LICENSE_FILE="Use global envvar: DLIM8VAR"
-    add-to-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
-    add-to-var DLIM8VAR "dlim8 1:1:29030@10.122.51.15/005056010130::9de2ce714bcb5ec8ced9926a1087298ebeca6affe852286633abe41cb4a85b4b"
-    add-to-var DISTENE_LICENCE_FILE_FOR_YAMS "$LICENSE_FILE"
-    add-to-var DISTENE_LICENCE_FILE_FOR_MGCLEANER "$LICENSE_FILE"
-    add-to-var MESHGEMS_OLD_STYLE  1
+
+    local LICENSE_FILE="Use global envvar: DLIM8VAR"
+
+    set-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
+    set-var DLIM8VAR "\"dlim8 $(scbi-store-get-key DLIM8)\""
+    set-var DISTENE_LICENCE_FILE_FOR_YAMS "$LICENSE_FILE"
+    set-var DISTENE_LICENCE_FILE_FOR_MGCLEANER "$LICENSE_FILE"
+    set-var MESHGEMS_OLD_STYLE 1
 }
 
 function s-distene-out-of-tree()
