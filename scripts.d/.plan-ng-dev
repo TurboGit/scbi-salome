@@ -13,7 +13,7 @@ s-cmake/native
         s-paravisaddons-edf
         s-atomic
         s-salome-openturns
-        s-python3-xutils
+        s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
         s-distene:#V2.12-1_linux_EU
