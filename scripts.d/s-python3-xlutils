@@ -4,7 +4,7 @@ function s-python3-xlutils-out-of-tree()
     echo false
 }
 
-function s-python3-xlutils-linux-depends()
+function s-python3-xlutils-linux-build-depends()
 {
     echo s-salome-bin
 }
