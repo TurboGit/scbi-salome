@@ -14,6 +14,7 @@ function s-openvkl-build-depends()
 {
     echo s-cmake
     echo s-ispc
+    echo s-clang
 }
 
 function s-openvkl-depends()
