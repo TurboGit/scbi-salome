@@ -57,7 +57,11 @@ function setup-salome-ng-env()
 
                 *)
                     VSET=${VAR}_set
-                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $SFILE
+                    if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                        echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $SFILE
+                    else
+                        echo export $VAR=\"${REL_DIR}\"${!VSET:+:\$${VAR}} >> $SFILE
+                    fi
 
                     # mark $VAR as set to ensure that the previous value
                     # will be added on next call ${!VAR...} above.
