@@ -39,6 +39,14 @@ function setup-salome-ng-env()
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
             local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
 
+            #  s-salome-bin needs a specific handling as the variables points to the
+            #  binary install directories.
+
+            if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]]; then
+                local REL_FROM="$SCBI_BDIR/s-salome-tar/build/install"
+                local REL_DIR="${VALUE/$REL_FROM/\$\{out_dir_Path\}}"
+            fi
+
             #  Remove possible leading directory separator
 
             [[ ${REL_PDIR:0:1} == '/' ]] && REL_PDIR=${REL_PDIR:1}
@@ -51,7 +59,7 @@ function setup-salome-ng-env()
             #  For shell script
 
             case "$VAR" in
-                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH| \
                     *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
                 ;;
 
@@ -125,6 +133,7 @@ function setup-salome-ng-env()
             #  Skip some s-salome-tar & s-salome-bin
 
             FCT=$(get-hook $module $variant env)
+
             if [[ ! -z $FCT ]]; then
                 CURRENT_MODULE_NAME=$module
                 CURRENT_MODULE=${module//-/_}
