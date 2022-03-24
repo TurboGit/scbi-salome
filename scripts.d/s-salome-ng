@@ -137,7 +137,7 @@ function setup-salome-ng-env()
                 N=$(( N + 1 ))
 
                 echo "# $module"                                   > $SFILE
-                echo "export ROOT_EDF=\${out_dir_path}/EDF"       >> $SFILE
+                echo "export ROOT_EDF=\${out_dir_Path}/EDF"       >> $SFILE
                 echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $SFILE
                 chmod a+x $SFILE
 
