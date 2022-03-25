@@ -108,6 +108,12 @@ function s-salome-tar-install()
         while read F; do
             sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
+
+    #  Make appear Persalys's icon on Salome gui
+
+    local ORDIR=$PREFIX/$BINDIR/OPENTURNS/share/salome/resources/openturns
+
+    cp $ORDIR/SalomeApp.xml $ORDIR//SalomeAppSL.xml
 }
 
 function s-salome-tar-prefix()
