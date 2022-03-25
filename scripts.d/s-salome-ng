@@ -3,7 +3,6 @@ function s-salome-ng-modules()
 {
     echo s-atomic
     echo s-paravisaddons-edf
-    echo s-salome-openturns
     echo s-melissa
     echo s-distene
     echo s-python3-xlutils
