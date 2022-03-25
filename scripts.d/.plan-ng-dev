@@ -12,7 +12,6 @@ s-cmake/native
         s-salome-bin
         s-paravisaddons-edf
         s-atomic
-        s-salome-openturns
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
@@ -31,7 +30,6 @@ s-cmake/native
         s-paravisaddons-edf/win
         s-atomic:skip
         s-salome-tar/win:#9.7.0-native:WIN
-        s-salome-openturns:skip
         s-zeromq:skip
         s-melissa:skip
         s-persalys:skip
