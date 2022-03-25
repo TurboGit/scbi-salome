@@ -11,7 +11,6 @@ s-cmake/native
 [ = linux
         s-salome-bin
         s-atomic
-        s-salome-openturns
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
 ] /linux
@@ -27,7 +26,6 @@ s-cmake/native
         s-salome-bin/win
         s-atomic:skip
         s-salome-tar/win:#9.7.0-native:WIN
-        s-salome-openturns:skip
         s-zeromq:skip
         s-persalys:skip
 ]
