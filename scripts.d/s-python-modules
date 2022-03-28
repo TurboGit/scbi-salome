@@ -1,0 +1,70 @@
+
+function s-python-modules-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/python-modules
+}
+
+function s-python-modules-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo python-modules-$VERSION.tar.gz
+}
+
+function s-python-modules-out-of-tree()
+{
+    echo false
+}
+
+function s-python-modules-linux-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-python-modules-build-depends()
+{
+    echo os@-python3-setuptools
+}
+
+function s-python-modules-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-python-modules-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-python-modules-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    PYPIURL=$(scbi-store-get-key PYPIURL)
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    echo "[easy_install]" > setup.cfg
+    echo "index-url = $PYPIURL" >> setup.cfg
+    python3 setup.py install --prefix=$PREFIX
+}
+
+function s-python-modules-prefix()
+{
+    echo NONE
+}
