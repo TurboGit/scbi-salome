@@ -13,6 +13,7 @@ s-cmake/native
         s-atomic
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
+        s-python-modules:master
 ] /linux
 
 #  The version has two parts, the version of the code and the version
