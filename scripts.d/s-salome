@@ -72,6 +72,7 @@ function s-salome-prerequisite-modules()
     echo s-python3-xlutils
     echo s-rkcommon
     echo s-openvkl
+    echo s-cgns
 }
 
 function s-salome-modules()

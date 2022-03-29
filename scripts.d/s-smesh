@@ -26,7 +26,6 @@ function s-smesh-mpi-depends()
 function s-smesh-common-depends()
 {
     echo os@-qt5-default
-    echo os@-cgns-dev
 
     echo s-python-omniorb
     echo s-omniorb
@@ -38,6 +37,7 @@ function s-smesh-common-depends()
     echo s-shaperstudy
     echo s-medfichier
     echo s-medcoupling
+    echo s-cgns
 }
 
 function s-smesh-env()
