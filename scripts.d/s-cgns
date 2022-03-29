@@ -1,0 +1,76 @@
+
+with-variant native os@-cgns-dev:[v]
+
+function s-cgns-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/CGNS/CGNS
+}
+
+function s-cgns-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo cgnslib-$VERSION.tar.gz
+}
+
+function s-cgns-build-depends()
+{
+    echo s-cmake
+}
+
+function s-cgns-depends()
+{
+    echo s-hdf5
+}
+
+function s-cgns-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    CGNS_ROOT_DIR      $PREFIX
+
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+}
+
+function s-cgns-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          ../src
+}
+
+function s-cgns-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-cgns-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-cgns-prefix()
+{
+    echo NONE
+}
