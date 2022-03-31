@@ -54,9 +54,16 @@ function setup-salome-ng-env()
             #  We set values as some are used in depends modules like
             #  s-salome-bin using SALOME_BIN_APPLICATION set in s-salome-tar.
 
-            [[ $ACTION == SET ]] && export $VAR=$VALUE
+            local VSET="no"
+
+            if [[ $ACTION == SET ]]; then
+                export $VAR=$VALUE
+                unset VSET
+            fi
 
             #  For shell script
+            #  Not that we always append to existing variables as some
+            #  may have been set by the binary package's env_lauch.sh.
 
             case "$VAR" in
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH| \
@@ -64,16 +71,11 @@ function setup-salome-ng-env()
                 ;;
 
                 *)
-                    VSET=${VAR}_set
                     if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                        echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $SFILE
+                        echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}} >> $SFILE
                     else
-                        echo export $VAR=\"${REL_DIR}\"${!VSET:+:\$${VAR}} >> $SFILE
+                        echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}} >> $SFILE
                     fi
-
-                    # mark $VAR as set to ensure that the previous value
-                    # will be added on next call ${!VAR...} above.
-                    export ${VAR}_set=IS_SET
                     ;;
             esac
 
