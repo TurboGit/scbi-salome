@@ -13,7 +13,7 @@ function s-gmsh-plugin-depends()
     echo s-salome-kernel
     echo s-salome-gui
     echo s-omniorb
-    echo os@-qt5-default
+    echo s-qt
     echo s-occt
     echo s-geom
     echo s-gmsh

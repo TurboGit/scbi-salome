@@ -4,12 +4,12 @@
 # hardware.
 #
 # apt install libgles2-mesa-dev
-# apt install os@-glu1-mesa-dev
+# apt install libglu1-mesa-dev
 # apt install mesa-common-dev
 
 with-variant native \
-             os@-qt5-default os@-qtbase5-dev \
-             os@-qt5opengl5-dev os@-qt5printsupport5 \
+             os@-qt5-default:[v] os@-qtbase5-dev:[v] os@-qttools5-dev:[v] os@-qt5help5 \
+             os@-qt5x11extras5-dev os@-qt5opengl5-dev os@-qt5printsupport5 \
        --env 'set-var QT5_ROOT_DIR /usr'
 
 function s-qt-vcs() 
@@ -51,6 +51,7 @@ function s-qt-config-options()
     echo --prefix=$PREFIX
     echo -opensource
     echo -confirm-license
+    echo -no-rpath
     echo -nomake examples
     echo -nomake tests
 }

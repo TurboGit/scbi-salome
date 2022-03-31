@@ -1,0 +1,51 @@
+
+with-variant native os@-tbb-dev:[v] \
+             --env 'set-var TBB_ROOT /usr'
+
+
+function s-tbb-vcs() 
+{ 
+    true 
+} 
+
+function s-tbb-out-of-tree()
+{
+    echo false
+}
+
+function s-tbb-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    TBB_ROOT        $PREFIX
+    add-to-var TBB_INCLUDE_DIR $PREFIX/include
+    add-to-var LB_LIBRARY_PATH $PREFIX/lb
+}
+
+function s-tbb-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-tbb-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    mkdir -p $PREFIX/lib
+    cp -rf ./include $PREFIX/.
+    cd build
+    cp -rf ./linux*release/* $PREFIX/lib
+}
+
+function s-tbb-prefix()
+{
+    echo NONE
+}

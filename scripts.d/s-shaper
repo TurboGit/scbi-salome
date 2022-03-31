@@ -14,7 +14,7 @@ function s-shaper-depends()
     echo s-salome-gui
     echo s-geom
     echo s-planegcs
-    echo os@-qt5-default
+    echo s-qt
     echo s-occt
 }
 

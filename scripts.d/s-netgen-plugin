@@ -14,7 +14,7 @@ function s-netgen-plugin-build-depends()
     echo os@-python3-sphinx-rtd-theme
     echo os@-swig
     echo s-salome-configuration
-    echo os@-qt5-default
+    echo s-qt
 }
 
 function s-netgen-plugin-depends()

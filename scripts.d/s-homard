@@ -20,8 +20,8 @@ function s-homard-build-depends()
 
 function s-homard-depends()
 {
-    echo os@-qt5-default
-    echo os@-python3-pyqt5
+    echo s-qt
+    echo s-pyqt
     echo os@-python3-sip-dev
 
     echo s-salome-configuration

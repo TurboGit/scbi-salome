@@ -25,8 +25,9 @@ function s-smesh-mpi-depends()
 
 function s-smesh-common-depends()
 {
-    echo os@-qt5-default
+    echo os@-cgns-dev
 
+    echo s-qt
     echo s-python-omniorb
     echo s-omniorb
     echo s-hdf5
