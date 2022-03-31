@@ -32,7 +32,8 @@ function s-occt-depends()
     echo os@-xmu-dev
     echo os@-freeimage-dev
     echo os@-gl2ps-dev
-    echo os@-tbb-dev
+
+    echo s-tbb
 }
 
 function s-occt-env()

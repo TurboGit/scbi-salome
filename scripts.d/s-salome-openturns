@@ -39,9 +39,7 @@ function s-salome-openturns-common-depends()
 
 function s-salome-openturns-default-depends()
 {
-    echo os@-qt5-default
-    echo os@-qtbase5-dev
-
+    echo s-qt
     echo s-salome-kernel
     echo s-salome-gui
     echo s-openturns

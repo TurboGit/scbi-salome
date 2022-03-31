@@ -48,7 +48,7 @@ function s-ydefx-common-depends()
 
 function s-ydefx-default-depends()
 {
-    echo os@-qt5-default
+    echo s-qt
     echo s-salome-kernel
     echo s-yacs
 }

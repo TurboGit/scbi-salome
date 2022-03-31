@@ -39,9 +39,7 @@ function s-hexablock-plugin-build-depends()
 
 function s-hexablock-plugin-depends()
 {
-    echo os@-qt5-default
-    echo os@-qtbase5-dev
-
+    echo s-qt
     echo s-salome-gui
     echo s-smesh
     echo s-hexablock

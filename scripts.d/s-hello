@@ -43,7 +43,7 @@ function s-hello-build-depends()
 
 function s-hello-depends()
 {
-    echo os@-qt5-default
+    echo s-qt
     echo s-salome-kernel
     echo s-salome-gui
 }

@@ -1,6 +1,10 @@
 
+with-variant native os@-sip-dev:[v]
+
 function s-sip-vcs()
 {
+    echo edf
+    echo none
     echo hg
     echo https://www.riverbankcomputing.com/hg/sip
 }

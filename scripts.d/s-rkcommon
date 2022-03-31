@@ -31,7 +31,7 @@ function s-rkcommon-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo os@-tbb-dev
+    echo s-tbb
 }
 
 function s-rkcommon-env()

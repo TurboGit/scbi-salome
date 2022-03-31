@@ -1,5 +1,6 @@
 
-with-variant native os@-python3-pyqt5 os@-pyqt5-dev os@-pyqt5-dev-tools \
+with-variant native \
+             os@-python3-pyqt5:[v] os@-pyqt5-dev:[v]  os@-pyqt5-dev-tools \
        --env 'set-var PYQT5_ROOT_DIR /usr'
 
 function s-pyqt-tar()
@@ -10,7 +11,7 @@ function s-pyqt-tar()
     echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
-    echo PyQt5_gpl-$VERSION.tar.gz
+    echo PyQt5-gpl-$VERSION.tar.gz
 }
 
 function s-pyqt-depends()

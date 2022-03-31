@@ -45,9 +45,7 @@ function s-hexablock-build-depends()
 
 function s-hexablock-depends()
 {
-    echo os@-qt5-default
-    echo os@-qtbase5-dev
-
+    echo s-qt
     echo s-geom
 }
 
