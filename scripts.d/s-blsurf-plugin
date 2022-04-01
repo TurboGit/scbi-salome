@@ -39,7 +39,7 @@ function s-blsurf-plugin-depends()
     echo s-salome-gui
     echo s-geom
     echo s-smesh
-    echo s-meshgems
+    echo s-distene
     echo s-medcoupling
 }
 

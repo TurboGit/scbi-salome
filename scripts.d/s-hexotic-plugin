@@ -38,7 +38,7 @@ function s-hexotic-plugin-depends()
     echo s-salome-gui
     echo s-geom
     echo s-smesh
-    echo s-meshgems
+    echo s-distene
 }
 
 function s-hexotic-plugin-env()

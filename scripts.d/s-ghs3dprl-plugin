@@ -37,7 +37,7 @@ function s-ghs3dprl-plugin-build-depends()
 function s-ghs3dprl-plugin-depends()
 {
     echo s-qt
-    echo s-meshgems
+    echo s-distene
     echo s-smesh
     echo s-ghs3d-plugin
 }
