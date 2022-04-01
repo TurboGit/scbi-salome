@@ -102,6 +102,11 @@ function s-salome-bin-ng-env()
     add-to-var C_INCLUDE_PATH     $PY2CPP_ROOT_DIR/include
     add-to-var CPLUS_INCLUDE_PATH $PY2CPP_ROOT_DIR/include
 
-    export PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -c1-3)
+    add-to-var C_INCLUDE_PATH     $MPI_ROOT_DIR/include
+    add-to-var CPLUS_INCLUDE_PATH $MPI_ROOT_DIR/include
 
+    add-to-var C_INCLUDE_PATH     $OMNIORB_ROOT_DIR/include
+    add-to-var CPLUS_INCLUDE_PATH $OMNIORB_ROOT_DIR/include
+
+    export PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -c1-3)
 }
