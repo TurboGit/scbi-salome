@@ -87,6 +87,14 @@ function s-salome-tar-install()
              -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
     fi
 
+    #  Need to fix (shebang) full path to python interpreter
+
+    for SCRIPTS in omniORB/bin/omniidl \
+                       PyQt/bin/pyuic5;
+    do
+        sed -i "s,${ORIGDIR},$PREFIX/$BINDIR,g" $PREFIX/$BINDIR/$SCRIPTS
+    done
+
     #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
