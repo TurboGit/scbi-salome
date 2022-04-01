@@ -17,6 +17,9 @@ s-cmake/native
         s-melissa:#0.0.0
         s-distene:#V2.12-1_linux_EU
         s-python-modules:master
+
+        # other modules that can be built in ng mode
+        s-smesh
 ] /ng
 
 #  The version has two parts, the version of the code and the version
