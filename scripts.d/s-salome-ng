@@ -4,6 +4,7 @@ function s-salome-ng-modules()
     echo s-atomic
     echo s-paravisaddons-edf
     echo s-melissa
+    echo s-meshgems
     echo s-distene
     echo s-python3-xlutils
     echo s-python-modules

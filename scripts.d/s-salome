@@ -47,8 +47,8 @@ function s-salome-prerequisite-modules()
     echo s-medcoupling
     echo s-libbatch
     echo s-py2cpp
-    echo s-distene
     echo s-meshgems
+    echo s-distene
     echo s-planegcs
     echo s-ospray
     echo s-embree

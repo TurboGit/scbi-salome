@@ -24,13 +24,6 @@ function s-meshgems-env()
     # The actual values for the variables are set in the GitLab CI script
 
     set-var SALOME_MG_KEYGEN_LIB_PATH "$(scbi-store-get-key MGKEYGEN)"
-
-    # and the DISTENE license
-    LICENSE_FILE="\"Use global envvar: DLIM8VAR\""
-    set-var DISTENE_LICENSE_FILE "$LICENSE_FILE"
-    set-var DLIM8VAR "\"dlim8 $(scbi-store-get-key DLIM8)\""
-    set-var DISTENE_LICENCE_FILE_FOR_YAMS "$LICENSE_FILE"
-    set-var DISTENE_LICENCE_FILE_FOR_MGCLEANER "$LICENSE_FILE"
 }
 
 function s-meshgems-out-of-tree()
