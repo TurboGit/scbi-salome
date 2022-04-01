@@ -160,7 +160,12 @@ function build-salome-prerequisites()
 
                 *)
                     VSET=${VAR}_set
-                    echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
+
+                    if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                        echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
+                    else
+                        echo export $VAR=\"${REL_DIR}\"${!VSET:+:\$${VAR}} >> $FILE
+                    fi
 
                     # mark $VAR as set to ensure that the previous value
                     # will be added on next call ${!VAR...} above.
@@ -261,7 +266,11 @@ function build-salome-context()
                     ;;
 
                 *)
-                    echo $VAR=$REL_DIR >> $FILE
+                    if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                        echo $VAR=$REL_DIR >> $FILE
+                    else
+                        echo $VAR=\"$REL_DIR\" >> $FILE
+                    fi
                     ;;
             esac
         }
