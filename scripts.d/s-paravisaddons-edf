@@ -18,7 +18,7 @@ function s-paravisaddons-edf-win-build-depends()
     echo s-salome-bin
 }
 
-function s-paravisaddons-edf-linux-build-depends()
+function s-paravisaddons-edf-ng-build-depends()
 {
     echo s-salome-bin
 }

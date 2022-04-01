@@ -17,7 +17,7 @@ s-cmake/native
         s-melissa:#0.0.0
         s-distene:#V2.12-1_linux_EU
         s-python-modules:master
-] /linux
+] /ng
 
 #  The version has two parts, the version of the code and the version
 #  of the OS See tar hook in s-salome-tar for the MinIO download.

@@ -15,7 +15,7 @@ function s-melissa-common-build-depends()
     echo s-cmake
 }
 
-function s-melissa-linux-depends()
+function s-melissa-ng-depends()
 {
     echo s-salome-bin
 }
