@@ -113,7 +113,7 @@ s-salome:dev
 [ = mpi
         s-hdf5/native-mpi
         s-medcoupling/mpi.ptscotch
-        s-smesh/mpi
+        s-smesh/default.mpi
         s-salome-kernel/mpi
         s-salome-gui/mpi
         s-ghs3d-plugin/mpi
