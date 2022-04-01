@@ -51,7 +51,7 @@ function s-persalys-default-depends()
     echo s-ydefx
 }
 
-function s-persalys-linux-depends()
+function s-persalys-ng-depends()
 {
     echo s-salome-bin
 }

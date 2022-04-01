@@ -10,7 +10,7 @@ function s-atomic-build-depends()
     echo os@-swig
 }
 
-function s-atomic-linux-build-depends()
+function s-atomic-ng-build-depends()
 {
     echo s-salome-bin
 }

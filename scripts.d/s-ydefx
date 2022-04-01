@@ -21,7 +21,7 @@ function s-ydefx-default-build-depends()
     echo s-py2cpp
 }
 
-function s-ydefx-linux-build-depends()
+function s-ydefx-ng-build-depends()
 {
     echo s-salome-bin
 }

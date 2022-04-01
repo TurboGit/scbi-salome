@@ -5,7 +5,7 @@ function s-zeromq-build-depends()
     echo s-cmake
 }
 
-function s-zeromq-linux-depends()
+function s-zeromq-ng-depends()
 {
     echo s-salome-bin
 }

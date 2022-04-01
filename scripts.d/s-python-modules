@@ -6,7 +6,7 @@ function s-python-modules-out-of-tree()
     echo false
 }
 
-function s-python-modules-linux-build-depends()
+function s-python-modules-ng-build-depends()
 {
     echo s-salome-bin
 }
