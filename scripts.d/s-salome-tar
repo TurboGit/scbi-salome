@@ -17,7 +17,7 @@ function s-salome-tar-env()
     set-var SALOME_BIN_MODULES     $PREFIX/$BINDIR
 }
 
-function s-salome-tar-win-env()
+function s-salome-tar-ngwin-env()
 {
     local PREFIX=$1
     local TARGET=$2

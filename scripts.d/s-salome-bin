@@ -6,7 +6,7 @@ function s-salome-bin-depends()
 
 ####################################################### WINDOWS
 
-function s-salome-bin-win-env()
+function s-salome-bin-ngwin-env()
 {
     local IROOT=$(cygpath -m $SALOME_BIN_MODULES)
     local IEXT=$IROOT/EXT

@@ -20,13 +20,13 @@ s-cmake/native
 #  of the OS See tar hook in s-salome-tar for the MinIO download.
 
 [ = win
-        s-salome-configuration/win
-        s-cmake/win
+        s-salome-configuration/ngwin
+        s-cmake/ngwin
         s-visual-c/native
         s-windows-kit/native
-        s-salome-bin/win
+        s-salome-bin/ngwin
         s-atomic:skip
-        s-salome-tar/win:#9.7.0-native:WIN
+        s-salome-tar/ngwin:#9.7.0-native:WIN
         s-zeromq:skip
         s-persalys:skip
 ]
