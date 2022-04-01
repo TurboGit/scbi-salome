@@ -12,7 +12,7 @@ function s-paravisaddons-edf-common-build-depends()
     echo s-cmake
 }
 
-function s-paravisaddons-edf-win-build-depends()
+function s-paravisaddons-edf-ngwin-build-depends()
 {
     echo s-visual-c
     echo s-salome-bin
@@ -70,7 +70,7 @@ function s-paravisaddons-edf-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
 }
 
-function s-paravisaddons-edf-win-config-options()
+function s-paravisaddons-edf-ngwin-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -101,7 +101,7 @@ function s-paravisaddons-edf-config()
     cmake $OPTIONS ../src
 }
 
-function s-paravisaddons-edf-win-config()
+function s-paravisaddons-edf-ngwin-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -120,7 +120,7 @@ function s-paravisaddons-edf-build()
     make -j$SCBI_JOBS
 }
 
-function s-paravisaddons-edf-win-build()
+function s-paravisaddons-edf-ngwin-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -136,7 +136,7 @@ function s-paravisaddons-edf-install()
     make install
 }
 
-function s-paravisaddons-edf-win-install()
+function s-paravisaddons-edf-ngwin-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -149,7 +149,7 @@ function s-paravisaddons-edf-prefix()
     echo NONE
 }
 
-function s-paravisaddons-edf-win-prefix()
+function s-paravisaddons-edf-ngwin-prefix()
 {
     echo $(cygpath -c -s "C:/opt/plugins")
 }

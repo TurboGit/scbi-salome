@@ -56,7 +56,7 @@ function s-salome-configuration-env()
     set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
 }
 
-function s-salome-configuration-win-env()
+function s-salome-configuration-ngwin-env()
 {
     local PREFIX=$1
     local TARGET=$2
