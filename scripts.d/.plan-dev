@@ -136,7 +136,7 @@ s-salome:dev
         # this should be also for debian-10
 ]
 
-s-netgen/cmake:#6.2.2104
+s-netgen/cmake:#6.2.2101
 s-gmsh:#4.8.4
 
 s-medfichier:#4.1.1
