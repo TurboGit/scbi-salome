@@ -107,7 +107,7 @@ s-salome:dev
         s-hdf5/native-mpi
         s-medcoupling/mpi.ptscotch
         s-smesh/default.mpi
-        s-salome-kernel/mpi
+        s-salome-kernel/default.mpi
         s-salome-gui/mpi
         s-ghs3d-plugin/mpi
         s-ghs3dprl-plugin/mpi

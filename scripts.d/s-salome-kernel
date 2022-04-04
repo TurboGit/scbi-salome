@@ -11,7 +11,7 @@ function s-salome-kernel-tar()
     echo salome-kernel-$VERSION.tar.xz 
 } 
 
-function s-salome-kernel-build-depends()
+function s-salome-kernel-default-build-depends()
 {
     local DISDOC=$(is-enabled no-doc)
 
@@ -24,6 +24,11 @@ function s-salome-kernel-build-depends()
     echo s-cmake
 }
 
+function s-salome-kernel-common-depends()
+{
+    echo s-salome-configuration
+}
+
 function s-salome-kernel-mpi-depends()
 {
     echo os@-boost-regex-dev
@@ -31,7 +36,12 @@ function s-salome-kernel-mpi-depends()
     echo s-openmpi
 }
 
-function s-salome-kernel-common-depends()
+function s-salome-kernel-ng-depends()
+{
+    echo s-salome-bin
+}
+
+function s-salome-kernel-default-depends()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -50,7 +60,6 @@ function s-salome-kernel-common-depends()
     echo os@-python3-numpy
     echo os@-hdf5-dev
 
-    echo s-salome-configuration
     echo s-libbatch
     echo s-omniorb
     echo s-python-omniorb
@@ -72,6 +81,11 @@ function s-salome-kernel-env()
 }
 
 function s-salome-kernel-mpi-config-options()
+{
+    echo -DSALOME_USE_MPI=ON
+}
+
+function s-salome-kernel-ng-config-options()
 {
     echo -DSALOME_USE_MPI=ON
 }
