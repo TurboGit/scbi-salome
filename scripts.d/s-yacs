@@ -11,19 +11,28 @@ function s-yacs-tar()
     echo yacs-$VERSION.tar.xz 
 } 
 
-function s-yacs-build-depends()
+function s-yacs-default-build-depends()
 {
     echo s-cmake
     echo os@-swig
 }
 
-function s-yacs-depends()
+function s-yacs-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-yacs-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-yacs-default-depends()
 {
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-sphinx-common
     echo os@-sphinx-intl
-    echo s-salome-configuration
     echo s-salome-kernel
     echo s-salome-gui
     echo s-yacsgen
