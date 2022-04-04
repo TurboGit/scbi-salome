@@ -20,6 +20,7 @@ s-cmake/native
 
         # other modules that can be built in ng mode
         s-smesh
+        s-salome-kernel
 ] /ng
 
 #  The version has two parts, the version of the code and the version
