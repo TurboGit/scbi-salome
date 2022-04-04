@@ -306,16 +306,16 @@ This plug-ins must be used as a dependency of the module to build. It setups the
 	\item Update the \code{build-depends} and \code{depends} hook to take the new variant (\code{ng} or \code{ngwin}) into account.
 \end{enumerate}
 
-Taking the example of the \code{atomic} plug-in:
+Taking the example of the \code{s-atomic} plug-in:
 
 \begin{itemize}
-	\item Rename \code{atomic-build-depends} hook to \code{atomic-common-build-depends}. This is to share the hook with the standard build.
+	\item Rename \code{s-atomic-build-depends} hook to \code{s-atomic-common-build-depends}. This is to share the hook with the standard build.
 
-	\item Rename \code{atomic-depends} hook to \code{atomic-default-depends}. This is to use the dependencies only for the standard variant and not with the \code{ng} one.
+	\item Rename \code{s-atomic-depends} hook to \code{s-atomic-default-depends}. This is to use the dependencies only for the standard variant and not with the \code{ng} one.
 
-	\item Add \code{atomic-linux-build-depends} hook:
+	\item Add \code{s-atomic-linux-build-depends} hook:
 	\begin{lstlisting}
-	function atomic-ng-build-depends()
+	function s-atomic-ng-build-depends()
 	{
 		echo s-salome-bin
 	}
@@ -324,7 +324,7 @@ Taking the example of the \code{atomic} plug-in:
 
 And that's all is needed. The other hooks to configure, build and install the module are shared with the standard build.
 
-If the module contains a more complex setup with already multiple variants for the configure options the setup may be a bit more challenging than for the above \code{atomic} module. Note that in any cases only the \code{depends}, \code{build-depends} and \code{config-options} hooks need attention. At the end the \code{common} plus \code{ng} variants of the above hook are what will be used for the \code{ng} variant, and the \code{common}, plus \code{default} hooks must be equivalent to previous version for the non ng build.
+If the module contains a more complex setup with already multiple variants for the configure options the setup may be a bit more challenging than for the above \code{atomic} module. Note that in any cases only the \code{depends}, \code{build-depends} and \code{config-options} hooks need attention. At the end the \code{common} plus \code{ng} variants of the above hooks are what will be used for the \code{ng} variant, and the \code{common}, plus \code{default} hooks must be equivalent to previous version for the non \code{ng} build.
 
 The followings modules have \code{ng} variants and can be used as source of inspiration:
 
@@ -339,6 +339,7 @@ The followings modules have \code{ng} variants and can be used as source of insp
 	\item s-persalys
 	\item s-python3-xlutils
 	\item s-python-modules
+	\item s-yacs
 \end{itemize}
 
 \subsection{Plug-ins s-windows-kit and s-visual-c}
