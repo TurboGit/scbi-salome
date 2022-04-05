@@ -452,6 +452,25 @@ function s-salome-wrapup()
             local APP=$SCBI_BDIR/s-salome/application
             cd $APP
 
+            # copy VERSION file of KERNEL on salome application
+
+            rm -rf ./bin/salome/VERSION &&
+                cp $SCBI_BDIR/s-salome-kernel/build/install/bin/salome/VERSION \
+                   ./bin/salome/
+
+            # fix broken symlink of yacs tests data
+
+            (
+                cd ./bin/salome/test/YACS/yacsloader_swig/ &&
+                    rm -rf samples &&
+                    ln -s ../../../../../share/salome/yacssamples samples)
+
+            (
+                cd ./bin/salome/test/YACS/yacsloader/ &&
+                    rm -rf samples &&
+                    ln -s ../../../../../share/salome/yacssamples samples
+            )
+
             # generate the scbi_versions.txt for tracability
 
             scbi --version > .scbi_versions.txt
