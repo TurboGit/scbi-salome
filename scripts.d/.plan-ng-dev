@@ -22,6 +22,7 @@ s-cmake/native
         s-smesh
         s-salome-kernel
         s-yacs
+        s-paravis
 ] /ng
 
 #  The version has two parts, the version of the code and the version
