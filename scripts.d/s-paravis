@@ -37,6 +37,11 @@ function s-paravis-default-build-depends()
     echo s-qt
 }
 
+function s-paravis-mpi-depends()
+{
+    echo s-openmpi
+}
+
 function s-paravis-common-depends()
 {
     echo s-salome-configuration
@@ -64,7 +69,16 @@ function s-paravis-env()
     add-to-var LD_LIBRARY_PATH  $PREFIX/lib/paraview
 }
 
-function s-paravis-config-options()
+function s-paravis-mpi-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DSALOME_USE_MPI=ON
+}
+
+function s-paravis-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -80,7 +94,6 @@ function s-paravis-config-options()
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
 
-    echo -DSALOME_USE_MPI=ON
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES
     echo -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES
