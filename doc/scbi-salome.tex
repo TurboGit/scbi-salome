@@ -136,7 +136,7 @@ There is around 100 SCBI plug-in module scripts for building SALOME. Some module
 
 Each pre-requisite and each SALOME module is handled in a single separate SCBI plug-in script. One self contained script per pre-requisite or module.
 
-Finally the meta-module \code{salome} aggregates all of them and contains the necessary code to build the final application and installer.
+Finally the meta-module \code{s-salome} aggregates all of them and contains the necessary code to build the final application and installer.
 
 \subsection{setup}
 
@@ -151,7 +151,7 @@ Some modules require a PyPi serveur to be setup. This is done using the PYPIURL 
 
 Building the final application may be as simple as calling:
 
-\cmd{scbi \ddash{}deps \ddash{}env=v96 salome}
+\cmd{scbi \ddash{}deps \ddash{}env=v96 s-salome}
 
 This will build SALOME version v9.6 in \file{$HOME/dev/build-salome-v96} using build plan \file{.plan-v96}. Both the \code{v96} environment file and plan are provided by default. This version is targetted to GNU/Debian 10.
 
@@ -172,9 +172,9 @@ Some modules are hosted on EDF servers and some are on GitHub. It may be needed 
  }
 \end{lstlisting}
 
-This proxy is also defined in the \code{salome} meta-module.
+This proxy is also defined in the \code{s-salome} meta-module.
 
-If you are not using the \code{salome} meta-module and not using the default environment make sure this definition is set in your specific environment file. Optionally it may be defined in the working shell via the \file{.bashrc} or any other specific script.
+If you are not using the \code{s-salome} meta-module and not using the default environment make sure this definition is set in your specific environment file. Optionally it may be defined in the working shell via the \file{.bashrc} or any other specific script.
 
 \subsection{Supported features}
 
@@ -194,7 +194,7 @@ In SALOME plug-in scripts three features are in use:
 
 For example, for creating the final installer the command line is:
 
-\cmd{scbi \ddash{}deps \ddash{}env=v96 \ddash{}enable-installer salome}
+\cmd{scbi \ddash{}deps \ddash{}env=v96 \ddash{}enable-installer s-salome}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION
 
@@ -250,19 +250,19 @@ Alternatively it is possible to inherit \code{v95} build-plan in new \file{.plan
 
 Finally to build the new version, one can just pass this build plan:
 
-\cmd{scbi \ddash{}deps \ddash{}plan=v96 salome}
+\cmd{scbi \ddash{}deps \ddash{}plan=v96 s-salome}
 
 This is possible as a build plan is fully independent of the plug-in modules. Note that this will work as long as the new version does not introduce new dependencies and/or options as configuration step.
 
 If for a quick test, a solution is to specify on the command line the module version needed. For example, let's use build-plan for \code{v96} but use a specific \code{paraview} version based on a sha-1:
 
 \cmd{scbi \ddash{}deps \ddash{}safe \ddash{}plan=v96}
-\cmdc{paraview/gdal.ospray:2a6cc49e5f salome}
+\cmdc{paraview/gdal.ospray:2a6cc49e5f s-salome}
 
 Or, as another example, just build paraview with headless support (which is not the default):
 
 \cmd{scbi \ddash{}deps \ddash{}safe \ddash{}plan=v96}
-\cmdc{paraview/gdal.ospray.headless:5.8.0 salome}
+\cmdc{paraview/gdal.ospray.headless:5.8.0 s-salome}
 
 Note that \code{ospray}, \code{gdal} and \code{headless} are all variants that can be mixed as needed.
 
@@ -274,7 +274,7 @@ The \emph{config} hook may require some update. Again see the SCBI User's Guide 
 
 \subsection{Module with new optional dependency}
 
-The current module depends on new optional dependencies, the corresponding module dependencies plug-ins must be created if needed.
+The current module depends on new optional dependencies, the corresponding module's dependencies plug-ins must be created if needed.
 
 The new dependency is not mandatory and we want to have a way to enable it or not at build time. In this case a build variant should be introduced. This build variant may just require a \emph{depends} and \emph{config} variant hooks to activate the dependency at config time. This optional dependency is then activated by specifying the variant in the module reference.
 
@@ -288,16 +288,66 @@ For a new module, one have to create a new SCBI plug-in script. See the SCBI Use
 
 \section{Building modules on top of a binary installation}
 
-To build some modules on top of a binary installation the specific plug-in \code{s-salome-bin} is provided.
+The build on top of a binary distribution is said to be an NG (Next Gen) build.
+
+To build some modules on top of a binary installation the specific plug-in \code{s-salome-bin} (see \ref{pg:salbin}) is provided.
 
 Also two variants are introduced:
 
-\begin{enumerate}
-	\item \code{ng} : to build on top of a Linux binary installation.
-	\item \code{ngwin} : to build on top of a Windows binary installation.
-\end{enumerate}
+\begin{description}
+	\item[\code{ng}] : (Next Gen) to build on top of a Linux binary installation.
+	\item[\code{ngwin}] : to build on top of a Windows binary installation.
+\end{description}
 
-\subsection{Plug-in s-salome-bin}
+And a new environment (\code{ng-dev}) and meta-module (\code{s-salome-ng}) are also provided. Some Windows specific plug-ins are also available,  see \ref{pg:win}).
+
+\subsection{Building SALOME NG (Next Gen)}
+
+To build SALOME on top of a binary archive with the EDF specific modules added:
+
+\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update}
+\cmdc{\ddash{}enable-application \ddash{}plan=ng-dev s-salome-ng}
+
+\subsection{Building modules already in binary distribution}
+
+It may be needed to build a module already in the binary distribution to debug it or compile it with different options.
+
+For this to be possible, the module must be providing an \code{ng} variant. If it is not the case, see \ref{migrateng} for the procedure. Also the followings modules have \code{ng} variants and can be used as source of inspiration:
+
+\begin{itemize}
+	\item s-atomic
+	\item s-salome-kernel
+	\item s-smesh
+	\item s-zeromq
+	\item s-ydefx
+	\item s-salome-openturns
+	\item s-paravisaddons-edf
+	\item s-persalys
+	\item s-python3-xlutils
+	\item s-python-modules
+	\item s-yacs
+	\item s-paravis
+\end{itemize}
+
+When a module has an \code{ng} variant, building it on top of the binary archive can be achieved by calling:
+
+\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update \ddash{}plan=ng-dev s-smesh}
+
+For debugging the module it is recommended to use a User's Checkout (see \ref{user:checkout}) and so building using sources in this specific location:
+
+\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update \ddash{}plan=ng-dev s-smesh/ng:dev}
+
+The setup is then simple, the sources can be edited in the checkout tree, the above command issued each time we want to compile. At the end, the developer can just commit the changes directly in the checkout. This makes the procedure safe and do not require copying the sources manually and yet keeping a controlled environment when the configure, build and install step are provided by the plug-in.
+
+Finally note that on a distribution older than \emph{Debian-10} the documentation build must be disabled, use the option \ddash{}enable-no-doc. This is because \code{sphinx-intl} is not provided by the distribution and we do not want to rebuild part of Sphinx.
+
+\subsection{Migrating modules in NG mode}
+\label{migrateng}
+
+The following sections give information about the support in SCBI which can be used to create a plug-in compatible with the full build mode or on top of a binary archive (the build named NG).
+
+\subsubsection{Plug-in s-salome-bin}
+\label{pg:salbin}
 
 This plug-ins must be used as a dependency of the module to build. It setups the necessary environment like the CMake paths, the include and library paths.
 
@@ -326,24 +376,8 @@ And that's all is needed. The other hooks to configure, build and install the mo
 
 If the module contains a more complex setup with already multiple variants for the configure options the setup may be a bit more challenging than for the above \code{atomic} module. Note that in any cases only the \code{depends}, \code{build-depends} and \code{config-options} hooks need attention. At the end the \code{common} plus \code{ng} variants of the above hooks are what will be used for the \code{ng} variant, and the \code{common}, plus \code{default} hooks must be equivalent to previous version for the non \code{ng} build.
 
-The followings modules have \code{ng} variants and can be used as source of inspiration:
-
-\begin{itemize}
-	\item s-atomic
-	\item s-salome-kernel
-	\item s-smesh
-	\item s-zeromq
-	\item s-ydefx
-	\item s-salome-openturns
-	\item s-paravisaddons-edf
-	\item s-persalys
-	\item s-python3-xlutils
-	\item s-python-modules
-	\item s-yacs
-	\item s-paravis
-\end{itemize}
-
-\subsection{Plug-ins s-windows-kit and s-visual-c}
+\subsubsection{Plug-ins s-windows-kit and s-visual-c}
+\label{pg:win}
 
 For the special case of Windows there is furthermore two other plug-ins (\code{s-windows-kit} and \code{s-visual-c}) that a project must depends on to provide access to Visual Studio and the Windows libraries.
 
@@ -365,7 +399,7 @@ Some variables must be set in the SCBI environment before using those plug-ins.
 
 \end{description}
 
-A good example is the \code{paravisaddons} plug-in which can be used to build paravisaddons as part of a full build, on top of a SALOME Linux installation or on top of a SALOME Windows installation.
+A good example is the \code{s-paravisaddons-edf} plug-in which can be used to build the EDF specific paravis-addons as part of a full build, on top of a SALOME Linux installation or on top of a SALOME Windows installation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INFORMATION
 
@@ -561,15 +595,15 @@ We copy the current build plan (assuming the work will be based on SALOME v9.3):
 	\item vi .plan-debug
 \end{shellcommand}
 
-We change the \code{:V9\_3\_BR} on the \code{salome-gui} line by \code{:dev}, this gives:
+We change the \code{:V9\_3\_BR} on the \code{s-salome-gui} line by \code{:dev}, this gives:
 
 \begin{lstlisting}
- salome-gui:dev
+ s-salome-gui:dev
 \end{lstlisting}
 
 Alternatively it is possible to specify the \code{:dev} version directly from the commande line. This may be easier as a quick solution:
 
-\cmd{scbi \ddash{}deps \ddash{}plan=v96 salome-gui:dev salome}
+\cmd{scbi \ddash{}deps \ddash{}plan=v96 s-salome-gui:dev s-salome}
 
 \subsubsection{Environment}
 
@@ -607,11 +641,11 @@ It may be needed to clean the build tree for a given module to ensure a full and
 
 To do this scbi come with a \ddash{}purge and \ddash{}purge-only options.
 
-\cmd{scbi \ddash{}purge-only salome-gui}
+\cmd{scbi \ddash{}purge-only s-salome-gui}
 
-This command will clean the \code{salome-gui} module only. No compilation will be done.
+This command will clean the \code{s-salome-gui} module only. No compilation will be done.
 
-\cmd{scbi \ddash{}env=debug \ddash{}deps \ddash{}purge salome}
+\cmd{scbi \ddash{}env=debug \ddash{}deps \ddash{}purge s-salome}
 
 This command will restart the compilation of all modules so doing a full re-compilation of the salome application as each dependency will be cleaned and re-built.
 
@@ -619,19 +653,19 @@ This command will restart the compilation of all modules so doing a full re-comp
 
 To compile SALOME with all dependencies with this debug environment, the simple command is:
 
-\cmd{scbi \ddash{}env=debug \ddash{}safe \ddash{}deps salome}
+\cmd{scbi \ddash{}env=debug \ddash{}safe \ddash{}deps s-salome}
 
 If the default environment was sufficient (user's checkout in the default location) we have no new environment created, we just pass the build-plan:
 
-\cmd{scbi \ddash{}plan=debug \ddash{}safe \ddash{}deps salome}
+\cmd{scbi \ddash{}plan=debug \ddash{}safe \ddash{}deps s-salome}
 
 Finally, if the build-plan has not been specified in the environment by setting \code{SCBI\_PLAN} as described above, we can pass it explicitly on the command line:
 
-\cmd{scbi \ddash{}env=debug \ddash{}safe \ddash{}plan=debug \ddash{}deps salome}
+\cmd{scbi \ddash{}env=debug \ddash{}safe \ddash{}plan=debug \ddash{}deps s-salome}
 
 And we can of course mix the environment and different build-plans if needed.
 
-\cmd{scbi \ddash{}env=v96 \ddash{}safe \ddash{}plan=debug \ddash{}deps salome}
+\cmd{scbi \ddash{}env=v96 \ddash{}safe \ddash{}plan=debug \ddash{}deps s-salome}
 
 If more than one module must be debugged and/or changed then just apply the same procedure for the other modules.
 
@@ -645,13 +679,13 @@ When debugging it may also be useful to just restart a configuration or build st
 
 To run only the configuration step, and have the output on the console:
 
-\cmd{scbi \ddash{}env=debug \ddash{}log:yes \ddash{}config salome-kernel}
+\cmd{scbi \ddash{}env=debug \ddash{}log:yes \ddash{}config s-salome-kernel}
 
 \subsubsection{Build only}
 
 To run only the build step, and have the output on the console:
 
-\cmd{scbi \ddash{}env=debug \ddash{}log:yes \ddash{}build salome-kernel}
+\cmd{scbi \ddash{}env=debug \ddash{}log:yes \ddash{}build s-salome-kernel}
 
 \subsection{Using the SCBI shell}
 
