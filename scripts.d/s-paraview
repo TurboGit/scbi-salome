@@ -73,6 +73,11 @@ function s-paraview-uranie-depends
     echo s-uranie
 }
 
+function s-paraview-mpi-depends
+{
+    echo s-openmpi
+}
+
 function s-paraview-common-depends()
 {
     local PREFIX=$1
@@ -85,7 +90,6 @@ function s-paraview-common-depends()
 
     echo s-qt
     echo s-hdf5
-    echo s-openmpi
     echo s-openturns
 }
 
@@ -134,7 +138,6 @@ function s-paraview-common-config-options()
     echo -DPARAVIEW_ENABLE_PYTHON=ON
 
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
-    echo -DPARAVIEW_USE_MPI:BOOL=ON
 
     # VTK
 
@@ -155,6 +158,15 @@ function s-paraview-common-config-options()
     echo -DVTK_MODULE_ENABLE_VTK_IOCore=YES
     echo -DVTK_MODULE_ENABLE_VTK_IOEnSight=YES
     echo -DVTK_MODULE_ENABLE_VTK_IOInfovis=YES
+}
+
+function s-paraview-mpi-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DPARAVIEW_USE_MPI:BOOL=ON
 }
 
 function s-paraview-ospray-config-options()
