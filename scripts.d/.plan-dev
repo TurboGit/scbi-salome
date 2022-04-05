@@ -11,7 +11,6 @@ s-zeromq:#4.3.1
 s-melissa:#0.0.0
 s-planegcs:#0.18
 
-s-paraview/ospray.gdal:v5.9.0
 s-openturns:#1.18
 s-openturns-fftw:#0.11
 s-openturns-mixmod:#0.12
@@ -72,7 +71,6 @@ s-salome:dev
         s-shaperstudy
         s-homard
         s-salome-configuration
-        s-paravis
         s-salome-jobmanager
         s-yacs
         s-yacsgen
@@ -91,6 +89,12 @@ s-salome:dev
         s-salome-openturns
         s-py2cpp
         s-paravisaddons-common
+        s-smesh
+        s-salome-kernel
+        s-salome-gui
+        s-ghs3d-plugin
+        s-ghs3dprl-plugin
+        s-ydefx
 ] :master
 
 # Second, for repositories where master is at EDF
@@ -101,7 +105,6 @@ s-salome:dev
         s-adao
         s-adao-interface
         s-paravisaddons-edf
-        s-ydefx
         s-melidefx
         s-non-regression-tests
         s-clustertests
@@ -111,24 +114,24 @@ s-salome:dev
 # MPI like the two plugins.
 
 [ = mpi
-        s-hdf5/native-mpi
         s-medcoupling/mpi.ptscotch
-        s-smesh/default.mpi
-        s-salome-kernel/default.mpi
-        s-salome-gui/mpi
-        s-ghs3d-plugin/mpi
-        s-ghs3dprl-plugin/mpi
+        s-paraview/mpi.ospray.gdal:v5.9.0
+        s-paravis/default.mpi
 ] :master
+
+[ = mpi
+        s-paraview/mpi.ospray.gdal:v5.9.0
+]
 
 [ /= mpi
         s-hdf5/native-serial
         s-medcoupling/ptscotch
-        s-smesh
-        s-salome-kernel
-        s-salome-gui
-        s-ghs3d-plugin
-        s-ghs3dprl-plugin
+        s-paravis/default
 ] :master
+
+[ /= mpi
+        s-paraview/ospray.gdal:v5.9.0
+]
 
 [ = deb,9
         s-hdf5/mpi:#1.10.3
@@ -151,3 +154,4 @@ s-occt:#b08cd04
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
+s-hdf5/native-serial
