@@ -32,6 +32,7 @@ s-root:v6-22-02
 s-qt/auto:#5.11
 s-pyqt/auto:#5.11
 s-sip/auto:#4.19
+s-cmake/auto:#3.12.1
 
 [
         # s-homard tool is now merged into s-homard module
@@ -40,7 +41,6 @@ s-sip/auto:#4.19
 ] :skip
 
 [
-        s-cmake
         s-openmpi
         s-opencv
         s-scotch
