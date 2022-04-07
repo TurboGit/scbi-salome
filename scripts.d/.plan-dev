@@ -143,6 +143,6 @@ s-libbatch:V2_4_5
 
 s-python-omniorb:#4.2.2
 s-omniorb/auto:#4.2.2
-s-occt:#b08cd04
+s-occt:#7.5.3p2
 s-cgns/auto:#4.2.0
 s-hdf5/native-serial
