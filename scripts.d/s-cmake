@@ -1,6 +1,6 @@
 inherit-plugin c-cmake
 
-with-variant native os@-cmake
+with-variant native os@-cmake:[v]
 
 #  Adds a Windows variant using the MingW64 cmake version
 with-variant win \
