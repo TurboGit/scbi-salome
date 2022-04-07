@@ -463,7 +463,8 @@ function s-salome-wrapup()
             (
                 cd ./bin/salome/test/YACS/yacsloader_swig/ &&
                     rm -rf samples &&
-                    ln -s ../../../../../share/salome/yacssamples samples)
+                    ln -s ../../../../../share/salome/yacssamples samples
+            )
 
             (
                 cd ./bin/salome/test/YACS/yacsloader/ &&
