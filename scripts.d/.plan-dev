@@ -29,7 +29,7 @@ s-rkcommon:v1.6.0
 s-openvkl:v0.11.0
 s-ospray:#2.4.0
 s-uranie:#4.5.0
-s-root:v6-22-00-patches
+s-root:v6-22-02
 s-zcracks:#3.2.1
 s-qt/auto:#5.11
 s-pyqt/auto:#5.11
