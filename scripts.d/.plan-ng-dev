@@ -13,7 +13,7 @@ s-cmake/native
         s-atomic
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
-        s-python-modules-wand:master
+        s-python-module-wand:master
 
         # other modules that can be built in ng mode
         s-smesh
