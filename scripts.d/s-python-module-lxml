@@ -1,0 +1,8 @@
+
+inherit-plugin s-python-modules
+
+function s-python-module-lxml-config()
+{
+    #  Setup the module to install
+    echo lxml > module.list
+}
