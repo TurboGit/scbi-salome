@@ -1,4 +1,7 @@
 
+#  This is a generic module not meant to be used directly. One is supposed
+#  to inherit from it and setup the module.list in config hook.
+
 function s-python-modules-vcs()
 {
     echo default
@@ -21,6 +24,13 @@ function s-python-modules-tar()
 function s-python-modules-out-of-tree()
 {
     echo false
+}
+
+function s-python-modules-config()
+{
+    elog s-python-modules this module is not to be used directly
+    elog s-python-modules inherit from it and set module.list
+    elog s-python-modules in config hook.
 }
 
 function s-python-modules-ng-build-depends()
@@ -51,16 +61,21 @@ function s-python-modules-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 }
 
-function s-python-modules-install()
+function s-python-modules-pre-install()
 {
-    local PREFIX=$1
-    local TARGET=$2
-
+    #  Setup PyPI URL
     PYPIURL=$(scbi-store-get-key PYPIURL)
 
     mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
     echo "[easy_install]" > setup.cfg
     echo "index-url = $PYPIURL" >> setup.cfg
+}
+
+function s-python-modules-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
     python3 setup.py install --prefix=$PREFIX
 }
 
