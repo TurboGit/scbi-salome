@@ -16,7 +16,7 @@ s-cmake/native
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
         s-distene:#V2.12-1_linux_EU
-        s-python-modules:master
+        s-python-modules-wand:master
 
         # other modules that can be built in ng mode
         s-smesh
