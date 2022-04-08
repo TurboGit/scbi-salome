@@ -3,7 +3,7 @@ function s-salome-ng-modules()
 {
     echo s-atomic
     echo s-python3-xlutils
-    echo s-python-modules
+    echo s-python-module-wand
     echo s-salome-configuration
 
     #  We put s-distene here to override the meshgems which comes from binary archive.
