@@ -2,6 +2,7 @@
 function s-salome-main-modules()
 {
     echo s-salome-kernel
+    echo s-carmel-study
     echo s-salome-gui
     echo s-salome-plugins
     echo s-shaper

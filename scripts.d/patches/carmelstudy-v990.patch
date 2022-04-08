@@ -1,0 +1,60 @@
+diff --git a/resources/CARMELSTUDYCatalog.xml b/resources/CARMELSTUDYCatalog.xml
+new file mode 100644
+index 00000000..b1d4a521
+--- /dev/null
++++ b/resources/CARMELSTUDYCatalog.xml
+@@ -0,0 +1,31 @@
++<?xml version='1.0' encoding='us-ascii' ?>
++<!-- XML component catalog -->
++<begin-catalog>
++  <!-- Path prefix information -->
++  <path-prefix-list />
++  <!-- Types -->
++  <type-list />
++  <!-- Components -->
++  <component-list>
++    <!-- SHAPERSTUDY component -->
++    <component>
++      <!-- General information -->
++      <component-name>CARMELSTUDY</component-name>
++      <component-username>CARMELSTUDY</component-username>
++      <component-type>OTHER</component-type>
++      <component-author>SALOME team</component-author>
++      <component-version>9.9.0</component-version>
++      <component-comment>Carmel Study</component-comment>
++      <component-impltype>1</component-impltype>
++      <component-icone>carmelstudy.png</component-icone>
++      <constraint></constraint>
++      <!-- Component interface -->
++      <component-interface-list>
++        <component-interface-name>CARMELSTUDY_Gen</component-interface-name>
++        <component-interface-comment>CARMELSTUDY module engine</component-interface-comment>
++	<!-- Services -->
++        <component-service-list />
++      </component-interface-list>
++    </component>
++  </component-list>
++</begin-catalog>
+diff --git a/resources/CMakeLists.txt b/resources/CMakeLists.txt
+index 330bd021..eb73c7b9 100644
+--- a/resources/CMakeLists.txt
++++ b/resources/CMakeLists.txt
+@@ -8,6 +8,10 @@ configure_file(SalomeApp.xml.in
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/SalomeApp.xml
+         DESTINATION ${CARMELSTUDY_RES_DIR})
+ 
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/SalomeApp.xml
++        DESTINATION ${CARMELSTUDY_RES_DIR}
++        RENAME SalomeAppSL.xml)
++
+ # install icons
+ file(GLOB _ICON_FILES
+      CONFIGURE_DEPENDS
+@@ -31,6 +35,6 @@ install(FILES ${_MAIN_QM_FILES}
+         DESTINATION ${CARMELSTUDY_RES_DIR})
+ 
+ # install other files
+-set(_OTHER_FILES CarmelStudy.xml configuration.dtd materiaux.dtd materiaux.xml)
++set(_OTHER_FILES CARMELSTUDYCatalog.xml CarmelStudy.xml configuration.dtd materiaux.dtd materiaux.xml)
+ install(FILES ${_OTHER_FILES}
+         DESTINATION ${CARMELSTUDY_RES_DIR})
