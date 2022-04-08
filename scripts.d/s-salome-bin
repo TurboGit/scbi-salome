@@ -87,6 +87,15 @@ function s-salome-bin-ng-env()
     [[ -d $SALOME_BIN_MODULES/cmake/bin ]] &&
         add-to-var PATH $SALOME_BIN_MODULES/cmake/bin
 
+    if [[ -d $SALOME_BIN_MODULES/libxml2/bin ]]; then
+        local LXDIR=$SALOME_BIN_MODULES/libxml2
+
+        add-to-var PATH               $LXDIR/bin
+        add-to-var C_INCLUDE_PATH     $LXDIR/include/libxml2
+        add-to-var CPLUS_INCLUDE_PATH $LXDIR/include/libxml2
+        add-to-var LIBRARY_PATH       $LXDIR/lib
+    fi
+
     add-to-var CMAKE_PREFIX_PATH  $KERNEL_ROOT_DIR/salome_adm/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $GUI_ROOT_DIR/adm_local/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $YACS_ROOT_DIR/adm/cmake
