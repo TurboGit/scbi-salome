@@ -10,6 +10,11 @@ function s-zcracks-tar()
     echo Zcracks_lite-$VERSION.tar.gz
 }
 
+function s-zcracks-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
 function s-zcracks-env()
 {
     local PREFIX=$1
