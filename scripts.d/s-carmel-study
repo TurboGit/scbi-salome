@@ -1,0 +1,87 @@
+
+function s-carmel-study-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://gitlab.opencascade.com/edf/carmel.git
+}
+
+function s-carmel-study-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-qt
+    echo s-medfichier
+    echo s-medcoupling
+    echo python3-lxml
+}
+
+function s-carmel-study-ng-build-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-salome-bin
+}
+
+function s-carmel-study-ng-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-python-modules
+}
+
+function s-carmel-study-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    CARMELSTUDY_ROOT_DIR $PREFIX
+    add-to-var PATH                 $PREFIX/bin
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+
+    add-to-var SalomeAppConfig      $PREFIX/share/salome/resources/carmelstudy
+
+    add-to-var SALOME_MODULES       CARMELSTUDY
+}
+
+function s-carmel-study-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DENABLE_DOCUMENTATION=OFF \
+          -DENABLE_TESTING=OFF ../src
+}
+
+function s-carmel-study-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    # Use -j1 as there is // issues in the makefile
+
+    make -j1
+}
+
+function s-carmel-study-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}

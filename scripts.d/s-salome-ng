@@ -48,6 +48,11 @@ function s-salome-ng-hydro-modules()
     echo s-telemac
 }
 
+function s-salome-ng-carmel-modules()
+{
+    echo s-carmel-study
+}
+
 function setup-salome-ng-env()
 {
     local PREFIX=$1
