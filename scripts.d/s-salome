@@ -32,6 +32,9 @@ function s-salome-main-modules()
     echo s-pylight
     echo s-salome-openturns
 
+    if has-variant "$VARIANT" "carmel"; then
+    fi
+
     if has-variant "$VARIANT" "hydro"; then
        echo s-hydrogeo
     fi
@@ -120,12 +123,16 @@ declare -g MAIN_MODULE_LIST=()
 
 function is-main-module()
 {
-    local MODULE=$1
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local MODULE=$4
 
     # Not yet cached
 
     if [[ -z $MAIN_MODULE_LIST ]]; then
-        for M in $(for-final-modules $(s-salome-main-modules)); do
+        local MODS=$(s-salome-main-modules $PREFIX $TARGET $VARIANT)
+        for M in $(for-final-modules $MODS); do
             MAIN_MODULE_LIST+=($M)
         done
     fi
@@ -143,6 +150,7 @@ function build-salome-prerequisites()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     (
         FILE=salome_prerequisites.sh
@@ -162,7 +170,7 @@ function build-salome-prerequisites()
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
 
-            is-main-module $CURRENT_MODULE_NAME
+            is-main-module $PREFIX $TARGET $VARIANT $CURRENT_MODULE_NAME
 
             if [[ $? = 0 ]]; then
                 REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
@@ -217,7 +225,7 @@ function build-salome-prerequisites()
 
                 echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                is-main-module $module
+                is-main-module $PREFIX $TARGET $VARIANT $module
 
                 if [[ $? = 0 ]]; then
                     echo "\${ROOT_INSTALL}"                          >> $FILE
@@ -246,6 +254,7 @@ function build-salome-context()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     (
         FILE=salome_context.cfg
@@ -265,7 +274,7 @@ function build-salome-context()
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_EXTERNAL)s}"
 
-            is-main-module $CURRENT_MODULE_NAME
+            is-main-module $PREFIX $TARGET $VARIANT $CURRENT_MODULE_NAME
 
             if [[ $? = 0 ]]; then
                 REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_INSTALL)s}"
@@ -346,6 +355,7 @@ function build-config-appli()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     FILE=config_appli.xml
 
@@ -361,7 +371,9 @@ EOF
     # sed commands are there to convert the plugin names to the expected
     # names. Finally we convert the name in capital letters.
 
-    for module in $(for-final-modules $(s-salome-main-modules)); do
+    local MODS=$(s-salome-main-modules $PREFIX $TARGET $VARIANT)
+
+    for module in $(for-final-modules $MODS); do
         MODULE_NAME=${module##s-}                 # remove leading s-
         MODULE_NAME=${MODULE_NAME##salome-}       # remove leading salome-
         MODULE_NAME=${MODULE_NAME//-/}            # remove all dashes
@@ -408,6 +420,7 @@ function s-salome-wrapup()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     # Finaly we create here:
     #
@@ -439,13 +452,13 @@ function s-salome-wrapup()
             echo CI_PIPELINE_ID $CI_PIPELINE_ID  >> artifacts/gitlab-ci.data
 
         # generate salome_prerequisites.sh shell script
-        build-salome-prerequisites $PREFIX $TARGET
+        build-salome-prerequisites $PREFIX $TARGET $VARIANT
 
         # generate salome_context.cfg script
-        build-salome-context $PREFIX $TARGET
+        build-salome-context $PREFIX $TARGET $VARIANT
 
         # generate config_appli.xml
-        build-config-appli $PREFIX $TARGET
+        build-config-appli $PREFIX $TARGET $VARIANT
 
         if [[ "$(is-enabled application)" = "yes" ]] \
                || [[ "$(is-enabled installer)" = "yes" ]];
@@ -524,7 +537,9 @@ function s-salome-wrapup()
 
             dlog salome "copy the modules' dev support files"
 
-            for module in $(for-final-modules $(s-salome-main-modules)); do
+            local MODS=$(s-salome-main-modules $PREFIX $TARGET $VARIANT)
+
+            for module in $(for-final-modules $MODS); do
                 MODULE_PATH=$SCBI_BDIR/$module/build/install
 
                 for dir in include salome_adm adm_local; do
@@ -540,7 +555,9 @@ function s-salome-wrapup()
 
             mkdir external
 
-            for p in $(s-salome-prerequisite-modules); do
+            local MODS=$(s-salome-prerequisite-modules $PREFIX $TARGET $VARIANT)
+
+            for p in $MODS; do
                 # Some module may not be present if they have been skiped
                 # in build plan (:skip)
                 if [[ -d $SCBI_BDIR/$p/build/install ]]; then

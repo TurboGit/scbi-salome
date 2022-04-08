@@ -40,6 +40,10 @@ function s-salome-ng-hydro-modules()
     echo s-aed2
 }
 
+function s-salome-ng-carmel-modules()
+{
+}
+
 function setup-salome-ng-env()
 {
     local PREFIX=$1
