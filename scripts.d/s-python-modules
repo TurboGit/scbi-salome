@@ -9,13 +9,6 @@ function s-python-modules-out-of-tree()
     echo false
 }
 
-function s-python-modules-config()
-{
-    elog s-python-modules this module is not to be used directly
-    elog s-python-modules inherit from it and set module.list
-    elog s-python-modules in config hook.
-}
-
 function s-python-modules-ng-build-depends()
 {
     echo s-salome-bin
@@ -42,6 +35,34 @@ function s-python-modules-env()
 
     add-to-var PYTHONPATH      \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-python-modules-wand-config-options()
+{
+    echo wand
+}
+
+function s-python-modules-lxml-config-options()
+{
+    echo lxml
+}
+
+function s-python-modules-pre-config()
+{
+    rm -f module.list
+}
+
+function s-python-modules-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    for V in $OPTIONS; do
+        echo $V >> module.list
+    done
 }
 
 function s-python-modules-pre-install()

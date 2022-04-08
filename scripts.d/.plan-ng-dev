@@ -13,7 +13,7 @@ s-cmake/native
         s-atomic
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
-        s-python-module-wand:master
+        s-python-modules/ng.wand:master
 
         # other modules that can be built in ng mode
         s-smesh
@@ -42,6 +42,7 @@ s-cmake/native
         s-salome-tar:#master:DB09
         s-cmake:skip
         s-zeromq:skip
+        s-python-modules/ng.wand.lxml:master
         os@-boost-locale-dev:skip
         os@-python3:skip
         os@-python3-numpy:skip
@@ -53,4 +54,5 @@ s-cmake/native
         s-salome-ng:s10-dev
         s-salome-tar:#master-native:DB10
         s-zeromq:skip
+        s-python-modules/ng.wand:master
 ]
