@@ -41,6 +41,12 @@ function s-salome-tar-install()
     cd ..
     ln -s build $PREFIX
 
+    cd $PREFIX
+
+    dlog salome-tar Remove unneeded data
+
+    rm -fr ARCHIVES PROJECT sat logs.tgz
+
     dlog salome-tar Fix some paths
 
     #  Remove CONFIGURATION setting from env_launch.sh
