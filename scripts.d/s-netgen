@@ -113,6 +113,8 @@ function s-netgen-config-options()
     echo -DBUILD_STUB_FILES=OFF
     echo -DOCC_INCLUDE_DIR=$OPENCASCADE_ROOT_DIR/include/opencascade
     echo -DOCC_LIBRARY_DIR=$OPENCASCADE_ROOT_DIR/lib
+    echo -DCMAKE_CXX_STANDARD=17
+    echo -DUSE_NATIVE_ARCH=OFF
 }
 
 function s-netgen-cmake-config()
