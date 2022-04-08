@@ -127,7 +127,7 @@ function s-salome-tar-install()
 
     local ORDIR=$PREFIX/$BINDIR/OPENTURNS/share/salome/resources/openturns
 
-    cp $ORDIR/SalomeApp.xml $ORDIR//SalomeAppSL.xml
+    cp $ORDIR/SalomeApp.xml $ORDIR/SalomeAppSL.xml
 }
 
 function s-salome-tar-prefix()
