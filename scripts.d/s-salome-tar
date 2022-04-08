@@ -111,6 +111,8 @@ function s-salome-tar-install()
     #  Need to fix (shebang) full path to python interpreter
 
     for SCRIPTS in omniORB/bin/omniidl \
+                       hdf5/bin/h5hlcc hdf5/bin/h5cc \
+                       netcdf/lib/pkgconfig/netcdf.pc \
                        PyQt/bin/pyuic5;
     do
         sed -i "s,${ORIGDIR},$PREFIX/$BINDIR,g" $PREFIX/$BINDIR/$SCRIPTS
@@ -119,6 +121,14 @@ function s-salome-tar-install()
     #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
+        while read F; do
+            sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+        done
+
+    #  Fix path in Makefile and Python system configuration scripts
+
+    find $PREFIX/$BINDIR/Python -type f \
+         \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
         while read F; do
             sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
