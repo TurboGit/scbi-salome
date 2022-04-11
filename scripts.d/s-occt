@@ -33,21 +33,52 @@ function s-occt-env()
 
     set-var    OPENCASCADE_ROOT_DIR $PREFIX
     set-var    CASROOT              $PREFIX
+    set-var    CAS_ROOT_DIR         $PREFIX
 
+    add-to-var PATH                 $PREFIX/bin
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
     add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
     add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade
     add-to-var CMAKE_MODULE_PATH    $PREFIX/lib/cmake
+
+    local CASRES=$PREFIX/share/opencascade/resources
+
+    set-var CSF_ShadersDirectory      $CASRES/Shaders
+    set-var CSF_UnitsLexicon          $CASRES/UnitsAPI/Lexi_Expr.dat
+    set-var CSF_UnitsDefinition       $CASRES/UnitsAPI/Units.dat
+    set-var CSF_SHMessage             $CASRES/SHMessage
+    set-var CSF_XSMessage             $CASRES/XSMessage
+    set-var CSF_MDTVTexturesDirectory $CASRES/Textures
+    set-var CSF_StandardDefaults      $CASRES/StdResource
+    set-var CSF_PluginDefaults        $CASRES/StdResource
+}
+
+function s-occt-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DUSE_FREEIMAGE=ON
+    echo -DUSE_TBB=ON
+    echo -DUSE_TCL=OFF
+    echo -DBUILD_MODULE_Draw=OFF
+    echo -DUSE_FREETYPE=ON
+    echo -DUSE_FREEIMAGE=ON
+    echo -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON
 }
 
 function s-occt-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-	  -DUSE_FREEIMAGE=ON -DUSE_TBB=ON \
-          -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install ../src
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function s-occt-build()
