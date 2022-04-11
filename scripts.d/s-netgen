@@ -104,6 +104,7 @@ function s-netgen-config-options()
     local VARIANT=$3
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DUSE_SUPERBUILD=OFF
     echo -DUSE_PYTHON=OFF
     echo -DUSE_GUI=OFF
