@@ -305,10 +305,46 @@ function s-salome-ng-wrapup()
                     O_COMPRESS="--bzip2"
                 fi
 
+                # Create a temporary application containing the templates of the scripts such as omniidl, h5hlcc,...
+                # This temporary application is used for the .run creation
+
+                rm -rf application_tmp; cp -rf application application_tmp
+
+                local TARDIR=$SCBI_BDIR/s-salome-tar/x86_64-linux-gnu-default/install
+                local BINDIR=$(basename $(ls -1d $TARDIR/BINARIES-*))
+                local ORIG_BINDIR="$TARDIR/$BINDIR"
+                local TEMPL_BINDIR="__BINDIR__"
+
+                #  Convert these scripts to template.
+
+                for SCRIPTS in omniORB/bin/omniidl \
+                                   hdf5/bin/h5hlcc hdf5/bin/h5cc \
+                                   netcdf/lib/pkgconfig/netcdf.pc \
+                                   PyQt/bin/pyuic5;
+                do
+                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" application_tmp/$BINDIR/$SCRIPTS
+                done
+
+                #  Convert these sip scripts to template.
+
+                find application_tmp/$BINDIR/sip/bin -type f -name "*sip*" |
+                    while read F; do
+                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
+                    done
+
+                #  Convert Makefile and Python system configuration scripts to template
+
+                find application_tmp/$BINDIR/Python -type f \
+                     \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
+                    while read F; do
+                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
+                    done
+
                 makeself $O_COMPRESS --tar-quietly \
-                         application $script_name.run \
+                         application_tmp $script_name.run \
                          "SALOME Application" ./setup
                 res=$?
+                rm -rf application_tmp
             fi
 
             if [[ $res == 0 ]]; then

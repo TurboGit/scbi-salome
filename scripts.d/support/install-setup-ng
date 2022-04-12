@@ -14,6 +14,39 @@ function check-writable()
     [[ -w $(dirname $DIR) ]]
 }
 
+function template-conversion()
+{
+    local PREFIX=$1
+    # Convert the template files (omniidl, h5hlcc, ...)
+    #
+
+    local ORIG_BINDIR="__BINDIR__"
+    local BINDIR=$(basename $(ls -1d $PREFIX/BINARIES-*))
+
+    for SCRIPTS in omniORB/bin/omniidl \
+                       hdf5/bin/h5hlcc hdf5/bin/h5cc \
+                       netcdf/lib/pkgconfig/netcdf.pc \
+                       PyQt/bin/pyuic5;
+    do
+        sed -i "s,${ORIG_BINDIR},$PREFIX/${BINDIR},g" $PREFIX/$BINDIR/$SCRIPTS
+    done
+
+    #  For sip
+
+    find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
+        while read F; do
+            sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
+        done
+
+    #  For Python
+
+    find $PREFIX/$BINDIR/Python -type f \
+         \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
+        while read F; do
+            sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
+        done
+}
+
 while [ ! -z $1 ]; do
     case "$1" in
         --auto)
@@ -48,7 +81,10 @@ else
 fi
 
 # In auto-mode, do nothing more
-[ $AUTO = 1 ] && exit 0
+if [[ $AUTO -eq 1 ]]; then
+    template-conversion $PWD
+    exit 0
+fi
 
 SUDO=""
 
@@ -69,6 +105,7 @@ check-writable $prefix || SUDO=sudo
 
 $SUDO mkdir -p $prefix
 $SUDO mv * .[a-z]* $prefix/
+template-conversion $prefix
 
 $SUDO rm -f $prefix/setup
 
