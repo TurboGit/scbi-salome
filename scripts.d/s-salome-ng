@@ -9,8 +9,8 @@ function s-salome-ng-modules()
     echo s-salome-configuration
     echo s-zcracks
 
-    #  We put s-distene here to override the meshgems which comes from binary archive.
-    #  Never add s-meshgems in NG version.
+    #  We put s-distene here to override the meshgems which comes from
+    #  binary archive. Never add s-meshgems in NG version.
     echo s-distene
 }
 
@@ -309,8 +309,9 @@ function s-salome-ng-wrapup()
                     O_COMPRESS="--bzip2"
                 fi
 
-                # Create a temporary application containing the templates of the scripts such as omniidl, h5hlcc,...
-                # This temporary application is used for the .run creation
+                #  Create a temporary application containing the templates
+                #  of the scripts such as omniidl, h5hlcc,...
+                #  This temporary application is used for the .run creation
 
                 rm -rf application_tmp; cp -rf application application_tmp
 
@@ -326,7 +327,8 @@ function s-salome-ng-wrapup()
                                    netcdf/lib/pkgconfig/netcdf.pc \
                                    PyQt/bin/pyuic5;
                 do
-                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" application_tmp/$BINDIR/$SCRIPTS
+                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" \
+                        application_tmp/$BINDIR/$SCRIPTS
                 done
 
                 #  Convert these sip scripts to template.
@@ -336,7 +338,8 @@ function s-salome-ng-wrapup()
                         sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
                     done
 
-                #  Convert Makefile and Python system configuration scripts to template
+                #  Convert Makefile and Python system configuration
+                #  scripts to template.
 
                 find application_tmp/$BINDIR/Python -type f \
                      \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
