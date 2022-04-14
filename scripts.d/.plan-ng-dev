@@ -20,10 +20,23 @@ s-cmake/native
         s-salome-kernel
         s-yacs
         s-paravis
+        s-paraview
 ] /ng
 
-#  The version has two parts, the version of the code and the version
-#  of the OS See tar hook in s-salome-tar for the MinIO download.
+#  For some modules we may need more than just the ng variant
+#  Override the referrence below.
+
+s-paraview/ng.mpi.ospray.gdal:v5.9.0
+
+#  The version for s-salome-tar has two parts, the version of the code
+#  and the version of the OS See tar hook in s-salome-tar for the
+#  MinIO download.
+#
+#  Modules are marked skip below as the variant may introduce an
+#  unwanted dependency but yet the configuration need the know about
+#  the variant. This is the case for ParaView, for example the ospray
+#  variant is set as we need to activate ospray during configuration
+#  but the dependency is not needed as provided by the binary archive.
 
 [ = win
         s-salome-configuration/ngwin
@@ -42,6 +55,9 @@ s-cmake/native
         s-salome-tar:#master:DB09
         s-cmake:skip
         s-zeromq:skip
+        s-openmpi:skip
+        s-ospray:skip
+        s-gdal:skip
         s-python-modules/ng.wand.lxml:master
         os@-boost-locale-dev:skip
         os@-python3:skip
@@ -54,5 +70,8 @@ s-cmake/native
         s-salome-ng:s10-dev
         s-salome-tar:#master-native:DB10
         s-zeromq:skip
+        s-openmpi:skip
+        s-ospray:skip
+        s-gdal:skip
         s-python-modules/ng.wand:master
 ]

@@ -108,12 +108,12 @@ s-salome:dev
 
 [ = mpi
         s-medcoupling/mpi.ptscotch
-        s-paraview/mpi.ospray.gdal:v5.9.0
+        s-paraview/default.mpi.ospray.gdal:v5.9.0
         s-paravis/default.mpi
 ] :master
 
 [ = mpi
-        s-paraview/mpi.ospray.gdal:v5.9.0
+        s-paraview/default.mpi.ospray.gdal:v5.9.0
 ]
 
 [ /= mpi
@@ -123,7 +123,7 @@ s-salome:dev
 ] :master
 
 [ /= mpi
-        s-paraview/ospray.gdal:v5.9.0
+        s-paraview/default.ospray.gdal:v5.9.0
 ]
 
 [ = deb,9
