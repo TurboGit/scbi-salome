@@ -30,7 +30,12 @@ function s-paraview-patches()
     [[ $REF =~ "5.9" ]] && echo paraview-5.9.patch
 }
 
-function s-paraview-build-depends()
+function s-paraview-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-paraview-default-build-depends()
 {
     echo os@-qtxmlpatterns5-dev-tools
 
@@ -78,7 +83,7 @@ function s-paraview-mpi-depends
     echo s-openmpi
 }
 
-function s-paraview-common-depends()
+function s-paraview-default-depends()
 {
     local PREFIX=$1
     local TARGET=$2
