@@ -76,7 +76,7 @@ function s-salome-tar-install()
 
 	chmod u+x $BINDIR/qt
     else
-	ORIGDIR="/volatile/[^:;\"]*SALOMEBuilder/[^/]*/INSTALL"
+	ORIGDIR="/volatile/[^:;\"]*workspace/[^/]*/[^/]*/INSTALL"
 	BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
 	TGTDIR=\$ENV{KERNEL_ROOT_DIR}/../../$BINDIR
     fi
