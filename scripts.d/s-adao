@@ -35,10 +35,19 @@ function s-adao-build-depends()
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
 }
 
-function s-adao-depends()
+function s-adao-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-adao-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-adao-default-depends()
 {
     echo os@-python3-sphinx-rtd-theme
-    echo s-salome-configuration
     echo os@-python3-matplotlib
     echo s-python3-nlopt
     echo os@-python3-scipy
