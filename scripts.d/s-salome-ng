@@ -311,7 +311,7 @@ function s-salome-ng-wrapup()
 
                 rm -rf application_tmp; cp -rf application application_tmp
 
-                local TARDIR=$SCBI_BDIR/s-salome-tar/x86_64-linux-gnu-default/install
+                local TARDIR=$SCBI_BDIR/s-salome-tar/$TARGET-default/install
                 local BINDIR=$(basename $(ls -1d $TARDIR/BINARIES-*))
                 local ORIG_BINDIR="$TARDIR/$BINDIR"
                 local TEMPL_BINDIR="__BINDIR__"
