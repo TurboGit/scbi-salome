@@ -24,8 +24,8 @@ s-cmake/native
         s-salome-kernel
         s-salome-openturns
         s-yacs
-        s-paravis
-        s-paraview
+        s-paravis/ng.mpi
+        s-paraview/ng.mpi
         s-adao
         s-geom
         s-persalys
@@ -86,4 +86,13 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-ospray:skip
         s-gdal:skip
         s-python-modules/ng.wand:master
+]
+
+[ = rhl
+        s-salome-ng:co8-dev
+        s-salome-tar:#master:CO8
+        s-zeromq:skip
+        s-melissa:skip
+        s-cmake/auto:#3.12.1
+        s-python-modules:skip
 ]
