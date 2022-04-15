@@ -11,6 +11,11 @@ function s-medcoupling-tar()
     echo medcoupling-$VERSION.tar.gz 
 } 
 
+function s-medcoupling-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
 function s-medcoupling-build-depends()
 {
     local DISDOC=$(is-enabled no-doc)
@@ -43,6 +48,10 @@ function s-medcoupling-common-depends()
     echo os@-libtirpc-dev
 
     echo s-salome-configuration
+}
+
+function s-medcoupling-default-depends()
+{
     echo s-salome-kernel
     echo s-medfichier
 }
