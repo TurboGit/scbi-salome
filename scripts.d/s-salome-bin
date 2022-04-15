@@ -138,6 +138,9 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $YACS_ROOT_DIR/adm/cmake
     add-to-var CMAKE_PREFIX_PATH  $YDEFX_ROOT_DIR/salome_adm/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $ZEROMQ_ROOT_DIR/share/cmake/ZeroMQ
+    add-to-var CMAKE_PREFIX_PATH  $(ls -1 $EMBREE_ROOT_DIR/lib/cmake/embree-*)
+    add-to-var CMAKE_PREFIX_PATH  $(ls -1 $OSPRAY_ROOT_DIR/lib/cmake/ospray-*)
+    add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
 
     add-to-var C_INCLUDE_PATH     $PY2CPP_ROOT_DIR/include
     add-to-var CPLUS_INCLUDE_PATH $PY2CPP_ROOT_DIR/include
@@ -150,6 +153,31 @@ function s-salome-bin-ng-env()
 
     add-to-var C_INCLUDE_PATH     $MEDFILE_ROOT_DIR/include
     add-to-var CPLUS_INCLUDE_PATH $MEDFILE_ROOT_DIR/include
+
+    add-to-var C_INCLUDE_PATH         $PTSCOTCH_ROOT_DIR/include
+    add-to-var CPLUS_INCLUDE_PATH     $PTSCOTCH_ROOT_DIR/include
+    add-to-var PATH                   $PTSCOTCH_ROOT_DIR/bin
+    add-to-var LIBRARY_PATH           $PTSCOTCH_ROOT_DIR/lib
+    set-var    PTSCOTCH_INCLUDE_DIRS  $PTSCOTCH_ROOT_DIR/include
+    set-var    PTSCOTCH_LIBRARIES     $PTSCOTCH_ROOT_DIR/lib/libptscotch.a
+    set-var    PTSCOTCH_ERR_LIBRARIES $PTSCOTCH_ROOT_DIR/lib/libptscotcherr.a
+
+    add-to-var PATH                   $ISPC_ROOT_DIR/bin
+    add-to-var PATH                   $SALOME_BIN_MODULES/llvm/bin
+
+    add-to-var PATH                   $GDAL_ROOT_DIR/bin
+    add-to-var C_INCLUDE_PATH         $GDAL_ROOT_DIR/include
+    add-to-var CPLUS_INCLUDE_PATH     $GDAL_ROOT_DIR/include
+    add-to-var LIBRARY_PATH           $GDAL_ROOT_DIR/lib
+    add-to-var LD_LIBRARY_PATH        $GDAL_ROOT_DIR/lib
+
+    add-to-var PATH                   $NETCDF_ROOT_DIR/bin
+    add-to-var C_INCLUDE_PATH         $NETCDF_ROOT_DIR/include
+    add-to-var CPLUS_INCLUDE_PATH     $NETCDF_ROOT_DIR/include
+    add-to-var LIBRARY_PATH           $NETCDF_ROOT_DIR/lib
+    add-to-var LD_LIBRARY_PATH        $NETCDF_ROOT_DIR/lib
+
+    export PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -c1-3)
 
     if [[ -z $PYTHON_VERSION ]]; then
         set-var PYTHON_VERSION $(python3 --version | cut -d' ' -f2 | cut -c1-3)
