@@ -179,6 +179,15 @@ function setup-salome-ng-env()
             fi
         }
 
+        #  Patch env_launch.sh
+        #  to be able to call the extra.env.d/*.sh from env_launch.sh
+
+        cat << EOF >> env_launch.sh
+while read F; do
+    source \$F
+done < <(find \$out_dir_Path/extra.env.d/ -type f -name "[0-9]*.sh" | sort -V)
+EOF
+
         #  The directory where the environment files are stored
         mkdir -p extra.env.d
 
@@ -194,6 +203,9 @@ function setup-salome-ng-env()
         echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")' >> $PFILE
         echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")' >> $PFILE
 
+        SFILE="extra.env.d/0_setup.sh"
+
+        echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}" >> $SFILE
         #  keep current PATH setting
         PATH_set=IS_SET
 
