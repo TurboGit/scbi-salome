@@ -44,11 +44,11 @@
       <ServerType value="slurm"/>
     </Hints>
   </Server>
- <Server name="eole" resource="cs://eole">
+  <Server name="cronos" resource="cs://cronos:%(PORTID)s">
     <CommandStartup>
       <Options>
         <Option label="NNI EDF:" name="SLURM_USER" save="true">
-          <String default="%s"/>
+          <String default="%(nni)s"/>
         </Option>
         <Option label="WC key:" name="WCKEY" save="true">
           <String default="P11MM:SALOME"/>
@@ -59,30 +59,29 @@
         <Option label="Number of Nodes:" name="SLURM_NODES" save="true">
           <Range default="4" max="64" min="1" step="1" type="int"/>
         </Option>
-        <Option label="Eole Info here:" name="INFO" save="false">
-          <String default="https://minio.retd.edf.fr/salome/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
+        <Option label="Cronos Info here:" name="INFO" save="false">
+          <String default="http://ftp.pleiade.edf.fr/projets/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
         </Option>
       </Options>
-      <Command delay="5" exec="setsid ssh" timeout="0">
+      <SSHCommand exec="/software/rd/salome/logiciels/salome/pvfiles/paravis_visu_tunnel" timeout="0" delay="18">
+        <SSHConfig user="$SLURM_USER$">
+          <PortForwarding local="11111"/>
+        </SSHConfig>
         <Arguments>
-          <Argument value="-Y"/>
-          <Argument value="$SLURM_USER$@eole"/>
-          <Argument value="/projets/salome/logiciels/salome/pvfiles/paravis_srun.py"/>
-          <Argument value="-p gn"/>
+          <Argument value="frontend"/>
+          <Argument value="paravis$PARAVIS_VERSION$"/>
+          <Argument value="$SLURM_NODES$"/>
+          <Argument value="$SLURM_ENTRY_FOR_TIMEOUT$"/>
+          <Argument value="%(PORTID)s"/>
+          <Argument value="-p vn"/>
           <Argument value="--exclusive"/>
           <Argument value="--wckey=$WCKEY$"/>
           <Argument value="-N"/>
           <Argument value="$SLURM_NODES$"/>
           <Argument value="-t"/>
           <Argument value="$SLURM_TIME$"/>
-          <Argument value="neos"/>
-          <Argument value="--scenarios-dir=/projets/salome/logiciels/salome/pvfiles/scenarios"/>
-          <Argument value="--scenario=paraview_server"/>
-          <Argument value="--modules-dir=/projets/salome/logiciels/salome/pvfiles/modules"/>
-          <Argument value="--opts=timeout:$SLURM_ENTRY_FOR_TIMEOUT$"/>
-          <Argument value="-m paravis$PARAVIS_VERSION$"/>
         </Arguments>
-      </Command>
+      </SSHCommand>
     </CommandStartup>
     <Hints>
       <ServerType value="slurm"/>

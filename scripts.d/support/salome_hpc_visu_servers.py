@@ -8,9 +8,9 @@ import sys
 
 
 readline.parse_and_bind("tab:complete")
-eole = "eole.hpc.edf.fr"
 gaia = "gaia.hpc.edf.fr"
-nameOfEntriesToKill = ["porthospv431mpi"]
+cronos = "cronos.hpc.edf.fr"
+nameOfEntriesToKill = []
 
 templateFile = "servers.pvsc"
 
@@ -27,17 +27,27 @@ def checkEDFRD():
     To test connections
     """
     nni = getpass.getuser()
-    if ping(eole) != 0 and ping(gaia) != 0:
-        sys.exit('Cluster Eole and Gaia unavailable')
+    if ping(gaia) != 0 and ping(cronos) != 0:
+        sys.exit('Cluster Gaia and Cronos unavailable')
     return nni
 
+def nni2port(nni):
+    def chr2code(c):
+        if c.isdigit():
+            return c
+        else:
+            return str(ord(c.upper()))
+    nni2 = "".join([chr2code(elt) for elt in nni])
+    port = "1{}{}{}{}".format(nni2[0],nni2[1],nni2[2],nni2[-1])
+    return port
 
 def writeFromScratchXMLFile(fileName, nni):
     """
     To create xml file if it does not exist yet.
     """
+    dico = {"nni":nni,"PORTID":nni2port(nni)}
     xmlC = io.open(templateFile, 'r').read()
-    a = xmlC.replace("%s", nni)
+    a = xmlC%dico
     with io.open(fileName, "w") as f:
         f.write(prettyPrintXml(a))
         f.flush()
@@ -68,7 +78,13 @@ def tryToAddServersInXMLFile(userFileName, nni):
             userFileRoot.remove(elt)
         pass
 
-    xmlTemplate = ET.parse(templateFile)
+    dico = {"nni":nni,"PORTID":nni2port(nni)}
+    templateFile_subst = templateFile+".subst"
+
+    with open(templateFile_subst,"w") as f:
+        f.write(open(templateFile).read()%dico)
+
+    xmlTemplate = ET.parse(templateFile_subst)
 
     for entry in xmlTemplate.getroot():
         # name of the server we want to add
@@ -96,7 +112,7 @@ def tryToAddServersInXMLFile(userFileName, nni):
         if len(elts) == 0:
             writeNeeded = True
             if "%s" in entryStr:
-                elt = ET.fromstring(entryStr % (nni))
+                elt = ET.fromstring(entryStr % dico)
             else:
                 elt = ET.fromstring(entryStr)
 

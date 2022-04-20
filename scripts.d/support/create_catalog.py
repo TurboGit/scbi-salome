@@ -51,14 +51,22 @@ class Resource(object):
             username = getpass.getuser()
         else:
             username = self.nni_user
-        self.remote_virtual_appli = os.path.join("/scratch", username,
+        if self.name == "cronos":
+            scratch="/scratch/users"
+        else:
+            scratch="/scratch"
+        self.remote_virtual_appli = os.path.join(scratch, username,
                                                  "appli_%s" % self.version)
         self.working_dir = os.path.join("/scratch", username, "workingdir")
 
 # Attention à bien modifier à nouveau le répertoire en dur pour version officielle une fois les tests terminés :
 #  /projets/salome/logiciels/salome/
     def get_remote_salome_dir(self):
-        return "/projets/salome/logiciels/salome/%s" % self.version
+        if self.name == "cronos":
+            return "/software/rd/salome/logiciels/salome/%s" % self.version
+        else:
+            return "/projets/salome/logiciels/salome/%s" % self.version
+
 
     def prepare(self):
         stdout = sys.stdout
@@ -79,6 +87,7 @@ class Resource(object):
         return ret
 
     def addToCatalog(self, catalog):
+        print("Your virtual application on %s is available on %s "%(self.name,self.remote_virtual_appli))
         m = ET.Element('machine')
         m.set("name", self.name)
         m.set("hostname", self.hostname)
@@ -157,7 +166,7 @@ the catalog."""
     # Par défaut la classe Resource est renvoyée
     cluster_to_resource = defaultdict(lambda: Resource)
 
-    for cluster in ["eole", "gaia"]:
+    for cluster in ["gaia", "cronos"]:
         r = cluster_to_resource[cluster](cluster, options.version, logger, options.user_nni)
         logger.debug("Processing resource %s." % r.name)
         rep = "y"
