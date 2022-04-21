@@ -315,20 +315,21 @@ It may be needed to build a module already in the binary distribution to debug i
 For this to be possible, the module must be providing an \code{ng} variant. If it is not the case, see \ref{migrateng} for the procedure. Also the followings modules have \code{ng} variants and can be used as source of inspiration:
 
 \begin{itemize}
+	\item s-adao
 	\item s-atomic
-	\item s-salome-kernel
-	\item s-smesh
-	\item s-zeromq
-	\item s-ydefx
-	\item s-salome-openturns
+	\item s-geom
+	\item s-paraview
+	\item s-paravis
 	\item s-paravisaddons-edf
 	\item s-persalys
-	\item s-python3-xlutils
 	\item s-python-modules
+	\item s-python3-xlutils
+	\item s-salome-kernel
+	\item s-salome-openturns
+	\item s-smesh
 	\item s-yacs
-	\item s-paravis
-	\item s-paraview
-        \item s-adao
+	\item s-ydefx
+	\item s-zeromq
 \end{itemize}
 
 When a module has an \code{ng} variant, building it on top of the binary archive can be achieved by calling:
