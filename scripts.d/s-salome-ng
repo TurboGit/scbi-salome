@@ -151,8 +151,10 @@ function setup-salome-ng-env()
                 # Call <module>-env hook which will be using the add-to-var
                 # above.
 
-                SFILE="extra.env.d/${N}_${CURRENT_MODULE}.sh"
-                PFILE="extra.env.d/${N}_${CURRENT_MODULE}.py"
+                NUM=$(printf "%02d" ${N})
+
+                SFILE="extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
+                PFILE="extra.env.d/${NUM}_${CURRENT_MODULE}.py"
                 N=$(( N + 1 ))
 
                 echo "# $module"                                   > $SFILE
@@ -193,7 +195,7 @@ EOF
 
         #  Override some possible values
 
-        PFILE="extra.env.d/0_setup.py"
+        PFILE="extra.env.d/00_setup.py"
 
         echo "def init(context, root_dir):"                 > $PFILE
         echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)' >> $PFILE
@@ -203,7 +205,7 @@ EOF
         echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")' >> $PFILE
         echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")' >> $PFILE
 
-        SFILE="extra.env.d/0_setup.sh"
+        SFILE="extra.env.d/00_setup.sh"
 
         echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}" >> $SFILE
         #  keep current PATH setting
