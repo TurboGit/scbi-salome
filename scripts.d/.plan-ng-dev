@@ -22,12 +22,14 @@ s-cmake/native
         # other modules that can be built in ng mode
         s-smesh
         s-salome-kernel
+        s-salome-openturns
         s-yacs
         s-paravis
         s-paraview
         s-adao
         s-geom
         s-persalys
+        s-ydefx
 ] /ng
 
 #  For some modules we may need more than just the ng variant
