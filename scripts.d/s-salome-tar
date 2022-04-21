@@ -58,6 +58,17 @@ function s-salome-tar-install()
     sed -i 's/    context\.\(.*CONFIGURATION_ROOT_DIR.*\)/#    context.setVariable(r"\1/g' \
         $PREFIX/salome
 
+    #  Create the SCBI version of env_launch.sh -> env_scbi.sh
+    #  We also patches some syntax error: out_dir_Path -> ${out_dir_Path}
+
+    sed -e 's/export \(.*PATH\|INCLUDE\|SMESH_MeshersList\)=\([^:]*\):.*"$/add-to-var \1 \2"/' \
+        -e 's/export SalomeAppConfig=[^:]*:\(.*\)"$/add-to-var SalomeAppConfig "\1"/' \
+        -e 's/export PV_PLUGIN_PATH=\([^;]*\);\${PV_PLUGIN_PATH}"$/add-to-var PV_PLUGIN_PATH \1"/' \
+        -e 's/export PV_PLUGIN_PATH="\${PV_PLUGIN_PATH};out_dir_Path\(.*\)"$/add-to-var PV_PLUGIN_PATH "\${out_dir_Path}\1"/' \
+        -e 's/export \(.*\)=\([^:]*\)"$/set-var    \1 \2"/' \
+        -e 's/export \(.*\)=\(.*\)$/set-var    \1 \2/' \
+        env_launch.sh > scbi_env.sh
+
     #  Fix PATH in CMake pointing to the build-time environment
 
     #  ??? Note that this part may be tricky as we really want to replace

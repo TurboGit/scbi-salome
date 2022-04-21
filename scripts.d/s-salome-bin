@@ -80,9 +80,9 @@ function s-salome-bin-ngwin-env()
 
 function s-salome-bin-ng-env()
 {
-    . ${SALOME_BIN_APPLICATION}/env_launch.sh
+    . ${SALOME_BIN_APPLICATION}/scbi_env.sh
 
-    #  Some missing settings in env_launch.sh
+    #  Some missing settings in scbi_env.sh
 
     [[ -d $SALOME_BIN_MODULES/cmake/bin ]] &&
         add-to-var PATH $SALOME_BIN_MODULES/cmake/bin
