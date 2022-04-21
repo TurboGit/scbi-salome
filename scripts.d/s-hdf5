@@ -50,7 +50,7 @@ function s-hdf5-build-depends()
 
 function s-hdf5-mpi-depends()
 {
-    echo libopenmpi-dev
+    echo s-openmpi
 }
 
 function s-hdf5-common-depends()
