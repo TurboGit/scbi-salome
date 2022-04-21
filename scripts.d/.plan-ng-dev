@@ -22,6 +22,7 @@ s-cmake/native
         s-paravis
         s-paraview
         s-adao
+        s-geom
 ] /ng
 
 #  For some modules we may need more than just the ng variant

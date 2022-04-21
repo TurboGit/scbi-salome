@@ -11,6 +11,11 @@ function s-geom-tar()
     echo geom-$VERSION.tar.xz 
 } 
 
+function s-geom-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
 function s-geom-build-depends()
 {
     echo s-cmake
@@ -19,11 +24,15 @@ function s-geom-build-depends()
     echo os@-python3-psutil
 }
 
-function s-geom-depends()
+function s-geom-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-geom-default-depends()
 {
     echo s-omniorb
     echo s-qt
-    echo s-salome-configuration
     echo s-salome-kernel
     echo s-salome-gui
     echo s-python-omniorb
