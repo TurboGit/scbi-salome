@@ -8,9 +8,10 @@
 # apt install mesa-common-dev
 
 with-variant native \
-             os@-qt5-default:[v] os@-qtbase5-dev:[v] os@-qttools5-dev:[v] os@-qt5help5 \
-             os@-qt5x11extras5-dev os@-qt5opengl5-dev os@-qt5printsupport5 \
- --env 'set-var QT5_ROOT_DIR /usr' \
+             os@-qt5-default:[v] os@-qtbase5-dev:[v] os@-qttools5-dev:[v] \
+	     os@-qt5help5 os@-qt5x11extras5-dev os@-qt5opengl5-dev \
+	     os@-qt5printsupport5 \
+ --env 'set-var    QT5_ROOT_DIR      /usr' \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5' \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5LinguistTools'
 
@@ -36,6 +37,8 @@ function s-qt-tar()
 function s-qt-build-depends()
 {
     echo os@-autoconf
+
+    echo s-cmake
 }
 
 function s-qt-env()
@@ -43,15 +46,18 @@ function s-qt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    QT5_ROOT_DIR      $PREFIX
+    set-var    QT5_ROOT_DIR                $PREFIX
 
-    add-to-var CMAKE_PREFIX_PATH           $PREFIX/lib/cmake
     add-to-var PATH                        $PREFIX/bin
     add-to-var LD_LIBRARY_PATH             $PREFIX/lib
     add-to-var C_INCLUDE_PATH              $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH          $PREFIX/include
     add-to-var QT_PLUGIN_PATH              $PREFIX/plugins
     add-to-var QT_QPA_PLATFORM_PLUGIN_PATH $PREFIX/plugins/platforms
+
+    for DIR in $(ls -d $PREFIX/lib/cmake/*); do
+	add-to-var CMAKE_PREFIX_PATH $DIR
+    done
 }
 
 function s-qt-config-options()
@@ -64,8 +70,30 @@ function s-qt-config-options()
     echo -opensource
     echo -confirm-license
     echo -no-rpath
-    echo -nomake examples
     echo -nomake tests
+    echo -nomake examples
+
+    return 0
+    # with everything below we can compile Qt 5.15.2
+    echo -verbose
+    echo -no-separate-debug-info
+    echo -qt-libpng
+    echo -no-eglfs
+    echo -dbus-runtime
+    echo -skip qtwebengine
+    echo -skip wayland
+    echo -skip qtgamepad
+    echo -skip qtlocation
+    echo -skip qt3d
+    echo -skip qtquick3d
+    echo -skip qtcharts
+    echo -skip qtdatavis3d
+    echo -skip qttools
+    echo -system-freetype
+    echo -qt-harfbuzz
+    echo -no-openssl
+    echo -no-glib
+    echo -no-jasper
 }
 
 function s-qt-config()
@@ -74,9 +102,9 @@ function s-qt-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS=( $(get-config-options $PREFIX $TARGET $VARIANT) )
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
-    ../src/configure ${OPTIONS[*]}
+    ../src/configure $OPTIONS
 }
 
 function s-qt-build()
