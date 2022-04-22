@@ -147,6 +147,10 @@ function s-salome-tar-install()
             sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
+    # Fix Test.xml file used by GitLab-ci
+
+    find . -type f -name "*Test.xml" -exec rm "{}" \;
+
     #  Make appear Persalys's icon on Salome gui
 
     local ORDIR=$PREFIX/$BINDIR/OPENTURNS/share/salome/resources/openturns
