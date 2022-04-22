@@ -124,6 +124,7 @@ function s-salome-tar-install()
     #  Need to fix (shebang) full path to python interpreter
 
     for SCRIPTS in omniORB/bin/omniidl \
+                       Python/bin/sphinx-build \
                        hdf5/bin/h5hlcc hdf5/bin/h5cc \
                        netcdf/lib/pkgconfig/netcdf.pc \
                        PyQt/bin/pyuic5;
