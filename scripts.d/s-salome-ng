@@ -60,13 +60,29 @@ function setup-salome-ng-env()
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
             local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
+            local DVAR="os.path.join(ROOT_EDF, $CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
 
             #  s-salome-bin needs a specific handling as the variables points to the
             #  binary install directories.
 
+            local KEEP_VAR=yes
+
             if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]]; then
                 local REL_FROM="$SCBI_BDIR/s-salome-tar/build/install"
-                local REL_DIR="${VALUE/$REL_FROM/\$\{out_dir_Path\}}"
+                local REL_DIR="${VALUE/$REL_FROM/\$\{root_dir\}}"
+                local DVAR="r\"$REL_DIR\""
+
+                #  And check if we want to keep the variable. We want
+                #  only those added in s-salome-bin explicitly and not
+                #  coming from env_launch.sh.
+
+                case "$VAR" in
+                    CMAKE_PREFIX_PATH|C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|LIBRARY_PATH|PATH)
+                        ;;
+                    *)
+                        KEEP_VAR=no
+                        ;;
+                esac
             fi
 
             #  Remove possible leading directory separator
@@ -87,23 +103,27 @@ function setup-salome-ng-env()
             #  Not that we always append to existing variables as some
             #  may have been set by the binary package's env_lauch.sh.
 
-            case "$VAR" in
-                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH| \
+            [[ $KEEP_VAR == yes ]] &&
+                case "$VAR" in
                     *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                ;;
-
-                *)
-                    if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                        echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}} >> $SFILE
-                    else
-                        echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}} >> $SFILE
-                    fi
                     ;;
-            esac
+
+                    *)
+                        if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                            echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}} >> $SFILE
+                        else
+                            echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}} >> $SFILE
+                        fi
+                        ;;
+                esac
 
             #  For Python
 
-            local DVAR="os.path.join(ROOT_EDF, $CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
+            if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]]; then
+                #  Do nothing for s-salome-bin in Python module. The whole environment is
+                #  already part of salome main driver.
+                return
+            fi
 
             case "$VAR" in
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
@@ -174,6 +194,7 @@ function setup-salome-ng-env()
 
                 echo "# $module"                                   > $SFILE
                 echo "export ROOT_EDF=\${out_dir_Path}/EDF"       >> $SFILE
+                echo "export root_dir=\${out_dir_Path}"           >> $SFILE
                 echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $SFILE
                 chmod a+x $SFILE
 
