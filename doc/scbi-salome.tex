@@ -344,6 +344,27 @@ The setup is then simple, the sources can be edited in the checkout tree, the ab
 
 Finally note that on a distribution older than \emph{Debian-10} the documentation build must be disabled, use the option \ddash{}enable-no-doc. This is because \code{sphinx-intl} is not provided by the distribution and we do not want to rebuild part of Sphinx.
 
+\subsection{Integrating new NG modules in application}
+
+We have seen above how to build a module on top of the binary distribution. One generally need to integrate this new module into the final application for testing purpose.
+
+The environment variable \code{SCBI\_EXTRA\_NG\_MODULES} can be used to achieve that.
+
+The syntax is \code{<PLUGIN-1>(PATTERN-1)[:<PLUGIN-2>(PATTERN-2)]}
+
+\begin{description}
+	\item[PLUGIN-N] The SCBI plug-in name (must have an ng variant) to be handled as extra module.description
+	\item[PATTERN-N] A regular expression of the module as found in the binary archive. It is used to remove this from the NG environment by matching the variable name and the variable values (path).
+\end{description}
+
+For example, to build SMESH and PERSALYS on top of binary archive and integrate them into the final application:
+
+\cmd{export SCBI\_EXTRA\_NG\_MODULES="s-persalys(PERSALYS):s-smesh(SMESH)"}
+
+And then using the standard command to build SALOME NG:
+
+\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update \ddash{}plan=ng-dev s-salome-ng}
+
 \subsection{Migrating modules in NG mode}
 \label{migrateng}
 

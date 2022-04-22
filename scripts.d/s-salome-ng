@@ -1,4 +1,21 @@
 
+#  Extra modules can be set in environment variable SCBI_NG_EXTRA_MODULES.
+#  The syntax is: <PLUGIN-1>(PATTERN-1)[:<PLUGIN-2>(PATTERN-2)]
+#  where:
+#     PLUGIN  : The SCBI plug-in name (must have an ng variant) to be
+#               handled as extra module.
+#     PATTERN : A regular expression of the module as found in the binary
+#               archive. It is used to remove this from the NG environment
+#               by matching the variable name and the variable values.
+
+function s-salome-ng-extra-modules()
+{
+    for MOD in ${SCBI_EXTRA_NG_MODULES/:/ }; do
+        local PLG="${MOD%\(*}"
+        echo $PLG
+    done
+}
+
 function s-salome-ng-modules()
 {
     echo s-atomic
@@ -12,6 +29,8 @@ function s-salome-ng-modules()
     #  We put s-distene here to override the meshgems which comes from
     #  binary archive. Never add s-meshgems in NG version.
     echo s-distene
+
+    s-salome-ng-extra-modules
 }
 
 function setup-salome-ng-env()

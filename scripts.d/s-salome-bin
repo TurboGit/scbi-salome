@@ -80,7 +80,37 @@ function s-salome-bin-ngwin-env()
 
 function s-salome-bin-ng-env()
 {
+    copy-function define-var define-var-orig
+
+    #  Redefine define-var to filter out modules that are otherwise
+    #  rebuilt on top of the binary archive.
+
+    function define-var()
+    {
+        local ACTION=$1
+        local VAR=$2
+        local VALUE=$3
+
+        local FOUND=false
+
+        for MOD in ${SCBI_EXTRA_NG_MODULES/:/ }; do
+            local PAT="("${MOD#*\(}
+
+            if [[ $VALUE =~ $PAT ]] || [[ $VAR =~ $PAT ]]; then
+                FOUND=true
+                break
+            fi
+        done
+
+        if [[ $FOUND == false ]]; then
+            define-var-orig $ACTION $VAR $VALUE
+        fi
+    }
+
     . ${SALOME_BIN_APPLICATION}/scbi_env.sh
+
+    unset -f define-var
+    copy-function define-var-orig define-var
 
     #  Some missing settings in scbi_env.sh
 
