@@ -54,5 +54,5 @@ s-medcoupling/scotch
 # More recent version of GMSH work, but then not compatible with gmsh-plugin
 # More generally any version of GCC > 9 causes troubles with various parts
 # of SALOME.
-@on fed s-gmsh:skip
-@on fed s-gmsh-plugin:skip
+@on fed use s-gmsh:skip
+@on fed use s-gmsh-plugin:skip
