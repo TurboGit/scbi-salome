@@ -104,14 +104,19 @@ function s-salome-tar-install()
 
 	chmod u+x $BINDIR/qt
     else
-	ORIGDIR="/volatile/[^:;\"]*workspace/[^/]*/[^/]*/INSTALL"
+        #  /INSTALL/ must be the end of the match for a single PATH. We
+        #  transform it to a single \t (tab) character. This way we can
+        #  easily use it as match terminator in ORIGDIR. And at the end
+        #  this patch is rewritten, to \t is finally removed.
+        INIT="s,/INSTALL/,/\t/,g"
+	ORIGDIR="/volatile/[^:;\"]*workspace/[^\t]*/\t"
 	BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
 	TGTDIR=\$ENV{KERNEL_ROOT_DIR}/../../$BINDIR
     fi
 
     find $PREFIX/ -type f -name "*.cmake" |
         while read F; do
-            sed -i "s,$ORIGDIR/,$TGTDIR/,g" $F
+            sed -i "$INIT;s,$ORIGDIR/,$TGTDIR/,g" $F
         done
 
     if [[ $VARIANT != "win" ]]; then
@@ -129,14 +134,14 @@ function s-salome-tar-install()
                        netcdf/lib/pkgconfig/netcdf.pc \
                        PyQt/bin/pyuic5;
     do
-        sed -i "s,${ORIGDIR},$PREFIX/$BINDIR,g" $PREFIX/$BINDIR/$SCRIPTS
+        sed -i "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" $PREFIX/$BINDIR/$SCRIPTS
     done
 
     #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
         while read F; do
-            sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Fix path in Makefile and Python system configuration scripts
@@ -144,7 +149,7 @@ function s-salome-tar-install()
     find $PREFIX/$BINDIR/Python -type f \
          \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
         while read F; do
-            sed -i "s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Make appear Persalys's icon on Salome gui
