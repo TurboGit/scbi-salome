@@ -64,7 +64,6 @@ function setup-salome-ng-env()
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
             local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
-            local DVAR="os.path.join(ROOT_EDF, $CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
 
             #  s-salome-bin needs a specific handling as the variables points to the
             #  binary install directories.
@@ -128,6 +127,8 @@ function setup-salome-ng-env()
                 #  already part of salome main driver.
                 return
             fi
+
+            local DVAR="os.path.join($CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
 
             case "$VAR" in
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
