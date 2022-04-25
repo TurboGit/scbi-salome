@@ -93,7 +93,7 @@ function s-salome-bin-ng-env()
 
         local FOUND=false
 
-        for MOD in ${SCBI_EXTRA_NG_MODULES/:/ }; do
+        for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
             local PAT="("${MOD#*\(}
 
             if [[ $VALUE =~ $PAT ]] || [[ $VAR =~ $PAT ]]; then
@@ -108,9 +108,6 @@ function s-salome-bin-ng-env()
     }
 
     . ${SALOME_BIN_APPLICATION}/scbi_env.sh
-
-    unset -f define-var
-    copy-function define-var-orig define-var
 
     #  Some missing settings in scbi_env.sh
 
@@ -153,6 +150,21 @@ function s-salome-bin-ng-env()
 
     add-to-var C_INCLUDE_PATH     $MEDFILE_ROOT_DIR/include
     add-to-var CPLUS_INCLUDE_PATH $MEDFILE_ROOT_DIR/include
+
+    unset -f define-var
+    copy-function define-var-orig define-var
+
+    #  Now that we have filtered out some modules we want to add the env
+    #  for the extra built modules.
+    #  We do that for each extra modules that are not the one being built.
+
+    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
+        local PLG="${MOD%\(*}"
+
+        if [[ $SCBI_CURRENT_MODULE != $PLG ]]; then
+            handle-module-env "@root" $PLG env
+        fi
+    done
 
     export PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -c1-3)
 }
