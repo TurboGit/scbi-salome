@@ -98,20 +98,20 @@ function s-salome-tar-install()
     local BINDIR
 
     if [[ $VARIANT == "win" ]]; then
-	ORIGDIR="E:/S/[^/]*/W64"
-	BINDIR=W64
-	TGTDIR=$(cygpath -m $PREFIX/$BINDIR)
+        ORIGDIR="E:/S/[^/]*/W64"
+        BINDIR=W64
+        TGTDIR=$(cygpath -m $PREFIX/$BINDIR)
 
-	chmod u+x $BINDIR/qt
+        chmod u+x $BINDIR/qt
     else
         #  /INSTALL/ must be the end of the match for a single PATH. We
         #  transform it to a single \t (tab) character. This way we can
         #  easily use it as match terminator in ORIGDIR. And at the end
         #  this patch is rewritten, to \t is finally removed.
         INIT="s,/INSTALL/,/\t/,g"
-	ORIGDIR="/volatile/[^:;\"]*workspace/[^\t]*/\t"
-	BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
-	TGTDIR=\$ENV{KERNEL_ROOT_DIR}/../../$BINDIR
+        ORIGDIR="/volatile/[^:;\"]*workspace/[^\t]*/\t"
+        BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
+        TGTDIR=\$ENV{KERNEL_ROOT_DIR}/../../$BINDIR
     fi
 
     find $PREFIX/ -type f -name "*.cmake" |
@@ -120,9 +120,9 @@ function s-salome-tar-install()
         done
 
     if [[ $VARIANT != "win" ]]; then
-	#  Fix wrong libtbb PATH pointing to the build-time environment
+        #  Fix wrong libtbb PATH pointing to the build-time environment
 
-	find $PREFIX/$BINDIR/openturns -name "*.cmake" \
+        find $PREFIX/$BINDIR/openturns -name "*.cmake" \
              -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
     fi
 
