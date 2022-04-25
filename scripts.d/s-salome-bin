@@ -151,6 +151,10 @@ function s-salome-bin-ng-env()
     add-to-var C_INCLUDE_PATH     $MEDFILE_ROOT_DIR/include
     add-to-var CPLUS_INCLUDE_PATH $MEDFILE_ROOT_DIR/include
 
+    if [[ -z $PYTHON_VERSION ]]; then
+        set-var PYTHON_VERSION $(python3 --version | cut -d' ' -f2 | cut -c1-3)
+    fi
+
     unset -f define-var
     copy-function define-var-orig define-var
 
@@ -165,6 +169,4 @@ function s-salome-bin-ng-env()
             handle-module-env "@root" $PLG env
         fi
     done
-
-    export PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -c1-3)
 }
