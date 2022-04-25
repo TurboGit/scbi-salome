@@ -169,4 +169,6 @@ function s-salome-bin-ng-env()
             handle-module-env "@root" $PLG env
         fi
     done
+
+    true
 }
