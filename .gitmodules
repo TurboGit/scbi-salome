@@ -1,0 +1,3 @@
+[submodule "scbi"]
+	path = scbi
+	url = https://github.com/TurboGit/scbi.git

@@ -2,7 +2,7 @@
 SCRDIR=$(HOME)/.config/scbi
 VER=$(shell git describe)
 
-all: clean.install
+all: clean.install core
 	mkdir -p $(SCRDIR) $(SCRDIR)/patches
 	rm -f $(SCRDIR)/*~ scripts.d/*~
 	cp -r scripts.d/* $(SCRDIR)
@@ -22,5 +22,13 @@ clean.install:
 		rm -f $(SCRDIR)/.scbi_salome_version.txt;  \
 	fi
 
-doc: force
+doc: force core.doc
 	make -C doc
+
+core:
+	make -C scbi
+
+core.doc:
+	make -C scbi doc
+
+force:
