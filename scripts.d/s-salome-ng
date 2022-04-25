@@ -10,7 +10,7 @@
 
 function s-salome-ng-extra-modules()
 {
-    for MOD in ${SCBI_EXTRA_NG_MODULES/:/ }; do
+    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
         local PLG="${MOD%\(*}"
         echo $PLG
     done
