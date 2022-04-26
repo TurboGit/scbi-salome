@@ -486,6 +486,9 @@ function s-salome-wrapup()
                 ln -s ./bin/salome/appliskel/$file $file
             done
 
+            sed -i 's,SCRIPTS_DIR "../../../../,SCRIPTS_DIR "$ENV{KERNEL_ROOT_DIR}/,g' \
+                ./bin/salome/test/GEOM/examples/CTestTestfile.cmake
+
             # copy module dev support
 
             dlog salome "copy the modules' dev support files"
