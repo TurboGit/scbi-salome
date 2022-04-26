@@ -1,0 +1,161 @@
+###########################################
+# TOOLS
+
+# clang 12 & s-ispc 1.16 are matching versions
+s-clang:#12.x
+# using binary version 1.16.0, must be available in s-ispc GitHub
+s-ispc/bin:#v1.16.0
+
+s-persalys:v12.0
+s-zeromq:#4.3.1
+s-melissa:#0.0.0
+s-planegcs:#0.18
+
+s-openturns:#1.18
+s-openturns-fftw:#0.11
+s-openturns-mixmod:#0.12
+s-openturns-morris:#0.12
+s-openturns-pmml:#1.11
+s-openturns-robopt:#0.10
+s-openturns-subsetinverse:#1.8
+s-openturns-svm:#0.10
+s-openturns-wrapy:#0.10
+s-openturns-pod:#0.6.7
+s-openturns-fmi:#0.14
+s-fmil:#2.0
+s-pyfmi:#2.5
+s-embree:#3.12.2
+s-rkcommon:v1.6.0
+s-openvkl:v0.11.0
+s-ospray:#2.4.0
+s-uranie:#4.5.0
+s-root:v6-22-02
+s-zcracks:#3.2.3
+s-qt/auto:#5.11
+s-pyqt/auto:#5.11
+s-sip/auto:#4.19
+s-cmake/auto:#3.12.1
+
+[
+        # s-homard tool is now merged into s-homard module
+        s-homard-tool:#1112hdf51103med410
+        s-tbb
+] :skip
+
+[
+        s-openmpi
+        s-opencv
+        s-scotch
+        s-ptscotch
+        s-netcdf
+        s-gdal
+        s-eigen
+] /native
+
+# the s-salome meta-module version is used to name the .run and as the
+# version in create_catalog.py
+
+s-salome:dev
+
+# First, for repositories where master is at CEA
+[
+        s-fields
+        s-geom
+        s-atomgen
+        s-atomic
+        s-blsurf-plugin
+        s-gmsh-plugin
+        s-hybrid-plugin
+        s-hexotic-plugin
+        s-netgen-plugin
+        s-shaperstudy
+        s-homard
+        s-salome-configuration
+        s-salome-jobmanager
+        s-yacs
+        s-yacsgen
+        s-hexablock
+        s-hexablock-plugin
+        s-samples
+        s-atomsolv
+        s-calculator
+        s-genericsolver
+        s-hello
+        s-pyhello
+        s-light
+        s-pylight
+        s-dsccode
+        s-shaper
+        s-salome-openturns
+        s-py2cpp
+        s-paravisaddons-common
+        s-smesh
+        s-salome-kernel
+        s-salome-gui
+        s-ghs3d-plugin
+        s-ghs3dprl-plugin
+        s-ydefx
+] :V9_9_BR
+
+# Second, for repositories where master is at EDF
+[
+        s-salome-eficas
+        s-eficas-tools
+        s-salome-adao
+        s-adao
+        s-adao-interface
+        s-paravisaddons-edf
+        s-melidefx
+        s-non-regression-tests
+        s-clustertests
+] :V9_9_BR
+
+# Third, the modules with MPI support or depending on
+# MPI like the two plugins.
+
+[ = mpi
+        s-medcoupling/mpi.ptscotch
+        s-paraview/default.mpi.ospray.gdal:v5.9.0
+        s-paravis/default.mpi
+] :V9_9_BR
+
+[ = mpi
+        s-paraview/default.mpi.ospray.gdal:v5.9.0
+]
+
+[ /= mpi
+        s-hdf5/native-serial
+        s-medcoupling/ptscotch
+        s-paravis/default
+] :V9_9_BR
+
+[ /= mpi
+        s-paraview/default.ospray.gdal:v5.9.0
+]
+
+[ = deb,9
+        s-hdf5/mpi:#1.10.3
+        s-tbb/auto:#4.4.6
+        # this should be also for debian-10
+]
+
+# downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
+#
+# s-netgen/cmake:#6.2.2101
+s-netgen/autotools:#5.3.1
+
+s-gmsh:#4.8.4
+
+s-medfichier:#4.1.1
+s-python3-nlopt:#2.4.2
+s-python3-xlutils:#2.0.0
+
+s-libbatch:V2_4_5
+
+s-python-omniorb:#4.2.2
+s-omniorb/auto:#4.2.2
+s-occt:#7.5.3p2
+s-meshgems:#V2.13-3_linux_EU
+s-distene:#V2.12-1_linux_EU
+s-cgns/auto:#4.2.0
+s-hdf5/native-serial
