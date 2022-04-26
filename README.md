@@ -2,16 +2,15 @@
 
 Setup Configure Build Install - Scripts for building SALOME
 
-# Pre-requisite
-
-  First you need to install the scbi driver.
-
-  https://github.com/TurboGit/scbi
+Those are based on the SCBI build driver. See project
+and documentation here: https://github.com/TurboGit/scbi
 
 # Install
 
+The SCBI driver is integrated as sub-module.
+
 ```
-$ git clone https://github.com/TurboGit/scbi-salome.git
+$ git clone --recurse-submodule https://github.com/TurboGit/scbi-salome.git
 $ cd ./scbi-salome
 $ make
 ```
@@ -34,8 +33,8 @@ $ scbi --env=xdev --deps --update --safe --enable-installer s-salome
 
 ## CentOS
 
-For now on CentOS the documentation cannot be built. The compilation must
-be done with the `--enable-no-doc` option:
+For now on CentOS and Debian-9 the documentation cannot be built. The
+compilation must be done with the `--enable-no-doc` option:
 
 ```
 $ scbi --env=xdev --deps --update --enable-no-doc --safe s-salome
