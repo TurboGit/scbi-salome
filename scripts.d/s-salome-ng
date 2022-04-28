@@ -76,7 +76,7 @@ function setup-salome-ng-env()
                 #  coming from env_launch.sh.
 
                 case "$VAR" in
-                    CMAKE_PREFIX_PATH|C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|LIBRARY_PATH|PATH)
+                    CMAKE_PREFIX_PATH|PATH)
                         ;;
                     *)
                         KEEP_VAR=no
@@ -104,16 +104,15 @@ function setup-salome-ng-env()
 
             [[ $KEEP_VAR == yes ]] &&
                 case "$VAR" in
-                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                    CMAKE_PREFIX_PATH)
+                        echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}} >> $SFILE
                     ;;
 
-                    *)
-                        if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                            echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}} >> $SFILE
-                        else
+                    PATH)
+                        if [[ "${REL_DIR}" == *"cmake/bin"* ]]; then
                             echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}} >> $SFILE
                         fi
-                        ;;
+                    ;;
                 esac
 
             #  For Python
