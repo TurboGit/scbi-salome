@@ -78,6 +78,15 @@ function s-salome-bin-ngwin-env()
 
 ####################################################### LINUX
 
+#  Returns 0 if VAR has ROOT as prefix
+function is-root-path()
+{
+    local ROOT=$1
+    local VAR=$2
+
+    [[ ! -z $VAR ]] && [[ ${VAR#$ROOT} != $VAR ]]
+}
+
 function s-salome-bin-ng-env()
 {
     copy-function define-var define-var-orig
@@ -142,42 +151,63 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $(ls -1 $OSPRAY_ROOT_DIR/lib/cmake/ospray-*)
     add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
 
-    add-to-var C_INCLUDE_PATH     $PY2CPP_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH $PY2CPP_ROOT_DIR/include
+    is-root-path $SALOME_BIN_MODULES $PY2CPP_ROOT_DIR &&
+        {
+            add-to-var C_INCLUDE_PATH     $PY2CPP_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH $PY2CPP_ROOT_DIR/include
+        }
 
-    add-to-var C_INCLUDE_PATH     $MPI_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH $MPI_ROOT_DIR/include
+    is-root-path $SALOME_BIN_MODULES $MPI_ROOT_DIR &&
+        {
+            add-to-var C_INCLUDE_PATH     $MPI_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH $MPI_ROOT_DIR/include
+        }
 
-    add-to-var C_INCLUDE_PATH     $OMNIORB_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH $OMNIORB_ROOT_DIR/include
+    is-root-path $SALOME_BIN_MODULES $OMNIORB_ROOT_DIR &&
+        {
+            add-to-var C_INCLUDE_PATH     $OMNIORB_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH $OMNIORB_ROOT_DIR/include
+        }
 
-    add-to-var C_INCLUDE_PATH     $MEDFILE_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH $MEDFILE_ROOT_DIR/include
+    is-root-path $SALOME_BIN_MODULES $MEDFILE_ROOT_DIR &&
+        {
+            add-to-var C_INCLUDE_PATH     $MEDFILE_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH $MEDFILE_ROOT_DIR/include
+        }
 
-    add-to-var C_INCLUDE_PATH         $PTSCOTCH_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH     $PTSCOTCH_ROOT_DIR/include
-    add-to-var PATH                   $PTSCOTCH_ROOT_DIR/bin
-    add-to-var LIBRARY_PATH           $PTSCOTCH_ROOT_DIR/lib
-    set-var    PTSCOTCH_INCLUDE_DIRS  $PTSCOTCH_ROOT_DIR/include
-    set-var    PTSCOTCH_LIBRARIES     $PTSCOTCH_ROOT_DIR/lib/libptscotch.a
-    set-var    PTSCOTCH_ERR_LIBRARIES $PTSCOTCH_ROOT_DIR/lib/libptscotcherr.a
+    is-root-path $SALOME_BIN_MODULES $PTSCOTCH_ROOT_DIR &&
+        {
+            add-to-var C_INCLUDE_PATH         $PTSCOTCH_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH     $PTSCOTCH_ROOT_DIR/include
+            add-to-var PATH                   $PTSCOTCH_ROOT_DIR/bin
+            add-to-var LIBRARY_PATH           $PTSCOTCH_ROOT_DIR/lib
+            set-var    PTSCOTCH_INCLUDE_DIRS  $PTSCOTCH_ROOT_DIR/include
+            set-var    PTSCOTCH_LIBRARIES     \
+                       $PTSCOTCH_ROOT_DIR/lib/libptscotch.a
+            set-var    PTSCOTCH_ERR_LIBRARIES \
+                       $PTSCOTCH_ROOT_DIR/lib/libptscotcherr.a
+        }
 
     add-to-var PATH                   $ISPC_ROOT_DIR/bin
     add-to-var PATH                   $SALOME_BIN_MODULES/llvm/bin
 
-    add-to-var PATH                   $GDAL_ROOT_DIR/bin
-    add-to-var C_INCLUDE_PATH         $GDAL_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH     $GDAL_ROOT_DIR/include
-    add-to-var LIBRARY_PATH           $GDAL_ROOT_DIR/lib
-    add-to-var LD_LIBRARY_PATH        $GDAL_ROOT_DIR/lib
+    is-root-path $SALOME_BIN_MODULES $GDAL_ROOT_DIR &&
+        {
+            add-to-var PATH                   $GDAL_ROOT_DIR/bin
+            add-to-var C_INCLUDE_PATH         $GDAL_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH     $GDAL_ROOT_DIR/include
+            add-to-var LIBRARY_PATH           $GDAL_ROOT_DIR/lib
+            add-to-var LD_LIBRARY_PATH        $GDAL_ROOT_DIR/lib
+        }
 
-    add-to-var PATH                   $NETCDF_ROOT_DIR/bin
-    add-to-var C_INCLUDE_PATH         $NETCDF_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH     $NETCDF_ROOT_DIR/include
-    add-to-var LIBRARY_PATH           $NETCDF_ROOT_DIR/lib
-    add-to-var LD_LIBRARY_PATH        $NETCDF_ROOT_DIR/lib
-
-    export PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -c1-3)
+    is-root-path $SALOME_BIN_MODULES $NETCDF_ROOT_DIR &&
+        {
+            add-to-var PATH                   $NETCDF_ROOT_DIR/bin
+            add-to-var C_INCLUDE_PATH         $NETCDF_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH     $NETCDF_ROOT_DIR/include
+            add-to-var LIBRARY_PATH           $NETCDF_ROOT_DIR/lib
+            add-to-var LD_LIBRARY_PATH        $NETCDF_ROOT_DIR/lib
+        }
 
     if [[ -z $PYTHON_VERSION ]]; then
         set-var PYTHON_VERSION $(python3 --version | cut -d' ' -f2 | cut -c1-3)
