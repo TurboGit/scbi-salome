@@ -114,7 +114,7 @@ s-salome:dev
 # MPI like the two plugins.
 
 [ = mpi
-        s-medcoupling/mpi.ptscotch
+        s-medcoupling/default.mpi.ptscotch
         s-paraview/default.mpi.ospray.gdal:v5.9.0
         s-paravis/default.mpi
 ] :master
@@ -125,7 +125,7 @@ s-salome:dev
 
 [ /= mpi
         s-hdf5/native-serial
-        s-medcoupling/ptscotch
+        s-medcoupling/default.ptscotch
         s-paravis/default
 ] :master
 
