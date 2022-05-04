@@ -1,0 +1,20 @@
+diff -Naur yamm_src_es4c769n_PARAVIEW/ThirdParty/catalyst/vtkcatalyst/catalyst/cmake/catalyst-config.cmake.in yamm_src_es4c769n_PARAVIEW_patch/ThirdParty/catalyst/vtkcatalyst/catalyst/cmake/catalyst-config.cmake.in
+--- yamm_src_es4c769n_PARAVIEW/ThirdParty/catalyst/vtkcatalyst/catalyst/cmake/catalyst-config.cmake.in	2021-01-23 19:00:01.000000000 +0100
++++ yamm_src_es4c769n_PARAVIEW_patch/ThirdParty/catalyst/vtkcatalyst/catalyst/cmake/catalyst-config.cmake.in	2021-04-30 15:21:48.377507971 +0200
+@@ -1,6 +1,6 @@
+ # Catalyst Package config file.
+ cmake_policy(PUSH)
+-cmake_policy(VERSION 3.13)
++cmake_policy(VERSION 3.12)
+ 
+ set(CATALYST_VERSION "@CATALYST_VERSION@")
+ set(CATALYST_ABI_VERSION "@CATALYST_ABI_VERSION@")
+diff -Naur yamm_src_es4c769n_PARAVIEW/ThirdParty/catalyst/vtkcatalyst/catalyst/CMakeLists.txt yamm_src_es4c769n_PARAVIEW_patch/ThirdParty/catalyst/vtkcatalyst/catalyst/CMakeLists.txt
+--- yamm_src_es4c769n_PARAVIEW/ThirdParty/catalyst/vtkcatalyst/catalyst/CMakeLists.txt	2021-01-23 19:00:01.000000000 +0100
++++ yamm_src_es4c769n_PARAVIEW_patch/ThirdParty/catalyst/vtkcatalyst/catalyst/CMakeLists.txt	2021-04-30 15:22:18.936785022 +0200
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.13...3.16 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.12...3.16 FATAL_ERROR)
+ project(CATALYST VERSION 2.0 LANGUAGES C CXX)
+ 
+ #------------------------------------------------------------------------------
