@@ -18,3 +18,8 @@ s-cmake:#3.14.4
 s-python3-xlutils:skip
 
 @on rhl use s-openmpi/cronos
+
+[ = deb,9
+        s-cmake:#3.12.1
+        s-qt:#5.12.10
+]
