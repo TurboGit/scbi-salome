@@ -18,19 +18,19 @@ function s-salome-ng-extra-modules()
 
 function s-salome-ng-modules()
 {
+    s-salome-ng-extra-modules
+
+    echo s-salome-configuration
     echo s-atomic
     echo s-paravisaddons-edf
     echo s-melissa
     echo s-python3-xlutils
     echo s-python-modules
-    echo s-salome-configuration
     echo s-zcracks
 
     #  We put s-distene here to override the meshgems which comes from
     #  binary archive. Never add s-meshgems in NG version.
     echo s-distene
-
-    s-salome-ng-extra-modules
 }
 
 function setup-salome-ng-env()
