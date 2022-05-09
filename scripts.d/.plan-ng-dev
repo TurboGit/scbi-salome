@@ -93,6 +93,6 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-salome-tar:#master:CO8
         s-zeromq:skip
         s-melissa:skip
-        s-cmake/auto:#3.12.1
+        s-cmake/auto:#3.14.4
         s-python-modules:skip
 ]
