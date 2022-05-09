@@ -214,7 +214,8 @@ function setup-salome-ng-env()
 
             if [[ ! -z $FCT ]]; then
                 local BINDIR=$(basename $(ls -1d BINARIES-*))
-                echo "SUBDIRS(../../../../../$($FCT EDF/$module))" >> $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
+                echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
+                     >> $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
             fi
         }
 
