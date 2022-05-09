@@ -18,13 +18,12 @@ function s-paraview-patches()
 
     [[ $REF =~ "5.8" ]] && echo paraview-autoload.patch
     [[ $REF =~ "5.9" ]] && echo paraview-5.9.patch
-    [[ $REF =~ "5.9" ]] && echo paraview-5.9-cmake3.12.patch
 }
 
 function s-paraview-ng-build-depends()
 {
     echo s-salome-bin
-    # To avoid Paraview configuration issue with cmake < 3.13
+    # To avoid Paraview configuration issue with cmake < 3.13 to detect cmake native
     echo s-cmake
 }
 
