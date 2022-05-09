@@ -142,6 +142,12 @@ function s-salome-tar-install()
     local ORDIR=$PREFIX/$BINDIR/OPENTURNS/share/salome/resources/openturns
 
     cp $ORDIR/SalomeApp.xml $ORDIR/SalomeAppSL.xml
+
+    #  Link SALOME help to EDF Website
+
+    LIGHTAPPGUI=$PREFIX/$BINDIR/GUI/share/salome/resources/gui/LightApp.xml
+
+    sed -i "s,https://www.salome-platform.org,https://salome.der.edf.fr,g" $LIGHTAPPGUI
 }
 
 function s-salome-tar-prefix()
