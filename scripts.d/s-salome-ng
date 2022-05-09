@@ -364,7 +364,8 @@ function s-salome-ng-wrapup()
                 #  of the scripts such as omniidl, h5hlcc,...
                 #  This temporary application is used for the .run creation
 
-                rm -rf application_tmp; cp -rf application application_tmp
+                rm -rf application_tmp
+                cp -rf application application_tmp
 
                 local TARDIR=$SCBI_BDIR/s-salome-tar/$TARGET-default/install
                 local BINDIR=$(basename $(ls -1d $TARDIR/BINARIES-*))
