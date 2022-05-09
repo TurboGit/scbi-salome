@@ -68,8 +68,11 @@ done
 
 # check for python3
 #
-DISTRIBUTION_ID=$(lsb_release -a | grep "Distributor ID:" | awk -F ":" '{print $2}' | xargs )
-OS_VERSION=$(lsb_release -a | grep "Release:" | awk -F ":" '{print $2}' | xargs | awk -F "." '{print $1}')
+TMPV=$(lsb_release -r | tr -d '[ \t]')
+OS_VERSION=${TMPR#*:}
+
+TMPV=$(lsb_release -i | tr -d '[ \t]')
+DISTRIBUTION_ID=${TMPV#:*}
 
 if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
     echo Python is embedded into salome on debian9
