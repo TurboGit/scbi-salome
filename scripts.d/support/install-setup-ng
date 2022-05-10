@@ -69,7 +69,7 @@ done
 # check for python3
 #
 TMPV=$(lsb_release -r | tr -d '[ \t]')
-OS_VERSION=${TMPR#*:}
+OS_VERSION=${TMPV#*:}
 
 TMPV=$(lsb_release -i | tr -d '[ \t]')
 DISTRIBUTION_ID=${TMPV#:*}
