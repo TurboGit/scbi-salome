@@ -38,6 +38,8 @@ function setup-salome-ng-env()
     local PREFIX=$1
     local TARGET=$2
 
+    local APPDIR=$SCBI_BDIR/s-salome-ng/application
+
     #  THIS ROUTINE should be used to loop over all NEW dependencies (modules
     #  built on top of the binary archive) and patch the env_launch.sh
     #  to add the necessary configs.
@@ -193,8 +195,8 @@ function setup-salome-ng-env()
 
                 NUM=$(printf "%02d" ${N})
 
-                SFILE="extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
-                PFILE="extra.env.d/${NUM}_${CURRENT_MODULE}.py"
+                SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
+                PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
                 N=$(( N + 1 ))
 
                 echo "# $module"                                   > $SFILE
