@@ -1,0 +1,109 @@
+with-variant native os@-cgal-dev \
+  --env "set-var CGALHOME /usr"
+
+function s-cgal-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo CGAL-$VERSION.tar.gz
+}
+
+function s-cgal-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo cgal-cmake352.patch
+}
+
+function s-cgal-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-cgal-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-cgal-default-depends()
+{
+    echo os@-boost-dev
+    echo os@-boost-thread-dev
+    echo os@-boost-system-dev
+    echo os@-program-options-dev
+    echo os@-zlib1g-dev
+    echo os@-gcc
+
+    echo s-tbb
+    echo s-boost
+}
+
+function s-cgal-ng-depends()
+{
+    echo s-salome-bin
+}
+
+function s-cgal-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    CGALHOME        $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+}
+
+function s-cgal-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DWITH_CGAL_Qt3:BOOL=OFF
+    echo -DWITH_CGAL_Qt4:BOOL=OFF
+    echo -DWITH_GMP:BOOL=OFF
+    echo -DWITH_GMPXX:BOOL=OFF
+    echo -DBOOST_ROOT=$BOOSTDIR
+}
+
+function s-cgal-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake ${OPTIONS} ../src
+}
+
+function s-cgal-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-cgal-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-cgal-prefix()
+{
+    echo NONE
+}
