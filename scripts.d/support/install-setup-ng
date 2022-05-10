@@ -73,7 +73,7 @@ TMPV=${TMPV#*:}
 OS_VERSION=${TMPV%.*}
 
 TMPV=$(lsb_release -i | tr -d '[ \t]')
-DISTRIBUTION_ID=${TMPV#:*}
+DISTRIBUTION_ID=${TMPV#*:}
 
 if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
     echo Python is embedded into salome on debian9
