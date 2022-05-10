@@ -62,7 +62,14 @@ function s-salome-tar-install()
 
     rm -fr ARCHIVES PROJECT sat logs.tgz
 
+    #  We need to use the native mesa, the one packaged is not stable
+    rm -fr BINARIES-*/mesa
+
     dlog salome-tar Fix some paths
+
+    #  Remove MESA setting from env_launch.sh
+
+    sed -i 's,\(.*BINARI[^/]*/mesa\),# \1,g' $PREFIX/mesa_salome
 
     #  Remove CONFIGURATION setting from env_launch.sh
     #  The configuration is not part of the binary archive so
