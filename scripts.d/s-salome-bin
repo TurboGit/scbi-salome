@@ -224,7 +224,7 @@ function s-salome-bin-ng-env()
         local PLG="${MOD%\(*}"
 
         if [[ $SCBI_CURRENT_MODULE != $PLG ]]; then
-            handle-module-env "@root" $PLG env
+            setup-module-env "@root" $PLG env
         fi
     done
 
