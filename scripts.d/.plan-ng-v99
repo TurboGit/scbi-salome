@@ -71,7 +71,9 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-openmpi:skip
         s-ospray:skip
         s-gdal:skip
+        s-tbb:skip
         s-python-modules/ng.wand.lxml:V9_9_BR
+        s-cgal:#4.0
         os@-boost-locale-dev:skip
         os@-python3:skip
         os@-python3-numpy:skip
@@ -90,4 +92,5 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-ospray:skip
         s-gdal:skip
         s-python-modules/ng.wand:V9_9_BR
+        s-cgal/native
 ]
