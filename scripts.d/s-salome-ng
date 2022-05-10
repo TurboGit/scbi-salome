@@ -61,8 +61,8 @@ function setup-salome-ng-env()
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
             local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
 
-            #  s-salome-bin needs a specific handling as the variables points to the
-            #  binary install directories.
+            #  s-salome-bin needs a specific handling as the variables
+            #  points to the binary install directories.
 
             local KEEP_VAR=yes
 
