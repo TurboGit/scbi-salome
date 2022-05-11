@@ -120,9 +120,6 @@ function s-salome-bin-ng-env()
 
     #  Some missing settings in scbi_env.sh
 
-    [[ -d $SALOME_BIN_MODULES/cmake/bin ]] &&
-        add-to-var PATH $SALOME_BIN_MODULES/cmake/bin
-
     if [[ -d $SALOME_BIN_MODULES/libxml2/bin ]]; then
         local LXDIR=$SALOME_BIN_MODULES/libxml2
 
