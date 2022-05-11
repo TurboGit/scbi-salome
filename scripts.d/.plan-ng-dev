@@ -6,7 +6,7 @@
 #  version in create_catalog.py
 s-salome-ng:dev
 
-s-cmake/native
+s-cmake/auto:#3.14.4
 
 [ = linux
         s-salome-bin
@@ -66,7 +66,6 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
 [ = deb,9
         s-salome-ng:s9-dev
         s-salome-tar:#master:DB09
-        s-cmake:skip
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
@@ -94,6 +93,5 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-salome-tar:#master:CO8
         s-zeromq:skip
         s-melissa:skip
-        s-cmake/auto:#3.14.4
         s-python-modules:skip
 ]
