@@ -14,6 +14,7 @@ s-cmake/native
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-python-modules/ng.wand:V9_9_BR
+        s-gnuplot-py:#1.8-3k
 
         # other modules that can be built in ng mode
         s-smesh
@@ -69,6 +70,9 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         os@-python3-numpy:skip
         os@-python3-xlrd:skip
         os@-python3-xlwt:skip
+        os@-python3-setuptools:skip
+        os@-boost-dev:skip
+        os@-hdf5-dev:skip
 ]
 
 [ = deb,10
