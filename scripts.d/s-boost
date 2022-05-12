@@ -1,0 +1,2 @@
+with-variant native os@-boost-dev \
+  --env "set-var BOOSTDIR /usr"
