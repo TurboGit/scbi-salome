@@ -21,11 +21,11 @@ function s-cgal-common-build-depends()
 function s-cgal-common-depends()
 {
     echo s-salome-configuration
+    echo s-boost
 }
 
 function s-cgal-default-depends()
 {
-    echo os@-boost-dev
     echo os@-boost-thread-dev
     echo os@-boost-system-dev
     echo os@-program-options-dev
@@ -33,7 +33,6 @@ function s-cgal-default-depends()
     echo os@-gcc
 
     echo s-tbb
-    echo s-boost
 }
 
 function s-cgal-ng-depends()
