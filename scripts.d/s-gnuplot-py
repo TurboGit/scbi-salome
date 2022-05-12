@@ -1,0 +1,61 @@
+
+
+function s-gnuplot-py-out-of-tree()
+{
+    echo false
+}
+
+function s-gnuplot-py-common-build-depends()
+{
+    echo os@-python3-setuptools
+}
+
+function s-gnuplot-py-common-depends()
+{
+    echo gnuplot
+    echo os@-python3-numpy
+    echo os@-python3
+}
+
+function s-gnuplot-py-ng-depends()
+{
+    echo s-salome-bin
+}
+
+function s-gnuplot-py-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-gnuplot-py-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    GNUPLOTPY_HOME    $PREFIX
+
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-gnuplot-py-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    PYPIURL=$(scbi-store-get-key PYPIURL)
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    echo "[easy_install]" > setup.cfg
+    echo "index-url = $PYPIURL" >> setup.cfg
+    python3 setup.py install --prefix=$PREFIX
+}
+
+function s-gnuplot-py-prefix()
+{
+    echo NONE
+}
