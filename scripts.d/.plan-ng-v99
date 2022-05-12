@@ -66,7 +66,7 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-gdal:skip
         s-tbb:skip
         s-python-modules/ng.wand.lxml:V9_9_BR
-        s-cgal:#4.0
+        s-cgal/ng:#4.0
         os@-boost-locale-dev:skip
         os@-python3:skip
         os@-python3-numpy:skip
@@ -75,6 +75,7 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         os@-python3-setuptools:skip
         os@-boost-dev:skip
         os@-hdf5-dev:skip
+        s-boost:skip
 ]
 
 [ = deb,10
@@ -86,4 +87,5 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-gdal:skip
         s-python-modules/ng.wand:V9_9_BR
         s-cgal/native
+        s-boost/native
 ]
