@@ -23,32 +23,28 @@ function s-padder-out-of-tree()
     echo false
 }
 
-function s-padder-depends()
+function s-padder-common-depends()
 {
-    echo s-medfichier
-    echo os@-boost-dev
-    echo os@-cgal-dev
     echo os@-hdf5-dev
+
+    echo s-cgal
+    echo s-boost
 }
 
-function s-padder-build-env()
+function s-padder-default-depends()
 {
-    local PREFIX=$1
-    local TARGET=$2
+    echo s-medfichier
+}
 
-    set-var    CGALHOME           /usr
-    set-var    HDF5HOME           /usr
-    set-var    BOOSTDIR           /usr
+function s-padder-ng-depends()
+{
+    echo s-salome-bin
+}
 
-    # HDF5
-    add-to-var C_INCLUDE_PATH     /usr/include/hdf5/openmpi
-    add-to-var CPLUS_INCLUDE_PATH /usr/include/hdf5/openmpi
-    add-to-var LD_LIBRARY_PATH    /usr/lib/$TARGET/hdf5/openmpi
-    add-to-var LIBRARY_PATH       /usr/lib/$TARGET/hdf5/openmpi
-
-    # MPI
-    add-to-var C_INCLUDE_PATH     /usr/lib/$TARGET/openmpi/include
-    add-to-var CPLUS_INCLUDE_PATH /usr/lib/$TARGET/openmpi/include
+function s-padder-build-depends()
+{
+    echo s-cgal
+    echo s-boost
 }
 
 function s-padder-env()
@@ -56,17 +52,27 @@ function s-padder-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var PADDER_ROOT_DIR $PREFIX
-    set-var PADDERHOME      $PREFIX
-    set-var MED3HOME        $MEDFILE_ROOT_DIR/include
+    set-var PADDERHOME $PREFIX
+}
+
+function s-padder-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    export CGAL_LFLAGS="-L${CGALHOME}/lib -lCGAL -lm -lgmp"
+    export BOOST_LFLAGS="-L${BOOSTDIR}/lib -lboost_thread"
+    export CC="$CC"
 }
 
 function s-padder-build()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    make PREFIX=$PREFIX BOOST_LFLAGS="-lboost_thread -lgmp"
+    make -e PREFIX=$PREFIX
 }
 
 function s-padder-install()
@@ -74,7 +80,22 @@ function s-padder-install()
     local PREFIX=$1
     local TARGET=$2
 
-    make PREFIX=$PREFIX install
+    make -e PREFIX=$PREFIX install
+}
+
+function s-padder-ng-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local CFGFILE=$SMESH_ROOT_DIR/share/salome/plugins/smesh/padder.cfg
+
+    make -e PREFIX=$PREFIX install
+
+    # Patching padder.cfg to link smesh to padder
+
+    LINENB=$(grep -Fn "[localhost]" $CFGFILE | awk -F ":" '{print $1}')
+    sed -i "$((LINENB+2)) c binpath = \$PADDERHOME/padder.exe" $CFGFILE
+    sed -i "$((LINENB+3)) c envpath = \$PADDERHOME/padder.env" $CFGFILE
 }
 
 function s-padder-prefix()
