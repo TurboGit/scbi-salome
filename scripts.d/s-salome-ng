@@ -26,6 +26,7 @@ function s-salome-ng-modules()
     echo s-salome-configuration
     echo s-zcracks
     echo s-cgal
+    echo s-padder
     echo s-gnuplot-py
 
     #  We put s-distene here to override the meshgems which comes from
