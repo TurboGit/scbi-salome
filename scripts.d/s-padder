@@ -83,15 +83,16 @@ function s-padder-install()
     make -e PREFIX=$PREFIX install
 }
 
-function s-padder-ng-install()
+function s-padder-ng-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
+
     local CFGFILE=$SMESH_ROOT_DIR/share/salome/plugins/smesh/padder.cfg
 
-    make -e PREFIX=$PREFIX install
-
     # Patching padder.cfg to link smesh to padder
+    # This is needed as SMESH is built before padder as part of the
+    # binary archive.
 
     LINENB=$(grep -Fn "[localhost]" $CFGFILE | awk -F ":" '{print $1}')
     sed -i "$((LINENB+2)) c binpath = \$PADDERHOME/padder.exe" $CFGFILE
