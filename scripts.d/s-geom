@@ -26,6 +26,11 @@ function s-geom-tar()
     echo geom-$VERSION.tar.xz
 }
 
+function s-geom-common-build-depends()
+{
+    echo s-cmake
+}
+
 function s-geom-ng-build-depends()
 {
     echo s-salome-bin
@@ -33,7 +38,6 @@ function s-geom-ng-build-depends()
 
 function s-geom-build-depends()
 {
-    echo s-cmake
     echo os@-sphinx-common
     echo os@-swig
     echo os@-python3-psutil

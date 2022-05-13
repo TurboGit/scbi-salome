@@ -26,6 +26,11 @@ function s-medcoupling-tar()
     echo medcoupling-$VERSION.tar.gz
 }
 
+function s-medcoupling-common-build-depends()
+{
+    echo s-cmake
+}
+
 function s-medcoupling-ng-build-depends()
 {
     echo s-salome-bin
@@ -38,8 +43,6 @@ function s-medcoupling-build-depends()
     [[ -z ${DISDOC} ]] && echo os@-sphinx-common
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
     echo os@-python3-sphinx-rtd-theme
-
-    echo s-cmake
 }
 
 function s-medcoupling-ptscotch-depends()
