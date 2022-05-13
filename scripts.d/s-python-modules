@@ -31,6 +31,11 @@ function s-python-modules-ng-build-depends()
     echo s-salome-bin
 }
 
+function s-python-modules-lxml-build-depends()
+{
+    echo os@-xml2-dev
+}
+
 function s-python-modules-build-depends()
 {
     echo os@-python3-setuptools
