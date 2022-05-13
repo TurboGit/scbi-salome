@@ -14,6 +14,7 @@ s-cmake/auto:#3.14.4
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-python-modules/ng.wand:master
+        s-gnuplot-py:#1.8-3k
 
         # other modules that can be built in ng mode
         s-smesh
@@ -63,12 +64,18 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-openmpi:skip
         s-ospray:skip
         s-gdal:skip
+        s-cgal/ng:#4.0
+        s-tbb:skip
         s-python-modules/ng.wand.lxml:master
         os@-boost-locale-dev:skip
         os@-python3:skip
         os@-python3-numpy:skip
         os@-python3-xlrd:skip
         os@-python3-xlwt:skip
+        os@-python3-setuptools:skip
+        os@-boost-dev:skip
+        os@-hdf5-dev:skip
+        s-boost:skip
 ]
 
 [ = deb,10
@@ -79,6 +86,8 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-ospray:skip
         s-gdal:skip
         s-python-modules/ng.wand:master
+        s-cgal/native
+        s-boost/native
 ]
 
 [ = rhl
