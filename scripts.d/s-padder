@@ -63,7 +63,6 @@ function s-padder-build-env()
 
     export CGAL_LFLAGS="-L${CGALHOME}/lib -lCGAL -lm -lgmp"
     export BOOST_LFLAGS="-L${BOOSTDIR}/lib -lboost_thread"
-    export CC="$CC"
 }
 
 function s-padder-build()
