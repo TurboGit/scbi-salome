@@ -20,6 +20,11 @@ function s-salome-tar-out-of-tree()
     echo false
 }
 
+function s-salome-tar-external-env()
+{
+    echo $SCBI_EXTRA_NG_MODULES
+}
+
 function s-salome-tar-env()
 {
     local PREFIX=$1
@@ -63,7 +68,39 @@ function s-salome-tar-install()
     rm -fr ARCHIVES PROJECT sat logs.tgz
 
     #  We need to use the native mesa, the one packaged is not stable
-    rm -fr BINARIES-*/mesa
+
+    local BINDIR=$(ls -d BINARIES-*)
+
+    rm -fr $BINDIR/mesa
+
+    #  Now remove all extra modules found in the binary archive.
+    #  And unset variables that are pointing to those directories.
+
+    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
+        local PAT="("${MOD#*\(}
+
+        #  We actually do not want to remove the directory because the
+        #  installed cmake scripts in KERNEL do referencces those
+        #  module. This makes CMake unhappy as some variables
+        #  VTK_ROOT_DIR_EXP or GUI_ROOT_DIR_EXP are then pointing to
+        #  unexisting directories.
+
+        #for dir in $(ls $BINDIR/. | egrep "$PAT"); do
+        #    if [[ -d $BINDIR/$dir ]]; then
+        #        rm -fr $BINDIR/$dir
+        #    fi
+        #done
+
+        #  Ensure we match a whole word, then comment out variables
+        #  pointing to the module.
+
+	PAT=$PAT'[^a-zA-Z_]'
+
+	sed -i -E "s,^export .*=.*$PAT,# \0,g" \
+	    $PREFIX/env_launch.sh
+	sed -i -E "s,    context\..*$PAT,#    \0,g" \
+	    $PREFIX/salome
+    done
 
     dlog salome-tar Fix some paths
 
