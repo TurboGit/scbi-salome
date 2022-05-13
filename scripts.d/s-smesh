@@ -11,6 +11,11 @@ function s-smesh-tar()
     echo smesh-$VERSION.tar.xz 
 } 
 
+function s-smesh-common-build-depends()
+{
+    echo s-cmake
+}
+
 function s-smesh-ng-build-depends()
 {
     echo s-salome-bin
@@ -18,7 +23,6 @@ function s-smesh-ng-build-depends()
 
 function s-smesh-default-build-depends()
 {
-    echo s-cmake
     echo os@-sphinx-common
     echo os@-sphinx-intl
 }

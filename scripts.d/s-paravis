@@ -11,6 +11,11 @@ function s-paravis-tar()
     echo paravis-$VERSION.tar.xz 
 } 
 
+function s-paravis-common-build-depends()
+{
+    echo s-cmake
+}
+
 function s-paravis-ng-build-depends()
 {
     echo s-salome-bin
@@ -18,7 +23,6 @@ function s-paravis-ng-build-depends()
 
 function s-paravis-default-build-depends()
 {
-    echo s-cmake
     echo s-qt
 }
 

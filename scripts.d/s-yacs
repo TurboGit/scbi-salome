@@ -11,9 +11,13 @@ function s-yacs-tar()
     echo yacs-$VERSION.tar.xz 
 } 
 
-function s-yacs-default-build-depends()
+function s-yacs-common-build-depends()
 {
     echo s-cmake
+}
+
+function s-yacs-default-build-depends()
+{
     echo os@-swig
 }
 
