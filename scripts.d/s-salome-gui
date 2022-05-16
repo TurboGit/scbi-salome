@@ -11,12 +11,20 @@ function s-salome-gui-tar()
     echo salome-gui-$VERSION.tar.xz 
 } 
 
+function s-salome-gui-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-salome-gui-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
 function s-salome-gui-build-depends()
 {
     echo os@-sphinx-common
     [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
-
-    echo s-cmake
 }
 
 function salome-mpi-depends()
@@ -26,6 +34,11 @@ function salome-mpi-depends()
 
 function s-salome-gui-common-depends()
 {
+    echo s-salome-configuration
+}
+
+function s-salome-gui-default-depends()
+{
     echo os@-qwt-qt5-dev
     echo os@-python3-sip-dev
     echo os@-python3-sip
@@ -33,7 +46,6 @@ function s-salome-gui-common-depends()
 
     echo s-qt
     echo s-pyqt
-    echo s-salome-configuration
     echo s-paraview
     echo s-salome-kernel
     echo s-occt
