@@ -163,7 +163,9 @@ function s-salome-tar-install()
                        netcdf/lib/pkgconfig/netcdf.pc \
                        PyQt/bin/pyuic5;
     do
-        sed -i "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" $PREFIX/$BINDIR/$SCRIPTS
+        [[ -e $PREFIX/$BINDIR/$SCRIPTS ]] &&
+            sed -i "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" \
+                $PREFIX/$BINDIR/$SCRIPTS
     done
 
     #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
@@ -189,9 +191,11 @@ function s-salome-tar-install()
 
     #  Link SALOME help to EDF Website
 
-    LIGHTAPPGUI=$PREFIX/$BINDIR/GUI/share/salome/resources/gui/LightApp.xml
+    local LIGHTAPPGUI=$PREFIX/$BINDIR/GUI/share/salome/resources/gui/LightApp.xml
 
-    sed -i "s,https://www.salome-platform.org,https://salome.der.edf.fr,g" $LIGHTAPPGUI
+    if [[ -e $LIGHTAPPGUI ]]; then
+        sed -i "s,https://www.salome-platform.org,https://salome.der.edf.fr,g" $LIGHTAPPGUI
+    fi
 }
 
 function s-salome-tar-prefix()
