@@ -148,7 +148,10 @@ s-salome:dev
         s-hdf5:#1.10.3
         s-tbb/auto:#4.4.6
         s-sip/auto:#5.5.0
-        # this should be also for debian-10
+        # disable ospray & embree to avoid clang / ispc
+        s-ospray:skip
+        s-embree:skip
+        s-paraview/default.mpi:v5.9.0
 ]
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
