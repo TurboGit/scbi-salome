@@ -18,3 +18,8 @@ function s-clang-tar()
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo llvm-$VERSION.src.tar.gz
 }
+
+function s-clang-depends()
+{
+    echo s-cmake
+}
