@@ -71,6 +71,8 @@ function s-paravis-env()
 
     add-to-var PV_PLUGIN_PATH   $PREFIX/lib/paraview
     add-to-var LD_LIBRARY_PATH  $PREFIX/lib/salome
+    add-to-var PYTHONPATH       $PREFIX/bin/salome
+    add-to-var PYTHONPATH       $PREFIX/lib/salome
 }
 
 function s-paravis-mpi-config-options()
