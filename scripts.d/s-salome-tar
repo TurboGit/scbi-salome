@@ -92,11 +92,11 @@ function s-salome-tar-install()
         #  VTK_ROOT_DIR_EXP or GUI_ROOT_DIR_EXP are then pointing to
         #  unexisting directories.
 
-        #for dir in $(ls $BINDIR/. | egrep "$PAT"); do
-        #    if [[ -d $BINDIR/$dir ]]; then
-        #        rm -fr $BINDIR/$dir
-        #    fi
-        #done
+        for dir in $(ls $BINDIR/. | egrep "$PAT"); do
+            if [[ -d $BINDIR/$dir ]]; then
+                rm -fr $BINDIR/$dir
+            fi
+        done
 
         #  Ensure we match a whole word, then comment out variables
         #  pointing to the module.
@@ -152,6 +152,7 @@ function s-salome-tar-install()
     local ORIGDIR
     local BINDIR
 
+    SALOMEMODULE=(KERNEL YACS GUI SMESH PARAVIS GEOM SHAPER SHAPERSTUDY OPENTURNS ADAO ADAO_INTERFACE EFICAS_TOOLS EFICAS)
     if [[ $VARIANT == "win" ]]; then
         ORIGDIR="E:/S/[^/]*/W64"
         BINDIR=W64
@@ -171,6 +172,11 @@ function s-salome-tar-install()
 
     find $PREFIX/ -type f -name "*.cmake" |
         while read F; do
+            for module in ${SALOMEMODULE[*]}; do
+                INIT_MOD="s,/INSTALL/$module,/\t/,g"
+                TGTDIR_MOD=\$ENV{${module}_ROOT_DIR}
+                sed -i "$INIT_MOD;s,$ORIGDIR/,$TGTDIR_MOD/,g" $F
+            done
             sed -i "$INIT;s,$ORIGDIR/,$TGTDIR/,g" $F
         done
 
