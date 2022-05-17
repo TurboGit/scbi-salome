@@ -98,7 +98,7 @@ function s-salome-tar-install()
 
 	sed -i -E "s,^export .*=.*$PAT,# \0,g" \
 	    $PREFIX/env_launch.sh
-	sed -i -E "s,    context\..*$PAT,#    \0,g" \
+	sed -i -E "s,    (appendPath|context\.).*$PAT,#    \0,g" \
 	    $PREFIX/salome
     done
 
