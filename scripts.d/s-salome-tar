@@ -152,7 +152,10 @@ function s-salome-tar-install()
     local ORIGDIR
     local BINDIR
 
-    SALOMEMODULE=(KERNEL YACS GUI SMESH PARAVIS GEOM SHAPER SHAPERSTUDY OPENTURNS ADAO ADAO_INTERFACE EFICAS_TOOLS EFICAS)
+    SALOMEMODULES=(KERNEL YACS GUI SMESH PARAVIS GEOM SHAPER SHAPERSTUDY)
+    SALOMEMODULES+=(OPENTURNS ADAO ADAO_INTERFACE EFICAS_TOOLS EFICAS)
+    SALOMEMODULES+=(CAS ParaView)
+
     if [[ $VARIANT == "win" ]]; then
         ORIGDIR="E:/S/[^/]*/W64"
         BINDIR=W64
@@ -172,7 +175,7 @@ function s-salome-tar-install()
 
     find $PREFIX/ -type f -name "*.cmake" |
         while read F; do
-            for module in ${SALOMEMODULE[*]}; do
+            for module in ${SALOMEMODULES[*]}; do
                 INIT_MOD="s,/INSTALL/$module,/\t/,g"
                 TGTDIR_MOD=\$ENV{${module^^}_ROOT_DIR}
                 sed -i "$INIT_MOD;s,$ORIGDIR/,$TGTDIR_MOD/,g" $F
