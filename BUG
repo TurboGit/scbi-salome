@@ -1,0 +1,35 @@
+
+On Scibian-9
+
+$ export SCBI_EXTRA_NG_MODULES="s-paraview(ParaView|PVHOME|VTKHOME):s-shaper(SHAPER|SHAPER_ROOT_DIR):s-smesh(SMESH)"
+
+$ scbi --env=ng-dev --update --safe --deps --enable-application s-salome-ng
+
+
+Error while compiling s-shaper:
+
+-- ===> (components: Gui,Widgets,Network,Xml,OpenGL,PrintSupport,Help,Test,X11Extras)
+-- ===> Reloading targets from ParaView ...
+CMake Error at /home/i96434/dev/build-salome-ng-dev/s-salome-tar/x86_64-linux-gnu-default/install/BINARIES-DB09/GUI/adm_local/cmake_files/SalomeGUIConfig.cmake:173 (FIND_PACKAGE):
+  Could not find a package configuration file provided by "ParaView" with any
+  of the following names:
+
+    ParaViewConfig.cmake
+    paraview-config.cmake
+
+  Add the installation prefix of "ParaView" to CMAKE_PREFIX_PATH or set
+  "ParaView_DIR" to a directory containing one of the above files.  If
+  "ParaView" provides a separate development package or SDK, be sure it has
+  been installed.
+Call Stack (most recent call first):
+  /home/i96434/dev/build-salome-ng-dev/s-salome-configuration/x86_64-linux-gnu-default/install/cmake/SalomeMacros.cmake:435 (FIND_PACKAGE)
+  /home/i96434/dev/build-salome-ng-dev/s-salome-configuration/x86_64-linux-gnu-default/install/cmake/FindSalomeGUI.cmake:34 (SALOME_FIND_PACKAGE)
+  CMakeLists.txt:85 (FIND_PACKAGE)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/i96434/dev/build-salome-ng-dev/s-shaper/x86_64-linux-gnu-ng/build/CMakeFiles/CMakeOutput.log".
+See also "/home/i96434/dev/build-salome-ng-dev/s-shaper/x86_64-linux-gnu-ng/build/CMakeFiles/CMakeError.log".
+2022/05/18 19:18:51 : s-shaper (FAILED) config failed with error 1
+2022/05/18 19:18:51 : s-shaper (FAILED) to reproduce:
+2022/05/18 19:18:51 : s-shaper (FAILED) cd /home/i96434/dev/build-salome-ng-dev/s-shaper/x86_64-linux-gnu-ng/.log
