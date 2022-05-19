@@ -47,6 +47,7 @@ function s-occt-env()
 
     add-to-var PATH                 $PREFIX/bin
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
+    add-to-var LIBRARY_PATH         $PREFIX/lib
     add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
     add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade
     add-to-var CMAKE_MODULE_PATH    $PREFIX/lib/cmake
