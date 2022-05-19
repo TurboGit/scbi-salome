@@ -84,6 +84,11 @@ function s-persalys-config-options()
     echo -DUSE_SALOME=ON
     echo -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include
     echo -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR
+
+    echo -DSalomeKERNEL_DIR=$SalomeKERNEL_DIR
+    echo -DSalomeGUI_DIR=$SalomeGUI_DIR
+    echo -DSalomeYACS_DIR=$SalomeYACS_DIR
+    echo -DUSE_SPHINX=OFF
 }
 
 function s-persalys-config()
