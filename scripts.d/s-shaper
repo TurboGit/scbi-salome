@@ -36,7 +36,13 @@ function s-shaper-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var SHAPER_ROOT_DIR $PREFIX
+    set-var    SHAPER_ROOT_DIR $PREFIX
+
+    add-to-var PATH            $PREFIX/bin/salome
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+    add-to-var PYTHONPATH      $PREFIX/python$PYTHON_VERSION/salome
+    add-to-var PYTHONPATH      $PREFIX/lib/salome
+    add-to-var PYTHONPATH      $PREFIX/bin/salome
 }
 
 function s-shaper-config()
