@@ -63,8 +63,9 @@ function s-yacs-env()
     local TARGET=$2
 
     set-var    YACS_INSTALL_DIR  $PREFIX
+    set-var    SalomeYACS_DIR    $PREFIX/adm/cmake
 
-    add-to-var CMAKE_PREFIX_PATH $PREFIX/adm/cmake
+    add-to-var CMAKE_PREFIX_PATH $SalomeYACS_DIR
 }
 
 function s-yacs-config()
