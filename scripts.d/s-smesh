@@ -39,8 +39,6 @@ function s-smesh-common-depends()
 
 function s-smesh-default-depends()
 {
-    echo os@-cgns-dev
-
     echo s-qt
     echo s-python-omniorb
     echo s-omniorb
