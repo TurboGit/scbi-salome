@@ -76,6 +76,13 @@ function s-salome-tar-install()
     #  Now remove all extra modules found in the binary archive.
     #  And unset variables that are pointing to those directories.
 
+    #  Protect some lines from being changed (prefix with @@@)
+
+    sed -i -E 's/export (SALOME_MODULES|SALOME_MODULES_ORDER)=/@@@ \0/g' \
+        $PREFIX/env_launch.sh
+    sed -i -E 's/.*(r"SALOME_MODULES"|r"SALOME_MODULES_ORDER")/@@@ \0/g' \
+        $PREFIX/salome
+
     for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
         local PAT="("${MOD#*\(}
 
@@ -98,9 +105,13 @@ function s-salome-tar-install()
 
 	sed -i -E "s,^export .*=.*$PAT,# \0,g" \
 	    $PREFIX/env_launch.sh
-	sed -i -E "s,    (appendPath|context\.).*$PAT,#    \0,g" \
+	sed -i -E "s,^ *(appendPath|context\.).*$PAT,#\0,g" \
 	    $PREFIX/salome
     done
+
+    #  Retore back the protected lines (see above)
+
+    sed -i 's/^@@@ \(.*\)/\1/g' $PREFIX/env_launch.sh $PREFIX/salome
 
     dlog salome-tar Fix some paths
 
