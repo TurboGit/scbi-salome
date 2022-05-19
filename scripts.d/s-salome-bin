@@ -147,6 +147,10 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $(ls -1d $EMBREE_ROOT_DIR/lib/cmake/embree-*)
     add-to-var CMAKE_PREFIX_PATH  $(ls -1d $OSPRAY_ROOT_DIR/lib/cmake/ospray-*)
     add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
+    add-to-var CMAKE_PREFIX_PATH  \
+               $(ls -1d $PARAVIEW_ROOT_DIR/lib/cmake/paraview-*)
+    add-to-var CMAKE_PREFIX_PATH  \
+               $(ls -1d $PARAVIEW_ROOT_DIR/lib/cmake/paraview-*/vtk)
 
     is-root-path $SALOME_BIN_MODULES $PY2CPP_ROOT_DIR &&
         {
