@@ -53,7 +53,6 @@ def writeFromScratchXMLFile(fileName, nni):
         f.flush()
     pass
 
-
 def tryToAddServersInXMLFile(userFileName, nni):
     """
     If the xml file exists, we try to add new servers in it.

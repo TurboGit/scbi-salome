@@ -57,7 +57,7 @@ class Resource(object):
             scratch="/scratch"
         self.remote_virtual_appli = os.path.join(scratch, username,
                                                  "appli_%s" % self.version)
-        self.working_dir = os.path.join("/scratch", username, "workingdir")
+        self.working_dir = os.path.join(scratch, username, "workingdir")
 
 # Attention à bien modifier à nouveau le répertoire en dur pour version officielle une fois les tests terminés :
 #  /projets/salome/logiciels/salome/
