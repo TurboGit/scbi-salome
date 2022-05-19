@@ -144,13 +144,18 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $YACS_ROOT_DIR/adm/cmake
     add-to-var CMAKE_PREFIX_PATH  $YDEFX_ROOT_DIR/salome_adm/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $ZEROMQ_ROOT_DIR/share/cmake/ZeroMQ
-    add-to-var CMAKE_PREFIX_PATH  $(ls -1d $EMBREE_ROOT_DIR/lib/cmake/embree-*)
-    add-to-var CMAKE_PREFIX_PATH  $(ls -1d $OSPRAY_ROOT_DIR/lib/cmake/ospray-*)
     add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
+
     add-to-var CMAKE_PREFIX_PATH  \
-               $(ls -1d $PARAVIEW_ROOT_DIR/lib/cmake/paraview-*)
+               $(last-modified-directory $EMBREE_ROOT_DIR/lib/cmake/embree-*)
     add-to-var CMAKE_PREFIX_PATH  \
-               $(ls -1d $PARAVIEW_ROOT_DIR/lib/cmake/paraview-*/vtk)
+               $(last-modified-directory $OSPRAY_ROOT_DIR/lib/cmake/ospray-*)
+    add-to-var CMAKE_PREFIX_PATH  \
+               $(last-modified-directory \
+                     $PARAVIEW_ROOT_DIR/lib/cmake/paraview-*)
+    add-to-var CMAKE_PREFIX_PATH  \
+               $(last-modified-directory \
+                     $PARAVIEW_ROOT_DIR/lib/cmake/paraview-*/vtk)
 
     is-root-path $SALOME_BIN_MODULES $PY2CPP_ROOT_DIR &&
         {
