@@ -145,6 +145,7 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $YDEFX_ROOT_DIR/salome_adm/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $ZEROMQ_ROOT_DIR/share/cmake/ZeroMQ
     add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
+    add-to-var CMAKE_PREFIX_PATH  $CAS_ROOT_DIR/lib/cmake/opencascade
 
     add-to-var CMAKE_PREFIX_PATH  \
                $(last-modified-directory $EMBREE_ROOT_DIR/lib/cmake/embree-*)
