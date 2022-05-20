@@ -66,6 +66,11 @@ function s-salome-tar-install()
 
     rm -fr ARCHIVES sat PROJECT
 
+    #  Store SCBI & SCBI-SALOME versions
+
+    cp $SCBI_PLUGINS/.scbi_core_version.txt artifacts
+    cp $SCBI_PLUGINS/.scbi_salome_version.txt artifacts
+
     dlog salome-tar Fix some paths
 
     #  Remove CONFIGURATION setting from env_launch.sh
