@@ -65,7 +65,11 @@ function s-salome-tar-install()
 
     dlog salome-tar Remove unneeded data
 
-    rm -fr ARCHIVES PROJECT sat logs.tgz
+    mkdir artifacts
+    mv logs.tgz artifacts
+    mv PROJECT/products/patches artifacts
+
+    rm -fr ARCHIVES sat PROJECT
 
     #  We need to use the native mesa, the one packaged is not stable
 
