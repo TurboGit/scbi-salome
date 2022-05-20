@@ -178,7 +178,7 @@ function s-salome-tar-install()
             for module in ${SALOMEMODULES[*]}; do
                 INIT_MOD="s,/INSTALL/$module,/\t/,g"
                 TGTDIR_MOD=\$ENV{${module^^}_ROOT_DIR}
-                sed -i "$INIT_MOD;s,$ORIGDIR/,$TGTDIR_MOD/,g" $F
+                sed -i "$INIT_MOD;s,$ORIGDIR/,$TGTDIR_MOD,g" $F
             done
             sed -i "$INIT;s,$ORIGDIR/,$TGTDIR/,g" $F
         done
