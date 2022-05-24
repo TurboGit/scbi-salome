@@ -4,7 +4,6 @@
 
 s-medcoupling/ng.mpi.ptscotch
 s-paraview/ng.mpi.ospray.gdal:#v5.9.0
-#s-paraview/ng.mpi:#v5.9.0
 s-paravis/ng.mpi
 
 s-ptscotch:skip
