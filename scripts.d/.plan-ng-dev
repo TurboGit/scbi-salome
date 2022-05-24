@@ -96,4 +96,5 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-salome-tar:#master:CO8
         s-zeromq:skip
         s-python-modules:skip
+        s-cgal:skip
 ]
