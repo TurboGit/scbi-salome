@@ -1,0 +1,20 @@
+# This plan is to build some modules on top of a SALOME binary distribution
+
+@load ng-v99
+
+s-medcoupling/ng.mpi.ptscotch
+s-paraview/ng.mpi.ospray.gdal:#v5.9.0
+#s-paraview/ng.mpi:#v5.9.0
+s-paravis/ng.mpi
+
+s-ptscotch:skip
+s-ispc:skip
+s-clang:skip
+s-embree:skip
+s-ospray:skip
+s-gdal:skip
+s-netcdf:skip
+s-cmake:#3.14.4
+s-python3-xlutils:skip
+
+@on rhl use s-openmpi/cronos

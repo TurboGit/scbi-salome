@@ -97,3 +97,13 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-cgal/native
         s-boost/native
 ]
+
+[ = rhl
+        s-salome-ng:co8-V9_9_BR
+        s-salome-tar:#9.9.0:CO8
+        s-zeromq:skip
+        s-melissa:skip
+        s-python-modules:skip
+        s-padder:skip
+        s-cgal:skip
+]
