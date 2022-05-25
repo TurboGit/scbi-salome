@@ -319,10 +319,10 @@ function s-salome-ng-wrapup()
 
             # install catalog script & patch version
 
-            cp $SCBI_PLUGINS/support/create_catalog.py .
+            cp $SCBI_PLUGINS/support/create_catalog_ng.sh .
 
-            sed -i "s/<salome_version>/$ref/g" create_catalog.py
-            chmod a+x create_catalog.py
+            sed -i "s/<salome_version>/${ref#*-}/g" create_catalog_ng.sh
+            chmod a+x create_catalog_ng.sh
 
             if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...
