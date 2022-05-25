@@ -158,6 +158,7 @@ fi
 # run create_catalog for clusters setup
 
 [ -f create_catalog_ng.sh ] && ./create_catalog_ng.sh
+[ -f CatalogResources.xml ] && cp CatalogResources.xml $BINDIR/KERNEL/share/salome/resources/kernel/
 
 # In auto-mode, do nothing more
 if [[ $AUTO -eq 1 ]]; then
