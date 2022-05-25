@@ -8,7 +8,7 @@ function check-writable()
     local DIR=$1
 
     while [[ ! -d $(dirname $DIR) ]]; do
-          DIR=$(dirname $DIR)
+        DIR=$(dirname $DIR)
     done
 
     [[ -w $(dirname $DIR) ]]
@@ -19,15 +19,17 @@ function template-conversion()
     local PREFIX=$1
     local DISTRIBUTION_ID=$2
     local OS_VERSION=$3
+
     # Convert the template files (omniidl, h5hlcc, ...)
-    #
 
     local ORIG_BINDIR="__BINDIR__"
     local BINDIR=$(basename $(ls -1d $PREFIX/BINARIES-*))
 
     local FILES_LIST
     if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
-        FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc hdf5/bin/h5cc netcdf/lib/pkgconfig/netcdf.pc PyQt/bin/pyuic5)
+        FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc
+                    hdf5/bin/h5cc netcdf/lib/pkgconfig/netcdf.pc
+                    PyQt/bin/pyuic5)
     else
         FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc hdf5/bin/h5cc)
     fi
@@ -58,8 +60,10 @@ function get-pck-status()
 {
     local PCK="$1"
     # Get the Installed & Candidate line, returns only the version for both
-    # Also kills all suffix +* and .scibian* (pleiade issue : https://forge.pleiade.edf.fr/issues/22794)
-    LANG=en_EN.UTF-8 apt-cache policy $PCK | grep -E "(Installed|Candidate)" | sed "s/: /|/" |
+    # Also kills all suffix +* and .scibian*
+    # (pleiade issue : https://forge.pleiade.edf.fr/issues/22794)
+    LANG=en_EN.UTF-8 apt-cache policy $PCK |
+        grep -E "(Installed|Candidate)" | sed "s/: /|/" |
         cut -d'|' -f2
     apt-cache madison $PCK | cut -d'|' -f2
 }
@@ -143,22 +147,24 @@ if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
     echo Python is embedded into salome on debian9
 else
     if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
-       echo Python2 is default, checking for python3
-       if [ -f /usr/bin/python3 ]; then
-          echo Found Python3 in /usr/bin/python3, setuup links
-          BINDIR=$(basename $(ls -1d BINARIES-*))
-          ln -s /usr/bin/python3 $BINDIR/SALOME/bin/salome/python
-       else
-          echo Cannot found a Python3 installation.
-          echo SALOME will not work properly.
-       fi
+        echo Python2 is default, checking for python3
+
+        if [ -f /usr/bin/python3 ]; then
+            echo Found Python3 in /usr/bin/python3, setuup links
+            BINDIR=$(basename $(ls -1d BINARIES-*))
+            ln -s /usr/bin/python3 $BINDIR/SALOME/bin/salome/python
+        else
+            echo Cannot found a Python3 installation.
+            echo SALOME will not work properly.
+        fi
     fi
 fi
 
 # run create_catalog for clusters setup
 
 [ -f create_catalog_ng.sh ] && ./create_catalog_ng.sh
-[ -f CatalogResources.xml ] && cp CatalogResources.xml $BINDIR/KERNEL/share/salome/resources/kernel/
+[ -f CatalogResources.xml ] &&
+    cp CatalogResources.xml $BINDIR/KERNEL/share/salome/resources/kernel/
 
 # In auto-mode, do nothing more
 if [[ $AUTO -eq 1 ]]; then
