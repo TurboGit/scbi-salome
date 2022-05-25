@@ -154,6 +154,10 @@ else
     fi
 fi
 
+# run create_catalog for clusters setup
+
+[ -f create_catalog_ng.sh ] && ./create_catalog_ng.sh
+
 # In auto-mode, do nothing more
 if [[ $AUTO -eq 1 ]]; then
     template-conversion $PWD $DISTRIBUTION_ID $OS_VERSION
@@ -184,10 +188,6 @@ template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
 $SUDO rm -f $prefix/setup
 
 $SUDO chown $USER -R $prefix
-
-# run create_catalog for clusters setup
-cd $prefix
-[ -f create_catalog.py ] && ./create_catalog.py
 
 # Setup the HPC servers, the template file servers.pvsc
 # will be used by the following script to create or update
