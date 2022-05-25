@@ -5,9 +5,7 @@ function remove()
     local OLDPATH=$1
 
     [[ -L $OLDPATH ]] && unlink $OLDPATH
-    if [[ -e $OLDPATH ]]; then
-        rm -rf $OLDPATH
-    fi
+    [[ -e $OLDPATH ]] && rm -rf $OLDPATH
 }
 
 function create_link()
@@ -25,12 +23,14 @@ APPLI_DIR=$2
 mkdir -p $PYTHONPATH_COMMON
 
 PYTHONPATHS_SRC=()
+
 while read P; do
-PYTHONPATHS_SRC+=($P)
+    PYTHONPATHS_SRC+=($P)
 done < <(source $APPLI_DIR/env_launch.sh; echo $PYTHONPATH |tr ':' '\n')
 
 for p in ${PYTHONPATHS_SRC[*]}; do
     file_list=($p/*)
+
     for f in ${file_list[*]};do
         if [[ $f == *"easy-install.pth"* ]]; then
             cat $f >>$PYTHONPATH_COMMON/easy-install.pth
