@@ -8,13 +8,22 @@ function s-openturns-vcs()
 } 
 
 
-function s-openturns-build-depends()
+function s-openturns-common-build-depends()
 {
     echo s-cmake
+}
+
+function s-openturns-default-build-depends()
+{
     echo os@-xml2-utils
 }
 
-function s-openturns-depends()
+function s-openturns-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-openturns-default-depends()
 {
     echo os@-blas-dev
     echo os@-lapack-dev
