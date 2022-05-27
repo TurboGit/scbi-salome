@@ -1,14 +1,23 @@
 
 
 
-function s-salome-jobmanager-build-depends()
+function s-salome-jobmanager-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-salome-jobmanager-depends()
+function s-salome-jobmanager-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-salome-jobmanager-common-depends()
 {
     echo s-salome-configuration
+}
+
+function s-salome-jobmanager-default-depends()
+{
     echo s-salome-kernel
     echo s-salome-gui
 }

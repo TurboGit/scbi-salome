@@ -27,6 +27,7 @@ s-cmake/native
         s-geom
         s-persalys
         s-ydefx
+        s-salome-jobmanager
 ] /ng
 
 #  For some modules we may need more than just the ng variant
