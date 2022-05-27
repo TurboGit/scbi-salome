@@ -23,15 +23,17 @@ s-cmake/native
 
         # other modules that can be built in ng mode
         s-smesh
+        s-shaper
         s-salome-kernel
         s-salome-openturns
         s-yacs
-        s-paravis
-        s-paraview
+        s-paravis/ng.mpi
+        s-paraview/ng.mpi
         s-adao
         s-geom
         s-persalys
         s-ydefx
+        s-salome-gui
         s-salome-jobmanager
 ] /ng
 
