@@ -81,6 +81,7 @@ function s-qt-depends()
     echo libgnomecanvasmm-2.6-dev
     echo libglu1-mesa-dev
     echo libgl1-mesa-dev
+    echo libnss3-dev
 }
 
 function s-qt-env()
