@@ -30,6 +30,11 @@ function s-python-omniorb-tar()
     echo omniORBpy-$VERSION.tar.gz
 }
 
+function s-python-omniorb-build-depends()
+{
+    echo s-cmake
+}
+
 function s-python-omniorb-depends()
 {
     echo s-python
