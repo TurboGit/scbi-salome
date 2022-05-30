@@ -142,6 +142,7 @@ OS_VERSION=${TMPV%.*}
 
 TMPV=$(lsb_release -i | tr -d '[ \t]')
 DISTRIBUTION_ID=${TMPV#*:}
+BINDIR=$(basename $(ls -1d BINARIES-*))
 
 if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
     echo Python is embedded into salome on debian9
@@ -151,7 +152,6 @@ else
 
         if [ -f /usr/bin/python3 ]; then
             echo Found Python3 in /usr/bin/python3, setuup links
-            BINDIR=$(basename $(ls -1d BINARIES-*))
             ln -s /usr/bin/python3 $BINDIR/SALOME/bin/salome/python
         else
             echo Cannot found a Python3 installation.
