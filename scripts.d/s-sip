@@ -12,6 +12,9 @@ function s-sip-vcs()
 
 function s-sip-build-depends()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     echo s-cmake
 }
 
