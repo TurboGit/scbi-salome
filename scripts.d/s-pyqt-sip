@@ -13,6 +13,11 @@ function s-pyqt-sip-tar()
     echo pyqt5-sip-$VERSION.tar.gz
 }
 
+function s-pyqt-sip-build-depends()
+{
+    echo s-cmake
+}
+
 function s-pyqt-sip-depends()
 {
     echo s-python

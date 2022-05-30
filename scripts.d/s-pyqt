@@ -14,6 +14,11 @@ function s-pyqt-tar()
     echo PyQt5-gpl-$VERSION.tar.gz
 }
 
+function s-pyqt-build-depends()
+{
+    echo s-cmake
+}
+
 function s-pyqt-depends()
 {
     echo s-python

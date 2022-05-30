@@ -21,6 +21,14 @@ function s-sip-tar()
     echo sip-$VERSION.tar.gz
 }
 
+function s-sip-build-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo s-cmake
+}
+
 function s-sip-depends()
 {
     local PREFIX=$1
