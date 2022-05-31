@@ -358,12 +358,12 @@ The syntax is \code{<PLUGIN-1>(PATTERN-1)[:<PLUGIN-2>(PATTERN-2)]}
 
 \begin{description}
 	\item[PLUGIN-N] The SCBI plug-in name (must have an ng variant) to be handled as extra module.description
-	\item[PATTERN-N] A regular expression of the module as found in the binary archive. It is used to remove this from the NG environment by matching the variable name and the variable values (path).
+	\item[PATTERN-N] A regular expression of the module as found in the binary archive. It is used to remove this from the NG environment by matching the variable name and the variable values (path). This pattern is not mandatory as already known for supported modules.
 \end{description}
 
 For example, to build SMESH and PERSALYS on top of binary archive and integrate them into the final application:
 
-\cmd{export SCBI\_EXTRA\_NG\_MODULES="s-persalys(PERSALYS):s-smesh(SMESH)"}
+\cmd{export SCBI\_EXTRA\_NG\_MODULES="s-persalys:s-smesh"}
 
 And then using the standard command to build SALOME NG:
 
