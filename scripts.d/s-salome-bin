@@ -103,7 +103,8 @@ function s-salome-bin-ng-env()
         local FOUND=false
 
         for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
-            local PAT="("${MOD#*\(}
+            local DEF=( $(get-extra-module-def $MOD) )
+            local PAT=${DEF[1]}
 
             if [[ $VALUE =~ $PAT ]] || [[ $VAR =~ $PAT ]]; then
                 FOUND=true
@@ -228,7 +229,8 @@ function s-salome-bin-ng-env()
     #  We do that for each extra modules that are not the one being built.
 
     for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
-        local PLG="${MOD%\(*}"
+        local DEF=( $(get-extra-module-def $MOD) )
+        local PLG=${DEF[0]}
 
         if [[ $SCBI_CURRENT_MODULE != $PLG ]]; then
             setup-module-env "@root" $PLG env
