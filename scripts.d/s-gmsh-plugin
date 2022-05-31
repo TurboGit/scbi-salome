@@ -1,15 +1,28 @@
 
 
 
-function s-gmsh-plugin-build-depends()
+function s-gmsh-plugin-common-build-depends()
 {
     echo s-cmake
+}
+
+function s-gmsh-plugin-default-build-depends()
+{
     echo os@-sphinx-common
 }
 
-function s-gmsh-plugin-depends()
+function s-gmsh-plugin-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-gmsh-plugin-common-depends()
 {
     echo s-salome-configuration
+}
+
+function s-gmsh-plugin-default-depends()
+{
     echo s-salome-kernel
     echo s-salome-gui
     echo s-omniorb
