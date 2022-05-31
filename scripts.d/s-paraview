@@ -271,7 +271,7 @@ function s-paraview-post-install()
     # found.  Perhaps a find_package() call is missing for an IMPORTED target,
     # or an ALIAS target is missing?
 
-    IDIR=$(ls -d ../install/lib*/cmake/paraview-5.9)
+    IDIR=$(last-modified-directory ../install/lib*/cmake/paraview-*)
 
     [[ -d $IDIR ]] &&
         sed -i 's/COMPONENTS          C/#COMPONENTS          C/g' \
