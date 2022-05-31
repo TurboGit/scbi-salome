@@ -53,6 +53,19 @@ function s-gnuplot-py-install()
     echo "[easy_install]" > setup.cfg
     echo "index-url = $PYPIURL" >> setup.cfg
     python3 setup.py install --prefix=$PREFIX
+
+    # patching for the import problem
+
+    sed -i "s/import gp, PlotItems, termdefs, Errors/import gp, PlotItems, termdefs
+import Gnuplot.Errors as Errors/g" \
+            $PREFIX/lib/python$PYTHON_VERSION/site-packages/Gnuplot/_Gnuplot.py
+    sed -i "s/import gp, utils, Errors/import gp
+import Gnuplot.Errors as Errors
+import Gnuplot.utils as utils/g" \
+            $PREFIX/lib/python$PYTHON_VERSION/site-packages/Gnuplot/PlotItems.py
+    sed -i "s/import Gnuplot, utils/import Gnuplot
+import Gnuplot.utils as utils/g" \
+            $PREFIX/lib/python$PYTHON_VERSION/site-packages/Gnuplot/funcutils.py
 }
 
 function s-gnuplot-py-prefix()
