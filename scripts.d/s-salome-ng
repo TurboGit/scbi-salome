@@ -286,6 +286,13 @@ function s-salome-ng-wrapup()
 
             cp -r $SCBI_BDIR/s-salome-tar/build/install/* .
 
+            #  Add some build artifacts for traceability
+
+            [[ ! -z $CI_JOB_NAME ]] &&
+                echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
+            [[ ! -z $CI_PIPELINE_ID ]] &&
+                echo CI_PIPELINE_ID $CI_PIPELINE_ID  >> artifacts/gitlab-ci.data
+
             #  Copy EDF's modules into sub-directory EDF
 
             mkdir EDF
