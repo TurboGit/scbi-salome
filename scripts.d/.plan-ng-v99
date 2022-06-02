@@ -16,6 +16,7 @@ s-cmake/native
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
         s-distene:#V2.12-1_linux_EU
+        s-meshgems:#V2.13-3_linux_EU
         s-python-modules/ng.wand:V9_9_BR
         s-zcracks:#3.2.3
         s-gnuplot-py:#1.8-3k
