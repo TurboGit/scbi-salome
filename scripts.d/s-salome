@@ -526,13 +526,6 @@ function s-salome-wrapup()
             local kind=${module_info[2]}
             local ref=${module_info[3]}
 
-            # install catalog script & patch version
-
-            cp $SCBI_PLUGINS/support/create_catalog.py $APP/
-
-            sed -i "s/<salome_version>/$ref/g" $APP/create_catalog.py
-            chmod a+x $APP/create_catalog.py
-
             if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...
 
