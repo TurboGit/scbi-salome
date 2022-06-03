@@ -4,7 +4,7 @@
      context.setVariable(r"PERSALYS_HTML_DOCUMENTATION_PATH", out_dir_Path + r"/BINARIES-DB09/PERSALYS/share/persalys/doc/html/", overwrite=True)
  
      #[MeshGems]
-+    MESHGEMS_VERSION=3.13
++    MESHGEMS_VERSION=2.13
      context.setVariable(r"LICENCE_FILE", r"/nfs/home/salome-public/prerequis/LICENCE/libSalomeMeshGemsKeyGenerator", overwrite=True)
      # Here you can define your license parameters for MeshGems
      # DASSAULT MeshGems KeyGenerator based License
@@ -13,11 +13,11 @@
              filter(lambda x: os.path.isfile(os.path.join(extradir, x)),
                     os.listdir(extradir))):
 -
-+            if (not MESHGEMS_VERSION or MESHGEMS_VERSION == 3.14) and (filename.endswith("s_distene.py") or filename.endswith("s_meshgems.py")):
++            if (not MESHGEMS_VERSION or MESHGEMS_VERSION == 2.14) and (filename.endswith("s_distene.py") or filename.endswith("s_meshgems.py")):
 +                continue
-+            if (MESHGEMS_VERSION == 3.13) and (filename.endswith("s_distene.py")):
++            if (MESHGEMS_VERSION == 2.13) and (filename.endswith("s_distene.py")):
 +                continue
-+            if (MESHGEMS_VERSION == 3.12) and (filename.endswith("s_meshgems.py")):
++            if (MESHGEMS_VERSION == 2.12) and (filename.endswith("s_meshgems.py")):
 +                continue              
              if filename.endswith(".py"):
                  f = os.path.join(extradir, filename)
