@@ -1,54 +1,9 @@
-<?xml version="1.0" ?>
 <Servers>
-  <Server name="gaia" resource="cs://gaia">
+  <Server name="cronos" resource="cs://cronos:16988">
     <CommandStartup>
       <Options>
         <Option label="NNI EDF:" name="SLURM_USER" save="true">
-          <String default="%s"/>
-        </Option>
-        <Option label="WC key:" name="WCKEY" save="true">
-          <String default="P11MM:SALOME"/>
-        </Option>
-        <Option label="Session Duration:" name="SLURM_TIME" save="true">
-          <String default="00:30:00"/>
-        </Option>
-        <Option label="Number of Nodes:" name="SLURM_NODES" save="true">
-          <Range default="4" max="64" min="1" step="1" type="int"/>
-        </Option>
-        <Option label="Gaia Info here:" name="INFO" save="false">
-          <String default="https://minio.retd.edf.fr/salome/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
-        </Option>
-      </Options>
-      <Command delay="5" exec="setsid ssh" timeout="0">
-        <Arguments>
-          <Argument value="-Y"/>
-          <Argument value="$SLURM_USER$@gaia"/>
-          <Argument value="/projets/salome/logiciels/salome/pvfiles/paravis_srun.py"/>
-          <Argument value="-p gn"/>
-          <Argument value="--exclusive"/>
-          <Argument value="--wckey=$WCKEY$"/>
-          <Argument value="-N"/>
-          <Argument value="$SLURM_NODES$"/>
-          <Argument value="-t"/>
-          <Argument value="$SLURM_TIME$"/>
-          <Argument value="neos"/>
-          <Argument value="--scenarios-dir=/projets/salome/logiciels/salome/pvfiles/scenarios"/>
-          <Argument value="--scenario=paraview_server"/>
-          <Argument value="--modules-dir=/projets/salome/logiciels/salome/pvfiles/modules"/>
-          <Argument value="--opts=timeout:$SLURM_ENTRY_FOR_TIMEOUT$"/>
-          <Argument value="-m paravis$PARAVIS_VERSION$"/>
-        </Arguments>
-      </Command>
-    </CommandStartup>
-    <Hints>
-      <ServerType value="slurm"/>
-    </Hints>
-  </Server>
-  <Server name="cronos" resource="cs://cronos:%(PORTID)s">
-    <CommandStartup>
-      <Options>
-        <Option label="NNI EDF:" name="SLURM_USER" save="true">
-          <String default="%(nni)s"/>
+          <String default="es4c769n"/>
         </Option>
         <Option label="WC key:" name="WCKEY" save="true">
           <String default="P11MM:SALOME"/>
@@ -63,7 +18,7 @@
           <String default="http://ftp.pleiade.edf.fr/projets/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
         </Option>
       </Options>
-      <SSHCommand exec="/software/rd/salome/logiciels/salome/pvfiles/paravis_visu_tunnel" timeout="0" delay="18">
+      <SSHCommand delay="18" exec="/software/rd/salome/logiciels/salome/pvfiles/paravis_visu_tunnel" timeout="0">
         <SSHConfig user="$SLURM_USER$">
           <PortForwarding local="11111"/>
         </SSHConfig>
@@ -72,14 +27,52 @@
           <Argument value="paravis$PARAVIS_VERSION$"/>
           <Argument value="$SLURM_NODES$"/>
           <Argument value="$SLURM_ENTRY_FOR_TIMEOUT$"/>
-          <Argument value="%(PORTID)s"/>
-          <Argument value="-p vn"/>
+          <Argument value="16988"/>
+          <Argument value="--partition=vn"/>
           <Argument value="--exclusive"/>
           <Argument value="--wckey=$WCKEY$"/>
-          <Argument value="-N"/>
+          <Argument value="--nodes=$SLURM_NODES$"/>
+          <Argument value="--time=$SLURM_TIME$"/>
+        </Arguments>
+      </SSHCommand>
+    </CommandStartup>
+    <Hints>
+      <ServerType value="slurm"/>
+    </Hints>
+  </Server>
+  <Server name="gaia" resource="cs://gaia">
+    <CommandStartup>
+      <Options>
+        <Option label="NNI EDF:" name="SLURM_USER" save="true">
+          <String default="es4c769n"/>
+        </Option>
+        <Option label="WC key:" name="WCKEY" save="true">
+          <String default="P11MM:SALOME"/>
+        </Option>
+        <Option label="Session Duration:" name="SLURM_TIME" save="true">
+          <String default="00:30:00"/>
+        </Option>
+        <Option label="Number of Nodes:" name="SLURM_NODES" save="true">
+          <Range default="4" max="64" min="1" step="1" type="int"/>
+        </Option>
+        <Option label="Gaia Info here:" name="INFO" save="false">
+          <String default="https://minio.retd.edf.fr/salome/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
+        </Option>
+      </Options>
+      <SSHCommand delay="18" exec="/projets/salome/logiciels/salome/pvfiles/paravis_visu_no_tunnel" timeout="0">
+        <SSHConfig user="$SLURM_USER$"/>
+        <Arguments>
+          <Argument value="frontend"/>
+          <Argument value="paravis$PARAVIS_VERSION$"/>
           <Argument value="$SLURM_NODES$"/>
-          <Argument value="-t"/>
-          <Argument value="$SLURM_TIME$"/>
+          <Argument value="$SLURM_ENTRY_FOR_TIMEOUT$"/>
+          <!-- following is an unused argument but needed to be compatible with old PARAVIS versions -->
+          <Argument value="unused"/>
+          <Argument value="--partition=gn"/>
+          <Argument value="--exclusive"/>
+          <Argument value="--wckey=$WCKEY$"/>
+          <Argument value="--nodes=$SLURM_NODES$"/>
+          <Argument value="--time=$SLURM_TIME$"/>
         </Arguments>
       </SSHCommand>
     </CommandStartup>
@@ -88,4 +81,3 @@
     </Hints>
   </Server>
 </Servers>
-
