@@ -28,8 +28,6 @@ function s-salome-ng-modules()
     echo s-cgal
     echo s-gnuplot-py
 
-    #  We put s-distene and s-meshgems here to be able to switch between
-    #  3 versions of meshgems (3.12, 3.13, 3.14).
 }
 
 function setup-salome-ng-env()
