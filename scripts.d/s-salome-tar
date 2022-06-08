@@ -195,6 +195,16 @@ function s-salome-tar-install()
         sed -i "s,https://www.salome-platform.org,https://salome.der.edf.fr,g" $LIGHTAPPGUI
         sed -i "s,https://discourse.salome-platform.org,https://forge.pleiade.edf.fr/projects/salome-rex/issues,g" $LIGHTAPPGUI
     fi
+
+    # Purge all old meshgems of CEA
+
+    rm -rf $PREFIX/$BINDIR/MeshGems
+
+    FIRSTLINE_NUM=$(grep -n "#\[MeshGems\]" salome | cut -d':' -f1)
+    NB_LINE=$(tail -n+$FIRSTLINE_NUM salome|grep -E --line-number -m1 '^$' |cut -d':' -f1)
+    LASTLINE_NUM=$(( $FIRSTLINE_NUM + $NB_LINE - 1 ))
+
+    sed -i "${FIRSTLINE_NUM},${LASTLINE_NUM}d" salome
 }
 
 function s-salome-tar-prefix()
