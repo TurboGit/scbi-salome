@@ -18,7 +18,7 @@ s-cmake/native
         s-distene:#V2.12-1_linux_EU
         s-meshgems:#V2.13-3_linux_EU
         s-python-modules/ng.wand:master
-        s-zcracks:#3.2.3
+        s-zcracks:#3.2.4
 
         # other modules that can be built in ng mode
         s-smesh
