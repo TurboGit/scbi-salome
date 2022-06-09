@@ -23,11 +23,15 @@ s-python3-xlutils:skip
         s-qt:#5.12.10
 
 	s-atomic:skip
+	s-cmake:skip
 	s-gnuplot-py:skip
 	s-medcoupling:skip
 	s-openmpi:skip
 	s-paraview:skip
 	s-paravis:skip
+	s-paravisaddons-edf:skip
+	s-salome-bin:skip
+	s-salome-configuration:skip
 	s-padder:skip
 	s-cgal:skip
 	s-melissa:skip
