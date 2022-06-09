@@ -76,11 +76,9 @@ function s-salome-tar-install()
     cp $SCBI_PLUGINS/.scbi_core_version.txt artifacts
     cp $SCBI_PLUGINS/.scbi_salome_version.txt artifacts
 
-    #  We need to use the native mesa, the one packaged is not stable
+    #  Do clean-up some modules for the release if needed
 
     local BINDIR=$(ls -d BINARIES-*)
-
-    rm -fr $BINDIR/mesa
 
     if [[ "$SCBI_CLEANUP_ARCHIVE" == "yes" ]]; then
         for M in HELLO PYHELLO CALCULATOR PYCALCULATOR; do
