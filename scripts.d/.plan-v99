@@ -25,8 +25,8 @@ s-openturns-fmi:#0.14
 s-fmil:#2.0
 s-pyfmi:#2.5
 s-embree:#3.12.2
-s-rkcommon:#1.6.0
-s-openvkl:#0.11.0
+s-rkcommon:v1.6.0
+s-openvkl:v0.11.0
 s-ospray:#2.4.0
 s-uranie:#4.5.0
 s-root:v6-22-02
@@ -115,12 +115,12 @@ s-salome:dev
 
 [ = mpi
         s-medcoupling/mpi.ptscotch
-        s-paraview/default.mpi.ospray.gdal:#v5.9.0
+        s-paraview/default.mpi.ospray.gdal:v5.9.0
         s-paravis/default.mpi
 ] :V9_9_BR
 
 [ = mpi
-        s-paraview/default.mpi.ospray.gdal:#v5.9.0
+        s-paraview/default.mpi.ospray.gdal:v5.9.0
 ]
 
 [ /= mpi
@@ -130,7 +130,7 @@ s-salome:dev
 ] :V9_9_BR
 
 [ /= mpi
-        s-paraview/default.ospray.gdal:#v5.9.0
+        s-paraview/default.ospray.gdal:v5.9.0
 ]
 
 [ = deb,9

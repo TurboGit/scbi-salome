@@ -50,10 +50,12 @@ function s-hexablock-plugin-env()
     local PREFIX=$1
     local TARGET=$2
 
+    # Use system Qt5
+    set-var    QT5_ROOT_DIR              /usr
+
     set-var    HEXABLOCKPLUGIN_ROOT_DIR  $PREFIX
 
     add-to-var LD_LIBRARY_PATH           $PREFIX/lib/salome
-    add-to-var PYTHONPATH                $PREFIX/lib/salome
     add-to-var PYTHONPATH                \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }

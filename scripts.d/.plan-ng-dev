@@ -15,9 +15,9 @@ s-cmake/auto:#3.14.4
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
-        s-meshgems:#V2.13-3_linux_EU
+        s-distene:#V2.12-1_linux_EU
         s-python-modules/ng.wand:master
-        s-zcracks:#3.2.4
+        s-zcracks:#3.2.3
         s-gnuplot-py:#1.8-3k
         s-padder:20200727
 
@@ -34,14 +34,12 @@ s-cmake/auto:#3.14.4
         s-persalys
         s-ydefx
         s-salome-gui
-        s-salome-jobmanager
-        s-gmsh-plugin
 ] /ng
 
 #  For some modules we may need more than just the ng variant
 #  Override the referrence below.
 
-s-paraview/ng.mpi.ospray.gdal:#v5.9.0
+s-paraview/ng.mpi.ospray.gdal:v5.9.0
 
 #  The version for s-salome-tar has two parts, the version of the code
 #  and the version of the OS See tar hook in s-salome-tar for the

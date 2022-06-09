@@ -18,22 +18,13 @@ function s-openturns-tar()
     echo openturns-$VERSION.tar.bz2
 }
 
-function s-openturns-common-build-depends()
+function s-openturns-build-depends()
 {
     echo s-cmake
-}
-
-function s-openturns-default-build-depends()
-{
     echo os@-xml2-utils
 }
 
-function s-openturns-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
-function s-openturns-default-depends()
+function s-openturns-depends()
 {
     echo os@-blas-dev
     echo os@-lapack-dev

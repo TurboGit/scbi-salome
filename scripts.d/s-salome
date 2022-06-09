@@ -407,18 +407,6 @@ function s-salome-wrapup()
 
         dlog salome create application context
 
-        #  Add some build artifacts for traceability
-
-        mkdir artifacts
-
-        cp $SCBI_PLUGINS/.scbi_core_version.txt artifacts
-        cp $SCBI_PLUGINS/.scbi_salome_version.txt artifacts
-
-        [[ ! -z $CI_JOB_NAME ]] &&
-            echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
-        [[ ! -z $CI_PIPELINE_ID ]] &&
-            echo CI_PIPELINE_ID $CI_PIPELINE_ID  >> artifacts/gitlab-ci.data
-
         # generate salome_prerequisites.sh shell script
         build-salome-prerequisites $PREFIX $TARGET
 
@@ -540,6 +528,13 @@ function s-salome-wrapup()
             local variant=${module_info[1]}
             local kind=${module_info[2]}
             local ref=${module_info[3]}
+
+            # install catalog script & patch version
+
+            cp $SCBI_PLUGINS/support/create_catalog.py $APP/
+
+            sed -i "s/<salome_version>/$ref/g" $APP/create_catalog.py
+            chmod a+x $APP/create_catalog.py
 
             if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...

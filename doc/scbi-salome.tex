@@ -318,22 +318,19 @@ For this to be possible, the module must be providing an \code{ng} variant. If i
 	\item s-adao
 	\item s-atomic
 	\item s-geom
-	\item s-openturns
 	\item s-paraview
 	\item s-paravis
 	\item s-paravisaddons-edf
 	\item s-persalys
 	\item s-python-modules
 	\item s-python3-xlutils
-	\item s-salome-gui
-	\item s-salome-jobmanager
 	\item s-salome-kernel
 	\item s-salome-openturns
+        \item s-shaper
 	\item s-smesh
 	\item s-yacs
 	\item s-ydefx
 	\item s-zeromq
-        \item s-shaper
 \end{itemize}
 
 When a module has an \code{ng} variant, building it on top of the binary archive can be achieved by calling:
@@ -358,12 +355,12 @@ The syntax is \code{<PLUGIN-1>(PATTERN-1)[:<PLUGIN-2>(PATTERN-2)]}
 
 \begin{description}
 	\item[PLUGIN-N] The SCBI plug-in name (must have an ng variant) to be handled as extra module.description
-	\item[PATTERN-N] A regular expression of the module as found in the binary archive. It is used to remove this from the NG environment by matching the variable name and the variable values (path). This pattern is not mandatory as already known for supported modules.
+	\item[PATTERN-N] A regular expression of the module as found in the binary archive. It is used to remove this from the NG environment by matching the variable name and the variable values (path).
 \end{description}
 
 For example, to build SMESH and PERSALYS on top of binary archive and integrate them into the final application:
 
-\cmd{export SCBI\_EXTRA\_NG\_MODULES="s-persalys:s-smesh"}
+\cmd{export SCBI\_EXTRA\_NG\_MODULES="s-persalys(PERSALYS):s-smesh(SMESH)"}
 
 And then using the standard command to build SALOME NG:
 

@@ -22,7 +22,7 @@ function s-salome-tar-out-of-tree()
 
 function s-salome-tar-external-env()
 {
-    echo $SCBI_EXTRA_NG_MODULES ${SCBI_EXTRA_NG_DEFS[*]}
+    echo $SCBI_EXTRA_NG_MODULES
 }
 
 function s-salome-tar-env()
@@ -76,23 +76,11 @@ function s-salome-tar-install()
     cp $SCBI_PLUGINS/.scbi_core_version.txt artifacts
     cp $SCBI_PLUGINS/.scbi_salome_version.txt artifacts
 
-    #  Do clean-up some modules for the release if needed
+    #  We need to use the native mesa, the one packaged is not stable
 
     local BINDIR=$(ls -d BINARIES-*)
 
-    if [[ "$SCBI_CLEANUP_ARCHIVE" == "yes" ]]; then
-        for M in HELLO PYHELLO CALCULATOR PYCALCULATOR; do
-            rm -fr $BINDIR/$M
-
-            local PAT="(${M}|${M}_ROOT_DIR)"
-	    PAT=$PAT'[^a-zA-Z_]'
-
-	    sed -i -E "s,^export .*=.*$PAT,# \0,g" \
-	        $PREFIX/env_launch.sh
-	    sed -i -E "s,^ *(appendPath|context\.).*$PAT,#\0,g" \
-	        $PREFIX/salome
-        done
-    fi
+    rm -fr $BINDIR/mesa
 
     #  Now remove all extra modules found in the binary archive.
     #  And unset variables that are pointing to those directories.
@@ -105,8 +93,7 @@ function s-salome-tar-install()
         $PREFIX/salome
 
     for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
-        local DEF=( $(get-extra-module-def $MOD) )
-        local PAT=${DEF[1]}
+        local PAT="("${MOD#*\(}
 
         #  We actually do not want to remove the directory because the
         #  installed cmake scripts in KERNEL do referencces those
@@ -245,16 +232,6 @@ function s-salome-tar-install()
         sed -i "s,https://www.salome-platform.org,https://salome.der.edf.fr,g" $LIGHTAPPGUI
         sed -i "s,https://discourse.salome-platform.org,https://forge.pleiade.edf.fr/projects/salome-rex/issues,g" $LIGHTAPPGUI
     fi
-
-    # Purge all old meshgems of CEA
-
-    rm -rf $PREFIX/$BINDIR/MeshGems
-
-    FIRSTLINE_NUM=$(grep -n "#\[MeshGems\]" salome | cut -d':' -f1)
-    NB_LINE=$(tail -n+$FIRSTLINE_NUM salome|grep -E --line-number -m1 '^$' |cut -d':' -f1)
-    LASTLINE_NUM=$(( $FIRSTLINE_NUM + $NB_LINE - 1 ))
-
-    sed -i "${FIRSTLINE_NUM},${LASTLINE_NUM}d" salome
 }
 
 function s-salome-tar-prefix()

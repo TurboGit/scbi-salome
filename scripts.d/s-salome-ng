@@ -11,8 +11,8 @@
 function s-salome-ng-extra-modules()
 {
     for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
-        local DEF=( $(get-extra-module-def $MOD) )
-        echo ${DEF[0]}
+        local PLG="${MOD%\(*}"
+        echo $PLG
     done
 }
 
@@ -32,7 +32,9 @@ function s-salome-ng-modules()
     echo s-padder
     echo s-gnuplot-py
 
-    echo s-meshgems
+    #  We put s-distene here to override the meshgems which comes from
+    #  binary archive. Never add s-meshgems in NG version.
+    echo s-distene
 }
 
 function setup-salome-ng-env()
@@ -195,11 +197,7 @@ function setup-salome-ng-env()
                 # Call <module>-env hook which will be using the add-to-var
                 # above.
 
-                if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
-                    NUM=99
-                else
-                    NUM=$(printf "%02d" ${N})
-                fi
+                NUM=$(printf "%02d" ${N})
 
                 SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
                 PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
@@ -249,6 +247,8 @@ EOF
 
         echo "def init(context, root_dir):"                 > $PFILE
         echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)' >> $PFILE
+        echo '   context.setVariable(r"MESHGEMS_VERSION", r"213", overwrite=True)' >> $PFILE
+        echo '   context.setVariable(r"SALOME_MG_KEYGEN_LIB_PATH", r"https://meshgems-licence.retd.edf.fr/MESHGEMS" + r"${MESHGEMS_VERSION}", overwrite=True)' >> $PFILE
         echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh")' >> $PFILE
         echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")' >> $PFILE
         echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")' >> $PFILE
@@ -286,13 +286,6 @@ function s-salome-ng-wrapup()
 
             cp -r $SCBI_BDIR/s-salome-tar/build/install/* .
 
-            #  Add some build artifacts for traceability
-
-            [[ ! -z $CI_JOB_NAME ]] &&
-                echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
-            [[ ! -z $CI_PIPELINE_ID ]] &&
-                echo CI_PIPELINE_ID $CI_PIPELINE_ID  >> artifacts/gitlab-ci.data
-
             #  Copy EDF's modules into sub-directory EDF
 
             mkdir EDF
@@ -327,15 +320,12 @@ function s-salome-ng-wrapup()
             local kind=${module_info[2]}
             local ref=${module_info[3]}
 
-            # install some support scripts & patch version
+            # install catalog script & patch version
 
-            cp $SCBI_PLUGINS/support/install-meshgems-ng .
-            cp $SCBI_PLUGINS/support/create_catalog_ng.sh .
+            cp $SCBI_PLUGINS/support/create_catalog.py .
 
-            sed -i "s/<salome_version>/${ref#*-}/g" create_catalog_ng.sh
-            chmod a+x create_catalog_ng.sh
-
-            chmod a+x install-meshgems-ng
+            sed -i "s/<salome_version>/$ref/g" create_catalog.py
+            chmod a+x create_catalog.py
 
             if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...

@@ -1,0 +1,75 @@
+
+with-variant native os@-metis-dev:[v]
+
+function s-metis-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/CGNS/CGNS
+}
+
+function s-metis-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo metis-$VERSION-src.tar.gz
+}
+
+function s-metis-depends()
+{
+    echo s-cmake
+}
+
+function s-metis-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    METIS_ROOT_DIR      $PREFIX
+    set-var    METISDIR      $PREFIX
+
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+}
+
+function s-metis-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    cd ../src
+    make config prefix=$PREFIX ../src
+    #cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    #      -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+    #      ../src
+}
+
+function s-metis-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd ../src
+    make -j$SCBI_JOBS
+}
+
+function s-metis-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd ../src
+    make install
+}
+
+function s-metis-prefix()
+{
+    echo NONE
+}

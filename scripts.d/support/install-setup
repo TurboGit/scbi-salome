@@ -67,7 +67,9 @@ $SUDO rm -f $prefix/setup
 
 $SUDO chown $USER -R $prefix
 
+# run create_catalog for clusters setup
 cd $prefix
+[ -f create_catalog.py ] && ./create_catalog.py
 
 # fix paths in config_appli.xml
 sed -i "s,/home.*install,$prefix,g" config_appli.xml
