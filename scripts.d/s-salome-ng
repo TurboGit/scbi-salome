@@ -195,7 +195,11 @@ function setup-salome-ng-env()
                 # Call <module>-env hook which will be using the add-to-var
                 # above.
 
-                NUM=$(printf "%02d" ${N})
+                if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
+                    NUM=99
+                else
+                    NUM=$(printf "%02d" ${N})
+                fi
 
                 SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
                 PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
@@ -323,12 +327,15 @@ function s-salome-ng-wrapup()
             local kind=${module_info[2]}
             local ref=${module_info[3]}
 
-            # install catalog script & patch version
+            # install some support scripts & patch version
 
+            cp $SCBI_PLUGINS/support/install-meshgems-ng .
             cp $SCBI_PLUGINS/support/create_catalog_ng.sh .
 
             sed -i "s/<salome_version>/${ref#*-}/g" create_catalog_ng.sh
             chmod a+x create_catalog_ng.sh
+
+            chmod a+x install-meshgems-ng
 
             if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...
