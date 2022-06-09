@@ -71,6 +71,24 @@ function s-salome-tar-install()
     cp $SCBI_PLUGINS/.scbi_core_version.txt artifacts
     cp $SCBI_PLUGINS/.scbi_salome_version.txt artifacts
 
+    #  Do clean-up some modules for the release if needed
+
+    local BINDIR=$(ls -d BINARIES-*)
+
+    if [[ "$SCBI_CLEANUP_ARCHIVE" == "yes" ]]; then
+        for M in HELLO PYHELLO CALCULATOR PYCALCULATOR; do
+            rm -fr $BINDIR/$M
+
+            local PAT="(${M}|${M}_ROOT_DIR)"
+	    PAT=$PAT'[^a-zA-Z_]'
+
+	    sed -i -E "s,^export .*=.*$PAT,# \0,g" \
+	        $PREFIX/env_launch.sh
+	    sed -i -E "s,^ *(appendPath|context\.).*$PAT,#\0,g" \
+	        $PREFIX/salome
+        done
+    fi
+
     dlog salome-tar Fix some paths
 
     #  Remove CONFIGURATION setting from env_launch.sh
