@@ -73,8 +73,10 @@ function s-salome-tar-install()
 
     #  Store SCBI & SCBI-SALOME versions
 
-    cp $SCBI_PLUGINS/.scbi_core_version.txt artifacts
-    cp $SCBI_PLUGINS/.scbi_salome_version.txt artifacts
+    cp $SCBI_PLUGINS/.scbi_core_version.txt \
+       artifacts/scbi_core_version.txt
+    cp $SCBI_PLUGINS/.scbi_salome_version.txt \
+       artifacts/scbi_salome_version.txt
 
     #  Do clean-up some modules for the release if needed
 
