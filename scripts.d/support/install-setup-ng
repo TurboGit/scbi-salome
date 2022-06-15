@@ -208,8 +208,6 @@ if [[ ! -d $CONFIG_PATH ]] ; then
     mkdir -p $CONFIG_PATH
 fi
 
-diff -q $USER_SERVER_PVSC servers.pvsc
-
 if [[ -f $USER_SERVER_PVSC ]] ; then
     diff -q $USER_SERVER_PVSC servers.pvsc
     if [[ $? -ne 0 ]]; then
