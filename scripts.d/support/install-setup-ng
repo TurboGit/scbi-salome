@@ -197,26 +197,29 @@ $SUDO rm -f $prefix/setup
 
 $SUDO chown $USER -R $prefix
 
-# Setup the HPC servers, the template file servers.pvsc will be used 
+# Setup the HPC servers, the template file servers.pvsc will be used
 # by the following script to replace (and copy with date if exist)
 # the file in $HOME/.config/ParaView
 
-local configPath="/home/$USER/.config/ParaView"
-local userServersPvsc=$configPath/servers.pvsc
+CONFIG_PATH="/home/$USER/.config/ParaView"
+USER_SERVER_PVSC=$CONFIG_PATH/servers.pvsc
 
-if [[ ! -d $configPath ]] ; then
-    mkdir -p $configPath
+if [[ ! -d $CONFIG_PATH ]] ; then
+    mkdir -p $CONFIG_PATH
 fi
 
-diffFile=$(diff $userServersPvsc servers.pvsc)
+diff -q $USER_SERVER_PVSC servers.pvsc
 
-if [[ -f $userServersPvsc ]] && [[ -z "$diffFile" ]] ; then
-    cp $userServersPvsc $userServersPvsc"_"$(date '+%Y_%m_%d')
+if [[ -f $USER_SERVER_PVSC ]] ; then
+    diff -q $USER_SERVER_PVSC servers.pvsc
+    if [[ $? -ne 0 ]]; then
+        cp $USER_SERVER_PVSC $USER_SERVER_PVSC"_"$(date '+%Y_%m_%d')
+    fi
 fi
-cp server.pvsc $userServersPvsc
+cp server.pvsc $USER_SERVER_PVSC
 
 # substitute nni in servers.pvsc
-sed -i "s/NNI_USER/$USER/g" $userServersPvsc
+sed -i "s/NNI_USER/$USER/g" $USER_SERVER_PVSC
 
 echo "SALOME installation terminated, to start:"
 echo "$ $prefix/salome"
