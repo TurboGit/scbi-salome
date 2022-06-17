@@ -349,9 +349,6 @@ function s-salome-ng-wrapup()
 
                 cp $SCBI_PLUGINS/support/servers.pvsc .
 
-                cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py .
-                chmod a+x salome_hpc_visu_servers.py
-
                 cd $SCBI_BDIR/s-salome-ng
 
                 local script_name=salome-$TARGET-$variant
