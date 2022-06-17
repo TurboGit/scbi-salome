@@ -197,10 +197,32 @@ $SUDO rm -f $prefix/setup
 
 $SUDO chown $USER -R $prefix
 
-# Setup the HPC servers, the template file servers.pvsc
-# will be used by the following script to create or update
-# the file $HOME/.config/ParaView
-./salome_hpc_visu_servers.py
+#  Setup the HPC servers, the template file servers.pvsc will be used
+#  by the following script to replace (and copy with date if exist)
+#  the file in $HOME/.config/ParaView
+
+CONFIG_PATH="$HOME/.config/ParaView"
+USER_SERVER_PVSC=$CONFIG_PATH/servers.pvsc
+
+if [[ ! -d $CONFIG_PATH ]] ; then
+    mkdir -p $CONFIG_PATH
+fi
+
+#  Check if a backup is needed
+
+if [[ -f $USER_SERVER_PVSC ]] ; then
+    diff -q $USER_SERVER_PVSC servers.pvsc
+    if [[ $? -ne 0 ]]; then
+        cp $USER_SERVER_PVSC $USER_SERVER_PVSC"_"$(date '+%Y_%m_%d')
+    fi
+fi
+
+#  Copy the new servers.pvsc provided by the distrib
+
+cp servers.pvsc $USER_SERVER_PVSC
+
+#  substitute nni in servers.pvsc
+sed -i "s/NNI_USER/$USER/g" $USER_SERVER_PVSC
 
 echo "SALOME installation terminated, to start:"
 echo "$ $prefix/salome"
