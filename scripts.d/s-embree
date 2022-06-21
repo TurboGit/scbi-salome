@@ -45,11 +45,13 @@ function s-embree-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    embree_DIR        $PREFIX
+    set-var    embree_DIR         $PREFIX
 
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
     add-to-var CMAKE_PREFIX_PATH \
                $(last-modified-directory "$PREFIX/lib/cmake/embree-*")
-    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
 function s-embree-config()
