@@ -20,6 +20,12 @@ function s-salome-tar-out-of-tree()
     echo false
 }
 
+function s-salome-tar-external-env()
+{
+    echo $SCBI_EXTRA_NG_MODULES ${SCBI_EXTRA_NG_DEFS[*]}
+    echo $SCBI_CLEANUP_ARCHIVE
+}
+
 function s-salome-tar-env()
 {
     local PREFIX=$1
