@@ -10,7 +10,7 @@ s-cmake/native
 
 [ = linux
         s-salome-bin
-        s-paravisaddons-edf:V9_9_BR
+        s-paravisaddons-edf:V9_9_0
         s-atomic:V9_9_0
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
