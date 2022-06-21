@@ -92,7 +92,7 @@ s-salome:dev
         s-ghs3d-plugin
         s-ghs3dprl-plugin
         s-ydefx
-] :V9_9_BR
+] :V9_9_0
 
 # Second, for repositories where master is at EDF
 [
@@ -101,7 +101,7 @@ s-salome:dev
         s-salome-adao
         s-adao
         s-adao-interface
-] :V9_9_BR
+] :V9_9_0
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -110,7 +110,7 @@ s-salome:dev
         s-medcoupling/mpi.ptscotch
         s-paraview/default.mpi.ospray.gdal:#v5.9.0
         s-paravis/default.mpi
-] :V9_9_BR
+] :V9_9_0
 
 [ = mpi
         s-paraview/default.mpi.ospray.gdal:#v5.9.0
@@ -120,7 +120,7 @@ s-salome:dev
         s-hdf5/native-serial
         s-medcoupling/ptscotch
         s-paravis/default
-] :V9_9_BR
+] :V9_9_0
 
 [ /= mpi
         s-paraview/default.ospray.gdal:#v5.9.0
