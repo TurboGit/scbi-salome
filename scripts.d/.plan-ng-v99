@@ -4,19 +4,19 @@
 
 #  the s-salome-ng meta-module version is used to name the .run and as the
 #  version in create_catalog.py
-s-salome-ng:V9_9_BR
+s-salome-ng:V9_9_0
 
 s-cmake/native
 
 [ = linux
         s-salome-bin
         s-paravisaddons-edf:V9_9_BR
-        s-atomic:V9_9_BR
+        s-atomic:V9_9_0
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
         s-meshgems:#V2.13-3_linux_EU
-        s-python-modules/ng.wand:V9_9_BR
+        s-python-modules/ng.wand:V9_9_0
         s-zcracks:#3.2.4
         s-gnuplot-py:#1.8-3k
         s-padder:20200727
@@ -65,7 +65,7 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
 ]
 
 [ = deb,9
-        s-salome-ng:s9-V9_9_BR
+        s-salome-ng:s9-V9_9_0
         s-salome-tar:#9.9.0:DB09
         s-cmake:skip
         s-zeromq:skip
@@ -73,7 +73,7 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
         s-ospray:skip
         s-gdal:skip
         s-tbb:skip
-        s-python-modules/ng.wand.lxml:V9_9_BR
+        s-python-modules/ng.wand.lxml:V9_9_0
         s-cgal/ng:#4.0
         os@-boost-locale-dev:skip
         os@-python3:skip
@@ -87,13 +87,23 @@ s-paraview/ng.mpi.ospray.gdal:v5.9.0
 ]
 
 [ = deb,10
-        s-salome-ng:s10-V9_9_BR
+        s-salome-ng:s10-V9_9_0
         s-salome-tar:#9.9.0-native:DB10
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
         s-gdal:skip
-        s-python-modules/ng.wand:V9_9_BR
+        s-python-modules/ng.wand:V9_9_0
         s-cgal/native
         s-boost/native
+]
+
+[ = rhl
+        s-salome-ng:co8-V9_9_0
+        s-salome-tar:#9.9.0:CO8
+        s-zeromq:skip
+        s-melissa:skip
+        s-python-modules:skip
+        s-padder:skip
+        s-cgal:skip
 ]
