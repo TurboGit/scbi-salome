@@ -34,7 +34,8 @@ s-zcracks:#3.2.5
 s-qt/auto:#5.11
 s-pyqt/auto:#5.11
 s-sip/auto:#4.19
-s-cmake/auto:#3.12.1
+s-cmake/auto:#3.14.4
+s-ttk:1.0.0
 
 [
         # s-homard tool is now merged into s-homard module
