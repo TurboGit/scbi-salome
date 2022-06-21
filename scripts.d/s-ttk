@@ -1,0 +1,87 @@
+
+# Topology ToolKit
+
+function s-ttk-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/topology-tool-kit/ttk.git 
+} 
+
+function s-ttk-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo https://github.com/topology-tool-kit/ttk/archive/ 
+    echo $VERSION.tgz 
+} 
+
+function s-ttk-build-depends()
+{
+    echo s-cmake
+}
+
+function s-ttk-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo libboost-system-dev
+    echo libpython-dev
+    echo libxt-dev
+    echo libxcursor-dev
+    # for scalar field design, version 3.3.7 or later
+    echo libeigen3-dev
+
+    echo s-qt
+    echo s-embree
+    echo s-paraview
+}
+
+function s-ttk-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    TTK_ROOT_DIR    $PREFIX
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PV_PLUGIN_PATH  $PREFIX/bin/plugins
+    add-to-var PYTHONPATH      $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-ttk-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DTK_BUILD_PARAVIEW_PLUGINS=ON \
+          ../src
+}
+
+function s-ttk-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-ttk-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-ttk-prefix()
+{
+    echo NONE
+}
