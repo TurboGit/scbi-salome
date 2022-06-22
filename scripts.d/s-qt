@@ -38,15 +38,62 @@ function s-qt-build-depends()
     echo os@-autoconf
 }
 
+function s-qt-depends()
+{
+    # Avoid adding fonts
+    echo libfontconfig1-dev
+    # Avoid using embedded libraries
+    echo libfreetype6-dev
+    echo libjpeg-dev
+    echo libpng-dev
+    echo libssl-dev
+    echo zlib1g-dev
+    echo libx11-dev
+    echo libxcb1-dev
+    echo libxkbcommon-x11-dev
+    echo libxcb-xv0-dev
+    echo libxcb-xvmc0-dev
+    echo libxcb-xtest0-dev
+    echo libxcb-xrm-dev
+    echo libxcb-xinput-dev
+    echo libxcb-xf86dri0-dev
+    echo libxcb-util0-dev
+    echo libxcb-screensaver0-dev
+    echo libxcb-res0-dev
+    echo libxcb-render-util0-dev
+    echo libxcb-record0-dev
+    echo libxcb-keysyms1-dev
+    echo libxcb-imdkit-dev
+    echo libxcb-image0-dev
+    echo libxcb-icccm4-dev
+    echo libxcb-ewmh-dev
+    echo libxcb-dpms0-dev
+    echo libxcb-damage0-dev
+    echo libxcb-cursor-dev
+    echo libxcb-composite0-dev
+    echo libxcb-xinerama0-dev
+    echo libxrender-dev
+    echo libframe6
+    echo libpq5
+    echo libsm6
+    echo libgnomecanvas2-dev
+    echo libgnomecanvasmm-2.6-dev
+    echo libglu1-mesa-dev
+    echo libgl1-mesa-dev
+}
+
 function s-qt-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    QT5_ROOT_DIR      $PREFIX
+    set-var    QT5_ROOT_DIR       $PREFIX
+    set-var    QTDIR              $PREFIX
+    set-var    QT_XKB_CONFIG_ROOT /usr/share/X11/xkb
 
     add-to-var CMAKE_PREFIX_PATH           $PREFIX/lib/cmake
     add-to-var PATH                        $PREFIX/bin
+    add-to-var QT_LIB_DIR                  $PREFIX/lib
     add-to-var LD_LIBRARY_PATH             $PREFIX/lib
     add-to-var C_INCLUDE_PATH              $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH          $PREFIX/include
@@ -61,11 +108,17 @@ function s-qt-config-options()
     local VARIANT=$3
 
     echo --prefix=$PREFIX
+    echo -skip qtwebengine
     echo -opensource
     echo -confirm-license
     echo -no-rpath
     echo -nomake examples
     echo -nomake tests
+    echo -xcb
+    echo -xkbcommon
+    echo -system-zlib
+    echo -system-libpng
+    echo -system-libjpeg
 }
 
 function s-qt-config()
