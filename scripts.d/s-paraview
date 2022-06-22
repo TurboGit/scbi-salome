@@ -104,7 +104,7 @@ function s-paraview-env()
     add-to-var CMAKE_PREFIX_PATH    ${CMAKE_PV}/vtk
     add-to-var PATH                 $PREFIX/bin
     add-to-var PV_PLUGIN_PATH       \
-               $(last-modified-directory "$PREFIX/lib/paraview*/plugins")
+               $(last-modified-directory "$PREFIX/lib*/paraview*/plugins")
 
     for PLIB in $(ls -d $PREFIX/lib* 2> /dev/null); do
 	add-to-var LD_LIBRARY_PATH  $PLIB
