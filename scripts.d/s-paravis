@@ -11,6 +11,12 @@ function s-paravis-tar()
     echo paravis-$VERSION.tar.xz 
 } 
 
+function s-paravis-qt515-patches()
+{
+    #  This is really a workaround and should be fixed properly
+    echo paravis-qt515.diff
+}
+
 function s-paravis-common-build-depends()
 {
     echo s-cmake
