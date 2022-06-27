@@ -17,7 +17,7 @@ s-cmake/auto:#3.14.4
         s-melissa:#0.0.0
         s-meshgems:#V2.13-3_linux_EU
         s-python-modules/ng.wand:master
-        s-zcracks:#3.2.5
+        s-zcracks:#3.2.6
         s-gnuplot-py:#1.8-3k
         s-padder:20200727
 
