@@ -87,10 +87,6 @@ function setup-salome-ng-env()
                 esac
             fi
 
-            #  Remove possible leading directory separator
-
-            [[ ${REL_PDIR:0:1} == '/' ]] && REL_PDIR=${REL_PDIR:1}
-
             #  We set values as some are used in depends modules like
             #  s-salome-bin using SALOME_BIN_APPLICATION set in s-salome-tar.
 
@@ -127,7 +123,17 @@ function setup-salome-ng-env()
                 return
             fi
 
-            local DVAR="os.path.join($CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
+            #  Remove possible leading directory separator
+
+            local DVAR=""
+
+            if [[ "$VALUE" == "$REL_PDIR" ]]; then
+                DVAR="\"$VALUE\""
+            else
+                [[ ${REL_PDIR:0:1} == '/' ]] && REL_PDIR=${REL_PDIR:1}
+
+                DVAR="os.path.join($CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
+            fi
 
             case "$VAR" in
                 C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
@@ -152,15 +158,7 @@ function setup-salome-ng-env()
                     \",\" + \"$VALUE\""                               >> $PFILE
                     ;;
                 *)
-                    if [[ "$REL_PDIR" == "$VALUE" ]]; then
-                        if [[ $VALUE == \"*\" ]]; then
-                            echo "   context.setVariable(r\"$VAR\", r$VALUE, overwrite=True)" >> $PFILE
-                        else
-                            echo "   context.setVariable(r\"$VAR\", r\"$VALUE\", overwrite=True)" >> $PFILE
-                        fi
-                    else
-                        echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
-                    fi
+                    echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
                     ;;
             esac
         }
