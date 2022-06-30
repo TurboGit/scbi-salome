@@ -8,7 +8,7 @@ with-variant native os@-openmpi-dev \
         'add-to-var PATH $(get-os-bin-dir mpicc)'
 
 with-variant cronos \
- --env 'add-to-var MPI_ROOT_DIR       /opt/mpi/openmpi-gnu/4.0.3.2' \
+ --env 'set-var    MPI_ROOT_DIR       /opt/mpi/openmpi-gnu/4.0.3.2' \
        'add-to-var MPI_LIB            $MPI_ROOT_DIR/lib/libmpi.so' \
        'add-to-var MPI_CXX_LIB        $MPI_ROOT_DIR/lib/libmpi_cxx.so' \
        'add-to-var C_INCLUDE_PATH     $MPI_ROOT_DIR/include' \
@@ -16,7 +16,7 @@ with-variant cronos \
        'add-to-var PATH               /opt/mpi/openmpi-gnu/4.0.3.2/bin'
 
 with-variant gaia \
- --env 'add-to-var MPI_ROOT_DIR       /usr/lib/x86_64-linux-gnu/openmpi' \
+ --env 'set-var    MPI_ROOT_DIR       /usr/lib/x86_64-linux-gnu/openmpi' \
        'add-to-var MPI_LIB            $MPI_ROOT_DIR/lib/libmpi.so' \
        'add-to-var MPI_CXX_LIB        $MPI_ROOT_DIR/lib/libmpi.so' \
        'add-to-var C_INCLUDE_PATH     $MPI_ROOT_DIR/include' \
