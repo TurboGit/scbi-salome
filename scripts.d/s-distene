@@ -15,7 +15,7 @@ function s-distene-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var MESHGEMS_ROOT_DIR $PREFIX
+    set-var    MESHGEMS_ROOT_DIR $PREFIX
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib/Linux_64
     add-to-var PATH              $PREFIX/bin
     add-to-var PATH              $PREFIX/bin/Linux_64
