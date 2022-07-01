@@ -8,12 +8,21 @@ with-variant native os@-openmpi-dev \
         'add-to-var PATH $(get-os-bin-dir mpicc)'
 
 with-variant cronos \
- --env 'set-var    MPI_ROOT_DIR       /opt/mpi/openmpi-gnu/4.0.3.2' \
-       'add-to-var MPI_LIB            $MPI_ROOT_DIR/lib/libmpi.so' \
-       'add-to-var MPI_CXX_LIB        $MPI_ROOT_DIR/lib/libmpi_cxx.so' \
-       'add-to-var C_INCLUDE_PATH     $MPI_ROOT_DIR/include' \
-       'add-to-var CPLUS_INCLUDE_PATH $MPI_ROOT_DIR/include' \
-       'add-to-var PATH               /opt/mpi/openmpi-gnu/4.0.3.2/bin'
+ --env 'set-var    MPI_ROOT_DIR         /opt/mpi/openmpi-gnu/4.0.3.2' \
+       'set-var    OPENMPIDIR           /opt/mpi/openmpi-gnu/4.0.3.2' \
+       'set-var    OPAL_PREFIX          /opt/mpi/openmpi-gnu/4.0.3.2' \
+       'set-var    MPI_ROOT             /opt/mpi/openmpi-gnu/4.0.3.2' \
+       'set-var    MPI_C_COMPILER       $MPI_ROOT_DIR/bin/mpicc' \
+       'set-var    MPI_CXX_COMPILER     $MPI_ROOT_DIR/bin/mpicxx' \
+       'set-var    MPI_Fortran_COMPILER $MPI_ROOT_DIR/bin/mpifort' \
+       'set-var    MPIEXEC_EXECUTABLE   $MPI_ROOT_DIR/bin/mpiexec' \
+       'add-to-var MPI_LIB              $MPI_ROOT_DIR/lib/libmpi.so' \
+       'add-to-var MPI_CXX_LIB          $MPI_ROOT_DIR/lib/libmpi_cxx.so' \
+       'add-to-var MPI_INCLUDE_DIR      $MPI_ROOT_DIR/include' \
+       'add-to-var C_INCLUDE_PATH       $MPI_ROOT_DIR/include' \
+       'add-to-var CPLUS_INCLUDE_PATH   $MPI_ROOT_DIR/include' \
+       'add-to-var LD_LIBRARY_PATH      $MPI_ROOT_DIR/lib' \
+       'add-to-var PATH                 $MPI_ROOT_DIR/bin'
 
 with-variant gaia \
  --env 'set-var    MPI_ROOT_DIR       /usr/lib/x86_64-linux-gnu/openmpi' \
