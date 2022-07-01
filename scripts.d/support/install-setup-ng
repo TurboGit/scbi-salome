@@ -145,6 +145,8 @@ BINDIR=$(basename $(ls -1d BINARIES-*))
 
 if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
     echo Python is embedded into salome on debian9
+elif [[ "$(lsb_release -d)" =~ "Red Hat" ]]; then
+    echo Python is embedded into salome on Red Hat
 else
     if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
         echo Python2 is default, checking for python3
