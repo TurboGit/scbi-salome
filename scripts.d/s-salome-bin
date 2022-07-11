@@ -106,9 +106,11 @@ function s-salome-bin-ng-env()
             local DEF=( $(get-extra-module-def $MOD) )
             local PAT=${DEF[1]}
 
-            if [[ $VALUE =~ $PAT ]] || [[ $VAR =~ $PAT ]]; then
-                FOUND=true
-                break
+            if [[ ! -z $PAT ]]; then
+                if [[ $VALUE =~ $PAT ]] || [[ $VAR =~ $PAT ]]; then
+                    FOUND=true
+                    break
+                fi
             fi
         done
 

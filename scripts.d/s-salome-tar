@@ -126,12 +126,14 @@ function s-salome-tar-install()
         #  Ensure we match a whole word, then comment out variables
         #  pointing to the module.
 
-	PAT=$PAT'[^a-zA-Z_]'
+        if [[ ! -z $PAT ]]; then
+	    PAT=$PAT'[^a-zA-Z_]'
 
-	sed -i -E "s,^export .*=.*$PAT,# \0,g" \
-	    $PREFIX/env_launch.sh
-	sed -i -E "s,^ *(appendPath|context\.).*$PAT,#\0,g" \
-	    $PREFIX/salome
+	    sed -i -E "s,^export .*=.*$PAT,# \0,g" \
+	        $PREFIX/env_launch.sh
+	    sed -i -E "s,^ *(appendPath|context\.).*$PAT,#\0,g" \
+	        $PREFIX/salome
+        fi
     done
 
     #  Retore back the protected lines (see above)
