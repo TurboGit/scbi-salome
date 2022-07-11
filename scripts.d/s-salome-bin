@@ -198,6 +198,11 @@ function s-salome-bin-ng-env()
                $(last-modified-directory \
                      $PARAVIEW_ROOT_DIR/lib/cmake/paraview-*/vtk)
 
+    is-root-path $SALOME_BIN_MODULES $QT5_ROOT_DIR &&
+        {
+            add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake
+        }
+
     is-root-path $SALOME_BIN_MODULES $PY2CPP_ROOT_DIR &&
         {
             add-to-var C_INCLUDE_PATH     $PY2CPP_ROOT_DIR/include
