@@ -66,6 +66,7 @@ function s-medcoupling-env()
 
     set-var    MEDCOUPLING_ROOT_DIR $PREFIX
 
+    add-to-var PATH                 $PREFIX/bin
     add-to-var MEDCoupling_DIR      $PREFIX/cmake_files
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
     add-to-var LIBRARY_PATH         $PREFIX/lib
