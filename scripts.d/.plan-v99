@@ -33,7 +33,7 @@ s-root:v6-22-02
 s-zcracks:#3.2.4
 s-qt/auto:#5.11
 s-pyqt/auto:#5.11
-s-sip/auto:#4.19
+s-sip/auto:#4.19.25
 s-cmake/auto:#3.12.1
 
 [
