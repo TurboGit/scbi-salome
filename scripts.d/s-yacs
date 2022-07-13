@@ -62,9 +62,16 @@ function s-yacs-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    YACS_INSTALL_DIR  $PREFIX
+    set-var    YACS_ROOT_DIR     $PREFIX
     set-var    SalomeYACS_DIR    $PREFIX/adm/cmake
 
+    add-to-var PATH              $PREFIX/bin/salome
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib/salome
+    add-to-var PYTHONPATH        $PREFIX/bin/salome
+    add-to-var PYTHONPATH        $PREFIX/lib/salome
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+    add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/yacs
     add-to-var CMAKE_PREFIX_PATH $SalomeYACS_DIR
 }
 
