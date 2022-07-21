@@ -2,9 +2,9 @@
 
 @load ng-v99
 
-s-medcoupling/ng.mpi.ptscotch
-s-paraview/ng.mpi.ospray.gdal:#v5.9.0
-s-paravis/ng.mpi
+s-medcoupling:skip
+s-paraview:skip
+s-paravis:skip
 
 s-ptscotch:skip
 s-ispc:skip
