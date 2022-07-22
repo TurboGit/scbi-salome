@@ -1,0 +1,55 @@
+
+#  ??? For now to build we just place the tarball into the sandbox tar directory
+#  $HOME/dev/build-salome-slogger/.tar
+
+function s-slogger-tar()
+{
+    echo default
+    echo none
+    echo none
+    echo none
+    echo SLOGGER_SRC.tar.gz
+}
+
+function s-slogger-depends()
+{
+    echo s-qt
+}
+
+function s-slogger-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH $PREFIX/bin
+}
+
+function s-slogger-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    qmake PREFIX=$PREFIX ../src
+}
+
+function s-slogger-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make
+}
+
+function s-slogger-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-slogger-prefix()
+{
+    echo NONE
+}

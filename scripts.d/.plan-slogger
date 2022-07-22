@@ -1,0 +1,8 @@
+@load dev/mpi
+
+[
+    s-salome-kernel
+    s-salome-gui
+    s-geom
+    s-shaper
+] :jfa/29467_gui_log_file
