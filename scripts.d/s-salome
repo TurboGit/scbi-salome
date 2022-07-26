@@ -347,7 +347,7 @@ EOF
     for module in $(for-final-modules $(s-salome-main-modules)); do
         MODULE_NAME=${module##s-}                 # remove leading s-
         MODULE_NAME=${MODULE_NAME##salome-}       # remove leading salome-
-        MODULE_NAME=${MODULE_NAME/-plugin/plugin} # replace trailing -plugin
+        MODULE_NAME=${MODULE_NAME//-/}            # remove all dashes
         MODULE_NAME=${MODULE_NAME^^}              # all upper-case
 
         MODULE_PATH=$SCBI_BDIR/$module/build/install
