@@ -1,0 +1,19 @@
+Testing of ParaView : 5.10
+==========================
+
+Branch po/pv-next - (this is a dev build taking most sources from master)
+
+$ scbi --env=pv510 --deps --update --safe --enable-application s-salome
+
+=> Tout OK
+
+Testing of Paraview : master
+============================
+
+Branch po/pv-next - (this is a dev build taking most sources from master)
+
+$ scbi --env=pvmaster --deps --update --safe --enable-application s-salome
+
+$ scbi --env=pvmaster --deps --update --safe --enable-installer s-salome
+
+=> GUI ne compile pas

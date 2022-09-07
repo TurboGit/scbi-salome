@@ -1,0 +1,8 @@
+
+@load dev/mpi
+
+s-cmake:v3.24.1
+s-qt:#5.15.2
+s-paraview/default.mpi.ospray.gdal:v5.10.1
+s-paravis/default.mpi.qt515
+# s-paravisaddons-common:skip

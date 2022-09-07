@@ -1,0 +1,30 @@
+# To test compilation of SALOME 9.10
+
+@load dev/mpi
+
+s-cmake:v3.24.1
+s-qt:#5.15.2
+# s-paraview/default.mpi.ospray.gdal:302c208377
+s-paraview/default.mpi.ospray.gdal.catalyst:v5.11.0-RC1
+s-paravis/default.mpi.qt515:agy/pv-master
+s-salome-gui:po/pv-master
+s-smesh:po/pv-master
+s-ttk:f8dafde2d7
+s-paravisaddons-common:po/pv-master
+
+# Version 1.1.0 compile
+# s-ttk:1.1.0
+
+# For OpenTurns 1.19
+s-openturns:v1.19
+s-openturns-fftw:v0.12
+s-openturns-mixmod:v0.13
+s-openturns-morris:v0.13
+s-openturns-pmml:v1.12
+s-openturns-robopt:v0.11
+s-openturns-subsetinverse:v1.9
+s-openturns-svm:v0.11
+s-openturns-wrapy:v0.11
+s-openturns-pod:v0.6.8
+s-pyfmi:PyFMI-2.6
+s-openturns-fmi:v0.15
