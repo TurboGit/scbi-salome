@@ -26,9 +26,18 @@ function s-netgen-plugin-tar()
     echo NETGENPLUGIN_SRC_$VERSION.tgz
 }
 
-function s-netgen-plugin-build-depends()
+function s-netgen-plugin-common-build-depends()
 {
     echo s-cmake
+}
+
+function s-netgen-plugin-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-netgen-plugin-default-build-depends()
+{
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen
@@ -38,11 +47,15 @@ function s-netgen-plugin-build-depends()
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
     echo os@-swig
-    echo s-salome-configuration
     echo s-qt
 }
 
-function s-netgen-plugin-depends()
+function s-netgen-plugin-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-netgen-plugin-default-depends()
 {
     echo s-smesh
     echo s-netgen
