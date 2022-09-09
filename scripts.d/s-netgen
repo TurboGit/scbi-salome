@@ -51,7 +51,7 @@ function s-netgen-autotools-build-depends()
 
 function s-netgen-cmake-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake
 }
 
 function s-netgen-depends()
