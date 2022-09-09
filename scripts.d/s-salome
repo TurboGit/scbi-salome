@@ -83,6 +83,7 @@ function s-salome-prerequisite-modules()
     echo s-openvkl
     echo s-zcracks
     echo s-cgns
+    echo s-qt
 }
 
 function s-salome-modules()
