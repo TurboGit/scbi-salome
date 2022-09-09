@@ -17,7 +17,7 @@ function s-paravisaddons-common-cea-vcs()
 
 function s-paravisaddons-common-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake
 }
 
 function s-paravisaddons-common-depends()
