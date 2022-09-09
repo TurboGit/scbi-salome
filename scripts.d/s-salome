@@ -75,6 +75,7 @@ function s-salome-prerequisite-modules()
     echo s-rkcommon
     echo s-openvkl
     echo s-cgns
+    echo s-qt
 }
 
 function s-salome-modules()
