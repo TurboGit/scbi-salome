@@ -2,7 +2,7 @@
 
 function s-paravisaddons-common-build-depends()
 {
-    echo os@-cmake
+    echo s-cmake
 }
 
 function s-paravisaddons-common-depends()
