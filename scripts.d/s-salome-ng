@@ -149,7 +149,7 @@ function setup-salome-ng-env()
                 PYTHONPATH)
                     echo "   context.addToPythonPath($DVAR)"          >> $PFILE
                     ;;
-                PV_PLUGIN_PATH|SalomeAppConfig)
+                PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
                     echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
                     ;;
                 SALOME_MODULES)
