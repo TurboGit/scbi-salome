@@ -42,7 +42,7 @@ function s-openturns-fmi-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    OTfmi_HOME    $PREFIX
+    set-var    OTfmi_HOME      $PREFIX
 
     add-to-var LD_LIBRARY_PATH $PREFIX/lib
     add-to-var PYTHONPATH      \
