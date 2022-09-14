@@ -34,6 +34,7 @@ function s-openturns-fmi-env()
 
     set-var    OTfmi_HOME      $PREFIX
 
+    add-to-var PATH            $PREFIX/bin
     add-to-var LD_LIBRARY_PATH $PREFIX/lib
     add-to-var PYTHONPATH      \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
