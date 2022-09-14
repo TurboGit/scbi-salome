@@ -214,11 +214,19 @@ function s-salome-tar-install()
                        Python/bin/sphinx-build \
                        hdf5/bin/h5hlcc hdf5/bin/h5cc \
                        netcdf/lib/pkgconfig/netcdf.pc \
-                       PyQt/bin/pyuic5;
+                       PyQt/bin/pyuic5 \
+                       matplotlib/bin/f2py;
     do
         [[ -e $PREFIX/$BINDIR/$SCRIPTS ]] &&
             sed -i "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" \
                 $PREFIX/$BINDIR/$SCRIPTS
+    done
+
+    for SCRIPTS in $PREFIX/$BINDIR/openturns/bin/f2py* \
+                       $PREFIX/$BINDIR/Python/bin/f2py* \
+                       $PREFIX/$BINDIR/C3PO/bin/f2py*;
+    do
+        sed -i "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" $SCRIPTS
     done
 
     #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
