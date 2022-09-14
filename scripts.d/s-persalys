@@ -45,6 +45,7 @@ function s-persalys-default-depends()
     echo s-salome-kernel
     echo s-openturns
     echo s-openturns-morris
+    echo s-openturns-fmi
     echo s-yacs
     echo s-adao
     echo s-adao-interface
@@ -54,6 +55,7 @@ function s-persalys-default-depends()
 function s-persalys-ng-depends()
 {
     echo s-salome-bin
+    echo s-python-modules
 }
 
 function s-persalys-env()
