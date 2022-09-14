@@ -388,10 +388,18 @@ function s-salome-ng-wrapup()
                 for SCRIPTS in omniORB/bin/omniidl \
                                    hdf5/bin/h5hlcc hdf5/bin/h5cc \
                                    netcdf/lib/pkgconfig/netcdf.pc \
-                                   PyQt/bin/pyuic5;
+                                   PyQt/bin/pyuic5 \
+                                   matplotlib/bin/f2py;
                 do
                     sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" \
                         application_tmp/$BINDIR/$SCRIPTS
+                done
+
+                for SCRIPTS in application_tmp/$BINDIR/openturns/bin/f2py* \
+                                   application_tmp/$BINDIR/Python/bin/f2py* \
+                                   application_tmp/$BINDIR/C3PO/bin/f2py*;
+                do
+                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" $SCRIPTS
                 done
 
                 #  Convert these sip scripts to template.
