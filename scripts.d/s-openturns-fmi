@@ -1,4 +1,12 @@
 
+function s-openturns-fmi-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/openturns/otfmi.git 
+} 
+
 
 function s-openturns-fmi-out-of-tree()
 {

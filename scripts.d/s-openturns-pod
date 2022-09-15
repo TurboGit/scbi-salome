@@ -1,4 +1,12 @@
 
+function s-openturns-pod-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/openturns/otpod.git 
+} 
+
 
 function s-openturns-pod-patches()
 {

@@ -1,4 +1,12 @@
 
+function s-openturns-wrapy-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/openturns/otwrapy.git 
+} 
+
 
 function s-openturns-wrapy-out-of-tree()
 {
