@@ -29,10 +29,11 @@ function s-eficas-tools-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    EFICAS_ROOT $PREFIX
+    set-var    EFICAS_ROOT           $PREFIX
+    set-var    EFICAS_TOOLS_ROOT_DIR $PREFIX
 
-    add-to-var PYTHONPATH  $PREFIX
-    add-to-var PYTHONPATH  $PREFIX/UiQt5
+    add-to-var PYTHONPATH            $PREFIX
+    add-to-var PYTHONPATH            $PREFIX/UiQt5
 }
 
 function s-eficas-tools-config()
