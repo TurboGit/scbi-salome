@@ -1,4 +1,12 @@
 
+function s-openturns-robot-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/openturns/otrobot.git
+}
+
 function s-openturns-robopt-tar()
 {
     local VERSION=$1

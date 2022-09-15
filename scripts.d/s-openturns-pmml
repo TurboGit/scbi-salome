@@ -1,4 +1,12 @@
 
+function s-openturns-pmml-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/openturns/otpmml.git
+}
+
 function s-openturns-pmml-tar()
 {
     local VERSION=$1
