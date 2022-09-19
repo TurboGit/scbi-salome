@@ -1,0 +1,54 @@
+
+
+function s-libecw2-out-of-tree()
+{
+    echo false
+}
+
+function s-libecw2-build-depends()
+{
+    echo os@-gcc
+}
+
+function s-libecw2-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    ECWLIB_ROOT_DIR    $PREFIX
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LB_LIBRARY_PATH    $PREFIX/lib
+}
+
+function s-libecw2-config()
+{
+
+    local PREFIX=$1
+    local TARGET=$2
+
+    make distclean
+
+    ./configure --prefix=$PREFIX
+}
+
+function s-libecw2-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-libecw2-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/include
+    make install
+}
+
+function s-libecw2-prefix()
+{
+    echo NONE
