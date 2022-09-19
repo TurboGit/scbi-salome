@@ -36,6 +36,11 @@ function s-python-modules-lxml-build-depends()
     echo os@-xml2-dev
 }
 
+function s-python-modules-pyaml-build-depends()
+{
+    echo libyaml-dev
+}
+
 function s-python-modules-build-depends()
 {
     echo os@-python3-setuptools
@@ -69,6 +74,35 @@ function s-python-modules-lxml-config-options()
     echo lxml
 }
 
+function s-python-modules-pyaml-config-options()
+{
+    echo pyaml
+}
+
+function s-python-modules-telemac-config-options()
+{
+    echo cppy
+    echo traitlets
+    echo nbformat
+    echo ipython
+    echo owslib
+    echo pyshp
+    echo descartes
+    echo fiona==1.8.20
+    echo openpyxl
+    echo rasterio==1.1.0
+    echo doxypypy
+    echo pyproj==1.9.6
+
+    # echo jupyter-client==7.0.6
+    # echo jupyter-console
+    # echo jupyter
+    # echo ipywidgets
+    # echo geopandas==0.6.3
+    # echo shapely==1.8.0
+    # echo pylint
+}
+
 function s-python-modules-pre-config()
 {
     rm -f module.list
@@ -89,6 +123,10 @@ function s-python-modules-config()
 
 function s-python-modules-pre-install()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     #  Setup PyPI URL
     PYPIURL=$(scbi-store-get-key PYPIURL)
 
