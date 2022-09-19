@@ -1,0 +1,58 @@
+
+function s-scalapack-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo scalapack-$VERSION.tgz
+}
+
+function s-scalapack-build-depends()
+{
+    echo s-cmake
+}
+
+function s-scalapack-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    SCALAPACKDIR          $PREFIX
+    set-var    SCALAPACKDIR_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH       $PREFIX/lib
+}
+
+function s-scalapack-config()
+{
+
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DBUILD_SHARED_LIBS=ON \
+          ../src
+}
+
+function s-scalapack-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-scalapack-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-scalapack-prefix()
+{
+    echo NONE
+}
