@@ -1,0 +1,54 @@
+
+
+function s-mumps-out-of-tree()
+{
+    echo false
+}
+
+function s-mumps-depends()
+{
+    echo s-scalapack
+}
+
+function s-mumps-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    MUMPSDIR        $PREFIX
+    set-var    MUMPS_ROOT_DIR  $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+}
+
+function s-mumps-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cp $SCBI_PLUGINS/support/mumps-makefile.inc ../src/Makefile.inc
+}
+
+function s-mumps-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-mumps-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/include &&
+        cp -pv include/* $PREFIX/include &&
+        mkdir $PREFIX/lib &&
+        cp -pv lib/* $PREFIX/lib
+}
+
+function s-mumps-prefix()
+{
+    echo NONE
+}
