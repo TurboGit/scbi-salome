@@ -16,7 +16,7 @@ function s-salome-ng-extra-modules()
     done
 }
 
-function s-salome-ng-modules()
+function s-salome-ng-common-modules()
 {
     s-salome-ng-extra-modules
 
@@ -30,10 +30,21 @@ function s-salome-ng-modules()
 
 }
 
+function s-salome-ng-hydro-modules()
+{
+    echo s-hydrogeo
+    echo s-libecw2
+    echo s-mumps
+    echo s-scalapack
+    echo s-gotm
+    echo s-aed2
+}
+
 function setup-salome-ng-env()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     local APPDIR=$SCBI_BDIR/s-salome-ng/application
 
@@ -260,6 +271,7 @@ function s-salome-ng-wrapup()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     (
         #  Clean-up previous installation if any
@@ -290,7 +302,9 @@ function s-salome-ng-wrapup()
 
             mkdir EDF
 
-            for module in $(for-final-modules $(s-salome-ng-modules)); do
+            local MODS=$(call-variant-hooks modules $PREFIX $TARGET $VARIANT)
+
+            for module in $(for-final-modules $MODS); do
                 #  Skip s-salome-tar as it is the root install and already
                 #  handled above.
 
@@ -306,7 +320,7 @@ function s-salome-ng-wrapup()
 
             dlog salome-ng setup application environment
 
-            setup-salome-ng-env $PREFIX $TARGET
+            setup-salome-ng-env $PREFIX $TARGET $VARIANT
 
             # is the installer to be created?
 
