@@ -1,0 +1,56 @@
+
+
+function s-gotm-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-gotm-common-build-depends()
+{
+    echo cmake
+}
+
+function s-gotm-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    GOTMDIR         $PREFIX
+    set-var    GOTM_ROOT_DIR   $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PATH            $PREFIX/bin
+}
+
+function s-gotm-config()
+{
+
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DGOTM_USE_NetCDF=off \
+          -DBUILD_SHARED_LIBS=TRUE \
+          ../src
+}
+
+function s-gotm-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-gotm-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-gotm-prefix()
+{
+    echo NONE
+}

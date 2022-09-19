@@ -1,6 +1,10 @@
 
 function s-salome-main-modules()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo s-salome-kernel
     echo s-salome-gui
     echo s-salome-plugins
@@ -27,10 +31,18 @@ function s-salome-main-modules()
     echo s-light
     echo s-pylight
     echo s-salome-openturns
+
+    if has-variant "$VARIANT" "hydro"; then
+       echo s-hydrogeo
+    fi
 }
 
 function s-salome-prerequisite-modules()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo s-adao
     echo s-adao-interface
     echo s-samples
@@ -76,12 +88,24 @@ function s-salome-prerequisite-modules()
     echo s-openvkl
     echo s-cgns
     echo s-qt
+
+    if has-variant "$VARIANT" "hydro"; then
+       echo s-libecw2
+       echo s-mumps
+       echo s-scalapack
+       echo s-gotm
+       echo s-aed2
+    fi
 }
 
 function s-salome-modules()
 {
-    s-salome-prerequisite-modules
-    s-salome-main-modules
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    s-salome-prerequisite-modules $PREFIX $TARGET $VARIANT
+    s-salome-main-modules $PREFIX $TARGET $VARIANT
     echo s-salome-configuration
 }
 

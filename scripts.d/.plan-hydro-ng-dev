@@ -1,0 +1,21 @@
+# This plan is to build some modules on top of a SALOME binary distribution
+
+@load ng-dev
+
+s-salome-ng/hydro
+
+s-cmake:#3.14.4
+s-libecw2:#
+s-hydrogeo/ng:yan/scbi
+s-mumps:#4-10.0
+s-scalapack:#2.0.2
+s-gotm/ng:#2019-06-14-edf
+s-aed2/ng:#1.2
+s-python-modules/ng.wand.pyaml.telemac:master
+
+#s-cloudcompare:#2.10.3edf
+
+[ = deb,10
+	s-cmake:skip
+        s-hydrogeo/ng:master
+]
