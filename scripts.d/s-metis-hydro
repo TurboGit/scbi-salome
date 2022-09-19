@@ -1,0 +1,62 @@
+
+function s-metis-hydro-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo metis-$VERSION-src.tar.gz
+}
+
+function s-metis-hydro-out-of-tree()
+{
+    echo false
+}
+
+function s-metis-hydro-build-depends()
+{
+    echo s-cmake
+}
+
+function s-metis-hydro-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    METIS_ROOT_DIR  $PREFIX
+    set-var    METIS_HYDRODIR  $PREFIX
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+}
+
+function s-metis-hydro-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make config shared=true prefix=$PREFIX
+}
+
+function s-metis-hydro-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-metis-hydro-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-metis-hydro-prefix()
+{
+    echo NONE
+}
