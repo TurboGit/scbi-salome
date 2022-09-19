@@ -1,0 +1,113 @@
+
+function s-telemac-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pam-retd.fr/otm/telemac-mascaret.git
+}
+
+function s-telemac-out-of-tree()
+{
+    echo false
+}
+
+function s-telemac-ng-depends()
+{
+    echo s-salome-bin
+}
+
+function s-telemac-common-depends()
+{
+    echo s-libecw2
+    echo s-metis-hydro
+    echo s-aed2
+    echo s-mumps
+    echo s-gotm
+    echo s-scalapack
+}
+
+function s-telemac-default-depends()
+{
+    echo os@-hdf5-dev
+    echo s-medfichier
+    echo s-eficas-tools
+}
+
+function s-telemac-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var        TELEMAC_ROOT_DIR $PREFIX
+    set-var        TELEMAC_DIR      $PREFIX
+    set-var        HOMETEL          $PREFIX
+    set-var        systelcfg        "systel.salome.cfg"
+    set-var        usetelcfg        salomeHPC
+    set-var        SYSTELCFG        $PREFIX/configs/$systelcfg
+    set-var        USETELCFG        $usetelcfg
+
+    add-to-var LD_LIBRARY_PATH   $PREFIX/builds/$usetelcfg/wrap_api/lib
+    add-to-var LD_LIBRARY_PATH   $PREFIX/builds/$usetelcfg/lib
+
+    add-to-var PYTHONPATH        $PREFIX/builds/$usetelcfg/wrap_api/lib
+    add-to-var PYTHONPATH        $PREFIX/scripts/python3
+
+    add-to-var PATH              $PREFIX/scripts/python3
+}
+
+
+function s-telemac-build-env()
+{
+    set-var systelcfg "systel.salome.cfg"
+    set-var usetelcfg salomeHPC
+
+    add-to-var LD_LIBRARY_PATH ../src/builds/$usetelcfg/lib
+}
+
+function s-telemac-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cp -rp $SCBI_PLUGINS/support/telemac-systel.salome.cfg \
+       ../src/configs/systel.salome.cfg
+}
+
+function s-telemac-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ../src/scripts/python3/compile_telemac.py \
+        --clean -c $usetelcfg -f ../src/configs/$systelcfg &&
+    ../src/scripts/python3/damocles.py \
+        --eficas -c $usetelcfg -f ../src/configs/$systelcfg
+}
+
+function s-telemac-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir $PREFIX
+    mkdir -p $EFICAS_TOOLS_ROOT_DIR/Telemac &&
+        cp -pr ../src/scripts/python3/eficas/* $EFICAS_TOOLS_ROOT_DIR/Telemac/
+    cp -r * ../src/* $PREFIX/
+}
+
+function s-telemac-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd ../../vcs &&
+        git lfs install &&
+        git lfs fetch &&
+        cp -pr * $PREFIX/
+}
+
+function s-telemac-prefix()
+{
+    echo NONE
+}
