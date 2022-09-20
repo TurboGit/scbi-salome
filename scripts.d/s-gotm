@@ -7,7 +7,7 @@ function s-gotm-ng-build-depends()
 
 function s-gotm-common-build-depends()
 {
-    echo cmake
+    echo s-cmake
 }
 
 function s-gotm-env()
