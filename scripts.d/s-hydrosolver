@@ -27,7 +27,7 @@ function s-hydrosolver-common-depends()
     echo os@-proj-dev
     echo s-salome-configuration
     echo s-telemac
-    echo s-hydrogeo
+    echo s-hydro
     echo s-libecw2
 }
 
