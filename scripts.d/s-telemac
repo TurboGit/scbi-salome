@@ -2,7 +2,7 @@
 function s-telemac-vcs()
 {
     echo edf
-    echo none
+    echo lfs
     echo git
     echo https://gitlab.pam-retd.fr/otm/telemac-mascaret.git
 }
@@ -101,10 +101,7 @@ function s-telemac-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cd ../../vcs &&
-        git lfs install &&
-        git lfs fetch &&
-        cp -pr * $PREFIX/
+    cd ../../vcs && cp -pr * $PREFIX/
 }
 
 function s-telemac-prefix()
