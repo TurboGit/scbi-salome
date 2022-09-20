@@ -39,28 +39,31 @@ function s-telemac-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var        TELEMAC_ROOT_DIR $PREFIX
-    set-var        TELEMAC_DIR      $PREFIX
-    set-var        HOMETEL          $PREFIX
-    set-var        systelcfg        "systel.salome.cfg"
-    set-var        usetelcfg        salomeHPC
-    set-var        SYSTELCFG        $PREFIX/configs/$systelcfg
-    set-var        USETELCFG        $usetelcfg
+    set-var    TELEMAC_ROOT_DIR $PREFIX
+    set-var    TELEMAC_DIR      $PREFIX
+    set-var    HOMETEL          $PREFIX
+    set-var    systelcfg        "systel.salome.cfg"
+    set-var    usetelcfg        salomeHPC
+    set-var    SYSTELCFG        $PREFIX/configs/$systelcfg
+    set-var    USETELCFG        $usetelcfg
 
-    add-to-var LD_LIBRARY_PATH   $PREFIX/builds/$usetelcfg/wrap_api/lib
-    add-to-var LD_LIBRARY_PATH   $PREFIX/builds/$usetelcfg/lib
+    add-to-var LD_LIBRARY_PATH  $PREFIX/builds/$usetelcfg/wrap_api/lib
+    add-to-var LD_LIBRARY_PATH  $PREFIX/builds/$usetelcfg/lib
 
-    add-to-var PYTHONPATH        $PREFIX/builds/$usetelcfg/wrap_api/lib
-    add-to-var PYTHONPATH        $PREFIX/scripts/python3
+    add-to-var PYTHONPATH       $PREFIX/builds/$usetelcfg/wrap_api/lib
+    add-to-var PYTHONPATH       $PREFIX/scripts/python3
 
-    add-to-var PATH              $PREFIX/scripts/python3
+    add-to-var PATH             $PREFIX/scripts/python3
 }
 
 
 function s-telemac-build-env()
 {
-    set-var systelcfg "systel.salome.cfg"
-    set-var usetelcfg salomeHPC
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    systelcfg       "systel.salome.cfg"
+    set-var    usetelcfg       salomeHPC
 
     add-to-var LD_LIBRARY_PATH ../src/builds/$usetelcfg/lib
 }
