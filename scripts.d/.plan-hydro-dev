@@ -1,0 +1,21 @@
+
+@load dev/mpi
+
+s-salome/hydro
+
+# hydrogeo needs geom with opencv, ensure it is set here
+s-geom/default.opencv
+
+s-libecw2:#
+s-mumps:#4-10.0
+s-scalapack:#2.0.2
+s-metis-hydro:#5.1.0
+s-aed2:#1.2
+s-gotm:#2019-06-14-edf
+
+s-hydrogeo:yan/scbi
+s-hydrosolver:master
+s-telemac:main
+
+# s-python-modules/ng.wand.pyaml.telemac:master
+# s-cloudcompare:#2.10.3edf
