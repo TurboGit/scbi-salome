@@ -19,10 +19,15 @@ function s-hydrogeo-common-depends()
 {
     echo s-salome-configuration
     echo s-proj
+    echo s-libecw2
 }
 
 function s-hydrogeo-default-depends()
 {
+    echo os@-proj-dev
+    echo os@-python3
+    echo latexmk
+
     echo s-qt
     echo s-cgns
     echo s-gdal
@@ -31,11 +36,6 @@ function s-hydrogeo-default-depends()
     echo s-tbb
     echo s-occt
     echo s-python
-}
-
-function s-hydrogeo-ng-depends()
-{
-    echo s-libecw2
 }
 
 function s-hydrogeo-env()
