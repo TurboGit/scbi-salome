@@ -1,7 +1,7 @@
 
 function s-telemac-vcs()
 {
-    echo default
+    echo edf
     echo none
     echo git
     echo https://gitlab.pam-retd.fr/otm/telemac-mascaret.git
