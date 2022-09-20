@@ -12,7 +12,6 @@ s-python-modules/ng.wand.pyaml.pyproj.telemac:master
 s-proj:#6.3.2
 
 [
-    s-hydrogeo:yan/scbi
     s-gotm:#2019-06-14-edf
     s-aed2:#1.2
 ] /ng
@@ -21,5 +20,4 @@ s-proj:#6.3.2
 
 [ = deb,10
 	s-cmake:skip
-        s-hydrogeo/ng:master
 ]

@@ -32,7 +32,6 @@ function s-salome-ng-common-modules()
 
 function s-salome-ng-hydro-modules()
 {
-    echo s-hydrogeo
     echo s-libecw2
     echo s-mumps
     echo s-scalapack
