@@ -207,17 +207,24 @@ fi
 SUDO=""
 
 echo Installing SALOME
-echo
-read -e -p "Install into (/opt/salome) : " prefix
 
-[ -z $prefix ] && prefix=/opt/salome
+while true; do
+    echo
+    read -e -p "Install into (/opt/salome) : " prefix
 
-# eval $prefix to expand environment variables if any
-prefix=$(eval echo $prefix)
+    [ -z $prefix ] && prefix=/opt/salome
 
-read -p "Ready to install SALOME in $prefix? (y/n) "
+    # eval $prefix to expand environment variables if any
+    prefix=$(eval echo $prefix)
 
-[ "$REPLY" != "y" -a "$REPLY" != "yes" ] && exit 1
+    read -p "Ready to install SALOME in $prefix? (Yes/No/Quit) "
+
+    REPLY=${REPLY^^}
+
+    [ "$REPLY" == "Q" -o "$REPLY" == "QUIT" ] && exit 1
+
+    [ "$REPLY" == "Y" -o "$REPLY" == "YES" ] && break
+done
 
 check-writable $prefix || SUDO=sudo
 
