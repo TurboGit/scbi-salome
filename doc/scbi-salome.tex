@@ -304,8 +304,8 @@ And a new environment (\code{ng-dev}) and meta-module (\code{s-salome-ng}) are a
 
 To build SALOME on top of a binary archive with the EDF specific modules added:
 
-\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update}
-\cmdc{\ddash{}enable-application \ddash{}plan=ng-dev s-salome-ng}
+\cmd{scbi \ddash{}env=ng-dev \ddash{}deps \ddash{}safe \ddash{}update}
+\cmdc{\ddash{}enable-application s-salome-ng}
 
 \subsection{Building modules already in binary distribution}
 
@@ -332,18 +332,18 @@ For this to be possible, the module must be providing an \code{ng} variant. If i
 	\item s-yacs
 	\item s-ydefx
 	\item s-zeromq
-        \item s-gmsh-plugin
-        \item s-netgen-plugin
-        \item s-shaper
+    \item s-gmsh-plugin
+    \item s-netgen-plugin
+    \item s-shaper
 \end{itemize}
 
 When a module has an \code{ng} variant, building it on top of the binary archive can be achieved by calling:
 
-\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update \ddash{}plan=ng-dev s-smesh}
+\cmd{scbi \ddash{}env=ng-dev \ddash{}deps \ddash{}safe\ddash{}update s-smesh}
 
 For debugging the module it is recommended to use a User's Checkout (see \ref{user:checkout}) and so building using sources in this specific location:
 
-\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update \ddash{}plan=ng-dev s-smesh/ng:dev}
+\cmd{scbi \ddash{}env=ng-dev \ddash{}deps \ddash{}safe \ddash{}update s-smesh/ng:dev}
 
 The setup is then simple, the sources can be edited in the checkout tree, the above command issued each time we want to compile. At the end, the developer can just commit the changes directly in the checkout. This makes the procedure safe and do not require copying the sources manually and yet keeping a controlled environment when the configure, build and install step are provided by the plug-in.
 
@@ -368,7 +368,7 @@ For example, to build SMESH and PERSALYS on top of binary archive and integrate 
 
 And then using the standard command to build SALOME NG:
 
-\cmd{scbi \ddash{}deps \ddash{}safe \ddash{}update \ddash{}plan=ng-dev s-salome-ng}
+\cmd{scbi \ddash{}env=ng-dev \ddash{}deps \ddash{}safe \ddash{}update s-salome-ng}
 
 \subsection{Migrating modules in NG mode}
 \label{migrateng}
