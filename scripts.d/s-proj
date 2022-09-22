@@ -38,7 +38,7 @@ function s-proj-env()
     add-to-var PATH               $PREFIX/bin
 }
 
-function s-root-build-env()
+function s-proj-build-env()
 {
     local PREFIX=$1
     local TARGET=$2
