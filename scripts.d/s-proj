@@ -1,0 +1,68 @@
+
+with-variant native os@-proj-dev:[v]
+
+function s-proj-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/OSGeo/PROJ.git 
+} 
+
+
+function s-proj-build-depends()
+{
+    echo s-cmake
+    echo sqlite3
+}
+
+function s-proj-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PROJ_ROOT_DIR      $PREFIX
+    add-to-var CMAKE_PREFIX_PATH  $PREFIX/lib/cmake
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PYTHONPATH         $PREFIX/lib
+    add-to-var PATH               $PREFIX/bin
+}
+
+function s-root-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # proxy needed as some git clone are done during build
+    proxy-edf
+}
+
+function s-proj-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          ../src
+}
+
+function s-proj-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-proj-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-proj-prefix()
+{
+    echo NONE
+}
