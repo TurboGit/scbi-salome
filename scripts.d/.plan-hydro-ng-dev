@@ -8,7 +8,8 @@ s-cmake:#3.14.4
 s-libecw2:#
 s-mumps:#4-10.0
 s-scalapack:#2.0.2
-s-python-modules/ng.wand.pyaml.telemac:master
+s-python-modules/ng.wand.pyaml.pyproj.telemac:master
+s-proj:#6.3.2
 
 [
     s-hydrogeo:yan/scbi
