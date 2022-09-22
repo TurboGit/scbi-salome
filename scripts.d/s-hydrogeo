@@ -25,6 +25,7 @@ function s-hydrogeo-ng-build-depends()
 function s-hydrogeo-common-depends()
 {
     echo s-salome-configuration
+    echo s-proj
 }
 
 function s-hydrogeo-default-depends()
@@ -36,13 +37,11 @@ function s-hydrogeo-default-depends()
     echo s-geom
     echo s-tbb
     echo s-occt
-    echo s-proj
     echo s-python
 }
 
 function s-hydrogeo-ng-depends()
 {
-    echo os@-proj-dev
     echo s-libecw2
 }
 
