@@ -28,15 +28,6 @@ function s-proj-env()
     add-to-var PATH               $PREFIX/bin
 }
 
-function s-root-build-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    # proxy needed as some git clone are done during build
-    proxy-edf
-}
-
 function s-proj-config()
 {
     local PREFIX=$1
