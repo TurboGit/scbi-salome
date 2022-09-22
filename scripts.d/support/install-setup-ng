@@ -33,8 +33,8 @@ function template-conversion()
     else
         FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc hdf5/bin/h5cc)
     fi
-    for SCRIPTS in ${FILES_LIST[*]} ;
-    do
+
+    for SCRIPTS in ${FILES_LIST[*]}; do
         sed -i "s,${ORIG_BINDIR},$PREFIX/${BINDIR},g" $PREFIX/$BINDIR/$SCRIPTS
     done
 
