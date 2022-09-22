@@ -41,6 +41,11 @@ function s-python-modules-pyaml-build-depends()
     echo libyaml-dev
 }
 
+function s-python-modules-pyproj-build-depends()
+{
+    echo s-proj
+}
+
 function s-python-modules-build-depends()
 {
     echo os@-python3-setuptools
@@ -79,6 +84,11 @@ function s-python-modules-pyaml-config-options()
     echo pyaml
 }
 
+function s-python-modules-pyproj-config-options()
+{
+    echo pyproj==2.2.0
+}
+
 function s-python-modules-telemac-config-options()
 {
     echo cppy
@@ -92,7 +102,6 @@ function s-python-modules-telemac-config-options()
     echo openpyxl
     echo rasterio==1.1.0
     echo doxypypy
-    echo pyproj==1.9.6
 
     # echo jupyter-client==7.0.6
     # echo jupyter-console
