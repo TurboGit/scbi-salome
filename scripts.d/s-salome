@@ -41,8 +41,14 @@ function s-salome-main-modules()
     fi
 
     if has-variant "$VARIANT" "hydro"; then
-       echo s-hydrogeo
-       echo s-hydrosolver
+        echo s-hydrogeo
+        echo s-hydrosolver
+    fi
+
+    if has-variant "$VARIANT" "cfd"; then
+        echo s-syrthes
+        echo s-cfdstudy
+        echo s-presaturne
     fi
 }
 
@@ -110,6 +116,20 @@ function s-salome-prerequisite-modules()
        echo s-aed2
        echo s-metis-hydro
        echo s-telemac
+    fi
+
+    if has-variant "$VARIANT" "cfd"; then
+        #echo s-metis:#5.0.2 # metis du CEA est à 5.1.0
+        echo s-libccmio
+        echo s-coolprop
+        echo s-code-syrthes
+        echo s-saturne
+        echo s-saturne-dbg
+    fi
+
+    if has-variant "$VARIANT" "neptune"; then
+        echo s-neptune
+        echo s-eos
     fi
 }
 

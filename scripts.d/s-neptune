@@ -1,0 +1,8 @@
+
+function s-neptune vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome_cfd/neptune_cfd.git
+}

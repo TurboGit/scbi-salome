@@ -48,6 +48,25 @@ function s-salome-ng-hydro-modules()
     echo s-telemac
 }
 
+function s-salome-ng-cfd-modules()
+{
+    s-syrthes
+    s-cfdstudy
+    s-presaturne
+    #echo s-metis:#5.0.2 # metis du CEA est à 5.1.0
+    echo s-libccmio
+    echo s-coolprop
+    echo s-code-syrthes
+    echo s-saturne
+    echo s-saturne-dbg
+}
+
+function s-salome-ng-neptune-modules()
+{
+    echo s-neptune
+    echo s-eos
+}
+
 function s-salome-ng-carmel-modules()
 {
     echo s-carmel-study

@@ -1,0 +1,67 @@
+
+function s-saturne vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome_cfd/code_saturne.git
+}
+
+
+function s-saturne-autotools-out-of-tree()
+{
+    echo false
+}
+
+function s-saturne-autotools-build-depends()
+{
+    echo os@-autoconf
+    echo os@-automake
+    echo os@-autotools-dev
+    echo os@-libtool
+}
+
+function s-saturne-cmake-build-depends()
+{
+    echo s-cmake
+}
+
+function s-saturne-depends()
+{
+    echo s-libccmio
+    echo s-coolprop
+    echo s-neptune
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-yacs
+    echo s-smesh
+    echo s-paravis
+    echo s-paraview
+    echo s-medcoupling
+
+
+#['build'] += ["DOXYGEN", "SPHINX", "SETUPTOOLS", "CMAKE"]
+#['exec'] += ["METIS", "SCOTCH", "HDF5", "CGNSLIB",
+#                                              "MEDFICHIER", "LIBCCMIO", "KERNEL", "GUI", "YACS",
+#                                              "SMESH", "PARAVIS", "OPENMPI", "GCC", "MEDCOUPLING",
+#                                              "PARAVIEW_OSMESA", "EOS", "COOLPROP", "PRESATURNE", "NEPTUNE"]
+}
+
+function s-saturne-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    SATURNE_ROOT_DIR    $PREFIX
+    set-var    CS_ROOT_DIR         $PREFIX
+    set-var    SATURNE_INSTALL_DIR $PREFIX
+
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+    add-to-var PATH               $PREFIX/bin
+    add-to-var PATH               $PREFIX/libexec/code_saturne
+
+    add-to-var PYTHONPATH         $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
