@@ -12,13 +12,13 @@ s-cmake:#3.14.4
 #s-saturne-dbg:#v7.0
 #s-metis:#5.0.2 # metis du CEA est à 5.1.0
 #s-python-modules/ng.wand:master
-s-neptune
-#s-eos
+s-neptune:v7.0
+s-eos:v1.6.0_salome
 
 [
-#    s-syrthes
-#    s-cfdstudy
-#    s-presaturne
+#    s-syrthes:mpa/salome9
+#    s-cfdstudy:master
+#    s-presaturne:v7.0
 ] /ng
 
 [ = deb,10
