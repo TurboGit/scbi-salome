@@ -75,6 +75,3 @@ function s-eos-install()
     mkdir $PREFIX
     make install
 }
-
-#self.specific_configure_command = "export EOS_SRC_DIR=$CURRENT_SOFTWARE_SRC_DIR; export EOS_INSTALL_DIR=$CURRENT_SOFTWARE_INSTALL_DIR; $EOS_SRC_DIR/configure --prefix=$EOS_INSTALL_DIR --without-python-api #--without-gui --without-doc-doxygen --without-doc-latex --with-python=$PYTHON_INSTALL_DIR ;"
-#        self.specific_install_command = "make -j12 && make install"
