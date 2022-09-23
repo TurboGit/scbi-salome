@@ -11,8 +11,9 @@ s-cmake:#3.14.4
 #s-python-modules/ng.wand:master
 
 [
-    s-eos:v1.6.0_salome
+    s-eos:v1.7.0_salome
 ] /ng
+
 #    s-syrthes:mpa/salome9
 #    s-cfdstudy:master
 #    s-presaturne:v7.0

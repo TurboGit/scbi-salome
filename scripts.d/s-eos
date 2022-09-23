@@ -7,17 +7,9 @@ function s-eos-vcs()
     echo https://gitlab.pleiade.edf.fr/salome_cfd/neptune-eos.git
 }
 
-#function s-eos-autotools-out-of-tree()
-#{
-#    echo false
-#}
-
-function s-eos-autotools-build-depends()
+function s-eos-out-of-tree()
 {
-    echo os@-autoconf
-    echo os@-automake
-    echo os@-autotools-dev
-    echo os@-libtool
+    echo false
 }
 
 function s-eos-ng-build-depends()
@@ -29,6 +21,10 @@ function s-eos-ng-build-depends()
 function s-eos-common-build-depends()
 {
     echo s-cmake
+    echo os@-autoconf
+    echo os@-automake
+    echo os@-autotools-dev
+    echo os@-libtool
 }
 
 function s-eos-env()
@@ -56,7 +52,7 @@ function s-eos-config()
     local PREFIX=$1
     local TARGET=$2
 
-    $EOS_SRC_DIR/configure --prefix=$EOS_INSTALL_DIR --without-python-api --without-gui --without-doc-doxygen --without-doc-latex --with-python=$PYTHON_ROOT_DIR
+    ../src/configure --prefix=$EOS_INSTALL_DIR --without-python-api --without-gui --without-doc-doxygen --without-doc-latex --with-python=$PYTHON_ROOT_DIR
 }
 
 function s-eos-build()
