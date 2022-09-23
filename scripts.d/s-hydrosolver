@@ -24,9 +24,11 @@ function s-hydrosolver-ng-build-depends()
 
 function s-hydrosolver-common-depends()
 {
+    echo os@-proj-dev
     echo s-salome-configuration
     echo s-telemac
-    echo s-hydrogeo
+    echo s-hydro
+    echo s-libecw2
 }
 
 function s-hydrosolver-default-depends()
@@ -38,12 +40,6 @@ function s-hydrosolver-default-depends()
     echo s-tbb
     echo s-medfichier
     echo s-salome-eficas
-}
-
-function s-hydrosolver-ng-depends()
-{
-    echo os@-proj-dev
-    echo s-libecw2
 }
 
 function s-hydrosolver-env()

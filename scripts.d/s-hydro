@@ -1,5 +1,5 @@
 
-function s-hydrogeo-vcs()
+function s-hydro-vcs()
 {
     echo default
     echo none
@@ -7,29 +7,34 @@ function s-hydrogeo-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/hydro.git
 }
 
-function s-hydrogeo-common-build-depends()
+function s-hydro-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-hydrogeo-default-build-depends()
+function s-hydro-default-build-depends()
 {
     echo os@-python3-setuptools
 }
 
-function s-hydrogeo-ng-build-depends()
+function s-hydro-ng-build-depends()
 {
     echo s-salome-bin
 }
 
-function s-hydrogeo-common-depends()
+function s-hydro-common-depends()
 {
     echo s-salome-configuration
     echo s-proj
+    echo s-libecw2
 }
 
-function s-hydrogeo-default-depends()
+function s-hydro-default-depends()
 {
+    echo os@-proj-dev
+    echo os@-python3
+    echo latexmk
+
     echo s-qt
     echo s-cgns
     echo s-gdal
@@ -37,15 +42,9 @@ function s-hydrogeo-default-depends()
     echo s-geom
     echo s-tbb
     echo s-occt
-    echo s-python
 }
 
-function s-hydrogeo-ng-depends()
-{
-    echo s-libecw2
-}
-
-function s-hydrogeo-env()
+function s-hydro-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -65,14 +64,14 @@ function s-hydrogeo-env()
     add-to-var SALOME_MODULES    HYDRO
 }
 
-function s-hydrogeo-ctest-dir()
+function s-hydro-ctest-dir()
 {
     local PREFIX=$1
 
     echo $PREFIX/bin/salome/test
 }
 
-function s-hydrogeo-config()
+function s-hydro-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -80,7 +79,7 @@ function s-hydrogeo-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
 }
 
-function s-hydrogeo-build()
+function s-hydro-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -88,7 +87,7 @@ function s-hydrogeo-build()
     make -j$SCBI_JOBS
 }
 
-function s-hydrogeo-install()
+function s-hydro-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -96,7 +95,7 @@ function s-hydrogeo-install()
     make install
 }
 
-function s-hydrogeo-post-install()
+function s-hydro-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -105,7 +104,7 @@ function s-hydrogeo-post-install()
        $PREFIX/share/salome/resources/hydro/SalomeAppSL.xml
 }
 
-function s-hydrogeo-prefix()
+function s-hydro-prefix()
 {
     echo NONE
 }

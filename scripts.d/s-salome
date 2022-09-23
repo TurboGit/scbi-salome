@@ -41,7 +41,7 @@ function s-salome-main-modules()
     fi
 
     if has-variant "$VARIANT" "hydro"; then
-       echo s-hydrogeo
+       echo s-hydro
        echo s-hydrosolver
     fi
 }

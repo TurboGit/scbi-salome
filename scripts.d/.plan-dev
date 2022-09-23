@@ -62,7 +62,7 @@ s-salome:dev
 # First, for repositories where master is at CEA
 [
         s-fields
-        s-geom
+        s-geom/default.opencv
         s-atomgen
         s-atomic
         s-blsurf-plugin
