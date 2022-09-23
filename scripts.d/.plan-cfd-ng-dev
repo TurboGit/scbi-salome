@@ -2,24 +2,24 @@
 
 @load ng-dev
 
-s-salome-ng/cfd.neptune
+s-salome-ng/neptune
 
 s-cmake:#3.14.4
 #s-libccmio:#2.6.19
 #s-coolprop:#6.1.0
-#s-code-syrthes:yf/master
-#s-saturne:"v7.0
-#s-saturne-dbg:#v7.0
 #s-metis:#5.0.2 # metis du CEA est à 5.1.0
 #s-python-modules/ng.wand:master
-s-neptune:v7.0
-s-eos:v1.6.0_salome
 
 [
+    s-eos:v1.6.0_salome
+] /ng
 #    s-syrthes:mpa/salome9
 #    s-cfdstudy:master
 #    s-presaturne:v7.0
-] /ng
+#s-neptune:v7.0
+#s-code-syrthes:yf/master
+#s-saturne:"v7.0
+#s-saturne-dbg:#v7.0
 
 [ = deb,10
 	s-cmake:skip
