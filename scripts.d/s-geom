@@ -82,6 +82,9 @@ function s-geom-opencv-config-options()
 
 function s-geom-common-config-options()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     local CDEBUG=$(is-enabled cmake-debug)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
