@@ -138,7 +138,7 @@ s-salome:dev
 # s-netgen/cmake:#6.2.2101
 s-netgen/autotools:#5.3.1
 
-s-gmsh:#4.8.4
+s-gmsh:gmsh_4_10_5
 
 s-medfichier:#4.1.1
 s-python3-nlopt:#2.4.2
