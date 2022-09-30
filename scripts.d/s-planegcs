@@ -21,6 +21,18 @@ function s-planegcs-cea-tar()
     echo planegcs-$VERSION.tar.gz
 }
 
+function s-planegcs-patches()
+{
+
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "0.20" ]] && echo planegcs-0.20.patch
+}
+
 function s-planegcs-build-depends()
 {
     echo s-cmake
@@ -39,7 +51,9 @@ function s-planegcs-env()
 
     set-var    PLANEGCS_ROOT_DIR $PREFIX
 
-    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
 }
 
 function s-planegcs-config()
