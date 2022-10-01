@@ -53,7 +53,7 @@ function s-salome-ng-carmel-modules()
     echo s-carmel-study
 }
 
-function setup-salome-ng-env()
+function setup-env-salome-ng()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -333,7 +333,7 @@ function s-salome-ng-wrapup()
 
             dlog salome-ng setup application environment
 
-            setup-salome-ng-env $PREFIX $TARGET $VARIANT
+            setup-env-salome-ng $PREFIX $TARGET $VARIANT
 
             # is the installer to be created?
 

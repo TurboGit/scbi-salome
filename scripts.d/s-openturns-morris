@@ -1,5 +1,5 @@
 
-function s-openturns-moris-vcs()
+function s-openturns-morris-vcs()
 {
     echo edf
     echo none

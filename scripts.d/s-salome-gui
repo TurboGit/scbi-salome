@@ -42,7 +42,7 @@ function s-salome-gui-build-depends()
     [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
 }
 
-function salome-mpi-depends()
+function s-salome-gui-mpi-depends()
 {
     echo s-openmpi
 }

@@ -13,11 +13,6 @@ function s-tbb-tar()
     echo tbb${VERSION}_src.tgz
 }
 
-function s-tbb-vcs()
-{
-    true
-}
-
 function s-tbb-out-of-tree()
 {
     echo false
