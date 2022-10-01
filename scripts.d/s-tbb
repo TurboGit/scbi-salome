@@ -3,11 +3,6 @@ with-variant native os@-tbb-dev:[v] \
              --env 'set-var TBB_ROOT /usr'
 
 
-function s-tbb-vcs() 
-{ 
-    true 
-} 
-
 function s-tbb-out-of-tree()
 {
     echo false

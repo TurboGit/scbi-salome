@@ -1,11 +1,11 @@
 
-function s-openturns-moris-vcs()
-{
+function s-openturns-morris-vcs() 
+{ 
     echo default
-    echo none
-    echo git
-    echo https://github.com/openturns/otmoris.git
-}
+    echo none 
+    echo git 
+    echo https://github.com/openturns/otmoris.git 
+} 
 
 
 function s-openturns-morris-default-build-depends()

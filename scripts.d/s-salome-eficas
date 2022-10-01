@@ -27,6 +27,9 @@ function s-salome-eficas-depends()
 
 function s-salome-eficas-env()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     set-var EFICAS_ROOT_DIR $PREFIX
 }
 
