@@ -22,6 +22,10 @@ clean.install:
 		rm -f $(SCRDIR)/.scbi_salome_version.txt;  \
 	fi
 
+lint:
+	scbi/scbi-lint --error scripts.d/s-*
+	echo No problem detected
+
 doc: force core.doc
 	make -C doc
 
