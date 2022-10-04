@@ -1,0 +1,138 @@
+
+
+function s-saturne-out-of-tree()
+{
+    echo false
+}
+
+function s-saturne-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-saturne-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-saturne-build-depends()
+{
+    echo os@-autoconf
+    echo os@-automake
+    echo os@-autotools-dev
+    echo os@-libtool
+}
+
+function s-saturne-default-build-depends()
+{
+    echo os@-python3-setuptools
+}
+
+function s-saturne-default-depends()
+{
+    echo os@-python3-setuptools
+    echo s-metis
+    echo s-scotch
+    echo s-hfd5
+    echo s-cgns
+    echo s-medfichier
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-yacs
+    echo s-smesh
+    echo s-paravis
+    echo s-paraview
+    echo s-medcoupling
+}
+
+function s-saturne-common-depends()
+{
+    echo s-libccmio
+    echo s-coolprop
+}
+
+function s-saturne-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    SATURNE_ROOT_DIR    $PREFIX
+    set-var    CS_ROOT_DIR         $PREFIX
+    set-var    SATURNE_INSTALL_DIR $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PATH            $PREFIX/bin
+    add-to-var PATH            $PREFIX/libexec/code_saturne
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-saturne-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    rsync -a $(dirname ${SCBI_MODULES_DIR["s-neptune"]})/src/* \
+        neptune_cfd
+
+    ../src/sbin/bootstrap
+}
+
+function s-saturne-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo FC=gfortran
+    echo --prefix=$PREFIX
+    echo --enable-relocatable
+    echo --enable-silent-rules
+    echo --with-salome=$SALOME_ROOT_DIR
+    echo --with-eos=$EOS_ROOT_DIR
+    echo --with-mpi=$OPENMPIDIR
+    echo --with-metis=$METIS_ROOT_DIR
+    echo --with-scotch=$SCOTCH_ROOT_DIR
+    echo --with-hdf5=$HDF5_ROOT_DIR
+    echo --with-cgns=$CGNS_ROOT_DIR
+    echo --with-coolprop=$COOLPROP_ROOT_DIR
+    echo --with-med=$MEDFILE_ROOT_DIR
+    echo --with-medcoupling=$MEDCOUPLING_ROOT_DIR
+    echo --with-ccm-include=$LIBCCMIO_ROOT_DIR/include
+    echo --with-ccm-lib=$LIBCCMIO_LIB_DIR
+}
+
+function s-saturne-mesa-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo --with-catalyst=$PARAVIEW_OSMESA_INSTALL_DIR
+    echo --enable-dlopen-rtld-global
+}
+
+function s-saturne-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    ../src/configure $OPTIONS
+}
+
+function s-saturne-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-saturne-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
