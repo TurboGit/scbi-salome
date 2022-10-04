@@ -1,0 +1,67 @@
+
+function s-coolprop-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo CoolProp-$VERSION.tgz
+}
+
+function s-coolprop-out-of-tree()
+{
+    echo false
+}
+
+function s-coolprop-common-build-depends()
+{
+    echo s-cmake
+    echo s-python-modules
+}
+
+function s-coolprop-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    COOLPROP_ROOT_DIR $PREFIX
+
+    add-to-var LD_LIBRARY_PATH   $PREFIX/shared_library/Linux/64bit
+}
+
+function s-coolprop-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCOOLPROP_INSTALL_PREFIX=$PREFIX \
+          -DCOOLPROP_SHARED_LIBRARY=ON
+}
+
+function s-coolprop-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-coolprop-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-coolprop-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cp include/CoolProp.h              $PREFIX/shared_library/
+    cp include/PlatformDetermination.h $PREFIX/shared_library/
+}
