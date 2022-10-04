@@ -1,0 +1,65 @@
+
+function s-libccmio-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome_cfd/third_party.git
+}
+
+function s-libccmio-out-of-tree()
+{
+    echo false
+}
+
+function s-libccmio-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    LIBCCMIO_ROOT_DIR  $PREFIX
+    set-var    LIBCCMIO_LIB_DIR   $PREFIX/arch/Linux_$(uname -m)/lib
+
+    add-to-var LD_LIBRARY_PATH    $LIBCCMIO_LIB_DIR
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+}
+
+function s-libccmio-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    libccmio_install_dir $PREFIX/arch/Linux_$(uname -m)
+    set-var    inc_dir              $PREFIX/include/libccmio
+    add-to-var LD_LIBRARY_PATH      ../src/builds/$usetelcfg/lib
+}
+
+function s-libccmio-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local SBDIR=$(dirname $PREFIX)
+    local LIBCCMIO_SRC_DIR=$(last-modified-directory "$SBDIR/src/libccmio-*")
+
+    cd $LIBCCMIO_SRC_DIR
+    make -f Makefile.linux adfdebug FC=gfortran FFLAGS="-g -fPIC"
+    make -f Makefile.linux ccmiodebug LDLIBS=-ladf
+}
+
+function s-libccmio-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local SBDIR=$(dirname $PREFIX)
+    local LIBCCMIO_SRC_DIR=$(last-modified-directory "$SBDIR/src/libccmio-*")
+
+    mkdir $PREFIX
+    mkdir -p $libccmio_install_dir
+    cp -r $LIBCCMIO_SRC_DIR/linux/debug/64/lib $libccmio_install_dir
+
+    mkdir -p $inc_dir
+    cp $LIBCCMIO_SRC_DIR/libccmio/*.h $inc_dir
+}
