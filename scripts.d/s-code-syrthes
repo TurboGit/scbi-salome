@@ -30,9 +30,9 @@ function s-code-syrthes-common-depends()
 
 function s-code-syrthes-default-depends()
 {
-    echo s-metis
+    echo os@-metis-dev
     echo s-scotch
-    echo s-hfd5
+    echo s-hdf5
     echo s-medcoupling
 }
 
