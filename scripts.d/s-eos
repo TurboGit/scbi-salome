@@ -1,0 +1,99 @@
+
+function s-eos-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome_cfd/neptune-eos.git
+}
+
+function s-eos-out-of-tree()
+{
+    echo false
+}
+
+function s-eos-ng-build-depends()
+{
+    echo s-salome-bin
+    echo s-python-modules
+}
+
+function s-eos-common-build-depends()
+{
+    echo s-cmake
+    echo os@-autoconf
+    echo os@-automake
+    echo os@-autotools-dev
+    echo os@-libtool
+}
+
+function s-eos-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var     EOS_ROOT_DIR     $PREFIX
+    set-var     EOS_INSTALL_DIR  $PREFIX
+    set-var     NEPTUNE_EOS_DATA $PREFIX/data
+
+    add-to-var  PATH             $PREFIX/bin
+    add-to-var  LD_LIBRARY_PATH  $PREFIX/lib
+    add-to-var  PYTHONPATH       \
+                $PREFIX/lib/python$PYTHON_VERSION/site-packages/eos
+}
+
+
+function s-eos-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var EOS_INSTALL_DIR $PREFIX
+    set-var EOS_SRC_DIR     ../src
+}
+
+function s-eos-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo --prefix=$PREFIX
+    echo --without-python-api
+    echo --without-gui
+    echo --without-doc-doxygen
+}
+
+function s-eos-ng-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo --with-python=$PYTHON_ROOT_DIR
+}
+
+function s-eos-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    ../src/configure $OPTIONS
+}
+
+function s-eos-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-eos-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
