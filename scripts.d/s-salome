@@ -41,8 +41,13 @@ function s-salome-main-modules()
     fi
 
     if has-variant "$VARIANT" "hydro"; then
-       echo s-hydro
-       echo s-hydrosolver
+        echo s-hydro
+        echo s-hydrosolver
+    fi
+
+    if has-variant "$VARIANT" "cfd"; then
+        echo s-syrthes
+        echo s-cfd-study
     fi
 }
 
@@ -110,6 +115,19 @@ function s-salome-prerequisite-modules()
        echo s-aed2
        echo s-metis-hydro
        echo s-telemac
+    fi
+
+    if has-variant "$VARIANT" "cfd"; then
+        echo s-libccmio
+        echo s-coolprop
+        echo s-code-syrthes
+        echo s-saturne
+        echo s-saturne-dbg
+    fi
+
+    if has-variant "$VARIANT" "neptune"; then
+        echo s-neptune
+        echo s-eos
     fi
 }
 

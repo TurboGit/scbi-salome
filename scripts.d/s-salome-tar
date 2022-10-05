@@ -244,6 +244,20 @@ function s-salome-tar-install()
             sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
+    #  Fix path in gcc/lib64/ binaries scripts
+
+    find $PREFIX/$BINDIR/gcc/lib64 -type f -name "*la*" |
+        while read F; do
+            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+        done
+
+    #  Fix path in PyQt/bin/ binaries scripts
+
+    find $PREFIX/$BINDIR/PyQt/bin/ -type f |
+        while read F; do
+            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+        done
+
     #  Make appear Persalys's icon on Salome gui
 
     local ORDIR=$PREFIX/$BINDIR/OPENTURNS/share/salome/resources/openturns
