@@ -1,0 +1,75 @@
+
+
+function s-code-syrthes-out-of-tree()
+{
+    echo false
+}
+
+function s-code-syrthes-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-code-syrthes-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-code-syrthes-common-depends()
+{
+    echo s-cfd-study
+    echo s-saturne
+}
+
+function s-code-syrthes-default-depends()
+{
+    echo os@-metis-dev
+    echo s-scotch
+    echo s-hdf5
+    echo s-medcoupling
+}
+
+function s-code-syrthes-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    CODESYRTHES_ROOT_DIR  $PREFIX
+    set-var    NOM_ARCH              Linux_x86_64
+    set-var    SYRTHES_ROOT          $PREFIX
+    set-var    SYRTHES4_HOME         $PREFIX/arch/Linux_x86_64
+
+    add-to-var LD_LIBRARY_PATH       $PREFIX/lib
+    add-to-var PATH                  $SYRTHES4_HOME/bin
+    add-to-var PATH                  $SYRTHES4_HOME/share/syrthes
+    add-to-var PYTHONPATH            $SYRTHES4_HOME/lib/syrthesGui
+}
+
+function s-code-syrthes-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    rsync -az ../src/* $PREFIX
+}
+
+function s-code-syrthes-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd $PREFIX/src/syrthes-install
+    cp -f setup.ini.salome setup.ini
+    ./syrthes_install.py
+}
+
+function s-code-syrthes-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd $PREFIX/src/syrthes-gui/src
+    sh Install.sh
+    mv $PREFIX/src/syrthes-gui/src/install \
+       $PREFIX/arch/Linux_x86_64/lib/syrthesGui
+}

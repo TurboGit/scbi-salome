@@ -39,6 +39,21 @@ function s-salome-ng-hydro-modules()
     echo s-aed2
 }
 
+function s-salome-ng-cfd-modules()
+{
+    echo s-coolprop
+    echo s-libccmio
+    echo s-saturne
+    echo s-saturne-dbg
+    echo s-cfd-study
+    echo s-code-syrthes
+    echo s-syrthes
+}
+
+function s-salome-ng-neptune-modules()
+{
+}
+
 function s-salome-ng-carmel-modules()
 {
 }
@@ -429,6 +444,13 @@ function s-salome-ng-wrapup()
                 #  Convert these sip scripts to template.
 
                 find application_tmp/$BINDIR/sip/bin -type f -name "*sip*" |
+                    while read F; do
+                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
+                    done
+
+                #  Convert these .la scripts to template.
+
+                find application_tmp/$BINDIR/gcc/bin -type f -name "*.la*" |
                     while read F; do
                         sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
                     done
