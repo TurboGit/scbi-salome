@@ -40,8 +40,8 @@ function addToCatalog()
     } >> $xml
 }
 
-
-XMLFILE=$(cd $(dirname ${BASH_SOURCE[0]});pwd)/CatalogResources.xml
+SALOME_ROOT=$(cd $(dirname ${BASH_SOURCE[0]});pwd)
+XMLFILE=$SALOME_ROOT/CatalogResources.xml
 VERSION="<salome_version>"
 
 declare -A SERVER=(["gaia"]="/projets/salome/logiciels/salome/$VERSION"
@@ -72,3 +72,7 @@ done
 
 addToCatalog $XMLFILE "localhost"
 echo "</resources>" >> $XMLFILE
+
+BINDIR=$(basename $(ls -1d $SALOME_ROOT/BINARIES-*))
+[[ -d $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel/ ]] &&
+    cp $XMLFILE $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel/
