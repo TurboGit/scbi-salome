@@ -18,6 +18,7 @@ function s-atomic-cea-vcs()
 function s-atomic-common-build-depends()
 {
     echo s-cmake
+    echo s-python-modules
 }
 
 function s-atomic-build-depends()
