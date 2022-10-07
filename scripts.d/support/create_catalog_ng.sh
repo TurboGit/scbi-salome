@@ -56,7 +56,7 @@ for name in ${!SERVER[@]}; do
     VIRTUAL_APPLI="${USERHOME[$name]}/$VERSION"
     ORIG_APPLI="${SERVER[$name]}/"
 
-    ssh -o StrictHostKeyChecking=no $name.hpc.edf.fr \
+    ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
         "mkdir -p $VIRTUAL_APPLI && \
          rm -rf $VIRTUAL_APPLI/* && \
          ln -sr $ORIG_APPLI/salome $VIRTUAL_APPLI/salome" >/dev/null 2>&1
