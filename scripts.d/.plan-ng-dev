@@ -16,7 +16,7 @@ s-cmake/auto:#3.14.4
         s-zeromq:#4.3.1
         s-melissa:#0.0.0
         s-meshgems:#V2.13-3_linux_EU
-        s-python-modules/ng.wand:master
+        s-python-modules:master
         s-zcracks:#3.2.6
         s-gnuplot-py:#1.8-3k
         s-padder:20200727
@@ -98,7 +98,7 @@ s-paraview/ng.mpi.ospray.gdal:#v5.9.0
         s-openmpi:skip
         s-ospray:skip
         s-gdal:skip
-        s-python-modules/ng.wand:master
+        s-python-modules/ng.wand.metadata.toml:master
         s-cgal/native
         s-boost/native
 ]
