@@ -161,3 +161,4 @@ s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
 s-hdf5/native-serial
+s-catalyst:master
