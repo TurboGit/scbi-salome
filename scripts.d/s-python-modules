@@ -46,6 +46,16 @@ function s-python-modules-pyproj-build-depends()
     echo s-proj
 }
 
+function s-python-modules-metadata-config-options()
+{
+    echo importlib-metadata
+}
+
+function s-python-modules-toml-config-options()
+{
+    echo toml
+}
+
 function s-python-modules-build-depends()
 {
     echo os@-python3-setuptools
