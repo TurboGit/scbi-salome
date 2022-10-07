@@ -74,5 +74,5 @@ addToCatalog $XMLFILE "localhost"
 echo "</resources>" >> $XMLFILE
 
 BINDIR=$(basename $(ls -1d $SALOME_ROOT/BINARIES-*))
-[[ -d $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel/ ]] &&
-    cp $XMLFILE $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel/
+[[ -d $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel ]] &&
+    cp $XMLFILE $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel
