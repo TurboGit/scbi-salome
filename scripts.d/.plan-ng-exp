@@ -1,0 +1,13 @@
+#  This plan is to build an experimental SALOME NG
+
+#  Default ng-deb plan
+@load ng-dev/mpi
+
+#  The s-salome-ng meta-module version is used to name the .run
+
+@on deb,9  use s-salome-ng:s9-exp
+@on deb,10 use s-salome-ng:s10-exp
+
+#  Below specify the specific branches/versions to use
+s-smesh/ng:yan/parallel_mesh2
+s-netgen-plugin/ng:yan/parallel_mesh2
