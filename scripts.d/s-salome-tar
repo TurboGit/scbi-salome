@@ -191,14 +191,14 @@ function s-salome-tar-install()
         #  easily use it as match terminator in ORIGDIR. And at the end
         #  this patch is rewritten, to \t is finally removed.
         INIT="s,/INSTALL/,/\t/,g"
-        ORIGDIR="/volatile/[^:;\"]*workspace/[^\t]*/\t"
+        ORIGDIR="/volatile/[^:;\"]*(support|workspace)/[^\t]*/\t"
         BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
         TGTDIR=\$ENV{KERNEL_ROOT_DIR}/../../$BINDIR
     fi
 
     find $PREFIX/ -type f -name "*.cmake" |
         while read F; do
-            sed -i "$INIT;s,$ORIGDIR/,$TGTDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR/,$TGTDIR/,g" $F
         done
 
     if [[ $VARIANT != "win" ]]; then
@@ -218,7 +218,7 @@ function s-salome-tar-install()
                        matplotlib/bin/f2py;
     do
         [[ -e $PREFIX/$BINDIR/$SCRIPTS ]] &&
-            sed -i "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" \
+            sed -i -E "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" \
                 $PREFIX/$BINDIR/$SCRIPTS
     done
 
@@ -226,14 +226,14 @@ function s-salome-tar-install()
                        $PREFIX/$BINDIR/Python/bin/f2py* \
                        $PREFIX/$BINDIR/C3PO/bin/f2py*;
     do
-        sed -i "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" $SCRIPTS
+        sed -i -E "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" $SCRIPTS
     done
 
     #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
         while read F; do
-            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Fix path in Makefile and Python system configuration scripts
@@ -241,21 +241,21 @@ function s-salome-tar-install()
     find $PREFIX/$BINDIR/Python -type f \
          \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
         while read F; do
-            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Fix path in gcc/lib64/ binaries scripts
 
     find $PREFIX/$BINDIR/gcc/lib64 -type f -name "*la*" |
         while read F; do
-            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Fix path in PyQt/bin/ binaries scripts
 
     find $PREFIX/$BINDIR/PyQt/bin/ -type f |
         while read F; do
-            sed -i "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Make appear Persalys's icon on Salome gui
