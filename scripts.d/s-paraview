@@ -75,6 +75,11 @@ function s-paraview-mpi-depends
     echo s-openmpi
 }
 
+function s-paraview-catalyst-depends
+{
+    echo s-catalyst
+}
+
 function s-paraview-default-depends()
 {
     local PREFIX=$1
@@ -222,6 +227,11 @@ function s-paraview-mesa-config-options()
     echo -DVTK_OPENGL_HAS_MESA:BOOL=ON
     echo -DOSMESA_INCLUDE_DIR=/usr/include
     echo -DOSMESA_LIBRARY=$(get-os-lib libOSMesa.so)
+}
+
+function s-paraview-catalyst-config-options()
+{
+    echo -DPARAVIEW_ENABLE_CATALYST=ON
 }
 
 function s-paraview-headless-config-options()
