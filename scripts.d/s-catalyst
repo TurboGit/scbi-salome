@@ -1,0 +1,52 @@
+
+function s-catalyst-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://gitlab.kitware.com/paraview/catalyst.git 
+} 
+
+function s-catalyst-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    add-to-var CMAKE_PREFIX_PATH \
+               $(last-modified-directory $PREFIX/lib/cmake/catalyst*)
+}
+
+function s-catalyst-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE Release) \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          ../src
+}
+
+function s-catalyst-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-catalyst-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-catalyst-prefix()
+{
+    echo none
+}
