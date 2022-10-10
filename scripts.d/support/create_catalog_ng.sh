@@ -61,12 +61,23 @@ for name in ${!SERVER[@]}; do
          rm -rf $VIRTUAL_APPLI/* && \
          ln -sr $ORIG_APPLI/salome $VIRTUAL_APPLI/salome" >/dev/null 2>&1
 
+    if [[ $? != 0 ]]; then
+        echo "CREATE_CATALOG - WARNING - $name configuration failed!"
+        echo "Verify your acces rights to $name.hpc.edf.fr and try again."
+        continue
+    fi
+
+    ssh -o StrictHostKeyChecking=no $name.hpc.edf.fr \
+        "[[ -L $VIRTUAL_APPLI/salome && -e $VIRTUAL_APPLI/salome ]]" >/dev/null 2>&1
+
     if [[ $? = 0 ]]; then
         addToCatalog $XMLFILE "$name" "$name.hpc.edf.fr" \
                      "$VIRTUAL_APPLI/salome" "${USERHOME[$name]}/workingdir"
     else
         echo "CREATE_CATALOG - WARNING - $name configuration failed!"
-        echo "Verify your acces rights to $name.hpc.edf.fr and try again."
+        echo "Check the salome installation on $name.hpc.edf.fr"
+        echo "Normally salome should be installed here ${SERVER[$name]}"
+        continue
     fi
 done
 
