@@ -27,7 +27,7 @@ function addToCatalog()
                                 ["canRunContainers"]=\""false"\"
                                 ["batch"]=\""slurm"\"
                                 ["mpi"]=\""no mpi"\"
-                                ["user"]=\""$USER"\")
+                                ["userName"]=\""$USER"\")
             ;;
     esac
 
