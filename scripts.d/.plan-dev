@@ -9,7 +9,7 @@ s-ispc/bin:#v1.16.0
 s-persalys:v12.0
 s-zeromq:#4.3.1
 s-melissa:#0.0.0
-s-planegcs:#0.20
+s-planegcs:#0.18
 
 s-openturns:#1.18
 s-openturns-fftw:#0.11
