@@ -11,3 +11,4 @@
 #  Below specify the specific branches/versions to use
 s-smesh/ng:yan/parallel_mesh2
 s-netgen-plugin/ng:yan/parallel_mesh2
+s-blsurf-plugin/ng
