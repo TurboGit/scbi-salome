@@ -26,20 +26,30 @@ function s-blsurf-plugin-tar()
     echo BLSURFPLUGIN_SRC_$VERSION.tgz
 }
 
-function s-blsurf-plugin-build-depends()
+function s-blsurf-plugin-common-build-depends()
 {
     echo s-cmake
     echo os@-sphinx-common
 }
 
-function s-blsurf-plugin-depends()
+function s-blsurf-plugin-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-blsurf-plugin-common-depends()
 {
     echo s-salome-configuration
+    echo s-meshgems
+    echo s-distene
+}
+
+function s-blsurf-plugin-default-depends()
+{
     echo s-salome-kernel
     echo s-salome-gui
     echo s-geom
     echo s-smesh
-    echo s-distene
     echo s-medcoupling
 }
 
