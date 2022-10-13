@@ -1,15 +1,20 @@
 
 
 
-function s-hybrid-plugin-build-depends()
+function s-hybrid-plugin-common-build-depends()
 {
+    echo s-salome-configuration
     echo s-cmake
     echo os@-sphinx-common
 }
 
-function s-hybrid-plugin-depends()
+function s-hybrid-plugin-ng-build-depends()
 {
-    echo s-salome-configuration
+    echo s-salome-bin
+}
+
+function s-hybrid-plugin-default-depends()
+{
     echo s-salome-kernel
     echo s-salome-gui
     echo s-geom
