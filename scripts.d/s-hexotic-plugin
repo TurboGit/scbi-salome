@@ -1,14 +1,19 @@
 
 
 
-function s-hexotic-plugin-build-depends()
+function s-hexotic-plugin-common-build-depends()
 {
+    echo s-salome-configuration
     echo s-cmake
 }
 
-function s-hexotic-plugin-depends()
+function s-hexotic-plugin-ng-build-depends()
 {
-    echo s-salome-configuration
+    echo s-salome-bin
+}
+
+function s-hexotic-plugin-default-depends()
+{
     echo s-salome-kernel
     echo s-salome-gui
     echo s-geom
