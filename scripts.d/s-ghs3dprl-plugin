@@ -1,7 +1,7 @@
 
 
 
-function s-ghs3dprl-plugin-build-depends()
+function s-ghs3dprl-plugin-common-build-depends()
 {
     echo s-cmake
     echo s-salome-configuration
@@ -9,7 +9,16 @@ function s-ghs3dprl-plugin-build-depends()
     echo os@-doxygen
 }
 
-function s-ghs3dprl-plugin-depends()
+function s-ghs3dprl-plugin-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-ghs3dprl-plugin-common-depends()
+{
+}
+
+function s-ghs3dprl-plugin-default-depends()
 {
     echo s-qt
     echo s-smesh
