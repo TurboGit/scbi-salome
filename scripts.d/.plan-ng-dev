@@ -39,6 +39,7 @@ s-cmake/auto:#3.14.4
         s-gmsh-plugin
         s-blsurf-plugin
         s-ghs3d-plugin
+        s-ghs3dprl-plugin
         s-netgen-plugin
 ] /ng
 
