@@ -37,6 +37,7 @@ s-cmake/auto:#3.14.4
         s-salome-gui
         s-salome-jobmanager
         s-gmsh-plugin
+        s-blsurf-plugin
         s-netgen-plugin
 ] /ng
 
