@@ -20,6 +20,8 @@ function s-paravisaddons-edf-ngwin-build-depends()
 
 function s-paravisaddons-edf-ng-build-depends()
 {
+    # To avoid Paraview configuration issue with cmake < 3.13 to detect cmake native
+    echo s-cmake
     echo s-salome-bin
 }
 

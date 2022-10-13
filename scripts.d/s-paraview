@@ -32,9 +32,9 @@ function s-paraview-patches()
 
 function s-paraview-ng-build-depends()
 {
-    echo s-salome-bin
     # To avoid Paraview configuration issue with cmake < 3.13 to detect cmake native
     echo s-cmake
+    echo s-salome-bin
 }
 
 function s-paraview-default-build-depends()

@@ -119,10 +119,6 @@ function s-salome-bin-ng-env()
         fi
     }
 
-    . ${SALOME_BIN_APPLICATION}/scbi_env.sh
-
-    #  Some missing settings in scbi_env.sh
-
     #  This section is to set in the PATH a proper version of
     #  CMake. It is either the one actually in the PATH or provided in
     #  the binary archive.  Note that we ensure we will never be using
@@ -135,15 +131,16 @@ function s-salome-bin-ng-env()
     #  BIN CMAKE version
     local BINCMAKE=
 
-    CBIN=$(which cmake)
+    local SCBI_CMAKE_PATH=$(which cmake)
 
-    if [[ -z $CBIN ]]; then
+    if [[ -z $SCBI_CMAKE_PATH ]]; then
 	#  No system or user's env CMake found
 	LOCCMAKE=0
     else
 	#  We have a CMake in the PATH, get its version
-	LOCCMAKE=( $($CBIN --version) )
+	LOCCMAKE=( $($SCBI_CMAKE_PATH --version) )
 	LOCCMAKE=${LOCCMAKE[2]}
+        SCBI_CMAKE_PATH=$(dirname $SCBI_CMAKE_PATH)
     fi
 
     if [[ -d $SALOME_BIN_MODULES/cmake/bin ]]; then
@@ -157,8 +154,17 @@ function s-salome-bin-ng-env()
 	check-versions $BINCMAKE ">" $LOCCMAKE
 
 	[[ $? == 0 ]] &&
-            add-to-var PATH $SALOME_BIN_MODULES/cmake/bin
+            SCBI_CMAKE_PATH=$SALOME_BIN_MODULES/cmake/bin
     fi
+
+    . ${SALOME_BIN_APPLICATION}/scbi_env.sh
+
+    #  Set CMake if necessary to possibly overwrite the one from binary archive
+
+    [[ -n $SCBI_CMAKE_PATH ]] &&
+        prepend-to-var PATH $SCBI_CMAKE_PATH
+
+    #  Some missing settings in scbi_env.sh
 
     if [[ -d $SALOME_BIN_MODULES/libxml2/bin ]]; then
         local LXDIR=$SALOME_BIN_MODULES/libxml2
