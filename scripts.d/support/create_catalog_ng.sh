@@ -67,7 +67,7 @@ for name in ${!SERVER[@]}; do
         continue
     fi
 
-    ssh -o StrictHostKeyChecking=no $name.hpc.edf.fr \
+    ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
         "[[ -L $VIRTUAL_APPLI/salome && -e $VIRTUAL_APPLI/salome ]]" >/dev/null 2>&1
 
     if [[ $? = 0 ]]; then
