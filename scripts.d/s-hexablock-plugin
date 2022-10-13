@@ -26,18 +26,27 @@ function s-hexablock-plugin-tar()
     echo HEXABLOCKPLUGIN_SRC_$VERSION.tgz
 }
 
-function s-hexablock-plugin-build-depends()
+function s-hexablock-plugin-common-build-depends()
 {
+    echo s-salome-configuration
     echo s-cmake
+}
+
+function s-hexablock-plugin-default-build-depends()
+{
     echo os@-python3-sphinx
     echo os@-swig
     echo os@-graphviz-dev
     echo os@-doxygen
     echo os@-python3-docutils
-    echo s-salome-configuration
 }
 
-function s-hexablock-plugin-depends()
+function s-hexablock-plugin-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-hexablock-plugin-default-depends()
 {
     echo s-qt
     echo s-salome-gui
