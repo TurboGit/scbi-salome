@@ -37,7 +37,13 @@ s-cmake/auto:#3.14.4
         s-salome-gui
         s-salome-jobmanager
         s-gmsh-plugin
+        s-blsurf-plugin
+        s-ghs3d-plugin
+        s-ghs3dprl-plugin
         s-netgen-plugin
+        s-hybrid-plugin
+        s-hexotic-plugin
+        s-hexablock-plugin
 ] /ng
 
 #  For some modules we may need more than just the ng variant
