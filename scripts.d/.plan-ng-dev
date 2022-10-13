@@ -38,6 +38,7 @@ s-cmake/auto:#3.14.4
         s-salome-jobmanager
         s-gmsh-plugin
         s-blsurf-plugin
+        s-ghs3d-plugin
         s-netgen-plugin
 ] /ng
 
