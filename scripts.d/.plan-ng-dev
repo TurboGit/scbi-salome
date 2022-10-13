@@ -42,6 +42,7 @@ s-cmake/auto:#3.14.4
         s-ghs3dprl-plugin
         s-netgen-plugin
         s-hybrid-plugin
+        s-hexotic-plugin
 ] /ng
 
 #  For some modules we may need more than just the ng variant
