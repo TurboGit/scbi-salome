@@ -9,7 +9,7 @@ s-libecw2:#
 s-mumps:#4-10.0
 s-scalapack:#2.0.2
 s-metis-hydro:#5.1.0
-s-python-modules/ng.wand.pyaml.pyproj.telemac:master
+s-python-modules/ng.wand.pyaml.pyproj.telemac.metadata.toml:master
 s-proj:#6.3.2
 
 [
