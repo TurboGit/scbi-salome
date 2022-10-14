@@ -20,7 +20,7 @@ s-cmake/native
         s-zcracks:#3.2.4
         s-gnuplot-py:#1.8-3k
         s-padder:20200727
-        s-carmel-study
+        s-carmel-study:v3.3
 
         # other modules that can be built in ng mode
         s-smesh
