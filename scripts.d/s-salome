@@ -94,6 +94,7 @@ function s-salome-prerequisite-modules()
     echo s-rkcommon
     echo s-openvkl
     echo s-cgns
+    echo s-ttk
     echo s-qt
 
     if has-variant "$VARIANT" "hydro"; then
