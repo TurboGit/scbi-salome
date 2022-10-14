@@ -4,7 +4,7 @@ function s-openturns-morris-vcs()
     echo edf
     echo none
     echo git
-    echo https://github.com/openturns/otmoris.git
+    echo https://github.com/openturns/otmorris.git
 }
 
 function s-openturns-morris-tar()
