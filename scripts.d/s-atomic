@@ -24,6 +24,8 @@ function s-atomic-common-build-depends()
 function s-atomic-build-depends()
 {
     echo os@-swig
+    echo python3-toml
+    echo python3-lxml
 }
 
 function s-atomic-ng-build-depends()
