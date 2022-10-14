@@ -4,7 +4,7 @@ function s-openturns-robopt-vcs()
     echo edf
     echo none
     echo git
-    echo https://github.com/openturns/otrobot.git
+    echo https://github.com/openturns/otrobopt.git
 }
 
 function s-openturns-robopt-tar()
