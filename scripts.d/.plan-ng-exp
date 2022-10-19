@@ -9,7 +9,7 @@
 @on deb,10 use s-salome-ng:s10-exp
 
 #  Below specify the specific branches/versions to use
-s-smesh/ng:yan/parallel_mesh2
+s-smesh/ng.cea:yan/parallel_mesh2
 s-netgen-plugin/ng:yan/parallel_mesh2
 
 #  Disable this plug-in as non functional
