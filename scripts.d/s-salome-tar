@@ -9,10 +9,10 @@ function s-salome-tar-tar()
     local OS=${VERSION/*:}
 
     echo edf
-    echo --no-check-certificate
-    echo wget
-    echo https://minio.retd.edf.fr/salome/Releases/development/CEA_archive
-    echo SALOME-$VER-$OS-SRC.tar.gz
+    echo NONE
+    echo cp
+    echo /home/es4c769n
+    echo SALOME-$VER-$OS-SRC_avPV511.tar.gz
 }
 
 function s-salome-tar-out-of-tree()

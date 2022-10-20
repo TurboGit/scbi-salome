@@ -36,3 +36,8 @@ s-python3-xlutils:skip
 	s-melissa:skip
 	s-python-modules:skip
 ]
+
+[ = rhl
+        s-paravis/ng.mpi:63728957
+	s-gnuplot-py:skip
+]
