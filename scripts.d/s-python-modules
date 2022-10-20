@@ -53,7 +53,7 @@ function s-python-modules-metadata-config-options()
 
 function s-python-modules-toml-config-options()
 {
-    echo toml
+    echo os@-python3-toml
 }
 
 function s-python-modules-build-depends()
