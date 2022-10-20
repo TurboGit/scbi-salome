@@ -37,6 +37,7 @@ function s-gnuplot-py-build-env()
     local PREFIX=$1
     local TARGET=$2
 
+    unset      PYTHONHOME
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 }
