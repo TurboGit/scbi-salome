@@ -80,6 +80,13 @@ function s-medcoupling-env()
     add-to-var CMAKE_PREFIX_PATH    $MEDCOUPLING_ROOT_DIR/cmake_files
 }
 
+function s-medcoupling-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/tests
+}
+
 function s-medcoupling-mpi-config-options()
 {
     echo -DSALOME_USE_MPI=ON
