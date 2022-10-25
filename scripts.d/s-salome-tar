@@ -130,6 +130,11 @@ function s-salome-tar-install()
                  {print comment $0}' $PREFIX/salome \
                      > $PREFIX/salome.new
             mv $PREFIX/salome.new $PREFIX/salome
+
+	    PAT=$PAT'[^a-zA-Z_]'
+
+            sed -i -E "s,^SUBDIRS.*$PAT,# ,g" \
+                $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
         fi
     done
 
