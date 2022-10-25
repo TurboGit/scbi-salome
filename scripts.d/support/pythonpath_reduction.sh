@@ -54,6 +54,4 @@ cp $SP $PYTHONPATH_COMMON/site.py
 
 cp $APPLI_DIR/salome $APPLI_DIR/salome_init
 
-sed -i '/addToPythonPath/d' $APPLI_DIR/salome
-
 sed -i '/runSalome/i \    context.setVariable(r\"PYTHONPATH\", r\"'$PYTHONPATH_COMMON'\", overwrite=True)' $APPLI_DIR/salome
