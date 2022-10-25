@@ -127,12 +127,24 @@ function s-salome-tar-install()
         #  pointing to the module.
 
         if [[ ! -z $PAT ]]; then
-	    PAT=$PAT'[^a-zA-Z_]'
+            #  Match a block starting with a pattern and ending
+            #  by an empty line.
 
-	    sed -i -E "s,^export .*=.*$PAT,# \0,g" \
-	        $PREFIX/env_launch.sh
-	    sed -i -E "s,^ *(appendPath|context\.).*$PAT,#\0,g" \
-	        $PREFIX/salome
+            awk -v PAT="$PAT" \
+                'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
+                 $0 ~ PMATCH{comment="# "}
+                 /^ *$/{comment=""}
+                 {print comment $0}' $PREFIX/env_launch.sh \
+                     > $PREFIX/env_launch.sh.new
+            mv $PREFIX/env_launch.sh.new $PREFIX/env_launch.sh
+
+            awk -v PAT=$PAT \
+                'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
+                 $0 ~ PMATCH{comment="# "}
+                 /^ *$/{comment=""}
+                 {print comment $0}' $PREFIX/salome \
+                     > $PREFIX/salome.new
+            mv $PREFIX/salome.new $PREFIX/salome
         fi
     done
 
