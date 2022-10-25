@@ -131,7 +131,7 @@ function s-salome-tar-install()
 
 	    sed -i -E "s,^export .*=.*$PAT,# \0,g" \
 	        $PREFIX/env_launch.sh
-	    sed -i -E "s,^ *(appendPath|context\.).*$PAT,#\0,g" \
+	    sed -i -E "s,^ *(appendPath|context\.).*$PAT,None #\0,g" \
 	        $PREFIX/salome
             sed -i -E "s,^SUBDIRS.*$PAT,# \0,g" \
                 $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
