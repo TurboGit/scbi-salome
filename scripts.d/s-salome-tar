@@ -98,7 +98,7 @@ function s-salome-tar-install()
 
         #  We actually do not want to remove the directory because the
         #  installed cmake scripts in KERNEL do referencces those
-        #  module. This makes CMake unhappy as some variables
+        #  modules. This makes CMake unhappy as some variables
         #  VTK_ROOT_DIR_EXP or GUI_ROOT_DIR_EXP are then pointing to
         #  unexisting directories.
 
