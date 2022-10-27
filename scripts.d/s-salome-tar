@@ -92,7 +92,7 @@ function s-salome-tar-install()
     sed -i -E 's/.*(r"SALOME_MODULES"|r"SALOME_MODULES_ORDER")/@@@ /g' \
         $PREFIX/salome
 
-    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
+    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ } s-meshgems; do
         local DEF=( $(get-extra-module-def $MOD) )
         local PAT=${DEF[1]}
 
@@ -275,16 +275,6 @@ function s-salome-tar-install()
     if [[ -e $LIGHTAPPGUI ]]; then
         sed -i "s,https://www.salome-platform.org,https://salome.der.edf.fr,g" $LIGHTAPPGUI
     fi
-
-    # Purge all old meshgems of CEA
-
-    rm -rf $PREFIX/$BINDIR/MeshGems
-
-    FIRSTLINE_NUM=$(grep -n "#\[MeshGems\]" salome | cut -d':' -f1)
-    NB_LINE=$(tail -n+$FIRSTLINE_NUM salome|grep -E --line-number -m1 '^$' |cut -d':' -f1)
-    LASTLINE_NUM=$(( $FIRSTLINE_NUM + $NB_LINE - 1 ))
-
-    sed -i "${FIRSTLINE_NUM},${LASTLINE_NUM}d" salome
 }
 
 function s-salome-tar-prefix()
