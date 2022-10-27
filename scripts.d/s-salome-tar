@@ -122,6 +122,7 @@ function s-salome-tar-install()
                  {print comment $0}' $PREFIX/env_launch.sh \
                      > $PREFIX/env_launch.sh.new
             mv $PREFIX/env_launch.sh.new $PREFIX/env_launch.sh
+            chmod 0755 $PREFIX/env_launch.sh
 
             awk -v PAT=$PAT \
                 'BEGIN{PMATCH="^ *#\["PAT"\]"; comment=""}
@@ -130,6 +131,7 @@ function s-salome-tar-install()
                  {print comment $0}' $PREFIX/salome \
                      > $PREFIX/salome.new
             mv $PREFIX/salome.new $PREFIX/salome
+            chmod 0755 $PREFIX/salome
 
 	    PAT=$PAT'[^a-zA-Z_]'
 
