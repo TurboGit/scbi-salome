@@ -12,7 +12,7 @@ function s-salome-tar-tar()
     echo --no-check-certificate
     echo wget
     echo https://minio.retd.edf.fr/salome/Releases/development/CEA_archive
-    echo SALOME-$VER-$OS-SRC.tar.gz
+    echo SALOME-$VER-$OS.tar.gz
 }
 
 function s-salome-tar-out-of-tree()

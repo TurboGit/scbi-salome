@@ -78,7 +78,7 @@ s-paraview/ng.mpi.ospray.gdal:#v5.9.0
 
 [ = deb,9
         s-salome-ng:s9-dev
-        s-salome-tar:#master:DB09
+        s-salome-tar:#master-ParaView-5.11-RC2:DB09
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
@@ -99,7 +99,7 @@ s-paraview/ng.mpi.ospray.gdal:#v5.9.0
 
 [ = deb,10
         s-salome-ng:s10-dev
-        s-salome-tar:#master-native:DB10
+        s-salome-tar:#master-native-ParaView-5.11-RC2:DB10
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
