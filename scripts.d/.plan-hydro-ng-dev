@@ -24,5 +24,4 @@ s-proj:#6.3.2
 
 [ = deb,10
 	s-cmake:skip
-        s-hydro/ng:master
 ]
