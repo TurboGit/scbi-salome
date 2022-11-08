@@ -172,6 +172,7 @@ fi
 
 CONFIG_PATH="$HOME/.config/ParaView"
 USER_SERVER_PVSC="$CONFIG_PATH/servers.pvsc"
+USER_PVSC_BACKUP=$USER_SERVER_PVSC"_"$(date '+%Y_%m_%d')
 
 if [[ ! -d $CONFIG_PATH ]] ; then
     mkdir -p $CONFIG_PATH
@@ -179,20 +180,26 @@ fi
 
 #  Check if a backup is needed
 
-if [[ -f $USER_SERVER_PVSC ]] ; then
-    diff -q $USER_SERVER_PVSC servers.pvsc
-    if [[ $? -ne 0 ]]; then
-        cp $USER_SERVER_PVSC $USER_SERVER_PVSC"_"$(date '+%Y_%m_%d')
-    fi
-fi
+cp $USER_SERVER_PVSC $USER_PVSC_BACKUP
 
 #  Copy the new servers.pvsc provided by the distrib
 
 cp servers.pvsc $USER_SERVER_PVSC
 
 #  substitute nni in servers.pvsc
+
 sed -i "s/NNI_USER/$USER/g" $USER_SERVER_PVSC
 
+#  check that the new pvsc is different or not
+#  if the same we just delete the backup
+
+diff -q $USER_SERVER_PVSC $USER_PVSC_BACKUP
+if [[ $? -eq 0 ]]; then
+    rm $USER_PVSC_BACKUP
+else
+    echo "Les fichiers $USER_SERVER_PVSC et servers.pvsc sont différents."
+    echo "La sauvegarde $USER_PVSC_BACKUP a été créée."
+fi
 
 # In auto-mode, do nothing more
 if [[ $AUTO -eq 1 ]]; then
