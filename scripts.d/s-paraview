@@ -142,6 +142,7 @@ function s-paraview-common-config-options()
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
     echo -DPARAVIEW_GENERATE_PROXY_DOCUMENTATION=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_GeographicalMap=ON
+    echo -DPARAVIEW_PLUGIN_ENABLE_NodeEditor=OFF
 
     # VTK
 
