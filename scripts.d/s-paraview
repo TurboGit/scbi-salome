@@ -154,6 +154,38 @@ function s-paraview-common-config-options()
     echo -DPARAVIEW_PLUGIN_ENABLE_GeographicalMap=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_NodeEditor=OFF
 
+    # Auto load
+
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_AcceleratedAlgorithms=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_AnalyzeNIfTIReaderWriter=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_ArrowGlyph=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_BagPlotViewsAndFilters=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_Datamine=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_DigitalRockPhysics=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_EmbossingRepresentations=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_ExplicitStructuredGrid=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_FlipBookPlugin=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_GMVReader=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_GenericIOReader=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_GeodesicMeasurement=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_GeographicalMap=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_HyperTreeGridADR=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_LANLX3DReader=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_LagrangianParticleTracker=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_LegacyExodusReader=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_Moments=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_MooseXfemClip=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_NonOrthogonalSource=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_PanoramicProjectionView=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_ParametricSurfaces=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_SLACTools=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_SaveStateAndScreenshot=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_StreamLinesRepresentation=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_StreamingParticles=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_SurfaceLIC=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_ThickenLayeredCells=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_VTKmFilters=ON
+
     # VTK
 
     echo -DVTK_ALL_NEW_OBJECT_FACTORY=ON
