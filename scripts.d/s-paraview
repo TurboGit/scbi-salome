@@ -140,7 +140,6 @@ function s-paraview-common-config-options()
     echo -DPARAVIEW_ENABLE_WEB:BOOL=OFF
 
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
-    echo -DPARAVIEW_GENERATE_PROXY_DOCUMENTATION=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_GeographicalMap=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_NodeEditor=OFF
 
@@ -185,7 +184,6 @@ function s-paraview-common-config-options()
     echo -DVTK_PYTHON_VERSION=3
     echo -DVTK_SMP_IMPLEMENTATION_TYPE=OpenMP
     echo -DVTK_USE_64BIT_IDS:BOOL=ON
-    echo -DVTK_USE_OGGTHEORA_ENCODER:BOOL=ON
     echo -DVTK_MODULE_USE_EXTERNAL_VTK_netcdf=ON
     echo -DVTK_MODULE_ENABLE_VTK_RenderingLOD=YES
     echo -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES
