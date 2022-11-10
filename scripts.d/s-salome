@@ -358,7 +358,7 @@ function build-salome-context()
 
                 echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                is-main-module $module
+                is-main-module $PREFIX $TARGET $VARIANT $module
 
                 if [[ $? = 0 ]]; then
                     echo "%(ROOT_INSTALL)s"                   >> $FILE
