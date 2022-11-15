@@ -1,5 +1,15 @@
 #! /bin/bash
 
+SALOME_ROOT=$(cd $(dirname ${BASH_SOURCE[0]});pwd)
+XMLFILE=$SALOME_ROOT/CatalogResources.xml
+VERSION="<salome_version>"
+
+declare -A SERVER=(["gaia"]="/projets/salome/logiciels/salome/$VERSION"
+                   ["cronos"]="/software/rd/salome/logiciels/salome/$VERSION")
+
+declare -A USERHOME=(["gaia"]="/scratch/$USER"
+                     ["cronos"]="/scratch/users/$USER")
+
 function addToCatalog()
 {
     local xml=$1
@@ -40,15 +50,15 @@ function addToCatalog()
     } >> $xml
 }
 
-SALOME_ROOT=$(cd $(dirname ${BASH_SOURCE[0]});pwd)
-XMLFILE=$SALOME_ROOT/CatalogResources.xml
-VERSION="<salome_version>"
+function _error_msg()
+{
+    local NAME=$1
 
-declare -A SERVER=(["gaia"]="/projets/salome/logiciels/salome/$VERSION"
-                   ["cronos"]="/software/rd/salome/logiciels/salome/$VERSION")
-
-declare -A USERHOME=(["gaia"]="/scratch/$USER"
-                     ["cronos"]="/scratch/users/$USER")
+    echo "CREATE_CATALOG - WARNING - $NAME configuration failed!"
+    echo "Check the salome installation on $NAME.hpc.edf.fr"
+    echo "Verify your acces rights to $name.hpc.edf.fr and try again."
+    echo "SALOME cannot be installed in ${SERVER[$NAME]}"
+}
 
 echo "<resources>" > $XMLFILE
 
@@ -56,27 +66,44 @@ for name in ${!SERVER[@]}; do
     VIRTUAL_APPLI="${USERHOME[$name]}/$VERSION"
     ORIG_APPLI="${SERVER[$name]}/"
 
+    #  On CRONOS we need to check if the user has access to /rd/ or /restricted/
+    #  In this case we set ORIG_APPLI to point to the right location.
+
+    if [[ "$name" == "cronos" ]]; then
+        # Test repository access and update remote appli dir if necessary
+        connect_cronos=$(ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr "bash -c 'ls $ORIG_APPLI && echo OK'")
+
+        if [[ "$connect_cronos" =~ ^ls: ]]; then
+            ORIG_APPLI=/software/restricted/salome/logiciels/salome/
+            connect_cronos=$(ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr "bash -c 'ls $ORIG_APPLI && echo OK'")
+            if [[ "$connect_cronos" =~ ^ls: ]]; then
+                echo "Vous n'avez pas les droits suffisants sur Cronos pour installer salome."
+		_error_msg $name
+		continue
+            else
+                sed -i "s,software/rd,software/restricted,g" servers.pvsc
+            fi
+        fi
+    fi
+
     ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
         "mkdir -p $VIRTUAL_APPLI && \
          rm -rf $VIRTUAL_APPLI/* && \
          ln -sr $ORIG_APPLI/salome $VIRTUAL_APPLI/salome" >/dev/null 2>&1
 
     if [[ $? != 0 ]]; then
-        echo "CREATE_CATALOG - WARNING - $name configuration failed!"
-        echo "Verify your acces rights to $name.hpc.edf.fr and try again."
+	_error_msg $name
         continue
     fi
 
     ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
-        "[[ -L $VIRTUAL_APPLI/salome && -e $VIRTUAL_APPLI/salome ]]" >/dev/null 2>&1
+        "[[ -e $VIRTUAL_APPLI/salome ]]" >/dev/null 2>&1
 
     if [[ $? = 0 ]]; then
         addToCatalog $XMLFILE "$name" "$name.hpc.edf.fr" \
                      "$VIRTUAL_APPLI/salome" "${USERHOME[$name]}/workingdir"
     else
-        echo "CREATE_CATALOG - WARNING - $name configuration failed!"
-        echo "Check the salome installation on $name.hpc.edf.fr"
-        echo "Normally salome should be installed here ${SERVER[$name]}"
+	_error_msg $name
         continue
     fi
 done
