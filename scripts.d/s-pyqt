@@ -4,9 +4,21 @@ with-variant native \
        --env 'set-var PYQT5_ROOT_DIR /usr'
 
 
+function s-pyqt-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "5.15" ]] && echo qpycore_init_pyqtparaview.patch
+}
+
 function s-pyqt-depends()
 {
     echo s-qt
+    echo s-pyqt-sip
     echo s-sip
 }
 
@@ -33,13 +45,13 @@ function s-pyqt-config()
     local PREFIX=$1
     local TARGET=$2
 
-    python3 configure.py --confirm-license -b $PREFIX/bin \
-            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
-            -v $PREFIX/share/sip \
-            --designer-plugindir=$PREFIX/include/python$PYTHON_VERSION \
-            --qml-plugindir=$PREFIX/include/python$PYTHON_VERSION \
-            --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages/PyQt5 \
-            --sip-incdir=$SIP_ROOT_DIR/include/python$PYTHON_VERSION
+    python3 ./configure.py --confirm-license --no-designer-plugin --verbose \
+            --bindir=$PREFIX/bin \
+            --destdir=$PREFIX/lib/python$PYTHON/site-packages \
+            --stubsdir=$PREFIX/lib/python$PYTHON/site-packages \
+            --sipdir=${SIP_ROOT_DIR} \
+            --disable=QtNetwork \
+            --disable=QtWebSockets
 }
 
 function s-pyqt-build()
