@@ -20,19 +20,6 @@ function s-sip-tar()
     echo sip-$VERSION.tar.gz
 }
 
-function s-sip-build-depends()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    echo s-cmake
-}
-
-function s-sip-depends()
-{
-    echo s-salome-configuration
-}
-
 function s-sip-env()
 {
     local PREFIX=$1
@@ -45,20 +32,17 @@ function s-sip-env()
     add-to-var PYTHONPATH    $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
-function s-sip-out-of-tree()
-{
-    echo false
-}
-
-function s-sip-config()
+function s-sip-build-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    python3 configure.py -b $PREFIX/bin \
-            -d $PREFIX/lib/python$PYTHON_VERSION/site-packages \
-            -e $PREFIX/include/python$PYTHON_VERSION \
-            -v $PREFIX/share/sip
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-sip-out-of-tree()
+{
+    echo false
 }
 
 function s-sip-build()
@@ -66,7 +50,15 @@ function s-sip-build()
     local PREFIX=$1
     local TARGET=$2
 
-    make -j$SCBI_JOBS
+    python3 setup.py build
+}
+
+function s-sip-pre-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-sip-install()
@@ -74,7 +66,7 @@ function s-sip-install()
     local PREFIX=$1
     local TARGET=$2
 
-    make install
+    python3 setup.py install --prefix=$PREFIX
 }
 
 function s-sip-prefix()

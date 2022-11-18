@@ -34,7 +34,8 @@ s-root:v6-22-02
 s-zcracks:#3.2.7
 s-qt:#5.15.2
 s-pyqt/auto:#5.11
-s-sip/auto:#4.19
+s-sip/auto:#5.5.0
+s-pyqt-sip:#12.8.1
 s-cmake/auto:v3.24.1
 s-ttk:1.1.0
 s-carmel-study:master
