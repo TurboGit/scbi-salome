@@ -22,7 +22,7 @@ function s-pyqt-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $REF =~ "5.15" ]] && echo qpycore_init_pyqtparaview.patch
+    [[ $REF =~ "5.15" ]] && echo qpycore-init-pyqtparaview.patch
 }
 
 function s-pyqt-depends()
