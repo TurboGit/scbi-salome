@@ -1,0 +1,38 @@
+# This plan is to build some modules on top of a SALOME binary distribution
+
+@load ng-v910
+
+s-medcoupling/ng.mpi.ptscotch
+s-paraview/ng.mpi.ospray.gdal.catalyst:#v5.11.0
+s-paravis/ng.mpi
+
+s-ptscotch:skip
+s-ispc:skip
+s-clang:skip
+s-embree:skip
+s-ospray:skip
+s-gdal:skip
+s-netcdf:skip
+s-cmake:#3.14.4
+s-python3-xlutils:skip
+
+@on rhl use s-openmpi/cronos
+@on deb use s-openmpi/gaia
+
+[ = deb,9
+        s-qt:#5.12.10
+
+	s-atomic:skip
+	s-cmake:skip
+	s-gnuplot-py:skip
+	s-medcoupling:skip
+	s-openmpi:skip
+	s-paraview:skip
+	s-paravis:skip
+	s-paravisaddons-edf:skip
+	s-salome-configuration:skip
+	s-padder:skip
+	s-cgal:skip
+	s-melissa:skip
+	s-python-modules:skip
+]
