@@ -548,6 +548,12 @@ function s-salome-wrapup()
             sed -i 's,SCRIPTS_DIR "../../../../,SCRIPTS_DIR "$ENV{KERNEL_ROOT_DIR}/,g' \
                 ./bin/salome/test/GEOM/examples/CTestTestfile.cmake
 
+            # patch bin/salome/test/CTestTestfile.cmake
+            # add KERNEL first.
+
+            sed -i 's/SUBDIRS(KERNEL)//;1iSUBDIRS(KERNEL)' \
+                ./bin/salome/test/CTestTestfile.cmake
+
             # copy module dev support
 
             dlog salome "copy the modules' dev support files"
