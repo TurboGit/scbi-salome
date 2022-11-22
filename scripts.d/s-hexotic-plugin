@@ -39,7 +39,6 @@ function s-hexotic-plugin-ng-build-depends()
 
 function s-hexotic-plugin-common-depends()
 {
-    echo s-distene
     echo s-meshgems
 }
 

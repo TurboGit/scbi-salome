@@ -41,13 +41,12 @@ function s-ghs3dprl-plugin-ng-build-depends()
 
 function s-ghs3dprl-plugin-common-depends()
 {
-    echo s-distene
+    echo s-meshgems
 }
 
 function s-ghs3dprl-plugin-default-depends()
 {
     echo s-qt
-    echo s-distene
     echo s-smesh
     echo s-ghs3d-plugin
 }

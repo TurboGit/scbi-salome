@@ -41,7 +41,6 @@ function s-blsurf-plugin-common-depends()
 {
     echo s-salome-configuration
     echo s-meshgems
-    echo s-distene
 }
 
 function s-blsurf-plugin-default-depends()
