@@ -1,0 +1,109 @@
+# This plan is to build some modules on top of a SALOME binary distribution
+
+@load v910
+
+#  the s-salome-ng meta-module version is used to name the .run and as the
+#  version in create_catalog.py
+s-salome-ng:V9_10_0
+
+s-cmake/auto:#3.14.4
+
+[ = linux
+        s-salome-bin
+        s-atomic:V9_10_0b1
+        s-python3-xlutils:#2.0.0
+        s-zeromq:#4.3.1
+        s-python-modules
+        s-gnuplot-py:#1.8-3k
+
+        # other modules that can be built in ng mode
+        s-smesh
+        s-shaper
+        s-salome-kernel
+        s-salome-openturns
+        s-yacs
+        s-paravis/ng.mpi
+        s-paraview/ng.mpi
+        s-adao
+        s-geom
+        s-persalys
+        s-ydefx
+        s-salome-gui
+        s-salome-jobmanager
+        s-gmsh-plugin
+        s-blsurf-plugin
+        s-ghs3d-plugin
+        s-ghs3dprl-plugin
+        s-netgen-plugin
+        s-hybrid-plugin
+        s-hexotic-plugin
+        s-hexablock-plugin
+] /ng
+
+#  For some modules we may need more than just the ng variant
+#  Override the referrence below.
+
+s-paraview/ng.mpi.ospray.gdal.catalyst:v5.11.0
+
+#  The version for s-salome-tar has two parts, the version of the code
+#  and the version of the OS See tar hook in s-salome-tar for the
+#  MinIO download.
+#
+#  Modules are marked skip below as the variant may introduce an
+#  unwanted dependency but yet the configuration need the know about
+#  the variant. This is the case for ParaView, for example the ospray
+#  variant is set as we need to activate ospray during configuration
+#  but the dependency is not needed as provided by the binary archive.
+
+[ = win
+        s-salome-configuration/ngwin
+        s-cmake/ngwin
+        s-visual-c/native
+        s-windows-kit/native
+        s-salome-bin/ngwin
+        s-atomic:skip
+        s-salome-tar/ngwin:#9.7.0-native:WIN
+        s-zeromq:skip
+        s-persalys:skip
+]
+
+[ = deb,9
+        s-salome-ng:s9-V9_10_0
+        s-salome-tar:#9.10.0:DB09
+        s-zeromq:skip
+        s-openmpi:skip
+        s-ospray:skip
+        s-gdal:skip
+        s-cgal/ng:#4.0
+        s-tbb:skip
+        s-python-modules/ng.wand.lxml
+        os@-boost-locale-dev:skip
+        os@-python3:skip
+        os@-python3-numpy:skip
+        os@-python3-xlrd:skip
+        os@-python3-xlwt:skip
+        os@-python3-setuptools:skip
+        os@-boost-dev:skip
+        os@-hdf5-dev:skip
+        s-boost:skip
+]
+
+[ = deb,10
+        s-salome-ng:s10-V9_10_0
+        s-salome-tar:#9.10.0-native:DB10
+        s-zeromq:skip
+        s-openmpi:skip
+        s-ospray:skip
+        s-gdal:skip
+        s-python-modules/ng.wand.metadata.toml
+        s-cgal/native
+        s-boost/native
+]
+
+[ = rhl
+        s-salome-ng:co8-V9_10_0
+        s-salome-tar:#9.10.0:CO8
+        s-zeromq:skip
+        s-python-modules:skip
+        s-cgal:skip
+]
