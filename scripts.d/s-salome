@@ -62,8 +62,6 @@ function s-salome-prerequisite-modules()
     echo s-medcoupling
     echo s-libbatch
     echo s-py2cpp
-    #  We put s-distene only as it is not currently possible to support
-    #  two license systems (so no s-meshgems).
     echo s-planegcs
     echo s-ospray
     echo s-embree
