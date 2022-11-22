@@ -96,6 +96,7 @@ function s-salome-prerequisite-modules()
     echo s-cgns
     echo s-ttk
     echo s-qt
+    echo s-catalyst
 
     if has-variant "$VARIANT" "hydro"; then
        echo s-libecw2
