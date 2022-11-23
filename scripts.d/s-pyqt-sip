@@ -54,6 +54,22 @@ function s-pyqt-sip-install()
     python3 setup.py install --prefix=$PREFIX
 }
 
+function s-pyqt-sip-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  Copy headers
+
+    mkdir -p $PREFIX/include
+    cp *.h $PREFIX/include
+
+    #  Add a link PyQt5
+
+    cd $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    ln -sf PyQt5_sip-*-py*-linux-x86_64.egg/PyQt5
+}
+
 function s-pyqt-sip-prefix()
 {
     echo NONE
