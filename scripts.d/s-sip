@@ -59,6 +59,15 @@ function s-sip-install()
     python3 setup.py install --prefix=$PREFIX
 }
 
+function s-sip-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd $PREFIX/bin
+    ln -sf sip5 sip
+}
+
 function s-sip-prefix()
 {
     echo NONE
