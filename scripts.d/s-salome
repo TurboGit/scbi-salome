@@ -95,6 +95,7 @@ function s-salome-prerequisite-modules()
     echo s-ttk
     echo s-qt
     echo s-catalyst
+    echo s-pyqt
 
     if has-variant "$VARIANT" "hydro"; then
        echo s-libecw2
