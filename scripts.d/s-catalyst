@@ -7,6 +7,17 @@ function s-catalyst-vcs()
     echo https://gitlab.kitware.com/paraview/catalyst.git
 }
 
+function s-catalyst-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo catalyst-$VERSION.tar.gz
+}
+
 function s-catalyst-env()
 {
     local PREFIX=$1
