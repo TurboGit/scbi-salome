@@ -11,6 +11,17 @@ function s-medcoupling-tar()
     echo medcoupling-$VERSION.tar.gz 
 } 
 
+function s-medcoupling-ng-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo cp 
+    echo $SCBI_BDIR/s-salome-tar/tarsrc/ARCHIVES 
+    echo MEDCOUPLING.tgz 
+} 
+
 function s-medcoupling-common-build-depends()
 {
     echo s-cmake
