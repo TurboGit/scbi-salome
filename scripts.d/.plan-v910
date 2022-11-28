@@ -152,5 +152,5 @@ s-omniorb/auto:#4.2.2
 s-occt:71a56532
 s-cgns/auto:#4.2.0
 s-hdf5/native-serial
-s-catalyst:master
+s-catalyst:#2.0-431a8a1
 s-python-modules/default.metadata:master
