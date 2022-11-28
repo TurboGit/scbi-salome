@@ -8,6 +8,17 @@ function s-catalyst-vcs()
 } 
 
 
+function s-catalyst-ng-tar() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo cp 
+    echo $SCBI_BDIR/s-salome-tar/tarsrc/ARCHIVES 
+    echo catalyst-$VERSION.tar.gz 
+} 
+
 function s-catalyst-env()
 {
     local PREFIX=$1
