@@ -33,6 +33,42 @@ function s-salome-tar-ngwin-env()
     set-var SALOME_BIN_MODULES     $PREFIX/W64
 }
 
+function comment-out-sh-block()
+{
+    local FILE=$1
+    local PAT="$2"
+
+    local TFILE=${FILE}.tmp
+
+    cp -p $FILE $TFILE
+
+    awk -v PAT="$PAT" \
+        'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
+         $0 ~ PMATCH{comment="# "}
+         /^ *$/{comment=""}
+         {print comment $0}' $FILE > $TFILE
+
+    mv $TFILE $FILE
+}
+
+function comment-out-python-block()
+{
+    local FILE=$1
+    local PAT="$2"
+
+    local TFILE=${FILE}.tmp
+
+    cp -p $FILE $TFILE
+
+    awk -v PAT="$PAT" \
+        'BEGIN{PMATCH="^ *#\["PAT"\]"; comment=""}
+         $0 ~ PMATCH{comment="# "}
+         /^ *$/{comment=""}
+         {print comment $0}' $FILE > $TFILE
+
+    mv $TFILE $FILE
+}
+
 function s-salome-tar-install()
 {
     local PREFIX=$1
@@ -115,23 +151,9 @@ function s-salome-tar-install()
             #  Match a block starting with a pattern and ending
             #  by an empty line.
 
-            awk -v PAT="$PAT" \
-                'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
-                 $0 ~ PMATCH{comment="# "}
-                 /^ *$/{comment=""}
-                 {print comment $0}' $PREFIX/env_launch.sh \
-                     > $PREFIX/env_launch.sh.new
-            mv $PREFIX/env_launch.sh.new $PREFIX/env_launch.sh
-            chmod 0755 $PREFIX/env_launch.sh
+            comment-out-sh-block $PREFIX/env_launch.sh "$PAT"
 
-            awk -v PAT=$PAT \
-                'BEGIN{PMATCH="^ *#\["PAT"\]"; comment=""}
-                 $0 ~ PMATCH{comment="# "}
-                 /^ *$/{comment=""}
-                 {print comment $0}' $PREFIX/salome \
-                     > $PREFIX/salome.new
-            mv $PREFIX/salome.new $PREFIX/salome
-            chmod 0755 $PREFIX/salome
+            comment-out-python-block $PREFIX/salome "$PAT"
 
 	    PAT=$PAT'[^a-zA-Z_]'
 
@@ -150,14 +172,13 @@ function s-salome-tar-install()
 
     sed -i 's,\(.*BINARI[^/]*/mesa\),# \1,g' $PREFIX/mesa_salome
 
-    #  Remove CONFIGURATION setting from env_launch.sh
+    #  Remove CONFIGURATION setting from env_launch.sh & salome driver
     #  The configuration is not part of the binary archive so
     #  we use our own checkout.
 
-    sed -i 's/^export\(.*CONFIGURATION_ROOT_DIR.*\)/# export \1/g' \
-        $PREFIX/env_launch.sh
-    sed -i 's/    context\.\(.*CONFIGURATION_ROOT_DIR.*\)/#    context.setVariable(r"\1/g' \
-        $PREFIX/salome
+    comment-out-sh-block $PREFIX/env_launch.sh "CONFIGURATION"
+
+    comment-out-python-block $PREFIX/salome "CONFIGURATION"
 
     #  Create the SCBI version of env_launch.sh -> env_scbi.sh
     #  We also patches some syntax error: out_dir_Path -> ${out_dir_Path}

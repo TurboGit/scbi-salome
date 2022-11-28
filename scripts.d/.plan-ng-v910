@@ -22,8 +22,6 @@ s-cmake/auto:#3.14.4
         s-salome-kernel
         s-salome-openturns
         s-yacs
-        s-paravis/ng.mpi
-        s-paraview/ng.mpi
         s-adao
         s-geom
         s-persalys
@@ -44,6 +42,8 @@ s-cmake/auto:#3.14.4
 #  Override the referrence below.
 
 s-paraview/ng.mpi.ospray.gdal.catalyst:v5.11.0
+s-medcoupling/ng.mpi.ptscotch:#
+s-paravis/ng.mpi
 
 #  The version for s-salome-tar has two parts, the version of the code
 #  and the version of the OS See tar hook in s-salome-tar for the
