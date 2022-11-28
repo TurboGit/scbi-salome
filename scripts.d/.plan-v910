@@ -162,5 +162,5 @@ s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
 s-hdf5/native-serial
-s-catalyst:master
+s-catalyst:#2.0-431a8a1
 s-python-modules/default.metadata:master
