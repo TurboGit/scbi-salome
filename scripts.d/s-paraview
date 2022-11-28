@@ -18,6 +18,17 @@ function s-paraview-tar()
     echo ParaView-$VERSION-source.tar.gz
 }
 
+function s-paraview-ng-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo cp
+    echo $SCBI_BDIR/s-salome-tar/tarsrc/ARCHIVES
+    echo ParaView-$VERSION.tar.gz
+}
+
 function s-paraview-patches()
 {
     local PREFIX=$1

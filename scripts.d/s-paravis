@@ -26,6 +26,17 @@ function s-paravis-tar()
     echo paravis-$VERSION.tar.xz
 }
 
+function s-paravis-ng-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo cp
+    echo $SCBI_BDIR/s-salome-tar/tarsrc/ARCHIVES
+    echo PARAVIS.tgz
+}
+
 function s-paravis-common-build-depends()
 {
     echo s-cmake
