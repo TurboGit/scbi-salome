@@ -3,6 +3,12 @@
 function s-scalapack-build-depends()
 {
     echo s-cmake
+    echo os@-gfortran
+}
+
+function s-scalapack-ng-build-depends()
+{
+    echo s-salome-bin
 }
 
 function s-scalapack-env()
