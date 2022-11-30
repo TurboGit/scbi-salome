@@ -7,7 +7,6 @@ s-salome-ng/hydro
 s-cmake:#3.14.4
 s-libecw2:#
 s-mumps:#4-10.0
-s-scalapack:#2.0.2
 s-metis-hydro:#5.1.0
 s-python-modules/ng.wand.pyaml.pyproj.telemac.metadata.toml:master
 s-proj:#6.3.2
@@ -18,6 +17,7 @@ s-proj:#6.3.2
     s-gotm:#2019-06-14-edf
     s-aed2:#1.2
     s-telemac:main
+    s-scalapack:#2.0.2
 ] /ng
 
 #s-cloudcompare:#2.10.3edf
