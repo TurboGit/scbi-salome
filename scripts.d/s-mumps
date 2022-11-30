@@ -8,6 +8,13 @@ function s-mumps-out-of-tree()
 function s-mumps-depends()
 {
     echo s-scalapack
+    echo os@-gfortran
+    echo os@-libblas-dev
+}
+
+function s-mumps-ng-build-depends()
+{
+    echo s-salome-bin
 }
 
 function s-mumps-env()
