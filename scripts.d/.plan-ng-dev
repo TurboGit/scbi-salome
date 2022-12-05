@@ -6,8 +6,6 @@
 #  version in create_catalog.py
 s-salome-ng:dev
 
-s-cmake/auto:#3.14.4
-
 [ = linux
         s-salome-bin
         s-paravisaddons-edf
