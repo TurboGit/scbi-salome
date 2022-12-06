@@ -150,7 +150,7 @@ else
         echo Python2 is default, checking for python3
 
         if [ -f /usr/bin/python3 ]; then
-            echo Found Python3 in /usr/bin/python3, setuup links
+            echo Found Python3 in /usr/bin/python3, setup links
             ln -s /usr/bin/python3 $BINDIR/SALOME/bin/salome/python
         else
             echo Cannot found a Python3 installation.
