@@ -68,7 +68,7 @@ s-paravis/ng.mpi
 
 [ = deb,9
         s-salome-ng:s9-V9_10_0rc1
-        s-salome-tar:#9.10.0:DB09
+        s-salome-tar:#9.10.0rc1:DB09
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
@@ -89,7 +89,7 @@ s-paravis/ng.mpi
 
 [ = deb,10
         s-salome-ng:s10-V9_10_0rc1
-        s-salome-tar:#9.10.0-native:DB10
+        s-salome-tar:#9.10.0rc1-native:DB10
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
