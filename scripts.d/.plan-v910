@@ -56,7 +56,7 @@ s-ttk:1.1.0
 # the s-salome meta-module version is used to name the .run and as the
 # version in create_catalog.py
 
-s-salome:V9_10_0
+s-salome:V9_10_0rc1
 
 # First, for repositories where master is at CEA
 [
@@ -95,7 +95,7 @@ s-salome:V9_10_0
         s-ghs3d-plugin
         s-ghs3dprl-plugin
         s-ydefx
-] :V9_10_0b1
+] :V9_10_0rc1
 
 # Second, for repositories where master is at EDF
 [
@@ -104,7 +104,7 @@ s-salome:V9_10_0
         s-salome-adao
         s-adao
         s-adao-interface
-] :V9_10_0b1
+] :V9_10_0rc1
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -112,7 +112,7 @@ s-salome:V9_10_0
 [ = mpi
         s-medcoupling/default.mpi.ptscotch
         s-paravis/default.mpi
-] :V9_10_0b1
+] :V9_10_0rc1
 
 [ = mpi
         s-paraview/default.mpi.ospray.gdal.catalyst:v5.11.0
@@ -122,7 +122,7 @@ s-salome:V9_10_0
         s-hdf5/native-serial
         s-medcoupling/default.ptscotch
         s-paravis/default
-] :V9_10_0b1
+] :V9_10_0rc1
 
 [ /= mpi
         s-paraview/default.ospray.gdal.catalyst:v5.11.0
