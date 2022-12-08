@@ -23,11 +23,11 @@ s-proj:#6.3.2
 #s-cloudcompare:#2.10.3edf
 
 [ = deb,9
-    s-salome-ng/hydro:s9-dev
+    s-salome-ng/hydro:hydro-s9-dev
 ]
 
 [ = deb,10
 	s-cmake:skip
     s-hydro/ng:master
-    s-salome-ng/hydro:s10-dev
+    s-salome-ng/hydro:hydro-s10-dev
 ]
