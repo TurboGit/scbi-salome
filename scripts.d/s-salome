@@ -109,6 +109,7 @@ function s-salome-prerequisite-modules()
     echo s-pyqt
     echo s-pyqt-sip
     echo s-sip
+    echo s-topiivol
 
     if has-variant "$VARIANT" "hydro"; then
        echo s-libecw2

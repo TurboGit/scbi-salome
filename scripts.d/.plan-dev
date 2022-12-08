@@ -101,6 +101,7 @@ s-salome:dev
         s-ghs3d-plugin
         s-ghs3dprl-plugin
         s-ydefx
+        s-topiivol
 ] :master
 
 # Second, for repositories where master is at EDF
