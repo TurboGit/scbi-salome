@@ -1,0 +1,74 @@
+
+function s-topiivol-vcs() 
+{ 
+    echo default
+    echo no-recursive 
+    echo git 
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/top_ii_vol.git 
+} 
+
+
+function s-topiivol-out-of-tree()
+{
+    echo false
+}
+
+function s-topiivol-build-depends()
+{
+    echo s-cmake
+}
+
+function s-topiivol-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-openmpi
+}
+
+function s-topiivol-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    TOPIIVOLMESH_ROOT_DIR $PREFIX
+    add-to-var PATH                  $PREFIX/bin
+}
+
+function s-topiivol-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    autoreconf -i
+}
+
+function s-topiivol-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ../src/configure --prefix=$PREFIX --with-MPICXX=$(which mpic++)
+}
+
+function s-topiivol-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-topiivol-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-topiivol-prefix()
+{
+    echo NONE
+}
