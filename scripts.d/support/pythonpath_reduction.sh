@@ -29,13 +29,24 @@ while read P; do
 done < <(source $APPLI_DIR/env_launch.sh; echo $PYTHONPATH |tr ':' '\n')
 
 for p in ${PYTHONPATHS_SRC[*]}; do
-    file_list=($p/*)
+    file_list=$(ls $p/ 2>/dev/null)
 
     for f in ${file_list[*]};do
-        if [[ $f == *"easy-install.pth"* ]]; then
+        f_name=$f
+        f=$p/$f
+        if [[ $f_name == "easy-install.pth" ]]; then
             cat $f >>$PYTHONPATH_COMMON/easy-install.pth
+        elif [[ $f_name == "salome" ]] && [[ -d $f ]]; then
+            salome_file_list=$(ls $f/ 2>/dev/null)
+            mkdir -p $PYTHONPATH_COMMON/salome
+
+            for ff in ${salome_file_list[*]}; do
+                ff_name=$ff
+                ff=$f/$ff
+                create_link $ff $PYTHONPATH_COMMON/salome/$ff_name
+            done
         else
-            create_link $f $PYTHONPATH_COMMON/$(echo $f | awk -F "/" '{print $NF}' )
+            create_link $f $PYTHONPATH_COMMON/$f_name
         fi
     done
 done
