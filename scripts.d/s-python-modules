@@ -113,13 +113,20 @@ function s-python-modules-telemac-config-options()
     echo rasterio==1.1.0
     echo doxypypy
 
-    # echo jupyter-client==7.0.6
-    # echo jupyter-console
-    # echo jupyter
-    # echo ipywidgets
+    echo jupyter-client==7.4.4
+    echo jupyter-console
+    echo jupyter
+    echo ipywidgets
     echo geopandas==0.6.3
     echo shapely==1.8.0
-    # echo pylint
+    echo pylint
+    echo pygments==2.4.1
+    echo requests==2.28
+    echo packaging==21.3
+    echo pyzmq==24
+    echo python-dateutil==2.8.2
+    echo ypy-websocket==0.5.0
+    echo idna==2.8
 }
 
 function s-python-modules-pre-config()
