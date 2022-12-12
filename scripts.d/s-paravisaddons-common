@@ -22,6 +22,7 @@ function s-paravisaddons-common-env()
 
     set-var    PARAVISADDONS_COMMON_ROOT_DIR $PREFIX
 
+    add-to-var PATH                          $PREFIX/bin
     add-to-var PV_PLUGIN_PATH                $PREFIX/lib/paraview
     add-to-var LD_LIBRARY_PATH               $PREFIX/lib/paraview
 }
