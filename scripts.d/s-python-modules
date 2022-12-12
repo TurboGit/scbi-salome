@@ -100,8 +100,8 @@ function s-python-modules-telemac-config-options()
     # echo jupyter-console
     # echo jupyter
     # echo ipywidgets
-    # echo geopandas==0.6.3
-    # echo shapely==1.8.0
+    echo geopandas==0.6.3
+    echo shapely==1.8.0
     # echo pylint
 }
 
