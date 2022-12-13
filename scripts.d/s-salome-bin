@@ -267,6 +267,11 @@ function s-salome-bin-ng-env()
             add-to-var LD_LIBRARY_PATH        $NETCDF_ROOT_DIR/lib
         }
 
+    is-root-path $SALOME_BIN_MODULES $EFICAS_TOOLS_ROOT_DIR &&
+        {
+            set-var EFICAS_NOUVEAU_ROOT  $EFICAS_TOOLS_ROOT_DIR
+        }
+
     if [[ -z $PYTHON_VERSION ]]; then
         set-var PYTHON_VERSION $(python3 --version | cut -d' ' -f2 | cut -c1-3)
     fi
