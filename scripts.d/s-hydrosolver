@@ -49,6 +49,7 @@ function s-hydrosolver-env()
 
     set-var    HYDROSOLVER_ROOT_DIR $PREFIX
     set-var    HYDROSOLVER_DIR      $PREFIX
+    set-var    EFICAS_NOUVEAU_ROOT  $EFICAS_TOOLS_ROOT_DIR
 
     add-to-var PATH                 $PREFIX/bin/salome
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib/salome
