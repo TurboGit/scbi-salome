@@ -4,7 +4,7 @@ function s-salome-openturns-vcs()
     echo default
     echo none
     echo git
-    echo https://git.forge.pleiade.edf.fr/git/incertitudes.otsalomemodule.git
+    echo https://gitlab.pleiade.edf.fr/salome/openturns_salome.git
 }
 
 function s-salome-openturns-tar()
