@@ -159,8 +159,9 @@ function setup-env-salome-ng()
             #  For Python
 
             if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]]; then
-                #  Do nothing for s-salome-bin in Python module. The whole environment is
-                #  already part of salome main driver.
+                #  Do nothing for s-salome-bin in Python module. The
+                #  whole environment is already part of salome main
+                #  driver.
                 return
             fi
 
