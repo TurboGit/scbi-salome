@@ -159,6 +159,12 @@ function s-salome-bin-ng-env()
 
     . ${SALOME_BIN_APPLICATION}/scbi_env.sh
 
+    #  Sentinel variable used as separator between the binary env coming
+    #  from scbi_env.sh above and the explicit setting below. This is needed
+    #  by s-salome-ng to generate the final environment for the application.
+
+    set-var SCBI_SALOME_BIN_ENV_SECTION yes
+
     #  Set CMake if necessary to possibly overwrite the one from binary archive
 
     [[ -n $SCBI_CMAKE_PATH ]] &&
