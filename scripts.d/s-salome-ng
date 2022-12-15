@@ -79,6 +79,8 @@ function setup-env-salome-ng()
         CURRENT_MODULE=
         CURRENT_MODULE_INSTALL=
 
+        local KEEP_VAR=no
+
         function define-var()
         {
             local ACTION=$1
@@ -93,27 +95,17 @@ function setup-env-salome-ng()
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
             local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
 
+            [[ $VAR == "SCBI_SALOME_BIN_ENV_SECTION" ]] && KEEP_VAR=yes
+
             #  s-salome-bin needs a specific handling as the variables
             #  points to the binary install directories.
 
-            local KEEP_VAR=yes
-
-            if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]]; then
+            if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]] ||
+                   [[ $CURRENT_MODULE_NAME == "s-salome-tar" ]]
+            then
                 local REL_FROM="$SCBI_BDIR/s-salome-tar/build/install"
                 local REL_DIR="${VALUE/$REL_FROM/\$\{root_dir\}}"
                 local DVAR="r\"$REL_DIR\""
-
-                #  And check if we want to keep the variable. We want
-                #  only those added in s-salome-bin explicitly and not
-                #  coming from env_launch.sh.
-
-                case "$VAR" in
-                    CMAKE_PREFIX_PATH|C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|LIBRARY_PATH|PATH)
-                        ;;
-                    *)
-                        KEEP_VAR=no
-                        ;;
-                esac
             fi
 
             #  We set values as some are used in depends modules like
@@ -146,13 +138,6 @@ function setup-env-salome-ng()
 
             #  For Python
 
-            if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]]; then
-                #  Do nothing for s-salome-bin in Python module. The
-                #  whole environment is already part of salome main
-                #  driver.
-                return
-            fi
-
             #  Remove possible leading directory separator
 
             local DVAR=""
@@ -165,32 +150,33 @@ function setup-env-salome-ng()
                 DVAR="os.path.join($CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
             fi
 
-            case "$VAR" in
-                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                ;;
+            [[ $KEEP_VAR == yes ]] &&
+                case "$VAR" in
+                    C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                        *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                    ;;
 
-                PATH)
-                    echo "   context.addToPath($DVAR)"                >> $PFILE
+                    PATH)
+                        echo "   context.addToPath($DVAR)"             >> $PFILE
+                        ;;
+                    LD_LIBRARY_PATH)
+                        echo "   context.addToLdLibraryPath($DVAR)"    >> $PFILE
+                        ;;
+                    PYTHONPATH)
+                        echo "   context.addToPythonPath($DVAR)"       >> $PFILE
+                        ;;
+                    PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
+                        echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
+                        ;;
+                    SALOME_MODULES)
+                        echo "   os.environ[\"SALOME_MODULES\"] = \
+                             os.getenv(\" SALOME_MODULES\") + \
+                             \",\" + \"$VALUE\""                       >> $PFILE
                     ;;
-                LD_LIBRARY_PATH)
-                    echo "   context.addToLdLibraryPath($DVAR)"       >> $PFILE
-                    ;;
-                PYTHONPATH)
-                    echo "   context.addToPythonPath($DVAR)"          >> $PFILE
-                    ;;
-                PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
-                    echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
-                    ;;
-                SALOME_MODULES)
-                    echo "   os.environ[\"SALOME_MODULES\"] = \
-                    os.getenv(\"SALOME_MODULES\") + \
-                    \",\" + \"$VALUE\""                               >> $PFILE
-                    ;;
-                *)
-                    echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
-                    ;;
-            esac
+                    *)
+                        echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
+                        ;;
+                esac
         }
 
         function mod-callback()
@@ -206,7 +192,13 @@ function setup-env-salome-ng()
             local module=${module_info[0]}
             local variant=${module_info[1]}
 
-            #  Skip some s-salome-tar & s-salome-bin
+            #  Skip s-salome-tar nothing to do for this module
+
+            if [[ $module == "s-salome-bin" ]]; then
+                KEEP_VAR=no
+            else
+                KEEP_VAR=yes
+            fi
 
             FCT=$(get-hook $module $variant env)
 
