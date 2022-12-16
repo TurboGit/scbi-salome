@@ -97,8 +97,8 @@ function setup-env-salome-ng()
 
             [[ $VAR == "SCBI_SALOME_BIN_ENV_SECTION" ]] && KEEP_VAR=yes
 
-            #  s-salome-bin needs a specific handling as the variables
-            #  points to the binary install directories.
+            #  s-salome-bin & s-salome-tar need a specific handling as
+            #  the variables points to the binary install directories.
 
             if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]] ||
                    [[ $CURRENT_MODULE_NAME == "s-salome-tar" ]]
@@ -191,8 +191,6 @@ function setup-env-salome-ng()
             local module_info=( $(get-module-ref $MODREF $FORMODULE) )
             local module=${module_info[0]}
             local variant=${module_info[1]}
-
-            #  Skip s-salome-tar nothing to do for this module
 
             if [[ $module == "s-salome-bin" ]]; then
                 KEEP_VAR=no
