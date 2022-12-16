@@ -218,17 +218,22 @@ function setup-env-salome-ng()
                 PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
                 N=$(( N + 1 ))
 
-                echo "# $module"                                   > $SFILE
-                echo "export ROOT_EDF=\${out_dir_Path}/EDF"       >> $SFILE
-                echo "export root_dir=\${out_dir_Path}"           >> $SFILE
-                echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}" >> $SFILE
+                {
+                    echo "# $module"
+                    echo "export ROOT_EDF=\${out_dir_Path}/EDF"
+                    echo "export root_dir=\${out_dir_Path}"
+                    echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}"
+                } > $SFILE
+
                 chmod a+x $SFILE
 
-                echo "# $module"                                     > $PFILE
-                echo "import os.path"                               >> $PFILE
-                echo "def init(context, root_dir):"                 >> $PFILE
-                echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")" >> $PFILE
-                echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")" >> $PFILE
+                {
+                    echo "# $module"
+                    echo "import os.path"
+                    echo "def init(context, root_dir):"
+                    echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"
+                    echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")"
+                } > $PFILE
 
                 $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
             fi
