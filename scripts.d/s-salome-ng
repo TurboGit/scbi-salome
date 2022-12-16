@@ -169,9 +169,7 @@ function setup-env-salome-ng()
                         echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
                         ;;
                     SALOME_MODULES)
-                        echo "   os.environ[\"SALOME_MODULES\"] = \
-                             os.getenv(\"SALOME_MODULES\") + \
-                             \",\" + \"$VALUE\""                       >> $PFILE
+                        echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\"" >> $PFILE
                     ;;
                     *)
                         echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
