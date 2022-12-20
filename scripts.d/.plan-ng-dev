@@ -39,7 +39,7 @@ s-salome-ng:dev
 #  For some modules we may need more than just the ng variant
 #  Override the referrence below.
 
-s-paraview/ng.mpi.ospray.gdal:#5.11.0-RC2
+s-paraview/ng.mpi.ospray.gdal:#5.11.0
 s-medcoupling/ng.mpi.ptscotch:#
 s-paravis/ng.mpi
 
