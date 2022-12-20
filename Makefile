@@ -27,7 +27,7 @@ lint:
 	echo No problem detected
 
 doc: force core.doc
-	make -C doc
+	make VER=$(VER) -C doc
 
 core:
 	make -C scbi
