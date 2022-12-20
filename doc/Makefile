@@ -7,9 +7,12 @@ all: $(PDF)
 
 force:
 
+version: force
+	echo '\\providecommand{\\version}{'$(VER)'}' > version.tex
+
 # %.pdf: %.tex $(DIF) $(BIB)
 
-$(PDF): $(TEX) $(DIF) $(BIB) force
+$(PDF): $(TEX) $(DIF) $(BIB) version
 	-latex $(TEX)
 	-bibtex $(NAM)
 	-makeindex $(NAM)
