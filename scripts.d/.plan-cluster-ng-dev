@@ -3,7 +3,7 @@
 @load ng-dev
 
 s-medcoupling/ng.mpi.ptscotch
-s-paraview/ng.mpi.ospray.gdal:#5.11.0-RC2
+s-paraview/ng.mpi.ospray.gdal:#5.11.0
 s-paravis/ng.mpi
 s-catalyst/ng:2.0-431a8a1
 
