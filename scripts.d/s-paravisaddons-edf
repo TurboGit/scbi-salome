@@ -39,6 +39,16 @@ function s-paravisaddons-edf-default-depends()
     echo s-paravis
 }
 
+function s-paravisaddons-edf-cronos-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    PARAVISADDONS_ROOT_DIR $PREFIX
+
+    add-to-var PV_PLUGIN_PATH         $PREFIX/lib64
+}
+
 function s-paravisaddons-edf-env()
 {
     local PREFIX=$1
@@ -47,7 +57,6 @@ function s-paravisaddons-edf-env()
     set-var    PARAVISADDONS_ROOT_DIR $PREFIX
 
     add-to-var PV_PLUGIN_PATH         $PREFIX/lib
-    add-to-var LD_LIBRARY_PATH        $PREFIX/lib
 }
 
 function s-paravisaddons-edf-common-config-options()
