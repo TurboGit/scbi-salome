@@ -17,6 +17,7 @@ s-netcdf:skip
 s-python3-xlutils:skip
 
 @on rhl use s-openmpi/cronos
+@on rhl use s-paravisaddons-edf/cronos
 @on deb use s-openmpi/gaia
 
 [ = deb,9
