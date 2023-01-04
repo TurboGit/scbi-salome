@@ -70,6 +70,11 @@ function s-salome-ng-carmel-modules()
     echo s-carmel-study
 }
 
+function s-salome-ng-propagate-version()
+{
+    echo false
+}
+
 function setup-env-salome-ng()
 {
     local PREFIX=$1
