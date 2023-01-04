@@ -26,6 +26,11 @@ function s-fields-tar()
     echo fields-$VERSION.tar.gz
 }
 
+function s-fields-salome-module()
+{
+    echo FIELDS
+}
+
 function s-fields-build-depends()
 {
     echo s-cmake

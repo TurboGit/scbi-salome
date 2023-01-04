@@ -26,6 +26,11 @@ function s-dsccode-tar()
     echo DSCCODE_SRC_$VERSION.tgz
 }
 
+function s-dsccode-salome-module()
+{
+    echo DSCCODE
+}
+
 function s-dsccode-out-of-tree()
 {
     echo false

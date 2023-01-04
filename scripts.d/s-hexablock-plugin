@@ -26,6 +26,11 @@ function s-hexablock-plugin-tar()
     echo HEXABLOCKPLUGIN_SRC_$VERSION.tgz
 }
 
+function s-hexablock-plugin-salome-module()
+{
+    echo HEXABLOCKPLUGIN
+}
+
 function s-hexablock-plugin-common-build-depends()
 {
     echo s-salome-configuration

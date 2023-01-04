@@ -26,6 +26,11 @@ function s-atomsolv-tar()
     echo ATOMSOLV_SRC_$VERSION.tgz
 }
 
+function s-atomsolv-salome-module()
+{
+    echo ATOMSOLV
+}
+
 function s-atomsolv-build-depends()
 {
     echo s-cmake

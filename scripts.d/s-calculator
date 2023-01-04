@@ -26,6 +26,11 @@ function s-calculator-tar()
     echo CALCULATOR_SRC_$VERSION.tgz
 }
 
+function s-calculator-salome-module()
+{
+    echo CALCULATOR
+}
+
 function s-calculator-build-depends()
 {
     echo s-cmake

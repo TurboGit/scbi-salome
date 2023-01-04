@@ -26,6 +26,11 @@ function s-pyhello-tar()
     echo PYHELLO_SRC_$VERSION.tgz
 }
 
+function s-pyhello-salome-module()
+{
+    echo PYHELLO
+}
+
 function s-pyhello-build-depends()
 {
     echo s-cmake

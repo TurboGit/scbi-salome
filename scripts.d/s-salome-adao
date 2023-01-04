@@ -26,6 +26,11 @@ function s-salome-adao-tar()
     echo salome-adao-$VERSION.tar.xz
 }
 
+function s-salome-adao-salome-module()
+{
+    echo ADAO
+}
+
 function s-salome-adao-build-depends()
 {
     echo s-cmake

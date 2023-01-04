@@ -7,6 +7,11 @@ function s-hydro-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/hydro.git
 }
 
+function s-hydro-salome-module()
+{
+    echo HYDRO
+}
+
 function s-hydro-common-build-depends()
 {
     echo s-cmake

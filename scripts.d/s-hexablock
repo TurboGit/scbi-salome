@@ -26,6 +26,11 @@ function s-hexablock-tar()
     echo HEXABLOCK_SRC_$VERSION.tgz
 }
 
+function s-hexablock-salome-module()
+{
+    echo HEXABLOCK
+}
+
 function s-hexablock-patches()
 {
     echo hexablock950_sci10.patch

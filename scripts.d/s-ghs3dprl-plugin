@@ -26,6 +26,11 @@ function s-ghs3dprl-plugin-tar()
     echo GHS3DPRLPLUGIN_SRC_$VERSION.tgz
 }
 
+function s-ghs3dprl-plugin-salome-module()
+{
+    echo GHS3DPRLPLUGIN
+}
+
 function s-ghs3dprl-plugin-common-build-depends()
 {
     echo s-cmake

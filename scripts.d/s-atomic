@@ -15,6 +15,11 @@ function s-atomic-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/atomic
 }
 
+function s-atomic-salome-module()
+{
+    echo ATOMIC
+}
+
 function s-atomic-common-build-depends()
 {
     echo s-cmake

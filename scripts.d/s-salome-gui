@@ -26,6 +26,11 @@ function s-salome-gui-tar()
     echo salome-gui-$VERSION.tar.xz
 }
 
+function s-salome-gui-salome-module()
+{
+    echo GUI
+}
+
 function s-salome-gui-common-build-depends()
 {
     echo s-cmake

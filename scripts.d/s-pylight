@@ -26,6 +26,11 @@ function s-pylight-tar()
     echo PYLIGHT_SRC_$VERSION.tgz
 }
 
+function s-pylight-salome-module()
+{
+    echo PYLIGHT
+}
+
 function s-pylight-build-depends()
 {
     echo s-cmake

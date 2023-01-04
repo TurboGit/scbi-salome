@@ -26,6 +26,11 @@ function s-ghs3d-plugin-tar()
     echo GHS3DPLUGIN_SRC_$VERSION.tgz
 }
 
+function s-ghs3d-plugin-salome-module()
+{
+    echo GHS3DPLUGIN
+}
+
 function s-ghs3d-plugin-common-build-depends()
 {
     echo s-salome-configuration
