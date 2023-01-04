@@ -11,6 +11,11 @@ function s-salome-kernel-tar()
     echo salome-kernel-$VERSION.tar.xz 
 } 
 
+function s-salome-kernel-salome-module()
+{
+    echo KERNEL
+}
+
 function s-salome-kernel-default-build-depends()
 {
     local DISDOC=$(is-enabled no-doc)

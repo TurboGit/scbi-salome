@@ -1,5 +1,10 @@
 
 
+function s-atomic-salome-module()
+{
+    echo ATOMIC
+}
+
 function s-atomic-common-build-depends()
 {
     echo s-cmake

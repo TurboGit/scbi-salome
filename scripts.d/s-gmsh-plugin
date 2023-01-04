@@ -1,6 +1,11 @@
 
 
 
+function s-gmsh-plugin-salome-module()
+{
+    echo GMSHPLUGIN
+}
+
 function s-gmsh-plugin-common-build-depends()
 {
     echo s-cmake

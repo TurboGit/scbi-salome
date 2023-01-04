@@ -1,5 +1,10 @@
 
 
+function s-atomgen-salome-module()
+{
+    echo ATOMGEN
+}
+
 function s-atomgen-build-depends()
 {
     echo s-cmake

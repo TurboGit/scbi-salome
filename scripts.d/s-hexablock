@@ -1,6 +1,11 @@
 
 
 
+function s-hexablock-salome-module()
+{
+    echo HEXABLOCK
+}
+
 function s-hexablock-patches()
 {
     echo hexablock950_sci10.patch

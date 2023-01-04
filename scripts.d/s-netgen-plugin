@@ -1,6 +1,11 @@
 
 
 
+function s-netgen-plugin-salome-module()
+{
+    echo NETGENPLUGIN
+}
+
 function s-netgen-plugin-common-build-depends()
 {
     echo s-cmake
