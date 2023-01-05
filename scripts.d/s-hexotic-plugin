@@ -1,6 +1,11 @@
 
 
 
+function s-hexotic-plugin-salome-module()
+{
+    echo HEXOTICPLUGIN
+}
+
 function s-hexotic-plugin-common-build-depends()
 {
     echo s-salome-configuration

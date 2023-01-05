@@ -1,6 +1,11 @@
 
 
 
+function s-calculator-salome-module()
+{
+    echo CALCULATOR
+}
+
 function s-calculator-build-depends()
 {
     echo s-cmake

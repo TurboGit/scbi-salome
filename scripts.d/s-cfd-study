@@ -5,6 +5,12 @@ function s-cfd-study-out-of-tree()
     echo false
 }
 
+
+function s-cfd-study-salome-module()
+{
+    echo CFDSTUDY
+}
+
 function s-cfd-study-ng-build-depends()
 {
     echo s-salome-bin

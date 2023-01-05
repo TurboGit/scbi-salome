@@ -58,6 +58,11 @@ function s-salome-ng-carmel-modules()
 {
 }
 
+function s-salome-ng-propagate-version()
+{
+    echo false
+}
+
 function setup-env-salome-ng()
 {
     local PREFIX=$1

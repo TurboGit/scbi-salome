@@ -1,6 +1,11 @@
 
 
 
+function s-salome-jobmanager-salome-module()
+{
+    echo JOBMANAGER
+}
+
 function s-salome-jobmanager-common-build-depends()
 {
     echo s-cmake

@@ -1,6 +1,11 @@
 
 
 
+function s-pylight-salome-module()
+{
+    echo PYLIGHT
+}
+
 function s-pylight-build-depends()
 {
     echo s-cmake

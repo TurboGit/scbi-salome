@@ -1,6 +1,11 @@
 
 
 
+function s-blsurf-plugin-salome-module()
+{
+    echo BLSURFPLUGIN
+}
+
 function s-blsurf-plugin-common-build-depends()
 {
     echo s-cmake

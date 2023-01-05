@@ -1,5 +1,10 @@
 
 
+function s-shaperstudy-salome-module()
+{
+    echo SHAPERSTUDY
+}
+
 function s-shaperstudy-build-depends()
 {
     echo s-cmake

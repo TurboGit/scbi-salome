@@ -1,6 +1,11 @@
 
 
 
+function s-pyhello-salome-module()
+{
+    echo PYHELLO
+}
+
 function s-pyhello-build-depends()
 {
     echo s-cmake

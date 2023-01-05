@@ -1,5 +1,10 @@
 
 
+function s-shaper-salome-module()
+{
+    echo SHAPER
+}
+
 function s-shaper-common-build-depends()
 {
     echo s-cmake

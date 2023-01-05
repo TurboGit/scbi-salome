@@ -1,5 +1,10 @@
 
 
+function s-syrthes-salome-module()
+{
+    echo SYRTHES
+}
+
 function s-syrthes-ng-build-depends()
 {
     echo s-salome-bin

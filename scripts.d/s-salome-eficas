@@ -11,6 +11,11 @@ function s-salome-eficas-tar()
     echo salome-eficas-$VERSION.tar.xz 
 } 
 
+function s-salome-eficas-salome-module()
+{
+    echo EFICAS
+}
+
 function s-salome-eficas-build-depends()
 {
     echo s-cmake

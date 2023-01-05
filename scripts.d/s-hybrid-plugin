@@ -1,6 +1,11 @@
 
 
 
+function s-hybrid-plugin-salome-module()
+{
+    echo HYBRIDPLUGIN
+}
+
 function s-hybrid-plugin-common-build-depends()
 {
     echo s-salome-configuration

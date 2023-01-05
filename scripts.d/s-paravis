@@ -22,6 +22,11 @@ function s-paravis-ng-tar()
     echo PARAVIS.tgz 
 } 
 
+function s-paravis-salome-module()
+{
+    echo PARAVIS
+}
+
 function s-paravis-common-build-depends()
 {
     echo s-cmake
