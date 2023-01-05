@@ -4,7 +4,6 @@
 
 s-salome-ng/hydro:-dev
 
-s-cmake:#3.14.4
 s-libecw2:#
 s-metis-hydro:#5.1.0
 s-python-modules/ng.wand.pyaml.pyproj.telemac.metadata.toml:master
