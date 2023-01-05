@@ -7,6 +7,11 @@ function s-clustertests-vcs()
     echo https://git.forge.pleiade.edf.fr/git/clustertests.git
 }
 
+function s-clustertests-salome-module()
+{
+    echo CLUSTERTESTS
+}
+
 function s-clustertests-build-depends()
 {
     echo s-cmake

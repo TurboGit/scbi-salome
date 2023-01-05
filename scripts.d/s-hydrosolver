@@ -7,6 +7,11 @@ function s-hydrosolver-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/hydrosolver.git
 }
 
+function s-hydrosolver-salome-module()
+{
+    echo HYDROSOLVER
+}
+
 function s-hydrosolver-common-build-depends()
 {
     echo s-cmake

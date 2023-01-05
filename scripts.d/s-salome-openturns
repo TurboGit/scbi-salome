@@ -18,6 +18,11 @@ function s-salome-openturns-tar()
     echo OPENTURNS_SRC_$VERSION.tgz
 }
 
+function s-salome-openturns-salome-module()
+{
+    echo OPENTURNS
+}
+
 function s-salome-openturns-common-build-depends()
 {
     echo s-cmake

@@ -26,6 +26,11 @@ function s-hexotic-plugin-tar()
     echo HEXOTICPLUGIN_SRC_$VERSION.tgz
 }
 
+function s-hexotic-plugin-salome-module()
+{
+    echo HEXOTICPLUGIN
+}
+
 function s-hexotic-plugin-common-build-depends()
 {
     echo s-salome-configuration

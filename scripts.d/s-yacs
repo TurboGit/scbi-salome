@@ -26,6 +26,11 @@ function s-yacs-tar()
     echo yacs-$VERSION.tar.xz
 }
 
+function s-yacs-salome-module()
+{
+    echo YACS
+}
+
 function s-yacs-common-build-depends()
 {
     echo s-cmake

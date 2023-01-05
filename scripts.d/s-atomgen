@@ -15,6 +15,11 @@ function s-atomgen-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/atomgen
 }
 
+function s-atomgen-salome-module()
+{
+    echo ATOMGEN
+}
+
 function s-atomgen-build-depends()
 {
     echo s-cmake

@@ -26,6 +26,11 @@ function s-light-tar()
     echo LIGHT_SRC_$VERSION.tgz
 }
 
+function s-light-salome-module()
+{
+    echo LIGHT
+}
+
 function s-light-build-depends()
 {
     echo s-cmake

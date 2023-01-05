@@ -26,6 +26,11 @@ function s-geom-tar()
     echo geom-$VERSION.tar.xz
 }
 
+function s-geom-salome-module()
+{
+    echo GEOM
+}
+
 function s-geom-common-build-depends()
 {
     echo s-cmake

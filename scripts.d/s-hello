@@ -26,6 +26,11 @@ function s-hello-tar()
     echo HELLO_SRC_$VERSION.tgz
 }
 
+function s-hello-salome-module()
+{
+    echo HELLO
+}
+
 function s-hello-build-depends()
 {
     echo s-cmake

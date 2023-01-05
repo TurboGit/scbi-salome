@@ -26,6 +26,11 @@ function s-homard-tar()
     echo HOMARD_SRC_$VERSION.tgz
 }
 
+function s-homard-salome-module()
+{
+    echo HOMARD
+}
+
 function s-homard-patches()
 {
     local PREFIX=$1

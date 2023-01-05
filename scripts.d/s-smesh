@@ -26,6 +26,11 @@ function s-smesh-tar()
     echo smesh-$VERSION.tar.xz
 }
 
+function s-smesh-salome-module()
+{
+    echo SMESH
+}
+
 function s-smesh-common-build-depends()
 {
     echo s-cmake

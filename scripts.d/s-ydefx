@@ -26,6 +26,11 @@ function s-ydefx-tar()
     echo ydefx-$VERSION.tar.xz
 }
 
+function s-ydefx-salome-module()
+{
+    echo YDEFX
+}
+
 function s-ydefx-common-build-depends()
 {
     echo s-cmake

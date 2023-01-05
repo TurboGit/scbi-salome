@@ -15,6 +15,11 @@ function s-shaperstudy-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/shaper_study
 }
 
+function s-shaperstudy-salome-module()
+{
+    echo SHAPERSTUDY
+}
+
 function s-shaperstudy-build-depends()
 {
     echo s-cmake

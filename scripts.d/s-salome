@@ -1,9 +1,48 @@
 
-function s-salome-main-modules()
+function s-salome-hydro-modules()
+{
+    echo s-hydro
+    echo s-hydrosolver
+
+    echo s-libecw2
+    echo s-mumps
+    echo s-scalapack
+    echo s-gotm
+    echo s-aed2
+    echo s-metis-hydro
+    echo s-telemac
+}
+
+function s-salome-cfd-modules()
+{
+    echo s-syrthes
+    echo s-cfd-study
+
+    echo s-libccmio
+    echo s-coolprop
+    echo s-code-syrthes
+    echo s-saturne
+    echo s-saturne-dbg
+}
+
+function s-salome-carmel-modules()
+{
+    echo s-carmel-study
+}
+
+function s-salome-neptune-modules()
+{
+    echo s-neptune
+    echo s-eos
+}
+
+function s-salome-modules()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
+
+    echo s-salome-configuration
 
     echo s-salome-kernel
     echo s-salome-gui
@@ -35,27 +74,6 @@ function s-salome-main-modules()
     echo s-salome-openturns
     echo s-non-regression-tests
     echo s-clustertests
-
-    if has-variant "$VARIANT" "carmel"; then
-        echo s-carmel-study
-    fi
-
-    if has-variant "$VARIANT" "hydro"; then
-        echo s-hydro
-        echo s-hydrosolver
-    fi
-
-    if has-variant "$VARIANT" "cfd"; then
-        echo s-syrthes
-        echo s-cfd-study
-    fi
-}
-
-function s-salome-prerequisite-modules()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
 
     echo s-adao
     echo s-adao-interface
@@ -110,74 +128,16 @@ function s-salome-prerequisite-modules()
     echo s-pyqt-sip
     echo s-sip
     echo s-topiivol
-
-    if has-variant "$VARIANT" "hydro"; then
-       echo s-libecw2
-       echo s-mumps
-       echo s-scalapack
-       echo s-gotm
-       echo s-aed2
-       echo s-metis-hydro
-       echo s-telemac
-    fi
-
-    if has-variant "$VARIANT" "cfd"; then
-        echo s-libccmio
-        echo s-coolprop
-        echo s-code-syrthes
-        echo s-saturne
-        echo s-saturne-dbg
-    fi
-
-    if has-variant "$VARIANT" "neptune"; then
-        echo s-neptune
-        echo s-eos
-    fi
 }
 
-function s-salome-modules()
+function s-salome-propagate-version()
 {
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    s-salome-prerequisite-modules $PREFIX $TARGET $VARIANT
-    s-salome-main-modules $PREFIX $TARGET $VARIANT
-    echo s-salome-configuration
+    echo false
 }
 
 function s-salome-prefix()
 {
     echo NONE
-}
-
-# support for SALOME application creation
-
-declare -g MAIN_MODULE_LIST=()
-
-function is-main-module()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-    local MODULE=$4
-
-    # Not yet cached
-
-    if [[ -z $MAIN_MODULE_LIST ]]; then
-        local MODS=$(s-salome-main-modules $PREFIX $TARGET $VARIANT)
-        for M in $(for-final-modules $MODS); do
-            MAIN_MODULE_LIST+=($M)
-        done
-    fi
-
-    for M in ${MAIN_MODULE_LIST[@]}; do
-        if [[ "$M" = "$MODULE" ]]; then
-            return 0
-        fi
-    done
-
-    return 1
 }
 
 function build-salome-prerequisites()
@@ -204,9 +164,9 @@ function build-salome-prerequisites()
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
 
-            is-main-module $PREFIX $TARGET $VARIANT $CURRENT_MODULE_NAME
+            local FCT=$(get-hook $CURRENT_MODULE_NAME $VARIANT salome-module)
 
-            if [[ $? = 0 ]]; then
+            if [[ -n $FCT ]]; then
                 REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
             fi
 
@@ -247,9 +207,9 @@ function build-salome-prerequisites()
             local module=${module_info[0]}
             local variant=${module_info[1]}
 
-            FCT=$(get-hook $module $variant env)
+            local FCT=$(get-hook $module $variant env)
 
-            if [[ ! -z $FCT ]]; then
+            if [[ -n $FCT ]]; then
                 CURRENT_MODULE_NAME=$module
                 CURRENT_MODULE=${module//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
@@ -259,9 +219,9 @@ function build-salome-prerequisites()
 
                 echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                is-main-module $PREFIX $TARGET $VARIANT $module
+                local FCTM=$(get-hook $module $VARIANT salome-module)
 
-                if [[ $? = 0 ]]; then
+                if [[ -n $FCTM ]]; then
                     echo "\${ROOT_INSTALL}"                          >> $FILE
                 else
                     echo "\${ROOT_EXTERNAL}/${module}"               >> $FILE
@@ -308,9 +268,9 @@ function build-salome-context()
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
             local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_EXTERNAL)s}"
 
-            is-main-module $PREFIX $TARGET $VARIANT $CURRENT_MODULE_NAME
+            local FCT=$(get-hook $CURRENT_MODULE_NAME $VARIANT salome-module)
 
-            if [[ $? = 0 ]]; then
+            if [[ -n $FCT ]]; then
                 REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_INSTALL)s}"
             fi
 
@@ -361,9 +321,9 @@ function build-salome-context()
 
                 echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                is-main-module $PREFIX $TARGET $VARIANT $module
+                local FCTM=$(get-hook $module $VARIANT salome-module)
 
-                if [[ $? = 0 ]]; then
+                if [[ -n $FCTM ]]; then
                     echo "%(ROOT_INSTALL)s"                   >> $FILE
                 else
                     echo "%(ROOT_EXTERNAL)s/${module}"        >> $FILE
@@ -400,52 +360,76 @@ function build-config-appli()
    <modules>
 EOF
 
-    # Note that the MODULE_NAME must have specific naming by convention,
-    # so we cannot use the plugin module name directly. The following
-    # sed commands are there to convert the plugin names to the expected
-    # names. Finally we convert the name in capital letters.
+    function main-module-callback()
+    {
+        local FORMODULE=$1
+        local MODREF=$2
+        local LEVEL=$3
+        local IS_BUILD_DEPENDS=$4
+        local IS_EXT=$5
+        local IS_META=$6
 
-    local MODS=$(s-salome-main-modules $PREFIX $TARGET $VARIANT)
+        local module_info=( $(get-module-ref $MODREF $FORMODULE) )
+        local module=${module_info[0]}
+        local variant=${module_info[1]}
 
-    for module in $(for-final-modules $MODS); do
-        MODULE_NAME=${module##s-}                 # remove leading s-
-        MODULE_NAME=${MODULE_NAME##salome-}       # remove leading salome-
-        MODULE_NAME=${MODULE_NAME//-/}            # remove all dashes
-        MODULE_NAME=${MODULE_NAME^^}              # all upper-case
+        local SMOD=$(get-hook-value $module $variant salome-module)
 
-        MODULE_PATH=$SCBI_BDIR/$module/build/install
+        if [[ -n $SMOD ]]; then
+            MODULE_PATH=$SCBI_BDIR/$module/build/install
 
-        echo "      <module name='$MODULE_NAME'"    >> $FILE
-        echo "              path='$MODULE_PATH'/>"  >> $FILE
-    done
+            echo "      <module name='$SMOD'"           >> $FILE
+            echo "              path='$MODULE_PATH'/>"  >> $FILE
+        fi
+    }
+
+    function prerequisite-module-callback()
+    {
+        local FORMODULE=$1
+        local MODREF=$2
+        local LEVEL=$3
+        local IS_BUILD_DEPENDS=$4
+        local IS_EXT=$5
+        local IS_META=$6
+
+        local module_info=( $(get-module-ref $MODREF $FORMODULE) )
+        local module=${module_info[0]}
+        local variant=${module_info[1]}
+
+        local SMOD=$(get-hook-value $module $variant salome-module)
+
+        if [[ -z $SMOD ]]; then
+            MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+	    case "$module" in
+	        *"samples")
+		    echo "   <samples path=\"$MODULE_PATH\"/>"           >> $FILE
+		    ;;
+	        *"medcoupling"*)
+		    echo "   <extra_tests>"                              >> $FILE
+		    echo "      <extra_test name='MEDCOUPLING'"          >> $FILE
+		    echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
+		    echo "   </extra_tests>"                             >> $FILE
+		    ;;
+	        *"paravisaddons-common"*)
+		    echo "   <extra_tests>"                              >> $FILE
+                    echo "      <extra_test name='paravisaddons-common'" >> $FILE
+                    echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
+                    echo "   </extra_tests>"                             >> $FILE
+                    ;;
+	        *)
+		    ;;
+	    esac
+        fi
+    }
+
+    for-all-modules-with-meta main-module-callback s-salome
 
     echo "   </modules>"                            >> $FILE
 
     # Generate extra configuration for SAMPLES & MEDCOUPLING
 
-    for module in $(s-salome-prerequisite-modules); do
-        MODULE_PATH=$SCBI_BDIR/$module/build/install
-
-	case "$module" in
-	    "samples")
-		echo "   <samples path=\"$MODULE_PATH\"/>"           >> $FILE
-		;;
-	    *"medcoupling"*)
-		echo "   <extra_tests>"                              >> $FILE
-		echo "      <extra_test name='MEDCOUPLING'"          >> $FILE
-		echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
-		echo "   </extra_tests>"                             >> $FILE
-		;;
-	    *"paravisaddons-common"*)
-		echo "   <extra_tests>"                              >> $FILE
-                echo "      <extra_test name='paravisaddons-common'" >> $FILE
-                echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
-                echo "   </extra_tests>"                             >> $FILE
-                ;;
-	    *)
-		;;
-	esac
-    done
+    for-all-modules-with-meta prerequisite-module-callback s-salome
 
     echo "</application>"                           >> $FILE
 }

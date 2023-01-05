@@ -7,6 +7,11 @@ function s-carmel-study-vcs()
     echo https://gitlab.opencascade.com/edf/carmel.git
 }
 
+function s-carmel-study-salome-module()
+{
+    echo CARMELSTUDY
+}
+
 function s-carmel-study-depends()
 {
     local PREFIX=$1

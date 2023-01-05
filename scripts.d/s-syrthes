@@ -7,6 +7,11 @@ function s-syrthes-vcs()
     echo https://git.forge.pleiade.edf.fr/git/syrthes.module-syrthes.git
 }
 
+function s-syrthes-salome-module()
+{
+    echo SYRTHES
+}
+
 function s-syrthes-ng-build-depends()
 {
     echo s-salome-bin

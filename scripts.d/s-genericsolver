@@ -26,6 +26,11 @@ function s-genericsolver-tar()
     echo GENERICSOLVER_SRC_$VERSION.tgz
 }
 
+function s-genericsolver-salome-module()
+{
+    echo GENERICSOLVER
+}
+
 function s-genericsolver-build-depends()
 {
     echo s-cmake

@@ -7,6 +7,11 @@ function s-non-regression-tests-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/tests/non-regression.git
 }
 
+function s-non-regression-tests-salome-module()
+{
+    echo NONREGRESSIONTESTS
+}
+
 function s-non-regression-tests-build-depends()
 {
     echo s-cmake
