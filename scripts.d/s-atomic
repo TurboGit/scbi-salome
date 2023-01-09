@@ -29,6 +29,9 @@ function s-atomic-common-build-depends()
 
     echo s-cmake
     echo s-python-modules
+    echo s-qt
+    echo s-pyqt
+    echo s-gdal
 }
 
 function s-atomic-build-depends()

@@ -83,6 +83,8 @@ s-paravis/ng.mpi
         s-gdal:skip
         s-cgal/ng:#4.0
         s-tbb:skip
+        s-qt:skip
+        s-pyqt:skip
         s-python-modules/ng.wand.lxml:master
         os@-boost-locale-dev:skip
         os@-python3:skip
@@ -102,6 +104,8 @@ s-paravis/ng.mpi
         s-openmpi:skip
         s-ospray:skip
         s-gdal:skip
+        s-qt:skip
+        s-pyqt:skip
         s-python-modules/ng.wand.metadata.toml:master
         s-cgal/native
         s-boost/native
@@ -115,4 +119,19 @@ s-paravis/ng.mpi
         s-python-modules:skip
         s-padder:skip
         s-cgal:skip
+]
+
+[ = deb,11
+        s-salome-ng:s11-dev
+        s-salome-tar:#master-native:DB11
+        s-zeromq:skip
+        s-openmpi:skip
+        s-ospray:skip
+        s-padder:skip
+        s-gdal/auto:3.2.2
+        s-python-modules/ng.wand.metadata.toml:master
+        s-cgal/native
+        s-boost/native
+        s-qt/native
+        s-pyqt/native
 ]
