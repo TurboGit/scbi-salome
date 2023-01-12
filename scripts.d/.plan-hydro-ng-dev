@@ -1,6 +1,6 @@
 # This plan is to build some modules on top of a SALOME binary distribution
 
-@load ng-dev
+@load ng-v910
 
 s-salome-ng/hydro:-dev
 
