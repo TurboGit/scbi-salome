@@ -1,5 +1,5 @@
 
-with-variant native s-hdf5 s-netcdf os@-proj-dev os@-gdal-dev
+with-variant native os@-gdal-dev:[v] s-hdf5 s-netcdf os@-proj-dev
 
 function s-gdal-vcs() 
 { 

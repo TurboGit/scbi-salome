@@ -7,8 +7,16 @@ function s-atomic-salome-module()
 
 function s-atomic-common-build-depends()
 {
+    local DISDOC=$(is-enabled no-doc)
+
+    [[ -z ${DISDOC} ]] && echo os@-python3-sphinx
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
+
     echo s-cmake
     echo s-python-modules
+    echo s-qt
+    echo s-pyqt
+    echo s-gdal
 }
 
 function s-atomic-build-depends()
@@ -47,9 +55,12 @@ function s-atomic-config()
     local PREFIX=$1
     local TARGET=$2
 
+    local CDEBUG=$(is-enabled cmake-debug)
+
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ../src
 }
 
