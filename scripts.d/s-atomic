@@ -7,11 +7,6 @@ function s-atomic-salome-module()
 
 function s-atomic-common-build-depends()
 {
-    local DISDOC=$(is-enabled no-doc)
-
-    [[ -z ${DISDOC} ]] && echo os@-python3-sphinx
-    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
-
     echo s-cmake
     echo s-python-modules
     echo s-qt
@@ -21,6 +16,11 @@ function s-atomic-common-build-depends()
 
 function s-atomic-build-depends()
 {
+    local DISDOC=$(is-enabled no-doc)
+
+    [[ -z ${DISDOC} ]] && echo os@-python3-sphinx
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
+
     echo os@-swig
     echo python3-toml
     echo python3-lxml
