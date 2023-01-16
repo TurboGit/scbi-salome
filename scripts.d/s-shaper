@@ -67,6 +67,13 @@ function s-shaper-env()
     add-to-var SalomeAppConfig $PREFIX/share/salome/resources/shaper
 }
 
+function s-shaper-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-shaper-config()
 {
     local PREFIX=$1
