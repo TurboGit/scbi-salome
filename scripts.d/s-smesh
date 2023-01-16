@@ -74,6 +74,13 @@ function s-smesh-env()
     add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/smesh
 }
 
+function s-smesh-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-smesh-ng-config-options()
 {
     local PREFIX=$1
