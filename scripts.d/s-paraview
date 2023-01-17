@@ -2,7 +2,7 @@
 function s-paraview-vcs() 
 { 
     echo default
-    echo none 
+    echo lfs 
     echo git 
     echo https://github.com/Kitware/ParaView.git 
 } 
@@ -44,6 +44,7 @@ function s-paraview-default-build-depends()
     echo os@-qtxmlpatterns5-dev-tools
 
     echo s-cmake
+    echo git-lfs
 }
 
 function s-paraview-gdal-depends
