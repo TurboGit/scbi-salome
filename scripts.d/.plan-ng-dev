@@ -102,14 +102,6 @@ s-paravis/ng.mpi
         s-boost/native
 ]
 
-[ = rhl
-        s-salome-ng:co8-dev
-        s-salome-tar:#master:CO8
-        s-zeromq:skip
-        s-python-modules:skip
-        s-cgal:skip
-]
-
 [ = deb,11
         s-salome-ng:s11-dev
         s-salome-tar:#master-native:DB11
