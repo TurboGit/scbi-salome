@@ -131,6 +131,7 @@ function s-python-modules-telemac-config-options()
     echo pyyaml==5.3
     echo jupyter-events==0.5.0
     echo setuptools_scm==5.0.2
+    echo argon2-cffi==18.3.0
 }
 
 function s-python-modules-pre-config()
