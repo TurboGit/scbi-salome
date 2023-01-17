@@ -34,7 +34,7 @@ s-ospray:#2.4.0
 s-uranie:#4.5.0
 s-root:v6-22-02
 s-zcracks:#3.2.7
-s-qt:#5.15.2
+s-qt/auto:#5.15.2
 s-pyqt/auto:#5.15.3
 s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
@@ -143,6 +143,10 @@ s-salome:dev
         s-hdf5/mpi:#1.10.3
         s-tbb/auto:#4.4.6
         # this should be also for debian-10
+]
+
+[ = deb,11
+        s-pyqt/auto:#5.15.2
 ]
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
