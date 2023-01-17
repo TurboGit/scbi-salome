@@ -12,6 +12,11 @@ function s-telemac-out-of-tree()
     echo false
 }
 
+function s-telemac-build-depends()
+{
+    echo git-lfs
+}
+
 function s-telemac-ng-depends()
 {
     echo s-salome-bin
@@ -30,7 +35,6 @@ function s-telemac-common-depends()
 function s-telemac-default-depends()
 {
     echo os@-hdf5-dev
-    echo git-lfs
     echo s-medfichier
     echo s-eficas-tools
 }
