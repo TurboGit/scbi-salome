@@ -16,11 +16,7 @@ s-gdal:skip
 s-netcdf:skip
 s-python3-xlutils:skip
 
-@on rhl use s-openmpi/cronos
-@on rhl use s-paravisaddons-edf/cronos
-@on deb use s-openmpi/gaia
-
-[ = deb,9
+[ = gaia.hpc.edf.fr
         s-qt:#5.12.10
 
 	s-atomic:skip
@@ -36,4 +32,19 @@ s-python3-xlutils:skip
 	s-cgal:skip
 	s-melissa:skip
 	s-python-modules:skip
+
+        s-openmpi/gaia
+]
+
+[ = cronos.hpc.edf.fr
+        s-salome-ng:co8-dev
+        s-salome-tar:#master:CO8
+        s-zeromq:skip
+        s-melissa:skip
+        s-python-modules:skip
+        s-padder:skip
+        s-cgal:skip
+
+        s-openmpi/cronos
+        s-paravisaddons-edf/cronos
 ]
