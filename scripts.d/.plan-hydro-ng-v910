@@ -6,8 +6,9 @@ s-salome-ng/hydro:-v910
 
 s-libecw2:#
 s-metis-hydro:#5.1.0
-s-python-modules/ng.wand.pyaml.pyproj.telemac.metadata.toml:master
+s-python-modules/ng.wand.pyaml.pyproj.telemac.metadata.toml.shapely:master
 s-proj:#7.2.0
+s-geos:#3.7.1
 
 [
     s-hydro:yan/scbi

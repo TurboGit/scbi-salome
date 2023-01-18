@@ -1,0 +1,96 @@
+
+function s-geos-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo geos-$VERSION.tar.bz2
+}
+
+function s-geos-ng-build-depends()
+{
+    echo s-salome-bin
+    echo os@-python3
+}
+
+function s-geos-common-build-depends()
+{
+    echo s-cmake
+    echo os@-autoconf
+    echo os@-automake
+    echo os@-autotools-dev
+    echo os@-libtool
+    echo swig
+}
+
+function s-geos-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var GEOS_ROOT_DIR      $PREFIX
+    add-to-var GEOSHOME           $PREFIX
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PYTHONPATH         $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+    set-var GEOS_LIBRARY_PATH     $PREFIX/lib
+    set-var GEOS_INCLUDE_PATH     $PREFIX/include
+}
+
+function s-geos-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var GEOS_INSTALL_DIR $PREFIX
+    set-var GEOS_SRC_DIR     ../src
+
+    set-var PYTHON           /usr/bin/python$PYTHON_VERSION
+}
+
+function s-geos-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo --prefix=$PREFIX
+    echo --enable-python
+}
+
+function s-geos-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    ../src/configure $OPTIONS
+}
+
+function s-geos-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-geos-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-geos-prefix()
+{
+    echo NONE
+}
