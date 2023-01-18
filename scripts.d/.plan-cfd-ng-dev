@@ -18,3 +18,7 @@ s-coolprop:#6.1.0
 [ = deb,10
     s-cmake:skip
 ]
+
+[ = deb,9
+    s-cmake:skip
+]
