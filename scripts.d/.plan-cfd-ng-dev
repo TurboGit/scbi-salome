@@ -20,3 +20,7 @@ s-neptune:master
 [ = deb,10
     s-cmake:skip
 ]
+
+[ = deb,9
+    s-cmake:skip
+]
