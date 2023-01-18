@@ -1,8 +1,8 @@
 # This plan is to build SALOME CFD
 
-@load ng-v910/mpi
+@load ng-dev/mpi
 
-s-salome-ng/neptune.cfd
+s-salome-ng/neptune.cfd:V9_10_0
 
 s-libccmio:92f08637
 s-coolprop:#6.1.0
@@ -19,8 +19,10 @@ s-neptune:master
 
 [ = deb,10
     s-cmake:skip
+    s-salome-tar:#9.10.0:DB10
 ]
 
 [ = deb,9
     s-cmake:skip
+    s-salome-tar:#9.10.0:DB09
 ]
