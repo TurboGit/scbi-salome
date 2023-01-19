@@ -147,6 +147,7 @@ s-salome:dev
 
 [ = deb,11
         s-pyqt/auto:#5.15.2
+        s-opencv:#3.2.0       # native pkg is too recent
 ]
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
