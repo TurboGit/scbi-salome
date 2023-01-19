@@ -18,11 +18,13 @@ s-neptune:master
 ] /ng
 
 [ = deb,10
+    s-salome-ng:s10-V9_10_0
     s-cmake:skip
     s-salome-tar:#9.10.0:native-DB10
 ]
 
 [ = deb,9
+    s-salome-ng:s9-V9_10_0
     s-cmake:skip
     s-salome-tar:#9.10.0:DB09
 ]
