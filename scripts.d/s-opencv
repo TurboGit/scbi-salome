@@ -7,3 +7,108 @@ with-variant native os@-opencv-dev \
                     else
                        add-to-var OpenCV_INCLUDE_DIRS /usr/include;
                     fi"
+
+
+function s-opencv-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "3.2" ]] && echo opencv-3.2.0-ccache.patch
+}
+
+function s-opencv-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    OPENCV_ROOT_DIR    $PREFIX
+
+    add-to-var PATH               $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-opencv-build-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-cmake
+}
+
+function s-opencv-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX:STRING=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+    echo -DBUILD_NEW_PYTHON_SUPPORT=ON
+    echo -DBUILD_EXAMPLES:BOOL=OFF
+    echo -DENABLE_PRECOMPILED_HEADERS:BOOL=OFF
+    echo -DCMAKE_C_FLAGS="-fPIC -fpermissive"
+    echo -DCMAKE_CXX_FLAGS="-fPIC -std=c++14 -fpermissive"
+    echo -DCMAKE_CXX_STANDARD=14
+
+    echo -DWITH_IPP:BOOL=OFF
+    echo -DBUILD_opencv_java:BOOL=OFF
+    echo -DWITH_FFMPEG:BOOL=OFF
+    echo -DWITH_LAPACK:BOOL=OFF
+    echo -DWITH_CUDA:BOOL=OFF
+    echo -DWITH_VTK:BOOL=OFF
+    echo -DWITH_GTK:BOOL=OFF
+    echo -DWITH_GSTREAMER:BOOL=OFF
+}
+
+function s-opencv-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local IFS=$'
+'
+
+    local OPTIONS=( $(get-config-options $PREFIX $TARGET $VARIANT) )
+
+    cmake ${OPTIONS[*]} ../src
+}
+
+function s-opencv-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-opencv-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-opencv-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo NONE
+}
