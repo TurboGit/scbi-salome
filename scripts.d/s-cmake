@@ -40,11 +40,3 @@ function s-cmake-build-depends()
     echo os@-make
     echo os@-openssl-dev
 }
-
-function s-cmake-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    prepend-to-var PATH $PREFIX/bin
-}
