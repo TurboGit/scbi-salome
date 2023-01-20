@@ -2,7 +2,7 @@
 
 @load ng-dev
 
-s-salome-ng/hydro:-dev
+s-salome-ng/hydro:dev
 
 s-libecw2:#
 s-metis-hydro:#5.1.0

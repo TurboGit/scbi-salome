@@ -2,7 +2,7 @@
 
 @load ng-v910
 
-s-salome-ng/hydro:-v910
+s-salome-ng/hydro:v910
 
 s-libecw2:#
 s-metis-hydro:#5.1.0
