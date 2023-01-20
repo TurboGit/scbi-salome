@@ -32,7 +32,7 @@ function s-ttk-depends()
     local VARIANT=$3
 
     echo libboost-system-dev
-    echo libpython-dev
+    echo libpython3-dev
     echo libxt-dev
     echo libxcursor-dev
     # for scalar field design, version 3.3.7 or later
