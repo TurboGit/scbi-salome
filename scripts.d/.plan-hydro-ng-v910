@@ -20,16 +20,18 @@ s-geos:#3.7.1
     s-mumps:#4-10.0
 ] /ng
 
-#s-cloudcompare:#2.10.3edf
-
 [ = deb,9
     s-salome-ng/hydro:s9-v910
+    s-qt:skip
+    s-pyqt:skip
 ]
 
 [ = deb,10
     s-cmake:skip
     s-hydro/ng:master
     s-salome-ng/hydro:s10-v910
+    s-qt:skip
+    s-pyqt:skip
 ]
 
 [ = deb,11
