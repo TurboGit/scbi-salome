@@ -1,8 +1,8 @@
 # This plan is to build some modules on top of a SALOME binary distribution
 
-@load ng-v910
+@load ng-dev
 
-s-salome-ng/hydro:-v910
+s-salome-ng/hydro:-dev
 
 s-libecw2:#
 s-metis-hydro:#5.1.0
@@ -23,16 +23,11 @@ s-geos:#3.7.1
 #s-cloudcompare:#2.10.3edf
 
 [ = deb,9
-    s-salome-ng/hydro:s9-v910
+    s-salome-ng/hydro:s9-dev
 ]
 
 [ = deb,10
     s-cmake:skip
     s-hydro/ng:master
-    s-salome-ng/hydro:s10-v910
-]
-
-[ = deb,11
-    s-scalapack/auto:#2.1.0    # use native variant
-    s-mumps/auto:#5.3          # use native variant
+    s-salome-ng/hydro:s10-dev
 ]
