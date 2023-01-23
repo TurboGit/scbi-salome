@@ -11,8 +11,7 @@ with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
              'set-var HDF5_BIN /usr/bin' \
              'add-to-var C_INCLUDE_PATH $HDF5_INC'  \
              'add-to-var CPLUS_INCLUDE_PATH $HDF5_INC'  \
-             'add-to-var LIBRARY_PATH $HDF5_LIB
-             '
+             'add-to-var LIBRARY_PATH $HDF5_LIB'
 
 with-variant native-mpi os@-hdf5-dev os@-hdf5-openmpi-dev os@-hdf5-tools os@-openmpi-dev \
        --env 'add-to-var HDF5_LIB $(get-os-lib-dir openmpi/libhdf5.so)' \
