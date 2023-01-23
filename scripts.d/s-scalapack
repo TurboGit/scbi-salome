@@ -1,4 +1,6 @@
 
+with-variant native libscalapack-openmpi-dev:[v]
+
 
 function s-scalapack-build-depends()
 {
