@@ -25,3 +25,8 @@ s-proj:#6.3.2
 	s-cmake:skip
     s-salome-ng/hydro:s10-dev
 ]
+
+[ = deb,11
+    s-scalapack/auto:#2.1.0    # use native variant
+    s-mumps/auto:#5.3          # use native variant
+]
