@@ -15,6 +15,7 @@ function s-hydro-salome-module()
 function s-hydro-common-build-depends()
 {
     echo s-cmake
+    echo latexmk
 }
 
 function s-hydro-default-build-depends()
@@ -38,7 +39,6 @@ function s-hydro-default-depends()
 {
     echo os@-proj-dev
     echo os@-python3
-    echo latexmk
 
     echo s-qt
     echo s-cgns
