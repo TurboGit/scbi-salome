@@ -1,4 +1,6 @@
 
+with-variant native libmumps-dev:[v]
+
 function s-mumps-tar()
 {
     local VERSION=$1
