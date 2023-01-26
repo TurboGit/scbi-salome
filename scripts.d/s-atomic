@@ -9,9 +9,6 @@ function s-atomic-common-build-depends()
 {
     echo s-cmake
     echo s-python-modules
-    echo s-qt
-    echo s-pyqt
-    echo s-gdal
 }
 
 function s-atomic-build-depends()
@@ -40,6 +37,9 @@ function s-atomic-default-depends()
 {
     echo s-salome-kernel
     echo s-salome-gui
+    echo s-qt
+    echo s-pyqt
+    echo s-gdal
 }
 
 function s-atomic-env()
