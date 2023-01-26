@@ -15,23 +15,24 @@ s-ospray:skip
 s-gdal:skip
 s-netcdf:skip
 s-python3-xlutils:skip
+s-atomic:skip
+s-cgal:skip
+s-padder:skip
+s-python-modules:skip
+s-melissa:skip
+s-paravisaddons-edf:skip
 
 [ = gaia.hpc.edf.fr
         s-qt:#5.12.10
 
-	s-atomic:skip
 	s-cmake:skip
 	s-gnuplot-py:skip
 	s-medcoupling:skip
 	s-openmpi:skip
 	s-paraview:skip
 	s-paravis:skip
-	s-paravisaddons-edf:skip
 	s-salome-configuration:skip
-	s-padder:skip
-	s-cgal:skip
 	s-melissa:skip
-	s-python-modules:skip
 
         s-openmpi/gaia
 ]
@@ -40,11 +41,6 @@ s-python3-xlutils:skip
         s-salome-ng:co8-dev
         s-salome-tar:#master:CO8
         s-zeromq:skip
-        s-melissa:skip
-        s-python-modules:skip
-        s-padder:skip
-        s-cgal:skip
 
         s-openmpi/cronos
-        s-paravisaddons-edf/cronos
 ]
