@@ -140,18 +140,20 @@ function setup-env-salome-ng()
             #  may have been set by the binary package's env_lauch.sh.
 
             [[ $KEEP_VAR == yes ]] &&
-                case "$VAR" in
-                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                    ;;
+                {
+                  case "$VAR" in
+                      *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                      ;;
 
-                    *)
-                        if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                            echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}} >> $SFILE
-                        else
-                            echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}} >> $SFILE
-                        fi
-                        ;;
-                esac
+                      *)
+                          if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                              echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}}
+                          else
+                              echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}}
+                          fi
+                          ;;
+                  esac
+                } >> $SFILE
 
             #  For Python
 
@@ -168,30 +170,32 @@ function setup-env-salome-ng()
             fi
 
             [[ $KEEP_VAR == yes ]] &&
-                case "$VAR" in
-                    C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                        *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                    ;;
+                {
+                  case "$VAR" in
+                      C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                          *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                      ;;
 
-                    PATH)
-                        echo "   context.addToPath($DVAR)"             >> $PFILE
+                      PATH)
+                          echo "   context.addToPath($DVAR)"
+                          ;;
+                      LD_LIBRARY_PATH)
+                          echo "   context.addToLdLibraryPath($DVAR)"
                         ;;
-                    LD_LIBRARY_PATH)
-                        echo "   context.addToLdLibraryPath($DVAR)"    >> $PFILE
-                        ;;
-                    PYTHONPATH)
-                        echo "   context.addToPythonPath($DVAR)"       >> $PFILE
-                        ;;
-                    PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
-                        echo "   context.addToVariable(r\"$VAR\", $DVAR)" >> $PFILE
-                        ;;
-                    SALOME_MODULES)
-                        echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\"" >> $PFILE
-                    ;;
-                    *)
-                        echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"     >> $PFILE
-                        ;;
-                esac
+                      PYTHONPATH)
+                          echo "   context.addToPythonPath($DVAR)"
+                          ;;
+                      PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
+                          echo "   context.addToVariable(r\"$VAR\", $DVAR)"
+                          ;;
+                      SALOME_MODULES)
+                          echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\""
+                          ;;
+                      *)
+                          echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"
+                          ;;
+                  esac
+                } >> $PFILE
         }
 
         function mod-callback()
