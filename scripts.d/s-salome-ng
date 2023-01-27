@@ -203,7 +203,7 @@ function setup-env-salome-ng()
 
             FCT=$(get-hook $module $variant env)
 
-            if [[ ! -z $FCT ]]; then
+            if [[ -n $FCT ]]; then
                 CURRENT_MODULE_NAME=$module
                 CURRENT_MODULE=${module//-/_}
                 CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
