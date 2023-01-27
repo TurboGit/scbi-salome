@@ -234,7 +234,7 @@ function setup-env-salome-ng()
                 N=$(( N + 1 ))
 
                 {
-                    echo "# $module"
+                    echo "# $(get-module-name $module)"
                     echo "export ROOT_EDF=\${out_dir_Path}/EDF"
                     echo "export root_dir=\${out_dir_Path}"
                     echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}"
@@ -243,7 +243,7 @@ function setup-env-salome-ng()
                 chmod a+x $SFILE
 
                 {
-                    echo "# $module"
+                    echo "# $(get-module-name $module)"
                     echo "import os.path"
                     echo "def init(context, root_dir):"
                     echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"
