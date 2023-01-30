@@ -108,9 +108,9 @@ function s-python-modules-telemac-config-options()
     echo packaging==21.3
     echo pyzmq==24
     echo python-dateutil==2.8.2
-    echo ypy-websocket==0.5.0
     echo idna==2.8
     echo y-py==0.5.3
+    echo jupyter-events==0.5.0 #compatibilité avec pyyaml natif s10
 }
 
 function s-python-modules-pre-config()
