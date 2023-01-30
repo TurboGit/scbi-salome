@@ -22,7 +22,7 @@ s-proj:#6.3.2
 ]
 
 [ = deb,10
-	s-cmake:skip
+    s-cmake:skip
     s-salome-ng/hydro:s10-dev
 ]
 
