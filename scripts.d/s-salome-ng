@@ -111,8 +111,13 @@ function setup-env-salome-ng()
                 local REL_FROM="$SCBI_BDIR/s-salome-tar/build/install"
                 local REL_DIR="${VALUE/$REL_FROM/\$\{root_dir\}}"
                 local DVAR="r\"$REL_DIR\""
+            elif [[ "$VALUE" == "$REL_PDIR" ]]; then
+                local DVAR="\"$VALUE\""
             else
-                local DVAR="r\"$REL_PDIR\""
+                [[ ${REL_PDIR:0:1} == '/' ]] &&
+                    local REL_PDIR=${REL_PDIR:1}
+
+                local DVAR="os.path.join($CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
             fi
 
             #  We set values as some are used in depends modules like
