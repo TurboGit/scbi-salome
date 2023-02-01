@@ -255,6 +255,7 @@ function s-salome-tar-install()
                        hdf5/bin/h5hlcc hdf5/bin/h5cc \
                        netcdf/lib/pkgconfig/netcdf.pc \
                        PyQt/bin/pyuic5 \
+                       PyQt/bin/pyrcc5 \
                        matplotlib/bin/f2py;
     do
         [[ -e $PREFIX/$BINDIR/$SCRIPTS ]] &&
