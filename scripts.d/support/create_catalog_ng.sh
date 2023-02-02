@@ -22,7 +22,7 @@ function addToCatalog()
 
     case $name in
         localhost)
-            nbn=$(LANG=C lscpu | grep '^CPU(' | cut -d':' -f2| tr -d ' ')
+            local nbn=$(LANG=C lscpu | grep '^CPU(' | cut -d':' -f2 | tr -d ' ')
             declare -A Catalog=(["name"]=\"$name\"
                                 ["hostname"]=\"$name\"
                                 ["nbOfNodes"]=\"$nbn\")
