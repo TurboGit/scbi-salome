@@ -209,14 +209,10 @@ function s-paraview-common-config-options()
     echo -DVTK_MODULE_USE_EXTERNAL_VTK_netcdf=ON
     echo -DVTK_MODULE_ENABLE_VTK_RenderingLOD=YES
     echo -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES
-    echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelGeometry=YES
-    echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelMPI=YES
-    echo -DVTK_MODULE_ENABLE_VTK_ParallelMPI=YES
     echo -DVTK_MODULE_ENABLE_VTK_CommonCore=YES
     echo -DVTK_MODULE_ENABLE_VTK_IOCore=YES
     echo -DVTK_MODULE_ENABLE_VTK_IOEnSight=YES
     echo -DVTK_MODULE_ENABLE_VTK_IOInfovis=YES
-    echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelGeometry=YES
 }
 
 function s-paraview-mpi-config-options()
@@ -226,6 +222,9 @@ function s-paraview-mpi-config-options()
     local VARIANT=$3
 
     echo -DPARAVIEW_USE_MPI:BOOL=ON
+    echo -DVTK_MODULE_ENABLE_VTK_ParallelMPI=YES
+    echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelGeometry=YES
+    echo -DVTK_MODULE_ENABLE_VTK_FiltersParallelMPI=YES
 }
 
 function s-paraview-ospray-config-options()
