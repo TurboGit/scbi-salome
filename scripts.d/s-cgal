@@ -18,6 +18,11 @@ function s-cgal-common-build-depends()
     echo s-cmake
 }
 
+function s-cgal-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
 function s-cgal-common-depends()
 {
     echo s-salome-configuration
@@ -33,11 +38,6 @@ function s-cgal-default-depends()
     echo os@-gcc
 
     echo s-tbb
-}
-
-function s-cgal-ng-depends()
-{
-    echo s-salome-bin
 }
 
 function s-cgal-env()
