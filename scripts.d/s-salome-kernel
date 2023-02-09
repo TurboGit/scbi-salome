@@ -25,8 +25,11 @@ function s-salome-kernel-default-build-depends()
     echo os@-swig
     echo os@-doxygen
     echo os@-graphviz
+}
 
-    echo s-cmake
+function s-salome-kernel-ng-build-depends()
+{
+    echo s-salome-bin
 }
 
 function s-salome-kernel-common-depends()
@@ -39,11 +42,6 @@ function s-salome-kernel-mpi-depends()
     echo os@-boost-regex-dev
     echo os@-python3-mpi4py
     echo s-openmpi
-}
-
-function s-salome-kernel-ng-depends()
-{
-    echo s-salome-bin
 }
 
 function s-salome-kernel-default-depends()
