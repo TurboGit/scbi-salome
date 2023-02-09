@@ -31,6 +31,11 @@ function s-salome-kernel-salome-module()
     echo KERNEL
 }
 
+function s-salome-kernel-common-build-depends()
+{
+    echo s-cmake
+}
+
 function s-salome-kernel-default-build-depends()
 {
     local DISDOC=$(is-enabled no-doc)
