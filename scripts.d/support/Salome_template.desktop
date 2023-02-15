@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Exec=APPLIDIR/salome %f
+Name=Salome VERSION
+Icon=APPLIDIR/icon.png

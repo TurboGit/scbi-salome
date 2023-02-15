@@ -65,6 +65,41 @@ function get-pck-status()
     apt-cache madison $PCK | cut -d'|' -f2
 }
 
+function desktop-icon()
+{
+    local PREFIX=$1
+    local APPLIDIR_PATH=$HOME/.local/share/applications
+    local DESKTOP_FILE_NAME=Salome_template.desktop
+    local DESKTOP_FILE_VERSION=Salome_V__SALOMEVERSION__.desktop
+    local DESKTOPDIR=$(xdg-user-dir DESKTOP)
+
+    mv $PREFIX/$DESKTOP_FILE_NAME $PREFIX/$DESKTOP_FILE_VERSION
+    ICONE_FILE=$PREFIX/icon.png
+
+    # de YAMM projects/salome/installer/strings_template.py&
+
+    # Install the menu and desktop files if requested
+    if test -e $PREFIX/$DESKTOP_FILE_VERSION; then
+      sed -i "s#APPLIDIR#$PREFIX#g" $PREFIX/$DESKTOP_FILE_VERSION
+      sed -i "s#VERSION#__SALOMEVERSION__#g" $PREFIX/$DESKTOP_FILE_VERSION
+    fi
+
+    if [[ -e $PREFIX/$DESKTOP_FILE_VERSION ]] ; then
+      if [[ ! -d $APPLIDIR_PATH ]] ; then
+        mkdir -p $APPLIDIR_PATH  || die "mkdir failed"
+      fi
+      cp $PREFIX/$DESKTOP_FILE_VERSION $APPLIDIR_PATH/
+      chmod +x $APPLIDIR_PATH/$DESKTOP_FILE_VERSION
+    fi
+
+    if test -n $DESKTOPDIR; then
+      if test -e $PREFIX/$DESKTOP_FILE_VERSION; then
+        cp $PREFIX/$DESKTOP_FILE_VERSION $DESKTOPDIR
+        chmod +x $DESKTOPDIR/$DESKTOP_FILE_VERSION
+      fi
+    fi
+}
+
 while [ ! -z $1 ]; do
     case "$1" in
         --auto)
@@ -166,7 +201,6 @@ fi
     cp CatalogResources.xml $BINDIR/KERNEL/share/salome/resources/kernel/
 
 
-
 #  Setup the HPC servers, the template file servers.pvsc will be used
 #  by the following script to replace (and copy with date if exist)
 #  the file in $HOME/.config/ParaView
@@ -205,6 +239,8 @@ fi
 # In auto-mode, do nothing more
 if [[ $AUTO -eq 1 ]]; then
     template-conversion $PWD $DISTRIBUTION_ID $OS_VERSION
+    # Add icon link on desktop
+    desktop-icon $PWD
     exit 0
 fi
 
@@ -233,8 +269,12 @@ done
 check-writable $prefix || SUDO=sudo
 
 $SUDO mkdir -p $prefix
-$SUDO mv * .[a-z]* $prefix/
+$SUDO cp -r * .[a-z]* $prefix/
+
 template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
+
+# Add icon link on desktop
+desktop-icon $prefix
 
 $SUDO rm -f $prefix/setup
 
