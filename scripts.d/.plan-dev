@@ -33,6 +33,7 @@ s-ospray:#2.4.0
 s-uranie:#4.5.0
 s-root:v6-22-02
 s-qt/auto:#5.15.2
+s-qmake/auto:#5.15.2
 s-pyqt/auto:#5.15.3
 s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
