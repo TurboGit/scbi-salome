@@ -1,0 +1,83 @@
+function s-pyqt-chart-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo PyQtChart_gpl-$VERSION.tar.gz
+}
+
+function s-pyqt-chart-out-of-tree()
+{
+    echo false
+}
+
+function s-pyqt-chart-common-depends()
+{
+    echo s-qmake
+}
+
+function s-pyqt-chart-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-pyqt-chart-default-depends()
+{
+    echo s-qt
+    echo s-pyqt-sip
+    echo s-sip
+}
+
+function s-pyqt-chart-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    PYQTCHART_ROOT_DIR $PREFIX
+    set-var    PYQTCHART_SIPS     $PREFIX/QtChart
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var PYTHONPATH      $PREFIX
+    add-to-var LD_LIBRARY_PATH $PREFIX
+
+}
+
+function s-pyqt-chart-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX
+
+    python3 ./configure.py --no-dist-info --no-qsci-api  \
+            --destdir=$PREFIX \
+            --stubsdir=$PREFIX \
+            --sip-incdir=$SIP_ROOT_DIR/include \
+            --pyqt-sipdir=$PYQT5_ROOT_DIR/sip \
+            --qtchart-sipdir=$PREFIX \
+            --debug --verbose
+}
+
+function s-pyqt-chart-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j1
+}
+
+function s-pyqt-chart-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-pyqt-chart-prefix()
+{
+    echo NONE
+}

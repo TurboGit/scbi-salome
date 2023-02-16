@@ -7,6 +7,7 @@ s-salome-ng/neptune.cfd:V9_10_0
 s-libccmio:92f08637
 s-coolprop:#6.1.0
 s-neptune:master
+s-qmake/auto:#5.15.2
 
 [
     s-eos:v1.9.0
@@ -15,11 +16,13 @@ s-neptune:master
     s-cfd-study:master
     s-code-syrthes:yf/master
     s-syrthes:mpa/salome9
+    s-pyqt-chart:#5.15.4
 ] /ng
 
 [ = deb,10
     s-salome-ng/neptune.cfd:s10-V9_10_0
     s-cmake:skip
+    s-pyqt-shart:skip
 ]
 
 [ = deb,9

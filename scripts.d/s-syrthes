@@ -27,6 +27,7 @@ function s-syrthes-common-depends()
     echo s-saturne
     echo s-code-syrthes
     echo s-salome-configuration
+    echo s-pyqt-chart
 }
 
 function s-syrthes-default-depends()

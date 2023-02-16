@@ -1,7 +1,8 @@
 # This plug-in only compiles qmake out of the Qt sources.
 # There is no supported ways of doing just that, but we
 # do as little as we can to avoid the long build of whole Qt
-# build.
+# build. This must not be used with s-qt as we set QTDIR to
+# be able to find the qmake specs.
 
 inherit-plugin s-qt
 
@@ -15,7 +16,9 @@ function s-qmake-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH $PREFIX/bin
+    set-var    QMAKESPEC $PREFIX/mkspecs/linux-g++-64
+
+    add-to-var PATH      $PREFIX/bin
 }
 
 function s-qmake-config-options()
