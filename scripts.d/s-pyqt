@@ -56,8 +56,8 @@ function s-pyqt-config()
 
     python3 ./configure.py --confirm-license --no-designer-plugin --verbose \
             --bindir=$PREFIX/bin \
-            --destdir=$PREFIX/lib/python$PYTHON/site-packages \
-            --stubsdir=$PREFIX/lib/python$PYTHON/site-packages \
+            --destdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages \
+            --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages \
             --sipdir=${SIP_ROOT_DIR} \
             --disable=QtNetwork \
             --disable=QtWebSockets
