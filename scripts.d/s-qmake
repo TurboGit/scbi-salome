@@ -1,8 +1,7 @@
 # This plug-in only compiles qmake out of the Qt sources.
 # There is no supported ways of doing just that, but we
 # do as little as we can to avoid the long build of whole Qt
-# build. This must not be used with s-qt as we set QTDIR to
-# be able to find the qmake specs.
+# build.
 
 inherit-plugin s-qt
 
@@ -16,51 +15,17 @@ function s-qmake-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    QMAKESPEC $PREFIX/mkspecs/linux-g++-64
-
-    add-to-var PATH      $PREFIX/bin
+    add-to-var PATH $PREFIX/bin
 }
 
-function s-qmake-config-options()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    echo --prefix=$PREFIX
-    echo -opensource
-    echo -confirm-license
-    echo -no-rpath
-    echo -nomake examples
-    echo -nomake tests
-}
-
-function s-qmake-config()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    local OPTIONS=( $(get-config-options $PREFIX $TARGET $VARIANT) )
-
-    ../src/qtbase/configure ${OPTIONS[*]}
-}
-
-function s-qmake-build()
+function s-qmake-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    make qmake_all -j$SCBI_JOBS
-}
+    for dir in qml translations phrasebooks doc plugins; do
+        rm -fr $PREFIX/$dir
+    done
 
-function s-qmake-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    make install_mkspecs
-
-    mkdir $PREFIX/bin
-    cp bin/qmake* $PREFIX/bin
+    ls $PREFIX/bin/* | egrep -v '/qmake$' | xargs rm -f
 }
