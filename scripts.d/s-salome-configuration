@@ -64,6 +64,7 @@ function s-salome-configuration-ngwin-env()
 
     set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
     set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
+    set-var ORBgiopMaxMsgSize              2147483648
 }
 
 function s-salome-configuration-out-of-tree()
