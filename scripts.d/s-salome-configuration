@@ -39,6 +39,18 @@ function s-salome-configuration-patches()
     [[ $REF =~ "9_7" ]] && echo fix-detection-of-hdf5.patch
 }
 
+function s-salome-configuration-common-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # And some other global configuration options
+
+    set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
+    set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
+    set-var ORBgiopMaxMsgSize              2147483648
+}
+
 function s-salome-configuration-env()
 {
     local PREFIX=$1
@@ -49,12 +61,6 @@ function s-salome-configuration-env()
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
-
-    # And some other global configuration options
-
-    set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
-    set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
-    set-var ORBgiopMaxMsgSize              2147483648
 
     # Following variable is set there as it is needed for standard
     # and NG build. The plug-in s-pyqt is not used in the later
@@ -75,12 +81,6 @@ function s-salome-configuration-ngwin-env()
 
     add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
     add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
-
-    # And some other global configuration options
-
-    set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
-    set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
-    set-var ORBgiopMaxMsgSize              2147483648
 }
 
 function s-salome-configuration-out-of-tree()
