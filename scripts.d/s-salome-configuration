@@ -54,6 +54,7 @@ function s-salome-configuration-env()
 
     set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
     set-var SALOME_ACTOR_DELEGATE_TO_VTK   1
+    set-var ORBgiopMaxMsgSize              2147483648
 
     # Following variable is set there as it is needed for standard
     # and NG build. The plug-in s-pyqt is not used in the later
