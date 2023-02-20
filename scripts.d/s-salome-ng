@@ -212,45 +212,44 @@ function setup-env-salome-ng()
                 KEEP_VAR=yes
             fi
 
-            FCT=$(get-hook $module $variant env)
+            #  Initialize env script
 
-            if [[ -n $FCT ]]; then
-                CURRENT_MODULE_NAME=$module
-                CURRENT_MODULE=${module//-/_}
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
+            CURRENT_MODULE_NAME=$module
+            CURRENT_MODULE=${module//-/_}
+            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-                # Call <module>-env hook which will be using the add-to-var
-                # above.
-
-                if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
-                    NUM=99
-                else
-                    NUM=$(printf "%02d" ${N})
-                fi
-
-                SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
-                PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
-                N=$(( N + 1 ))
-
-                {
-                    echo "# $(get-module-name $module)"
-                    echo "export ROOT_EDF=\${out_dir_Path}/EDF"
-                    echo "export root_dir=\${out_dir_Path}"
-                    echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}"
-                } > $SFILE
-
-                chmod a+x $SFILE
-
-                {
-                    echo "# $(get-module-name $module)"
-                    echo "import os.path"
-                    echo "def init(context, root_dir):"
-                    echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"
-                    echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")"
-                } > $PFILE
-
-                $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
+            if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
+                NUM=99
+            else
+                NUM=$(printf "%02d" ${N})
             fi
+
+            SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
+            PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
+            N=$(( N + 1 ))
+
+            {
+                echo "# $(get-module-name $module)"
+                echo "export ROOT_EDF=\${out_dir_Path}/EDF"
+                echo "export root_dir=\${out_dir_Path}"
+                echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}"
+            } > $SFILE
+
+            chmod a+x $SFILE
+
+            {
+                echo "# $(get-module-name $module)"
+                echo "import os.path"
+                echo "def init(context, root_dir):"
+                echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"
+                echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")"
+            } > $PFILE
+
+            # Call <module>-env hook which will be using the add-to-var
+            # above.
+
+            plugin-call-variant-hooks $module env \
+                                      $CURRENT_MODULE_INSTALL $TARGET $variant
 
             #  Handle possible ctest support
 

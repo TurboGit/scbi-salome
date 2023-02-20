@@ -207,28 +207,25 @@ function build-salome-prerequisites()
             local module=${module_info[0]}
             local variant=${module_info[1]}
 
-            local FCT=$(get-hook $module $variant env)
+            CURRENT_MODULE_NAME=$module
+            CURRENT_MODULE=${module//-/_}
+            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-            if [[ -n $FCT ]]; then
-                CURRENT_MODULE_NAME=$module
-                CURRENT_MODULE=${module//-/_}
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
+            echo ""          >> $FILE
+            echo "# $module" >> $FILE
 
-                echo ""          >> $FILE
-                echo "# $module" >> $FILE
+            echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
+            local FCTM=$(get-hook $module $VARIANT salome-module)
 
-                local FCTM=$(get-hook $module $VARIANT salome-module)
-
-                if [[ -n $FCTM ]]; then
-                    echo "\${ROOT_INSTALL}"                          >> $FILE
-                else
-                    echo "\${ROOT_EXTERNAL}/${module}"               >> $FILE
-                fi
-
-                $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
+            if [[ -n $FCTM ]]; then
+                echo "\${ROOT_INSTALL}"                          >> $FILE
+            else
+                echo "\${ROOT_EXTERNAL}/${module}"               >> $FILE
             fi
+
+            plugin-call-variant-hook $module env \
+                                     $CURRENT_MODULE_INSTALL $TARGET $variant
         }
 
         echo                                                            > $FILE
@@ -309,28 +306,25 @@ function build-salome-context()
             local module=${module_info[0]}
             local variant=${module_info[1]}
 
-            FCT=$(get-hook $module $variant env)
+            CURRENT_MODULE_NAME=$module
+            CURRENT_MODULE=${module//-/_}
+            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-            if [[ ! -z $FCT ]]; then
-                CURRENT_MODULE_NAME=$module
-                CURRENT_MODULE=${module//-/_}
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
+            echo ""          >> $FILE
+            echo "# $module" >> $FILE
 
-                echo ""          >> $FILE
-                echo "# $module" >> $FILE
+            echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
 
-                echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
+            local FCTM=$(get-hook $module $VARIANT salome-module)
 
-                local FCTM=$(get-hook $module $VARIANT salome-module)
-
-                if [[ -n $FCTM ]]; then
-                    echo "%(ROOT_INSTALL)s"                   >> $FILE
-                else
-                    echo "%(ROOT_EXTERNAL)s/${module}"        >> $FILE
-                fi
-
-                $FCT $CURRENT_MODULE_INSTALL $TARGET $variant
+            if [[ -n $FCTM ]]; then
+                echo "%(ROOT_INSTALL)s"                   >> $FILE
+            else
+                echo "%(ROOT_EXTERNAL)s/${module}"        >> $FILE
             fi
+
+            plugin-call-variant-hook $module env \
+                                     $CURRENT_MODULE_INSTALL $TARGET $variant
         }
 
         echo "[SALOME Configuration]"                                    > $FILE
