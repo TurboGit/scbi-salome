@@ -304,13 +304,15 @@ function build-salome-context()
                                      $CURRENT_MODULE_INSTALL $TARGET $variant
         }
 
-        echo "[SALOME Configuration]"                                    > $FILE
-        echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"                     >> $FILE
-        echo "ROOT_EXTERNAL=%(ROOT_INSTALL)s/external"                  >> $FILE
-        echo "LC_NUMERIC=C"                                             >> $FILE
-        echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_EXTERNAL)s/plugins\"" >> $FILE
-        echo "ADD_TO_PV_PLUGIN_PATH: \"%(ROOT_INSTALL)s/lib/paraview\"" >> $FILE
-        echo "ADD_TO_PATH: \"%(ROOT_INSTALL)s/bin/salome\""             >> $FILE
+        {
+            echo "[SALOME Configuration]"
+            echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"
+            echo "ROOT_EXTERNAL=%(ROOT_INSTALL)s/external"
+            echo "LC_NUMERIC=C"
+            echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_EXTERNAL)s/plugins\""
+            echo "ADD_TO_PV_PLUGIN_PATH: \"%(ROOT_INSTALL)s/lib/paraview\""
+            echo "ADD_TO_PATH: \"%(ROOT_INSTALL)s/bin/salome\""
+        } > $FILE
 
         for-all-modules-with-meta env-callback s-salome
     )
@@ -372,25 +374,27 @@ EOF
         if [[ -z $SMOD ]]; then
             MODULE_PATH=$SCBI_BDIR/$module/build/install
 
-	    case "$module" in
-	        *"samples")
-		    echo "   <samples path=\"$MODULE_PATH\"/>"           >> $FILE
-		    ;;
-	        *"medcoupling"*)
-		    echo "   <extra_tests>"                              >> $FILE
-		    echo "      <extra_test name='MEDCOUPLING'"          >> $FILE
-		    echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
-		    echo "   </extra_tests>"                             >> $FILE
-		    ;;
-	        *"paravisaddons-common"*)
-		    echo "   <extra_tests>"                              >> $FILE
-                    echo "      <extra_test name='paravisaddons-common'" >> $FILE
-                    echo "             path=\"$MODULE_PATH/tests\"/>"    >> $FILE
-                    echo "   </extra_tests>"                             >> $FILE
-                    ;;
-	        *)
-		    ;;
-	    esac
+            {
+	        case "$module" in
+	            *"samples")
+		        echo "   <samples path=\"$MODULE_PATH\"/>"
+		        ;;
+	            *"medcoupling"*)
+		        echo "   <extra_tests>"
+		        echo "      <extra_test name='MEDCOUPLING'"
+		        echo "             path=\"$MODULE_PATH/tests\"/>"
+		        echo "   </extra_tests>"
+		        ;;
+	            *"paravisaddons-common"*)
+		        echo "   <extra_tests>"
+                        echo "      <extra_test name='paravisaddons-common'"
+                        echo "             path=\"$MODULE_PATH/tests\"/>"
+                        echo "   </extra_tests>"
+                        ;;
+	            *)
+		        ;;
+	        esac
+            } >> $FILE
         fi
     }
 
