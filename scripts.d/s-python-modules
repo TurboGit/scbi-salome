@@ -79,7 +79,7 @@ function s-python-modules-pyaml-config-options()
 
 function s-python-modules-pyproj-config-options()
 {
-    echo pyproj==2.2.0
+    echo pyproj==3.2.1
 }
 
 function s-python-modules-telemac-config-options()
