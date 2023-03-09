@@ -73,6 +73,17 @@ function s-geom-env()
     local TARGET=$2
 
     set-var GEOM_ROOT_DIR $PREFIX
+
+    set-var    PARALLEL_VISU         1
+    set-var    GEOM_PluginsList      \
+               "BREPPlugin:STEPPlugin:IGESPlugin:STLPlugin:XAOPlugin:VTKPlugin:AdvancedGEOM"
+    set-var    CSF_ShHealingDefaults $PREFIX/share/salome/resources/geom
+
+    add-to-var PATH                  $PREFIX/bin/salome
+    add-to-var LD_LIBRARY_PATH       $PREFIX/lib/salome
+    add-to-var PYTHONPATH            $PREFIX/bin/salome
+    add-to-var PYTHONPATH            \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
 function s-geom-default-config-options()
