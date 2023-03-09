@@ -170,28 +170,30 @@ function build-salome-prerequisites()
                 REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
             fi
 
-            case "$VAR" in
-                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                    *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                ;;
-
-                SalomeAppConfig|SALOME_MODULES)
-                ;;
-
-                *)
-                    VSET=${VAR}_set
-
-                    if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                        echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}} >> $FILE
-                    else
-                        echo export $VAR=\"${REL_DIR}\"${!VSET:+:\$${VAR}} >> $FILE
-                    fi
-
-                    # mark $VAR as set to ensure that the previous value
-                    # will be added on next call ${!VAR...} above.
-                    export ${VAR}_set=IS_SET
+            {
+                case "$VAR" in
+                    C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                        *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
                     ;;
-            esac
+
+                    SalomeAppConfig|SALOME_MODULES)
+                    ;;
+
+                    *)
+                        VSET=${VAR}_set
+
+                        if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                            echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}}
+                        else
+                            echo export $VAR=\"${REL_DIR}\"${!VSET:+:\$${VAR}}
+                        fi
+
+                        # mark $VAR as set to ensure that the previous value
+                        # will be added on next call ${!VAR...} above.
+                        export ${VAR}_set=IS_SET
+                        ;;
+                esac
+            } >> $FILE
         }
 
         function env-callback()
@@ -211,18 +213,20 @@ function build-salome-prerequisites()
             CURRENT_MODULE=${module//-/_}
             CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-            echo ""          >> $FILE
-            echo "# $module" >> $FILE
-
-            echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
-
             local FCTM=$(get-hook $module $VARIANT salome-module)
 
-            if [[ -n $FCTM ]]; then
-                echo "\${ROOT_INSTALL}"                          >> $FILE
-            else
-                echo "\${ROOT_EXTERNAL}/${module}"               >> $FILE
-            fi
+            {
+                echo ""
+                echo "# $module"
+
+                echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR="
+
+                if [[ -n $FCTM ]]; then
+                    echo "\${ROOT_INSTALL}"
+                else
+                    echo "\${ROOT_EXTERNAL}/${module}"
+                fi
+            } >> $FILE
 
             plugin-call-variant-hook $module env \
                                      $CURRENT_MODULE_INSTALL $TARGET $variant
@@ -276,26 +280,29 @@ function build-salome-context()
                 REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_INSTALL)s}"
             fi
 
-            case "$VAR" in
-                LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH|PV_PLUGIN_PATH)
-                    echo "ADD_TO_$VAR: ${REL_DIR}" >> $FILE
-                    ;;
+            {
+                case "$VAR" in
+                    LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH \
+                        |PV_PLUGIN_PATH)
+                        echo "ADD_TO_$VAR: ${REL_DIR}"
+                        ;;
 
-                C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*\
-                    |*INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                    ;;
+                    C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*\
+                        |*INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                        ;;
 
-                SalomeAppConfig|SALOME_MODULES)
-                    ;;
+                    SalomeAppConfig|SALOME_MODULES)
+                        ;;
 
-                *)
-                    if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                        echo $VAR=$REL_DIR >> $FILE
-                    else
-                        echo $VAR=\"$REL_DIR\" >> $FILE
-                    fi
-                    ;;
-            esac
+                    *)
+                        if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                            echo $VAR=$REL_DIR
+                        else
+                            echo $VAR=\"$REL_DIR\"
+                        fi
+                        ;;
+                esac
+            } >> $FILE
         }
 
         function env-callback()
@@ -315,18 +322,20 @@ function build-salome-context()
             CURRENT_MODULE=${module//-/_}
             CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-            echo ""          >> $FILE
-            echo "# $module" >> $FILE
-
-            echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR=" >> $FILE
-
             local FCTM=$(get-hook $module $VARIANT salome-module)
 
-            if [[ -n $FCTM ]]; then
-                echo "%(ROOT_INSTALL)s"                   >> $FILE
-            else
-                echo "%(ROOT_EXTERNAL)s/${module}"        >> $FILE
-            fi
+            {
+                echo ""
+                echo "# $module"
+
+                echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR="
+
+                if [[ -n $FCTM ]]; then
+                    echo "%(ROOT_INSTALL)s"
+                else
+                    echo "%(ROOT_EXTERNAL)s/${module}"
+                fi
+            }  >> $FILE
 
             plugin-call-variant-hook $module env \
                                      $CURRENT_MODULE_INSTALL $TARGET $variant
