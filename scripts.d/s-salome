@@ -228,9 +228,14 @@ function build-salome-prerequisites()
                                      $CURRENT_MODULE_INSTALL $TARGET $variant
         }
 
-        echo                                                            > $FILE
-        echo "export ROOT_INSTALL=\$(dirname \$(command -v \$BASH_SOURCE))" >> $FILE
-        echo "export ROOT_EXTERNAL=\$ROOT_INSTALL/external"            >> $FILE
+        local SVER=$(get-version)
+
+        {
+            echo
+            echo "export ROOT_INSTALL=\$(dirname \$(command -v \$BASH_SOURCE))"
+            echo "export ROOT_EXTERNAL=\$ROOT_INSTALL/external"
+            echo "export SALOME_VERSION=$SVER"
+        } > $FILE
 
         # keep current PATH setting
         PATH_set=IS_SET
@@ -327,10 +332,13 @@ function build-salome-context()
                                      $CURRENT_MODULE_INSTALL $TARGET $variant
         }
 
+        local SVER=$(get-version)
+
         {
             echo "[SALOME Configuration]"
             echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"
             echo "ROOT_EXTERNAL=%(ROOT_INSTALL)s/external"
+            echo "SALOME_VERSION=$SVER"
             echo "LC_NUMERIC=C"
             echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_EXTERNAL)s/plugins\""
             echo "ADD_TO_PV_PLUGIN_PATH: \"%(ROOT_INSTALL)s/lib/paraview\""

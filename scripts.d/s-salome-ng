@@ -278,12 +278,21 @@ EOF
 
         PFILE="extra.env.d/00_setup.py"
 
-        echo "def init(context, root_dir):"                 > $PFILE
-        echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)' >> $PFILE
+        local SVER=$(get-version)
+
+        {
+            echo "def init(context, root_dir):"
+            echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)'
+            echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
+        } > $PFILE
 
         SFILE="extra.env.d/00_setup.sh"
 
-        echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}" >> $SFILE
+        {
+            echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
+            echo "export SALOME_VERSION=$SVER"
+        } > $SFILE
+
         #  keep current PATH setting
         PATH_set=IS_SET
 
