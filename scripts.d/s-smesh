@@ -84,7 +84,11 @@ function s-smesh-env()
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
     add-to-var PYTHONPATH        \
+               $PREFIX/share/salome/plugins/smesh
+    add-to-var PYTHONPATH        \
                $PREFIX/share/salome/plugins/smesh/Verima
+    add-to-var PYTHONPATH        \
+               $PREFIX/share/salome/plugins/smesh/MacMesh
     add-to-var SMESH_MeshersList StdMeshers
     add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/smesh
 }

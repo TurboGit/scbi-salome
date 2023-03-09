@@ -280,9 +280,6 @@ EOF
 
         echo "def init(context, root_dir):"                 > $PFILE
         echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)' >> $PFILE
-        echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh")' >> $PFILE
-        echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")' >> $PFILE
-        echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")' >> $PFILE
 
         SFILE="extra.env.d/00_setup.sh"
 
