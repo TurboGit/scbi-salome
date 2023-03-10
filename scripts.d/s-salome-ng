@@ -304,8 +304,6 @@ function s-salome-ng-wrapup()
         if [[ "$(is-enabled application)" = "yes" ]] \
                || [[ "$(is-enabled installer)" = "yes" ]];
         then
-            scbi --version > .scbi_versions.txt
-
             dlog salome-ng prepare the application directory
 
             #  Copy CEA's binaries
@@ -313,6 +311,13 @@ function s-salome-ng-wrapup()
             cp -r $SCBI_BDIR/s-salome-tar/build/install/* .
 
             #  Add some build artifacts for traceability
+
+            mkdir -p artifacts
+
+            date > artifacts/creation-time.txt
+            scbi --version > artifacts/scbi_versions.txt
+
+            cp ../$TARGET-$VARIANT/.log/build-plan artifacts/
 
             [[ ! -z $CI_JOB_NAME ]] &&
                 echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
