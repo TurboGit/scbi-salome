@@ -1,69 +1,8 @@
 #!/bin/bash
 
+source $(dirname ${BASH_SOURCE[0]})/install-setup-common
+
 AUTO=0
-
-# check that directory "$1" can be created
-function check-writable()
-{
-    local DIR=$1
-
-    while [[ ! -d $(dirname $DIR) ]]; do
-        DIR=$(dirname $DIR)
-    done
-
-    [[ -w $(dirname $DIR) ]]
-}
-
-function template-conversion()
-{
-    local PREFIX=$1
-    local DISTRIBUTION_ID=$2
-    local OS_VERSION=$3
-
-    # Convert the template files (omniidl, h5hlcc, ...)
-
-    local ORIG_BINDIR="__BINDIR__"
-    local BINDIR=$(basename $(ls -1d $PREFIX/BINARIES-*))
-
-    local FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc hdf5/bin/h5cc)
-
-    if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
-        FILES_LIST+=(netcdf/lib/pkgconfig/netcdf.pc PyQt/bin/pyuic5)
-    fi
-
-    for SCRIPTS in ${FILES_LIST[*]}; do
-        sed -i "s,${ORIG_BINDIR},$PREFIX/${BINDIR},g" $PREFIX/$BINDIR/$SCRIPTS
-    done
-
-    if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
-        #  For sip
-
-        find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
-            while read F; do
-                sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
-            done
-
-        #  For Python
-
-        find $PREFIX/$BINDIR/Python -type f \
-             \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
-            while read F; do
-                sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
-            done
-    fi
-}
-
-function get-pck-status()
-{
-    local PCK="$1"
-    # Get the Installed & Candidate line, returns only the version for both
-    # Also kills all suffix +* and .scibian*
-    # (pleiade issue : https://forge.pleiade.edf.fr/issues/22794)
-    LANG=en_EN.UTF-8 apt-cache policy $PCK |
-        grep -E "(Installed|Candidate)" | sed "s/: /|/" |
-        cut -d'|' -f2
-    apt-cache madison $PCK | cut -d'|' -f2
-}
 
 while [ ! -z $1 ]; do
     case "$1" in
@@ -115,14 +54,13 @@ else
 fi
 
 if [[ $EXIT -ne "0" ]]; then
-    read -p "Do you want to continue installation of salome? [y|Y|yes|o|O|oui/n|N|no|non]" FORCE_INSTALL
-    INSTALL="n"
-    case "$FORCE_INSTALL" in
-        y|Y|yes|YES|Yes|o|O|oui|OUI|Oui)
-            INSTALL="y"
-            ;;
-    esac
-    if [[ $INSTALL != "y" ]]; then
+    read -p "Do you want to continue installation of salome? [Yes|No]"
+    REPLY=${REPLY^^}
+
+    if [[ "$REPLY" == "N" ]] ||
+           [[ "$REPLY" == "NON" ]] ||
+           [[ "$REPLY" == "NO" ]];
+    then
         echo Installation stopped
         INSTALL_DIR=$PWD
         cd ../
@@ -133,15 +71,10 @@ fi
 
 # check for python3
 #
-TMPV=$(lsb_release -r | tr -d '[ \t]')
-TMPV=${TMPV#*:}
-OS_VERSION=${TMPV%.*}
 
-TMPV=$(lsb_release -i | tr -d '[ \t]')
-DISTRIBUTION_ID=${TMPV#*:}
 BINDIR=$(basename $(ls -1d BINARIES-*))
 
-if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
+if [[ $DISTRIBUTION_ID == "Debian" ]] && [[ $OS_VERSION == "9" ]]; then
     echo Python is embedded into salome on debian9
 elif [[ "$(lsb_release -d)" =~ "Red Hat" ]]; then
     echo Python is embedded into salome on Red Hat
@@ -164,8 +97,6 @@ fi
 [ -f create_catalog_ng.sh ] && ./create_catalog_ng.sh
 [ -f CatalogResources.xml ] &&
     cp CatalogResources.xml $BINDIR/KERNEL/share/salome/resources/kernel/
-
-
 
 #  Setup the HPC servers, the template file servers.pvsc will be used
 #  by the following script to replace (and copy with date if exist)
@@ -198,47 +129,37 @@ diff -q $USER_SERVER_PVSC $USER_PVSC_BACKUP
 if [[ $? -eq 0 ]]; then
     rm $USER_PVSC_BACKUP
 else
-    echo "Les fichiers $USER_SERVER_PVSC et servers.pvsc sont différents."
-    echo "La sauvegarde $USER_PVSC_BACKUP a été créée."
+    echo "Files $USER_SERVER_PVSC and servers.pvsc are different."
+    echo "The backup $USER_PVSC_BACKUP has been created."
 fi
-
-# In auto-mode, do nothing more
-if [[ $AUTO -eq 1 ]]; then
-    template-conversion $PWD $DISTRIBUTION_ID $OS_VERSION
-    exit 0
-fi
-
-SUDO=""
 
 echo Installing SALOME
 
-while true; do
-    echo
-    read -e -p "Install into (/opt/salome) : " prefix
+# In AUTO mode we install in $PWD otherwise the install directory
+# is asked to user.
+prefix=$PWD
+SUDO=""
 
-    [ -z $prefix ] && prefix=/opt/salome
+if [[ $AUTO == 0 ]]; then
+    prefix=$(get-install-directory \$HOME/opt/salome)
 
-    # eval $prefix to expand environment variables if any
-    prefix=$(eval echo $prefix)
+    SUDO=""
 
-    read -p "Ready to install SALOME in $prefix? (Yes/No/Quit) "
+    check-writable $prefix || SUDO=sudo
 
-    REPLY=${REPLY^^}
+    $SUDO mkdir -p $prefix
+    $SUDO mv * .[a-z]* $prefix/
+fi
 
-    [ "$REPLY" == "Q" -o "$REPLY" == "QUIT" ] && exit 1
-
-    [ "$REPLY" == "Y" -o "$REPLY" == "YES" ] && break
-done
-
-check-writable $prefix || SUDO=sudo
-
-$SUDO mkdir -p $prefix
-$SUDO mv * .[a-z]* $prefix/
 template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
 
-$SUDO rm -f $prefix/setup
+if [[ $AUTO == 0 ]]; then
+    $SUDO rm -f $prefix/setup
 
-$SUDO chown $USER -R $prefix
+    $SUDO chown $USER -R $prefix
+fi
 
 echo "SALOME installation terminated, to start:"
 echo "$ $prefix/salome"
+
+exit 0
