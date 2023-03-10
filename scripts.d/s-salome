@@ -606,6 +606,7 @@ function s-salome-wrapup()
                 # create the .run auto-installer to be distributed
 
                 cp $SCBI_PLUGINS/support/install-setup $APP/setup
+                cp $SCBI_PLUGINS/support/install-setup-common $APP/
                 chmod a+x $APP/setup
 
                 cp $SCBI_PLUGINS/support/servers.pvsc $APP/

@@ -1,0 +1,105 @@
+#!/bin/bash
+
+# =============================================== check-writable
+# check that directory "$1" can be created
+function check-writable()
+{
+    local DIR=$1
+
+    while [[ ! -d $(dirname $DIR) ]]; do
+          DIR=$(dirname $DIR)
+    done
+
+    [[ -w $(dirname $DIR) ]]
+}
+
+# =============================================== get-install-directory
+function get-install-directory()
+{
+    local DEFAULT_DIR=$1
+
+    local prefix=""
+
+    while true; do
+        echo
+        read -e -p "Install into ($DEFAULT_DIR) : " prefix
+
+        [ -z $prefix ] && prefix=$DEFAULT_DIR
+
+        # eval $prefix to expand environment variables if any
+        prefix=$(eval echo $prefix)
+
+        read -p "Ready to install SALOME in $prefix? (Yes/No/Quit) "
+
+        REPLY=${REPLY^^}
+
+        [ "$REPLY" == "Q" -o "$REPLY" == "QUIT" ] && exit 1
+
+        [ "$REPLY" == "Y" -o "$REPLY" == "YES" ] && break
+    done
+
+    echo $prefix
+}
+
+# =============================================== template-conversion
+function template-conversion()
+{
+    local PREFIX=$1
+    local DISTRIBUTION_ID=$2
+    local OS_VERSION=$3
+
+    # Convert the template files (omniidl, h5hlcc, ...)
+
+    local ORIG_BINDIR="__BINDIR__"
+    local BINDIR=$(basename $(ls -1d $PREFIX/BINARIES-*))
+
+    local FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc hdf5/bin/h5cc)
+
+    if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
+        FILES_LIST+=(netcdf/lib/pkgconfig/netcdf.pc PyQt/bin/pyuic5)
+    fi
+
+    for SCRIPTS in ${FILES_LIST[*]}; do
+        sed -i "s,${ORIG_BINDIR},$PREFIX/${BINDIR},g" $PREFIX/$BINDIR/$SCRIPTS
+    done
+
+    if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
+        #  For sip
+
+        find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
+            while read F; do
+                sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
+            done
+
+        #  For Python
+
+        find $PREFIX/$BINDIR/Python -type f \
+             \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
+            while read F; do
+                sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
+            done
+    fi
+}
+
+# =============================================== get-pck-status
+function get-pck-status()
+{
+    local PCK="$1"
+    # Get the Installed & Candidate line, returns only the version for both
+    # Also kills all suffix +* and .scibian*
+    LANG=en_EN.UTF-8 apt-cache policy $PCK |
+        grep -E "(Installed|Candidate)" | sed "s/: /|/" |
+        cut -d'|' -f2
+    apt-cache madison $PCK | cut -d'|' -f2
+}
+
+# =============================================== Set OS_VERSION & DISTRIBUTION
+
+TMPV=$(lsb_release -r | tr -d '[ \t]')
+TMPV=${TMPV#*:}
+OS_VERSION=${TMPV%.*}
+
+TMPV=$(lsb_release -i | tr -d '[ \t]')
+DISTRIBUTION_ID=${TMPV#*:}
+
+unset TMPV

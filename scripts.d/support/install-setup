@@ -1,18 +1,8 @@
 #!/bin/bash
 
+source $(dirname ${BASH_SOURCE[0]})/install-setup-common
+
 AUTO=0
-
-# check that directory "$1" can be created
-function check-writable()
-{
-    local DIR=$1
-
-    while [[ ! -d $(dirname $DIR) ]]; do
-          DIR=$(dirname $DIR)
-    done
-
-    [[ -w $(dirname $DIR) ]]
-}
 
 while [ ! -z $1 ]; do
     case "$1" in
@@ -41,29 +31,13 @@ if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
 fi
 
 # In auto-mode, do nothing more
-[ $AUTO = 1 ] && exit 0
+[[ $AUTO = 1 ]] && exit 0
 
 SUDO=""
 
 echo Installing SALOME
 
-while true; do
-    echo
-    read -e -p "Install into (/opt/salome) : " prefix
-
-    [ -z $prefix ] && prefix=/opt/salome
-
-    # eval $prefix to expand environment variables if any
-    prefix=$(eval echo $prefix)
-
-    read -p "Ready to install SALOME in $prefix? (Yes/No/Quit) "
-
-    REPLY=${REPLY^^}
-
-    [ "$REPLY" == "Q" -o "$REPLY" == "QUIT" ] && exit 1
-
-    [ "$REPLY" == "Y" -o "$REPLY" == "YES" ] && break
-done
+prefix=$(get-install-directory \$HOME/opt/salome)
 
 check-writable $prefix || SUDO=sudo
 
