@@ -219,9 +219,9 @@ function setup-env-salome-ng()
             CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
             if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
-                NUM=99
+                NUM=998
             else
-                NUM=$(printf "%02d" ${N})
+                NUM=$(printf "%03d" ${N})
             fi
 
             SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
@@ -276,7 +276,7 @@ EOF
 
         #  Override some possible values
 
-        PFILE="extra.env.d/00_setup.py"
+        PFILE="extra.env.d/000_setup.py"
 
         local SVER=$(get-version)
 
@@ -286,7 +286,7 @@ EOF
             echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
         } > $PFILE
 
-        SFILE="extra.env.d/00_setup.sh"
+        SFILE="extra.env.d/000_setup.sh"
 
         {
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
