@@ -30,7 +30,6 @@ function s-salome-ng-common-modules()
     echo s-zcracks
     echo s-cgal
     echo s-padder
-    echo s-gnuplot-py
 
     echo s-meshgems
 }
