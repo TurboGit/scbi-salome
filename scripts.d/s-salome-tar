@@ -215,14 +215,15 @@ function s-salome-tar-install()
     #  In "/volatile/.../INSTALL/dir1:/volatile/.../INSTALL/dir2" we don't
     #  want to replace by /new/path/dir2 because sed regular expressions
     #  are greedy. So we break the strings match using : ; or double-quotes.
+    #
+    #  The /volatile/.*/dir will be replaced by $ENV{SALOME_BIN_MODULES}/dir
 
     local ORIGDIR
-    local BINDIR
+    local TGTDIR=\$ENV{SALOME_BIN_MODULES}
 
     if [[ $VARIANT == "win" ]]; then
         ORIGDIR="E:/S/[^/]*/W64"
         BINDIR=W64
-        TGTDIR=$(cygpath -m $PREFIX/$BINDIR)
 
         chmod u+x $BINDIR/qt
     else
@@ -232,8 +233,6 @@ function s-salome-tar-install()
         #  this patch is rewritten, to \t is finally removed.
         INIT="s,/INSTALL/,/\t/,g"
         ORIGDIR="/volatile/[^:;\"]*(support|workspace)/[^\t]*/\t"
-        BINDIR=$(basename $(ls -d $PREFIX/BINARIES-*))
-        TGTDIR=\$ENV{KERNEL_ROOT_DIR}/../../$BINDIR
     fi
 
     find $PREFIX/ -type f -name "*.cmake" |
