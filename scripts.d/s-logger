@@ -1,0 +1,74 @@
+
+function s-logger-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/slogger
+}
+
+function s-logger-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo none
+    echo none
+    echo SLOGGER_SRC_$VERSION.tar.gz
+}
+
+function s-logger-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-logger-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-logger-default-depends()
+{
+    echo s-qt
+    echo s-salome-kernel
+}
+
+function s-logger-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    LOGGER_ROOT_DIR $PREFIX
+    add-to-var PATH            $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH $PREFIX/bin
+}
+
+function s-logger-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function s-logger-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make
+}
+
+function s-logger-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-logger-prefix()
+{
+    echo NONE
+}
