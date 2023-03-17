@@ -12,18 +12,18 @@ s-persalys:master
 s-zeromq:#4.3.1
 s-planegcs:#0.18
 
-s-openturns:v1.19
-s-openturns-fftw:v0.12
-s-openturns-mixmod:v0.13
-s-openturns-morris:v0.13
-s-openturns-pmml:v1.12
-s-openturns-robopt:v0.11
-s-openturns-subsetinverse:v1.9
-s-openturns-svm:v0.11
-s-openturns-wrapy:v0.11
-s-openturns-pod:v0.6.8
-s-pyfmi:PyFMI-2.6
-s-openturns-fmi:v0.15
+s-openturns:#1.19
+s-openturns-fftw:#0.12
+s-openturns-mixmod:#0.13
+s-openturns-morris:#0.13
+s-openturns-pmml:#1.12
+s-openturns-robopt:#0.11
+s-openturns-subsetinverse:#1.9
+s-openturns-svm:#0.11
+s-openturns-wrapy:#0.11
+s-openturns-pod:#0.6.8
+s-pyfmi:#2.6
+s-openturns-fmi:#0.15
 
 s-fmil:#2.0
 s-embree:#3.12.2
