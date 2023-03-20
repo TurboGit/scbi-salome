@@ -30,23 +30,28 @@ if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
    fi
 fi
 
-# In auto-mode, do nothing more
-[[ $AUTO = 1 ]] && exit 0
-
+# In AUTO mode we install in $PWD otherwise the install directory
+# is asked to user.
+prefix=$PWD
 SUDO=""
 
 echo Installing SALOME
 
-prefix=$(get-install-directory \$HOME/opt/salome)
+if [[ auto = 0 ]]; then
+    prefix=$(get-install-directory \$HOME/opt/salome)
 
-check-writable $prefix || SUDO=sudo
+    check-writable $prefix || SUDO=sudo
 
-$SUDO mkdir -p $prefix
-$SUDO mv * .[a-z]* $prefix/
+    $SUDO mkdir -p $prefix
+    $SUDO cp -r * $prefix/
 
-$SUDO rm -f $prefix/setup
+    $SUDO rm -f $prefix/setup
 
-$SUDO chown $USER -R $prefix
+    $SUDO chown $USER -R $prefix
+fi
+
+# Add icon link on desktop
+create-desktop-icon $prefix __SALOMEVERSION__
 
 cd $prefix
 

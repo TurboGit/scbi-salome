@@ -367,6 +367,8 @@ function s-salome-ng-wrapup()
 
             cp $SCBI_PLUGINS/support/install-meshgems-ng .
             cp $SCBI_PLUGINS/support/create_catalog_ng.sh .
+            cp $SCBI_PLUGINS/support/icon.png .
+            cp $SCBI_PLUGINS/support/salome_template.desktop .
 
             sed -i "s/<salome_version>/${ref#*-}/g" create_catalog_ng.sh
             chmod a+x create_catalog_ng.sh
