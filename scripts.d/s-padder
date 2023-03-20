@@ -36,12 +36,13 @@ function s-padder-default-depends()
     echo s-medfichier
 }
 
-function s-padder-ng-depends()
+function s-padder-ng-build-depends()
 {
     echo s-salome-bin
+    echo s-cgal
 }
 
-function s-padder-build-depends()
+function s-padder-default-build-depends()
 {
     echo s-cgal
     echo s-boost
