@@ -4,6 +4,41 @@ source $(dirname ${BASH_SOURCE[0]})/install-setup-common
 
 AUTO=0
 
+function desktop-icon()
+{
+    local PREFIX=$1
+    local APPLIDIR_PATH=$HOME/.local/share/applications
+    local DESKTOP_FILE_NAME=Salome_template.desktop
+    local DESKTOP_FILE_VERSION=Salome_V__SALOMEVERSION__.desktop
+    local DESKTOPDIR=$(xdg-user-dir DESKTOP)
+
+    mv $PREFIX/$DESKTOP_FILE_NAME $PREFIX/$DESKTOP_FILE_VERSION
+    ICONE_FILE=$PREFIX/icon.png
+
+    # de YAMM projects/salome/installer/strings_template.py&
+
+    # Install the menu and desktop files if requested
+    if test -e $PREFIX/$DESKTOP_FILE_VERSION; then
+      sed -i "s#APPLIDIR#$PREFIX#g" $PREFIX/$DESKTOP_FILE_VERSION
+      sed -i "s#VERSION#__SALOMEVERSION__#g" $PREFIX/$DESKTOP_FILE_VERSION
+    fi
+
+    if [[ -e $PREFIX/$DESKTOP_FILE_VERSION ]] ; then
+      if [[ ! -d $APPLIDIR_PATH ]] ; then
+        mkdir -p $APPLIDIR_PATH  || die "mkdir failed"
+      fi
+      cp $PREFIX/$DESKTOP_FILE_VERSION $APPLIDIR_PATH/
+      chmod +x $APPLIDIR_PATH/$DESKTOP_FILE_VERSION
+    fi
+
+    if test -n $DESKTOPDIR; then
+      if test -e $PREFIX/$DESKTOP_FILE_VERSION; then
+        cp $PREFIX/$DESKTOP_FILE_VERSION $DESKTOPDIR
+        chmod +x $DESKTOPDIR/$DESKTOP_FILE_VERSION
+      fi
+    fi
+}
+
 while [ ! -z $1 ]; do
     case "$1" in
         --auto)
@@ -30,6 +65,9 @@ if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
    fi
 fi
 
+# Add icon link on desktop
+desktop-icon $PWD
+
 # In auto-mode, do nothing more
 [[ $AUTO = 1 ]] && exit 0
 
@@ -42,7 +80,7 @@ prefix=$(get-install-directory \$HOME/opt/salome)
 check-writable $prefix || SUDO=sudo
 
 $SUDO mkdir -p $prefix
-$SUDO mv * .[a-z]* $prefix/
+$SUDO cp -r * .[a-z]* $prefix/
 
 $SUDO rm -f $prefix/setup
 
