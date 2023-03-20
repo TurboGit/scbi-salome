@@ -270,6 +270,10 @@ EOF
         {
             echo "def init(context, root_dir):"
             echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)'
+            # Note that the following SMESH_ROOT_DIR are needed in NG mode.
+            echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh")'
+            echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")'
+            echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")'
             echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
         } > $PFILE
 
