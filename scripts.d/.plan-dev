@@ -119,7 +119,7 @@ s-salome:dev
 ] :master
 
 [ = mpi
-        s-paraview/default.mpi.ospray.gdal.catalyst:v5.11.0
+        s-paraview/default.mpi.ospray.gdal.catalyst:#v5.11.0
 ]
 
 [ /= mpi
@@ -129,7 +129,7 @@ s-salome:dev
 ] :master
 
 [ /= mpi
-        s-paraview/default.ospray.gdal.catalyst:v5.11.0
+        s-paraview/default.ospray.gdal.catalyst:#v5.11.0
 ]
 
 [ = deb,9
