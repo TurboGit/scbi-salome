@@ -7,13 +7,13 @@ s-clang:#12.x
 s-ispc/bin:#v1.16.0
 
 # waiting for v13 to be out s-persalys:v13.0
-s-persalys:master
+s-persalys:#13.0
 
 s-zeromq:#4.3.1
 s-melissa:#0.0.0
 s-planegcs:#0.18
 
-s-openturns:#1.19
+s-openturns:#1.20.1
 s-openturns-fftw:#0.12
 s-openturns-mixmod:#0.13
 s-openturns-morris:#0.13
@@ -22,7 +22,7 @@ s-openturns-robopt:#0.11
 s-openturns-subsetinverse:#1.9
 s-openturns-svm:#0.11
 s-openturns-wrapy:#0.11
-s-openturns-pod:#0.6.8
+s-openturns-pod:#0.6.9
 s-pyfmi:#2.6
 s-openturns-fmi:#0.15
 
