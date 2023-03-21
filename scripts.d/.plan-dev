@@ -40,7 +40,7 @@ s-pyqt/auto:#5.15.3
 s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
 s-cmake/auto:#3.24.3
-s-ttk:1.1.0
+s-ttk:#1.1.0
 s-carmel-study:master
 
 [
