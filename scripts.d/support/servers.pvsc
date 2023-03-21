@@ -18,7 +18,7 @@
           <String default="http://ftp.pleiade.edf.fr/projets/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
         </Option>
       </Options>
-      <SSHCommand delay="30" exec="/software/rd/salome/logiciels/salome/pvfiles/paravis_visu_tunnel" timeout="0">
+      <SSHCommand delay="30" exec="/software/rd/salome/logiciels/salome/pvfiles/paravis_visu_tunnel" process_wait="0">
         <SSHConfig user="$SLURM_USER$">
           <PortForwarding local="11111"/>
         </SSHConfig>
@@ -59,7 +59,7 @@
           <String default="https://minio.retd.edf.fr/salome/salome/Documentation/salomedoc/html/userguide.visuhpc.html"/>
         </Option>
       </Options>
-      <SSHCommand delay="18" exec="/projets/salome/logiciels/salome/pvfiles/paravis_visu_no_tunnel" timeout="0">
+      <SSHCommand delay="18" exec="/projets/salome/logiciels/salome/pvfiles/paravis_visu_no_tunnel" process_wait="0">
         <SSHConfig user="$SLURM_USER$"/>
         <Arguments>
           <Argument value="frontend"/>
