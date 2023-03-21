@@ -28,7 +28,8 @@ function s-coolprop-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCOOLPROP_INSTALL_PREFIX=$PREFIX \
-          -DCOOLPROP_SHARED_LIBRARY=ON
+          -DCOOLPROP_SHARED_LIBRARY=ON \
+          ../src
 }
 
 function s-coolprop-build()
