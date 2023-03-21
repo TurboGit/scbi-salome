@@ -9,7 +9,7 @@ function s-ttk-vcs()
     echo https://github.com/topology-tool-kit/ttk.git
 }
 
-function s-ttk-tar()
+function s-ttk-gh-tar()
 {
     local VERSION=$1
 
@@ -18,6 +18,17 @@ function s-ttk-tar()
     echo wget
     echo https://github.com/topology-tool-kit/ttk/archive/
     echo $VERSION.tgz
+}
+
+function s-ttk-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo ttk-$VERSION.tar.bz2
 }
 
 function s-ttk-build-depends()
