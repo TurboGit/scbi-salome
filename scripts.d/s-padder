@@ -62,8 +62,9 @@ function s-padder-build-env()
     local TARGET=$2
     local VARIANT=$3
 
-    export CGAL_LFLAGS="-L${CGALHOME}/lib -lCGAL -lm -lgmp"
-    export BOOST_LFLAGS="-L${BOOSTDIR}/lib -lboost_thread"
+    #  Overwrite some setting in Makefile
+    set-var CGAL_LFLAGS  "-L${CGALHOME}/lib -lCGAL -lm -lgmp"
+    set-var BOOST_LFLAGS "-L${BOOSTDIR}/lib -lboost_thread"
 }
 
 function s-padder-build()
