@@ -31,7 +31,7 @@ if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
 fi
 
 # Add icon link on desktop
-create-desktop-icon $PWD
+create-desktop-icon $PWD __SALOMEVERSION__
 
 # In auto-mode, do nothing more
 [[ $AUTO = 1 ]] && exit 0
