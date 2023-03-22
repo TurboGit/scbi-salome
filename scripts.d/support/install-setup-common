@@ -88,14 +88,14 @@ function create-desktop-icon()
     local SALOMEVERSION=$2
     local APPLIDIR_PATH=$HOME/.local/share/applications
     local DESKTOP_FILE_NAME=salome_template.desktop
-    local DESKTOP_FILE_VERSION=salome_V__SALOMEVERSION__.desktop
+    local DESKTOP_FILE_VERSION=salome_V$SALOMEVERSION.desktop
     local DESKTOPDIR=$(xdg-user-dir DESKTOP)
     local ICONE_FILE=$PREFIX/icon.png
     mv $PREFIX/$DESKTOP_FILE_NAME $PREFIX/$DESKTOP_FILE_VERSION
     # Install the menu and desktop files if requested
     if [[ -e $PREFIX/$DESKTOP_FILE_VERSION ]]; then
       sed -i "s#APPLIDIR#$PREFIX#g" $PREFIX/$DESKTOP_FILE_VERSION
-      sed -i "s#VERSION#SALOMEVERSION#g" $PREFIX/$DESKTOP_FILE_VERSION
+      sed -i "s#VERSION#$SALOMEVERSION#g" $PREFIX/$DESKTOP_FILE_VERSION
       if [[ ! -d $APPLIDIR_PATH ]]; then
         mkdir -p $APPLIDIR_PATH  || die "mkdir failed"
       fi
