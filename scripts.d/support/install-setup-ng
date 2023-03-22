@@ -154,7 +154,7 @@ fi
 template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
 
 # Add icon link on desktop
-create-desktop-icon $PWD
+create-desktop-icon $PWD __SALOMEVERSION__
 
 if [[ $AUTO == 0 ]]; then
     $SUDO rm -f $prefix/setup
