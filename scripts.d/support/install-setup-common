@@ -81,8 +81,8 @@ function template-conversion()
     fi
 }
 
-# =============================================== desktop-icon
-function desktop-icon()
+# =============================================== create-desktop-icon
+function create-desktop-icon()
 {
     local PREFIX=$1
     local APPLIDIR_PATH=$HOME/.local/share/applications
