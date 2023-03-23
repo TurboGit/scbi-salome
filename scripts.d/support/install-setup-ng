@@ -148,13 +148,13 @@ if [[ $AUTO == 0 ]]; then
     check-writable $prefix || SUDO=sudo
 
     $SUDO mkdir -p $prefix
-    $SUDO mv * .[a-z]* $prefix/
+    $SUDO mv * $prefix/
 fi
 
 template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
 
 # Add icon link on desktop
-create-desktop-icon $PWD __SALOMEVERSION__
+create-desktop-icon $prefix __SALOMEVERSION__
 
 if [[ $AUTO == 0 ]]; then
     $SUDO rm -f $prefix/setup
