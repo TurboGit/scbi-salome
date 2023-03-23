@@ -108,8 +108,13 @@ function setup-env-salome-ng()
                    [[ $CURRENT_MODULE_NAME == "s-salome-tar" ]]
             then
                 local REL_FROM="$SCBI_BDIR/s-salome-tar/build/install"
+                local SFX_DIR="${VALUE#$REL_FROM/}"
+                local SFX_DIR="${SFX_DIR#$REL_FROM}"
+                # For shell:
                 local REL_DIR="${VALUE/$REL_FROM/\$\{root_dir\}}"
-                local DVAR="r\"$REL_DIR\""
+                # For Python:
+                local DVAR="os.path.join(root_dir, r\"$SFX_DIR\")"
+
             elif [[ "$VALUE" == "$REL_PDIR" ]]; then
                 local DVAR="\"$VALUE\""
             else
