@@ -37,13 +37,13 @@ SUDO=""
 
 echo Installing SALOME
 
-if [[ auto = 0 ]]; then
+if [[ $AUTO == 0 ]]; then
     prefix=$(get-install-directory \$HOME/opt/salome)
 
     check-writable $prefix || SUDO=sudo
 
     $SUDO mkdir -p $prefix
-    $SUDO cp -r * $prefix/
+    $SUDO cp -r * .[a-z]* $prefix/
 
     $SUDO rm -f $prefix/setup
 
