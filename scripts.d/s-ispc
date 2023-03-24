@@ -22,6 +22,17 @@ function s-ispc-bin-tar()
 {
     local VERSION=$1
 
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo ispc-$VERSION-linux.tar.gz
+}
+
+function s-ispc-ghbin-tar()
+{
+    local VERSION=$1
+
     echo edf
     echo none
     echo wget

@@ -3,8 +3,8 @@
 
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
-# using binary version 1.16.0, must be available in s-ispc GitHub
-s-ispc/bin:#v1.16.0
+# using binary version 1.16.1
+s-ispc/bin:#v1.16.1
 
 # waiting for v13 to be out s-persalys:v13.0
 s-persalys:#13.0
