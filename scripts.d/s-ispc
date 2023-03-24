@@ -8,7 +8,8 @@ function s-ispc-vcs()
 } 
 
 
-function s-ispc-bin-tar() 
+
+function s-ispc-ghbin-tar() 
 { 
     local VERSION=$1 
  
