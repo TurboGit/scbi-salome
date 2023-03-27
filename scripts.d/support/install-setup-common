@@ -34,7 +34,7 @@ function get-install-directory()
         echo
         read -e -p "Install into ($DEFAULT_DIR) : " prefix
 
-        [ -z $prefix ] && prefix=$DEFAULT_DIR
+        [[ -z $prefix ]] && prefix=$DEFAULT_DIR
 
         # eval $prefix to expand environment variables if any
         prefix=$(eval echo $prefix)
