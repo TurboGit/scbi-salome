@@ -134,6 +134,7 @@ else
 fi
 
 echo Installing SALOME
+echo
 
 # In AUTO mode we install in $PWD otherwise the install directory
 # is asked to user.

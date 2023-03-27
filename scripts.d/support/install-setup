@@ -36,6 +36,7 @@ prefix=$PWD
 SUDO=""
 
 echo Installing SALOME
+echo
 
 if [[ $AUTO == 0 ]]; then
     prefix=$(get-install-directory \$HOME/opt/salome)
@@ -66,3 +67,5 @@ sed -i "s,/home.*application,$prefix,g" config_appli.xml
 
 echo "SALOME installation terminated, to start:"
 echo "$ $prefix/salome"
+
+exit 0
