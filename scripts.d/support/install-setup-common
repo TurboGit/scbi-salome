@@ -31,13 +31,12 @@ function get-install-directory()
     local prefix=""
 
     while true; do
-        echo
         read -e -p "Install into ($DEFAULT_DIR) : " prefix
 
         [[ -z $prefix ]] && prefix=$DEFAULT_DIR
 
         # eval $prefix to expand environment variables if any
-        prefix=$(eval echo $prefix)
+        prefix=$(eval echo -n $prefix)
 
         read -p "Ready to install SALOME in $prefix? (Yes/No/Quit) "
 
@@ -48,7 +47,7 @@ function get-install-directory()
         [ "$REPLY" == "Y" -o "$REPLY" == "YES" ] && break
     done
 
-    echo $prefix
+    echo -n $prefix
 }
 
 # =============================================== template-conversion
