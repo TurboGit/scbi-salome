@@ -154,7 +154,7 @@ s-medfichier:#4.1.1
 s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
 
-s-libbatch:V2_4_5
+s-libbatch:#2.4.6
 
 s-python-omniorb:#4.2.2
 s-omniorb/auto:#4.2.2
