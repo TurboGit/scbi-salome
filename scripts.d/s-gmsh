@@ -15,7 +15,7 @@ function s-gmsh-tar()
     echo none
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
-    echo gmsh-$VERSION-source.tar.gz
+    echo gmsh-$VERSION.tar.gz
 }
 
 function s-gmsh-build-depends()
