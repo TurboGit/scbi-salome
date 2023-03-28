@@ -133,6 +133,12 @@ function s-salome-tar-install()
         done
     fi
 
+    #  Do clean-up HELLO and PYHELLO for the release
+    for M in HELLO PYHELLO; do
+        sed -i -E "s&^.*SalomeAppConfig.*/BINARIES-DB10/$M/share/salome/resources/&#\0&g" \
+            $PREFIX/salome
+    done
+
     #  Now remove all extra modules found in the binary archive.
     #  And unset variables that are pointing to those directories.
 
