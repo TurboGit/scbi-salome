@@ -119,6 +119,7 @@ function s-salome-tar-install()
     fi
 
     #  Do remove HELLO and PYHELLO from the UI
+
     for M in HELLO PYHELLO; do
         sed -i -E "s,^.*SalomeAppConfig.*/$M/share/salome/resources/,#,g" \
             $PREFIX/salome
