@@ -27,6 +27,10 @@ function s-persalys-patches()
     local REF=$5
 
     echo persalys-find-boost.patch
+
+    # Change numpydoc version from 0.9 to 0.7 to be able to compile
+    # the documentation on Scibian-10:
+    [[ $REF =~ "14." ]] && echo persalys-numpydoc-ver.patch
 }
 
 function s-persalys-common-build-depends()
