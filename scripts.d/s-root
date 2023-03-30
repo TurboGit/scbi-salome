@@ -66,14 +66,38 @@ function s-root-env()
     add-to-var PATH               $PREFIX/bin
 }
 
+function s-root-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DPYTHON_EXECUTABLE=$(command -v python3)
+
+    echo -Dgminimal:BOOL=ON
+    echo -Dmathmore:BOOL=ON
+    echo -Ddataframe:BOOL=ON
+    echo -Dmlp:BOOL=ON
+    echo -Dfftw3:BOOL=ON
+    echo -Dminuit2:BOOL=ON
+    echo -Dxml:BOOL=ON
+    echo -Dasimage:BOOL=ON
+    echo -Dpyroot:BOOL=ON
+    echo -Dsoversion:BOOL=ON
+    echo -Ddataframe:BOOL=ON
+}
+
 function s-root-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(command -v python3) \
-          ../src
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
 }
 
 function s-root-build()
