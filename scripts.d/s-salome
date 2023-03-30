@@ -486,13 +486,10 @@ function s-salome-wrapup()
 
         mkdir artifacts
 
-        # generate the scbi_versions.txt for tracability
-
-        cp $SCBI_PLUGINS/.scbi_core_version.txt \
-           artifacts/scbi_core_version.txt
-        cp $SCBI_PLUGINS/.scbi_salome_version.txt \
-           artifacts/scbi_salome_version.txt
+        date > artifacts/creation-time.txt
         scbi --version > artifacts/scbi_versions.txt
+
+        cp ../$TARGET-$VARIANT/.log/build-plan artifacts/
 
         [[ ! -z $CI_JOB_NAME ]] &&
             echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
