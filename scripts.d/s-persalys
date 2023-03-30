@@ -88,6 +88,8 @@ function s-persalys-env()
     add-to-var PATH              $PREFIX/bin
     add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/persalys
     add-to-var PV_PLUGIN_PATH    $PREFIX/lib
+    add-to-var PV_PLUGIN_PATH    \
+               $(last-modified-directory $PREFIX/lib/paraview-*/plugins)
 }
 
 function s-persalys-config-options()
