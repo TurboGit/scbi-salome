@@ -1,11 +1,4 @@
 
-function s-topiivol-vcs() 
-{ 
-    echo default
-    echo no-recursive 
-    echo git 
-    echo https://codev-tuleap.cea.fr/plugins/git/salome/top_ii_vol.git 
-} 
 
 
 function s-topiivol-out-of-tree()
