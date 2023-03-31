@@ -102,7 +102,7 @@ function s-persalys-config-options()
     local TARGET=$2
     local VARIANT=$3
 
-    local DISDOC=$(is-enabled no-doc)
+    local DISDOC=$(is-enabled no-doc OFF ON)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
@@ -113,8 +113,7 @@ function s-persalys-config-options()
     echo -DSalomeKERNEL_DIR=$SalomeKERNEL_DIR
     echo -DSalomeGUI_DIR=$SalomeGUI_DIR
     echo -DSalomeYACS_DIR=$SalomeYACS_DIR
-    echo ${DISDOC:+"-DUSE_SPHINX=OFF"}
-    echo ${DISDOC:-"-DUSE_SPHINX=ON"}
+    echo -DUSE_SPHINX=$DISDOC
 }
 
 function s-persalys-config()
