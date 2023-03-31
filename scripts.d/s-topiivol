@@ -4,6 +4,14 @@ function s-topiivol-vcs()
     echo edf
     echo no-recursive
     echo git
+    echo https://gitlab.pleiade.edf.fr/salome/top_ii_vol.git
+}
+
+function s-topiivol-cea-vcs()
+{
+    echo edf
+    echo no-recursive
+    echo git
     echo https://codev-tuleap.cea.fr/plugins/git/salome/top_ii_vol.git
 }
 
