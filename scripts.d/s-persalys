@@ -7,6 +7,14 @@ function s-persalys-vcs()
     echo https://git.forge.pleiade.edf.fr/git/incertitudes.otgui-phimeca.git
 }
 
+function s-persalys-phimeca-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.phimeca.com/persalys/persalys.git
+}
+
 function s-persalys-tar()
 {
     local VERSION=$1
