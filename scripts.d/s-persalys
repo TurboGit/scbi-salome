@@ -67,8 +67,8 @@ function s-persalys-env()
     local TARGET=$2
 
     set-var    PERSALYS_ROOT_DIR                $PREFIX
-    set-var    PERSALYS_HTML_DOCUMENTATION_PATH $PREFIX/share/persalys/doc/html
-    set-var    OTGUI_HTML_DOCUMENTATION_PATH    $PREFIX/share/otgui/doc/html
+    set-var    PERSALYS_HTML_DOCUMENTATION_PATH $PREFIX/share/persalys/doc/html/
+    set-var    OTGUI_HTML_DOCUMENTATION_PATH    $PREFIX/share/otgui/doc/html/
 
     add-to-var PYTHONPATH        $PREFIX/lib/python$PYTHON_VERSION/site-packages
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
