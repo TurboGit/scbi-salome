@@ -1,0 +1,54 @@
+
+function s-tefluide-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/tefluide.git
+}
+
+function s-tefluide-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo TeFluide-$VERSION.tar.gz
+}
+
+function s-tefluide-out-of-tree()
+{
+    echo FALSE
+}
+
+function s-tefluide-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-tefluide-default-build-depends()
+{
+    echo s-geom
+}
+
+function s-tefluide-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    # Replace part of the standard GEOM Python scripts
+
+    if [[ -d t_shape ]]; then
+        local GEOMPY=$GEOM_ROOT_DIR/lib/python$PYTHON_VERSION/site-packages
+
+        cp t_shape/* $GEOMPY/salome/salome/geom/t_shape/.
+    fi
+}
+
+function s-tefluide-prefix()
+{
+    echo NONE
+}
