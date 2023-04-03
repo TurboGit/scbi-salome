@@ -19,6 +19,7 @@ s-salome-ng:DEV
         s-gnuplot-py:#1.8-3k
         s-padder:20200727
         s-carmel-study:v3.3
+        s-tefluide:master
 
         # other modules that can be built in ng mode
         s-smesh

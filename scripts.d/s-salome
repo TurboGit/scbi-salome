@@ -50,6 +50,7 @@ function s-salome-modules()
     echo s-shaper
     echo s-shaperstudy
     echo s-geom
+    echo s-tefluide
     echo s-smesh
     echo s-paravis
     echo s-fields

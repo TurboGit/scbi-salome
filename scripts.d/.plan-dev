@@ -41,6 +41,7 @@ s-pyqt-sip:#12.8.1
 s-cmake/auto:#3.24.3
 s-ttk:#1.1.0
 s-carmel-study:master
+s-tefluide:master
 
 [
         # s-homard tool is now merged into s-homard module
