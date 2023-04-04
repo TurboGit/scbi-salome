@@ -8,7 +8,6 @@ function s-salome-tar-out-of-tree()
 function s-salome-tar-external-env()
 {
     echo $SCBI_EXTRA_NG_MODULES ${SCBI_EXTRA_NG_DEFS[*]}
-    echo $SCBI_CLEANUP_ARCHIVE
 }
 
 function s-salome-tar-env()
@@ -100,23 +99,7 @@ function s-salome-tar-install()
     cp $SCBI_PLUGINS/.scbi_salome_version.txt \
        artifacts/scbi_salome_version.txt
 
-    #  Do clean-up some modules for the release if needed
-
     local BINDIR=$(ls -d BINARIES-*)
-
-    if [[ "$SCBI_CLEANUP_ARCHIVE" == "yes" ]]; then
-        for M in HELLO PYHELLO CALCULATOR PYCALCULATOR; do
-            rm -fr $BINDIR/$M
-
-            local PAT="(${M}|${M}_ROOT_DIR)"
-	    PAT=$PAT'[^a-zA-Z_]'
-
-	    sed -i -E "s,^export .*=.*$PAT,# ,g" \
-	        $PREFIX/env_launch.sh
-	    sed -i -E "s,^ *(appendPath|context\.).*$PAT,#,g" \
-	        $PREFIX/salome
-        done
-    fi
 
     #  Do remove HELLO and PYHELLO from the UI
 
