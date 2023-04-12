@@ -78,11 +78,6 @@ function s-paraview-vrpn-depends
     echo s-vrpn
 }
 
-function s-paraview-uranie-depends
-{
-    echo s-uranie
-}
-
 function s-paraview-mpi-depends
 {
     echo s-openmpi
