@@ -67,13 +67,30 @@ function s-ttk-env()
     add-to-var PYTHONPATH      $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
+function s-ttk-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+    echo -DTTK_BUILD_PARAVIEW_PLUGINS=ON
+    echo -DEMBREE_INCLUDE_DIR=${embree_DIR}/include
+    echo -DTTK_ENABLE_CPU_OPTIMIZATION=OFF
+    echo -DTTK_ENABLE_EIGEN=ON
+}
+
 function s-ttk-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DTK_BUILD_PARAVIEW_PLUGINS=ON \
-          ../src
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake ${OPTIONS} ../src
 }
 
 function s-ttk-build()
