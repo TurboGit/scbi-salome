@@ -10,6 +10,15 @@
     s-shaper
 ] /ng.cea:po/29467_gui_log_file
 
-s-smesh/ng:dev
+[
+    s-salome-kernel
+    s-salome-gui
+    s-geom
+    s-shaper
+] /ng.cea:dev
 
-s-logger:dev
+[
+    s-salome
+] /+ng.logger
+
+# s-smesh/ng:dev
