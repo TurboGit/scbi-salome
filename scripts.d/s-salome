@@ -596,7 +596,8 @@ function s-salome-wrapup()
             done
 
             sed -i 's,SCRIPTS_DIR "../../../../,SCRIPTS_DIR "$ENV{KERNEL_ROOT_DIR}/,g' \
-                ./bin/salome/test/GEOM/examples/CTestTestfile.cmake
+                ./bin/salome/test/GEOM/examples/CTestTestfile.cmake \
+                ./bin/salome/test/SMESH/examples/CTestTestfile.cmake
 
             # patch bin/salome/test/CTestTestfile.cmake
             # add KERNEL first.
