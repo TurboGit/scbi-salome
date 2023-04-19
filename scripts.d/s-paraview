@@ -149,6 +149,10 @@ function s-paraview-common-config-options()
     echo -DPARAVIEW_USE_PYTHON:BOOL=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_GeographicalMap=ON
     echo -DPARAVIEW_PLUGIN_ENABLE_NodeEditor=OFF
+    echo -DPARAVIEW_PLUGIN_ENABLE_Moments:BOOL=OFF
+    echo -DPARAVIEW_PLUGIN_ENABLE_SLACTools:BOOL=OFF
+    echo -DPARAVIEW_PLUGIN_ENABLE_PacMan:BOOL=OFF
+    echo -DPARAVIEW_PLUGIN_ENABLE_pvblot:BOOL=OFF
 
     # Auto load
 
