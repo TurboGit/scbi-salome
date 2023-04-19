@@ -67,6 +67,7 @@ function s-shaper-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           -DADD_MODELS_TESTS=TRUE \
+          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
           ../src
 }
 
