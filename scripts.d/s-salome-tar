@@ -239,33 +239,45 @@ function s-salome-tar-install()
 
     #  Need to fix (shebang) full path to python interpreter
 
-    for SCRIPTS in omniORB/bin/omniidl \
-                       Python/bin/sphinx-build \
-                       hdf5/bin/h5hlcc hdf5/bin/h5cc \
-                       netcdf/lib/pkgconfig/netcdf.pc \
-                       PyQt/bin/pyuic5 \
-                       matplotlib/bin/f2py;
+    ##### NEW #
+    for SCRIPTS in Python/bin/sphinx-build \
+                           matplotlib/bin/f2py \
+                           openturns/bin/f2py* \
+                           Python/bin/f2py* \
+                           C3PO/bin/f2py*;
     do
-        [[ -e $PREFIX/$BINDIR/$SCRIPTS ]] &&
-            sed -i -E "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" \
-                $PREFIX/$BINDIR/$SCRIPTS
+        sed -e "s,$ODIR/.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
+        $PREFIX/$BINDIR/$SCRIPTS | grep SALOME_BIN_MODULES
+        echo $SCRIPTS
     done
-
-    for SCRIPTS in $PREFIX/$BINDIR/openturns/bin/f2py* \
-                       $PREFIX/$BINDIR/Python/bin/f2py* \
-                       $PREFIX/$BINDIR/C3PO/bin/f2py*;
-    do
-        sed -i -E "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" $SCRIPTS
-    done
-
-    #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
         while read F; do
-            sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -e "s,$ODIR/.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" $F | grep SALOME_BIN_MODULES
+            echo $F # Pour debug à enlever
         done
 
+    for SCRIPTS in hdf5/bin/h5hlcc \
+                   hdf5/bin/h5cc \
+                   netcdf/lib/pkgconfig/netcdf.pc \
+                   PyQt/bin/pyuic5;
+    do
+        sed -e "s,/volatile/.*INSTALL,\${SALOME_BIN_MODULES},g" \
+        $PREFIX/$BINDIR/$SCRIPTS | grep SALOME_BIN_MODULES
+        echo $SCRIPTS
+    done
+
+
+    for SCRIPTS in omniORB/bin/omniidl;
+    do
+        sed -e "s,\"/volatile/.*INSTALL,os\.getenv\(\"SALOME_BIN_MODULES\"\) + \",g" \
+        $PREFIX/$BINDIR/$SCRIPTS | grep SALOME_BIN_MODULES
+        echo $SCRIPTS
+    done
+    ##### END NEW #
+
     #  Fix path in Makefile and Python system configuration scripts
+
 
     find $PREFIX/$BINDIR/Python -type f \
          \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
