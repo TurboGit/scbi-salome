@@ -240,33 +240,29 @@ function s-salome-tar-install()
     #  Need to fix (shebang) full path to python interpreter
 
     ##### NEW #
-    for SCRIPTS in Python/bin/sphinx-build \
-                           matplotlib/bin/f2py \
-                           openturns/bin/f2py* \
-                           Python/bin/f2py* \
-                           C3PO/bin/f2py*;
+    local FILE_SHEEBANG="Python/bin/sphinx-build matplotlib/bin/f2py openturns/bin/f2py* Python/bin/f2py* C3PO/bin/f2py*"
+    local FILE_BASH="hdf5/bin/h5hlcc hdf5/bin/h5cc netcdf/lib/pkgconfig/netcdf.pc PyQt/bin/pyuic5"
+    local FILE_PY="omniORB/bin/omniidl"
+    local ODIR="#!/volatile"
+
+    for SCRIPTS in ${FILE_SHEEBANG};
     do
-        sed -i -e "s,$ODIR/.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
+        sed -i -e "s,$ODIR.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
         $PREFIX/$BINDIR/$SCRIPTS
     done
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
         while read F; do
-            sed -e "s,$ODIR/.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" $F | grep SALOME_BIN_MODULES
-            echo $F # Pour debug à enlever
+            sed -i -e "s,$ODIR.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" $F
         done
 
-    for SCRIPTS in hdf5/bin/h5hlcc \
-                   hdf5/bin/h5cc \
-                   netcdf/lib/pkgconfig/netcdf.pc \
-                   PyQt/bin/pyuic5;
+    for SCRIPTS in ${FILE_BASH};
     do
         sed -i -e "s,/volatile/.*INSTALL,\${SALOME_BIN_MODULES},g" \
         $PREFIX/$BINDIR/$SCRIPTS
     done
 
-
-    for SCRIPTS in omniORB/bin/omniidl;
+    for SCRIPTS in ${FILE_PY};
     do
         sed -i -e "s,\"/volatile/.*INSTALL,os\.getenv\(\"SALOME_BIN_MODULES\"\) + \",g" \
         $PREFIX/$BINDIR/$SCRIPTS
