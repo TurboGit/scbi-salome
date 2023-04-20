@@ -152,7 +152,9 @@ if [[ $AUTO == 0 ]]; then
     $SUDO mv * $prefix/
 fi
 
-#template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
+if [[ $DISTRIBUTION_ID == "Debian" ]] && [[ $OS_VERSION == "9" ]]; then
+    template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
+fi
 
 # Add icon link on desktop
 create-desktop-icon $prefix __SALOMEVERSION__
