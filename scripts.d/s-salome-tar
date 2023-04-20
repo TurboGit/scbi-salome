@@ -246,9 +246,8 @@ function s-salome-tar-install()
                            Python/bin/f2py* \
                            C3PO/bin/f2py*;
     do
-        sed -e "s,$ODIR/.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
-        $PREFIX/$BINDIR/$SCRIPTS | grep SALOME_BIN_MODULES
-        echo $SCRIPTS
+        sed -i -e "s,$ODIR/.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
+        $PREFIX/$BINDIR/$SCRIPTS
     done
 
     find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
@@ -262,17 +261,15 @@ function s-salome-tar-install()
                    netcdf/lib/pkgconfig/netcdf.pc \
                    PyQt/bin/pyuic5;
     do
-        sed -e "s,/volatile/.*INSTALL,\${SALOME_BIN_MODULES},g" \
-        $PREFIX/$BINDIR/$SCRIPTS | grep SALOME_BIN_MODULES
-        echo $SCRIPTS
+        sed -i -e "s,/volatile/.*INSTALL,\${SALOME_BIN_MODULES},g" \
+        $PREFIX/$BINDIR/$SCRIPTS
     done
 
 
     for SCRIPTS in omniORB/bin/omniidl;
     do
-        sed -e "s,\"/volatile/.*INSTALL,os\.getenv\(\"SALOME_BIN_MODULES\"\) + \",g" \
-        $PREFIX/$BINDIR/$SCRIPTS | grep SALOME_BIN_MODULES
-        echo $SCRIPTS
+        sed -i -e "s,\"/volatile/.*INSTALL,os\.getenv\(\"SALOME_BIN_MODULES\"\) + \",g" \
+        $PREFIX/$BINDIR/$SCRIPTS
     done
     ##### END NEW #
 
