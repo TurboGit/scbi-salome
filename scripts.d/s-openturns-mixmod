@@ -11,7 +11,7 @@ function s-openturns-mixmod-vcs()
 function s-openturns-mixmod-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
     echo os@-python3-sphinx
 }
 

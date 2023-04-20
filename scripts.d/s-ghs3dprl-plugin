@@ -10,7 +10,7 @@ function s-ghs3dprl-plugin-common-build-depends()
 {
     echo s-cmake
     echo s-salome-configuration
-    echo os@-swig
+    echo s-swig
     echo os@-doxygen
 }
 

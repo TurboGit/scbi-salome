@@ -13,7 +13,7 @@ function s-calculator-build-depends()
     echo os@-sphinx-intl
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
-    echo os@-swig
+    echo s-swig
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen

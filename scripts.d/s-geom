@@ -29,7 +29,7 @@ function s-geom-ng-build-depends()
 function s-geom-build-depends()
 {
     echo os@-sphinx-common
-    echo os@-swig
+    echo s-swig
     echo os@-python3-psutil
 }
 

@@ -15,7 +15,7 @@ function s-hexablock-plugin-common-build-depends()
 function s-hexablock-plugin-default-build-depends()
 {
     echo os@-python3-sphinx
-    echo os@-swig
+    echo s-swig
     echo os@-graphviz-dev
     echo os@-doxygen
     echo os@-python3-docutils

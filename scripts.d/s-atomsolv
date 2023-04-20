@@ -9,7 +9,7 @@ function s-atomsolv-salome-module()
 function s-atomsolv-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
 }
 
 function s-atomsolv-depends()

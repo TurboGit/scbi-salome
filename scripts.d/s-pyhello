@@ -9,7 +9,7 @@ function s-pyhello-salome-module()
 function s-pyhello-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
     echo os@-doxygen
     echo s-salome-configuration
     echo s-qt

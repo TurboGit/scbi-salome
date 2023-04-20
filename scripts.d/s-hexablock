@@ -16,7 +16,7 @@ function s-hexablock-build-depends()
     echo s-cmake
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
-    echo os@-swig
+    echo s-swig
     echo os@-graphviz-dev
     echo os@-doxygen
     echo os@-python3-docutils

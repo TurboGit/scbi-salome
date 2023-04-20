@@ -17,7 +17,7 @@ function s-pylight-build-depends()
     echo os@-sphinx-intl
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
-    echo os@-swig
+    echo s-swig
     echo s-salome-configuration
 }
 

@@ -8,7 +8,7 @@ function s-atomgen-salome-module()
 function s-atomgen-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
 }
 
 function s-atomgen-depends()

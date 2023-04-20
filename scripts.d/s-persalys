@@ -29,7 +29,7 @@ function s-persalys-common-build-depends()
 function s-persalys-default-build-depends()
 {
     echo s-py2cpp
-    echo os@-swig
+    echo s-swig
 }
 
 function s-persalys-common-depends()

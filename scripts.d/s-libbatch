@@ -4,7 +4,7 @@
 function s-libbatch-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
 }
 
 function s-libbatch-depends()
