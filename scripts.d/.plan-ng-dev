@@ -15,7 +15,7 @@ s-salome-ng:DEV
         s-melissa:#0.0.0
         s-meshgems:#V2.13-3_linux_EU
         s-python-modules:master
-        s-zcracks:#3.2.8
+        s-zcracks:#3.2.9
         s-gnuplot-py:#1.8-3k
         s-padder:20200727
         s-carmel-study:v3.3
