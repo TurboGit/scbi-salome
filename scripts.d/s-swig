@@ -1,0 +1,89 @@
+
+with-variant native os@-swig:[v] \
+             --env 'prepend-to-var PATH $(get-os-bin-dir swig)' \
+                   'set-var SWIG_ROOT_DIR /usr' \
+                   'set-var SWIG_ROOT /usr'
+
+function s-swig-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/swig/swig
+}
+
+function s-swig-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo swig-$VERSION.tar.gz
+}
+
+function s-swig-common-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    SWIG_ROOT_DIR $PREFIX
+    set-var    SWIG_ROOT     $PREFIX
+    add-to-var PATH          $PREFIX/bin
+}
+
+function s-swig-win-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var SWIG_LIB $PREFIX/Lib
+}
+
+function s-swig-default-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var SWIG_LIB $(last-modified-directory $PREFIX/share/swig/*)
+}
+
+function s-swig-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    ../src/configure --prefix=$PREFIX --without-pcre --without-octave
+}
+
+function s-swig-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-swig-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-swig-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo NONE
+}
