@@ -42,7 +42,7 @@ function s-salome-kernel-default-build-depends()
 
     [[ -z ${DISDOC} ]] && echo os@-sphinx-common
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
-    echo os@-swig
+    echo s-swig
     echo os@-doxygen
     echo os@-graphviz
 }

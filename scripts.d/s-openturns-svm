@@ -21,7 +21,7 @@ function s-openturns-svm-tar()
 function s-openturns-svm-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
     echo os@-python3-sphinx
 }
 

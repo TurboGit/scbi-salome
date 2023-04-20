@@ -21,7 +21,7 @@ function s-openturns-robopt-tar()
 function s-openturns-robopt-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
     echo os@-python3-sphinx
 }
 

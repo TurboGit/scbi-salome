@@ -38,7 +38,7 @@ function s-yacs-common-build-depends()
 
 function s-yacs-default-build-depends()
 {
-    echo os@-swig
+    echo s-swig
 }
 
 function s-yacs-ng-build-depends()

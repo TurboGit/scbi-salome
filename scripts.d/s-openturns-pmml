@@ -21,7 +21,7 @@ function s-openturns-pmml-tar()
 function s-openturns-pmml-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
     echo os@-python3-sphinx
 }
 

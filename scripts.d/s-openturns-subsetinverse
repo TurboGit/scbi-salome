@@ -21,7 +21,7 @@ function s-openturns-subsetinverse-tar()
 function s-openturns-subsetinverse-build-depends()
 {
     echo s-cmake
-    echo os@-swig
+    echo s-swig
     echo os@-python3-sphinx
 }
 
