@@ -167,7 +167,7 @@ s-libbatch:#2.4.6
 
 s-python-omniorb:#4.2.2
 s-omniorb/auto:#4.2.2
-s-occt:#7.5.3p4
+s-occt:#eefcafca
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
