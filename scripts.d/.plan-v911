@@ -1,0 +1,164 @@
+###########################################
+# TOOLS
+
+# clang 12 & s-ispc 1.16 are matching versions
+s-clang:#12.x
+# using binary version 1.16.1
+s-ispc/bin:#v1.16.1
+
+s-persalys:v14.0.1
+
+s-zeromq:#4.3.1
+s-planegcs:#0.18
+
+s-openturns:#1.20.1
+s-openturns-fftw:#0.12
+s-openturns-mixmod:#0.13
+s-openturns-morris:#0.13
+s-openturns-pmml:#1.12
+s-openturns-robopt:#0.11
+s-openturns-subsetinverse:#1.9
+s-openturns-svm:#0.11
+s-openturns-wrapy:#0.11
+s-openturns-pod:#0.6.9
+s-pyfmi:#2.6
+s-openturns-fmi:#0.15
+
+s-fmil:#2.0
+s-embree:#3.12.2
+s-rkcommon:#1.6.0
+s-openvkl:#0.11.0
+s-ospray:#2.4.0
+s-uranie:#4.5.0
+s-root:#6-22-02
+s-qt/auto:#5.15.2
+s-qmake/auto:#5.15.2
+s-pyqt/auto:#5.15.3
+s-sip/auto:#5.5.0
+s-pyqt-sip:#12.8.1
+s-cmake/auto:#3.24.3
+s-ttk:#1.1.0
+s-swig/auto:#4.0.2
+s-hdf5/native-serial
+
+[
+        # s-homard tool is now merged into s-homard module
+        s-homard-tool:#1112hdf51103med410
+        s-tbb
+] :skip
+
+[
+        s-openmpi
+        s-opencv
+        s-scotch
+        s-ptscotch
+        s-netcdf
+        s-gdal
+        s-eigen
+] /native
+
+# the s-salome meta-module version is used to name the .run and as the
+# version in create_catalog.py
+
+s-salome:V911
+
+# First, for repositories where master is at CEA
+[
+        s-fields
+        s-geom/default.opencv
+        s-atomgen
+        s-atomic
+        s-blsurf-plugin
+        s-gmsh-plugin
+        s-hybrid-plugin
+        s-hexotic-plugin
+        s-netgen-plugin
+        s-shaperstudy
+        s-homard
+        s-salome-configuration
+        s-salome-jobmanager
+        s-yacs
+        s-yacsgen
+        s-hexablock
+        s-hexablock-plugin
+        s-samples
+        s-atomsolv
+        s-calculator
+        s-genericsolver
+        s-hello
+        s-pyhello
+        s-light
+        s-pylight
+        s-shaper
+        s-salome-openturns
+        s-py2cpp
+        s-paravisaddons-common
+        s-smesh
+        s-salome-kernel
+        s-salome-gui
+        s-ghs3d-plugin
+        s-ghs3dprl-plugin
+        s-ydefx
+        s-topiivol
+] :V9_11_0a2
+
+# Second, for repositories where master is at EDF
+[
+        s-salome-eficas
+        s-eficas-tools
+        s-salome-adao
+        s-adao
+        s-adao-interface
+] :V9_11_0a2
+
+# Third, the modules with MPI support or depending on
+# MPI like the two plugins.
+
+[ = mpi
+        s-medcoupling/default.mpi.ptscotch
+        s-paravis/default.mpi
+] :V9_11_0a2
+
+[ = mpi
+        s-paraview/default.mpi.ospray.gdal.catalyst:#v5.11.0
+]
+
+[ /= mpi
+        s-medcoupling/default.ptscotch
+        s-paravis/default
+] :V9_11_0a2
+
+[ /= mpi
+        s-paraview/default.ospray.gdal.catalyst:#v5.11.0
+]
+
+[ = deb,9
+        s-hdf5/mpi:#1.10.3
+        s-tbb/auto:#4.4.6
+        # this should be also for debian-10
+]
+
+[ = deb,11
+        s-pyqt/auto:#5.15.2
+        s-opencv:#3.2.0       # native pkg is too recent
+]
+
+# downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
+#
+# s-netgen/cmake:#6.2.2101
+s-netgen/autotools:#5.3.1
+
+s-gmsh:#4.10.3
+
+s-medfichier:#4.1.1
+s-python3-nlopt:#2.4.2
+s-python3-xlutils:#2.0.0
+
+s-libbatch:#2.4.6
+
+s-python-omniorb:#4.2.2
+s-omniorb/auto:#4.2.2
+s-occt:#eefcafca
+s-cgns/auto:#4.2.0
+s-catalyst:#2.0-431a8a1
+s-python-modules/default.metadata:master
