@@ -21,9 +21,9 @@ function s-smesh-tar()
 
     echo default
     echo none
-    echo none
-    echo none
-    echo smesh-$VERSION.tar.xz
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo SMESH_SRC_$VERSION.tgz
 }
 
 function s-smesh-salome-module()

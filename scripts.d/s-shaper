@@ -15,6 +15,17 @@ function s-shaper-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/shaper
 }
 
+function s-shaper-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo SHAPER_SRC_$VERSION.tgz
+}
+
 function s-shaper-salome-module()
 {
     echo SHAPER
