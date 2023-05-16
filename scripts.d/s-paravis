@@ -1,15 +1,5 @@
 
 
-function s-paravis-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo paravis-$VERSION.tar.xz 
-} 
 
 function s-paravis-ng-tar() 
 { 
