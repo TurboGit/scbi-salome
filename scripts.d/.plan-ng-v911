@@ -4,11 +4,11 @@
 
 #  the s-salome-ng meta-module version is used to name the .run and as the
 #  version in create_catalog.py
-s-salome-ng:V911
+s-salome-ng:V9_11_0
 
 [ = linux
         s-salome-bin
-        s-atomic
+        s-atomic:V9_11_0b1
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-python-modules:master
@@ -66,8 +66,8 @@ s-paravis/ng.mpi
 ]
 
 [ = deb,9
-        s-salome-ng:s9-V911
-        s-salome-tar:#master:DB09
+        s-salome-ng:s9-V9_11_0
+        s-salome-tar:#9.11.0:DB09
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
@@ -89,8 +89,8 @@ s-paravis/ng.mpi
 ]
 
 [ = deb,10
-        s-salome-ng:s10-V911
-        s-salome-tar:#master-native:DB10
+        s-salome-ng:s10-V9_11_0
+        s-salome-tar:#9.11.0-native:DB10
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
@@ -103,8 +103,8 @@ s-paravis/ng.mpi
 ]
 
 [ = deb,11
-        s-salome-ng:s11-V911
-        s-salome-tar:#master-native:DB11
+        s-salome-ng:s11-V9_11_0
+        s-salome-tar:#9.11.0-native:DB11
         s-zeromq:skip
         s-openmpi:skip
         s-ospray:skip
