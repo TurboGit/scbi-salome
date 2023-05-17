@@ -1,0 +1,46 @@
+# This plan is to build some modules on top of a SALOME binary distribution
+
+@load ng-v911
+
+s-medcoupling/ng.mpi.ptscotch
+s-paraview/ng.mpi.ospray.gdal:#5.11.0
+s-paravis/ng.mpi
+s-catalyst/ng:2.0-431a8a1
+
+s-ptscotch:skip
+s-ispc:skip
+s-clang:skip
+s-embree:skip
+s-ospray:skip
+s-gdal:skip
+s-netcdf:skip
+s-python3-xlutils:skip
+s-atomic:skip
+s-cgal:skip
+s-padder:skip
+s-python-modules:skip
+s-melissa:skip
+s-paravisaddons-edf:skip
+
+[ = gaia.hpc.edf.fr
+        s-qt:#5.12.10
+
+	s-cmake:skip
+	s-gnuplot-py:skip
+	s-medcoupling:skip
+	s-openmpi:skip
+	s-paraview:skip
+	s-paravis:skip
+	s-salome-configuration:skip
+	s-melissa:skip
+
+        s-openmpi/gaia
+]
+
+[ = cronos.hpc.edf.fr
+        s-salome-ng:co8-DEV
+        s-salome-tar:#9.11.0:CO8
+        s-zeromq:skip
+
+        s-openmpi/cronos
+]
