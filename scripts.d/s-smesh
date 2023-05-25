@@ -90,6 +90,8 @@ function s-smesh-env()
     add-to-var PYTHONPATH        \
                $PREFIX/share/salome/plugins/smesh/MacMesh
     add-to-var SMESH_MeshersList StdMeshers
+
+    add-to-var SALOME_MODULES    SMESH
     add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/smesh
 }
 

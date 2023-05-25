@@ -75,6 +75,9 @@ function s-homard-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
     add-to-var PYTHONPATH         \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+
+    add-to-var SALOME_MODULES     HOMARD
+    add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/homard
 }
 
 function s-homard-config()

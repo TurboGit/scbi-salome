@@ -51,6 +51,9 @@ function s-salome-eficas-env()
     local TARGET=$2
 
     set-var EFICAS_ROOT_DIR $PREFIX
+
+    add-to-var SALOME_MODULES  EFICAS
+    add-to-var SalomeAppConfig $PREFIX/share/salome/resources/eficas
 }
 
 function s-salome-eficas-config()
