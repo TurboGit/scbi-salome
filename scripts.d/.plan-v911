@@ -44,6 +44,8 @@ s-carmel-study:master
 s-tefluide:master
 s-swig/auto:#4.0.2
 s-hdf5/native-serial
+s-boost/native
+s-cgal/native
 
 [
         # s-homard tool is now merged into s-homard module
