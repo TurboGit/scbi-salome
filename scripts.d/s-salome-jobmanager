@@ -27,6 +27,17 @@ function s-salome-jobmanager-default-depends()
     echo s-salome-gui
 }
 
+function s-salome-jobmanager-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var JOBMANAGER_ROOT_DIR $PREFIX
+
+    add-to-var SALOME_MODULES  JOBMANAGER
+    add-to-var SalomeAppConfig $PREFIX/share/salome/resources/jobmanager
+}
+
 function s-salome-jobmanager-config()
 {
     local PREFIX=$1

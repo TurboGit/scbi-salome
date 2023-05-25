@@ -24,6 +24,8 @@ function s-shaperstudy-env()
     local TARGET=$2
 
     set-var SHAPERSTUDY_ROOT_DIR $PREFIX
+
+    add-to-var SALOME_MODULES SHAPERSTUDY
 }
 
 function s-shaperstudy-config()
