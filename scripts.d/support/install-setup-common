@@ -136,6 +136,43 @@ function get-pck-status()
     apt-cache madison $PCK | cut -d'|' -f2
 }
 
+# =============================================== get-pck-status
+function check-for-python3()
+{
+    BINDIR=$(basename $(ls -1d BINARIES-*))
+
+    #  If BINARIES-* not found, this is a full EDF build
+    if [[ -z $BINDIR ]]; then
+        SBINDIR=EDF/s-salome-kernel
+    else
+        SBINDIR=$BINDIR/SALOME
+    fi
+
+    #
+    # DISTRIBUTION_ID & OS_VERSION defined below
+    #
+
+    if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
+        echo Python is embedded into salome on debian9
+
+    elif [[ "$(lsb_release -d)" =~ "Red Hat" ]]; then
+        echo Python is embedded into salome on Red Hat
+
+    else
+        if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
+            echo Python2 is default, checking for python3
+
+            if [ -f /usr/bin/python3 ]; then
+                echo Found Python3 in /usr/bin/python3, setup links
+                ln -s /usr/bin/python3 $SBINDIR/bin/salome/python
+            else
+                echo Cannot found a Python3 installation.
+                echo SALOME will not work properly.
+            fi
+        fi
+    fi
+}
+
 # =============================================== Set OS_VERSION & DISTRIBUTION
 
 TMPV=$(lsb_release -r | tr -d '[ \t]')
