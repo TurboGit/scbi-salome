@@ -69,32 +69,11 @@ if [[ $EXIT -ne "0" ]]; then
     fi
 fi
 
-# check for python3
-#
-# DISTRIBUTION_ID & OS_VERSION defined in install-setup-common
-#
+#  Check for python3
 
-BINDIR=$(basename $(ls -1d BINARIES-*))
+check-for-python3
 
-if [[ $DISTRIBUTION_ID == "Debian" ]] && [[ $OS_VERSION == "9" ]]; then
-    echo Python is embedded into salome on debian9
-elif [[ "$(lsb_release -d)" =~ "Red Hat" ]]; then
-    echo Python is embedded into salome on Red Hat
-else
-    if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
-        echo Python2 is default, checking for python3
-
-        if [ -f /usr/bin/python3 ]; then
-            echo Found Python3 in /usr/bin/python3, setup links
-            ln -s /usr/bin/python3 $BINDIR/SALOME/bin/salome/python
-        else
-            echo Cannot found a Python3 installation.
-            echo SALOME will not work properly.
-        fi
-    fi
-fi
-
-# Run create_catalog for clusters setup
+#  Run create_catalog for clusters setup
 
 [ -f create-catalog ] && ./create-catalog
 
