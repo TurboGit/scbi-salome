@@ -1,56 +1,54 @@
 
-function s-salome-hydro-modules()
-{
-    echo s-hydro
-    echo s-hydrosolver
+#  Extra modules can be set in environment variable SCBI_NG_EXTRA_MODULES.
+#  The syntax is: <PLUGIN-1>(PATTERN-1)[:<PLUGIN-2>(PATTERN-2)]
+#  where:
+#     PLUGIN  : The SCBI plug-in name (must have an ng variant) to be
+#               handled as extra module.
+#     PATTERN : A regular expression of the module as found in the binary
+#               archive. It is used to remove this from the NG environment
+#               by matching the variable name and the variable values.
 
-    echo s-libecw2
-    echo s-mumps
-    echo s-scalapack
-    echo s-gotm
-    echo s-aed2
-    echo s-metis-hydro
-    echo s-telemac
+function s-salome-ng-extra-modules()
+{
+    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
+        local DEF=( $(get-extra-module-def $MOD) )
+        echo ${DEF[0]}
+    done
 }
 
-function s-salome-cfd-modules()
-{
-    echo s-syrthes
-    echo s-cfd-study
-
-    echo s-libccmio
-    echo s-coolprop
-    echo s-code-syrthes
-    echo s-saturne
-    echo s-saturne-dbg
-}
-
-function s-salome-carmel-modules()
-{
-    echo s-carmel-study
-}
-
-function s-salome-neptune-modules()
-{
-    echo s-neptune
-    echo s-eos
-}
-
-function s-salome-modules()
+function s-salome-common-modules()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
-    echo s-salome-configuration
+    #  We need the extra modules to be handled first because they are
+    #  supposed to replace some modules from the binary archive and
+    #  may be a dependency from other modules listed after.
 
+    $(has-variant $VARIANT ng) &&
+        s-salome-ng-extra-modules
+
+    echo s-salome-configuration
+    echo s-atomic
+    echo s-paravisaddons-edf
+    echo s-melissa
+    echo s-python3-xlutils
+    echo s-zcracks
+    echo s-cgal
+    echo s-padder
+    echo s-tefluide
+    echo s-meshgems
+}
+
+function s-salome-default-modules()
+{
     echo s-salome-kernel
     echo s-salome-gui
     echo s-salome-plugins
     echo s-shaper
     echo s-shaperstudy
     echo s-geom
-    echo s-tefluide
     echo s-smesh
     echo s-paravis
     echo s-fields
@@ -60,7 +58,6 @@ function s-salome-modules()
     echo s-salome-eficas
     echo s-salome-jobmanager
     echo s-homard
-    echo s-atomic
     echo s-atomgen
     echo s-hexablock
     echo s-atomsolv
@@ -88,13 +85,11 @@ function s-salome-modules()
     echo s-medcoupling
     echo s-libbatch
     echo s-py2cpp
-    echo s-meshgems
     echo s-planegcs
     echo s-ospray
     echo s-embree
     echo s-paraview
     echo s-gmsh
-    echo s-paravisaddons-edf
     echo s-paravisaddons-common
     echo s-persalys
     echo s-netgen
@@ -115,12 +110,9 @@ function s-salome-modules()
     echo s-root
     echo s-homard-tool
     echo s-zeromq
-    echo s-melissa
     echo s-python3-nlopt
-    echo s-python3-xlutils
     echo s-rkcommon
     echo s-openvkl
-    echo s-zcracks
     echo s-cgns
     echo s-ttk
     echo s-qt
@@ -131,28 +123,83 @@ function s-salome-modules()
     echo s-topiivol
 }
 
+function s-salome-ng-modules()
+{
+    echo s-salome-tar
+    echo s-python-modules
+}
+
+function s-salome-hydro-modules()
+{
+    echo s-hydro
+    echo s-hydrosolver
+    echo s-libecw2
+    echo s-mumps
+    echo s-scalapack
+    echo s-gotm
+    echo s-aed2
+    echo s-metis-hydro
+    echo s-telemac
+}
+
+function s-salome-cfd-modules()
+{
+    echo s-coolprop
+    echo s-libccmio
+    echo s-saturne
+    echo s-saturne-dbg
+    echo s-cfd-study
+    echo s-code-syrthes
+    echo s-syrthes
+}
+
+function s-salome-neptune-modules()
+{
+    echo s-neptune
+    echo s-eos
+}
+
+function s-salome-carmel-modules()
+{
+    echo s-carmel-study
+}
+
 function s-salome-propagate-version()
 {
     echo false
 }
 
-function s-salome-prefix()
-{
-    echo NONE
-}
-
-function build-salome-prerequisites()
+function setup-env-salome()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
+    local APPDIR=$SCBI_BDIR/s-salome/application
+
+    local BINDIR=$(basename $(ls -1d BINARIES-*))
+
+    #  If BINARIES-* not found, this is a full EDF build
+    if [[ -z $BINDIR ]]; then
+        SBINDIR=EDF/s-salome-kernel
+    else
+        SBINDIR=$BINDIR/SALOME
+    fi
+
+    #  THIS ROUTINE should be used to loop over all NEW dependencies (modules
+    #  built on top of the binary archive) and patch the env_launch.sh
+    #  to add the necessary configs.
+
     (
-        FILE=salome_prerequisites.sh
+        local SFILE=""
+        local PFILE=""
+        local N=1
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
         CURRENT_MODULE_INSTALL=
+
+        local KEEP_VAR=no
 
         function define-var()
         {
@@ -160,44 +207,101 @@ function build-salome-prerequisites()
             local VAR=$2
             local VALUE=$3
 
-            # compute relative directory
-            local REPLTO="\${${CURRENT_MODULE}_ROOT_INSTALL_DIR}"
+            #  Compute relative directory
+
+            local CURRENT_MODULE_VAR=${CURRENT_MODULE}_ROOT_INSTALL_DIR
+            local REPLTO="\${${CURRENT_MODULE_VAR}}"
             local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EXTERNAL\}}"
+            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
+            local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
 
-            local FCT=$(get-hook $CURRENT_MODULE_NAME $VARIANT salome-module)
+            [[ $VAR == "SCBI_SALOME_BIN_ENV_SECTION" ]] && KEEP_VAR=yes
 
-            if [[ -n $FCT ]]; then
-                REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_INSTALL\}}"
+            #  s-salome-bin & s-salome-tar need a specific handling as
+            #  the variables points to the binary install directories.
+
+            if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]] ||
+                   [[ $CURRENT_MODULE_NAME == "s-salome-tar" ]]
+            then
+                local REL_FROM="$SCBI_BDIR/s-salome-tar/build/install"
+                local SFX_DIR="${VALUE#$REL_FROM/}"
+                local SFX_DIR="${SFX_DIR#$REL_FROM}"
+                # For shell:
+                local REL_DIR="${VALUE/$REL_FROM/\$\{root_dir\}}"
+                # For Python:
+                local DVAR="os.path.join(root_dir, r\"$SFX_DIR\")"
+
+            elif [[ "$VALUE" == "$REL_PDIR" ]]; then
+                local DVAR="\"$VALUE\""
+            else
+                [[ ${REL_PDIR:0:1} == '/' ]] &&
+                    local REL_PDIR=${REL_PDIR:1}
+
+                local DVAR="os.path.join($CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
             fi
 
-            {
-                case "$VAR" in
-                    C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                        *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                    ;;
+            #  We set values as some are used in depends modules like
+            #  s-salome-bin using SALOME_BIN_APPLICATION set in s-salome-tar.
 
-                    SalomeAppConfig|SALOME_MODULES)
-                    ;;
+            local VSET="no"
 
-                    *)
-                        VSET=${VAR}_set
+            if [[ $ACTION == SET ]]; then
+                export $VAR=$VALUE
+                unset VSET
+            fi
 
-                        if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                            echo export $VAR=${REL_DIR}${!VSET:+:\$${VAR}}
-                        else
-                            echo export $VAR=\"${REL_DIR}\"${!VSET:+:\$${VAR}}
-                        fi
+            #  For shell script
+            #  Not that we always append to existing variables as some
+            #  may have been set by the binary package's env_lauch.sh.
 
-                        # mark $VAR as set to ensure that the previous value
-                        # will be added on next call ${!VAR...} above.
-                        export ${VAR}_set=IS_SET
+            [[ $KEEP_VAR == yes ]] &&
+                {
+                  case "$VAR" in
+                      *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                      ;;
+
+                      *)
+                          if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                              echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}}
+                          else
+                              echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}}
+                          fi
+                          ;;
+                  esac
+                } >> $SFILE
+
+            #  For Python
+
+            [[ $KEEP_VAR == yes ]] &&
+                {
+                  case "$VAR" in
+                      C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                          *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                      ;;
+
+                      PATH)
+                          echo "   context.addToPath($DVAR)"
+                          ;;
+                      LD_LIBRARY_PATH)
+                          echo "   context.addToLdLibraryPath($DVAR)"
                         ;;
-                esac
-            } >> $FILE
+                      PYTHONPATH)
+                          echo "   context.addToPythonPath($DVAR)"
+                          ;;
+                      PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
+                          echo "   context.addToVariable(r\"$VAR\", $DVAR)"
+                          ;;
+                      SALOME_MODULES)
+                          echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\""
+                          ;;
+                      *)
+                          echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"
+                          ;;
+                  esac
+                } >> $PFILE
         }
 
-        function env-callback()
+        function mod-callback()
         {
             local FORMODULE=$1
             local MODREF=$2
@@ -210,244 +314,101 @@ function build-salome-prerequisites()
             local module=${module_info[0]}
             local variant=${module_info[1]}
 
-            CURRENT_MODULE_NAME=$module
-            CURRENT_MODULE=${module//-/_}
-            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
-
-            local FCTM=$(get-hook $module $VARIANT salome-module)
-
-            {
-                echo ""
-                echo "# $module"
-
-                echo -n "export ${CURRENT_MODULE}_ROOT_INSTALL_DIR="
-
-                if [[ -n $FCTM ]]; then
-                    echo "\${ROOT_INSTALL}"
-                else
-                    echo "\${ROOT_EXTERNAL}/${module}"
-                fi
-            } >> $FILE
-
-            plugin-call-variant-hooks $module env \
-                                      $CURRENT_MODULE_INSTALL $TARGET $variant
-        }
-
-        local SVER=$(get-version)
-
-        {
-            echo
-            echo "export ROOT_INSTALL=\$(dirname \$(command -v \$BASH_SOURCE))"
-            echo "export ROOT_EXTERNAL=\$ROOT_INSTALL/external"
-            echo "export SALOME_VERSION=$SVER"
-        } > $FILE
-
-        # keep current PATH setting
-        PATH_set=IS_SET
-
-        for-all-modules-with-meta env-callback s-salome
-
-	chmod u+x $FILE
-    )
-}
-
-function build-salome-context()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    (
-        FILE=salome_context.cfg
-
-        CURRENT_MODULE_NAME=
-        CURRENT_MODULE=
-        CURRENT_MODULE_INSTALL=
-
-        function define-var()
-        {
-            local ACTION=$1
-            local VAR=$2
-            local VALUE=$3
-
-            # compute relative directory
-            local REPLTO="%(${CURRENT_MODULE}_ROOT_INSTALL_DIR)s"
-            local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_EXTERNAL)s}"
-
-            local FCT=$(get-hook $CURRENT_MODULE_NAME $VARIANT salome-module)
-
-            if [[ -n $FCT ]]; then
-                REL_DIR="${REL_TMP/$SCBI_BDIR/%(ROOT_INSTALL)s}"
+            if [[ $module == "s-salome-bin" ]]; then
+                KEEP_VAR=no
+            else
+                KEEP_VAR=yes
             fi
 
-            {
-                case "$VAR" in
-                    LD_LIBRARY_PATH|PYTHONPATH|PATH|QT_PLUGIN_PATH \
-                        |PV_PLUGIN_PATH)
-                        echo "ADD_TO_$VAR: ${REL_DIR}"
-                        ;;
-
-                    C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*\
-                        |*INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                        ;;
-
-                    SalomeAppConfig|SALOME_MODULES)
-                        ;;
-
-                    *)
-                        if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                            echo $VAR=$REL_DIR
-                        else
-                            echo $VAR=\"$REL_DIR\"
-                        fi
-                        ;;
-                esac
-            } >> $FILE
-        }
-
-        function env-callback()
-        {
-            local FORMODULE=$1
-            local MODREF=$2
-            local LEVEL=$3
-            local IS_BUILD_DEPENDS=$4
-            local IS_EXT=$5
-            local IS_META=$6
-
-            local module_info=( $(get-module-ref $MODREF $FORMODULE) )
-            local module=${module_info[0]}
-            local variant=${module_info[1]}
+            #  Initialize env script
 
             CURRENT_MODULE_NAME=$module
             CURRENT_MODULE=${module//-/_}
             CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
 
-            local FCTM=$(get-hook $module $VARIANT salome-module)
+            if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
+                NUM=998
+            else
+                NUM=$(printf "%03d" ${N})
+            fi
+
+            SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
+            PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
+            N=$(( N + 1 ))
 
             {
-                echo ""
-                echo "# $module"
+                echo "# $(get-module-name $module)"
+                echo "export ROOT_EDF=\${out_dir_Path}/EDF"
+                echo "export root_dir=\${out_dir_Path}"
+                echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}"
+            } > $SFILE
 
-                echo -n "${CURRENT_MODULE}_ROOT_INSTALL_DIR="
+            chmod a+x $SFILE
 
-                if [[ -n $FCTM ]]; then
-                    echo "%(ROOT_INSTALL)s"
-                else
-                    echo "%(ROOT_EXTERNAL)s/${module}"
-                fi
-            }  >> $FILE
+            {
+                echo "# $(get-module-name $module)"
+                echo "import os.path"
+                echo "def init(context, root_dir):"
+                echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"
+                echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")"
+            } > $PFILE
+
+            # Call <module>-env hook which will be using the add-to-var
+            # above.
 
             plugin-call-variant-hooks $module env \
                                       $CURRENT_MODULE_INSTALL $TARGET $variant
+
+            #  Handle possible ctest support
+
+            FCT=$(get-hook $module $variant ctest-dir)
+
+            if [[ ! -z $FCT ]]; then
+                echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
+                     >> $SBINDIR/bin/salome/test/CTestTestfile.cmake
+            fi
         }
 
-        local SVER=$(get-version)
+        #  Patch env_launch.sh
+        #  to be able to call the extra.env.d/*.sh from env_launch.sh
 
-        {
-            echo "[SALOME Configuration]"
-            echo "ROOT_INSTALL=\${ROOT_SALOME_INSTALL}"
-            echo "ROOT_EXTERNAL=%(ROOT_INSTALL)s/external"
-            echo "SALOME_VERSION=$SVER"
-            echo "LC_NUMERIC=C"
-            echo "ADD_TO_SALOME_PLUGINS_PATH:\"%(ROOT_EXTERNAL)s/plugins\""
-            echo "ADD_TO_PV_PLUGIN_PATH: \"%(ROOT_INSTALL)s/lib/paraview\""
-            echo "ADD_TO_PATH: \"%(ROOT_INSTALL)s/bin/salome\""
-        } > $FILE
-
-        for-all-modules-with-meta env-callback s-salome
-    )
-}
-
-function build-config-appli()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    FILE=config_appli.xml
-
-    cat <<EOF > $FILE
-<application>
-   <prerequisites path='$PWD/salome_prerequisites.sh'/>
-   <context path='$PWD/salome_context.cfg'/>
-   <modules>
+        cat << EOF >> env_launch.sh
+while read F; do
+    source \$F
+done < <(find \$out_dir_Path/extra.env.d/ -type f -name "[0-9]*.sh" | sort -V)
 EOF
 
-    function main-module-callback()
-    {
-        local FORMODULE=$1
-        local MODREF=$2
-        local LEVEL=$3
-        local IS_BUILD_DEPENDS=$4
-        local IS_EXT=$5
-        local IS_META=$6
+        #  The directory where the environment files are stored
+        mkdir -p extra.env.d
 
-        local module_info=( $(get-module-ref $MODREF $FORMODULE) )
-        local module=${module_info[0]}
-        local variant=${module_info[1]}
+        #  Override some possible values
 
-        local SMOD=$(get-hook-value $module $variant salome-module)
+        PFILE="extra.env.d/000_setup.py"
 
-        if [[ -n $SMOD ]]; then
-            MODULE_PATH=$SCBI_BDIR/$module/build/install
+        local SVER=$(get-version)
 
-            echo "      <module name='$SMOD'"           >> $FILE
-            echo "              path='$MODULE_PATH'/>"  >> $FILE
-        fi
-    }
+        {
+            echo "def init(context, root_dir):"
+            echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)'
+            # Note that the following SMESH_ROOT_DIR are needed in NG mode.
+            echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh")'
+            echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")'
+            echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")'
+            echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
+        } > $PFILE
 
-    function prerequisite-module-callback()
-    {
-        local FORMODULE=$1
-        local MODREF=$2
-        local LEVEL=$3
-        local IS_BUILD_DEPENDS=$4
-        local IS_EXT=$5
-        local IS_META=$6
+        SFILE="extra.env.d/000_setup.sh"
 
-        local module_info=( $(get-module-ref $MODREF $FORMODULE) )
-        local module=${module_info[0]}
-        local variant=${module_info[1]}
+        {
+            echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
+            echo "export SALOME_VERSION=$SVER"
+        } > $SFILE
 
-        local SMOD=$(get-hook-value $module $variant salome-module)
+        #  keep current PATH setting
+        PATH_set=IS_SET
 
-        if [[ -z $SMOD ]]; then
-            MODULE_PATH=$SCBI_BDIR/$module/build/install
-
-            {
-	        case "$module" in
-	            *"samples")
-		        echo "   <samples path=\"$MODULE_PATH\"/>"
-		        ;;
-	            *"medcoupling"*)
-		        echo "   <extra_tests>"
-		        echo "      <extra_test name='MEDCOUPLING'"
-		        echo "             path=\"$MODULE_PATH/tests\"/>"
-		        echo "   </extra_tests>"
-		        ;;
-	            *"paravisaddons-common"*)
-		        echo "   <extra_tests>"
-                        echo "      <extra_test name='paravisaddons-common'"
-                        echo "             path=\"$MODULE_PATH/tests\"/>"
-                        echo "   </extra_tests>"
-                        ;;
-	            *)
-		        ;;
-	        esac
-            } >> $FILE
-        fi
-    }
-
-    for-all-modules-with-meta main-module-callback s-salome
-
-    echo "   </modules>"                            >> $FILE
-
-    # Generate extra configuration for SAMPLES & MEDCOUPLING
-
-    for-all-modules-with-meta prerequisite-module-callback s-salome
-
-    echo "</application>"                           >> $FILE
+        for-all-modules-with-meta mod-callback s-salome
+    )
 }
 
 function s-salome-wrapup()
@@ -456,162 +417,62 @@ function s-salome-wrapup()
     local TARGET=$2
     local VARIANT=$3
 
-    # Finaly we create here:
-    #
-    # - salome_prerequisites.sh
-    # - salome_context.cfg
-    # - config_appli.xml
-    # - the application directory
-    # - the self installer
-
     (
-        function cp-module-callback()
-        {
-            local FORMODULE=$1
-            local MODREF=$2
-            local LEVEL=$3
-            local IS_BUILD_DEPENDS=$4
-            local IS_EXT=$5
-            local IS_META=$6
-
-            # Nothing to do for meta modules
-            [[ $IS_META == true ]] && return;
-
-            local module_info=( $(get-module-ref $MODREF $FORMODULE) )
-            local module=${module_info[0]}
-            local variant=${module_info[1]}
-
-            local SMOD=$(get-hook-value $module $variant salome-module)
-
-            # Some module may not be present if they have been skiped
-            # in build plan (:skip)
-            local MODULE_PATH=$SCBI_BDIR/$module/build/install
-
-            if [[ -n $SMOD ]]; then
-                for dir in include salome_adm adm_local; do
-                    if [[ -d $MODULE_PATH/$dir ]]; then
-                        cp -lr $MODULE_PATH/$dir .
-                    fi
-                done
-            else
-                if [[ -d $MODULE_PATH ]]; then
-                    cp -lr $MODULE_PATH external/$module
-                fi
-            fi
-        }
+        #  Clean-up previous installation if any
 
         rm -fr application
         mkdir application
         cd application
 
-        dlog salome create application context
-
-        #  Add some build artifacts for traceability
-
-        mkdir artifacts
-
-        date > artifacts/creation-time.txt
-        scbi --version > artifacts/scbi_versions.txt
-
-        cp ../$TARGET-$VARIANT/.log/build-plan artifacts/
-
-        [[ ! -z $CI_JOB_NAME ]] &&
-            echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
-        [[ ! -z $CI_PIPELINE_ID ]] &&
-            echo CI_PIPELINE_ID $CI_PIPELINE_ID  >> artifacts/gitlab-ci.data
-
-        # generate salome_prerequisites.sh shell script
-        build-salome-prerequisites $PREFIX $TARGET $VARIANT
-
-        # generate salome_context.cfg script
-        build-salome-context $PREFIX $TARGET $VARIANT
-
-        # generate config_appli.xml
-        build-config-appli $PREFIX $TARGET $VARIANT
-
         if [[ "$(is-enabled application)" = "yes" ]] \
                || [[ "$(is-enabled installer)" = "yes" ]];
         then
-            dlog salome generate application
-            # generate the application directory
-            $SCBI_BDIR/s-salome-kernel/build/install/bin/salome/appli_gen.py
+            dlog salome prepare the application directory
 
-            if [[ $? != 0 ]]; then
-                elog salome Error while running appli_gen
-                exit 1
-            fi
+            has-variant $VARIANT ng &&
+                {
+                    #  Copy CEA's binaries
 
-            # salome application root dir
-            APP_DIR=$SCBI_BDIR/s-salome
+                    cp -r $SCBI_BDIR/s-salome-tar/build/install/* .
+                }
 
-            # replace all symlinks outside the APP_DIR by a copy of
-            # the corresponding files/directories. This makes the
-            # application directory self contained.
+            #  Add some build artifacts for traceability
 
-            dlog salome fix links to be relative to application directory
+            mkdir -p artifacts
 
-            cd $APP_DIR
+            date > artifacts/creation-time.txt
+            scbi --version > artifacts/scbi_versions.txt
 
-            find . -type l | while read link; do
-                value=$(realpath --relative-to=$APP_DIR $link)
+            cp ../$TARGET-$VARIANT/.log/build-plan artifacts/
 
-                # if link to level above $APP_DIR, copy
+            [[ ! -z $CI_JOB_NAME ]] &&
+                echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
+            [[ ! -z $CI_PIPELINE_ID ]] &&
+                echo CI_PIPELINE_ID $CI_PIPELINE_ID  >> artifacts/gitlab-ci.data
 
-                if [[ ${value:0:3} = "../" ]]; then
-                    rm -f $link
-                    cp -r $value ${link}
+            #  Copy EDF's modules into sub-directory EDF
+
+            mkdir EDF
+
+            local MODS=$(call-variant-hooks modules $PREFIX $TARGET $VARIANT)
+
+            for module in $(for-final-modules $MODS); do
+                #  Skip s-salome-tar as it is the root install and already
+                #  handled above.
+
+                if [[ $module != "s-salome-tar" ]]; then
+                    MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+                    if [[ -d $MODULE_PATH ]]; then
+                        mkdir EDF/$module
+                        cp -r $MODULE_PATH/* EDF/$module
+                    fi
                 fi
             done
 
-            local APP=$SCBI_BDIR/s-salome/application
-            cd $APP
+            dlog salome setup application environment
 
-            # copy VERSION file of KERNEL on salome application
-
-            rm -rf ./bin/salome/VERSION &&
-                cp $SCBI_BDIR/s-salome-kernel/build/install/bin/salome/VERSION \
-                   ./bin/salome/
-
-            # fix broken symlink of yacs tests data
-
-            (
-                cd ./bin/salome/test/YACS/yacsloader_swig/ &&
-                    rm -rf samples &&
-                    ln -s ../../../../../share/salome/yacssamples samples
-            )
-
-            (
-                cd ./bin/salome/test/YACS/yacsloader/ &&
-                    rm -rf samples &&
-                    ln -s ../../../../../share/salome/yacssamples samples
-            )
-
-            # replace toplevel links to reference local scripts
-
-            for file in envd getAppliPath.py kill_remote_containers.py \
-                        runRemote.sh update_catalogs.py .bashrc .salome_run;
-            do
-                rm -f $file
-                ln -s ./bin/salome/appliskel/$file $file
-            done
-
-            sed -i 's,SCRIPTS_DIR "../../../../,SCRIPTS_DIR "$ENV{KERNEL_ROOT_DIR}/,g' \
-                ./bin/salome/test/GEOM/examples/CTestTestfile.cmake \
-                ./bin/salome/test/SMESH/examples/CTestTestfile.cmake
-
-            # patch bin/salome/test/CTestTestfile.cmake
-            # add KERNEL first.
-
-            sed -i 's/SUBDIRS(KERNEL)//;1iSUBDIRS(KERNEL)' \
-                ./bin/salome/test/CTestTestfile.cmake
-
-            # copy module dev support
-
-            dlog salome "copy the modules"
-
-            mkdir external
-
-            for-all-modules-with-meta cp-module-callback s-salome
+            setup-env-salome $PREFIX $TARGET $VARIANT
 
             # is the installer to be created?
 
@@ -625,6 +486,25 @@ function s-salome-wrapup()
             local kind=${module_info[2]}
             local ref=${module_info[3]}
 
+            # install some support scripts & patch version
+
+            cp $SCBI_PLUGINS/support/install-meshgems .
+            cp $SCBI_PLUGINS/support/create-catalog .
+            cp $SCBI_PLUGINS/support/icon.png .
+            cp $SCBI_PLUGINS/support/salome_template.desktop .
+
+            ! has-variant $VARIANT ng &&
+                {
+                    cp $SCBI_PLUGINS/support/env_launch.sh .
+                    cp $SCBI_PLUGINS/support/salome .
+                    chmod a+x salome env_launch.sh
+                }
+
+            sed -i "s/<salome_version>/${ref#*-}/g" create-catalog
+            chmod a+x create-catalog
+
+            chmod a+x install-meshgems
+
             if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...
 
@@ -637,18 +517,19 @@ function s-salome-wrapup()
 
                 # create the .run auto-installer to be distributed
 
-                sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" \
-                    $SCBI_PLUGINS/support/install-setup > $APP/setup
-                cp $SCBI_PLUGINS/support/install-setup-common $APP/
-                chmod a+x $APP/setup
+                host=$(hostname)
 
-                cp $SCBI_PLUGINS/support/salome_template.desktop $APP/
-                cp $SCBI_PLUGINS/support/icon.png $APP/
+                if [[ $host =~ "crfront" ]] || [[ $host =~ "gafront" ]]; then
+                    sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" $SCBI_PLUGINS/support/install-setup-cluster > setup
+                else
+                    sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" $SCBI_PLUGINS/support/install-setup > setup
+                fi
 
-                cp $SCBI_PLUGINS/support/servers.pvsc $APP/
+                cp $SCBI_PLUGINS/support/install-setup-common .
 
-                cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py $APP/
-                chmod a+x $APP/salome_hpc_visu_servers.py
+                chmod a+x setup
+
+                cp $SCBI_PLUGINS/support/servers.pvsc .
 
                 cd $SCBI_BDIR/s-salome
 
@@ -674,28 +555,65 @@ function s-salome-wrapup()
                     O_COMPRESS="--bzip2"
                 fi
 
+                #  Create a temporary application containing the templates
+                #  of the scripts such as omniidl, h5hlcc,...
+                #  This temporary application is used for the .run creation
+
+                rm -rf application_tmp
+                cp -rf application application_tmp
+
+                local TARDIR=$SCBI_BDIR/s-salome-tar/$TARGET-default/install
+                local BINDIR=$(basename $(ls -1d $TARDIR/BINARIES-*))
+                local ORIG_BINDIR="$TARDIR/$BINDIR"
+                local TEMPL_BINDIR="__BINDIR__"
+
+                #  Convert these scripts to template.
+
+                for SCRIPTS in omniORB/bin/omniidl \
+                                   hdf5/bin/h5hlcc hdf5/bin/h5cc \
+                                   netcdf/lib/pkgconfig/netcdf.pc \
+                                   PyQt/bin/pyuic5 \
+                                   matplotlib/bin/f2py;
+                do
+                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" \
+                        application_tmp/$BINDIR/$SCRIPTS
+                done
+
+                for SCRIPTS in application_tmp/$BINDIR/openturns/bin/f2py* \
+                                   application_tmp/$BINDIR/Python/bin/f2py* \
+                                   application_tmp/$BINDIR/C3PO/bin/f2py*;
+                do
+                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" $SCRIPTS
+                done
+
+                #  Convert these sip scripts to template.
+
+                find application_tmp/$BINDIR/sip/bin -type f -name "*sip*" |
+                    while read F; do
+                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
+                    done
+
+                #  Convert these .la scripts to template.
+
+                find application_tmp/$BINDIR/gcc/bin -type f -name "*.la*" |
+                    while read F; do
+                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
+                    done
+
+                #  Convert Makefile and Python system configuration
+                #  scripts to template.
+
+                find application_tmp/$BINDIR/Python -type f \
+                     \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
+                    while read F; do
+                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
+                    done
+
                 makeself $O_COMPRESS --tar-quietly \
-                         application $script_name.run \
+                         application_tmp $script_name.run \
                          "SALOME Application" ./setup
                 res=$?
-            fi
-
-            # check for python3
-            #
-            if [[ -z "$(python --version 2>&1 | grep ' 3\.')" ]]; then
-                dlog python2 is default, checking for python3
-                if [[ -f /usr/bin/python3 ]]; then
-                    dlog found python3 in /usr/bin/python3, setup links
-                    (
-                        cd $APP
-                        rm -f ./bin/python ./bin/salome/python
-                        ln -s /usr/bin/python3 ./bin/python
-                        ln -s /usr/bin/python3 ./bin/salome/python
-                    )
-                else
-                    dlog cannot found a python3 installation.
-                    dlog SALOME will not work properly.
-                fi
+                rm -rf application_tmp
             fi
 
             if [[ $res == 0 ]]; then
