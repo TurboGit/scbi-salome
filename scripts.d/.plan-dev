@@ -67,7 +67,7 @@ s-cgal/native
 # the s-salome meta-module version is used to name the .run and as the
 # version in create_catalog.py
 
-s-salome:dev
+s-salome:DEV
 
 # First, for repositories where master is at CEA
 [
