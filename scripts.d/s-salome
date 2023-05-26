@@ -175,7 +175,7 @@ function setup-env-salome()
     local TARGET=$2
     local VARIANT=$3
 
-    local APPDIR=$SCBI_BDIR/s-salome/application
+    local APPDIR=$SCBI_BDIR/s-salome/$TARGET-$VARIANT
 
     local BINDIR=$(basename $(ls -1d BINARIES-*))
 
@@ -417,12 +417,14 @@ function s-salome-wrapup()
     local TARGET=$2
     local VARIANT=$3
 
+    local APPDIR=$TARGET-$VARIANT
+
     (
         #  Clean-up previous installation if any
 
-        rm -fr application
-        mkdir application
-        cd application
+        rm -fr $APPDIR
+        mkdir $APPDIR
+        cd $APPDIR
 
         if [[ "$(is-enabled application)" = "yes" ]] \
                || [[ "$(is-enabled installer)" = "yes" ]];
@@ -443,7 +445,7 @@ function s-salome-wrapup()
             date > artifacts/creation-time.txt
             scbi --version > artifacts/scbi_versions.txt
 
-            cp ../$TARGET-$VARIANT/.log/build-plan artifacts/
+            cp .log/build-plan artifacts/
 
             [[ ! -z $CI_JOB_NAME ]] &&
                 echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
@@ -555,62 +557,13 @@ function s-salome-wrapup()
                     O_COMPRESS="--bzip2"
                 fi
 
-                #  Create a temporary application containing the templates
-                #  of the scripts such as omniidl, h5hlcc,...
-                #  This temporary application is used for the .run creation
-
-                rm -rf application_tmp
-                cp -rf application application_tmp
-
-                local TARDIR=$SCBI_BDIR/s-salome-tar/$TARGET-default/install
-                local BINDIR=$(basename $(ls -1d $TARDIR/BINARIES-*))
-                local ORIG_BINDIR="$TARDIR/$BINDIR"
-                local TEMPL_BINDIR="__BINDIR__"
-
-                #  Convert these scripts to template.
-
-                for SCRIPTS in omniORB/bin/omniidl \
-                                   hdf5/bin/h5hlcc hdf5/bin/h5cc \
-                                   netcdf/lib/pkgconfig/netcdf.pc \
-                                   PyQt/bin/pyuic5 \
-                                   matplotlib/bin/f2py;
-                do
-                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" \
-                        application_tmp/$BINDIR/$SCRIPTS
-                done
-
-                for SCRIPTS in application_tmp/$BINDIR/openturns/bin/f2py* \
-                                   application_tmp/$BINDIR/Python/bin/f2py* \
-                                   application_tmp/$BINDIR/C3PO/bin/f2py*;
-                do
-                    sed -i "s,${ORIG_BINDIR},${TEMPL_BINDIR},g" $SCRIPTS
-                done
-
-                #  Convert these sip scripts to template.
-
-                find application_tmp/$BINDIR/sip/bin -type f -name "*sip*" |
-                    while read F; do
-                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
-                    done
-
-                #  Convert these .la scripts to template.
-
-                find application_tmp/$BINDIR/gcc/bin -type f -name "*.la*" |
-                    while read F; do
-                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
-                    done
-
-                #  Convert Makefile and Python system configuration
-                #  scripts to template.
-
-                find application_tmp/$BINDIR/Python -type f \
-                     \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
-                    while read F; do
-                        sed -i "s,$ORIG_BINDIR,${TEMPL_BINDIR},g" $F
-                    done
+                #  We do not fix path here as currently this is done in
+                #  s-salome-tar for the binary release. For the current
+                #  build on Debian >= 10 we use a native Python & HDF5
+                #  so no patch is needed.
 
                 makeself $O_COMPRESS --tar-quietly \
-                         application_tmp $script_name.run \
+                         $APPDIR $script_name.run \
                          "SALOME Application" ./setup
                 res=$?
                 rm -rf application_tmp
