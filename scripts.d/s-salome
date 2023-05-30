@@ -183,6 +183,12 @@ function setup-env-salome()
             local VAR=$2
             local VALUE=$3
 
+            #  Special case, do not add /usr/bin to PATH from native modules.
+            #  This PATH will be at the end of the PATH anyway and we do want
+            #  to pick other tools compiled first.
+
+            [[ ${VAR} == "PATH" ]] && [[ ${VALUE} == "/usr/bin" ]] && return
+
             #  Compute relative directory
 
             local CURRENT_MODULE_VAR=${CURRENT_MODULE}_ROOT_INSTALL_DIR
