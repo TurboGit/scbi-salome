@@ -54,7 +54,7 @@ else
 fi
 
 if [[ $EXIT -ne "0" ]]; then
-    read -p "Do you want to continue installation of salome? [Yes|No]"
+    read -p "Do you want to continue installation of salome? [Yes|No] "
     REPLY=${REPLY^^}
 
     if [[ "$REPLY" == "N" ]] ||
