@@ -75,7 +75,7 @@ s-salome:DEV
         s-hybrid-plugin
         s-hexotic-plugin
         s-netgen-plugin
-        s-shaperstudy
+        s-shaper-study
         s-homard
         s-salome-configuration
         s-salome-jobmanager
