@@ -27,6 +27,13 @@ function s-paravisaddons-common-env()
     add-to-var LD_LIBRARY_PATH               $PREFIX/lib/paraview
 }
 
+function s-paravisaddons-common-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/tests
+}
+
 function s-paravisaddons-common-common-config-options()
 {
     local PREFIX=$1

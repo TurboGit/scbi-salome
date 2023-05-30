@@ -48,6 +48,13 @@ function s-salome-adao-env()
     add-to-var SalomeAppConfig $PREFIX/share/salome/resources/adao
 }
 
+function s-salome-adao-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-salome-adao-build-env()
 {
     local PREFIX=$1

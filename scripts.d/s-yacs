@@ -66,6 +66,13 @@ function s-yacs-env()
     add-to-var CMAKE_PREFIX_PATH $SalomeYACS_DIR
 }
 
+function s-yacs-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-yacs-config()
 {
     local PREFIX=$1

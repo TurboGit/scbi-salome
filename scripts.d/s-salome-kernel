@@ -93,6 +93,13 @@ function s-salome-kernel-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
+function s-kernel-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-salome-kernel-mpi-config-options()
 {
     echo -DSALOME_USE_MPI=ON

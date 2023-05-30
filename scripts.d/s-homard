@@ -55,6 +55,13 @@ function s-homard-env()
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/homard
 }
 
+function s-homard-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-homard-config()
 {
     local PREFIX=$1

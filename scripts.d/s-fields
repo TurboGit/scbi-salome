@@ -48,6 +48,13 @@ function s-fields-env()
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/fields
 }
 
+function s-fields-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-fields-config()
 {
     local PREFIX=$1
