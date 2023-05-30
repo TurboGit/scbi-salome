@@ -79,6 +79,13 @@ function s-gmsh-plugin-env()
     add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/gmshplugin
 }
 
+function s-gmsh-plugin-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-gmsh-plugin-config()
 {
     local PREFIX=$1

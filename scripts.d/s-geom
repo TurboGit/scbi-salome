@@ -88,6 +88,13 @@ function s-geom-env()
     add-to-var SalomeAppConfig       $PREFIX/share/salome/resources/geom
 }
 
+function s-geom-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-geom-default-config-options()
 {
     echo -DSALOME_GEOM_USE_OPENCV=OFF
