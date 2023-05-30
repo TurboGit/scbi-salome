@@ -66,7 +66,7 @@ function s-smesh-default-depends()
     echo s-salome-kernel
     echo s-salome-gui
     echo s-geom
-    echo s-shaperstudy
+    echo s-shaper-study
     echo s-medfichier
     echo s-medcoupling
     echo s-cgns

@@ -48,7 +48,7 @@ function s-salome-default-modules()
     echo s-salome-gui
     echo s-salome-plugins
     echo s-shaper
-    echo s-shaperstudy
+    echo s-shaper-study
     echo s-geom
     echo s-smesh
     echo s-paravis
