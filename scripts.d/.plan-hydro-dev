@@ -11,7 +11,7 @@ s-mumps:#4-10.0
 s-scalapack:#2.0.2
 s-aed2:#1.2
 s-gotm:#2019-06-14-edf
-s-proj:#6.3.2
+s-proj:#7.2.0
 
 
 # s-python-modules/ng.wand.pyaml.telemac:master
