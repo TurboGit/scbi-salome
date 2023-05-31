@@ -1,4 +1,12 @@
 
+function s-coolprop-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/CoolProp/CoolProp
+}
+
 function s-coolprop-tar()
 {
     local VERSION=$1
