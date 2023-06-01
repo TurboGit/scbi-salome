@@ -60,9 +60,9 @@ s-cgal/native
 ] /native
 
 # the s-salome meta-module version is used to name the .run and as the
-# version in create_catalog.py
+# version in create-catalog script.
 
-s-salome:V911
+s-salome:V9_11_0
 
 # First, for repositories where master is at CEA
 [
@@ -164,3 +164,5 @@ s-occt:#7.5.3p5
 s-cgns/auto:#4.2.0
 s-catalyst:#2.0-431a8a1
 s-python-modules/default.metadata:master
+
+@on deb,11 use s-padder:skip
