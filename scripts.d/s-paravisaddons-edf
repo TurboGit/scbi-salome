@@ -57,6 +57,7 @@ function s-paravisaddons-edf-env()
 
     set-var    PARAVISADDONS_ROOT_DIR $PREFIX
 
+    add-to-var PATH                   $PREFIX/bin
     add-to-var PV_PLUGIN_PATH         $PREFIX/lib
 }
 
