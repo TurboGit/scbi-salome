@@ -5,7 +5,7 @@
 s-salome-ng/neptune.cfd
 
 s-libccmio:92f08637
-s-coolprop:#6.1.0
+s-coolprop:#6.4.3
 s-neptune:master
 
 [
