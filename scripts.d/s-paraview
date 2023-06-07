@@ -183,6 +183,7 @@ function s-paraview-common-config-options()
     echo -DPARAVIEW_PLUGIN_AUTOLOAD_SaveStateAndScreenshot=ON
     echo -DPARAVIEW_PLUGIN_AUTOLOAD_StreamLinesRepresentation=ON
     echo -DPARAVIEW_PLUGIN_AUTOLOAD_StreamingParticles=ON
+    echo -DPARAVIEW_PLUGIN_AUTOLOAD_SurfaceLIC=ON
     echo -DPARAVIEW_PLUGIN_AUTOLOAD_ThickenLayeredCells=ON
     echo -DPARAVIEW_PLUGIN_AUTOLOAD_VTKmFilters=ON
 
