@@ -118,7 +118,7 @@ s-salome:V911
         s-melidefx
         s-non-regression-tests
         s-clustertests
-] :V9_11_0b1
+] :V9_11_BR
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
