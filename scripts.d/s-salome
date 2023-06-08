@@ -527,12 +527,16 @@ function s-salome-wrapup()
                 # create the .run auto-installer to be distributed
 
                 host=$(hostname)
+                local TMPLT=""
 
                 if [[ $host =~ "crfront" ]] || [[ $host =~ "gafront" ]]; then
-                    sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" $SCBI_PLUGINS/support/install-setup-cluster > setup
+                    TMPLT=$SCBI_PLUGINS/support/install-setup-cluster
                 else
-                    sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" $SCBI_PLUGINS/support/install-setup > setup
+                    TMPLT=$SCBI_PLUGINS/support/install-setup
                 fi
+
+                sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" \
+                    $TMPLT > setup
 
                 cp $SCBI_PLUGINS/support/install-setup-common .
 
