@@ -1,5 +1,5 @@
 
-#  Extra modules can be set in environment variable SCBI_NG_EXTRA_MODULES.
+#  Extra modules can be set in environment variable SCBI_EXTRA_NG_MODULES.
 #  The syntax is: <PLUGIN-1>(PATTERN-1)[:<PLUGIN-2>(PATTERN-2)]
 #  where:
 #     PLUGIN  : The SCBI plug-in name (must have an ng variant) to be
