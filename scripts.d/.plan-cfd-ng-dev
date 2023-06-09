@@ -19,8 +19,10 @@ s-neptune:master
 
 [ = deb,10
     s-cmake:skip
+    s-salome-ng/neptune.cfd:s10-DEV
 ]
 
 [ = deb,9
     s-cmake:skip
+    s-salome-ng/neptune.cfd:s9-DEV
 ]
