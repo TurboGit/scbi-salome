@@ -105,7 +105,7 @@ s-salome:V911
         s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
-] :V9_11_0b1
+] :V9_11_BR
 
 # Second, for repositories where master is at EDF
 [
@@ -126,7 +126,7 @@ s-salome:V911
 [ = mpi
         s-medcoupling/default.mpi.ptscotch
         s-paravis/default.mpi
-] :V9_11_0b1
+] :V9_11_BR
 
 [ = mpi
         s-paraview/default.mpi.ospray.gdal.catalyst:#v5.11.0
@@ -135,7 +135,7 @@ s-salome:V911
 [ /= mpi
         s-medcoupling/default.ptscotch
         s-paravis/default
-] :V9_11_0b1
+] :V9_11_BR
 
 [ /= mpi
         s-paraview/default.ospray.gdal.catalyst:#v5.11.0
