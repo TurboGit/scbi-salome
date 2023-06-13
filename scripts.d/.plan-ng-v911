@@ -8,8 +8,8 @@ s-salome-ng:V9_11_0
 
 [ = linux
         s-salome-bin
-        s-paravisaddons-edf:V9_11_BR
-        s-atomic:V9_11_0b1
+        s-paravisaddons-edf:V9_11_0rc1
+        s-atomic:V9_11_0rc1
         s-python3-xlutils:#2.0.0
         s-zeromq:#4.3.1
         s-melissa:#0.0.0

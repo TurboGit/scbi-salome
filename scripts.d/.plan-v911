@@ -105,7 +105,7 @@ s-salome:V911
         s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
-] :V9_11_BR
+] :V9_11_0rc1
 
 # Second, for repositories where master is at EDF
 [
@@ -118,7 +118,7 @@ s-salome:V911
         s-melidefx
         s-non-regression-tests
         s-clustertests
-] :V9_11_BR
+] :V9_11_0rc1
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -126,7 +126,7 @@ s-salome:V911
 [ = mpi
         s-medcoupling/default.mpi.ptscotch
         s-paravis/default.mpi
-] :V9_11_BR
+] :V9_11_0rc1
 
 [ = mpi
         s-paraview/default.mpi.ospray.gdal.catalyst:#v5.11.0
@@ -135,7 +135,7 @@ s-salome:V911
 [ /= mpi
         s-medcoupling/default.ptscotch
         s-paravis/default
-] :V9_11_BR
+] :V9_11_0rc1
 
 [ /= mpi
         s-paraview/default.ospray.gdal.catalyst:#v5.11.0
