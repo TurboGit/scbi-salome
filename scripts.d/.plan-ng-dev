@@ -2,20 +2,17 @@
 
 @load dev/mpi
 
-#  the s-salome-ng meta-module version is used to name the .run and as the
-#  version in create_catalog.py
-s-salome/ng:DEV
-
 [ = linux
+        s-salome
         s-salome-bin
         s-atomic
         s-python3-xlutils
         s-zeromq
-        s-python-modules
         s-gnuplot-py
         s-paraview
         s-medcoupling
         s-paravis
+        s-python-modules
 
         # other modules that can be built in ng mode
         s-smesh
@@ -61,12 +58,14 @@ s-salome/ng:DEV
         s-persalys:skip
 ]
 
+[
+        s-zeromq
+        s-openmpi
+        s-ospray
+] :skip
+
 [ = deb,9
-        s-salome/ng:s9-DEV
         s-salome-tar:#master:DB09
-        s-zeromq:skip
-        s-openmpi:skip
-        s-ospray:skip
         s-gdal:skip
         s-cgal/ng:#4.0
         s-tbb:skip
@@ -85,29 +84,14 @@ s-salome/ng:DEV
 ]
 
 [ = deb,10
-        s-salome/ng:s10-DEV
         s-salome-tar:#master-native:DB10
-        s-zeromq:skip
-        s-openmpi:skip
-        s-ospray:skip
         s-gdal:skip
         s-qt:skip
         s-pyqt:skip
-        s-python-modules/ng.wand.metadata.toml:master
-        s-cgal/native
-        s-boost/native
 ]
 
 [ = deb,11
-        s-salome/ng:s11-DEV
         s-salome-tar:#master-native:DB11
-        s-zeromq:skip
-        s-openmpi:skip
-        s-ospray:skip
-        s-gdal/auto:3.2.2
-        s-python-modules/ng.wand.metadata.toml:master
-        s-cgal/native
-        s-boost/native
         s-qt/native
         s-pyqt/native
 ]
