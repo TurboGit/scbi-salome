@@ -15,8 +15,8 @@ function s-gdal-tar()
 
     echo default
     echo none
-    echo none
-    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo gdal-$VERSION.tar.gz
 }
 
