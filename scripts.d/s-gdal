@@ -9,16 +9,6 @@ function s-gdal-vcs()
     echo https://github.com/OSGeo/gdal.git 
 } 
 
-function s-gdal-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo gdal-$VERSION.tar.gz 
-} 
 
 function s-gdal-build-depends()
 {
