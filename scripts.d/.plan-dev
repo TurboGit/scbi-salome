@@ -1,6 +1,10 @@
 ###########################################
 # TOOLS
 
+@set CEA_VERSION = master
+@set EDF_VERSION = master
+@set PV_VERSION  = v5.11.0
+
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
 # using binary version 1.16.1
@@ -124,7 +128,7 @@ s-python-modules/default.wand.metadata.toml:master
         s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
-] :master
+] :$CEA_VERSION
 
 # Second, for repositories where master is at EDF
 [
@@ -137,7 +141,7 @@ s-python-modules/default.wand.metadata.toml:master
         s-melidefx
         s-non-regression-tests
         s-clustertests
-] :master
+] :$EDF_VERSION
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -148,7 +152,7 @@ s-python-modules/default.wand.metadata.toml:master
 ] :master
 
 [ = mpi
-        s-paraview/default.mpi.ospray.gdal.catalyst:#v5.11.0
+        s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 ]
 
 [ /= mpi
@@ -158,7 +162,7 @@ s-python-modules/default.wand.metadata.toml:master
 ] :master
 
 [ /= mpi
-        s-paraview/default.ospray.gdal.catalyst:#v5.11.0
+        s-paraview/default.ospray.gdal.catalyst:#$PV_VERSION
 ]
 
 # the s-salome meta-module version is used to name the .run, a different
