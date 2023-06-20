@@ -56,7 +56,6 @@
 ]
 
 [ = deb,9
-        s-salome/ng:s9-V9_11_0
         s-salome-tar:#9.11.0:DB09
         s-zeromq:skip
         s-openmpi:skip
@@ -79,7 +78,6 @@
 ]
 
 [ = deb,10
-        s-salome/ng:s10-V9_11_0
         s-salome-tar:#9.11.0-native:DB10
         s-zeromq:skip
         s-openmpi:skip
@@ -93,7 +91,6 @@
 ]
 
 [ = deb,11
-        s-salome/ng:s11-V9_11_0
         s-salome-tar:#9.11.0-native:DB11
         s-zeromq:skip
         s-openmpi:skip

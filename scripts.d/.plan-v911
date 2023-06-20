@@ -1,6 +1,10 @@
 ###########################################
 # TOOLS
 
+@set CEA_VERSION = V9_11_0
+@set EDF_VERSION = V9_11_0
+@set PV_VERSION  = v5.11.0
+
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
 # using binary version 1.16.1
@@ -62,7 +66,6 @@ s-cgal/native
 # the s-salome meta-module version is used to name the .run and as the
 # version in create-catalog script.
 
-s-salome:V9_11_0
 
 # First, for repositories where master is at CEA
 [
@@ -102,7 +105,7 @@ s-salome:V9_11_0
         s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
-] :V9_11_0
+] :$CEA_VERSION
 
 # Second, for repositories where master is at EDF
 [
@@ -111,7 +114,7 @@ s-salome:V9_11_0
         s-salome-adao
         s-adao
         s-adao-interface
-] :V9_11_0
+] :$EDF_VERSION
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -119,30 +122,19 @@ s-salome:V9_11_0
 [ = mpi
         s-medcoupling/default.mpi.ptscotch
         s-paravis/default.mpi
-] :V9_11_0
+] :$CEA_VERSION
 
 [ = mpi
-        s-paraview/default.mpi.ospray.gdal.catalyst:#v5.11.0
+        s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 ]
 
 [ /= mpi
         s-medcoupling/default.ptscotch
         s-paravis/default
-] :V9_11_0
+] :$CEA_VERSION
 
 [ /= mpi
-        s-paraview/default.ospray.gdal.catalyst:#v5.11.0
-]
-
-[ = deb,9
-        s-hdf5/mpi:#1.10.3
-        s-tbb/auto:#4.4.6
-        # this should be also for debian-10
-]
-
-[ = deb,11
-        s-pyqt/auto:#5.15.2
-        s-opencv:#3.2.0       # native pkg is too recent
+        s-paraview/default.ospray.gdal.catalyst:#$PV_VERSION
 ]
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
@@ -165,4 +157,19 @@ s-cgns/auto:#4.2.0
 s-catalyst:#2.0-431a8a1
 s-python-modules/default.metadata:master
 
-@on deb,11 use s-padder:skip
+[ = deb,9
+        s-salome:s9-$CEA_VERSION
+        s-hdf5/mpi:#1.10.3
+        s-tbb/auto:#4.4.6
+        # this should be also for debian-10
+]
+
+[ = deb,10
+        s-salome:s10-$CEA_VERSION
+]
+
+[ = deb,11
+        s-salome:s11-$CEA_VERSION
+        s-pyqt/auto:#5.15.2
+        s-opencv:#3.2.0       # native pkg is too recent
+]
