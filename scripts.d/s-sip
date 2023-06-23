@@ -20,6 +20,14 @@ function s-sip-tar()
     echo sip-$VERSION.tar.gz
 }
 
+function s-sip-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo s-python-modules
+}
+
 function s-sip-env()
 {
     local PREFIX=$1
