@@ -10,6 +10,14 @@ function s-sip-vcs()
 } 
 
 
+function s-sip-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo s-python-modules
+}
+
 function s-sip-env()
 {
     local PREFIX=$1
