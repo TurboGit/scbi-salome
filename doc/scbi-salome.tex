@@ -299,14 +299,14 @@ Also two variants are introduced:
 	\item[\code{ngwin}] : to build on top of a Windows binary installation.
 \end{description}
 
-And a new environment (\code{ng-dev}) and meta-module (\code{s-salome-ng}) are also provided. Some Windows specific plug-ins are also available,  see \ref{pg:win}).
+And a new environment (\code{ng-dev}) is also provided. Some Windows specific plug-ins are also available, see \ref{pg:win}).
 
 \subsection{Building SALOME NG (Next Gen)}
 
 To build SALOME on top of a binary archive with the EDF specific modules added:
 
 \cmd{scbi \ddash{}env=ng-dev \ddash{}deps \ddash{}safe \ddash{}update}
-\cmdc{\ddash{}enable-application s-salome-ng}
+\cmdc{\ddash{}enable-application s-salome}
 
 \subsection{Building modules already in binary distribution}
 
@@ -375,7 +375,7 @@ For example, to build SMESH and PERSALYS on top of binary archive and integrate 
 
 And then using the standard command to build SALOME NG:
 
-\cmd{scbi \ddash{}env=ng-dev \ddash{}deps \ddash{}safe \ddash{}update s-salome-ng}
+\cmd{scbi \ddash{}env=ng-dev \ddash{}deps \ddash{}safe \ddash{}update s-salome}
 
 \subsection{Migrating modules in NG mode}
 \label{migrateng}
