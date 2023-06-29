@@ -54,6 +54,7 @@ function s-netgen-plugin-env()
     add-to-var PYTHONPATH         \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
     add-to-var SMESH_MeshersList  NETGENPlugin
+
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/netgenplugin
 }
 

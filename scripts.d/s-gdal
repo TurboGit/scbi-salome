@@ -9,16 +9,6 @@ function s-gdal-vcs()
     echo https://github.com/OSGeo/gdal.git 
 } 
 
-function s-gdal-tar() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo gdal-$VERSION.tar.gz 
-} 
 
 function s-gdal-build-depends()
 {
@@ -32,7 +22,7 @@ function s-gdal-out-of-tree()
 
 function s-gdal-depends()
 {
-    echo os@-proj-dev
+    echo s-proj
     echo s-netcdf
     echo s-hdf5
 }
@@ -58,7 +48,9 @@ function s-gdal-config()
     cd ../src/gdal
     ./autogen.sh &&
         ./configure --with-netcdf=$NETCDF_ROOT_DIR \
-                    --with-hdf5=$HDF5_ROOT_DIR --prefix=$PREFIX
+                    --with-hdf5=$HDF5_ROOT_DIR \
+                    --with-proj=$PROJ_ROOT_DIR \
+                    --prefix=$PREFIX
 }
 
 function s-gdal-build()

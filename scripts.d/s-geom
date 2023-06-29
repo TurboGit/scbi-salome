@@ -69,7 +69,15 @@ function s-geom-env()
     add-to-var PYTHONPATH            $PREFIX/bin/salome
     add-to-var PYTHONPATH            \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+    add-to-var SALOME_MODULES        GEOM
     add-to-var SalomeAppConfig       $PREFIX/share/salome/resources/geom
+}
+
+function s-geom-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
 }
 
 function s-geom-default-config-options()

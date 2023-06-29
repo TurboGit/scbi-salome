@@ -1,18 +1,15 @@
 # This plan is to build some modules on top of a SALOME binary distribution
 
-@load v911
-
-#  the s-salome-ng meta-module version is used to name the .run and as the
-#  version in create_catalog.py
-s-salome-ng:V9_11_0
+@load v911/mpi
 
 [ = linux
+        s-salome
         s-salome-bin
-        s-atomic:V9_11_0
-        s-python3-xlutils:#2.0.0
-        s-zeromq:#4.3.1
-        s-python-modules:master
-        s-gnuplot-py:#1.8-3k
+        s-atomic
+        s-python3-xlutils
+        s-zeromq
+        s-python-modules
+        s-gnuplot-py
 
         # other modules that can be built in ng mode
         s-smesh
@@ -34,14 +31,7 @@ s-salome-ng:V9_11_0
         s-hybrid-plugin
         s-hexotic-plugin
         s-hexablock-plugin
-] /ng
-
-#  For some modules we may need more than just the ng variant
-#  Override the referrence below.
-
-s-paraview/ng.mpi.ospray.gdal:#5.11.0
-s-medcoupling/ng.mpi.ptscotch:#
-s-paravis/ng.mpi
+] /+ng-default
 
 #  The version for s-salome-tar has two parts, the version of the code
 #  and the version of the OS See tar hook in s-salome-tar for the
@@ -66,7 +56,6 @@ s-paravis/ng.mpi
 ]
 
 [ = deb,9
-        s-salome-ng:s9-V9_11_0
         s-salome-tar:#9.11.0:DB09
         s-zeromq:skip
         s-openmpi:skip
@@ -89,7 +78,6 @@ s-paravis/ng.mpi
 ]
 
 [ = deb,10
-        s-salome-ng:s10-V9_11_0
         s-salome-tar:#9.11.0-native:DB10
         s-zeromq:skip
         s-openmpi:skip
@@ -103,7 +91,6 @@ s-paravis/ng.mpi
 ]
 
 [ = deb,11
-        s-salome-ng:s11-V9_11_0
         s-salome-tar:#9.11.0-native:DB11
         s-zeromq:skip
         s-openmpi:skip

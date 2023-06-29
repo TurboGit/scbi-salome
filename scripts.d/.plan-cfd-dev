@@ -4,9 +4,8 @@
 
 s-salome/neptune.cfd
 
-s-cmake:#3.14.4
 s-libccmio:92f08637
-s-coolprop:#6.1.0
+s-coolprop:#6.4.3
 
 s-saturne:master # v7.0
 s-saturne-dbg:master # v7.0
@@ -16,5 +15,13 @@ s-syrthes:mpa/salome9
 s-python-modules/wand
 
 [ = deb,10
-    s-cmake:skip
+    s-salome/neptune.cfd:s10-DEV
+]
+
+[ = deb,10
+    s-salome/neptune.cfd:s10-DEV
+]
+
+[ = deb,9
+    s-salome/neptune.cfd:s9-DEV
 ]

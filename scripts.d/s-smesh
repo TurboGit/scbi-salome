@@ -41,7 +41,7 @@ function s-smesh-default-depends()
     echo s-salome-kernel
     echo s-salome-gui
     echo s-geom
-    echo s-shaperstudy
+    echo s-shaper-study
     echo s-medfichier
     echo s-medcoupling
     echo s-cgns
@@ -65,6 +65,8 @@ function s-smesh-env()
     add-to-var PYTHONPATH        \
                $PREFIX/share/salome/plugins/smesh/MacMesh
     add-to-var SMESH_MeshersList StdMeshers
+
+    add-to-var SALOME_MODULES    SMESH
     add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/smesh
 }
 

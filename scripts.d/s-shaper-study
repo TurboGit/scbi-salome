@@ -1,0 +1,68 @@
+
+
+function s-shaper-study-salome-module()
+{
+    echo SHAPERSTUDY
+}
+
+function s-shaper-study-build-depends()
+{
+    echo s-cmake
+}
+
+function s-shaper-study-depends()
+{
+    echo s-salome-configuration
+    echo s-salome-kernel
+    echo s-geom
+    echo s-shaper
+}
+
+function s-shaper-study-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var SHAPERSTUDY_ROOT_DIR $PREFIX
+
+    add-to-var PATH              $PREFIX/bin/salome
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib/salome
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+    add-to-var PYTHONPATH        $PREFIX/bin/salome
+    add-to-var PYTHONPATH        $PREFIX/lib/salome
+
+    add-to-var SALOME_MODULES    SHAPERSTUDY
+    add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/shaperstudy
+}
+
+function s-shaper-study-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          ../src
+}
+
+function s-shaper-study-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-shaper-study-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-shaper-study-prefix()
+{
+    echo NONE
+}
