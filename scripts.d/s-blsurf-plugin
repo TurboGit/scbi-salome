@@ -72,6 +72,13 @@ function s-blsurf-plugin-env()
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/blsurfplugin
 }
 
+function s-blsurf-plugin-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-blsurf-plugin-config()
 {
     local PREFIX=$1

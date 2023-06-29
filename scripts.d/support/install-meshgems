@@ -50,10 +50,10 @@ MG_INSTALL_DIR=$EDFMODULE_INSTALL_DIR/s-meshgems
 wget -q $MG_ARCHIVE_URL
 if [[ $? -ne 0 ]]; then
     echo "File Meshgems archive with version $MGVERSION seems to be missing on $MINIO_URL.."
-    echo "Please check or contact tma.edf@opencascade.com ."
+    echo "Please check or contact tma.edf@opencascade.com"
     exit 1
 fi
 
 rm -rf $MG_INSTALL_DIR
 tar xf $MG_ARCHIVE -C $EDFMODULE_INSTALL_DIR
-mv $MG_INSTALL_DIR/99_s_meshgems.* $SALOME_INSTALL_DIR/extra.env.d/
+mv $MG_INSTALL_DIR/998_s_meshgems.* $SALOME_INSTALL_DIR/extra.env.d/

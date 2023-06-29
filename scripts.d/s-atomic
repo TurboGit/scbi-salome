@@ -34,7 +34,6 @@ function s-atomic-build-depends()
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
 
     echo s-swig
-    echo python3-toml
     echo python3-lxml
 }
 
@@ -62,7 +61,15 @@ function s-atomic-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var ATOMIC_ROOT_DIR $PREFIX
+    set-var ATOMIC_ROOT_DIR       $PREFIX
+
+    add-to-var CMAKE_PREFIX_PATH  $PREFIX/adm_local/cmake_files
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+    add-to-var SALOME_MODULES     ATOMIC
+    add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/atomic
 }
 
 function s-atomic-config()

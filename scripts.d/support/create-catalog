@@ -113,6 +113,9 @@ done
 addToCatalog $XMLFILE "localhost"
 echo "</resources>" >> $XMLFILE
 
-BINDIR=$(basename $(ls -1d $SALOME_ROOT/BINARIES-*))
-[[ -d $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel ]] &&
-    cp $XMLFILE $SALOME_ROOT/$BINDIR/KERNEL/share/salome/resources/kernel
+#  Get SALOME env to have KERNEL_ROOT_DIR
+
+source env_launch.sh
+
+[[ -d $KERNEL_ROOT_DIR/share/salome/resources/kernel ]] &&
+    cp $XMLFILE $KERNEL_ROOT_DIR/share/salome/resources/kernel

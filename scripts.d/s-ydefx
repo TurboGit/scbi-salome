@@ -71,6 +71,13 @@ function s-ydefx-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
+function s-ydefx-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-ydefx-config()
 {
     local PREFIX=$1

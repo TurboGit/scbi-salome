@@ -68,6 +68,13 @@ function s-hybrid-plugin-env()
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/hybridplugin
 }
 
+function s-hybrid-plugin-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-hybrid-plugin-config()
 {
     local PREFIX=$1

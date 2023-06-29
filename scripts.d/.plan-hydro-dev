@@ -12,7 +12,7 @@ s-scalapack:#2.0.2
 s-metis-hydro:#5.1.0
 s-aed2:#1.2
 s-gotm:#2019-06-14-edf
-s-proj:#6.3.2
+s-proj:#7.2.0
 
 s-hydro:yan/scbi
 s-hydrosolver:master

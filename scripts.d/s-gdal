@@ -15,8 +15,8 @@ function s-gdal-tar()
 
     echo default
     echo none
-    echo none
-    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo gdal-$VERSION.tar.gz
 }
 
@@ -32,7 +32,7 @@ function s-gdal-out-of-tree()
 
 function s-gdal-depends()
 {
-    echo os@-proj-dev
+    echo s-proj
     echo s-netcdf
     echo s-hdf5
 }
@@ -58,7 +58,9 @@ function s-gdal-config()
     cd ../src/gdal
     ./autogen.sh &&
         ./configure --with-netcdf=$NETCDF_ROOT_DIR \
-                    --with-hdf5=$HDF5_ROOT_DIR --prefix=$PREFIX
+                    --with-hdf5=$HDF5_ROOT_DIR \
+                    --with-proj=$PROJ_ROOT_DIR \
+                    --prefix=$PREFIX
 }
 
 function s-gdal-build()

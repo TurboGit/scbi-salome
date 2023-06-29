@@ -55,9 +55,8 @@ function s-carmel-study-env()
     add-to-var PYTHONPATH           \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 
-    add-to-var SalomeAppConfig      $PREFIX/share/salome/resources/carmelstudy
-
     add-to-var SALOME_MODULES       CARMELSTUDY
+    add-to-var SalomeAppConfig      $PREFIX/share/salome/resources/carmelstudy
 }
 
 function s-carmel-study-config()

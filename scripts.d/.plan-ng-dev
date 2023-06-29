@@ -1,25 +1,25 @@
 # This plan is to build some modules on top of a SALOME binary distribution
 
-@load dev
-
-#  the s-salome-ng meta-module version is used to name the .run and as the
-#  version in create_catalog.py
-s-salome-ng:DEV
+@load dev/mpi
 
 [ = linux
+        s-salome
         s-salome-bin
         s-paravisaddons-edf
         s-atomic
-        s-python3-xlutils:#2.0.0
-        s-zeromq:#4.3.1
-        s-melissa:#0.0.0
-        s-meshgems:#V2.13-3_linux_EU
-        s-python-modules:master
-        s-zcracks:#3.2.9
-        s-gnuplot-py:#1.8-3k
-        s-padder:20200727
-        s-carmel-study:v3.3
-        s-tefluide:master
+        s-python3-xlutils
+        s-zeromq
+        s-melissa
+        s-meshgems
+        s-zcracks
+        s-gnuplot-py
+        s-padder
+        s-carmel-study
+        s-tefluide
+        s-paraview
+        s-medcoupling
+        s-paravis
+        s-python-modules
 
         # other modules that can be built in ng mode
         s-smesh
@@ -41,14 +41,7 @@ s-salome-ng:DEV
         s-hybrid-plugin
         s-hexotic-plugin
         s-hexablock-plugin
-] /ng
-
-#  For some modules we may need more than just the ng variant
-#  Override the referrence below.
-
-s-paraview/ng.mpi.ospray.gdal:#5.11.0
-s-medcoupling/ng.mpi.ptscotch:#
-s-paravis/ng.mpi
+] /+ng-default
 
 #  The version for s-salome-tar has two parts, the version of the code
 #  and the version of the OS See tar hook in s-salome-tar for the
@@ -75,12 +68,14 @@ s-paravis/ng.mpi
         s-zcracks:skip
 ]
 
+[
+        s-zeromq
+        s-openmpi
+        s-ospray
+] :skip
+
 [ = deb,9
-        s-salome-ng:s9-DEV
         s-salome-tar:#master:DB09
-        s-zeromq:skip
-        s-openmpi:skip
-        s-ospray:skip
         s-gdal:skip
         s-cgal/ng:#4.0
         s-tbb:skip
@@ -99,30 +94,14 @@ s-paravis/ng.mpi
 ]
 
 [ = deb,10
-        s-salome-ng:s10-DEV
         s-salome-tar:#master-native:DB10
-        s-zeromq:skip
-        s-openmpi:skip
-        s-ospray:skip
         s-gdal:skip
         s-qt:skip
         s-pyqt:skip
-        s-python-modules/ng.wand.metadata.toml:master
-        s-cgal/native
-        s-boost/native
 ]
 
 [ = deb,11
-        s-salome-ng:s11-DEV
         s-salome-tar:#master-native:DB11
-        s-zeromq:skip
-        s-openmpi:skip
-        s-ospray:skip
-        s-padder:skip
-        s-gdal/auto:3.2.2
-        s-python-modules/ng.wand.metadata.toml:master
-        s-cgal/native
-        s-boost/native
         s-qt/native
         s-pyqt/native
 ]

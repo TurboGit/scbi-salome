@@ -66,6 +66,13 @@ function s-ghs3d-plugin-env()
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/ghs3dplugin
 }
 
+function s-ghs3d-plugin-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-ghs3d-plugin-mpi-config-options()
 {
     local PREFIX=$1
