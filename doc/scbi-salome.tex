@@ -354,7 +354,7 @@ For debugging the module it is recommended to use a User's Checkout (see \ref{us
 
 The setup is then simple, the sources can be edited in the checkout tree, the above command issued each time we want to compile. At the end, the developer can just commit the changes directly in the checkout. This makes the procedure safe and do not require copying the sources manually and yet keeping a controlled environment when the configure, build and install step are provided by the plug-in.
 
-Finally note that on a distribution older than \emph{Debian-10} the documentation build must be disabled, use the option \ddash{}enable-no-doc. This is because \code{sphinx-intl} is not provided by the distribution and we do not want to rebuild part of Sphinx.
+Finally note that on a distribution older than \emph{Debian-10} the documentation build must be disabled, use the option \code{--enable-no-doc}. This is because \code{sphinx-intl} is not provided by the distribution and we do not want to rebuild part of Sphinx.
 
 \subsection{Integrating new NG modules in application}
 
