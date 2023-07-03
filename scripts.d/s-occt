@@ -45,12 +45,16 @@ function s-occt-env()
     set-var    CASROOT              $PREFIX
     set-var    CAS_ROOT_DIR         $PREFIX
 
+    set-var    OCC_INCLUDE_DIR      $PREFIX/include/opencascade
+    set-var    OCC_LIBRARY_DIR      $PREFIX/lib
+
     add-to-var PATH                 $PREFIX/bin
     add-to-var LD_LIBRARY_PATH      $PREFIX/lib
     add-to-var LIBRARY_PATH         $PREFIX/lib
     add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
     add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade
     add-to-var CMAKE_MODULE_PATH    $PREFIX/lib/cmake
+    add-to-var CMAKE_PREFIX_PATH    $PREFIX/lib/cmake/opencascade
 
     local CASRES=$PREFIX/share/opencascade/resources
 
