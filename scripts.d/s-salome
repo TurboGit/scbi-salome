@@ -170,6 +170,7 @@ function s-salome-carmel-modules()
 function s-salome-bim-modules()
 {
     echo s-building-is
+    echo s-ifc-open-shell
 }
 
 function s-salome-propagate-version()
