@@ -1,0 +1,129 @@
+
+function s-ifc-open-shell-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/IfcOpenShell/IfcOpenShell.git
+}
+
+function s-ifc-open-shell-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo IfcOpenShell-$VERSION.tar.gz
+}
+
+function s-ifc-open-shell-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo ifcopenshell.patch
+    echo ifcopenshell-edf.patch
+    echo ifcopenshell-occ.patch
+}
+
+function s-ifc-open-shell-default-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo os@-python3
+    echo c-gmp
+    echo c-mpfr
+    echo s-boost
+    echo s-occt
+    echo s-swig
+    echo s-cgal
+}
+
+function s-ifc-open-shell-ng-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-salome-bin
+}
+
+function s-ifc-open-shell-build-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-cmake
+}
+
+function s-ifc-open-shell-common-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    IFCOPENSHELL_ROOT_DIR $PREFIX
+    add-to-var PATH                  $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH       $PREFIX/lib
+    add-to-var PYTHONPATH            $PREFIX/lib/python/ifcopenshell
+}
+
+function s-ifc-open-shell-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCOLLADA_SUPPORT=OFF
+    echo -DUNICODE_SUPPORT=OFF
+    echo -DBUILD_SHARED_LIBS=ON
+    echo -DOCC_INCLUDE_DIR=$CAS_ROOT_DIR/include/opencascade
+    echo -DOCC_LIBRARY_DIR=$CAS_ROOT_DIR/lib
+    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+}
+
+function s-ifc-open-shell-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src/cmake
+}
+
+function s-ifc-open-shell-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_HALF_JOBS
+}
+
+function s-ifc-open-shell-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-ifc-open-shell-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo NONE
+}

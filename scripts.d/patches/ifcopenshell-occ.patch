@@ -1,0 +1,267 @@
+diff --git a/src/ifcgeom/IfcGeomFaces.cpp b/src/ifcgeom/IfcGeomFaces.cpp
+index 5626864..ba86e07 100644
+--- a/src/ifcgeom/IfcGeomFaces.cpp
++++ b/src/ifcgeom/IfcGeomFaces.cpp
+@@ -53,12 +53,15 @@
+ #include <Geom_TrimmedCurve.hxx>
+ #include <Geom_OffsetCurve.hxx>
+ 
++#include <BRepLib_FindSurface.hxx>
++
+ #include <BRepPrimAPI_MakePrism.hxx>
+ #include <BRepPrimAPI_MakeHalfSpace.hxx>
+ 
+ #include <BRepOffsetAPI_Sewing.hxx>
+ #include <BRepOffsetAPI_MakeOffset.hxx>
+ 
++#include <BRepBuilderAPI_Copy.hxx>
+ #include <BRepBuilderAPI_MakeFace.hxx>
+ #include <BRepBuilderAPI_MakeEdge.hxx>
+ #include <BRepBuilderAPI_MakeWire.hxx>
+@@ -221,6 +224,42 @@ bool IfcGeom::Kernel::convert(const IfcSchema::IfcFace* l, TopoDS_Shape& face) {
+ 						mf = new BRepBuilderAPI_MakeFace(pln, wire, true);
+ 					} else {
+ 						mf = new BRepBuilderAPI_MakeFace(wire);
++            if (!mf->IsDone()) {
++              Standard_Boolean isPlanarWanted = Standard_True;
++              // Find a deviation
++              Standard_Real aToleranceReached, aTol;
++              BRepLib_FindSurface aFS;
++              aFS.Init(wire, -1., isPlanarWanted);
++              aToleranceReached = aFS.ToleranceReached();
++              aTol = aFS.Tolerance();
++              if (!aFS.Found()) {
++                aFS.Init(wire, aToleranceReached, isPlanarWanted);
++                if (aFS.Found()) {
++                  aToleranceReached = aFS.ToleranceReached();
++                  aTol = aFS.Tolerance();
++                }
++              }
++              aTol = Max(1.2 * aToleranceReached, aTol);
++
++              // Copy the wire, because it can be updated with very-very big tolerance here
++              BRepBuilderAPI_Copy aMC (wire);
++              if (aMC.IsDone()) {
++                TopoDS_Wire aWire = TopoDS::Wire(aMC.Shape());
++                // Update tolerances to <aTol>
++                BRep_Builder B;
++                for (TopExp_Explorer expE (aWire, TopAbs_EDGE); expE.More(); expE.Next()) {
++                  TopoDS_Edge anE = TopoDS::Edge(expE.Current());
++                  B.UpdateEdge(anE, aTol);
++                }
++                for (TopExp_Explorer expV (aWire, TopAbs_VERTEX); expV.More(); expV.Next()) {
++                  TopoDS_Vertex aV = TopoDS::Vertex(expV.Current());
++                  B.UpdateVertex(aV, aTol);
++                }
++                // Build face
++                delete mf;
++                mf = new BRepBuilderAPI_MakeFace(aWire, isPlanarWanted);
++              }
++            }
+ 					}
+ 				} else {
+ 					/// @todo check necessity of false here
+diff --git a/src/ifcgeom/IfcGeomFunctions.cpp b/src/ifcgeom/IfcGeomFunctions.cpp
+index a3ac68c..fc988bd 100644
+--- a/src/ifcgeom/IfcGeomFunctions.cpp
++++ b/src/ifcgeom/IfcGeomFunctions.cpp
+@@ -145,7 +145,7 @@
+ #ifdef _MSC_VER
+ #pragma message("warning: You are linking against Open CASCADE version " OCC_VERSION_COMPLETE ". Version 6.9.0 introduces various improvements with relation to boolean operations. You are advised to upgrade.")
+ #else
+-#warning "You are linking against linking against an older version of Open CASCADE. Version 6.9.0 introduces various improvements with relation to boolean operations. You are advised to upgrade."
++#warning "You are linking against an older version of Open CASCADE. Version 6.9.0 introduces various improvements with relation to boolean operations. You are advised to upgrade."
+ #endif
+ #endif
+ 
+@@ -332,7 +332,7 @@ bool IfcGeom::Kernel::convert_openings(const IfcSchema::IfcProduct* entity, cons
+ 				convert_shapes(*it2,opening_shapes);
+ 			}
+ 
+-			const unsigned int current_size = (const unsigned int) opening_shapes.size();
++			const unsigned int current_size = (unsigned int) opening_shapes.size();
+ 			for ( unsigned int i = last_size; i < current_size; ++ i ) {
+ 				opening_shapes[i].prepend(opening_trsf);
+ 			}
+@@ -2864,12 +2864,11 @@ bool IfcGeom::Kernel::wire_intersections(const TopoDS_Wire& wire, TopTools_ListO
+ 	// tfk: Extrema on infinite curves proved to be more robust.
+ 	// TopoDS_Face face = BRepBuilderAPI_MakeFace(wire, true).Face();
+ 	// ShapeAnalysis_Wire saw(wd, face, getValue(GV_PRECISION));
+-			
++
+ 	for (int i = 2; i < n; ++i) {
+ 		for (int j = 0; j < i - 1; ++j) {
+ 			if (i == n - 1 && j == 0) continue;
+ 
+-			bool unbounded_intersects;
+ 			const double eps = getValue(GV_PRECISION) * 2.;
+ 
+ 			double u11, u12, u21, u22, U1, U2;
+@@ -2878,88 +2877,89 @@ bool IfcGeom::Kernel::wire_intersections(const TopoDS_Wire& wire, TopTools_ListO
+ 				BRep_Tool::Curve(wd->Edge(j + 1), u21, u22)
+ 			);
+ 
+-			if ((unbounded_intersects = (ecc.NbExtrema() == 1 && ecc.Distance(1) < eps))) {
+-				ecc.Parameters(1, U1, U2);
+-			}
+-
+-			if (u11 > u12) {
+-				std::swap(u11, u12);
+-			}
+-			if (u21 > u22) {
+-				std::swap(u21, u22);
+-			}
+-
+-			/// @todo: tfk: probably need different thresholds on non-linear curves
+-			u11 -= eps;
+-			u12 += eps;
+-			u21 -= eps;
+-			u22 += eps;
+-
+-			// tfk: code below is for ShapeAnalysis_Wire::CheckIntersectingEdges()
+-			// IntRes2d_SequenceOfIntersectionPoint points2d;
+-			// TColgp_SequenceOfPnt points3d;
+-			// TColStd_SequenceOfReal errors;
+-			// if (saw.CheckIntersectingEdges(i + 1, j + 1, points2d, points3d, errors)) {
+-
+-			if (unbounded_intersects &&	u11 < U1 && U1 < u12 && u21 < U2 && U2 < u22) {
+-
+-				intersected = true;
+-
+-				// Explore a forward and backward cycle from the intersection point
+-				for (int fb = 0; fb <= 1; ++fb) {
+-					const bool forward = fb == 0;
+-
+-					BRepBuilderAPI_MakeWire mw;
+-					bool first = true;
+-
+-					for (bounded_int k(j, n);;) {
+-						bool intersecting = k == j || k == i;
+-						if (intersecting) {
+-							TopoDS_Edge e = wd->Edge(k + 1);
+-							
+-							TopoDS_Vertex v1, v2;
+-							TopExp::Vertices(e, v1, v2);
+-							const TopoDS_Vertex* v = first == forward ? &v2 : &v1;
+-
+-							// gp_Pnt p2 = points3d.Value(1);
+-							
+-							gp_Pnt p1 = BRep_Tool::Pnt(*v);
+-							gp_Pnt pp1, pp2;
+-							ecc.Points(1, pp1, pp2);
+-							const gp_Pnt& p2 = k == i ? pp1 : pp2;
+-							
+-							// Substitute with a new edge from/to the intersection point
+-							if (p1.Distance(p2) > getValue(GV_PRECISION) * 2) {
+-								double _, __;
+-								Handle(Geom_Curve) crv = BRep_Tool::Curve(e, _, __);
+-								BRepBuilderAPI_MakeEdge me(crv, p1, p2);
+-								TopoDS_Edge ed = me.Edge();
+-								mw.Add(ed);
+-							}
+-
+-							first = false;
+-						} else {
+-							// Re-use original edge
+-							mw.Add(wd->Edge(k+1));
+-						}
++			bool unbounded_intersects = (!ecc.Extrema().IsParallel() && ecc.NbExtrema() == 1 && ecc.Distance(1) < eps);
++      if (unbounded_intersects) {
++        ecc.Parameters(1, U1, U2);
+ 
+-						if (k == i) {
+-							break;
+-						}
++        if (u11 > u12) {
++          std::swap(u11, u12);
++        }
++        if (u21 > u22) {
++          std::swap(u21, u22);
++        }
+ 
+-						if (forward) {
+-							++k;
+-						} else {
+-							--k;
+-						}
+-					}
++        /// @todo: tfk: probably need different thresholds on non-linear curves
++        u11 -= eps;
++        u12 += eps;
++        u21 -= eps;
++        u22 += eps;
++
++        // tfk: code below is for ShapeAnalysis_Wire::CheckIntersectingEdges()
++        // IntRes2d_SequenceOfIntersectionPoint points2d;
++        // TColgp_SequenceOfPnt points3d;
++        // TColStd_SequenceOfReal errors;
++        // if (saw.CheckIntersectingEdges(i + 1, j + 1, points2d, points3d, errors)) {
++
++        if (u11 < U1 && U1 < u12 && u21 < U2 && U2 < u22) {
++
++          intersected = true;
++
++          // Explore a forward and backward cycle from the intersection point
++          for (int fb = 0; fb <= 1; ++fb) {
++            const bool forward = fb == 0;
++
++            BRepBuilderAPI_MakeWire mw;
++            bool first = true;
++
++            for (bounded_int k(j, n);;) {
++              bool intersecting = k == j || k == i;
++              if (intersecting) {
++                TopoDS_Edge e = wd->Edge(k + 1);
++                
++                TopoDS_Vertex v1, v2;
++                TopExp::Vertices(e, v1, v2);
++                const TopoDS_Vertex* v = first == forward ? &v2 : &v1;
++
++                // gp_Pnt p2 = points3d.Value(1);
++                
++                gp_Pnt p1 = BRep_Tool::Pnt(*v);
++                gp_Pnt pp1, pp2;
++                ecc.Points(1, pp1, pp2);
++                const gp_Pnt& p2 = k == i ? pp1 : pp2;
++                
++                // Substitute with a new edge from/to the intersection point
++                if (p1.Distance(p2) > getValue(GV_PRECISION) * 2) {
++                  double _, __;
++                  Handle(Geom_Curve) crv = BRep_Tool::Curve(e, _, __);
++                  BRepBuilderAPI_MakeEdge me(crv, p1, p2);
++                  TopoDS_Edge ed = me.Edge();
++                  mw.Add(ed);
++                }
++
++                first = false;
++              } else {
++                // Re-use original edge
++                mw.Add(wd->Edge(k+1));
++              }
++
++              if (k == i) {
++                break;
++              }
++
++              if (forward) {
++                ++k;
++              } else {
++                --k;
++              }
++            }
+ 
+-					// Recursively process both cuts
+-					wire_intersections(mw.Wire(), wires);
+-				}
++            // Recursively process both cuts
++            wire_intersections(mw.Wire(), wires);
++          }
+ 
+-				return true;
+-			}
++          return true;
++        }
++      }
+ 		}
+ 	}
+ 
