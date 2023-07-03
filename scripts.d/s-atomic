@@ -18,7 +18,6 @@ function s-atomic-build-depends()
     [[ -z ${DISDOC} ]] && echo os@-python3-sphinx
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
 
-    echo s-swig
     echo python3-lxml
 }
 
