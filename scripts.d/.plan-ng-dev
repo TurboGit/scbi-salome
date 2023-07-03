@@ -20,6 +20,8 @@
         s-medcoupling
         s-paravis
         s-python-modules
+        s-ifc-open-shell
+        s-building-is
 
         # other modules that can be built in ng mode
         s-smesh
