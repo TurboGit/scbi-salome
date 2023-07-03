@@ -48,6 +48,7 @@ s-carmel-study:master
 s-tefluide:master
 s-swig/auto:#4.0.2
 s-ifc-open-shell:v0.7.0
+s-building-is:agy/pywrap_0
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
 #

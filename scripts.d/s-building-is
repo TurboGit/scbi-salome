@@ -1,0 +1,108 @@
+
+function s-building-is-vcs()
+{
+    echo edf
+    echo default
+    echo git
+    echo https://gitlab.pleiade.edf.fr/simba/salomebim/sbim.smodule.git
+}
+
+function s-building-is-salome-module()
+{
+    echo BuildingIS
+}
+
+function s-building-is-common-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-salome-configuration
+    echo s-ifc-open-shell
+}
+
+function s-building-is-default-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-geom
+}
+
+function s-building-is-ng-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-salome-bin
+}
+
+function s-building-is-build-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-cmake
+}
+
+function s-building-is-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    BuildingIS_ROOT_DIR $PREFIX
+
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/salome
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
+
+    add-to-var SALOME_MODULES  BuildingIS
+    add-to-var SalomeAppConfig $PREFIX/share/salome/resources/buildingis
+}
+
+function s-building-is-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          ../src
+}
+
+function s-building-is-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-building-is-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-building-is-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo NONE
+}
