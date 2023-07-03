@@ -45,9 +45,9 @@ function s-cgal-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    CGALHOME        $PREFIX
-
-    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    set-var    CGALHOME         $PREFIX
+    set-var    CGAL_INCLUDE_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib
 }
 
 function s-cgal-config-options()
