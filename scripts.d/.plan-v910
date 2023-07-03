@@ -1,6 +1,10 @@
 ###########################################
 # TOOLS
 
+@set CEA_VERSION = V9_10_0
+@set EDF_VERSION = V9_10_0
+@set PV_VERSION  = v5.11.0
+
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
 # using binary version 1.16.0, must be available in s-ispc GitHub
@@ -36,6 +40,10 @@ s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
 s-cmake/auto:#3.24.3
 s-ttk:1.1.0
+s-swig/auto:#4.0.2
+
+# Use IfcOpenShell from May 2018
+s-ifc-open-shell:#127bcaf96
 
 [
         # s-homard tool is now merged into s-homard module
@@ -96,7 +104,7 @@ s-salome:V9_10_0
         s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
-] :V9_10_0
+] :$CEA_VERSION
 
 # Second, for repositories where master is at EDF
 [
@@ -105,7 +113,7 @@ s-salome:V9_10_0
         s-salome-adao
         s-adao
         s-adao-interface
-] :V9_10_0
+] :$EDF_VERSION
 
 # Third, the modules with MPI support or depending on
 # MPI like the two plugins.
@@ -113,26 +121,36 @@ s-salome:V9_10_0
 [ = mpi
         s-medcoupling/default.mpi.ptscotch
         s-paravis/default.mpi
-] :V9_10_0
+] :$CEA_VERSION
 
 [ = mpi
-        s-paraview/default.mpi.ospray.gdal.catalyst:v5.11.0
+        s-paraview/default.mpi.ospray.gdal.catalyst:$PV_VERSION
 ]
 
 [ /= mpi
         s-hdf5/native-serial
         s-medcoupling/default.ptscotch
         s-paravis/default
-] :V9_10_0
+] :$CEA_VERSION
 
 [ /= mpi
-        s-paraview/default.ospray.gdal.catalyst:v5.11.0
+        s-paraview/default.ospray.gdal.catalyst:$PV_VERSION
 ]
 
 [ = deb,9
         s-hdf5/mpi:#1.10.3
         s-tbb/auto:#4.4.6
         # this should be also for debian-10
+]
+
+[ = deb,10
+        s-cgal/native
+        s-boost/native
+]
+
+[ = deb,11
+        s-cgal/native
+        s-boost/native
 ]
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
@@ -145,6 +163,8 @@ s-gmsh:gmsh_4_10_3
 s-medfichier:#4.1.1
 s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
+c-gmp/auto:6.1
+c-mpfr/auto:4.0
 
 s-libbatch:V2_4_5
 
