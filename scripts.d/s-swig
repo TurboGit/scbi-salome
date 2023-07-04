@@ -1,7 +1,6 @@
 
 with-variant native os@-swig:[v] \
-             --env 'prepend-to-var PATH $(get-os-bin-dir swig)' \
-                   'set-var SWIG_ROOT_DIR /usr' \
+             --env 'set-var SWIG_ROOT_DIR /usr' \
                    'set-var SWIG_ROOT /usr'
 
 function s-swig-vcs()

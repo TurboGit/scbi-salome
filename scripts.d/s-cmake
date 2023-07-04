@@ -1,7 +1,6 @@
 inherit-plugin c-cmake
 
-with-variant native os@-cmake:[v] \
-  --env 'prepend-to-var PATH $(get-os-bin-dir cmake)'
+with-variant native os@-cmake:[v]
 
 #  Adds a Windows variant using the MingW64 cmake version
 with-variant win \
