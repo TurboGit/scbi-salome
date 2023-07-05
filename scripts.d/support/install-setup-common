@@ -50,6 +50,25 @@ function get-install-directory()
     echo -n $prefix
 }
 
+# =============================================== get-modules-dir
+
+function get-modules-dir()
+{
+    local PREFIX=$1
+
+    local BIN="unknown"
+
+    local DIRS=($PREFIX/BINARIES-*)
+
+    if [[ -d ${DIRS[0]} ]]; then
+        BIN=${DIRS[0]}
+    elif [[ -d $PREFIX/EDF ]]; then
+        BIN=$PREFIX/EDF
+    fi
+
+    echo $(basename $BIN)
+}
+
 # =============================================== template-conversion
 function template-conversion()
 {
@@ -60,7 +79,7 @@ function template-conversion()
     # Convert the template files (omniidl, h5hlcc, ...)
 
     local ORIG_BINDIR="__BINDIR__"
-    local BINDIR=$(basename $(ls -1d $PREFIX/BINARIES-*))
+    local BINDIR=$(get-modules-dir $PREFIX)
 
     local FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc hdf5/bin/h5cc)
 
@@ -140,13 +159,13 @@ function get-pck-status()
 # =============================================== get-pck-status
 function check-for-python3()
 {
-    BINDIR=$(basename $(ls -1d BINARIES-*))
+    local BINDIR=$(get-modules-dir $PREFIX)
 
-    #  If BINARIES-* not found, this is a full EDF build
-    if [[ -z $BINDIR ]]; then
-        SBINDIR=EDF/s-salome-kernel
+    #  If EDF, this is a full EDF build as we try first BINARIES-*
+    if [[ $BINDIR == "EDF" ]]; then
+        local SBINDIR=EDF/s-salome-kernel
     else
-        SBINDIR=$BINDIR/SALOME
+        local SBINDIR=$BINDIR/SALOME
     fi
 
     #
