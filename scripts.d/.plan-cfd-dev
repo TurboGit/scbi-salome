@@ -18,8 +18,8 @@ s-python-modules/wand
     s-salome/neptune.cfd:s10-DEV
 ]
 
-[ = deb,10
-    s-salome/neptune.cfd:s10-DEV
+[ = deb,11
+    s-salome/neptune.cfd:s11-DEV
 ]
 
 [ = deb,9
