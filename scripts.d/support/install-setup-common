@@ -158,7 +158,7 @@ function get-pck-status()
 # =============================================== get-pck-status
 function check-for-python3()
 {
-    local BINDIR=$(get-modules-dir $PREFIX)
+    local BINDIR=$(get-modules-dir $PWD)
 
     #  If EDF, this is a full EDF build as we try first BINARIES-*
     if [[ $BINDIR == "EDF" ]]; then
