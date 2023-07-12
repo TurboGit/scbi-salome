@@ -81,10 +81,10 @@ function template-conversion()
     local ORIG_BINDIR="__BINDIR__"
     local BINDIR=$(get-modules-dir $PREFIX)
 
-    local FILES_LIST=(omniORB/bin/omniidl hdf5/bin/h5hlcc hdf5/bin/h5cc)
+    local FILES_LIST=(*/bin/omniidl */bin/h5hlcc */bin/h5cc)
 
     if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
-        FILES_LIST+=(netcdf/lib/pkgconfig/netcdf.pc PyQt/bin/pyuic5)
+        FILES_LIST+=(*/lib/pkgconfig/netcdf.pc */bin/pyuic5)
     fi
 
     for SCRIPTS in ${FILES_LIST[*]}; do
@@ -107,6 +107,8 @@ function template-conversion()
                 sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
             done
     fi
+
+    true
 }
 
 # =============================================== create-desktop-icon
