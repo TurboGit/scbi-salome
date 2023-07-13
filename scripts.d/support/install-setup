@@ -133,6 +133,8 @@ fi
 
 template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
 
+get-edf-direction $prefix
+
 # Add icon link on desktop
 create-desktop-icon $prefix __SALOMEVERSION__
 
