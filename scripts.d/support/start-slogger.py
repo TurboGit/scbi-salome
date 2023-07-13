@@ -8,6 +8,7 @@ UID = os.getuid()
 
 WEB_SERVER = "__WEB_SERVER__"
 SALOME_VERSION = "__SALOME_VERSION__"
+EDF_DIRECTION = "__DIRECTION__"
 USER_ID = "__USERID__"
 LOG_FILENAME = "/tmp/%s-salome.log" % UID
 SESSION_ID = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -25,7 +26,8 @@ def init(context, root_dir):
     L_BIN = os.path.join(SALOME_LOGGER, "bin", "SalomeLogger")
     L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so")
 
-    PFX = USER_ID + ',' + SESSION_ID + ',' + SALOME_VERSION
+    PFX = USER_ID + ',' + SESSION_ID + ',' \
+        + EDF_DIRECTION + ',' + SALOME_VERSION
 
     subprocess.Popen([L_BIN,
                       "--prefix", PFX,
