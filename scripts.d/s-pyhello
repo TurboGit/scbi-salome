@@ -26,7 +26,8 @@ function s-pyhello-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var PYHELLO_ROOT_DIR $PREFIX
+    set-var    PYHELLO_ROOT_DIR $PREFIX
+    add-to-var PYTHONPATH       $PREFIX/bin/salome
 }
 
 function s-pyhello-config()
