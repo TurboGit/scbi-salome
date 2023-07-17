@@ -38,7 +38,7 @@ s-paravisaddons-edf:skip
 ]
 
 [ = cronos.hpc.edf.fr
-        s-salome-ng:co8-DEV
+        s-salome:co8-DEV
         s-salome-tar:#master:CO8
         s-zeromq:skip
 
