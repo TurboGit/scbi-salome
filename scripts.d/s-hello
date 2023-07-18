@@ -33,7 +33,10 @@ function s-hello-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var HELLO_ROOT_DIR $PREFIX
+    set-var HELLO_ROOT_DIR      $PREFIX
+    add-to-var PYTHONPATH       $PREFIX/bin/salome
+    add-to-var PYTHONPATH       \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
 function s-hello-config()
