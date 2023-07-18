@@ -1,0 +1,92 @@
+
+function s-pycalculator-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/pycalculator
+}
+
+function s-pycalculator-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/pycalculator
+}
+
+function s-pycalculator-tar()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo PYCALCULATOR_SRC_$VERSION.tgz
+}
+
+function s-pycalculator-salome-module()
+{
+    echo PYCALCULATOR
+}
+
+function s-pycalculator-build-depends()
+{
+    echo s-cmake
+    echo s-salome-configuration
+    echo s-swig
+
+    echo os@-doxygen
+}
+
+function s-pycalculator-depends()
+{
+    echo s-salome-kernel
+    echo s-fields
+    echo s-medcoupling
+    echo s-medfichier
+    echo s-omniorb
+}
+
+function s-pycalculator-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    PYCALCULATOR_ROOT_DIR $PREFIX
+    add-to-var PYTHONPATH            $PREFIX/bin/salome
+    add-to-var PYTHONPATH            \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function s-pycalculator-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          ../src
+}
+
+function s-pycalculator-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-pycalculator-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-pycalculator-prefix()
+{
+    echo NONE
+}
