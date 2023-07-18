@@ -57,6 +57,7 @@ function s-salome-default-modules()
     echo s-hexablock
     echo s-atomsolv
     echo s-calculator
+    echo s-pycalculator
     echo s-genericsolver
     echo s-hello
     echo s-pyhello
