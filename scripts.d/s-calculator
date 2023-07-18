@@ -32,6 +32,9 @@ function s-calculator-env()
     local TARGET=$2
 
     set-var CALCULATOR_ROOT_DIR $PREFIX
+    add-to-var PYTHONPATH       $PREFIX/bin/salome
+    add-to-var PYTHONPATH       \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
 function s-calculator-config()
