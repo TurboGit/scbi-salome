@@ -33,7 +33,9 @@ function s-yacsgen-env()
 
     set-var    YACSGEN_ROOT_DIR $PREFIX
     add-to-var PATH             $PREFIX/script
-    add-to-var PYTHONPATH       $PREFIX/module_generator
+    add-to-var PYTHONPATH       $PREFIX/bin
+    add-to-var PYTHONPATH       \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-yacsgen-install()
@@ -41,11 +43,18 @@ function s-yacsgen-install()
     local PREFIX=$1
     local TARGET=$2
 
-    # there is no installation for this tool, yet we do copy all
-    # sources into install directory which seems cleaner.
+    # there is no installation for this tool, we copy the
+    # sources into bin & lib.
 
-    cd ..
-    rsync -a --delete src/. install
+    mkdir ../install &&
+        cd ../install &&
+        mkdir bin &&
+        mkdir share &&
+        mkdir -p lib/python$PYTHON_VERSION/site-packages &&
+        \
+            cp ../src/script/* bin/ &&
+            cp -r ../src/Examples share/ &&
+            cp -r ../src/module_generator lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-yacsgen-post-install()
@@ -54,5 +63,5 @@ function s-yacsgen-post-install()
     local TARGET=$2
 
     sed -i "s#__YACSGEN_INSTALL_PATH__#${BDIR/install}#" \
-        $PREFIX/Examples/exec.sh
+        $PREFIX/share/Examples/exec.sh
 }
