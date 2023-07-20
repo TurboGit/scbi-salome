@@ -88,8 +88,7 @@ def main(args):
 
     # [APPLI variables]
     context.setVariable(r"ABSOLUTE_APPLI_PATH", out_dir_Path + r"/EDF/s-salome-kernel", overwrite=True)
-#    context.setVariable(r"APPLI", out_dir_Path + r"/salome", overwrite=True)
-    context.addToPath(r"${ABSOLUTE_APPLI_PATH}/bin/salome")
+    context.setVariable(r"APPLI", out_dir_Path + r"/salome", overwrite=True)
 
     # Load all files env.d/*.py and call the module's init routine]
 
