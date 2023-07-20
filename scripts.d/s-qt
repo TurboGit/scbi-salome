@@ -89,7 +89,7 @@ function s-qt-env()
     add-to-var C_INCLUDE_PATH              $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH          $PREFIX/include
     add-to-var QT_PLUGIN_PATH              $PREFIX/plugins
-    add-to-var QT_QPA_PLATFORM_PLUGIN_PATH $PREFIX/plugins/platforms
+    add-to-var QT_QPA_PLATFORM_PLUGIN_PATH $PREFIX/plugins
 }
 
 function s-qt-config-options()
