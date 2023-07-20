@@ -55,6 +55,7 @@ function s-pycalculator-env()
     local TARGET=$2
 
     set-var    PYCALCULATOR_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH       $PREFIX/lib/salome
     add-to-var PYTHONPATH            $PREFIX/bin/salome
     add-to-var PYTHONPATH            \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
