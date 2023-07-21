@@ -109,14 +109,21 @@ function s-qt-config-options()
     local VARIANT=$3
 
     echo --prefix=$PREFIX
-    echo -skip qtwebengine
+
     echo -opensource
     echo -confirm-license
-    echo -no-rpath
+
+    echo -skip qtwebengine
+    echo -skip wayland
+    echo -skip qtgamepad
+
     echo -nomake examples
     echo -nomake tests
+
+    echo -no-rpath
     echo -xcb
     echo -xkbcommon
+
     echo -system-zlib
     echo -system-libpng
     echo -system-libjpeg
