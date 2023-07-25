@@ -1,0 +1,93 @@
+
+
+
+function s-component-salome-module()
+{
+    echo COMPONENT
+}
+
+function s-component-common-build-depends()
+{
+    echo s-cmake
+    echo s-swig
+}
+
+function s-component-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-component-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-component-default-depends()
+{
+    echo s-salome-kernel
+    echo s-qt
+}
+
+function s-component-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    COMPONENT_ROOT_DIR $PREFIX
+    add-to-var PATH               $PREFIX/bin/salome
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+
+    add-to-var PYTHONPATH         $PREFIX/bin/salome
+    add-to-var PYTHONPATH         $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+
+    add-to-var SALOME_MODULES     COMPONENT
+}
+
+function s-component-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+}
+
+function s-component-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-component-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-component-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-component-prefix()
+{
+    echo NONE
+}
