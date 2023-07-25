@@ -121,6 +121,7 @@ s-python-modules/default.wand.metadata.toml:master
         s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
+        s-component
 ] :$CEA_VERSION
 
 # Second, for repositories where master is at EDF
