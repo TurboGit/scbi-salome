@@ -123,6 +123,7 @@ function s-salome-default-modules()
     echo s-pyqt-sip
     echo s-sip
     echo s-topiivol
+    echo s-component
 }
 
 function s-salome-ng-modules()
