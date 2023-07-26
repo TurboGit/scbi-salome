@@ -71,5 +71,5 @@ function s-catalyst-install()
 
 function s-catalyst-prefix()
 {
-    echo none
+    echo NONE
 }
