@@ -42,6 +42,7 @@ function s-openturns-default-depends()
     echo os@-bz2-dev
     echo os@-python3-matplotlib
     echo os@-python3-numpy
+    echo s-python3-nlopt
     # since 1.13
     echo os@-cminpack-dev
 }
