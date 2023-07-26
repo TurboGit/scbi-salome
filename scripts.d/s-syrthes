@@ -85,7 +85,7 @@ function s-syrthes-pre-config()
     local TARGET=$2
 
     cd ../src
-    python3 components.py
+    $(command -v python$PYTHON_VERSION) components.py
     rm -rf doc idl resources src
     mv SYRTHES_SRC/* .
     cp -f CMakeLists.txt.tmp src/SYRTHES/CMakeLists.txt
