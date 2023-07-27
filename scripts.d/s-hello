@@ -58,8 +58,11 @@ function s-hello-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var HELLO_ROOT_DIR      $PREFIX
+    set-var    HELLO_ROOT_DIR   $PREFIX
+    add-to-var PATH             $PREFIX/bin/salome
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib/salome
     add-to-var PYTHONPATH       $PREFIX/bin/salome
+    add-to-var PYTHONPATH       $PREFIX/lib/salome
     add-to-var PYTHONPATH       \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
