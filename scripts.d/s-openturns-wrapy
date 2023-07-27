@@ -26,6 +26,7 @@ function s-openturns-wrapy-out-of-tree()
 function s-openturns-wrapy-build-depends()
 {
     echo os@-python3-setuptools
+    echo os@-python3-pytest-runner
 }
 
 function s-openturns-wrapy-depends()
