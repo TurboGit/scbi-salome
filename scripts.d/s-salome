@@ -167,6 +167,11 @@ function s-salome-carmel-modules()
     echo s-carmel-study
 }
 
+function s-salome-bim-modules()
+{
+    echo s-building-is
+}
+
 function s-salome-propagate-version()
 {
     echo false

@@ -48,6 +48,10 @@ s-carmel-study:master
 s-tefluide:master
 s-swig/auto:#4.0.2
 
+# Use IfcOpenShell from May 2018
+s-ifc-open-shell:#127bcaf96
+s-building-is:agy/pywrap_0
+
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
 #
 # s-netgen/cmake:#6.2.2101
@@ -59,6 +63,8 @@ s-proj/auto:#7.2.0
 s-medfichier:#4.1.1
 s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
+c-gmp/auto:6.1
+c-mpfr/auto:4.0
 
 s-libbatch:#2.4.6
 

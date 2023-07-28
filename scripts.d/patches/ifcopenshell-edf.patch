@@ -1,0 +1,59 @@
+diff --git a/cmake/CMakeLists.txt b/cmake/CMakeLists.txt
+index b157cd5..6882bb2 100644
+--- a/cmake/CMakeLists.txt
++++ b/cmake/CMakeLists.txt
+@@ -435,9 +435,15 @@ function(files_for_ifc_version IFC_VERSION RESULT_NAME)
+     )
+ endfunction()
+ 
++# GBO warning: We force the detection of python interp at this step instead of
++# in src/ifcwrap/CMakeListes.txt, to be sure that the SALOME python is used
++SET(PythonInterp_FIND_VERSION 3)
++SET(PythonInterp_FIND_VERSION_MAJOR 3)
++find_package(PythonInterp)
++
+ if(COMPILE_SCHEMA)
+     find_package(PythonInterp)
+-    
++
+     IF(NOT PYTHONINTERP_FOUND)
+         MESSAGE(FATAL_ERROR "A Python interpreter is necessary when COMPILE_SCHEMA is enabled. Disable COMPILE_SCHEMA or fix Python paths to proceed.")
+     ENDIF()
+diff --git a/src/ifcwrap/IfcGeomWrapper.i b/src/ifcwrap/IfcGeomWrapper.i
+index 05a39fd4c..e8516a673 100644
+--- a/src/ifcwrap/IfcGeomWrapper.i
++++ b/src/ifcwrap/IfcGeomWrapper.i
+@@ -19,6 +19,16 @@
+ 
+ %rename("settings") IteratorSettings;
+ 
++%{
++	static IfcEntityList::ptr IfcGeom_tree_vector_to_list(const std::vector<IfcSchema::IfcProduct*>& ps) {
++		IfcEntityList::ptr r(new IfcEntityList);
++		for (std::vector<IfcSchema::IfcProduct*>::const_iterator it = ps.begin(); it != ps.end(); ++it) {
++			r->push(*it);
++		}
++		return r;
++	}
++%}
++
+ // This is only used for RGB colours, hence the size of 3
+ %typemap(out) const double* {
+ 	$result = PyTuple_New(3);
+@@ -49,15 +59,8 @@
+ // But frankly I don't care as most methods are subtlely different anyway.
+ %include "../ifcgeom/IfcGeomTree.h"
+ 
+-%extend IfcGeom::tree {
+ 
+-	static IfcEntityList::ptr vector_to_list(const std::vector<IfcSchema::IfcProduct*>& ps) const {
+-		IfcEntityList::ptr r(new IfcEntityList);
+-		for (std::vector<IfcSchema::IfcProduct*>::const_iterator it = ps.begin(); it != ps.end(); ++it) {
+-			r->push(*it);
+-		}
+-		return r;
+-	}
++%extend IfcGeom::tree {
+ 
+ 	IfcEntityList::ptr select_box(IfcUtil::IfcBaseClass* e, bool completely_within = false, double extend=-1.e-5) const {
+ 		if (!e->is(IfcSchema::Type::IfcProduct)) {
