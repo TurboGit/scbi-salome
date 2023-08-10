@@ -120,6 +120,7 @@ function s-salome-ng-modules()
 {
     echo s-salome-tar
     echo s-python-modules
+    echo s-ifc-open-shell
 }
 
 function s-salome-hydro-modules()
