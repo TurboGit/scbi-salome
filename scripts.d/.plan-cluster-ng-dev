@@ -21,6 +21,8 @@ s-padder:skip
 s-python-modules:skip
 s-melissa:skip
 s-paravisaddons-edf:skip
+s-ifc-open-shell:skip
+s-building-is:skip
 
 [ = gaia.hpc.edf.fr
         s-qt:#5.12.10
