@@ -62,7 +62,8 @@ function s-cfd-study-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ../src/configure --prefix=$PREFIX --with-salome=$SALOME_ROOT_DIR
+    ../src/configure --prefix=$PREFIX --with-salome=$SALOME_ROOT_DIR CS_ROOT_DIR=$CS_ROOT_DIR OMNIIDL=$SALOME_BIN_MODULES/omniORB/bin/omniidl SALOMEENVCMD=echo
+    #../src/configure --prefix=$PREFIX --with-salome=$SALOME_ROOT_DIR CS_ROOT_DIR=$SATURNE_ROOT_DIR OMNIIDL=$OMNIORB_ROOT_DIR/bin/omniidl SALOMEENVCMD=echo
 }
 
 function s-cfd-study-build()
