@@ -5,7 +5,6 @@ function s-cfd-study-out-of-tree()
     echo false
 }
 
-
 function s-cfd-study-salome-module()
 {
     echo CFDSTUDY
