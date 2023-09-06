@@ -130,8 +130,6 @@ function s-salome-ng-modules()
 {
     echo s-salome-tar
     echo s-python-modules
-    echo s-building-is
-    echo s-ifc-open-shell
 }
 
 function s-salome-hydro-modules()
@@ -167,6 +165,12 @@ function s-salome-neptune-modules()
 function s-salome-carmel-modules()
 {
     echo s-carmel-study
+}
+
+function s-salome-bim-modules()
+{
+    echo s-building-is
+    echo s-ifc-open-shell
 }
 
 function s-salome-propagate-version()
