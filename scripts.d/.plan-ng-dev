@@ -3,7 +3,6 @@
 @load dev/mpi
 
 [ = linux
-        s-salome
         s-salome-bin
         s-paravisaddons-edf
         s-atomic
@@ -107,3 +106,7 @@
         s-qt/native
         s-pyqt/native
 ]
+
+[
+        s-salome
+] /+ng.bim
