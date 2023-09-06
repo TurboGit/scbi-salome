@@ -3,7 +3,6 @@
 @load dev/mpi
 
 [ = linux
-        s-salome
         s-salome-bin
         s-atomic
         s-python3-xlutils
@@ -96,3 +95,7 @@
         s-qt/native
         s-pyqt/native
 ]
+
+[
+        s-salome
+] /+ng.bim
