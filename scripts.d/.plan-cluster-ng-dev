@@ -27,14 +27,15 @@ s-building-is:skip
 [ = gaia.hpc.edf.fr
         s-qt:#5.12.10
 
-	s-cmake:skip
-	s-gnuplot-py:skip
-	s-medcoupling:skip
-	s-openmpi:skip
-	s-paraview:skip
-	s-paravis:skip
-	s-salome-configuration:skip
-	s-melissa:skip
+        s-salome/-bim:s9-DEV
+        s-cmake:skip
+        s-gnuplot-py:skip
+        s-medcoupling:skip
+        s-openmpi:skip
+        s-paraview:skip
+        s-paravis:skip
+        s-salome-configuration:skip
+        s-melissa:skip
 
         s-openmpi/gaia
 ]
