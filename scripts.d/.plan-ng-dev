@@ -3,7 +3,6 @@
 @load dev/mpi
 
 [ = linux
-        s-salome
         s-salome-bin
         s-paravisaddons-edf
         s-atomic
@@ -20,8 +19,6 @@
         s-medcoupling
         s-paravis
         s-python-modules
-        s-ifc-open-shell
-        s-building-is
 
         # other modules that can be built in ng mode
         s-smesh
@@ -107,3 +104,7 @@
         s-qt/native
         s-pyqt/native
 ]
+
+[
+        s-salome
+] /+ng.bim
