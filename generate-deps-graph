@@ -1,13 +1,13 @@
 #!/bin/bash
 
-ENV=v96
+ENV=v911
 
 function get-deps()
 {
     local MODULE=$1
 
     if [ ! -f $MODULE.deps ]; then
-        VER=$(scbi --env=$ENV --module-version $MODULE)
+        VER=$(scbi --env=$ENV --module-ref:version $MODULE)
         echo $MODULE:$VER
 
         echo salome: $MODULE:$VER > $MODULE.deps
@@ -32,4 +32,4 @@ function get-deps()
 rm -fr .deps && mkdir .deps && cd .deps
 [ $? == 1 ] && exit 1
 
-get-deps salome
+get-deps s-salome
