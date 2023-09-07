@@ -3,9 +3,10 @@
 @load cfd-dev/mpi
 @load ng-dev/mpi
 
+
 [
-    s-saturne
-    s-saturne-dbg
+    s-saturne:v8.0
+    s-saturne-dbg:v8.0
     s-cfd-study
     s-code-syrthes
     s-syrthes
