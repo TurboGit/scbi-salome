@@ -171,6 +171,10 @@ function s-salome-bim-modules()
 {
     echo s-building-is
     echo s-ifc-open-shell
+
+function s-salome-logger-modules()
+{
+    echo s-logger
 }
 
 function s-salome-propagate-version()
@@ -491,8 +495,6 @@ function s-salome-wrapup()
 
             setup-env-salome $PREFIX $TARGET $VARIANT
 
-            # is the installer to be created?
-
             res=0
 
             # compute the final installer script name
@@ -521,6 +523,19 @@ function s-salome-wrapup()
             chmod a+x create-catalog
 
             chmod a+x install-meshgems
+
+            # do we want to activate the logger
+
+            if [[ $(is-enabled logger) ]]; then
+                # add script to start the logger
+                local WSERVER=$(scbi-store LOGGER_WEB_SERVER)
+                sed -e "s/__SALOME_VERSION__/$ref/g" \
+                    -e "s,__WEB_SERVER__,$WSERVER,g" \
+                    $SCBI_PLUGINS/support/start-slogger.py \
+                    > extra.env.d/999_start_s_logger.py
+            fi
+
+            # is the installer to be created?
 
             if [[ $(is-enabled installer) ]]; then
                 dlog salome generate self installer, may take some time ...

@@ -23,6 +23,45 @@ function check-writable()
     [[ -w $(dirname $DIR) ]]
 }
 
+# =============================================== get-edf-direction
+function get-edf-direction()
+{
+    local PREFIX=$1
+
+    echo "Lors de l'utilisation de SALOME des informations sont remontées"
+    echo "vers un serveur à des fin de statistiques:"
+    echo "  - Les informations sont anonymes"
+    echo "  - Les modules utilisés sont reportés"
+    echo "  - Des informations plus détaillées sont récupérer pour SHAPER"
+    echo ""
+    echo "Ces informations permettront de mieux connaître les usages"
+    echo "de SALOME et de porter plus d'attention aux modules"
+    echo "correspondants."
+    echo ""
+    echo "Merci d'indiquer votre direction:"
+
+    while true; do
+        read -e -p "(RetD, DT, DIPDE, CNEPE, CIH, CEIDRE, EDVANCE): " direction
+        direction=${direction^^}
+
+        case $direction; in
+            RETD|DT|CEIDRE|EDVANCE|DIPDE|CNEPE|DIPNN)
+                break;
+                ;;
+            *)
+                echo "Erreur: direction $direction non reconnue."
+                ;;
+        esac
+    done
+
+    # ??? If we accept spaces in direction we need to convert them as
+    # "_" or remove them.
+    #direction=${direction/ //_}
+
+    sed -i "s/__DIRECTION__/$direction/g" \
+        $PREFIX/extra.env.d/999_start_s_logger.py
+}
+
 # =============================================== get-install-directory
 function get-install-directory()
 {
@@ -107,6 +146,19 @@ function template-conversion()
                 sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
             done
     fi
+
+    # Logger
+
+    local USER_ID=""
+
+    if [[ -f /etc/machine-id ]]; then
+        USER_ID=$(cat /etc/machine-id)
+    else
+        local USER_SHA=( $(echo $HOME | sha1sum) )
+        USER_ID=${USER_SHA[0]}
+    fi
+
+    sed -i "s/__USERID__/$USER_ID/g" $PREFIX/extra.env.d/999_start_s_logger.py
 
     true
 }
