@@ -1,0 +1,24 @@
+@load ng-dev/mpi
+
+# Original branches are jfa/29467_gui_log_file
+# rebased and pushed as po/29467_gui_log_file
+
+[
+    s-salome-kernel
+    s-salome-gui
+    s-geom
+    s-shaper
+] /ng.cea:po/29467_gui_log_file
+
+[
+    s-salome-kernel
+    s-salome-gui
+    s-geom
+    s-shaper
+] /ng.cea:dev
+
+[
+    s-salome
+] /+ng.logger
+
+# s-smesh/ng:dev
