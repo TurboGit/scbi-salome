@@ -142,6 +142,11 @@ function s-salome-cfd-modules()
     echo s-syrthes
 }
 
+function s-salome-propagate-version()
+{
+    echo false
+}
+
 function setup-env-salome()
 {
     local PREFIX=$1
