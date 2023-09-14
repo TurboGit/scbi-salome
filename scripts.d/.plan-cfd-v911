@@ -1,0 +1,29 @@
+# This plan is to build SALOME CFD
+
+@load v911/mpi
+
+s-salome/neptune.cfd
+
+s-libccmio:92f08637
+s-coolprop:#6.4.3
+s-neptune:v8.0
+
+s-eos:v1.9.0
+s-saturne:v8.0
+s-saturne-dbg:v8.0
+s-cfd-study:master
+s-code-syrthes:yf/master
+s-syrthes:mpa/salome9
+s-python-modules/wand
+
+[ = deb,10
+    s-salome/neptune.cfd:s10-V9_11_0
+]
+
+[ = deb,11
+    s-salome/neptune.cfd:s11-V9_11_0
+]
+
+[ = deb,9
+    s-salome/neptune.cfd:s9-V9_11_0
+]
