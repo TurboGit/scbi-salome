@@ -1,0 +1,17 @@
+# This plan is to build CFD modules on top of a SALOME binary distribution
+
+@load cfd-v911/mpi
+@load ng-v911/mpi
+
+
+[
+    s-saturne:v8.0
+    s-saturne-dbg:v8.0
+    s-cfd-study
+    s-code-syrthes
+    s-syrthes
+] /+ng
+
+[
+    s-salome
+] /-bim+ng.neptune.cfd
