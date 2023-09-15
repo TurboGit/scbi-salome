@@ -44,7 +44,7 @@ function get-edf-direction()
         read -e -p "(RetD, DT, DIPDE, CNEPE, CIH, CEIDRE, EDVANCE): " direction
         direction=${direction^^}
 
-        case $direction; in
+        case $direction in
             RETD|DT|CEIDRE|EDVANCE|DIPDE|CNEPE|DIPNN)
                 break;
                 ;;
