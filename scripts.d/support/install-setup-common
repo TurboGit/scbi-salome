@@ -28,6 +28,12 @@ function get-edf-direction()
 {
     local PREFIX=$1
 
+    #  Something to do only if 999_start_s_logger.py exists, and this
+    #  happens only if the log of salome usage has been activated during
+    #  the compilation.
+    [[ ! -f $PREFIX/extra.env.d/999_start_s_logger.py ]] &&
+        return
+
     echo "Lors de l'utilisation de SALOME des informations sont remontées"
     echo "vers un serveur à des fin de statistiques:"
     echo "  - Les informations sont anonymes"
@@ -149,16 +155,20 @@ function template-conversion()
 
     # Logger
 
-    local USER_ID=""
+    [[ -f $PREFIX/extra.env.d/999_start_s_logger.py ]] &&
+        {
+            local USER_ID=""
 
-    if [[ -f /etc/machine-id ]]; then
-        USER_ID=$(cat /etc/machine-id)
-    else
-        local USER_SHA=( $(echo $HOME | sha1sum) )
-        USER_ID=${USER_SHA[0]}
-    fi
+            if [[ -f /etc/machine-id ]]; then
+                USER_ID=$(cat /etc/machine-id)
+            else
+                local USER_SHA=( $(echo $HOME | sha1sum) )
+                USER_ID=${USER_SHA[0]}
+            fi
 
-    sed -i "s/__USERID__/$USER_ID/g" $PREFIX/extra.env.d/999_start_s_logger.py
+            sed -i "s/__USERID__/$USER_ID/g" \
+                $PREFIX/extra.env.d/999_start_s_logger.py
+        }
 
     true
 }
