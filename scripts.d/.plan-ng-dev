@@ -48,14 +48,16 @@
 
 [ = win
         s-salome-configuration/ngwin
-        s-cmake/ngwin
+        s-cmake/win
         s-visual-c/native
         s-windows-kit/native
         s-salome-bin/ngwin
         s-atomic:skip
-        s-salome-tar/ngwin:#9.7.0-native:WIN
+        s-salome-tar/ngwin:#9.11.0-native:WIN
         s-zeromq:skip
         s-persalys:skip
+        s-python3-xlutils:skip
+        s-cgal:skip
 ]
 
 [
@@ -96,6 +98,10 @@
         s-pyqt/native
 ]
 
-[
+[ = linux
+        s-salome
+] /+ng.bim
+
+[ = win
         s-salome
 ] /+ng

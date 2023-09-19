@@ -56,18 +56,26 @@ function s-salome-bin-ngwin-env()
 
     add-to-var PATH               $(cygpath -m $QT5_ROOT_DIR/bin)
 
-    add-to-var CMAKE_PREFIX_PATH  $IROOT/cmake/share/cmake-3.12/Modules
+    # Get current ParaView directory
+    PV_DIR=$(last-modified-directory "$PARAVIEW_ROOT_DIR/lib/cmake/paraview*")
+    
+    add-to-var CMAKE_PREFIX_PATH  \
+	       $(last-modified-directory "$IROOT/cmake/share/cmake-*/Modules")
     add-to-var CMAKE_PREFIX_PATH  $IEXT
     add-to-var CMAKE_PREFIX_PATH  $IEXT/cmake
     add-to-var CMAKE_PREFIX_PATH  $KERNEL_ROOT_DIR/salome_adm/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $GUI_ROOT_DIR/adm_local/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $BOOST_ROOT_DIR/lib/cmake/tbb
-    add-to-var CMAKE_PREFIX_PATH  $PARAVIEW_ROOT_DIR/lib/cmake/paraview-5.9
-    add-to-var CMAKE_PREFIX_PATH  $PARAVIEW_ROOT_DIR/lib/cmake/paraview-5.9/vtk
-    add-to-var CMAKE_PREFIX_PATH  $OSPRAY_ROOT_DIR/lib/cmake/ospray-2.4.0
-    add-to-var CMAKE_PREFIX_PATH  $EMBREE_ROOT_DIR/lib/cmake/embree-3.12.2
-    add-to-var CMAKE_PREFIX_PATH  $RKCOMMON_ROOT_DIR/lib/cmake/rkcommon-1.5.1
-    add-to-var CMAKE_PREFIX_PATH  $OPENVKL_ROOT_DIR/lib/cmake/openvkl-0.11.0
+    add-to-var CMAKE_PREFIX_PATH  $PV_DIR
+    add-to-var CMAKE_PREFIX_PATH  $PV_DIR/vtk
+    add-to-var CMAKE_PREFIX_PATH  \
+    	       $(last-modified-directory "$OSPRAY_ROOT_DIR/lib/cmake/ospray*")
+    add-to-var CMAKE_PREFIX_PATH  \
+	       $(last-modified-directory "$EMBREE_ROOT_DIR/lib/cmake/embree-*")
+    add-to-var CMAKE_PREFIX_PATH  \
+	       $(last-modified-directory "$RKCOMMON_ROOT_DIR/lib/cmake/rkcommon-*")
+    add-to-var CMAKE_PREFIX_PATH  \
+	       $(last-modified-directory "$OPENVKL_ROOT_DIR/lib/cmake/openvkl-*")
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Test
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5UiTools
