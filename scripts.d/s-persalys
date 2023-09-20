@@ -18,6 +18,13 @@ function s-persalys-patches()
     local REF=$5
 
     echo persalys-find-boost.patch
+
+    [[ $REF =~ "14.1" ]] &&
+        {
+            echo persalys-v14.1-001.patch
+            echo persalys-v14.1-002.patch
+            echo persalys-v14.1-003.patch
+        }
 }
 
 function s-persalys-common-build-depends()
@@ -99,7 +106,8 @@ function s-persalys-config-options()
     echo -DSalomeKERNEL_DIR=$SalomeKERNEL_DIR
     echo -DSalomeGUI_DIR=$SalomeGUI_DIR
     echo -DSalomeYACS_DIR=$SalomeYACS_DIR
-    echo -DUSE_SPHINX=$DISDOC
+    # echo -DUSE_SPHINX=$DISDOC
+    echo -DUSE_SPHINX=OFF
 }
 
 function s-persalys-config()
