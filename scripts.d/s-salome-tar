@@ -56,7 +56,10 @@ function comment-out-sh-block()
 
     cp -p $FILE $TFILE
 
-    awk -v PAT="$PAT" \
+    local OPT="\n"
+    [[ $SCBI_IS_WINDOWS == yes ]] && OPT="\r\n"
+
+    awk -v RS="$OPT" -v PAT="$PAT" \
         'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
          $0 ~ PMATCH{comment="# "}
          /^ *$/{comment=""}
@@ -74,7 +77,10 @@ function comment-out-python-block()
 
     cp -p $FILE $TFILE
 
-    awk -v PAT="$PAT" \
+    local OPT="\n"
+    [[ $SCBI_IS_WINDOWS == yes ]] && OPT="\r\n"
+
+    awk -v RS="$OPT" -v PAT="$PAT" \
         'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
          $0 ~ PMATCH{comment="# "}
          /^ *$/{comment=""}
