@@ -11,7 +11,7 @@ function s-swig-vcs()
     echo https://github.com/swig/swig
 }
 
-function s-swig-tar()
+function s-swig-archive()
 {
     local VERSION=$1
 

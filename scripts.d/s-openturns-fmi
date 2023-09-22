@@ -7,7 +7,7 @@ function s-openturns-fmi-vcs()
     echo https://github.com/openturns/otfmi.git
 }
 
-function s-openturns-fmi-tar()
+function s-openturns-fmi-archive()
 {
     local VERSION=$1
 

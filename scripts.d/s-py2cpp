@@ -15,7 +15,7 @@ function s-py2cpp-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/py2cpp
 }
 
-function s-py2cpp-tar()
+function s-py2cpp-archive()
 {
     local VERSION=$1
 

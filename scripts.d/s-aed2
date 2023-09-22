@@ -1,5 +1,5 @@
 
-function s-aed2-tar()
+function s-aed2-archive()
 {
     local VERSION=$1
 

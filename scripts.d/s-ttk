@@ -9,7 +9,7 @@ function s-ttk-vcs()
     echo https://github.com/topology-tool-kit/ttk.git
 }
 
-function s-ttk-gh-tar()
+function s-ttk-gh-archive()
 {
     local VERSION=$1
 
@@ -20,7 +20,7 @@ function s-ttk-gh-tar()
     echo $VERSION.tgz
 }
 
-function s-ttk-tar()
+function s-ttk-archive()
 {
     local VERSION=$1
 

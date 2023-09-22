@@ -9,7 +9,7 @@ function s-sip-vcs()
     echo https://www.riverbankcomputing.com/hg/sip
 }
 
-function s-sip-tar()
+function s-sip-archive()
 {
     local VERSION=$1
 

@@ -7,7 +7,7 @@ function s-logger-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/slogger
 }
 
-function s-logger-tar()
+function s-logger-archive()
 {
     local VERSION=$1
 

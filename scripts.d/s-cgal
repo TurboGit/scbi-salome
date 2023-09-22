@@ -1,7 +1,7 @@
 with-variant native os@-cgal-dev \
   --env "set-var CGALHOME /usr"
 
-function s-cgal-tar()
+function s-cgal-archive()
 {
     local VERSION=$1
 

@@ -15,7 +15,7 @@ function s-topiivol-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/top_ii_vol.git
 }
 
-function s-topiivol-tar()
+function s-topiivol-archive()
 {
     local VERSION=$1
 

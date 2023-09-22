@@ -15,7 +15,7 @@ function s-samples-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/datafiles
 }
 
-function s-samples-tar()
+function s-samples-archive()
 {
     local VERSION=$1
 

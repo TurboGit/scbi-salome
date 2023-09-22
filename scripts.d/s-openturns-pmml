@@ -7,7 +7,7 @@ function s-openturns-pmml-vcs()
     echo https://github.com/openturns/otpmml.git
 }
 
-function s-openturns-pmml-tar()
+function s-openturns-pmml-archive()
 {
     local VERSION=$1
 

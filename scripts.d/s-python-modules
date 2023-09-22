@@ -10,7 +10,7 @@ function s-python-modules-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/python-modules
 }
 
-function s-python-modules-tar()
+function s-python-modules-archive()
 {
     local VERSION=$1
 

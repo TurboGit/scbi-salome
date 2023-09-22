@@ -1,5 +1,5 @@
 
-function s-libecw2-tar()
+function s-libecw2-archive()
 {
     local VERSION=$1
 

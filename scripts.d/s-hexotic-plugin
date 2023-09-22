@@ -15,7 +15,7 @@ function s-hexotic-plugin-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/hexoticplugin
 }
 
-function s-hexotic-plugin-tar()
+function s-hexotic-plugin-archive()
 {
     local VERSION=$1
 

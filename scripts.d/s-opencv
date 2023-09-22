@@ -8,7 +8,7 @@ with-variant native os@-opencv-dev \
                        add-to-var OpenCV_INCLUDE_DIRS /usr/include;
                     fi"
 
-function s-opencv-tar()
+function s-opencv-archive()
 {
     local VERSION=$1
 

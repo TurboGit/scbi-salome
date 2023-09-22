@@ -15,7 +15,7 @@ function s-light-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/light
 }
 
-function s-light-tar()
+function s-light-archive()
 {
     local VERSION=$1
 

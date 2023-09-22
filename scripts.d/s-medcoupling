@@ -15,7 +15,7 @@ function s-medcoupling-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/medcoupling
 }
 
-function s-medcoupling-tar()
+function s-medcoupling-archive()
 {
     local VERSION=$1
 
@@ -26,7 +26,7 @@ function s-medcoupling-tar()
     echo medcoupling-$VERSION.tar.gz
 }
 
-function s-medcoupling-ng-tar()
+function s-medcoupling-ng-archive()
 {
     local VERSION=$1
 

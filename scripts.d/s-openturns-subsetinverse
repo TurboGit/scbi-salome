@@ -7,7 +7,7 @@ function s-openturns-subsetinverse-vcs()
     echo https://github.com/openturns/otsubsetinverse.git
 }
 
-function s-openturns-subsetinverse-tar()
+function s-openturns-subsetinverse-archive()
 {
     local VERSION=$1
 

@@ -1,5 +1,5 @@
 
-function s-gnuplot-py-tar()
+function s-gnuplot-py-archive()
 {
     local VERSION=$1
 

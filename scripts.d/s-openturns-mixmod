@@ -7,7 +7,7 @@ function s-openturns-mixmod-vcs()
     echo https://github.com/openturns/otmixmod.git
 }
 
-function s-openturns-mixmod-tar()
+function s-openturns-mixmod-archive()
 {
     local VERSION=$1
 

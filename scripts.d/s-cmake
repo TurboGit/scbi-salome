@@ -22,7 +22,7 @@ function s-cmake-cea-vcs()
     echo https://github.com/Kitware/CMake.git
 }
 
-function s-cmake-tar()
+function s-cmake-archive()
 {
     local VERSION=$1
 

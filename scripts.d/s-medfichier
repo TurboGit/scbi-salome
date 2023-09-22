@@ -1,5 +1,5 @@
 
-function s-medfichier-tar()
+function s-medfichier-archive()
 {
     local VERSION=$1
 
@@ -10,7 +10,7 @@ function s-medfichier-tar()
     echo med-$VERSION.tar.gz
 }
 
-function s-medfichier-cea-tar()
+function s-medfichier-cea-archive()
 {
     local VERSION=$1
 

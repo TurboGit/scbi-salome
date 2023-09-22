@@ -23,7 +23,7 @@ function s-qt-vcs()
     echo https://github.com/qt/qt5.git
 }
 
-function s-qt-tar()
+function s-qt-archive()
 {
     local VERSION=$1
 

@@ -10,7 +10,7 @@ function s-proj-vcs()
     echo https://github.com/OSGeo/PROJ.git
 }
 
-function s-proj-tar()
+function s-proj-archive()
 {
     local VERSION=$1
 

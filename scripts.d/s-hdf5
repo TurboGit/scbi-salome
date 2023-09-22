@@ -36,7 +36,7 @@ function s-hdf5-vcs()
     echo https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git
 }
 
-function s-hdf5-tar()
+function s-hdf5-archive()
 {
     local VERSION=$1
 

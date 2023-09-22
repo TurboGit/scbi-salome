@@ -9,7 +9,7 @@ function s-netcdf-vcs()
     echo https://github.com/Unidata/netcdf-c.git
 }
 
-function s-netcdf-tar()
+function s-netcdf-archive()
 {
     local VERSION=$1
 

@@ -7,7 +7,7 @@ function s-embree-vcs()
     echo https://github.com/embree/embree.git
 }
 
-function s-embree-tar()
+function s-embree-archive()
 {
     local VERSION=$1
 

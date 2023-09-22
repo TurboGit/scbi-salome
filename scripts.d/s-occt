@@ -7,7 +7,7 @@ function s-occt-vcs()
     echo https://git.dev.opencascade.org/repos/occt.git
 }
 
-function s-occt-tar()
+function s-occt-archive()
 {
     local VERSION=$1
 

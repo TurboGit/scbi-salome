@@ -7,7 +7,7 @@ function s-openturns-vcs()
     echo https://github.com/openturns/openturns.git
 }
 
-function s-openturns-tar()
+function s-openturns-archive()
 {
     local VERSION=$1
 

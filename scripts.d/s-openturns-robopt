@@ -7,7 +7,7 @@ function s-openturns-robopt-vcs()
     echo https://github.com/openturns/otrobopt.git
 }
 
-function s-openturns-robopt-tar()
+function s-openturns-robopt-archive()
 {
     local VERSION=$1
 

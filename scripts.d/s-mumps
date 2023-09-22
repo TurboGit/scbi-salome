@@ -1,7 +1,7 @@
 
 with-variant native libmumps-dev:[v]
 
-function s-mumps-tar()
+function s-mumps-archive()
 {
     local VERSION=$1
 

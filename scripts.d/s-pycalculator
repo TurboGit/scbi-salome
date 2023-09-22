@@ -15,7 +15,7 @@ function s-pycalculator-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/pycalculator
 }
 
-function s-pycalculator-tar()
+function s-pycalculator-archive()
 {
     local VERSION=$1
 

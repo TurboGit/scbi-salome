@@ -7,7 +7,7 @@ function s-coolprop-vcs()
     echo https://github.com/CoolProp/CoolProp
 }
 
-function s-coolprop-tar()
+function s-coolprop-archive()
 {
     local VERSION=$1
 

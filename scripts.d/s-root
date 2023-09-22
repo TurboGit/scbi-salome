@@ -7,7 +7,7 @@ function s-root-vcs()
     echo https://github.com/root-project/root.git
 }
 
-function s-root-tar()
+function s-root-archive()
 {
     local VERSION=$1
 

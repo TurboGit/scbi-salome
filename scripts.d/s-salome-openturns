@@ -7,7 +7,7 @@ function s-salome-openturns-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/openturns_salome.git
 }
 
-function s-salome-openturns-tar()
+function s-salome-openturns-archive()
 {
     local VERSION=$1
 

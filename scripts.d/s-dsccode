@@ -15,7 +15,7 @@ function s-dsccode-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/dsccode
 }
 
-function s-dsccode-tar()
+function s-dsccode-archive()
 {
     local VERSION=$1
 

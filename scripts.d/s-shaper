@@ -15,7 +15,7 @@ function s-shaper-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/shaper
 }
 
-function s-shaper-tar()
+function s-shaper-archive()
 {
     local VERSION=$1
 

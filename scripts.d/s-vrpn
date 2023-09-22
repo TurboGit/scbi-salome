@@ -7,7 +7,7 @@ function s-vrpn-vcs()
     echo git clone https://github.com/vrpn/vrpn
 }
 
-function s-vrpn-tar()
+function s-vrpn-archive()
 {
     local VERSION=$1
 

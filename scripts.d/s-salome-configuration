@@ -15,7 +15,7 @@ function s-salome-configuration-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/configuration
 }
 
-function s-salome-configuration-tar()
+function s-salome-configuration-archive()
 {
     local VERSION=$1
 

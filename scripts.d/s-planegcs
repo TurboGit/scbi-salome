@@ -1,5 +1,5 @@
 
-function s-planegcs-tar()
+function s-planegcs-archive()
 {
     local VERSION=$1
 
@@ -10,7 +10,7 @@ function s-planegcs-tar()
     echo planegcs-$VERSION.tar.gz
 }
 
-function s-planegcs-cea-tar()
+function s-planegcs-cea-archive()
 {
     local VERSION=$1
 
