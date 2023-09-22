@@ -1,6 +1,6 @@
 
 
-function s-yacs-tar() 
+function s-yacs-archive() 
 { 
     local VERSION=$1 
  

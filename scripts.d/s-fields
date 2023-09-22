@@ -1,6 +1,6 @@
 
 
-function s-fields-tar() 
+function s-fields-archive() 
 { 
     local VERSION=$1 
  

@@ -1,6 +1,6 @@
 
 
-function s-planegcs-cea-tar() 
+function s-planegcs-archive() 
 { 
     local VERSION=$1 
  

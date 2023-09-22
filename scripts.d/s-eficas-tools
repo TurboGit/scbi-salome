@@ -1,6 +1,6 @@
 
 
-function s-eficas-tools-tar() 
+function s-eficas-tools-archive() 
 { 
     local VERSION=$1 
  

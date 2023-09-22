@@ -1,6 +1,6 @@
 
 
-function s-salome-eficas-tar() 
+function s-salome-eficas-archive() 
 { 
     local VERSION=$1 
  

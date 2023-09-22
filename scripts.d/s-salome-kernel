@@ -1,6 +1,6 @@
 
 
-function s-salome-kernel-tar() 
+function s-salome-kernel-archive() 
 { 
     local VERSION=$1 
  

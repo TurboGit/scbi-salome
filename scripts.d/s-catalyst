@@ -8,7 +8,7 @@ function s-catalyst-vcs()
 } 
 
 
-function s-catalyst-ng-tar() 
+function s-catalyst-ng-archive() 
 { 
     local VERSION=$1 
  

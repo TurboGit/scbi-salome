@@ -1,6 +1,6 @@
 
 
-function s-salome-gui-tar() 
+function s-salome-gui-archive() 
 { 
     local VERSION=$1 
  

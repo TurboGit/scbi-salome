@@ -1,6 +1,6 @@
 
 
-function s-geom-tar() 
+function s-geom-archive() 
 { 
     local VERSION=$1 
  

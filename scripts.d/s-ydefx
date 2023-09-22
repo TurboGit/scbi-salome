@@ -1,6 +1,6 @@
 
 
-function s-ydefx-tar() 
+function s-ydefx-archive() 
 { 
     local VERSION=$1 
  

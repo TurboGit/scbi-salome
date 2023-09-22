@@ -1,7 +1,7 @@
 
 
 
-function s-paravis-ng-tar() 
+function s-paravis-ng-archive() 
 { 
     local VERSION=$1 
  
