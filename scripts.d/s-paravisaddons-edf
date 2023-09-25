@@ -48,6 +48,8 @@ function s-paravisaddons-edf-cronos-env()
     set-var    PARAVISADDONS_ROOT_DIR $PREFIX
 
     add-to-var PV_PLUGIN_PATH         $PREFIX/lib64
+    add-to-var PYTHONPATH             $PREFIX/lib64
+
 }
 
 function s-paravisaddons-edf-env()
@@ -59,6 +61,14 @@ function s-paravisaddons-edf-env()
 
     add-to-var PATH                   $PREFIX/bin
     add-to-var PV_PLUGIN_PATH         $PREFIX/lib
+    add-to-var PYTHONPATH             $PREFIX/lib
+}
+
+function s-paravisaddons-edf-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/tests
 }
 
 function s-paravisaddons-edf-common-config-options()
