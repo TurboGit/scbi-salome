@@ -1,6 +1,6 @@
 
 
-function s-salome-configuration-tar() 
+function s-salome-configuration-archive() 
 { 
     local VERSION=$1 
  

@@ -13,7 +13,7 @@ function s-omniorb-vcs()
     echo omniORB 
 } 
 
-function s-omniorb-cea-tar() 
+function s-omniorb-archive() 
 { 
     local VERSION=$1 
  

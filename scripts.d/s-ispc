@@ -9,7 +9,7 @@ function s-ispc-vcs()
 
 
 
-function s-ispc-ghbin-tar() 
+function s-ispc-ghbin-archive() 
 { 
     local VERSION=$1 
  

@@ -1,6 +1,6 @@
 
 
-function s-medfichier-cea-tar() 
+function s-medfichier-archive() 
 { 
     local VERSION=$1 
  

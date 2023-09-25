@@ -1,6 +1,6 @@
 
 
-function s-adao-tar() 
+function s-adao-archive() 
 { 
     local VERSION=$1 
  

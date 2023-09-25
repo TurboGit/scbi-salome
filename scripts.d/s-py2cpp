@@ -1,6 +1,6 @@
 
 
-function s-py2cpp-tar() 
+function s-py2cpp-archive() 
 { 
     local VERSION=$1 
  

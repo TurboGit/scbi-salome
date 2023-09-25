@@ -1,6 +1,6 @@
 
 
-function s-yacsgen-tar() 
+function s-yacsgen-archive() 
 { 
     local VERSION=$1 
  
