@@ -1,5 +1,5 @@
 
-function s-gotm-tar()
+function s-gotm-archive()
 {
     local VERSION=$1
 

@@ -7,7 +7,7 @@ function s-ispc-vcs()
     echo https://github.com/ispc/ispc.git
 }
 
-function s-ispc-tar()
+function s-ispc-archive()
 {
     local VERSION=$1
 
@@ -18,7 +18,7 @@ function s-ispc-tar()
     echo ispc-$VERSION.tar.gz
 }
 
-function s-ispc-bin-tar()
+function s-ispc-bin-archive()
 {
     local VERSION=$1
 
@@ -29,7 +29,7 @@ function s-ispc-bin-tar()
     echo ispc-$VERSION-linux.tar.gz
 }
 
-function s-ispc-ghbin-tar()
+function s-ispc-ghbin-archive()
 {
     local VERSION=$1
 

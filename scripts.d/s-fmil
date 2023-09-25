@@ -1,5 +1,5 @@
 
-function s-fmil-tar()
+function s-fmil-archive()
 {
     local VERSION=$1
 

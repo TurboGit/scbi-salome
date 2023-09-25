@@ -15,7 +15,7 @@ function s-yacs-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/yacs
 }
 
-function s-yacs-tar()
+function s-yacs-archive()
 {
     local VERSION=$1
 

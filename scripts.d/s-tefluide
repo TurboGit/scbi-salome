@@ -7,7 +7,7 @@ function s-tefluide-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/tefluide.git
 }
 
-function s-tefluide-tar()
+function s-tefluide-archive()
 {
     local VERSION=$1
 

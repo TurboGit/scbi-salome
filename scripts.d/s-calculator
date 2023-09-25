@@ -15,7 +15,7 @@ function s-calculator-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/calculator
 }
 
-function s-calculator-tar()
+function s-calculator-archive()
 {
     local VERSION=$1
 

@@ -15,7 +15,7 @@ function s-hello-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/hello
 }
 
-function s-hello-tar()
+function s-hello-archive()
 {
     local VERSION=$1
 

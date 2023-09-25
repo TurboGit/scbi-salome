@@ -15,7 +15,7 @@ function s-yacsgen-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/yacsgen
 }
 
-function s-yacsgen-tar()
+function s-yacsgen-archive()
 {
     local VERSION=$1
 

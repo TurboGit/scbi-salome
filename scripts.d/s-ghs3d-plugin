@@ -15,7 +15,7 @@ function s-ghs3d-plugin-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/ghs3dplugin
 }
 
-function s-ghs3d-plugin-tar()
+function s-ghs3d-plugin-archive()
 {
     local VERSION=$1
 

@@ -7,7 +7,7 @@ function s-paraview-vcs()
     echo https://github.com/Kitware/ParaView.git
 }
 
-function s-paraview-tar()
+function s-paraview-archive()
 {
     local VERSION=$1
 
@@ -18,7 +18,7 @@ function s-paraview-tar()
     echo ParaView-$VERSION-source.tar.gz
 }
 
-function s-paraview-ng-tar()
+function s-paraview-ng-archive()
 {
     local VERSION=$1
 

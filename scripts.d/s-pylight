@@ -15,7 +15,7 @@ function s-pylight-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/pylight
 }
 
-function s-pylight-tar()
+function s-pylight-archive()
 {
     local VERSION=$1
 

@@ -1,4 +1,4 @@
-function s-python3-xlutils-tar()
+function s-python3-xlutils-archive()
 {
     local VERSION=$1
 

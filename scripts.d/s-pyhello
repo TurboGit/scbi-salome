@@ -15,7 +15,7 @@ function s-pyhello-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/pyhello
 }
 
-function s-pyhello-tar()
+function s-pyhello-archive()
 {
     local VERSION=$1
 

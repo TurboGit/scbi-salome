@@ -15,7 +15,7 @@ function s-hybrid-plugin-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/hybridplugin
 }
 
-function s-hybrid-plugin-tar()
+function s-hybrid-plugin-archive()
 {
     local VERSION=$1
 

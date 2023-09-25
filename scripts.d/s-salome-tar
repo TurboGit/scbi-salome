@@ -1,5 +1,5 @@
 
-function s-salome-tar-tar()
+function s-salome-tar-archive()
 {
     local VERSION=$1
 
@@ -13,6 +13,22 @@ function s-salome-tar-tar()
     echo wget
     echo https://minio.retd.edf.fr/salome/Releases/development/CEA_archive
     echo SALOME-$VER-$OS-SRC.tar.gz
+}
+
+function s-salome-tar-ngwin-archive()
+{
+    local VERSION=$1
+
+    # VERSION is : <SALOME_VERSION>:<OS>
+
+    local VER=${VERSION/:*}
+    local OS=${VERSION/*:}
+
+    echo edf
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/Releases/development/CEA_archive
+    echo SALOME-$VER.zip
 }
 
 function s-salome-tar-out-of-tree()

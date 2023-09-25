@@ -9,7 +9,7 @@ function s-openvkl-vcs()
     echo https://github.com/openvkl/openvkl.git
 }
 
-function s-openvkl-tar()
+function s-openvkl-archive()
 {
     local VERSION=$1
 

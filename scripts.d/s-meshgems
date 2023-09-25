@@ -1,5 +1,5 @@
 
-function s-meshgems-tar()
+function s-meshgems-archive()
 {
     local VERSION=$1
 

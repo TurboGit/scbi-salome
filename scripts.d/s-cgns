@@ -9,7 +9,7 @@ function s-cgns-vcs()
     echo https://github.com/CGNS/CGNS
 }
 
-function s-cgns-tar()
+function s-cgns-archive()
 {
     local VERSION=$1
 

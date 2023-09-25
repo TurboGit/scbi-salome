@@ -1,5 +1,5 @@
 
-function s-pyqt-sip-tar()
+function s-pyqt-sip-archive()
 {
     local VERSION=$1
 

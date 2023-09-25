@@ -1,7 +1,7 @@
 
 with-variant native libscalapack-openmpi-dev:[v]
 
-function s-scalapack-tar()
+function s-scalapack-archive()
 {
     local VERSION=$1
 

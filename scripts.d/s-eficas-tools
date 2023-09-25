@@ -15,7 +15,7 @@ function s-eficas-tools-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/eficas_tools
 }
 
-function s-eficas-tools-tar()
+function s-eficas-tools-archive()
 {
     local VERSION=$1
 

@@ -1,7 +1,7 @@
 
 with-variant native os@-python3-nlopt
 
-function s-python3-nlopt-tar()
+function s-python3-nlopt-archive()
 {
     local VERSION=$1
 

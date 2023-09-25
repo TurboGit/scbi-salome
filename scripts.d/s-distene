@@ -1,5 +1,5 @@
 
-function s-distene-tar()
+function s-distene-archive()
 {
     local VERSION=$1
 

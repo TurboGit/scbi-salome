@@ -15,7 +15,7 @@ function s-paravis-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/paravis
 }
 
-function s-paravis-tar()
+function s-paravis-archive()
 {
     local VERSION=$1
 
@@ -26,7 +26,7 @@ function s-paravis-tar()
     echo PARAVIS_SRC_$VERSION.tgz
 }
 
-function s-paravis-ng-tar()
+function s-paravis-ng-archive()
 {
     local VERSION=$1
 

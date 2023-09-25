@@ -15,7 +15,7 @@ function s-hexablock-plugin-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/hexablockplugin
 }
 
-function s-hexablock-plugin-tar()
+function s-hexablock-plugin-archive()
 {
     local VERSION=$1
 

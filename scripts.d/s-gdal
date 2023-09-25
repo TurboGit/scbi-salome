@@ -9,7 +9,7 @@ function s-gdal-vcs()
     echo https://github.com/OSGeo/gdal.git
 }
 
-function s-gdal-tar()
+function s-gdal-archive()
 {
     local VERSION=$1
 

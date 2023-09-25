@@ -15,7 +15,7 @@ function s-salome-jobmanager-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/jobmanager
 }
 
-function s-salome-jobmanager-tar()
+function s-salome-jobmanager-archive()
 {
     local VERSION=$1
 

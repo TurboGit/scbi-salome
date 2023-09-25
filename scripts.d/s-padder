@@ -7,7 +7,7 @@ function s-padder-vcs()
     echo https://svn.forge.pleiade.edf.fr/svn/padder.padderexe
 }
 
-function s-padder-tar()
+function s-padder-archive()
 {
     local VERSION=$1
 

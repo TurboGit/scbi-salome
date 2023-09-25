@@ -9,7 +9,7 @@ function s-rkcommon-vcs()
     echo https://github.com/ospray/rkcommon.git
 }
 
-function s-rkcommon-tar()
+function s-rkcommon-archive()
 {
     local VERSION=$1
 

@@ -15,7 +15,7 @@ function s-ydefx-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/ydefx
 }
 
-function s-ydefx-tar()
+function s-ydefx-archive()
 {
     local VERSION=$1
 

@@ -15,7 +15,7 @@ function s-atomsolv-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/atomsolv
 }
 
-function s-atomsolv-tar()
+function s-atomsolv-archive()
 {
     local VERSION=$1
 

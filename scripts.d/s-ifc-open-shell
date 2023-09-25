@@ -7,7 +7,7 @@ function s-ifc-open-shell-vcs()
     echo https://github.com/IfcOpenShell/IfcOpenShell.git
 }
 
-function s-ifc-open-shell-tar()
+function s-ifc-open-shell-archive()
 {
     local VERSION=$1
 

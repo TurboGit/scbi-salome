@@ -15,7 +15,7 @@ function s-persalys-phimeca-vcs()
     echo https://git.phimeca.com/persalys/persalys.git
 }
 
-function s-persalys-tar()
+function s-persalys-archive()
 {
     local VERSION=$1
 

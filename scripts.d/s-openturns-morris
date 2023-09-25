@@ -7,7 +7,7 @@ function s-openturns-morris-vcs()
     echo https://github.com/openturns/otmorris.git
 }
 
-function s-openturns-morris-tar()
+function s-openturns-morris-archive()
 {
     local VERSION=$1
 

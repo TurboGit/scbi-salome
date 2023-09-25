@@ -15,7 +15,7 @@ function s-smesh-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/smesh
 }
 
-function s-smesh-tar()
+function s-smesh-archive()
 {
     local VERSION=$1
 

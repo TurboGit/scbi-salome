@@ -15,7 +15,7 @@ function s-genericsolver-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/genericsolver
 }
 
-function s-genericsolver-tar()
+function s-genericsolver-archive()
 {
     local VERSION=$1
 

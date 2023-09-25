@@ -7,7 +7,7 @@ function s-openturns-pod-vcs()
     echo https://github.com/openturns/otpod.git
 }
 
-function s-openturns-pod-tar()
+function s-openturns-pod-archive()
 {
     local VERSION=$1
 

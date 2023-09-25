@@ -13,7 +13,7 @@ function s-omniorb-vcs()
     echo omniORB
 }
 
-function s-omniorb-cea-tar()
+function s-omniorb-cea-archive()
 {
     local VERSION=$1
 
@@ -24,7 +24,7 @@ function s-omniorb-cea-tar()
     echo omniORB-$VERSION.tar.gz
 }
 
-function s-omniorb-tar()
+function s-omniorb-archive()
 {
     local VERSION=$1
 

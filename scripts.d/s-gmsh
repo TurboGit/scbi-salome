@@ -7,7 +7,7 @@ function s-gmsh-vcs()
     echo https://gitlab.onelab.info/gmsh/gmsh.git
 }
 
-function s-gmsh-tar()
+function s-gmsh-archive()
 {
     local VERSION=$1
 

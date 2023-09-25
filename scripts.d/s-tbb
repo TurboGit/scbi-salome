@@ -2,7 +2,7 @@
 with-variant native os@-tbb-dev:[v] \
              --env 'set-var TBB_ROOT /usr'
 
-function s-tbb-tar()
+function s-tbb-archive()
 {
     local VERSION=$1
 

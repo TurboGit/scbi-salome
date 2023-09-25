@@ -8,7 +8,7 @@ function s-python-omniorb-vcs()
     echo omniORBpy
 }
 
-function s-python-omniorb-cea-tar()
+function s-python-omniorb-cea-archive()
 {
     local VERSION=$1
 
@@ -19,7 +19,7 @@ function s-python-omniorb-cea-tar()
     echo omniORBpy-$VERSION.tar.gz
 }
 
-function s-python-omniorb-tar()
+function s-python-omniorb-archive()
 {
     local VERSION=$1
 
