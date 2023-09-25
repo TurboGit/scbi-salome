@@ -63,7 +63,7 @@
         s-salome-bin/ngwin
         s-paravisaddons-edf/ngwin
         s-atomic:skip
-        s-salome-tar/ngwin:#9.11.0-native:WIN
+        s-salome-tar/ngwin:#master:WIN
         s-zeromq:skip
         s-melissa:skip
         s-persalys:skip
