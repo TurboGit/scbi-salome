@@ -1,5 +1,6 @@
 
 
+
 function s-salome-tar-out-of-tree()
 {
     echo false
