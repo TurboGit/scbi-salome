@@ -176,21 +176,25 @@ s-python-modules/default.wand.metadata.toml:master
 # name is used on the different platforms.
 
 [ = deb,9
-        s-salome/bim.logger:s9-DEV
+        s-salome/core:s9-DEV
         s-hdf5/mpi:#1.10.3
         s-tbb/auto:#4.4.6
         s-gdal:skip
 ]
 
 [ = deb,10
-        s-salome/bim.logger:s10-DEV
+        s-salome/core:s10-DEV
 ]
 
 [ = deb,11
-        s-salome/bim.logger:s11-DEV
+        s-salome/core:s11-DEV
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
         # fails to compile on Debian/11
         s-padder:skip
+]
+
+[ = win
+        s-salome:WIN
 ]

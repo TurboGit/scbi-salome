@@ -178,6 +178,12 @@ function s-salome-logger-modules()
     echo s-logger
 }
 
+function s-salome-core-modules()
+{
+    s-salome-bim-modules
+    s-salome-logger-modules
+}
+
 function s-salome-propagate-version()
 {
     echo false

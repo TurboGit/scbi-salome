@@ -114,10 +114,6 @@
         s-pyqt/native
 ]
 
-[ = linux
-        s-salome
-] /+ng.bim
-
-[ = win
+[
         s-salome
 ] /+ng
