@@ -25,7 +25,7 @@ function s-catalyst-ng-archive()
     echo default
     echo none
     echo cp
-    echo $SCBI_BDIR/s-salome-tar/tarsrc/ARCHIVES
+    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
     echo catalyst-$VERSION.tar.gz
 }
 
