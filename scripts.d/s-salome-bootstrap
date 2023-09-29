@@ -1,0 +1,58 @@
+
+
+function s-salome-bootstrap-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-salome-bootstrap-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-salome-bootstrap-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-salome-bootstrap-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    SALOMEBOOTSTRAP_ROOT_DIR $PREFIX
+    add-to-var CMAKE_PREFIX_PATH        $PREFIX
+}
+
+function s-salome-bootstrap-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function s-salome-bootstrap-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-salome-bootstrap-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-salome-bootstrap-prefix()
+{
+    echo NONE
+}
