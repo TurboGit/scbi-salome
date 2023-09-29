@@ -106,8 +106,7 @@ function s-persalys-config-options()
     echo -DSalomeKERNEL_DIR=$SalomeKERNEL_DIR
     echo -DSalomeGUI_DIR=$SalomeGUI_DIR
     echo -DSalomeYACS_DIR=$SalomeYACS_DIR
-    # echo -DUSE_SPHINX=$DISDOC
-    echo -DUSE_SPHINX=OFF
+    echo -DUSE_SPHINX=$DISDOC
 }
 
 function s-persalys-config()
