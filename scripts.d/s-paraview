@@ -29,6 +29,11 @@ function s-paraview-patches()
 
     [[ $REF =~ "5.8" ]] && echo paraview-autoload.patch
     [[ $REF =~ "5.9" ]] && echo paraview-5.9.patch
+    [[ $REF =~ "5.11" ]] &&
+        {
+            echo paraview-5.11.0-gil.patch
+            echo paraview-5.11.0-openturns-1.21.patch
+        }
 }
 
 function s-paraview-ng-build-depends()
