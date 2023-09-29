@@ -47,7 +47,6 @@ s-ttk:#1.1.0
 s-carmel-study:master
 s-tefluide:master
 s-swig/auto:#4.0.2
-s-salome-bootstrap
 
 # Use IfcOpenShell from May 2018
 s-ifc-open-shell:#127bcaf96
@@ -136,6 +135,7 @@ s-python-modules/default.wand.metadata.toml:master
         s-ydefx
         s-topiivol
         s-component
+        s-salome-bootstrap
 ] :$CEA_VERSION
 
 # Second, for repositories where master is at EDF
