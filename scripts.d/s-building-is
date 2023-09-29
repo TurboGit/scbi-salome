@@ -61,7 +61,7 @@ function s-building-is-env()
 
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
     add-to-var PYTHONPATH         \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
     add-to-var C_INCLUDE_PATH     $PREFIX/include/salome
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
 
