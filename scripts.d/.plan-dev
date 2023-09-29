@@ -10,20 +10,20 @@ s-clang:#12.x
 # using binary version 1.16.1
 s-ispc/bin:#v1.16.1
 
-s-persalys:v14.0.1
+s-persalys:v14.1
 
 s-zeromq:#4.3.1
 s-melissa:#0.0.0
 s-planegcs:#0.18
 
-s-openturns:#1.20.1
-s-openturns-fftw:#0.12
-s-openturns-mixmod:#0.13
+s-openturns:#1.21
+s-openturns-fftw:#0.13
+s-openturns-mixmod:#0.14
 s-openturns-morris:#0.13
 s-openturns-pmml:#1.12
-s-openturns-robopt:#0.11
-s-openturns-subsetinverse:#1.9
-s-openturns-svm:#0.11
+s-openturns-robopt:#0.12
+s-openturns-subsetinverse:#1.10
+s-openturns-svm:#0.12
 s-openturns-wrapy:#0.11
 s-openturns-pod:#0.6.9
 s-pyfmi:#2.6
@@ -47,7 +47,6 @@ s-ttk:#1.1.0
 s-carmel-study:master
 s-tefluide:master
 s-swig/auto:#4.0.2
-s-salome-bootstrap
 
 # Use IfcOpenShell from May 2018
 s-ifc-open-shell:#127bcaf96
@@ -67,7 +66,7 @@ s-python3-xlutils:#2.0.0
 c-gmp/auto:6.1
 c-mpfr/auto:4.0
 
-s-libbatch:#2.4.6
+s-libbatch:#2.5.0
 
 s-python-omniorb:#4.2.2
 s-omniorb/auto:#4.2.2
@@ -136,6 +135,7 @@ s-python-modules/default.wand.metadata.toml:master
         s-ydefx
         s-topiivol
         s-component
+        s-salome-bootstrap
 ] :$CEA_VERSION
 
 # Second, for repositories where master is at EDF
@@ -198,4 +198,11 @@ s-python-modules/default.wand.metadata.toml:master
 
 [ = win
         s-salome:WIN
+]
+
+# Temporary tweak until compilation issue due to boost is resolved
+
+[ = linux
+  s-smesh:93edbb3
+  s-netgen-plugin:90d8d44
 ]
