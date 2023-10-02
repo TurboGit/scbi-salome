@@ -171,6 +171,7 @@ function s-salome-bim-modules()
 {
     echo s-building-is
     echo s-ifc-open-shell
+    echo s-dataio
 }
 
 function s-salome-logger-modules()
