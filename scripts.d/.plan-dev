@@ -46,6 +46,7 @@ s-swig/auto:#4.0.2
 
 # Use IfcOpenShell from May 2018
 s-ifc-open-shell:#127bcaf96
+s-dataio:v0.1.1
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
 #
