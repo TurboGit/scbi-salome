@@ -109,6 +109,25 @@ function s-ifc-open-shell-install()
     make install
 }
 
+function s-ifc-open-shell-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    #  The old version does not work with swig 4.0 as _newclass
+    #  is not defined anymore.
+    #  Add a fix for now.
+
+    sed -i '6i_newclass=True' \
+        $PREFIX/lib/python/ifcopenshell/ifcopenshell_wrapper.py
+
+    sed -i \
+        -e 's/__swig_getmethods__/#__swig_getmethods__/g' \
+        -e 's/__swig_setmethods__/#__swig_setmethods__/g' \
+        $PREFIX/lib/python/ifcopenshell/ifcopenshell_wrapper.py
+}
+
 function s-ifc-open-shell-prefix()
 {
     local PREFIX=$1
