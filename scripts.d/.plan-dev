@@ -186,10 +186,3 @@ s-python-modules/default.wand.metadata.toml:master
 [ = win
         s-salome:WIN
 ]
-
-# Temporary tweak until compilation issue due to boost is resolved
-
-[ = linux
-  s-smesh:93edbb3
-  s-netgen-plugin:90d8d44
-]
