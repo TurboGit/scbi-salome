@@ -61,7 +61,7 @@ function s-ifc-open-shell-common-env()
     set-var    IFCOPENSHELL_ROOT_DIR $PREFIX
     add-to-var PATH                  $PREFIX/bin
     add-to-var LD_LIBRARY_PATH       $PREFIX/lib
-    add-to-var PYTHONPATH            $PREFIX/lib/python/ifcopenshell
+    add-to-var PYTHONPATH            $PREFIX/lib/python
 }
 
 function s-ifc-open-shell-common-config-options()
