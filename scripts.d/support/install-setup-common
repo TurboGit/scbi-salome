@@ -73,6 +73,13 @@ function get-install-directory()
 {
     local DEFAULT_DIR=$1
 
+    #  Check if --target has been specified. If so we expect SALOME to not
+    #  be installed into /tmp.
+
+    if [[ ${PWD:0:9} != "/tmp/self" ]]; then
+        DEFAULT_DIR=$PWD
+    fi
+
     local prefix=""
 
     while true; do
