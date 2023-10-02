@@ -3,12 +3,16 @@
 source $(dirname ${BASH_SOURCE[0]})/install-setup-common
 
 AUTO=0
+DIRECTION=
 
 while [ ! -z $1 ]; do
     case "$1" in
         --auto)
             AUTO=1;
-            break;
+            ;;
+        --direction)
+            DIRECTION=$2;
+            shift
             ;;
         *)
             ;;
@@ -133,7 +137,7 @@ fi
 
 template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
 
-get-edf-direction $prefix
+get-edf-direction $prefix $DIRECTION
 
 # Add icon link on desktop
 create-desktop-icon $prefix __SALOMEVERSION__

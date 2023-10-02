@@ -27,6 +27,7 @@ function check-writable()
 function get-edf-direction()
 {
     local PREFIX=$1
+    local DIRECTION=$2
 
     #  Something to do only if 999_start_s_logger.py exists, and this
     #  happens only if the log of salome usage has been activated during
@@ -46,8 +47,9 @@ function get-edf-direction()
     echo ""
     echo "Merci d'indiquer votre direction:"
 
+    direction=$DIRECTION
+
     while true; do
-        read -e -p "(RetD, DT, DIPDE, CNEPE, CIH, CEIDRE, EDVANCE): " direction
         direction=${direction^^}
 
         case $direction in
@@ -58,6 +60,7 @@ function get-edf-direction()
                 echo "Erreur: direction $direction non reconnue."
                 ;;
         esac
+        read -e -p "(RetD, DT, DIPDE, CNEPE, CIH, CEIDRE, EDVANCE): " direction
     done
 
     # ??? If we accept spaces in direction we need to convert them as
