@@ -23,6 +23,7 @@ function s-salome-bootstrap-env()
 
     set-var    SALOMEBOOTSTRAP_ROOT_DIR $PREFIX
     add-to-var CMAKE_PREFIX_PATH        $PREFIX
+    add-to-var PYTHONPATH               $PREFIX/__SALOME_BOOTSTRAP__
 }
 
 function s-salome-bootstrap-config()
