@@ -279,7 +279,7 @@ function s-salome-tar-install()
     local ORIGDIR
     local TGTDIR=\$ENV{SALOME_BIN_MODULES}
 
-    if [[ $VARIANT == "win" ]]; then
+    if [[ $VARIANT == "ngwin" ]]; then
         ORIGDIR="E:/S/[^/]*/W64"
         BINDIR=W64
 
@@ -298,7 +298,10 @@ function s-salome-tar-install()
             sed -i -E "$INIT;s,$ORIGDIR/,$TGTDIR/,g" $F
         done
 
-    if [[ $VARIANT != "win" ]]; then
+    if [[ $VARIANT == "ngwin" ]]; then
+	find $PREFIX/$BINDIR -type f | xargs -n 100 -d '
+' chmod a+x
+    else
         #  Fix wrong libtbb PATH pointing to the build-time environment
 
         find $PREFIX/$BINDIR/openturns -name "*.cmake" \
