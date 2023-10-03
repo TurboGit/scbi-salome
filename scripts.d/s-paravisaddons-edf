@@ -58,6 +58,7 @@ function s-paravisaddons-edf-env()
     local TARGET=$2
 
     set-var    PARAVISADDONS_ROOT_DIR $PREFIX
+    set-var    INF_SERVER_URL         "$(scbi-store-get-key INFURL)"
 
     add-to-var PATH                   $PREFIX/bin
     add-to-var PV_PLUGIN_PATH         $PREFIX/lib
