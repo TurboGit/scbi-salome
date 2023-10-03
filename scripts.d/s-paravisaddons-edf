@@ -58,7 +58,7 @@ function s-paravisaddons-edf-env()
     local TARGET=$2
 
     set-var    PARAVISADDONS_ROOT_DIR $PREFIX
-
+    set-var    INF_SERVER_URL         http://pv-inference.retd.edf.fr:9999
     add-to-var PATH                   $PREFIX/bin
     add-to-var PV_PLUGIN_PATH         $PREFIX/lib
     add-to-var PYTHONPATH             $PREFIX/lib
