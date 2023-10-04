@@ -20,7 +20,6 @@ s-openturns:#1.21
 s-openturns-fftw:#0.13
 s-openturns-mixmod:#0.14
 s-openturns-morris:#0.13
-s-openturns-pmml:#1.12
 s-openturns-robopt:#0.12
 s-openturns-subsetinverse:#1.10
 s-openturns-svm:#0.12

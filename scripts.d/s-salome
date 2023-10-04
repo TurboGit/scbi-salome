@@ -99,7 +99,6 @@ function s-salome-default-modules()
     echo s-openturns-fftw
     echo s-openturns-mixmod
     echo s-openturns-morris
-    echo s-openturns-pmml
     echo s-openturns-robopt
     echo s-openturns-subsetinverse
     echo s-openturns-svm
