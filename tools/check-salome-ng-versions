@@ -1,0 +1,202 @@
+#!/bin/bash
+
+#  Compare modules versions between the NG & default build
+#
+#  usage: ./check-salome-ng-versions [sandbox]
+#
+
+DEFAULT_SANDBOX=$HOME/dev/build-salome-dev
+
+SANDBOX=${1:-$DEFAULT_SANDBOX}
+
+# The CEA binaries directory
+CEA_DIR=$SANDBOX/s-salome-tar/archive-src
+
+if [[ ! -d $CEA_DIR ]]; then
+    echo "error: cannot find a NG build in"
+    echo "       $CEA_DIR"
+    exit 1
+fi
+
+find $CEA_DIR/BINARIES* -name "sat-config*pyconf" |
+    xargs cat |
+    sort |
+    uniq |
+    while read module x version; do
+        version=${version:1:-1}
+        [[ ${version:0:1} == 'v' ]] && version=${version:1}
+        [[ ${version:0:1} == 'V' ]] && version=${version:1}
+        version=${version//-/.}
+        version=${version//_/.}
+
+        #  Skip CEA specific modules
+
+        case ${module} in
+            qwt|Sphinx|sphinx_rtd_theme|sphinxintl|SOLVERLAB|SOLVERLABGUI| \
+                setuptools|tcl|tk|statsmodels|PYCALCULATOR|Jinja2| \
+                DOCUMENTATION|pytz|markupsafe|doxygen|docutils|cppunit| \
+                pandas|packagespy|psutil|Pillow|matplotlib|freeimage| \
+                freetype|numpydoc|numpy|Pygments|six|MeshGems|libxml2| \
+                cminpack|mesa|llvm|metis|C3PO|scipy|mpi4py| \
+                petsc|pmml|lapack|graphviz|Python|SALOME)
+                continue
+                ;;
+        esac
+        printf "%30s   %s\n" ${module} ${version,,}
+    done | sort > /tmp/vertmp.cea
+
+OTV=$( grep openturns /tmp/vertmp.cea | cut -c34- )
+OTSCRIPT=$CEA_DIR/PROJECT/products/compil_scripts/openturns-$OTV.sh
+
+if [[ ! -f $OTSCRIPT ]]; then
+    echo "WARNING: Script to build OpenTurns not found."
+    echo "         $OTSCRIPT"
+else
+    cat $OTSCRIPT | grep 'OT.\["' | tr '"' ' ' |
+        while read x module y version; do
+        #  Skip CEA modules that are not actually built
+        case ${module} in
+            otagrum)
+                continue
+                ;;
+        esac
+            printf "%30s   %s\n" ${module} ${version,,}
+        done >> /tmp/vertmp.cea
+fi
+sort /tmp/vertmp.cea > /tmp/ver.cea
+rm /tmp/vertmp.cea
+
+declare -A NAMES=(
+    ["SALOME-OPENTURNS"]="OPENTURNS"
+    ["SALOME-CONFIGURATION"]="CONFIGURATION"
+    ["SALOME-GUI"]="GUI"
+    ["SALOME-BOOTSTRAP"]="SALOMEBOOTSTRAP"
+    ["SALOME-KERNEL"]="KERNEL"
+    ["SALOME-ADAO"]="ADAO"
+    ["ADAO-INTERFACE"]="ADAO_INTERFACE"
+    ["SHAPER-STUDY"]="SHAPERSTUDY"
+    ["OMNIORB"]="omniORB"
+    ["PYTHON-OMNIORB"]="omniORBpy"
+    ["SALOME-JOBMANAGER"]="JOBMANAGER"
+    ["SALOME-EFICAS"]="EFICAS"
+    ["EFICAS-TOOLS"]="EFICAS_TOOLS"
+    ["NETGEN-PLUGIN"]="NETGENPLUGIN"
+    ["OPENCV"]="opencv"
+    ["SIP"]="sip"
+    ["RKCOMMON"]="rkCommon"
+    ["BLSURF-PLUGIN"]="BLSURFPLUGIN"
+    ["GHS3D-PLUGIN"]="GHS3DPLUGIN"
+    ["GHS3DPRL-PLUGIN"]="GHS3DPRLPLUGIN"
+    ["GMSH-PLUGIN"]="GMSHPLUGIN"
+    ["HEXABLOCK-PLUGIN"]="HEXABLOCKPLUGIN"
+    ["HEXOTIC-PLUGIN"]="HexoticPLUGIN"
+    ["HYBRID-PLUGIN"]="HYBRIDPLUGIN"
+    ["PARAVISADDONS-COMMON"]="PARAVISADDONS"
+    ["OPENTURNS"]="openturns"
+    ["OSPRAY"]="ospray"
+    ["EMBREE"]="embree"
+    ["CATALYST"]="catalyst"
+    ["TOPIIVOL"]="TopIIVolMesh"
+    ["OPENVKL"]="openVKL"
+    ["OPENMPI"]="openmpi"
+    ["CGNS"]="cgns"
+    ["ZEROMQ"]="zeromq"
+    ["PLANEGCS"]="planegcs"
+    ["SCOTCH"]="scotch"
+    ["PARAVIEW"]="ParaView"
+    ["FMIL"]="FMILibrary"
+    ["PYFMI"]="PyFMI"
+    ["MEDFICHIER"]="medfile"
+    ["QT"]="qt"
+    ["PYQT"]="PyQt"
+    ["SWIG"]="swig"
+    ["ROOT"]="root"
+    ["TBB"]="tbb"
+    ["PYTHON3-NLOPT"]="nlopt"
+    ["GMSH"]="gmsh"
+    ["GDAL"]="gdal"
+    ["ISPC"]="ispc"
+    ["CMAKE"]="cmake"
+    ["OCCT"]="CAS"
+    ["NETGEN"]="netgen"
+    ["NETCDF"]="netcdf"
+    ["EIGEN"]="eigen"
+    ["HDF5"]="hdf5"
+    ["BOOST"]="boost"
+    ["OPENTURNS-FFTW"]="otfftw"
+    ["OPENTURNS-FMI"]="otfmi"
+    ["OPENTURNS-MIXMOD"]="otmixmod"
+    ["OPENTURNS-MORRIS"]="otmorris"
+    ["OPENTURNS-PMML"]="otpmml"
+    ["OPENTURNS-POD"]="otpod"
+    ["OPENTURNS-ROBOPT"]="otrobopt"
+    ["OPENTURNS-SUBSETINVERSE"]="otsubsetinverse"
+    ["OPENTURNS-SVM"]="otsvm"
+    ["OPENTURNS-WRAPY"]="otwrapy"
+)
+
+#  EDF build plan
+
+scbi --env=dev --list-plan s-salome |
+    awk 'BEGIN{PRT=0};PRT==1{print}/There is */{PRT=1}' > /tmp/build-plan
+
+cat /tmp/build-plan |
+    while read m; do
+        #  Comments
+        [[ ${m:0:1} == '#' ]] && continue
+        #  Core modules
+        [[ ${m:0:2} == 'c-' ]] && continue
+
+        version=${m#*:}
+        if [[ ${version} == ${m} ]]; then
+            version="native"
+            module=$m
+        else
+            module=${m%:*}
+        fi
+
+        [[ ${version:0:1} == '#' ]] && version=${version:1}
+        [[ ${version:0:1} == 'v' ]] && version=${version:1}
+
+        #  A version we skip, so maybe using native
+        if [[ ${version} == "skip" ]]; then
+            version=native
+        fi
+
+        #  If we have a native variant, set version to native
+        if [[ ${module} =~ "/native" ]]; then
+            version=native
+        fi
+        version=${version//-/.}
+        version=${version//_/.}
+
+        module=${module%\/*}
+        module=${module#s-}
+        module=${module^^}
+
+        if [[ ${NAMES[${module}]} ]]; then
+            module=${NAMES[${module}]}
+        fi
+
+        #  Skip EDF specific modules
+
+        case ${module} in
+            BUILDING-IS|CARMEL-STUDY|ZCRACKS|PYTHON-MODULES|LIGHT|PYLIGHT| \
+                PARAVISADDONS-EDF|IFC-OPEN-SHELL|CGAL|PADDER|PTSCOTCH|PROJ| \
+                CLANG|CLUSTERTESTS|DISTENE|DSCCODE|QMAKE|PYTHON3-XLUTILS| \
+                TEFLUIDE|NON-REGRESSION-TESTS|MESHGEMS|ATOMGEN|ATOMIC| \
+                ATOMSOLV|MELIDEFX|MELISSA|HOMARD-TOOL|SAMPLES|GENERICSOLVER| \
+                GHS3DPRLPLUGIN|SALOME|DATAIO)
+                continue
+                ;;
+            PYQT-SIP)
+                #  Skip for now as those are not separate modules on the
+                #  CEA side.
+                continue
+                ;;
+        esac
+
+        printf "%30s   %s\n" ${module} ${version,,}
+    done | sort > /tmp/ver.edf
+
+diff /tmp/ver.cea /tmp/ver.edf
