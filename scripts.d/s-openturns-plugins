@@ -1,0 +1,18 @@
+
+# Meta-modules with all plug-ins and their dependencies
+
+function s-openturns-plugins-modules()
+{
+    echo s-openturns-fftw
+    echo s-openturns-mixmod
+    echo s-openturns-morris
+    echo s-openturns-robopt
+    echo s-openturns-subsetinverse
+    echo s-openturns-svm
+    echo s-openturns-wrapy
+    echo s-openturns-pod
+
+    echo s-openturns-fmi
+    echo s-fmil
+    echo s-pyfmi
+}
