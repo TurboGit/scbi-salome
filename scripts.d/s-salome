@@ -86,17 +86,7 @@ function s-salome-default-modules()
     echo s-persalys
     echo s-netgen
     echo s-openturns
-    echo s-openturns-fftw
-    echo s-openturns-mixmod
-    echo s-openturns-morris
-    echo s-openturns-robopt
-    echo s-openturns-subsetinverse
-    echo s-openturns-svm
-    echo s-openturns-wrapy
-    echo s-openturns-pod
-    echo s-openturns-fmi
-    echo s-fmil
-    echo s-pyfmi
+    echo s-openturns-plugins
     echo s-uranie
     echo s-root
     echo s-homard-tool
