@@ -1,6 +1,6 @@
 
-with-variant native os@-omniorb os@-omniorb-dev os@-omniorb-idl \
-             os@-omniidl os@-cos4-dev os@-omniorb-nameserver    \
+with-variant native os@-omniorb:[v] os@-omniorb-dev:[v] os@-omniorb-idl:[v] \
+             os@-omniidl:[v] os@-cos4-dev:[v] os@-omniorb-nameserver:[v]    \
              --env 'set-var    OMNIORB_ROOT_DIR   /usr'         \
                    'add-to-var LD_LIBRARY_PATH    /usr/lib'
 
