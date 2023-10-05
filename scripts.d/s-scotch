@@ -1,2 +1,70 @@
 
-with-variant native os@-scotch os@-scotch-dev
+with-variant native os@-scotch:[v] os@-scotch-dev:[v]
+
+function s-scotch-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://gitlab.inria.fr/scotch/scotch 
+} 
+
+
+function s-scotch-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo os@-flex
+    echo os@-bison
+}
+
+function s-scotch-out-of-tree()
+{
+    echo false
+}
+
+function s-scotch-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    SCOTCH_ROOT_DIR  $PREFIX
+
+    add-to-var PATH             $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib
+    add-to-var C_INCLUDE_PATH   $PREFIX/include
+    add-to-var CXX_INCLUDE_PATH $PREFIX/include
+}
+
+function s-scotch-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd src &&
+        cp Make.inc/Makefile.inc.x86-64_pc_linux2 Makefile.inc
+}
+
+function s-scotch-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd src &&
+        make -j$SCBI_JOBS scotch
+}
+
+function s-scotch-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd src &&
+        make prefix=$PREFIX install
+}
+
+function s-scotch-prefix()
+{
+    echo NONE
+}

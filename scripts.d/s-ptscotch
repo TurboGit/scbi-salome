@@ -1,7 +1,45 @@
+#  SCOTCH & PTSCOTCH are built using the same repository
+#  Only the target makefile changes.
 
-with-variant native os@-ptscotch os@-ptscotch-dev \
+inherit-plugin s-scotch
+
+with-variant native os@-ptscotch:[v] os@-ptscotch-dev:[v] \
 	     --env \
 	     'set-var    PTSCOTCH_ROOT_DIR $(get-os-inc-dir scotch-long/ptscotch.h)' \
 	     'add-to-var PTSCOTCH_INCLUDE_DIRS $PTSCOTCH_ROOT_DIR' \
 	     'add-to-var PTSCOTCH_LIBRARIES $(get-os-lib libptscotch.so)' \
 	     'add-to-var PTSCOTCH_ERR_LIBRARIES $(get-os-lib libptscotcherr.so)'
+
+function s-ptscotch-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo os@-flex
+    echo os@-bison
+    echo s-openmpi
+}
+
+function s-ptscotch-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    PTSCOTCH_ROOT_DIR $PREFIX
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var C_INCLUDE_PATH    $PREFIX/include
+    add-to-var CXX_INCLUDE_PATH  $PREFIX/include
+
+    add-to-var PTSCOTCH_INCLUDE_DIRS  $PREFIX/include
+    add-to-var PTSCOTCH_LIBRARIES     $PREFIX/lib/libptscotch.a
+    add-to-var PTSCOTCH_ERR_LIBRARIES $PREFIX/lib/libptscotcherr.a
+}
+
+function s-ptscotch-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd src &&
+        make -j$SCBI_JOBS ptscotch
+}
