@@ -39,7 +39,7 @@ function get-edf-direction()
     echo "vers un serveur à des fin de statistiques:"
     echo "  - Les informations sont anonymes"
     echo "  - Les modules utilisés sont reportés"
-    echo "  - Des informations plus détaillées sont récupérer pour SHAPER"
+    echo "  - Des informations plus détaillées sont récupérées pour SHAPER et GEOM"
     echo ""
     echo "Ces informations permettront de mieux connaître les usages"
     echo "de SALOME et de porter plus d'attention aux modules"
