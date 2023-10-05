@@ -215,3 +215,5 @@ cat /tmp/build-plan |
     done | sort > /tmp/ver.edf
 
 diff /tmp/ver.cea /tmp/ver.edf
+
+rm /tmp/ver.cea /tmp/ver.edf
