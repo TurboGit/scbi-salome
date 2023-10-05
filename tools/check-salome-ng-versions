@@ -66,6 +66,12 @@ fi
 sort /tmp/vertmp.cea > /tmp/ver.cea
 rm /tmp/vertmp.cea
 
+declare -A NGVER
+
+while read module version; do
+    NGVER[$module]=$version
+done < <( cat /tmp/ver.cea )
+
 declare -A NAMES=(
     ["SALOME-OPENTURNS"]="OPENTURNS"
     ["SALOME-CONFIGURATION"]="CONFIGURATION"
@@ -163,12 +169,7 @@ cat /tmp/build-plan |
             version=native
         fi
 
-        #  If we have a native variant, set version to native
-        if [[ ${module} =~ "/native" ]]; then
-            version=native
-        fi
-        version=${version//-/.}
-        version=${version//_/.}
+        variant=${module#*\/}
 
         module=${module%\/*}
         module=${module#s-}
@@ -176,6 +177,23 @@ cat /tmp/build-plan |
 
         if [[ ${NAMES[${module}]} ]]; then
             module=${NAMES[${module}]}
+        fi
+
+        version=${version//-/.}
+        version=${version//_/.}
+
+        #  If we have a native variant, set version to native
+        if [[ ${variant} =~ "native" ]] && [[ $version != "native" ]]; then
+            if [[ ${NGVER[$module]} == "native" ]]; then
+                #  If NG also native, make it explicit
+                version=native
+            elif [[ ${NGVER[$module]} == "$version" ]]; then
+                #  Keep version as is as it is the same
+                v=1
+            else
+                #  Else, default build is native and use a different version
+                version=native:$version
+            fi
         fi
 
         #  Skip EDF specific modules
