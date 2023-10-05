@@ -63,8 +63,8 @@ c-mpfr/auto:4.0
 
 s-libbatch:#2.5.0
 
-s-python-omniorb:#4.2.2
-s-omniorb/auto:#4.2.2
+s-python-omniorb:#4.2.5
+s-omniorb/auto:#4.2.5
 s-occt:#7.5.3p5
 s-cgns/auto:#4.2.0
 s-hdf5/native-serial
