@@ -146,12 +146,12 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 [ = mpi
         s-medcoupling/default.mpi.ptscotch
         s-paravis/default.mpi
-] :master
+] :$CEA_VERSION
 
 [ /= mpi
         s-medcoupling/default.scotch
         s-paravis/default
-] :master
+] :$CEA_VERSION
 
 # the s-salome meta-module version is used to name the .run, a different
 # name is used on the different platforms.
