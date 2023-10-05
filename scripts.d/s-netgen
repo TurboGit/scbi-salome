@@ -68,6 +68,7 @@ function s-netgen-env()
 
     set-var    NETGEN_ROOT_DIR    $PREFIX
 
+    add-to-var PATH               $PREFIX/bin
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
     add-to-var C_INCLUDE_PATH     $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
@@ -93,7 +94,7 @@ function s-netgen-autotools-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ./configure --prefix=$PREFIX --with-occ=${CASROOT} \
+    ./configure --prefix=$PREFIX --with-occ=${CASROOT} --disable-openmp \
                 CXXFLAGS="${CXXFLAGS} -O2 -m64 -std=c++0x"
 }
 
