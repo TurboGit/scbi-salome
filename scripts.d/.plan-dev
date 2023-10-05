@@ -149,7 +149,7 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 ] :master
 
 [ /= mpi
-        s-medcoupling/default.ptscotch
+        s-medcoupling/default.scotch
         s-paravis/default
 ] :master
 
