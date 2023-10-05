@@ -79,6 +79,7 @@ s-catalyst:#2.0-431a8a1
 s-python-modules/default.wand.metadata.toml:master
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
+s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 
 [
         # s-homard tool is now merged into s-homard module
@@ -159,18 +160,10 @@ s-ptscotch/auto:#6.1.2
         s-paravis/default.mpi
 ] :master
 
-[ = mpi
-        s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
-]
-
 [ /= mpi
         s-medcoupling/default.ptscotch
         s-paravis/default
 ] :master
-
-[ /= mpi
-        s-paraview/default.ospray.gdal.catalyst:#$PV_VERSION
-]
 
 # the s-salome meta-module version is used to name the .run, a different
 # name is used on the different platforms.
