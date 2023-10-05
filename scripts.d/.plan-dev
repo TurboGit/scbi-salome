@@ -67,7 +67,7 @@ s-python-omniorb:#4.2.5
 s-omniorb/auto:#4.2.5
 s-occt:#7.5.3p5
 s-cgns/auto:#4.2.0
-s-hdf5/native-serial
+s-hdf5/auto:#1.10.3
 s-catalyst:#2.0-431a8a1
 s-python-modules/default.wand.metadata.toml:master
 
@@ -152,7 +152,6 @@ s-python-modules/default.wand.metadata.toml:master
 ]
 
 [ /= mpi
-        s-hdf5/native-serial
         s-medcoupling/default.ptscotch
         s-paravis/default
 ] :master
@@ -166,7 +165,6 @@ s-python-modules/default.wand.metadata.toml:master
 
 [ = deb,9
         s-salome/default.core:s9-DEV
-        s-hdf5/mpi:#1.10.3
         s-tbb/auto:#4.4.6
         s-gdal:skip
 ]
