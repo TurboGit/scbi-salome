@@ -305,7 +305,11 @@ function setup-env-salome()
                           echo "   context.addToPythonPath($DVAR)"
                           ;;
                       PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
-                          echo "   context.addToVariable(r\"$VAR\", $DVAR)"
+                          if [[ $ACTION == PREPEND ]]; then
+                              echo "   context.addToVariable(r\"$VAR\", $DVAR)"
+                          else
+                              echo "   context.appendVariable(r\"$VAR\", $DVAR)"
+                          fi
                           ;;
                       SALOME_MODULES)
                           echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\""
