@@ -74,6 +74,7 @@
         s-padder:skip
         s-tefluide:skip
         s-meshgems:skip
+        s-logger/ngwin
 ]
 
 [

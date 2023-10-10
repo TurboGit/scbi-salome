@@ -150,6 +150,7 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
         s-melidefx
         s-non-regression-tests
         s-clustertests
+        s-logger
 ] :$EDF_VERSION
 
 # Third, the modules with MPI support or depending on
@@ -188,5 +189,8 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 ]
 
 [ = win
-        s-salome:WIN
+        s-salome/default.core:WIN
+        s-building-is:skip
+        s-ifc-open-shell:skip
+        s-dataio:skip
 ]
