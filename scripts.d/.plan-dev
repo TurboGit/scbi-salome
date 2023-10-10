@@ -175,5 +175,7 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 ]
 
 [ = win
-        s-salome:WIN
+        s-salome/default.core:WIN
+        s-ifc-open-shell:skip
+        s-dataio:skip
 ]
