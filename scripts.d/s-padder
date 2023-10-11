@@ -63,8 +63,17 @@ function s-padder-build-env()
     local VARIANT=$3
 
     #  Overwrite some setting in Makefile
-    set-var CGAL_LFLAGS  "-L${CGALHOME}/lib -lCGAL -lm -lgmp"
+    set-var CGAL_LFLAGS  "-L${CGALHOME}/lib ${CGALLIB} -lm -lgmp"
     set-var BOOST_LFLAGS "-L${BOOSTDIR}/lib -lboost_thread"
+}
+
+function s-padder-pre-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    sed -i 's/-std=c++11/-std=c++17/g' Makefile
 }
 
 function s-padder-build()
