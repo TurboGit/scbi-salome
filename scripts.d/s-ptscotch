@@ -3,7 +3,7 @@
 
 inherit-plugin s-scotch
 
-with-variant native os@-ptscotch:[v] os@-ptscotch-dev:[v] \
+with-variant native os@-ptscotch-dev:[v] \
 	     --env \
 	     'set-var    PTSCOTCH_ROOT_DIR $(get-os-inc-dir scotch-long/ptscotch.h)' \
 	     'add-to-var PTSCOTCH_INCLUDE_DIRS $PTSCOTCH_ROOT_DIR' \
