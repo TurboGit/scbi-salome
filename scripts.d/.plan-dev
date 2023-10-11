@@ -80,6 +80,7 @@ s-python-modules/default.wand.metadata.toml:master
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
+s-cgal/auto:v4.13
 
 [
         # s-homard tool is now merged into s-homard module
@@ -93,7 +94,6 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
         s-netcdf
         s-eigen
         s-boost
-        s-cgal
 ] /native
 
 # First, for repositories where master is at CEA
@@ -185,7 +185,6 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
         # fails to compile on Debian/11
-        s-padder:skip
 ]
 
 [ = win
