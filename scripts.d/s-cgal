@@ -1,5 +1,14 @@
-with-variant native os@-cgal-dev \
-  --env "set-var CGALHOME /usr"
+with-variant native os@-cgal-dev:[v] \
+       --env 'set-var CGALHOME /usr' \
+             '[[ ${SCBI_MODVER[s-cgal]} =~ :*4. ]] && set-var CGALLIB -lCGAL'
+
+function s-cgal-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/CGAL/cgal.git
+}
 
 function s-cgal-archive()
 {
@@ -20,7 +29,7 @@ function s-cgal-patches()
     local KIND=$4
     local REF=$5
 
-    echo cgal-cmake352.patch
+    [[ $REF =~ 4. ]] && echo cgal-cmake352.patch
 }
 
 function s-cgal-common-build-depends()
@@ -58,6 +67,9 @@ function s-cgal-env()
     set-var    CGALHOME         $PREFIX
     set-var    CGAL_INCLUDE_DIR $PREFIX
     add-to-var LD_LIBRARY_PATH  $PREFIX/lib
+
+    [[ ${SCBI_MODVER[s-cgal]} =~ :*4. ]] &&
+        set-var CGALLIB -lCGAL
 }
 
 function s-cgal-config-options()
