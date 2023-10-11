@@ -73,6 +73,7 @@ s-python-modules/default.wand.metadata.toml:master
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
+s-cgal/auto:v4.13
 
 [
         # s-homard tool is now merged into s-homard module
@@ -86,7 +87,6 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
         s-netcdf
         s-eigen
         s-boost
-        s-cgal
 ] /native
 
 # First, for repositories where master is at CEA
