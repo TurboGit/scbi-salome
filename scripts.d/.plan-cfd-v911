@@ -18,6 +18,7 @@ s-python-modules/wand
 
 [ = deb,10
     s-salome/neptune.cfd:s10-V9_11_0
+    s-padder:skip
 ]
 
 [ = deb,11
