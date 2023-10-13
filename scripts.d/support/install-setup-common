@@ -35,6 +35,7 @@ function get-edf-direction()
     [[ ! -f $PREFIX/extra.env.d/999_start_s_logger.py ]] &&
         return
 
+    echo ""
     echo "Lors de l'utilisation de SALOME des informations sont remontées"
     echo "vers un serveur à des fin de statistiques:"
     echo "  - Les informations sont anonymes"
