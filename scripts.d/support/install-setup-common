@@ -35,6 +35,12 @@ function get-edf-direction()
     [[ ! -f $PREFIX/extra.env.d/999_start_s_logger.py ]] &&
         return
 
+    #  If run on GitLab-CI ensure that the logger is fully deactivated
+    if [[ -n $CI_PIPELINE_ID ]]; then
+        rm -f $PREFIX/extra.env.d/999_start_s_logger.py
+        return
+    fi
+
     echo ""
     echo "Lors de l'utilisation de SALOME des informations sont remontées"
     echo "vers un serveur à des fin de statistiques:"
