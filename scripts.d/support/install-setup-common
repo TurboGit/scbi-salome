@@ -36,7 +36,7 @@ function get-edf-direction()
         return
 
     #  If run on GitLab-CI ensure that the logger is fully deactivated
-    if [[ -n $CI_PIPELINE_ID ]]; then
+    if [[ -n $CI_PROJECT_DIR ]]; then
         rm -f $PREFIX/extra.env.d/999_start_s_logger.py
         return
     fi
