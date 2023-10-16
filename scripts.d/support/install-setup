@@ -143,7 +143,7 @@ get-edf-direction $prefix $DIRECTION
 create-desktop-icon $prefix __SALOMEVERSION__
 
 if [[ $AUTO == 0 ]]; then
-    $SUDO rm -f $prefix/setup
+    $SUDO rm -f $prefix/setup $prefix/install-setup-common
 
     $SUDO chown $USER -R $prefix
 fi
