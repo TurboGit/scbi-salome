@@ -63,6 +63,8 @@ function get-edf-direction()
             RETD|DT|CEIDRE|CIH|EDVANCE|DIPDE|CNEPE|DIPNN)
                 break;
                 ;;
+            "")
+                ;;
             *)
                 echo "Erreur: direction $direction non reconnue."
                 ;;
