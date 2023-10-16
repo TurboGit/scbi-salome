@@ -339,7 +339,7 @@ function setup-env-salome()
 
             #  Handle possible ctest support
 
-            FCT=$(get-hook $module $variant ctest-dir)
+            get-hook FCT $module $variant ctest-dir
 
             if [[ ! -z $FCT ]]; then
                 echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
