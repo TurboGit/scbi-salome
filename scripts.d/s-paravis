@@ -103,20 +103,8 @@ function s-paravis-common-config-options()
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
 
-    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
-    echo -DPARAVIEW_PLUGIN_ENABLE_ArrayRenamer=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_DevelopedSurfacePlugin=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_DifferenceTimesteps=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_ElevationSurface=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_EllipseBuilderFilter=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_GaussToCellPlugin=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_JSONReader=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_MEDReader=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_MEDWriterPlugin=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_ScaleVector=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_SimpleModePlugin=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_StaticMesh=YES
-    echo -DPARAVIEW_PLUGIN_ENABLE_VoroGaussPlugin=YES
+    echo -DSALOME_PARAVIS_USE_GEOM_SOURCE=ON
+    echo -DSALOME_PARAVIS_USE_SMESH_SOURCE=ON
 }
 
 function s-paravis-config()
