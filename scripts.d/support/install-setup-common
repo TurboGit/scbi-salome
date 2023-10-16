@@ -52,7 +52,7 @@ function get-edf-direction()
     echo "de SALOME et de porter plus d'attention aux modules"
     echo "correspondants."
     echo ""
-    echo "Merci d'indiquer votre direction:"
+    echo "Merci d'indiquer votre direction: $DIRECTION"
 
     direction=$DIRECTION
 
