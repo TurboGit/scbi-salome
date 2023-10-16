@@ -60,7 +60,7 @@ function get-edf-direction()
         direction=${direction^^}
 
         case $direction in
-            RETD|DT|CEIDRE|EDVANCE|DIPDE|CNEPE|DIPNN)
+            RETD|DT|CEIDRE|CIH|EDVANCE|DIPDE|CNEPE|DIPNN)
                 break;
                 ;;
             *)
