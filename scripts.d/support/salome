@@ -52,10 +52,17 @@ def main(args):
   # Identify application path then locate configuration files
   __initialize()
 
+  # Modify this variable to not reset the PATHS"
+  reinitialise_paths=True
+
   if args == ['--help']:
     from salomeContext import usage
     usage()
     sys.exit(0)
+
+  if '--keep-paths' in args:
+    reinitialise_paths=False
+    args.remove('--keep-paths')
 
   # Create a SalomeContext which parses configFileNames to initialize environment
   try:
@@ -79,8 +86,14 @@ def main(args):
     # Logger level error
     context.getLogger().setLevel(40)
 
-    # Modifier cette variable pour ne pas réinitialiser les PATHS"
-    reinitialise_paths=True
+    if reinitialise_paths:
+      context.setVariable(r"PYTHONPATH", "", overwrite=True)
+      context.setVariable(r"LD_LIBRARY_PATH", "", overwrite=True)
+      context.setVariable(r"PV_PLUGIN_PATH", "", overwrite=True)
+      context.setVariable(r"SalomeAppConfig", "", overwrite=True)
+      context.setVariable(r"DYLD_LIBRARY_PATH", "", overwrite=True)
+      context.setVariable(r"SHLIB_PATH", "", overwrite=True)
+      context.setVariable(r"LIBPATH", "", overwrite=True)
 
     # [APPLI variables]
     context.setVariable(r"ABSOLUTE_APPLI_PATH", out_dir_Path + r"/EDF/s-salome-kernel", overwrite=True)
