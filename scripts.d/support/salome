@@ -82,10 +82,6 @@ def main(args):
     # Modifier cette variable pour ne pas réinitialiser les PATHS"
     reinitialise_paths=True
 
-    ## PRODUCT environment
-    context.setVariable(r"SALOME_ON_DEMAND", r"HIDE", overwrite=True)
-    context.setVariable(r"PYTHON_VERSION", r"3.7", overwrite=True)
-
     # [APPLI variables]
     context.setVariable(r"ABSOLUTE_APPLI_PATH", out_dir_Path + r"/EDF/s-salome-kernel", overwrite=True)
     context.setVariable(r"APPLI", out_dir_Path + r"/salome", overwrite=True)
