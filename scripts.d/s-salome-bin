@@ -54,11 +54,11 @@ function s-salome-bin-ngwin-env()
     set-var    OSPRAY_ROOT_DIR       $IEXT
     set-var    CPPUNIT_ROOT_DIR      $IEXT
 
-    add-to-var PATH               $(cygpath -m $QT5_ROOT_DIR/bin)
+    add-to-var PATH                  $(cygpath -m $QT5_ROOT_DIR/bin)
 
     # Get current ParaView directory
     PV_DIR=$(last-modified-directory "$PARAVIEW_ROOT_DIR/lib/cmake/paraview*")
-    
+
     add-to-var CMAKE_PREFIX_PATH  \
 	       $(last-modified-directory "$IROOT/cmake/share/cmake-*/Modules")
     add-to-var CMAKE_PREFIX_PATH  $IEXT
