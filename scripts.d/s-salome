@@ -416,6 +416,8 @@ EOF
             echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/MacMesh")'
             echo '   context.addToPythonPath(r"${SMESH_ROOT_DIR}/share/salome/plugins/smesh/Verima")'
             echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
+            echo '   context.setVariable(r"PYTHON_VERSION", '\"$PYTHON_VERSION\"', overwrite=True)'
+            echo '   context.setVariable(r"SALOME_ON_DEMAND", r"HIDE", overwrite=True)'
         } > $PFILE
 
         SFILE="extra.env.d/000_setup.sh"
@@ -423,6 +425,8 @@ EOF
         {
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
             echo "export SALOME_VERSION=$SVER"
+            echo "export PYTHON_VERSION=$PYTHON_VERSION"
+            echo "export SALOME_ON_DEMAND=HIDE"
         } > $SFILE
 
         #  keep current PATH setting
