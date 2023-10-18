@@ -413,6 +413,7 @@ EOF
             echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)'
             echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
             echo '   context.setVariable(r"PYTHON_VERSION", '\"$PYTHON_VERSION\"', overwrite=True)'
+            echo '   context.setVariable(r"PYTHONIOENCODING", r"UTF_8", overwrite=True)'
             echo '   context.setVariable(r"SALOME_ON_DEMAND", r"HIDE", overwrite=True)'
         } > $PFILE
 
@@ -423,6 +424,7 @@ EOF
             echo "export SALOME_VERSION=$SVER"
             echo "export PYTHON_VERSION=$PYTHON_VERSION"
             echo "export SALOME_ON_DEMAND=HIDE"
+            echo "export PYTHONIOENCODING=UTF_8"
         } > $SFILE
 
         #  keep current PATH setting
