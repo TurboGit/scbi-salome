@@ -286,6 +286,13 @@ function s-salome-bin-ng-env()
             set-var EFICAS_NOUVEAU_ROOT  $EFICAS_TOOLS_ROOT_DIR
         }
 
+    is-root-path $SALOME_BIN_MODULES $SMESH_ROOT_DIR &&
+        {
+            add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh
+            add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh/MacMesh
+            add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh/Verima
+        }
+
     if [[ -z $PYTHON_VERSION ]]; then
         set-var PYTHON_VERSION $(python3 --version | cut -d' ' -f2 | cut -c1-3)
     fi
