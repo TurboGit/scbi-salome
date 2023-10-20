@@ -80,7 +80,7 @@ function s-paraview-mesa-depends
 function s-paraview-headless-depends
 {
     # default headless is using egl (another option is mesa)
-    paraview-egl-deps
+    s-paraview-egl-depends $PREFIX $TARGET $VARIANT
 }
 
 function s-paraview-ospray-depends
@@ -298,7 +298,7 @@ function s-paraview-headless-config-options()
     local TARGET=$2
     local VARIANT=$3
 
-    paraview-egl-options $TARGET
+    s-paraview-egl-config-options $PREFIX $TARGET $VARIANT
 }
 
 function s-paraview-config()
