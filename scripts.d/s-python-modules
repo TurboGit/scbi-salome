@@ -60,6 +60,7 @@ function s-python-modules-toml-config-options()
 function s-python-modules-build-depends()
 {
     echo os@-python3-setuptools
+    echo os@-pypy-setuptools
 }
 
 function s-python-modules-build-env()
@@ -169,6 +170,18 @@ function s-python-modules-install()
     local TARGET=$2
 
     python3 setup.py install --prefix=$PREFIX
+}
+
+function s-python-modules-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local site_file=$(get-os-file /usr/lib/*/*/*/site-patch.py)
+
+    if [[ -f $site_file ]]; then
+        cp $site_file $PREFIX/lib/python$PYTHON_VERSION/site-packages/site.py
+    fi
 }
 
 function s-python-modules-prefix()
