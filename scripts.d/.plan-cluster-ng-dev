@@ -1,4 +1,8 @@
 # This plan is to build some modules on top of a SALOME binary distribution
+# on clusters.
+#
+# The variant headless is used to create just the pvserver (with ParaView
+# Paravis & addons) on the clusters.
 
 @load ng-dev
 
@@ -47,3 +51,8 @@ s-building-is:skip
 
         s-openmpi/cronos
 ]
+
+[ = headless
+        s-paraview
+        s-paravis
+] /+ng.headless

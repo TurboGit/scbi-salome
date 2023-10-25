@@ -37,6 +37,17 @@ function s-paravis-ng-archive()
     echo PARAVIS.tgz
 }
 
+function s-paravis-headless-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo paravis-headless.patch
+}
+
 function s-paravis-salome-module()
 {
     echo PARAVIS
@@ -110,6 +121,15 @@ function s-paravis-mpi-config-options()
     local VARIANT=$3
 
     echo -DSALOME_USE_MPI=ON
+}
+
+function s-paravis-headless-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DPARAVIEW_USE_QT=OFF
 }
 
 function s-paravis-common-config-options()

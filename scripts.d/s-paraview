@@ -298,7 +298,19 @@ function s-paraview-headless-config-options()
     local TARGET=$2
     local VARIANT=$3
 
-    s-paraview-egl-config-options $PREFIX $TARGET $VARIANT
+    echo -DVTK_OPENGL_HAS_EGL=ON
+    echo -DVTK_USE_X=OFF
+    echo -DVTK_DEFAULT_RENDER_WINDOW_HEADLESS=ON
+    echo -DPARAVIEW_USE_QT:BOOL=OFF
+
+    echo -DOPENGL_gl_LIBRARY=$(get-os-lib libGL.so)
+    echo -DOPENGL_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/gl.h)
+    echo -DOPENGL_EGL_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/egl.h)
+    echo -DOPENGL_GLES2_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/gl2.h)
+    echo -DOPENGL_GLES3_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/gl3.h)
+    echo -DOPENGL_egl_LIBRARY=$(get-os-lib libEGL.so)
+    echo -DOPENGL_opengl_LIBRARY=$(get-os-lib libGL.so)
+    echo -DOPENGL_gles2_LIBRARY=$(get-os-lib libGLESv2.so)
 }
 
 function s-paraview-config()

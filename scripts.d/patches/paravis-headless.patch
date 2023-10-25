@@ -1,0 +1,36 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 886f6430..c348a65f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -282,7 +282,8 @@ INCLUDE(CMakePackageConfigHelpers)
+ 
+ # List of targets in this project we want to make visible to the rest of the world.
+ # They all have to be INSTALL'd with the option "EXPORT ${PROJECT_NAME}TargetGroup"
+-IF(NOT SALOME_LIGHT_ONLY)
++
++IF(NOT SALOME_LIGHT_ONLY AND PARAVIEW_USE_QT)
+   SET(_${PROJECT_NAME}_exposed_targets PARAVIS)
+ 
+   # Add all targets to the build-tree export set
+@@ -333,7 +334,7 @@ INSTALL(FILES
+   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+   DESTINATION "${SALOME_INSTALL_CMAKE_LOCAL}")
+ 
+-IF(NOT SALOME_LIGHT_ONLY)
++IF(NOT SALOME_LIGHT_ONLY AND PARAVIEW_USE_QT)
+   # Install the export set for use with the install-tree
+   INSTALL(EXPORT ${PROJECT_NAME}TargetGroup DESTINATION "${SALOME_INSTALL_CMAKE_LOCAL}"
+           FILE ${PROJECT_NAME}Targets.cmake)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 6594a46d..975dffad 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -23,7 +23,7 @@ SET(_subdirs
+   Macro
+ )
+ 
+-IF(NOT SALOME_LIGHT_ONLY)
++IF(NOT SALOME_LIGHT_ONLY AND PARAVIEW_USE_QT)
+   LIST(APPEND _subdirs
+     PVGUI
+   )
