@@ -79,7 +79,7 @@ function s-salome-gui-env()
     local TARGET=$2
 
     set-var    GUI_ROOT_DIR       $PREFIX
-    set-var    SalomeGUI_DIR      $PREFIX/salome_adm/cmake_files
+    set-var    SalomeGUI_DIR      $PREFIX/adm_local/cmake_files
 
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
 
