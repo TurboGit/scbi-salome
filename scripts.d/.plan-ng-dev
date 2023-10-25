@@ -17,8 +17,6 @@
         s-tefluide
         s-paraview
         s-medcoupling
-        s-paravis
-        s-paravisaddons-common
         s-python-modules
         s-ifc-open-shell
         s-building-is
@@ -35,6 +33,8 @@
         s-ydefx
         s-salome-gui
         s-salome-jobmanager
+        s-paravis
+        s-paravisaddons-common
         s-gmsh-plugin
         s-blsurf-plugin
         s-ghs3d-plugin
