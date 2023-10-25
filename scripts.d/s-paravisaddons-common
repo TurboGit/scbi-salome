@@ -1,15 +1,35 @@
 
 
-function s-paravisaddons-common-build-depends()
+function s-paravisaddons-common-ng-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo cp 
+    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES 
+    echo PARAVISADDONS.tgz 
+} 
+
+function s-paravisaddons-common-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-paravisaddons-common-depends()
+function s-paravisaddons-common-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-paravisaddons-common-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-paravisaddons-common-default-depends()
 {
     echo os@-hdf5-dev
 
-    echo s-salome-configuration
     echo s-medcoupling
     echo s-medfichier
     echo s-paravis

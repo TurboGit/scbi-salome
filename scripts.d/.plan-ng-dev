@@ -11,6 +11,7 @@
         s-paraview
         s-medcoupling
         s-paravis
+        s-paravisaddons-common
         s-python-modules
         s-ifc-open-shell
 
