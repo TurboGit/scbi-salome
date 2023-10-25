@@ -33,6 +33,7 @@ function s-salome-common-modules()
     echo s-atomic
     echo s-python3-xlutils
     echo s-cgal
+    echo s-python-modules
 }
 
 function s-salome-default-modules()
@@ -108,7 +109,6 @@ function s-salome-default-modules()
 function s-salome-ng-modules()
 {
     echo s-salome-tar
-    echo s-python-modules
 }
 
 function s-salome-hydro-modules()
