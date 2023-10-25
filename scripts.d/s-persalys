@@ -17,13 +17,9 @@ function s-persalys-patches()
     local KIND=$4
     local REF=$5
 
-    echo persalys-find-boost.patch
-
     [[ $REF =~ "14.1" ]] &&
         {
             echo persalys-v14.1-001.patch
-            echo persalys-v14.1-002.patch
-            echo persalys-v14.1-003.patch
         }
 }
 
