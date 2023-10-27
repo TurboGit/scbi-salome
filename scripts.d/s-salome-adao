@@ -1,15 +1,5 @@
 
 
-function s-salome-adao-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo salome-adao-$VERSION.tar.xz 
-} 
 
 function s-salome-adao-salome-module()
 {
