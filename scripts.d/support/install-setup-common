@@ -23,63 +23,6 @@ function check-writable()
     [[ -w $(dirname $DIR) ]]
 }
 
-# =============================================== get-edf-direction
-function get-edf-direction()
-{
-    local PREFIX=$1
-    local DIRECTION=$2
-
-    #  Something to do only if 999_start_s_logger.py exists, and this
-    #  happens only if the log of salome usage has been activated during
-    #  the compilation.
-    [[ ! -f $PREFIX/extra.env.d/999_start_s_logger.py ]] &&
-        return
-
-    #  If run on GitLab-CI ensure that the logger is fully deactivated
-    if [[ -n $CI_PROJECT_DIR ]]; then
-        rm -f $PREFIX/extra.env.d/999_start_s_logger.py
-        return
-    fi
-
-    echo ""
-    echo "Lors de l'utilisation de SALOME des informations sont remontées"
-    echo "vers un serveur à des fin de statistiques:"
-    echo "  - Les informations sont anonymes"
-    echo "  - Les modules utilisés sont reportés"
-    echo "  - Des informations plus détaillées sont récupérées pour SHAPER et GEOM"
-    echo ""
-    echo "Ces informations permettront de mieux connaître les usages"
-    echo "de SALOME et de porter plus d'attention aux modules"
-    echo "correspondants."
-    echo ""
-    echo "Merci d'indiquer votre direction: $DIRECTION"
-
-    direction=$DIRECTION
-
-    while true; do
-        direction=${direction^^}
-
-        case $direction in
-            RETD|DT|CEIDRE|CIH|EDVANCE|DIPDE|CNEPE|DIPNN)
-                break;
-                ;;
-            "")
-                ;;
-            *)
-                echo "Erreur: direction $direction non reconnue."
-                ;;
-        esac
-        read -e -p "(RetD, DT, DIPDE, CNEPE, CIH, CEIDRE, EDVANCE): " direction
-    done
-
-    # ??? If we accept spaces in direction we need to convert them as
-    # "_" or remove them.
-    #direction=${direction/ //_}
-
-    sed -i "s/__DIRECTION__/$direction/g" \
-        $PREFIX/extra.env.d/999_start_s_logger.py
-}
-
 # =============================================== get-install-directory
 function get-install-directory()
 {

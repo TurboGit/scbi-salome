@@ -4,6 +4,11 @@ import os.path
 import subprocess
 import hashlib
 
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QRadioButton, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QApplication
+from PyQt5.QtCore import QSettings
+
 # get the pid for the current process
 PID = os.getpid()
 UID = os.getuid()
@@ -16,6 +21,9 @@ LOG_FILENAME = "/tmp/%s-salome.log" % UID
 SESSION_ID = datetime.now().strftime("%Y%m%d%H%M%S")
 # set GUI_LOG_FILE which is used in KERNEL to enable logging
 os.environ["GUI_LOG_FILE"] = LOG_FILENAME
+
+#  Resource file for SALOME
+settings = QtCore.QSettings('salome', 'salomerc')
 
 def create_uid():
     #  Initialize in case check_output below fails
@@ -34,33 +42,91 @@ def create_uid():
     return sha_1.hexdigest()
 
 def get_uid():
-    #  User ID is stored in $HOME/.config/salome/user.id
-    salome_dir = os.path.join(Path.home(), ".config", "salome")
-    if(not os.path.isdir(salome_dir)):
-        os.mkdir(salome_dir)
-    salome_id = os.path.join(salome_dir, "user.id")
+    #  Get or create User ID
+    if not settings.contains("user_id"):
+        settings.setValue("user_id", create_uid())
+    return settings.value("user_id")
 
-    if(os.path.isfile(salome_id)):
-        #  File exists get id
-        with open(salome_id) as f:
-            id = f.readlines()
-            return id[0]
-    else:
-        #  File not present generate id
-        id = create_uid()
-        with open(salome_id, "w") as f:
-            f.write(id)
-            return id
+#  Dialog box to ask for the direction
+class MainWindow(QWidget):
+
+    def __init__(self, app):
+        super().__init__()
+
+        self.app = app
+
+        self.button = QPushButton("Ok")
+
+        self.choices = [
+            QRadioButton(text="CEIDRE"),
+            QRadioButton(text="CIH"),
+            QRadioButton(text="CNEPE"),
+            QRadioButton(text="DIPDE"),
+            QRadioButton(text="DT"),
+            QRadioButton(text="Edvance"),
+            QRadioButton(text="RetD")
+        ]
+
+        self.label = QLabel("Lors de l'utilisation de SALOME des informations sont remontées\n"
+                            + "vers un serveur à des fin de statistiques :\n"
+                            + "  - Les informations sont anonymes\n"
+                            + "  - Les modules utilisés sont reportés\n"
+                            + "  - Des informations plus détaillées sont récupérées pour SHAPER et GEOM\n"
+                            + "\n"
+                            + "Ces informations permettront de mieux connaître les usages\n"
+                            + "de SALOME et de porter plus d'attention aux modules\n"
+                            + "correspondants.\n\n"
+                            + "Merci de sélectionner votre direction :\n")
+
+        self.button.pressed.connect(self.press_ok)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.label)
+
+        for c in self.choices:
+            layout.addWidget(c)
+
+        layout.addWidget(self.button)
+        self.setLayout(layout)
+
+    def press_ok(self):
+        for c in self.choices:
+            if c.isChecked():
+                settings.setValue("direction", c.text())
+                self.app.quit()
 
 def init(context, root_dir):
-    # start the SALOME logger process in charge of sending the data
+    # Start the SALOME logger process in charge of sending the data
     # to the web server. Note that this process will automatically
     # terminate when the given process id will quit.
 
-    USER_ID = get_uid()
+    # Never enable the logger when run on GitLab-CI
+    if os.getenv('CI_PROJECT_DIR') != None:
+        return
 
     SALOME_VERSION = os.environ["SALOME_VERSION"]
     SALOME_LOGGER = os.environ["LOGGER_ROOT_DIR"]
+
+    # Ask for the direction if there is not yet a version registered or
+    # if the SALOME version has changed.
+    force_ask = not settings.contains("version") or settings.value("version") != SALOME_VERSION
+
+    # Record version now
+    if force_ask:
+        settings.setValue("version", SALOME_VERSION)
+
+    # If we don't yet have the direction set or if a new SALOME version
+    # ask for the direction now.
+    if force_ask or not settings.contains("direction"):
+        app = QApplication([])
+        w = MainWindow(app)
+        w.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
+        w.show()
+        app.exec()
+
+    # Get USER_ID, fully random and either recorded in settings or
+    # generated if not yet set.
+    USER_ID = get_uid()
 
     L_BIN = os.path.join(SALOME_LOGGER, "bin", "SalomeLogger")
     L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so")
