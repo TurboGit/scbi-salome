@@ -10,6 +10,8 @@ function s-salome-adao-build-depends()
 {
     echo s-cmake
     echo os@-sphinx-common
+    # Needed only to get the ADAO version
+    echo s-adao
 }
 
 function s-salome-adao-depends()
