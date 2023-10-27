@@ -25,13 +25,15 @@ function s-salome-adao-build-depends()
 function s-salome-adao-depends()
 {
     echo os@-python3-docutils
-    echo s-omniorb
 
     echo s-salome-configuration
     echo s-salome-kernel
+    echo s-salome-eficas
     echo s-eficas-tools
-    echo s-libbatch
+    echo s-yacs
+    echo s-omniorb
     echo s-python-omniorb
+    echo s-python3-nlopt
 }
 
 function s-salome-adao-env()
