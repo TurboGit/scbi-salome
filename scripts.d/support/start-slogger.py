@@ -124,6 +124,9 @@ def init(context, root_dir):
         w.show()
         app.exec()
 
+    # Now set EDF_DIRECTION has defined
+    EDF_DIRECTION = settings.value("direction")
+
     # Get USER_ID, fully random and either recorded in settings or
     # generated if not yet set.
     USER_ID = get_uid()
