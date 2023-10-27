@@ -21,9 +21,9 @@ function s-salome-adao-archive()
 
     echo default
     echo none
-    echo none
-    echo none
-    echo salome-adao-$VERSION.tar.xz
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo ADAOSALOME_SRC_$VERSION.tgz
 }
 
 function s-salome-adao-salome-module()
