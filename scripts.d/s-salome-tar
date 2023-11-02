@@ -177,6 +177,7 @@ function s-salome-tar-install()
     mkdir artifacts
     mv logs.tgz artifacts
     mv PROJECT/products/patches artifacts
+    mv .salome.modules.info artifacts
 
     rm -fr ARCHIVES sat PROJECT
 
