@@ -31,6 +31,11 @@ function s-salome-tar-ngwin-archive()
     echo SALOME-$VER.zip
 }
 
+function s-salome-tar-patches()
+{
+    echo salome-driver-keep-paths-option.patch
+}
+
 function s-salome-tar-out-of-tree()
 {
     echo false
