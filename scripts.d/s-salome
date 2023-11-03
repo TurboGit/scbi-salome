@@ -544,14 +544,25 @@ function s-salome-wrapup()
 
             # is the installer to be created?
 
-            if [[ $(is-enabled installer) ]]; then
-                dlog salome generate self installer, may take some time ...
+            if [[ $(is-enabled installer) ]] || [[ $(is-enabled zip) ]]; then
+                if [[ $(is-enabled zip) ]]; then
+                    dlog salome generate zip archive, may take some time ...
 
-                # check that makeself is installed
-                check-tool makeself
-                if [[ $? != 0 ]]; then
-                    dlog salome Required tool makeself missing
-                    exit 1
+                    # check that zip is installed
+                    check-tool zip
+                    if [[ $? != 0 ]]; then
+                        dlog salome required tool zip missing
+                        exit 1
+                    fi
+                else
+                    dlog salome generate self installer, may take some time ...
+
+                    # check that makeself is installed
+                    check-tool makeself
+                    if [[ $? != 0 ]]; then
+                        dlog salome required tool makeself missing
+                        exit 1
+                    fi
                 fi
 
                 # create the .run auto-installer to be distributed
