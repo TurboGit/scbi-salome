@@ -603,9 +603,13 @@ function s-salome-wrapup()
                 #  build on Debian >= 10 we use a native Python & HDF5
                 #  so no patch is needed.
 
-                makeself $O_COMPRESS --tar-quietly \
-                         $APPDIR $script_name.run \
-                         "SALOME Application" ./setup
+                if [[ $(is-enable) zip ]]; then
+                    zip -9r $script_name.zip $APPDIR
+                else
+                    makeself $O_COMPRESS --tar-quietly \
+                             $APPDIR $script_name.run \
+                             "SALOME Application" ./setup
+                fi
                 res=$?
                 rm -rf application_tmp
             fi
