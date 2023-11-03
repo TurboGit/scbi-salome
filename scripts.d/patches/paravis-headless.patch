@@ -1,18 +1,74 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 886f6430..c348a65f 100644
+index 886f6430..810e1422 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -282,7 +282,8 @@ INCLUDE(CMakePackageConfigHelpers)
+@@ -104,18 +104,24 @@ ENDIF()
+ 
+ # Find GUI
+ # ===================
+-SET(GUI_ROOT_DIR $ENV{GUI_ROOT_DIR} CACHE PATH "Path to the Salome GUI")
+-IF(EXISTS ${GUI_ROOT_DIR})
+-  # We should skip detection of VTK (done automatically from GUI) as we need to detect ParaView instead;
+-  # otherwise ParaView targets are not found
+-  SET(OMIT_DETECT_PACKAGE_VTK ON)
+-  FIND_PACKAGE(SalomeGUI REQUIRED)
+-  SALOME_GUI_WITH_CORBA() # check whether GUI builded with CORBA
+-  SALOME_GUI_MODE(SALOME_USE_SALOMEOBJECT SALOME_USE_PVVIEWER)
+-  ADD_DEFINITIONS(${GUI_DEFINITIONS})
+-  INCLUDE_DIRECTORIES(${GUI_INCLUDE_DIRS})
++IF(PARAVIEW_USE_QT)
++  SET(GUI_ROOT_DIR $ENV{GUI_ROOT_DIR} CACHE PATH "Path to the Salome GUI")
++  IF(EXISTS ${GUI_ROOT_DIR})
++    # We should skip detection of VTK (done automatically from GUI) as we need to detect ParaView instead;
++    # otherwise ParaView targets are not found
++    SET(OMIT_DETECT_PACKAGE_VTK ON)
++    FIND_PACKAGE(SalomeGUI REQUIRED)
++    SALOME_GUI_WITH_CORBA() # check whether GUI builded with CORBA
++    SALOME_GUI_MODE(SALOME_USE_SALOMEOBJECT SALOME_USE_PVVIEWER)
++    ADD_DEFINITIONS(${GUI_DEFINITIONS})
++    INCLUDE_DIRECTORIES(${GUI_INCLUDE_DIRS})
++  ELSE()
++    MESSAGE(FATAL_ERROR "We absolutely need a Salome GUI, please define GUI_ROOT_DIR")
++  ENDIF()
+ ELSE()
+-  MESSAGE(FATAL_ERROR "We absolutely need a Salome GUI, please define GUI_ROOT_DIR")
++  FIND_PACKAGE(SalomeOpenCASCADE REQUIRED)
++  ADD_DEFINITIONS(${CAS_DEFINITIONS})
++  INCLUDE_DIRECTORIES(${CAS_INCLUDE_DIRS})
+ ENDIF()
+ 
+ ##
+@@ -282,7 +288,7 @@ INCLUDE(CMakePackageConfigHelpers)
  
  # List of targets in this project we want to make visible to the rest of the world.
  # They all have to be INSTALL'd with the option "EXPORT ${PROJECT_NAME}TargetGroup"
 -IF(NOT SALOME_LIGHT_ONLY)
-+
 +IF(NOT SALOME_LIGHT_ONLY AND PARAVIEW_USE_QT)
    SET(_${PROJECT_NAME}_exposed_targets PARAVIS)
  
    # Add all targets to the build-tree export set
-@@ -333,7 +334,7 @@ INSTALL(FILES
+@@ -301,17 +307,18 @@ SET(MEDFILE_ROOT_DIR "${MEDFILE_ROOT_DIR}")
+ SET(MEDCOUPLING_ROOT_DIR "${MEDCOUPLING_ROOT_DIR}")
+ SET(GEOM_ROOT_DIR "${GEOM_ROOT_DIR}")
+ SET(SMESH_ROOT_DIR "${SMESH_ROOT_DIR}")
++SET(OPENCASCADE_ROOT_DIR "${OPENCASCADE_ROOT_DIR}")
+ 
+ SET(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include" "${PROJECT_BINARY_DIR}/include")
+ 
+ # Build variables that will be expanded when configuring Salome<MODULE>Config.cmake:
+-SALOME_CONFIGURE_PREPARE(MEDFile)
++SALOME_CONFIGURE_PREPARE(MEDFile OpenCASCADE)
+ 
+ CONFIGURE_PACKAGE_CONFIG_FILE(${PROJECT_NAME}Config.cmake.in
+     ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+     INSTALL_DESTINATION "${SALOME_INSTALL_CMAKE_LOCAL}"
+     PATH_VARS CONF_INCLUDE_DIRS SALOME_INSTALL_CMAKE_LOCAL CMAKE_INSTALL_PREFIX
+-    KERNEL_ROOT_DIR GUI_ROOT_DIR FIELDS_ROOT_DIR MEDFILE_ROOT_DIR MEDCOUPLING_ROOT_DIR GEOM_ROOT_DIR SMESH_ROOT_DIR)
++    KERNEL_ROOT_DIR GUI_ROOT_DIR FIELDS_ROOT_DIR MEDFILE_ROOT_DIR MEDCOUPLING_ROOT_DIR GEOM_ROOT_DIR SMESH_ROOT_DIR OPENCASCADE_ROOT_DIR)
+ 
+ #   - in the install tree (VSR 16/08/2013: TEMPORARILY COMMENT THIS - TO REMOVE?):
+ #       Get the relative path of the include directory so
+@@ -333,7 +340,7 @@ INSTALL(FILES
    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
    DESTINATION "${SALOME_INSTALL_CMAKE_LOCAL}")
  
@@ -34,3 +90,15 @@ index 6594a46d..975dffad 100644
    LIST(APPEND _subdirs
      PVGUI
    )
+diff --git a/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt b/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt
+index f91f8102..3cca5d57 100644
+--- a/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt
++++ b/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt
+@@ -19,6 +19,7 @@
+ 
+ include_directories(
+   ${GEOM_ROOT_DIR}/include/salome
++  ${OPENCASCADE_ROOT_DIR}/include/opencascade
+   )
+ 
+ add_definitions(${OMNIORB_DEFINITIONS})
