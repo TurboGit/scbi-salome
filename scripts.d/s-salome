@@ -603,7 +603,7 @@ function s-salome-wrapup()
                 #  build on Debian >= 10 we use a native Python & HDF5
                 #  so no patch is needed.
 
-                if [[ $(is-enable) zip ]]; then
+                if [[ $(is-enabled zip) ]]; then
                     zip -9r $script_name.zip $APPDIR
                 else
                     makeself $O_COMPRESS --tar-quietly \
