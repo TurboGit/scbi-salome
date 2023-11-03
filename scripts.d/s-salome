@@ -591,7 +591,9 @@ function s-salome-wrapup()
 
                 # --sha256 in 2.4 only
 
-                if [[ $(is-enabled xz) ]]; then
+                if [[ $SCBI_IS_WINDOWS == yes ]]; then
+                    O_COMPRESS="-9r"
+                elif [[ $(is-enabled xz) ]]; then
                     # -xz compress 40% more but is slow to compress
                     O_COMPRESS="--xz"
                 else
@@ -603,9 +605,13 @@ function s-salome-wrapup()
                 #  build on Debian >= 10 we use a native Python & HDF5
                 #  so no patch is needed.
 
-                makeself $O_COMPRESS --tar-quietly \
-                         $APPDIR $script_name.run \
-                         "SALOME Application" ./setup
+                if [[ $SCBI_IS_WINDOWS == no ]]; then
+                    makeself $O_COMPRESS --tar-quietly \
+                            $APPDIR $script_name.run \
+                            "SALOME Application" ./setup
+                else
+                    zip $O_COMPRESS $script_name.zip $APPDIR
+                fi
                 res=$?
                 rm -rf application_tmp
             fi
