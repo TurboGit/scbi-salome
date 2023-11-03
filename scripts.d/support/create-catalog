@@ -88,10 +88,24 @@ for name in ${!SERVER[@]}; do
         fi
     fi
 
-    ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
-        "mkdir -p $VIRTUAL_APPLI && \
-         rm -rf $VIRTUAL_APPLI/* && \
-         ln -sr $ORIG_APPLI/salome $VIRTUAL_APPLI/salome" >/dev/null 2>&1
+    if [[ "$name" == "cronos" ]]; then
+        ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
+            "mkdir -p $VIRTUAL_APPLI && \
+             rm -rf $VIRTUAL_APPLI/* && \
+             ln -sr $ORIG_APPLI/salome $VIRTUAL_APPLI/salome" >/dev/null 2>&1
+    elif [[ "$name" == "gaia" ]]; then
+        ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
+            "mkdir -p $VIRTUAL_APPLI && \
+             rm -rf $VIRTUAL_APPLI/* && \
+             cat << EOF > $VIRTUAL_APPLI/salome
+#!/bin/bash
+
+salome="singularity exec /gpfsgaia/container/singularity/shared/salome/salome-9.11.0-s11.sif /opt/salome/salome"
+$salome $@
+EOF
+             " >/dev/null 2>&1
+             chmod +x $VIRTUAL_APPLI/salome
+    fi
 
     if [[ $? != 0 ]]; then
 	_error_msg $name
