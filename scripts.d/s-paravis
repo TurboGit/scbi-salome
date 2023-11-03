@@ -105,6 +105,8 @@ function s-paravis-headless-config-options()
     local VARIANT=$3
 
     echo -DPARAVIEW_USE_QT=OFF
+    echo -DSALOME_BUILD_DOC=OFF
+    echo -DSALOME_BUILD_TESTS=OFF
 }
 
 function s-paravis-common-config-options()
