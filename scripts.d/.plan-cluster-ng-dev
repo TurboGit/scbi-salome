@@ -35,7 +35,6 @@ s-building-is:skip
         s-cmake:skip
         s-gnuplot-py:skip
         s-medcoupling:skip
-        s-openmpi:skip
         s-paraview:skip
         s-paravis:skip
         s-salome-configuration:skip
