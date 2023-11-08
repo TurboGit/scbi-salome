@@ -59,7 +59,7 @@ function _error_msg()
     echo "CREATE_CATALOG - WARNING - $NAME configuration failed!"
     echo "Check the salome installation on $NAME.hpc.edf.fr"
     echo "Verify your access rights to $name.hpc.edf.fr and try again."
-    echo "SALOME cannot be installed in ${SERVER[$NAME]}"
+    echo "SALOME cannot be installed in ${USERHOME[$NAME]}"
 }
 
 echo "<resources>" > $XMLFILE
