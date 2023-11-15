@@ -104,6 +104,11 @@ def init(context, root_dir):
     if os.getenv('CI_PROJECT_DIR') != None:
         return
 
+    # Make sure the logger module has been compiled and
+    # is available.
+    if os.getenv('LOGGER_ROOT_DIR') == None:
+        return
+
     SALOME_VERSION = os.environ["SALOME_VERSION"]
     SALOME_LOGGER = os.environ["LOGGER_ROOT_DIR"]
 
