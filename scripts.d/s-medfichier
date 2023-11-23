@@ -40,7 +40,6 @@ function s-medfichier-depends()
 
     echo s-hdf5
     echo s-salome-configuration
-    echo s-salome-kernel
 }
 
 function s-medfichier-mpi-depends()
