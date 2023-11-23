@@ -81,7 +81,6 @@ function s-medcoupling-common-depends()
 
 function s-medcoupling-default-depends()
 {
-    echo s-salome-kernel
     echo s-medfichier
 }
 
