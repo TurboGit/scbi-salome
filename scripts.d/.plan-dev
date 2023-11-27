@@ -49,7 +49,6 @@ s-swig/auto:#4.0.2
 
 # Use IfcOpenShell from May 2018
 s-ifc-open-shell:#127bcaf96
-s-building-is:agy/pywrap_0
 s-dataio:v0.1.1
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
@@ -151,6 +150,7 @@ s-cgal/auto:v4.13
         s-non-regression-tests
         s-clustertests
         s-logger
+        s-building-is
 ] :$EDF_VERSION
 
 # Third, the modules with MPI support or depending on

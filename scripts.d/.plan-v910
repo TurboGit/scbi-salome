@@ -47,7 +47,7 @@ s-swig/auto:#3.0.12
 
 # Use IfcOpenShell from May 2018
 s-ifc-open-shell:#127bcaf96
-s-building-is:agy/pywrap_0
+s-building-is:master
 
 [
         # s-homard tool is now merged into s-homard module
