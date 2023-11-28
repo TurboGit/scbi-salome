@@ -18,7 +18,7 @@ function s-ifc-open-shell-archive()
     echo IfcOpenShell-$VERSION.tar.gz
 }
 
-function s-ifc-open-shell-patches()
+function s-ifc-open-shell-common-patches()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -27,6 +27,15 @@ function s-ifc-open-shell-patches()
     echo ifcopenshell.patch
     echo ifcopenshell-edf.patch
     echo ifcopenshell-occ.patch
+}
+
+function s-ifc-open-shell-ngwin-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo ifcopenshell-win32.patch
 }
 
 function s-ifc-open-shell-default-depends()
@@ -88,6 +97,10 @@ function s-ifc-open-shell-common-config-options()
     echo -DOCC_INCLUDE_DIR=$CAS_ROOT_DIR/include/opencascade
     echo -DOCC_LIBRARY_DIR=$CAS_ROOT_DIR/lib
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+    echo -DBoost_LIBRARY_DIR_RELEASE=$BOOST_LIBRARY_DIR
+    echo -DBoost_LIB_PREFIX=""
+    echo -DBoost_USE_STATIC_RUNTIME=OFF
+    echo -DBoost_USE_STATIC_LIBS=OFF
 }
 
 function s-ifc-open-shell-config()
@@ -99,6 +112,15 @@ function s-ifc-open-shell-config()
     local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
     cmake $OPTIONS ../src/cmake
+}
+
+function s-ifc-open-shell-ngwin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    nmake -j$SCBI_HALF_JOBS
 }
 
 function s-ifc-open-shell-build()
