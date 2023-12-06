@@ -473,7 +473,6 @@ function s-salome-wrapup()
 
             cp $SCBI_PLUGINS/support/install-meshgems .
             cp $SCBI_PLUGINS/support/create-catalog .
-            cp $SCBI_PLUGINS/support/create_exec.py .
             cp $SCBI_PLUGINS/support/icon.png .
             cp $SCBI_PLUGINS/support/salome_template.desktop .
 
