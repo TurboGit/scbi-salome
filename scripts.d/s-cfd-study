@@ -5,6 +5,18 @@ function s-cfd-study-out-of-tree()
     echo false
 }
 
+function s-cfd-study-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # the following patch is for V9_11_0 and more
+    echo cfdstudygui_actionshandler.py.patch
+}
+
 function s-cfd-study-salome-module()
 {
     echo CFDSTUDY

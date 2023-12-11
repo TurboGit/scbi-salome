@@ -1,0 +1,48 @@
+diff --git a/cfd_study/src/CFDSTUDYGUI/CFDSTUDYGUI_ActionsHandler.py b/cfd_study/src/CFDSTUDYGUI/CFDSTUDYGUI_ActionsHandler.py
+index 05f4218..2cc77e6 100644
+--- a/cfd_study/src/CFDSTUDYGUI/CFDSTUDYGUI_ActionsHandler.py
++++ b/cfd_study/src/CFDSTUDYGUI/CFDSTUDYGUI_ActionsHandler.py
+@@ -751,14 +751,14 @@ class CFDSTUDYGUI_ActionsHandler(QObject):
+         action_id = sgPyQt.createMenu("CFD module", helpId)
+         self._SolverActionIdMap[SolverHelpMenu] = action_id
+ 
+-        m = "About CFD"
+-        action = sgPyQt.createAction(-1, m, m, m)
+-        action_id = sgPyQt.actionId(action)
+-        self._ActionMap[action_id] = action
+-        self._SolverActionIdMap[SolverHelpAboutAction] = action_id
+-        sgPyQt.createMenu(action, self._SolverActionIdMap[SolverHelpMenu])
+-        action.triggered.connect(self.slotHelpAbout)
+-        self._ActionMap[action_id].setVisible(True)
++#        m = "About CFD"
++#        action = sgPyQt.createAction(-1, m, m, m)
++#        action_id = sgPyQt.actionId(action)
++#        self._ActionMap[action_id] = action
++#        self._SolverActionIdMap[SolverHelpAboutAction] = action_id
++#        sgPyQt.createMenu(action, self._SolverActionIdMap[SolverHelpMenu])
++#        action.triggered.connect(self.slotHelpAbout)
++#        self._ActionMap[action_id].setVisible(True)
+ 
+         m = "License"
+         action = sgPyQt.createAction(SolverHelpLicense, m, m, m)
+@@ -772,13 +772,13 @@ class CFDSTUDYGUI_ActionsHandler(QObject):
+         action_id = sgPyQt.createMenu("Code_Saturne and NEPTUNE_CFD Guides", self._SolverActionIdMap[SolverHelpMenu])
+         self._HelpActionIdMap[SolverHelpGuidesMenu] = action_id
+ 
+-        m = "Code_Saturne user guide"
+-        action = sgPyQt.createAction(SolverHelpUserGuide, m, m, m)
+-        sgPyQt.createMenu(action, self._HelpActionIdMap[SolverHelpGuidesMenu])
+-        action_id = sgPyQt.actionId(action)
+-        self._ActionMap[action_id] = action
+-        self._HelpActionIdMap[SolverHelpUserGuide] = action_id
+-        action.triggered.connect(self.slotHelpUserGuide)
++#        m = "Code_Saturne user guide"
++#        action = sgPyQt.createAction(SolverHelpUserGuide, m, m, m)
++#        sgPyQt.createMenu(action, self._HelpActionIdMap[SolverHelpGuidesMenu])
++#        action_id = sgPyQt.actionId(action)
++#        self._ActionMap[action_id] = action
++#        self._HelpActionIdMap[SolverHelpUserGuide] = action_id
++#        action.triggered.connect(self.slotHelpUserGuide)
+ 
+         m = "Code_Saturne tutorial"
+         action = sgPyQt.createAction(SolverHelpTutorial, m, m, m)
