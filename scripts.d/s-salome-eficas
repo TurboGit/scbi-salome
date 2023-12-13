@@ -31,16 +31,25 @@ function s-salome-eficas-salome-module()
     echo EFICAS
 }
 
-function s-salome-eficas-build-depends()
+function s-salome-eficas-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-salome-eficas-depends()
+function s-salome-eficas-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-salome-eficas-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-salome-eficas-default-depends()
 {
     echo s-omniorb
     echo s-qt
-    echo s-salome-configuration
     echo s-salome-kernel
     echo s-salome-gui
 }
@@ -51,6 +60,10 @@ function s-salome-eficas-env()
     local TARGET=$2
 
     set-var EFICAS_ROOT_DIR $PREFIX
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+    add-to-var PYTHONPATH      $PREFIX/lib/salome
+    add-to-var PYTHONPATH      $PREFIX/bin/salome
 
     add-to-var SALOME_MODULES  EFICAS
     add-to-var SalomeAppConfig $PREFIX/share/salome/resources/eficas
