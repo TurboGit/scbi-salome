@@ -35,6 +35,8 @@
         s-hybrid-plugin
         s-hexotic-plugin
         s-hexablock-plugin
+        s-eficas-tools
+        s-salome-eficas
 ] /+ng-default
 
 #  The version for s-salome-tar has two parts, the version of the code
