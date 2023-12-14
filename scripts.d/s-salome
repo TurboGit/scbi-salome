@@ -483,17 +483,29 @@ function s-salome-wrapup()
 
             local MODS=$(call-variant-hooks modules $PREFIX $TARGET $VARIANT)
 
+            rm -fr artifacts/source-refs.txt
+
             for module in $(for-final-modules $MODS); do
                 #  Skip s-salome-tar as it is the root install and already
                 #  handled above.
 
                 if [[ $module != "s-salome-tar" ]]; then
-                    MODULE_PATH=$SCBI_BDIR/$module/build/install
+                    local MODULE_PATH=$SCBI_BDIR/$module/build/install
 
                     if [[ -d $MODULE_PATH ]]; then
                         mkdir EDF/$module
                         cp -r $MODULE_PATH/* EDF/$module
                     fi
+                fi
+
+                #  Record source reference for QA
+
+                local SREF=$SCBI_BDIR/$module/source-ref
+
+                if [[ -f $SREF ]]; then
+                    local RDATA=( $(cat $SREF) )
+                    printf "%-25s %-11s %-9s %s\n" $module ${RDATA[0]} ${RDATA[1]} ${RDATA[2]} \
+                           >> artifacts/source-refs.txt
                 fi
             done
 
