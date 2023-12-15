@@ -38,6 +38,7 @@ function s-salome-common-modules()
 
 function s-salome-default-modules()
 {
+    echo s-cmake
     echo s-salome-kernel
     echo s-salome-gui
     echo s-salome-plugins
