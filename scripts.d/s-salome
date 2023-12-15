@@ -461,8 +461,9 @@ function s-salome-wrapup()
 
                 if [[ -f $SREF ]]; then
                     local RDATA=( $(cat $SREF) )
-                    printf "%-25s %-11s %-9s %s
-" $module ${RDATA[0]} ${RDATA[1]} ${RDATA[2]} \
+                    printf "%-25s %-11s %-20s %-9s %s
+" $module \
+                           ${RDATA[0]} ${RDATA[1]} ${RDATA[2]} ${RDATA[3]} \
                            >> artifacts/source-refs.txt
                 fi
             done
