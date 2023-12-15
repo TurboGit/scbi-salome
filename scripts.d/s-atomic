@@ -8,7 +8,6 @@ function s-atomic-salome-module()
 function s-atomic-common-build-depends()
 {
     echo s-cmake
-    echo s-python-modules
 }
 
 function s-atomic-build-depends()
@@ -29,6 +28,7 @@ function s-atomic-ng-build-depends()
 function s-atomic-common-depends()
 {
     echo s-salome-configuration
+    echo s-python-modules
 }
 
 function s-atomic-default-depends()
