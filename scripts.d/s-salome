@@ -38,7 +38,6 @@ function s-salome-common-modules()
 
 function s-salome-default-modules()
 {
-    echo s-cmake
     echo s-salome-kernel
     echo s-salome-gui
     echo s-salome-plugins
@@ -283,9 +282,12 @@ function setup-env-salome()
             local FORMODULE=$1
             local MODREF=$2
             local LEVEL=$3
-            local IS_BUILD_DEPENDS=$4
+            local DEPENDS_KIND=$4
             local IS_EXT=$5
             local IS_META=$6
+
+            [[ $IS_META == true ]] || [[ $DEPENDS_KIND != default ]] &&
+                return
 
             local module_info=()
             get-module-ref module_info $MODREF $FORMODULE
@@ -391,6 +393,59 @@ EOF
     )
 }
 
+function copy-modules-salome()
+{
+    function mod-callback()
+    {
+        local FORMODULE=$1
+        local MODREF=$2
+        local LEVEL=$3
+        local DEPENDS_KIND=$4
+        local IS_EXT=$5
+        local IS_META=$6
+
+        #  Nothing to copy for meta-modules and build dependencies
+
+        [[ $IS_META == true ]] || [[ $DEPENDS_KIND != default ]] &&
+            return
+
+        local module_info=()
+        get-module-ref module_info $MODREF $FORMODULE
+        local module=${module_info[0]}
+        local variant=${module_info[1]}
+
+        #  Skip s-salome-tar as it is the root install and already
+        #  handled. Also there is nothing to copy for externals.
+
+        if [[ $IS_EXT == false ]] && [[ $module != "s-salome-tar" ]]; then
+            local MODULE_PATH=$SCBI_BDIR/$module/build/install
+
+            if [[ -d $MODULE_PATH ]]; then
+                mkdir EDF/$module
+                cp -r $MODULE_PATH/* EDF/$module
+            fi
+        fi
+
+        #  Record source reference for QA
+
+        local SREF=$SCBI_BDIR/$module/source-ref
+
+        if [[ -f $SREF ]]; then
+            local RDATA=( $(cat $SREF) )
+            printf "%-25s %-11s %-20s %-9s %s
+" $module \
+                   ${RDATA[0]} ${RDATA[1]} ${RDATA[2]} ${RDATA[3]} \
+                   >> artifacts/source-refs.txt
+        fi
+    }
+
+    mkdir EDF
+
+    rm -f artifacts/source-refs.txt
+
+    for-all-modules-with-meta mod-callback s-salome
+}
+
 function s-salome-wrapup()
 {
     local PREFIX=$1
@@ -436,37 +491,7 @@ function s-salome-wrapup()
 
             #  Copy EDF's modules into sub-directory EDF
 
-            mkdir EDF
-
-            local MODS=$(call-variant-hooks modules $PREFIX $TARGET $VARIANT)
-
-            rm -fr artifacts/source-refs.txt
-
-            for module in $(for-final-modules $MODS); do
-                #  Skip s-salome-tar as it is the root install and already
-                #  handled above.
-
-                if [[ $module != "s-salome-tar" ]]; then
-                    local MODULE_PATH=$SCBI_BDIR/$module/build/install
-
-                    if [[ -d $MODULE_PATH ]]; then
-                        mkdir EDF/$module
-                        cp -r $MODULE_PATH/* EDF/$module
-                    fi
-                fi
-
-                #  Record source reference for QA
-
-                local SREF=$SCBI_BDIR/$module/source-ref
-
-                if [[ -f $SREF ]]; then
-                    local RDATA=( $(cat $SREF) )
-                    printf "%-25s %-11s %-20s %-9s %s
-" $module \
-                           ${RDATA[0]} ${RDATA[1]} ${RDATA[2]} ${RDATA[3]} \
-                           >> artifacts/source-refs.txt
-                fi
-            done
+            copy-modules-salome
 
             dlog salome setup application environment
 
