@@ -239,7 +239,7 @@ function setup-env-salome()
             if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]] ||
                    [[ $CURRENT_MODULE_NAME == "s-salome-tar" ]]
             then
-                local REL_FROM="$SCBI_BDIR/s-salome-tar/build/install"
+                local REL_FROM="$SCBI_BDIR/s-salome-tar/$SCBI_TARGET-$SALOME_TAR_VARIANT/install"
                 local SFX_DIR="${VALUE#$REL_FROM/}"
                 local SFX_DIR="${SFX_DIR#$REL_FROM}"
                 # For shell:
@@ -348,7 +348,7 @@ function setup-env-salome()
 
             CURRENT_MODULE_NAME=$module
             CURRENT_MODULE=${module//-/_}
-            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/build/install
+            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
 
             if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
                 NUM=998
@@ -462,9 +462,9 @@ function copy-modules-salome()
         #  handled. Also there is nothing to copy for externals.
 
         if [[ $IS_EXT == false ]] && [[ $module != "s-salome-tar" ]]; then
-            local MODULE_PATH=$SCBI_BDIR/$module/build/install
+            local MODULE_PATH=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
 
-            if [[ -d $MODULE_PATH ]]; then
+            if [[ -d $MODULE_PATH ]] && [[ ! -d EDF/$module ]]; then
                 mkdir EDF/$module
                 cp -r $MODULE_PATH/* EDF/$module
             fi
@@ -497,7 +497,14 @@ function s-salome-wrapup()
 
     local APPDIR=$TARGET-$VARIANT
 
-    (
+    # Get s-salome-tar variant as used for s-salome-bin & s-salome-tar
+    # env file creation and to copy the binaries.
+
+    local module_info=()
+    get-module-ref module_info s-salome-tar
+    SALOME_TAR_VARIANT=${module_info[1]}
+
+   (
         #  Clean-up previous installation if any
 
         mkdir -p $APPDIR
@@ -515,7 +522,7 @@ function s-salome-wrapup()
                 {
                     #  Copy CEA's binaries
 
-                    cp -r $SCBI_BDIR/s-salome-tar/build/install/* .
+                    cp -r $SCBI_BDIR/s-salome-tar/$SCBI_TARGET-$SALOME_TAR_VARIANT/install/* .
                 }
 
             #  Add some build artifacts for traceability
