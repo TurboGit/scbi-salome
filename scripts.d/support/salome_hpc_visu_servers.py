@@ -76,7 +76,7 @@ def tryToAddServersInXMLFile(userFileName, nni):
             writeNeeded = True
             userFileRoot.remove(elt)
         pass
-    
+
     dico = {"nni":nni,"PORTID":nni2port(nni)}
     templateFile_subst = templateFile+".subst"
 
@@ -117,7 +117,7 @@ def tryToAddServersInXMLFile(userFileName, nni):
                 elt = ET.fromstring(entryStr)
 
             userFileRoot.append(elt)
-            
+
     if writeNeeded:
         # before overloading it store the old one
         import tempfile
