@@ -630,6 +630,7 @@ function s-salome-wrapup()
                 chmod a+x setup
 
                 cp $SCBI_PLUGINS/support/servers.pvsc .
+                cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py .
 
                 cd $SCBI_BDIR/s-salome
 
