@@ -89,31 +89,10 @@ CONFIG_PATH="$HOME/.config/ParaView"
 USER_SERVER_PVSC="$CONFIG_PATH/servers.pvsc"
 USER_PVSC_BACKUP=$USER_SERVER_PVSC"_"$(date '+%Y_%m_%d')
 
-if [[ ! -d $CONFIG_PATH ]] ; then
-    mkdir -p $CONFIG_PATH
-fi
-
-#  Check if a backup is needed
-
 cp $USER_SERVER_PVSC $USER_PVSC_BACKUP
 
-#  Copy the new servers.pvsc provided by the distrib
-
-cp servers.pvsc $USER_SERVER_PVSC
-
-#  substitute nni in servers.pvsc
-
-sed -i "s/NNI_USER/$USER/g" $USER_SERVER_PVSC
-
-#  remove pyhello et hello from salome app resource file
-
-for M in PYHELLO HELLO; do
-    P1="/<parameter .*name=\"$M\"/d"
-    P2="s/(<parameter .*value=\".*)$M;/\1/g"
-    P3="s/(<parameter .*value=\".*);$M/\1/g"
-
-    sed -i -E "$P1;$P2;$P3" /home/$USER/.config/salome/SalomeApprc*
-done
+# Update server.pvsc
+python3 salome_hpc_visu_servers.py
 
 #  check that the new pvsc is different or not
 #  if the same we just delete the backup
@@ -125,6 +104,17 @@ else
     echo "Files $USER_SERVER_PVSC and servers.pvsc are different."
     echo "The backup $USER_PVSC_BACKUP has been created."
 fi
+
+
+#  remove pyhello et hello from salome app resource file
+
+for M in PYHELLO HELLO; do
+    P1="/<parameter .*name=\"$M\"/d"
+    P2="s/(<parameter .*value=\".*)$M;/\1/g"
+    P3="s/(<parameter .*value=\".*);$M/\1/g"
+
+    sed -i -E "$P1;$P2;$P3" /home/$USER/.config/salome/SalomeApprc*
+done
 
 echo Installing SALOME
 echo
