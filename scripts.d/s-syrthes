@@ -1,5 +1,17 @@
 
 
+function s-syrthes-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # The following patches are for mode SSL
+    echo fix_ssl_mode_sythes.patch
+}
+
 function s-syrthes-salome-module()
 {
     echo SYRTHES
