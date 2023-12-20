@@ -1,0 +1,44 @@
+diff --git a/SYRTHESGUI.py b/SYRTHESGUI.py
+index 5c7e29e..f30659d 100644
+--- a/SYRTHESGUI.py
++++ b/SYRTHESGUI.py
+@@ -21,7 +21,6 @@ from omniORB import CORBA
+ # Salome modules
+ #-------------------------------------------------------------------------------
+ from omniORB import CORBA
+-from SALOME_NamingServicePy import SALOME_NamingServicePy_i
+ from LifeCycleCORBA import LifeCycleCORBA
+ import SALOMEDS
+ import SALOMEDS_Attributes_idl
+@@ -79,25 +78,19 @@ def getORB():
+ ###
+ # Get naming service instance
+ ###
+-__naming_service__ = None
++
+ def getNS():
+-    global __naming_service__
+-    if __naming_service__ is None:
+-        __naming_service__ = SALOME_NamingServicePy_i( getORB() )
+-        pass
+-    return __naming_service__
++    import salome
++    return salome.naming_service
+ 
+ #--------------------------------------------------------------------------
+ ##
+ # Get life cycle CORBA instance
+ ##
+-__lcc__ = None
++
+ def getLCC():
+-    global __lcc__
+-    if __lcc__ is None:
+-        __lcc__ = LifeCycleCORBA( getORB() )
+-        pass
+-    return __lcc__
++    import salome
++    return salome.lcc
+ 
+ # --- SYRTHES GUI main window
+ 
