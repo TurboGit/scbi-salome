@@ -33,6 +33,6 @@ core:
 	make -C scbi
 
 core.doc:
-	make -C scbi doc
+	-make -C scbi doc
 
 force:
