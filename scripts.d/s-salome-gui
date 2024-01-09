@@ -40,7 +40,6 @@ function s-salome-gui-mpi-depends()
 function s-salome-gui-common-depends()
 {
     echo s-salome-configuration
-    echo s-salome-bootstrap
 }
 
 function s-salome-gui-default-depends()
@@ -56,6 +55,7 @@ function s-salome-gui-default-depends()
     echo s-salome-kernel
     echo s-occt
     echo s-hdf5
+    echo s-salome-bootstrap
 }
 
 function s-salome-gui-env()
