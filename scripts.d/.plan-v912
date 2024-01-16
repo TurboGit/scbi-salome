@@ -190,6 +190,6 @@ s-cgal/auto:v4.13
 [ = win
         s-salome/default.core:WIN
         s-building-is:skip
-        s-ifc-open-shell/ng.ngwin:#127bcaf96
+        s-ifc-open-shell/ng.ngwin:skip
         s-dataio:skip
 ]
