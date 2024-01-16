@@ -4,6 +4,46 @@ function s-salome-bin-depends()
     echo s-salome-tar
 }
 
+#    add-to-var INCLUDE               $IEXT/include
+#
+#    set-var    HDF5_ROOT             $IEXT
+#    add-to-var HDF5_INCLUDE_DIRS     $IEXT/include
+#    add-to-var HDF5_LIBRARIES        $IEXT/lib/libhdf5.lib
+#    add-to-var HDF5_HL_LIBRARIES     $IEXT/lib/libhdf5_hl.lib
+#
+#    add-to-var LIBXML2_INCLUDE_DIR   $IEXT/include
+#    add-to-var LIBXML2_LIBRARY       $IEXT/lib/libxml2.lib
+#
+#    add-to-var PATH                  $IROOT/Python
+#    add-to-var Python3_INCLUDE_DIRS  $IROOT/Python/include
+#    add-to-var Python3_EXECUTABLE    $IROOT/Python/python3.exe
+#    add-to-var Python3_LIBRARIES     $IROOT/Python/python3.lib
+#    set-var    PYTHON_VERSION        3.6
+#    set-var    PYTHON_INCLUDE        $IROOT/Python/include
+#    set-var    PYTHON_SITE_PACKAGES  $IROOT/Python/lib/site-packages
+#    set-var    PYTHON_LIBDIR         lib/python$PYTHON_VERSION/site-packages
+#
+#    set-var    FREETYPE_LIBRARY      $IEXT/lib/freetype.lib
+#
+#    set-var    ZLIB_LIBRARY          $IEXT/bin/zlib.lib
+#
+#    set-var    CGNS_LIBRARY          $IEXT/lib/cgns.lib
+#
+#    set-var    TBB_ROOT              $IEXT
+#    set-var    TBB_INCLUDE_DIRS      $IEXT/include
+#
+#    set-var    KERNEL_ROOT_DIR       $IROOT/KERNEL
+#    set-var    GUI_ROOT_DIR          $IROOT/GUI
+#    set-var    PARAVIEW_ROOT_DIR     $IROOT/ParaView
+#    set-var    EMBREE_ROOT_DIR       $IROOT/embree
+#    set-var    RKCOMMON_ROOT_DIR     $IROOT/rkcommon
+#    set-var    OPENVKL_ROOT_DIR      $IROOT/openVKL
+#    set-var    QT5_ROOT_DIR          $IROOT/qt
+#    set-var    PYTHON_ROOT_DIR       $IROOT/Python
+#    set-var    BOOST_ROOT_DIR        $IEXT
+#    set-var    OSPRAY_ROOT_DIR       $IEXT
+#    set-var    CPPUNIT_ROOT_DIR      $IEXT
+
 ####################################################### WINDOWS
 
 function s-salome-bin-ngwin-env()
@@ -14,51 +54,13 @@ function s-salome-bin-ngwin-env()
     [[ -d $IROOT/cmake/bin ]] &&
         add-to-var PATH $IROOT/cmake/bin
 
-    add-to-var INCLUDE               $IEXT/include
+    . ${SALOME_BIN_APPLICATION}/scbi_env.sh
 
-    set-var    HDF5_ROOT             $IEXT
-    add-to-var HDF5_INCLUDE_DIRS     $IEXT/include
-    add-to-var HDF5_LIBRARIES        $IEXT/lib/libhdf5.lib
-    add-to-var HDF5_HL_LIBRARIES     $IEXT/lib/libhdf5_hl.lib
-
-    add-to-var LIBXML2_INCLUDE_DIR   $IEXT/include
-    add-to-var LIBXML2_LIBRARY       $IEXT/lib/libxml2.lib
-
-    add-to-var PATH                  $IROOT/Python
-    add-to-var Python3_INCLUDE_DIRS  $IROOT/Python/include
-    add-to-var Python3_EXECUTABLE    $IROOT/Python/python3.exe
-    add-to-var Python3_LIBRARIES     $IROOT/Python/python3.lib
-    set-var    PYTHON_VERSION        3.6
-    set-var    PYTHON_INCLUDE        $IROOT/Python/include
-    set-var    PYTHON_SITE_PACKAGES  $IROOT/Python/lib/site-packages
-    set-var    PYTHON_LIBDIR         lib/python$PYTHON_VERSION/site-packages
-
-    set-var    FREETYPE_LIBRARY      $IEXT/lib/freetype.lib
-
-    set-var    ZLIB_LIBRARY          $IEXT/bin/zlib.lib
-
-    set-var    CGNS_LIBRARY          $IEXT/lib/cgns.lib
-
-    set-var    TBB_ROOT              $IEXT
-    set-var    TBB_INCLUDE_DIRS      $IEXT/include
-
-    set-var    KERNEL_ROOT_DIR       $IROOT/KERNEL
-    set-var    GUI_ROOT_DIR          $IROOT/GUI
-    set-var    PARAVIEW_ROOT_DIR     $IROOT/ParaView
-    set-var    EMBREE_ROOT_DIR       $IROOT/embree
-    set-var    RKCOMMON_ROOT_DIR     $IROOT/rkcommon
-    set-var    OPENVKL_ROOT_DIR      $IROOT/openVKL
-    set-var    QT5_ROOT_DIR          $IROOT/qt
-    set-var    PYTHON_ROOT_DIR       $IROOT/Python
-    set-var    BOOST_ROOT_DIR        $IEXT
-    set-var    OSPRAY_ROOT_DIR       $IEXT
-    set-var    CPPUNIT_ROOT_DIR      $IEXT
-
-    add-to-var PATH                  $(cygpath -m $QT5_ROOT_DIR/bin)
-
-    # Get current ParaView directory
-    PV_DIR=$(last-modified-directory "$PARAVIEW_ROOT_DIR/lib/cmake/paraview*")
-
+    #  Add some missing env vars
+    set-var    LIBXML2_LIBRARY    $IEXT/lib/libxml2.lib
+    add-to-var INCLUDE            "$BOOST_INCLUDE_DIR/boost"
+#    set-var    Boost_INCLUDE_DIR  "$out_dir_Path/W64/EXT/include/boost-1_67/boost"
+    
     add-to-var CMAKE_PREFIX_PATH  \
 	       $(last-modified-directory "$IROOT/cmake/share/cmake-*/Modules")
     add-to-var CMAKE_PREFIX_PATH  $IEXT
@@ -82,6 +84,7 @@ function s-salome-bin-ngwin-env()
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5OpenGL
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Xml
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5DataVisualization
+#    add-to-var CMAKE_PREFIX_PATH  $IROOT/cmake/share/cmake-3.24/Modules
 }
 
 ####################################################### LINUX
