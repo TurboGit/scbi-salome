@@ -1,8 +1,17 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 886f6430..810e1422 100644
+index 098ee43f..476f8efe 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -104,18 +104,24 @@ ENDIF()
+@@ -74,6 +74,8 @@ OPTION(SALOME_PARAVIS_BUILD_CORBA_PLUGINS "Build PARAVIS CORBA plugins (ParaMEDC
+ OPTION(SALOME_PARAVIS_USE_GEOM_SOURCE "Import a GEOMETRY object to PARAVIS via its Corba IOR" OFF)
+ OPTION(SALOME_PARAVIS_USE_SMESH_SOURCE "Import a MESH object to PARAVIS via its Corba IOR" OFF)
+ option(SALOME_USE_MPI "Activate parallel reading for MEDREADER" OFF)
++OPTION(PARAVIEW_HEADLESS "Compile in headless mode" OFF)
++
+ CMAKE_DEPENDENT_OPTION(SALOME_LIGHT_ONLY "Build SALOME Light only (no CORBA)" OFF
+                        "NOT SALOME_KERNEL_LIGHT_ONLY" ON)
+ 
+@@ -104,18 +106,24 @@ ENDIF()
  
  # Find GUI
  # ===================
@@ -16,7 +25,7 @@ index 886f6430..810e1422 100644
 -  SALOME_GUI_MODE(SALOME_USE_SALOMEOBJECT SALOME_USE_PVVIEWER)
 -  ADD_DEFINITIONS(${GUI_DEFINITIONS})
 -  INCLUDE_DIRECTORIES(${GUI_INCLUDE_DIRS})
-+IF(PARAVIEW_USE_QT)
++IF(NOT PARAVIEW_HEADLESS)
 +  SET(GUI_ROOT_DIR $ENV{GUI_ROOT_DIR} CACHE PATH "Path to the Salome GUI")
 +  IF(EXISTS ${GUI_ROOT_DIR})
 +    # We should skip detection of VTK (done automatically from GUI) as we need to detect ParaView instead;
@@ -38,16 +47,16 @@ index 886f6430..810e1422 100644
  ENDIF()
  
  ##
-@@ -282,7 +288,7 @@ INCLUDE(CMakePackageConfigHelpers)
+@@ -282,7 +290,7 @@ INCLUDE(CMakePackageConfigHelpers)
  
  # List of targets in this project we want to make visible to the rest of the world.
  # They all have to be INSTALL'd with the option "EXPORT ${PROJECT_NAME}TargetGroup"
 -IF(NOT SALOME_LIGHT_ONLY)
-+IF(NOT SALOME_LIGHT_ONLY AND PARAVIEW_USE_QT)
++IF(NOT SALOME_LIGHT_ONLY AND NOT PARAVIEW_HEADLESS)
    SET(_${PROJECT_NAME}_exposed_targets PARAVIS)
  
    # Add all targets to the build-tree export set
-@@ -301,17 +307,18 @@ SET(MEDFILE_ROOT_DIR "${MEDFILE_ROOT_DIR}")
+@@ -301,17 +309,18 @@ SET(MEDFILE_ROOT_DIR "${MEDFILE_ROOT_DIR}")
  SET(MEDCOUPLING_ROOT_DIR "${MEDCOUPLING_ROOT_DIR}")
  SET(GEOM_ROOT_DIR "${GEOM_ROOT_DIR}")
  SET(SMESH_ROOT_DIR "${SMESH_ROOT_DIR}")
@@ -68,17 +77,17 @@ index 886f6430..810e1422 100644
  
  #   - in the install tree (VSR 16/08/2013: TEMPORARILY COMMENT THIS - TO REMOVE?):
  #       Get the relative path of the include directory so
-@@ -333,7 +340,7 @@ INSTALL(FILES
+@@ -333,7 +342,7 @@ INSTALL(FILES
    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
    DESTINATION "${SALOME_INSTALL_CMAKE_LOCAL}")
  
 -IF(NOT SALOME_LIGHT_ONLY)
-+IF(NOT SALOME_LIGHT_ONLY AND PARAVIEW_USE_QT)
++IF(NOT SALOME_LIGHT_ONLY AND NOT PARAVIEW_HEADLESS)
    # Install the export set for use with the install-tree
    INSTALL(EXPORT ${PROJECT_NAME}TargetGroup DESTINATION "${SALOME_INSTALL_CMAKE_LOCAL}"
            FILE ${PROJECT_NAME}Targets.cmake)
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 6594a46d..975dffad 100644
+index faee8ad8..9752037b 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -23,7 +23,7 @@ SET(_subdirs
@@ -86,12 +95,12 @@ index 6594a46d..975dffad 100644
  )
  
 -IF(NOT SALOME_LIGHT_ONLY)
-+IF(NOT SALOME_LIGHT_ONLY AND PARAVIEW_USE_QT)
++IF(NOT SALOME_LIGHT_ONLY AND NOT PARAVIEW_HEADLESS)
    LIST(APPEND _subdirs
      PVGUI
    )
 diff --git a/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt b/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt
-index f91f8102..3cca5d57 100644
+index 693a9326..f29c47e2 100644
 --- a/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt
 +++ b/src/Plugins/ParaGEOMCorba/plugin/ParaGEOMCorbaModule/CMakeLists.txt
 @@ -19,6 +19,7 @@
