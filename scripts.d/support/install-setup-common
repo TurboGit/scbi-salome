@@ -68,8 +68,12 @@ function get-modules-dir()
     local DIRS=($PREFIX/BINARIES-*)
 
     if [[ -d ${DIRS[0]} ]]; then
-        BIN=${DIRS[0]}
-    elif [[ -d $PREFIX/EDF ]]; then
+        if [[ -d $PREFIX/EDF ]]; then
+            BIN=${DIRS[0]}            # pour l'instant, on verra après pour faire les 2 possibilités en même temps.
+        else
+            BIN=${DIRS[0]}
+        fi
+    else
         BIN=$PREFIX/EDF
     fi
 
@@ -114,6 +118,37 @@ function template-conversion()
                 sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
             done
     fi
+
+    # cfg file from CFD
+
+    echo "On commence la modification du script code_saturne_build.cfg"
+    local FILES_CFG=(*/lib/code_saturne_build.cfg)
+    local TOOLS_LIST=(s-saturne s-libccmio s-eos s-coolprop s-saturne-dbg)
+    local EDFBINDIR="EDF"
+    local PREBINDIR="/builds/s$OS_VERSION-*"
+    #local EDFPREBINDIR="$PREBINDIR/(\1)/x86_64-linux-gnu-default/install"
+    #/builds/s11-V9_11_0/s-salome-tar/x86_64-linux-gnu-default/install/BINARIES-DB11
+    local CEAPREBINDIR="$PREBINDIR/s-salome-tar/x86_64-linux-gnu-default/install/BINARIES-DB$OS_VERSION"
+              #/builds/s11-V9_11_0/s-salome-tar/x86_64-linux-gnu-default/install/BINARIES-DB11
+    # Partie EDF
+    for SCRIPTS in $FILES_CFG; do
+        echo "On va chercher dans :"
+        echo $PREFIX/$EDFBINDIR/$SCRIPTS
+        for TOOLS in $TOOLS_LIST; do
+            sed -i "s,$PREBINDIR/$TOOLS/x86_64-linux-gnu-default/install,$PREFIX/$EDFBINDIR/$TOOLS,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+            echo "On remplace $PREBINDIR/$TOOLS/x86_64-linux-gnu-default/install par $PREFIX/$EDFBINDIR/$TOOLS dans $PREFIX/$EDFBINDIR/$SCRIPTS"
+        done
+    done
+    # Partie CEA
+    for SCRIPTS in $FILES_CFG; do
+        echo "On va chercher dans :"
+        echo $PREFIX/$EDFBINDIR/$SCRIPTS
+        for TOOLS in $TOOLS_LIST; do
+            sed -i "s,$CEAPREBINDIR,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+            echo "On remplace $CEAPREBINDIR par $PREFIX dans $PREFIX/$EDFBINDIR/$SCRIPTS"
+        done
+    done
+    echo "It's done !!!!!"
 
     # Logger
 
