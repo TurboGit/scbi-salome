@@ -69,7 +69,7 @@ function get-modules-dir()
 
     if [[ -d ${DIRS[0]} ]]; then
         if [[ -d $PREFIX/EDF ]]; then
-            BIN=${DIRS[0]}            # pour l'instant, on verra après pour faire les 2 possibilités en même temps.
+            BIN=${DIRS[0]}            # For instant
         else
             BIN=${DIRS[0]}
         fi
@@ -119,36 +119,26 @@ function template-conversion()
             done
     fi
 
-    # cfg file from CFD
+    # cfg file from CFD with paths to patch
 
-    echo "On commence la modification du script code_saturne_build.cfg"
     local FILES_CFG=(*/lib/code_saturne_build.cfg)
-    local TOOLS_LIST=(s-saturne s-libccmio s-eos s-coolprop s-saturne-dbg)
+    local TOOLS_LIST=( s-saturne s-libccmio s-eos s-coolprop s-saturne-dbg )
     local EDFBINDIR="EDF"
-    local PREBINDIR="/builds/s$OS_VERSION-*"
-    #local EDFPREBINDIR="$PREBINDIR/(\1)/x86_64-linux-gnu-default/install"
-    #/builds/s11-V9_11_0/s-salome-tar/x86_64-linux-gnu-default/install/BINARIES-DB11
-    local CEAPREBINDIR="$PREBINDIR/s-salome-tar/x86_64-linux-gnu-default/install/BINARIES-DB$OS_VERSION"
-              #/builds/s11-V9_11_0/s-salome-tar/x86_64-linux-gnu-default/install/BINARIES-DB11
-    # Partie EDF
+    local PREBINDIR="/builds/s$OS_VERSION-[^ ][^ ]*"
+    local COMMONBINDIR="$PREBINDIR/s-salome-tar/x86_64-linux-gnu-default/install"
+
+    # EDF products
     for SCRIPTS in $FILES_CFG; do
-        echo "On va chercher dans :"
-        echo $PREFIX/$EDFBINDIR/$SCRIPTS
-        for TOOLS in $TOOLS_LIST; do
-            sed -i "s,$PREBINDIR/$TOOLS/x86_64-linux-gnu-default/install,$PREFIX/$EDFBINDIR/$TOOLS,g" $PREFIX/$EDFBINDIR/$SCRIPTS
-            echo "On remplace $PREBINDIR/$TOOLS/x86_64-linux-gnu-default/install par $PREFIX/$EDFBINDIR/$TOOLS dans $PREFIX/$EDFBINDIR/$SCRIPTS"
+        for TOOLS in ${TOOLS_LIST[*]}; do
+            sed -i "s,/builds/s$OS_VERSION-[^ ][^ ]*/$TOOLS/x86_64-linux-gnu-ng/install,$PREFIX/$EDFBINDIR/$TOOLS,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+            sed -i "s,/builds/s$OS_VERSION-[^ ][^ ]*/$TOOLS/x86_64-linux-gnu-default/install,$PREFIX/$EDFBINDIR/$TOOLS,g" $PREFIX/$EDFBINDIR/$SCRIPTS
         done
     done
-    # Partie CEA
+
+    # Common products
     for SCRIPTS in $FILES_CFG; do
-        echo "On va chercher dans :"
-        echo $PREFIX/$EDFBINDIR/$SCRIPTS
-        for TOOLS in $TOOLS_LIST; do
-            sed -i "s,$CEAPREBINDIR,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
-            echo "On remplace $CEAPREBINDIR par $PREFIX dans $PREFIX/$EDFBINDIR/$SCRIPTS"
-        done
+        sed -i "s,$COMMONBINDIR,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
     done
-    echo "It's done !!!!!"
 
     # Logger
 
