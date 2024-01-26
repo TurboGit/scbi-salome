@@ -124,13 +124,10 @@ function template-conversion()
     local FILES_CFG=(*/lib/code_saturne_build.cfg)
     local EDFBINDIR="EDF"
 
-    # Common products
     for SCRIPTS in $FILES_CFG; do
+        # Common products
         sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
-    done
-
-    # EDF products
-    for SCRIPTS in $FILES_CFG; do
+        # EDF products
         sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $PREFIX/$EDFBINDIR/$SCRIPTS
     done
 
