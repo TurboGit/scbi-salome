@@ -122,22 +122,16 @@ function template-conversion()
     # cfg file from CFD with paths to patch
 
     local FILES_CFG=(*/lib/code_saturne_build.cfg)
-    local TOOLS_LIST=( s-saturne s-libccmio s-eos s-coolprop s-saturne-dbg )
     local EDFBINDIR="EDF"
-    local PREBINDIR="/builds/s$OS_VERSION-[^ ][^ ]*"
-    local COMMONBINDIR="$PREBINDIR/s-salome-tar/x86_64-linux-gnu-default/install"
-
-    # EDF products
-    for SCRIPTS in $FILES_CFG; do
-        for TOOLS in ${TOOLS_LIST[*]}; do
-            sed -i "s,/builds/s$OS_VERSION-[^ ][^ ]*/$TOOLS/x86_64-linux-gnu-ng/install,$PREFIX/$EDFBINDIR/$TOOLS,g" $PREFIX/$EDFBINDIR/$SCRIPTS
-            sed -i "s,/builds/s$OS_VERSION-[^ ][^ ]*/$TOOLS/x86_64-linux-gnu-default/install,$PREFIX/$EDFBINDIR/$TOOLS,g" $PREFIX/$EDFBINDIR/$SCRIPTS
-        done
-    done
 
     # Common products
     for SCRIPTS in $FILES_CFG; do
-        sed -i "s,$COMMONBINDIR,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+        sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+    done
+
+    # EDF products
+    for SCRIPTS in $FILES_CFG; do
+        sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $PREFIX/$EDFBINDIR/$SCRIPTS
     done
 
     # Logger
