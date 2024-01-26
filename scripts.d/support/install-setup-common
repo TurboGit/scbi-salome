@@ -115,6 +115,18 @@ function template-conversion()
             done
     fi
 
+    # cfg file from CFD with paths to patch
+
+    local FILES_CFG=(*/lib/code_saturne_build.cfg)
+    local EDFBINDIR="EDF"
+
+    for SCRIPTS in $FILES_CFG; do
+        # Common products
+        sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+        # EDF products
+        sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+    done
+
     # Logger
 
     [[ -f $PREFIX/extra.env.d/999_start_s_logger.py ]] &&
