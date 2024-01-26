@@ -68,12 +68,8 @@ function get-modules-dir()
     local DIRS=($PREFIX/BINARIES-*)
 
     if [[ -d ${DIRS[0]} ]]; then
-        if [[ -d $PREFIX/EDF ]]; then
-            BIN=${DIRS[0]}            # For instant
-        else
-            BIN=${DIRS[0]}
-        fi
-    else
+        BIN=${DIRS[0]}
+    elif [[ -d $PREFIX/EDF ]]; then
         BIN=$PREFIX/EDF
     fi
 
