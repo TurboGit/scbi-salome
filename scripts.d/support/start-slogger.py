@@ -136,6 +136,8 @@ def init(context, root_dir):
     # generated if not yet set.
     USER_ID = get_uid()
 
+    settings.sync()
+
     L_BIN = os.path.join(SALOME_LOGGER, "bin", "SalomeLogger")
     L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so")
 
