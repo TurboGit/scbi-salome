@@ -7,7 +7,7 @@
           <String default="%(nni)s"/>
         </Option>
         <Option label="WC key:" name="WCKEY" save="true">
-          <String default="P11MM:SALOME"/>
+          <String default="P120K:SALOME"/>
         </Option>
         <Option label="Session Duration:" name="SLURM_TIME" save="true">
           <String default="00:30:00"/>
@@ -48,7 +48,7 @@
           <String default="%(nni)s"/>
         </Option>
         <Option label="WC key:" name="WCKEY" save="true">
-          <String default="P11MM:SALOME"/>
+          <String default="P120K:SALOME"/>
         </Option>
         <Option label="Session Duration:" name="SLURM_TIME" save="true">
           <String default="00:30:00"/>
