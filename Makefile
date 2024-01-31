@@ -8,6 +8,7 @@ all: clean.install core
 	cp -r scripts.d/* $(SCRDIR)
 	cp scripts.d/.env* $(SCRDIR)
 	cp scripts.d/.plan* $(SCRDIR)
+	cp scbi-sod $(HOME)/.local/bin
 	echo "SALOME plugins : ${VER}" > $(SCRDIR)/.scbi_salome_version.txt
 
 	cd scripts.d; find . -type f > $(SCRDIR)/.salome.plugins
