@@ -1,0 +1,389 @@
+#!/bin/bash
+
+SCBI_PLUGINS="$PWD/scripts.d"
+SCBI_PLAN=
+SCBI_PLAN_CL=
+DO_VERSION=no
+DO_HELP=no
+DO_STAT=no
+DO_ARCHIVE=no
+DO_ACMD=echo
+ENV_NAME=${SCBI_DEFAULT_ENV:+-$SCBI_DEFAULT_ENV}
+DIR=
+SALOME_VARIANT=
+SALOME_VERSION=
+
+#  MinIO SALOME bucket
+MINIO_SALOME="https://minio.retd.edf.fr/salome"
+#  MinIO path for SoD artifacts (zip, icons, images...)
+SOD_MINIO_ROOT="Releases/SoD"
+MINIO_DIR="salome/salome/${SOD_MINIO_ROOT}"
+
+############################################## sod-usage
+#
+#  Display script usage
+#
+function sod-usage()
+{
+    echo
+    echo SCBI-SOD $SCBI_VERSION
+    echo
+    echo $0 [options] plug-in1 [plug-in2...]
+
+    echo ""
+    echo "   -h | --help             this help message"
+    echo "   -v | --version          display driver & plug-ins versions"
+    echo "      | --plugins=<dir>    specify the plugins' directory"
+    echo "   -e | --env=<name>       environment file ~/.scbi-<name>"
+    echo "      | --plan=<name>      a build plan for modules"
+    echo "   -a | --archive          handle archive"
+    echo "      | --stat             display some status of current setup"
+}
+
+export TOBEHANDLED=()
+export MODDEPS=()
+
+############################################## sod-depends-callback
+#
+# Routine called for every dependency found by the iterator
+#
+function sod-depends-callback()
+{
+    local FORMODULE=$1
+    local MODREF=$2
+    local LEVEL=$3
+    local DEPENDS_KIND=$4
+    local IS_EXT=$5
+    local IS_META=$6
+
+    if [[ $DEPENDS_KIND == default ]] &&
+           [[ $IS_EXT == false ]] &&
+           [[ $LEVEL == 1 ]];
+    then
+        local module_info=()
+        get-module-ref module_info $MODREF $FORMODULE
+
+        local module=${module_info[0]}
+        local variant=${module_info[1]}
+        local kind=${module_info[2]}
+        local ref=${module_info[3]}
+
+        if [[ $variant != native ]]; then
+            MODDEPS+=("$module")
+            TOBEHANDLED+=("${FORMODULE}=${module}")
+        fi
+    fi
+}
+
+############################################## sod-meta-depends
+#
+#  Returns the list of all modules listed directly (no recursivity)
+#  into the meta-module.
+#
+function sod-meta-depends()
+{
+    local PLUGIN=$1
+    local VARIANT=$2
+
+    (
+        source $SCBI_PLUGINS/$PLUGIN
+
+        plugin-call-variant-hooks $PLUGIN modules \
+                                  $SCBI_PREFIX $SCBI_TARGET $VARIANT
+    )
+}
+
+############################################## sod-get-module-name
+#
+#  Return the module's name in PLUGIN (hook salome-module) or the
+#  empty string if the plug-in is not a module.
+#
+function sod-get-module-name()
+{
+    local PLUGIN=$1
+    local VARIANT=$2
+
+    (
+        source $SCBI_PLUGINS/$PLUGIN
+
+        plugin-call-variant-hooks $PLUGIN salome-module \
+                                  $SCBI_PREFIX $SCBI_TARGET $VARIANT
+    )
+
+}
+
+############################################## sod-get-archive-name
+#
+#  Returns the name of the archive to be created. Use either the
+#  plug-in name plus .zip or if a module the NG mode found into
+#  the associative array SCBI_EXTRA_NG_DEFS.
+#
+function sod-get-archive-name()
+{
+    local PLUGIN=$1
+
+    local module=${SCBI_EXTRA_NG_DEFS[$PLUGIN]}
+
+    if [[ -z $module ]]; then
+        # We have an EDF specific module
+        echo $PLUGIN.zip
+    else
+        # We have a common module
+        echo $module.zip
+    fi
+}
+
+############################################## sod-create-archive
+#
+#  Create the archive for given plug-in
+#
+function sod-create-archive()
+{
+    local PLUGIN=$1
+
+    #  BUILD is the path to the scbi sandbox NG build
+    local BUILD=$SCBI_BDIR/s-salome/$SCBI_TARGET-$SALOME_VARIANT
+    local BUILD=${BUILD/default/ng}
+
+    if [[ ! -d $BUILD ]]; then
+        echo "warning: SALOME not built, cannot create archive."
+        return
+    fi
+
+    (
+        cd $BUILD
+
+        local module=${SCBI_EXTRA_NG_DEFS[$PLUGIN]}
+        local archive=$(sod-get-archive-name $PLUGIN)
+
+        if [[ -z $module ]]; then
+            # We have an EDF specific module
+            $DO_ACMD zip $DIR/$archive EDF/$PLUGIN extra.env.d/*$PLUGIN*
+        else
+            # We have a common module
+            $DO_ACMD zip $DIR/$archive BINARIES*/$module
+        fi
+    )
+}
+
+############################################## sod-handle-module
+#
+#  Handle module given on the command line
+#
+function sod-handle-module()
+{
+    local MODREF=$1
+    local FORMODULE=${2:-@root}
+
+    #  Check if already created
+
+    [[ ! -f $DIR/$MODREF.json ]] &&
+        {
+            local is_meta=false
+
+            #  Parse MODREF to get all base informations
+            local module_info=()
+            get-module-ref module_info $MODREF $FORMODULE
+
+            local module=${module_info[0]}
+            local variant=${module_info[1]}
+            local kind=${module_info[2]}
+            local ref=${module_info[3]}
+
+            #  Get all MODREF dependencies using iterator for all
+            #  plug-in's kind (meta & external). The dependencies are
+            #  stored into the like MODDEPS.
+            #
+            #  A meta-module is handled as a component list. It is set
+            #  with display on for the GUI and contains only the list
+            #  of modules listed directly into the meta-module. This
+            #  for example handles s-salome-plugin (list of ParaView
+            #  plug-ins) as a component list, it is displayed but do
+            #  not contains any archive on its own.
+
+            MODDEPS=()
+
+            if [[ $(is-meta-module $MODREF) == yes ]]; then
+                for M in $(sod-meta-depends $module $variant); do
+                    MODDEPS+=( $M )
+                    TOBEHANDLED+=( "${FORMODULE}=${M}" )
+                done
+
+                is_meta=true
+            else
+                for-all-modules-with-meta-ext sod-depends-callback $MODREF
+            fi
+
+            local module_name=$(sod-get-module-name $module $variant)
+            local name=${module_name:-$module}
+
+            #  Write JSON file using format for the SoD GUI
+
+            {
+                printf "{\n"
+                printf '   "name"        : "%s",\n' ${name}
+                printf '   "version"     : "%s",\n' $ref
+                printf '   "description" : "%s",\n' "plug-in $module"
+                printf '   "author"      : "%s",\n' "SALOME Team"
+
+                printf '   "depends-on"  : [ '
+
+                for M in ${MODDEPS[*]}; do
+                    printf "\"$M\""
+                    [[ $M != ${MODDEPS[-1]} ]] &&
+                        printf ","
+                    printf " "
+                done
+
+                printf '],\n'
+
+                local archive_name=$(sod-get-archive-name $module)
+                local archive=$MINIO_SALOME
+                local archive+="/${SOD_MINIO_ROOT}"
+                local archive+="/${SALOME_VERSION}"
+                local archive+="/${archive_name}"
+
+                if [[ -z ${module_name} ]] && [[ ${is_meta} != true ]]; then
+                    local display=false
+                else
+                    local display=true
+                fi
+
+                local image=$MINIO_SALOME
+                local image+="/${SOD_MINIO_ROOT}"
+                local image+="/${SALOME_VERSION}"
+                local image+="/${name}"
+
+                printf '   "archive"     : "%s",\n' "$archive"
+
+                #  Icon & Image only needed if module is to be display on
+                #  the SoD GUI installer.
+
+                [[ $display == true ]] &&
+                    {
+                        printf '   "image"       : "%s",\n' "${image}.png"
+                        printf '   "icons"       : "%s",\n' "${image}_icon.png"
+                    }
+
+                printf '   "display"     : %s\n'  "$display"
+                printf "}\n"
+            } > $DIR/$MODREF.json
+
+            sod-create-archive $module
+
+            $DO_ACMD mc $DIR/${archive_name} \
+                     ${MINIO_DIR}/${SALOME_VERSION}/${archive_name}
+        }
+
+    #  Recursively handle all modules
+
+    while [[ ${#TOBEHANDLED[*]} > 0 ]]; do
+        MODS=( ${TOBEHANDLED[*]} )
+
+        TOBEHANDLED=()
+
+        for M in ${MODS[*]}; do
+            sod-handle-module ${M#*=} ${M%=*}
+        done
+    done
+}
+
+#  Check that this script has properly been called by scbi main
+#  script.
+
+if [[ $1 == "subcommand" ]]; then
+    shift
+else
+    echo "error: use scbi sod [options]"
+    exit 1
+fi
+
+OPTFILE=$(mktemp)
+OPTARG=
+
+ALLOPTS=$(getopt -u -o achevl \
+                 -l env:,plugins:,version,plan:,help,archive,stat \
+                 -- $* 2> $OPTFILE)
+
+if [[ $? != 0 ]]; then
+    cat $OPTFILE
+    echo try \"scbi source-sod --help\" for more information.
+    rm -f $OPTFILE
+    exit 1
+fi
+
+set -- $ALLOPTS
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            DO_HELP=yes
+            break
+            ;;
+        -v|--version)
+            DO_VERSION=yes
+            break
+            ;;
+        -e|--env)
+            ENV_NAME="$2"
+            shift
+            ;;
+        -a|--archive)
+            DO_ARCHIVE=yes
+            DO_ACMD=
+            ;;
+        --stat)
+            DO_STAT=info-only;
+            ;;
+        --plan)
+            SCBI_PLAN_CL=$2; shift
+            ;;
+        --plugins)
+            SCBI_PLUGINS=$2; shift
+            if [[ ! -d "$SCBI_PLUGINS" ]] || \
+                   [[ -z "$(ls $SCBI_PLUGINS/[0-9]* 2> /dev/null)" ]];
+            then
+                echo "$0: no plugins found in $SCBI_PLUGINS"
+                exit 1
+            fi
+            ;;
+        (--)
+            ;;
+        (*)
+            #  Record all plug-in passed to the command line
+            SCBI_MODULES="$SCBI_MODULES $1"
+            ;;
+        (-*)
+            echo "$0: error - unrecognized option $1" 1>&2; exit 1
+            sod-usage
+            ;;
+    esac
+    shift
+done
+
+if [[ $DO_HELP = yes ]]; then
+    sod-usage
+    exit 0
+fi
+
+setup-generic-tool-env
+
+#  We need the NG shared doc even if the module is using the standard
+#  environment as we need the associative table between default and NG
+#  module names.
+source $SCBI_PLUGINS/.env-ng-shared-defs
+
+#  Get the variant and version of the s-salome plug-in. This gives
+#  global information for recording path of the Zip into MinIO.
+module_info=()
+get-module-ref module_info s-salome @root
+SALOME_VARIANT=${module_info[1]}
+SALOME_VERSION=${module_info[3]}
+
+DIR=$PWD/sod
+mkdir $DIR
+
+#  Iterate over all plug-in on the command line
+for module in $SCBI_MODULES; do
+    sod-handle-module $module || exit 1
+done
