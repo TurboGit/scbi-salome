@@ -183,6 +183,43 @@ function s-salome-tar-install()
         done
     }
 
+    function sh_env2scbi()
+    {
+        local ENV_FILE=$1
+
+        cat $ENV_FILE |
+            sed -e 's/export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH}:\(.*\)"$/add-to-var LD_LIBRARY_PATH "\1"/' \
+                -e 's/export PYTHONPATH="\${PYTHONPATH}:\(.*\)"$/add-to-var PYTHONPATH "\1"/' \
+                -e 's/export \(.*PATH\|INCLUDE\|SMESH_MeshersList\)=\([^:]*\):.*"$/add-to-var \1 \2"/' \
+                -e 's/export SalomeAppConfig=[^:]*:\(.*\)"$/add-to-var SalomeAppConfig "\1"/' \
+                -e 's/export PV_PLUGIN_PATH=\([^;]*\);\${PV_PLUGIN_PATH}"$/add-to-var PV_PLUGIN_PATH \1"/' \
+                -e 's/export PV_PLUGIN_PATH="\${PV_PLUGIN_PATH};out_dir_Path\(.*\)"$/add-to-var PV_PLUGIN_PATH "\${out_dir_Path}\1"/' \
+                -e 's/export \(.*\)=\([^:]*\)"$/set-var    \1 \2"/' \
+                -e 's/export \(.*\)=\(.*\)$/set-var    \1 \2/'
+    }
+
+    function bat_env2scbi()
+    {
+        local ENV_FILE=$1
+
+        tr -d '\r' < $ENV_FILE |
+            sed -e 's/set HOME=/# set HOME=/g' \
+                -e 's/@echo/# @echo/g' \
+                -e 's/set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;\(.*\)$/add-to-var LD_LIBRARY_PATH "\1"/' \
+                -e 's/set PYTHONPATH=\([^;]*\);%PYTHONPATH%/add-to-var PYTHONPATH "\1"/' \
+                -e 's/set \(.*PATH\|INCLUDE\|LIB\|LIBS\|OpenCV_INCLUDE_DIRS\|SMESH_MeshersList\)=\([^;]*\);.*/add-to-var \1 "\2"/' \
+                -e 's/set SalomeAppConfig=%SalomeAppConfig%;\(.*\)$/add-to-var SalomeAppConfig "\1"/' \
+                -e 's/set SalomeAppConfig=\(.*\);%SalomeAppConfig%$/prepend-to-var SalomeAppConfig "\1"/' \
+                -e 's/set PV_PLUGIN_PATH=\([^;]*\);\${PV_PLUGIN_PATH}"$/prepend-to-var PV_PLUGIN_PATH \1"/' \
+                -e 's/set PV_PLUGIN_PATH="\${PV_PLUGIN_PATH};out_dir_Path\(.*\)"$/add-to-var PV_PLUGIN_PATH "\${out_dir_Path}\1"/' \
+                -e 's/set out_dir_Path=.*/set-var    out_dir_Path $(cygpath -m $(cd $(dirname ${BASH_SOURCE[0]});pwd))/g' \
+                -e 's/set \(.*\)=\([^:]*\)"$/set-var    \1 \2"/' \
+                -e 's/set \(.*\)=\(.*\)$/set-var    \1 "\2"/' \
+                -e 's/^rem /# /g' \
+                -e 's/%\([a-zA-Z_]*\)%/$\1/g' \
+                -e 's,\\,/,g'
+    }
+
     #  Copy the tarball content into the application directory. This will
     #  be the part changed (see below) and used to create the new installer.
 
@@ -285,15 +322,14 @@ function s-salome-tar-install()
     #  Create the SCBI version of env_launch.sh -> env_scbi.sh
     #  We also patches some syntax error: out_dir_Path -> ${out_dir_Path}
 
-    sed -e 's/export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH}:\(.*\)"$/add-to-var LD_LIBRARY_PATH "\1"/' \
-        -e 's/export PYTHONPATH="\${PYTHONPATH}:\(.*\)"$/add-to-var PYTHONPATH "\1"/' \
-        -e 's/export \(.*PATH\|INCLUDE\|SMESH_MeshersList\)=\([^:]*\):.*"$/add-to-var \1 \2"/' \
-        -e 's/export SalomeAppConfig=[^:]*:\(.*\)"$/add-to-var SalomeAppConfig "\1"/' \
-        -e 's/export PV_PLUGIN_PATH=\([^;]*\);\${PV_PLUGIN_PATH}"$/add-to-var PV_PLUGIN_PATH \1"/' \
-        -e 's/export PV_PLUGIN_PATH="\${PV_PLUGIN_PATH};out_dir_Path\(.*\)"$/add-to-var PV_PLUGIN_PATH "\${out_dir_Path}\1"/' \
-        -e 's/export \(.*\)=\([^:]*\)"$/set-var    \1 \2"/' \
-        -e 's/export \(.*\)=\(.*\)$/set-var    \1 \2/' \
-        env_launch.sh > scbi_env.sh
+    {
+        if [[ $SCBI_IS_WINDOWS == yes ]]; then
+            bat_env2scbi env_launch.bat
+        else
+            sh_env2scbi env_launch.sh
+
+        fi
+    } > scbi_env.sh
 
     #  Fix PATH in CMake pointing to the build-time environment
 
