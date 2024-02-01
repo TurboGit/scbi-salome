@@ -192,4 +192,7 @@ s-cgal/auto:v4.13
         s-building-is:skip
         s-ifc-open-shell/ng.ngwin:skip
         s-dataio:skip
+        s-cmake/win
+        s-visual-c/native
+        s-windows-kit/native
 ]
