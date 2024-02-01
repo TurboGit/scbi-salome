@@ -172,8 +172,3 @@ function s-paravisaddons-edf-prefix()
 {
     echo NONE
 }
-
-function s-paravisaddons-edf-ngwin-prefix()
-{
-    echo $(cygpath -c -s "C:/opt/plugins")
-}
