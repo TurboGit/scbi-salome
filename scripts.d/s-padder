@@ -25,8 +25,7 @@ function s-padder-out-of-tree()
 
 function s-padder-common-depends()
 {
-    echo os@-hdf5-dev
-
+    echo s-hdf5
     echo s-cgal
     echo s-boost
 }

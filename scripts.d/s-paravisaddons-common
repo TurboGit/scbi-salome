@@ -43,8 +43,7 @@ function s-paravisaddons-common-common-depends()
 
 function s-paravisaddons-common-default-depends()
 {
-    echo os@-hdf5-dev
-
+    echo s-hdf5
     echo s-medcoupling
     echo s-medfichier
     echo s-paravis
