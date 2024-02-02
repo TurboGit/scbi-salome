@@ -97,7 +97,7 @@ function s-saturne-config-options()
     echo --enable-silent-rules
     echo --with-salome=$SALOME_ROOT_DIR
     echo --with-eos=$EOS_ROOT_DIR
-    echo --with-mpi=$OPENMPIDIR
+    echo --with-mpi=$MPI_ROOT_DIR
     echo --with-metis=$METIS_ROOT_DIR
     echo --with-scotch=$SCOTCH_ROOT_DIR
     echo --with-hdf5=$HDF5_ROOT_DIR
