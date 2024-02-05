@@ -10,6 +10,17 @@ function s-meshgems-archive()
     echo MeshGems_$VERSION.tar.gz
 }
 
+function s-meshgems-win-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo MeshGems_$VERSION.zip
+}
+
 function s-meshgems-env()
 {
     local PREFIX=$1
