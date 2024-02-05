@@ -121,10 +121,12 @@ function template-conversion()
     local EDFBINDIR="EDF"
 
     for SCRIPTS in $FILES_CFG; do
-        # Common products
-        sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
-        # EDF products
-        sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+        if [[ -f $SCRIPTS ]]; then
+            # Common products
+            sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+            # EDF products
+            sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $PREFIX/$EDFBINDIR/$SCRIPTS
+        fi
     done
 
     # Logger
