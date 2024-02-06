@@ -80,7 +80,7 @@ function s-mgkeygen-win-install()
     local PREFIX=$1
     local TARGET=$2
     
-    nmake -j8 install
+    nmake install
 }
 
 function s-mgkeygen-install()
