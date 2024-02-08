@@ -63,6 +63,27 @@ function s-salome-tar-ngwin-env()
     set-var SALOME_BIN_MODULES     $PREFIX/W64
 }
 
+function comment-out-bat-block()
+{
+    local FILE=$1
+    local PAT="$2"
+
+    local TFILE=${FILE}.tmp
+
+    cp -p $FILE $TFILE
+
+    local OPT="\n"
+    [[ $SCBI_IS_WINDOWS == yes ]] && OPT="\r\n"
+
+    awk -v RS="$OPT" -v PAT="$PAT" \
+        'BEGIN{PMATCH="^rem .*for "PAT" *$"; comment=""}
+         $0 ~ PMATCH{comment="rem "}
+         /^ *$/{comment=""}
+         {print comment $0}' $FILE > $TFILE
+
+    mv $TFILE $FILE
+}
+
 function comment-out-sh-block()
 {
     local FILE=$1
@@ -289,9 +310,11 @@ function s-salome-tar-install()
         if [[ ! -z $PAT ]]; then
             #  Match a block starting with a pattern and ending
             #  by an empty line.
-
-            comment-out-sh-block $PREFIX/env_launch.sh "$PAT"
-
+            if [[ $SCBI_IS_WINDOWS == yes ]]; then
+                comment-out-bat-block $PREFIX/env_launch.bat "$PAT"
+            else
+                comment-out-sh-block $PREFIX/env_launch.sh "$PAT"
+            fi
             comment-out-python-block $PREFIX/salome "$PAT"
 
 	    PAT=$PAT'[^a-zA-Z_]'
@@ -315,8 +338,11 @@ function s-salome-tar-install()
     #  The configuration is not part of the binary archive so
     #  we use our own checkout.
 
-    comment-out-sh-block $PREFIX/env_launch.sh "CONFIGURATION"
-
+    if [[ $SCBI_IS_WINDOWS == yes ]]; then
+        comment-out-bat-block $PREFIX/env_launch.bat "CONFIGURATION"
+    else
+        comment-out-sh-block $PREFIX/env_launch.sh "CONFIGURATION"
+    fi
     comment-out-python-block $PREFIX/salome "CONFIGURATION"
 
     #  Create the SCBI version of env_launch.sh -> env_scbi.sh

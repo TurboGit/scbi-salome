@@ -26,7 +26,8 @@ function s-mgkeygen-win-build-depends()
 
 function s-mgkeygen-common-config-options()
 {
-    echo -DMG_OEM_LICENSE_HEADER="$(scbi-store-get-key MGKEYGEN_HEADER)"
+    #echo -DMG_OEM_LICENSE_HEADER=$(cygpath -w -s "$(scbi-store-get-key MGKEYGEN_HEADER)")
+    echo -DMG_OEM_LICENSE_HEADER="c:/opt/meshgems_key.hxx"
 }
 
 function s-mgkeygen-config-options()
@@ -45,7 +46,7 @@ function s-mgkeygen-win-config()
 {
     local PREFIX=$1
     local TARGET=$2
-    
+
     local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
     cmake -G "NMake Makefiles" $OPTIONS ../src
@@ -55,10 +56,23 @@ function s-mgkeygen-config()
 {
     local PREFIX=$1
     local TARGET=$2
-    
+
     local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
 
     cmake $OPTIONS ../src
+}
+
+function s-mgkeygen-win-pre-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  WARNING: This is needed as on Windows we always detect the binary 2.15
+    #  version from CEA archive.
+    #  This should be properly fixed when possible.
+
+    sed -i 's/MESHGEMS_VERSION_HEX > MESHGEMS_215/0/g'  \
+        ../src/src/mgkeygen_keygenerator.cxx
 }
 
 function s-mgkeygen-win-install()
@@ -66,7 +80,7 @@ function s-mgkeygen-win-install()
     local PREFIX=$1
     local TARGET=$2
     
-    nmake -j8 install
+    nmake install
 }
 
 function s-mgkeygen-install()
