@@ -113,12 +113,17 @@ function s-qt-config-options()
     echo -opensource
     echo -confirm-license
 
-    echo -skip qtwebengine
-    echo -skip wayland
-    echo -skip qtgamepad
+    echo -skip
+    echo qtwebengine
+    echo -skip
+    echo wayland
+    echo -skip
+    echo qtgamepad
 
-    echo -nomake examples
-    echo -nomake tests
+    echo -nomake
+    echo examples
+    echo -nomake
+    echo tests
 
     echo -no-rpath
     echo -xcb
