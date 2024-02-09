@@ -143,9 +143,10 @@ function s-hdf5-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    cmake $OPTIONS ../src
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-hdf5-build()

@@ -96,9 +96,10 @@ function s-ifc-open-shell-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    cmake $OPTIONS ../src/cmake
+    cmake "${OPTIONS[@]}" ../src/cmake
 }
 
 function s-ifc-open-shell-build()

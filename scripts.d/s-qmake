@@ -38,9 +38,10 @@ function s-qmake-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS=( $(get-config-options $PREFIX $TARGET $VARIANT) )
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    ../src/qtbase/configure ${OPTIONS[*]}
+    ../src/qtbase/configure "${OPTIONS[@]}"
 }
 
 function s-qmake-build()
