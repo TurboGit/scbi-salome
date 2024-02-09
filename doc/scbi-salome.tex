@@ -143,7 +143,7 @@ Finally the meta-module \code{s-salome} aggregates all of them and contains the 
 Some modules require a PyPi serveur to be setup. This is done using the PYPIURL key in SCBI's store. For example:
 
 \begin{shellcommand}
-\item scbi --env=v96 --store PYPIURL \\
+\item scbi --env=v96 store PYPIURL \\
  http://nexus.retd.edf.fr/repository/pypi.python.org/simple/
 \end{shellcommand}
 
@@ -453,7 +453,7 @@ There is many ways to get information for a module and possible dependencies. We
 The direct dependencies for paraview:
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 \ddash{}list-depends:direct paraview
+	\item scbi \ddash{}env=v96 show \ddash{}depends:direct s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
@@ -464,7 +464,7 @@ ospray:1.8.4
 \subsection{module's dependencies}
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 \ddash{}list-depends paraview
+	\item scbi \ddash{}env=v96 show \ddash{}depends s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
@@ -479,7 +479,7 @@ s-clang:llvmorg-8.0.1
 \subsection{module's direct dependencies with externals}
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 \ddash{}list-depends:direct \ddash{}list-externals paraview
+	\item scbi \ddash{}env=v96 show \ddash{}depends:direct \ddash{}externals s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
