@@ -126,9 +126,10 @@ function s-python-modules-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    for V in $OPTIONS; do
+    for V in "${OPTIONS[@]}"; do
         echo $V >> module.list
     done
 }

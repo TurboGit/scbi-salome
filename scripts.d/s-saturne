@@ -115,9 +115,10 @@ function s-saturne-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    ../src/configure $OPTIONS
+    ../src/configure "${OPTIONS[@]}"
 }
 
 function s-saturne-build()
