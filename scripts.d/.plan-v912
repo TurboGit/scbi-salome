@@ -176,7 +176,7 @@ s-cgal/auto:v4.13
 ]
 
 [ = deb,10
-        s-salome/default.core:s10-V9_12_0_1
+        s-salome/default.core:s10-V9_12_0
 ]
 
 [ = deb,11
