@@ -68,7 +68,6 @@ function s-saturne-env()
     set-var    SATURNE_ROOT_DIR    $PREFIX
     set-var    CS_ROOT_DIR         $PREFIX
 
-    add-to-var LD_LIBRARY_PATH $PREFIX/lib
     add-to-var PATH            $PREFIX/bin
     add-to-var PATH            $PREFIX/libexec/code_saturne
     add-to-var PYTHONPATH      \
