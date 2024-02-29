@@ -26,16 +26,16 @@ function s-meshgems-win-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    MESHGEMS_ROOT_DIR $PREFIX
-    set-var    MESHGEMSHOME $PREFIX
-    set-var    MESHGEMS_VERSION "2.13-3"
+    set-var    MESHGEMS_ROOT_DIR      $PREFIX
+    set-var    MESHGEMSHOME           $PREFIX
+    set-var    MESHGEMS_VERSION       "2.13-3"
     set-var    MESHGEMS_VERSION_MAJOR "2"
     set-var    MESHGEMS_VERSION_MINOR "13"
     set-var    MESHGEMS_VERSION_PATCH "3"
 
     add-to-var LIB   $(cygpath -w -s "$PREFIX")/lib/Win7_64_VC14
-    add-to-var PATH  $(cygpath -w -s "$PREFIX")/bin
-    add-to-var PATH  $(cygpath -w -s "$PREFIX")/bin/Win7_64_VC14
+    add-to-var PATH  $PREFIX/bin
+    add-to-var PATH  $PREFIX/bin/Win7_64_VC14
 
     # The actual values for the variables are set in the GitLab CI script
 
