@@ -24,6 +24,12 @@ function s-saturne-dbg-config-options()
     echo --with-ccm-lib=$LIBCCMIO_LIB_DIR
 }
 
+function s-saturne-dbg-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+}
+
 function s-saturne-dbg-post-build()
 {
     local PREFIX=$1
