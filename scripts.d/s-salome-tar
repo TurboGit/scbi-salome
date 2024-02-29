@@ -70,18 +70,20 @@ function comment-out-bat-block()
 
     local TFILE=${FILE}.tmp
 
-    cp -p $FILE $TFILE
-
-    local OPT="\n"
-    [[ $SCBI_IS_WINDOWS == yes ]] && OPT="\r\n"
-
-    awk -v RS="$OPT" -v PAT="$PAT" \
+    awk -v RS="\n" -v PAT="$PAT" \
         'BEGIN{PMATCH="^rem .*for "PAT" *$"; comment=""}
          $0 ~ PMATCH{comment="rem "}
          /^ *$/{comment=""}
          {print comment $0}' $FILE > $TFILE
+    
+    awk -v RS="\r\n" -v PAT="$PAT" \
+        'BEGIN{PMATCH="^rem .*for "PAT" *$"; comment=""}
+         $0 ~ PMATCH{comment="rem "}
+         /^ *$/{comment=""}
+         {print comment $0}' $TFILE > $FILE
 
-    mv $TFILE $FILE
+    rm -f $TFILE
+    
 }
 
 function comment-out-sh-block()
@@ -91,18 +93,19 @@ function comment-out-sh-block()
 
     local TFILE=${FILE}.tmp
 
-    cp -p $FILE $TFILE
-
-    local OPT="\n"
-    [[ $SCBI_IS_WINDOWS == yes ]] && OPT="\r\n"
-
-    awk -v RS="$OPT" -v PAT="$PAT" \
+    awk -v RS="\n" -v PAT="$PAT" \
         'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
          $0 ~ PMATCH{comment="# "}
          /^ *$/{comment=""}
          {print comment $0}' $FILE > $TFILE
+    
+    awk -v RS="\r\n" -v PAT="$PAT" \
+        'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
+         $0 ~ PMATCH{comment="# "}
+         /^ *$/{comment=""}
+         {print comment $0}' $TFILE > $FILE
 
-    mv $TFILE $FILE
+    rm -f $TFILE
 }
 
 function comment-out-python-block()
@@ -112,18 +115,19 @@ function comment-out-python-block()
 
     local TFILE=${FILE}.tmp
 
-    cp -p $FILE $TFILE
-
-    local OPT="\n"
-    [[ $SCBI_IS_WINDOWS == yes ]] && OPT="\r\n"
-
-    awk -v RS="$OPT" -v PAT="$PAT" \
+    awk -v RS="\n" -v PAT="$PAT" \
         'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
          $0 ~ PMATCH{comment="# "}
          /^ *$/{comment=""}
          {print comment $0}' $FILE > $TFILE
 
-    mv $TFILE $FILE
+    awk -v RS="\r\n" -v PAT="$PAT" \
+        'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
+         $0 ~ PMATCH{comment="# "}
+         /^ *$/{comment=""}
+         {print comment $0}' $TFILE > $FILE
+
+    rm -f $TFILE
 }
 
 function s-salome-tar-install()
