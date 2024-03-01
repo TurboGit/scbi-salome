@@ -620,6 +620,7 @@ function s-salome-wrapup()
                 #  so no patch is needed.
 
                 if [[ $(is-enabled zip) ]]; then
+                    rm -f $script_name.zip
                     zip -9r $script_name.zip $APPDIR
                 else
                     makeself $O_COMPRESS --tar-quietly \
