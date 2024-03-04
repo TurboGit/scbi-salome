@@ -123,9 +123,9 @@ function template-conversion()
     for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
         if [[ -f $SCRIPTS ]]; then
             # Common products
-            sed -i "s,/build/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $SCRIPTS
+            sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $SCRIPTS
             # EDF products
-            sed -i "s,/build/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $SCRIPTS
+            sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $SCRIPTS
         fi
     done
 
