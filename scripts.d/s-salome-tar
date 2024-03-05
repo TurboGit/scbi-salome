@@ -68,22 +68,7 @@ function comment-out-bat-block()
     local FILE=$1
     local PAT="$2"
 
-    local TFILE=${FILE}.tmp
-
-    awk -v RS="\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^rem .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="rem "}
-         /^ *$/{comment=""}
-         {print comment $0}' $FILE > $TFILE
-
-    awk -v RS="\r\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^rem .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="rem "}
-         /^ *$/{comment=""}
-         {print comment $0}' $TFILE > $FILE
-
-    rm -f $TFILE
-
+    comment-out-block $FILE "setting environ for $PAT *($)" "rem "
 }
 
 function comment-out-sh-block()
@@ -91,21 +76,7 @@ function comment-out-sh-block()
     local FILE=$1
     local PAT="$2"
 
-    local TFILE=${FILE}.tmp
-
-    awk -v RS="\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $FILE > $TFILE
-
-    awk -v RS="\r\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $TFILE > $FILE
-
-    rm -f $TFILE
+    comment-out-block $FILE "setting environ for $PAT *($)" "# "
 }
 
 function comment-out-python-block()
@@ -113,21 +84,7 @@ function comment-out-python-block()
     local FILE=$1
     local PAT="$2"
 
-    local TFILE=${FILE}.tmp
-
-    awk -v RS="\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $FILE > $TFILE
-
-    awk -v RS="\r\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $TFILE > $FILE
-
-    rm -f $TFILE
+    comment-out-block $FILE "#\[$PAT\] *($)" "# "
 }
 
 function s-salome-tar-install()
@@ -248,13 +205,6 @@ function s-salome-tar-install()
     #  Now remove all extra modules found in the binary archive.
     #  And unset variables that are pointing to those directories.
 
-    #  Protect some lines from being changed (prefix with @@@)
-
-    sed -i -E 's/export (SALOME_MODULES|SALOME_MODULES_ORDER)=/@@@ \0/g' \
-        $PREFIX/env_launch.sh
-    sed -i -E 's/.*(r"SALOME_MODULES"|r"SALOME_MODULES_ORDER")/@@@ \0/g' \
-        $PREFIX/salome
-
     for MOD in ${SCBI_EXTRA_NG_MODULES//:/ } s-meshgems; do
         local DEF=( $(get-extra-module-def $MOD) )
         local PAT=${DEF[1]}
@@ -290,10 +240,6 @@ function s-salome-tar-install()
                 $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
         fi
     done
-
-    #  Retore back the protected lines (see above)
-
-    sed -i 's/^@@@ \(.*\)/\1/g' $PREFIX/env_launch.sh $PREFIX/salome
 
     dlog salome-tar Fix some paths
 
