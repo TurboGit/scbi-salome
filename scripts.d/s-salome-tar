@@ -68,7 +68,7 @@ function comment-out-bat-block()
     local FILE=$1
     local PAT="$2"
 
-    comment-out-block $FILE "setting environ for $PAT *($)" "rem "
+    comment-out-block $FILE "setting environ for $PAT[^[:alpha:]]" "rem "
 }
 
 function comment-out-sh-block()
@@ -76,7 +76,7 @@ function comment-out-sh-block()
     local FILE=$1
     local PAT="$2"
 
-    comment-out-block $FILE "setting environ for $PAT *($)" "# "
+    comment-out-block $FILE "setting environ for $PAT[^[:alpha:]]" "# "
 }
 
 function comment-out-python-block()
@@ -84,7 +84,7 @@ function comment-out-python-block()
     local FILE=$1
     local PAT="$2"
 
-    comment-out-block $FILE "#\[$PAT\] *($)" "# "
+    comment-out-block $FILE "#\[$PAT\]" "# "
 }
 
 function s-salome-tar-install()
