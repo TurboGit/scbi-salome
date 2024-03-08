@@ -68,22 +68,7 @@ function comment-out-bat-block()
     local FILE=$1
     local PAT="$2"
 
-    local TFILE=${FILE}.tmp
-
-    awk -v RS="\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^rem .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="rem "}
-         /^ *$/{comment=""}
-         {print comment $0}' $FILE > $TFILE
-    
-    awk -v RS="\r\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^rem .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="rem "}
-         /^ *$/{comment=""}
-         {print comment $0}' $TFILE > $FILE
-
-    rm -f $TFILE
-    
+    comment-out-block $FILE "setting environ for $PAT[^[:alpha:]]" "rem "
 }
 
 function comment-out-sh-block()
@@ -91,21 +76,7 @@ function comment-out-sh-block()
     local FILE=$1
     local PAT="$2"
 
-    local TFILE=${FILE}.tmp
-
-    awk -v RS="\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $FILE > $TFILE
-    
-    awk -v RS="\r\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^# .*for "PAT" *$"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $TFILE > $FILE
-
-    rm -f $TFILE
+    comment-out-block $FILE "setting environ for $PAT[^[:alpha:]]" "# "
 }
 
 function comment-out-python-block()
@@ -113,21 +84,7 @@ function comment-out-python-block()
     local FILE=$1
     local PAT="$2"
 
-    local TFILE=${FILE}.tmp
-
-    awk -v RS="\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $FILE > $TFILE
-
-    awk -v RS="\r\n" -v PAT="$PAT" \
-        'BEGIN{PMATCH="^ *#\\["PAT"\\]"; comment=""}
-         $0 ~ PMATCH{comment="# "}
-         /^ *$/{comment=""}
-         {print comment $0}' $TFILE > $FILE
-
-    rm -f $TFILE
+    comment-out-block $FILE "#\[$PAT\]" "# "
 }
 
 function s-salome-tar-install()
