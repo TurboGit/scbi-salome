@@ -95,7 +95,9 @@ function template-conversion()
     fi
 
     for SCRIPTS in ${FILES_LIST[*]}; do
-        sed -i "s,${ORIG_BINDIR},$PREFIX/${BINDIR},g" $PREFIX/$BINDIR/$SCRIPTS
+        if [[ -n $(ls $PREFIX/$BINDIR/$SCRIPTS 2> /dev/null) ]]; then
+            sed -i "s,${ORIG_BINDIR},$PREFIX/${BINDIR},g" $PREFIX/$BINDIR/$SCRIPTS
+        fi
     done
 
     if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
