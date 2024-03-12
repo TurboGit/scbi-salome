@@ -112,13 +112,11 @@ def init(context, root_dir):
     SALOME_VERSION = os.environ["SALOME_VERSION"]
     SALOME_LOGGER = os.environ["LOGGER_ROOT_DIR"]
 
-    # Ask for the direction if there is not yet a version registered or
-    # if the SALOME version has changed.
-    force_ask = not settings.contains("version") or settings.value("version") != SALOME_VERSION
+    # Ask for the direction if there is not yet a version registered
+    force_ask = not settings.contains("version")
 
     # Record version now
-    if force_ask:
-        settings.setValue("version", SALOME_VERSION)
+    settings.setValue("version", SALOME_VERSION)
 
     # If we don't yet have the direction set or if a new SALOME version
     # ask for the direction now.
