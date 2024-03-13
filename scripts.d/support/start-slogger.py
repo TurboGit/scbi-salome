@@ -1,23 +1,35 @@
 from datetime import datetime
 from pathlib import Path
-import os.path
+import os
 import subprocess
 import hashlib
+import platform, getpass, tempfile
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QRadioButton, QVBoxLayout
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QApplication
 from PyQt5.QtCore import QSettings
 
+# check if window
+is_window = any(platform.win32_ver())
+
+def get_hashuid():
+    if is_window:
+        return 2**15 + 2**14 + hash(getpass.getuser())%2**14
+    else:
+        return os.getuid()
+
 # get the pid for the current process
 PID = os.getpid()
-UID = os.getuid()
+UID = get_hashuid()
 
 WEB_SERVER = "__WEB_SERVER__"
 SALOME_VERSION = "__SALOME_VERSION__"
 EDF_DIRECTION = "__DIRECTION__"
 USER_ID = "__USERID__"
-LOG_FILENAME = "/tmp/%s-salome.log" % UID
+temp_dir = tempfile.gettempdir()
+LOG_FILENAME = os.path.join(temp_dir, "%s-salome.log" % UID)
+
 SESSION_ID = datetime.now().strftime("%Y%m%d%H%M%S")
 # set GUI_LOG_FILE which is used in KERNEL to enable logging
 os.environ["GUI_LOG_FILE"] = LOG_FILENAME
@@ -137,7 +149,7 @@ def init(context, root_dir):
     settings.sync()
 
     L_BIN = os.path.join(SALOME_LOGGER, "bin", "SalomeLogger")
-    L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so")
+    L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so") if not is_window else os.path.join(SALOME_LOGGER, "bin", "FilterPlugin.dll")
 
     PFX = USER_ID + ',' + SESSION_ID + ',' \
         + EDF_DIRECTION + ',' + SALOME_VERSION
