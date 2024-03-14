@@ -59,12 +59,6 @@
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
-        s-salome-configuration/ngwin
-        s-cmake/win
-        s-visual-c/native
-        s-windows-kit/native
-        s-salome-bin/ngwin
-        s-paravisaddons-edf/ngwin
         s-atomic:skip
         s-salome-tar/ngwin:#9.12.0:WIN
         s-zeromq:skip
@@ -76,9 +70,20 @@
         s-cgal:skip
         s-padder:skip
         s-tefluide:skip
-        s-meshgems:skip
-        s-logger/ngwin
+        s-meshgems/ng.win:#V2.13-3_windows
+        s-mgkeygen/win
+        s-salome/default.core:WIN
+        s-building-is:skip
+        s-ifc-open-shell/ng.ngwin:skip
+        s-dataio:skip
 ]
+
+[ = win
+        s-logger
+        s-salome-configuration
+        s-salome-bin
+        s-paravisaddons-edf
+] /+ngwin-default
 
 [
         s-zeromq
