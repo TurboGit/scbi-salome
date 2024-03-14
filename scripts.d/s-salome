@@ -590,6 +590,17 @@ function s-salome-wrapup()
                 cp $SCBI_PLUGINS/support/servers.pvsc .
                 cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py .
 
+                # Startup Windows script to fix Python path to get
+                # access to PyQt needed by the logger start script.
+
+                if [[ $SCBI_IS_WINDOWS == yes ]]; then
+                    cp $SCBI_PLUGINS/support/run_mesa_salome.bat  .
+                    cp $SCBI_PLUGINS/support/run_paraview.bat     .
+                    cp $SCBI_PLUGINS/support/run_persalys.bat     .
+                    cp $SCBI_PLUGINS/support/run_salome.bat       .
+                    cp $SCBI_PLUGINS/support/run_salome_shell.bat .
+                fi
+
                 cd $SCBI_BDIR/s-salome
 
                 local script_name=salome-$TARGET-$variant
