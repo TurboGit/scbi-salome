@@ -10,6 +10,38 @@ function s-meshgems-archive()
     echo MeshGems_$VERSION.tar.gz
 }
 
+function s-meshgems-win-archive()
+{
+    local VERSION=$1
+
+    echo edf
+    echo --no-check-certificate
+    echo wget
+    echo https://minio.retd.edf.fr/salome/Releases/MeshGems
+    echo MeshGems_$VERSION.zip
+}
+
+function s-meshgems-win-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    MESHGEMS_ROOT_DIR      $PREFIX
+    set-var    MESHGEMSHOME           $PREFIX
+    set-var    MESHGEMS_VERSION       "2.13-3"
+    set-var    MESHGEMS_VERSION_MAJOR "2"
+    set-var    MESHGEMS_VERSION_MINOR "13"
+    set-var    MESHGEMS_VERSION_PATCH "3"
+
+    add-to-var LIB   $(cygpath -w -s "$PREFIX")/lib/Win7_64_VC14
+    add-to-var PATH  $PREFIX/bin
+    add-to-var PATH  $PREFIX/bin/Win7_64_VC14
+
+    # The actual values for the variables are set in the GitLab CI script
+
+    set-var SALOME_MG_KEYGEN_LIB_PATH "$(scbi-store-get-key MGKEYGEN)"
+}
+
 function s-meshgems-env()
 {
     local PREFIX=$1
@@ -17,13 +49,27 @@ function s-meshgems-env()
 
     set-var    MESHGEMS_ROOT_DIR $PREFIX
 
-    add-to-var LD_LIBRARY_PATH   $PREFIX/lib/Linux_64
-    add-to-var PATH              $PREFIX/bin
-    add-to-var PATH              $PREFIX/bin/Linux_64
+    add-to-var LD_LIBRARY_PATH  $PREFIX/lib/Linux_64
+    add-to-var PATH             $PREFIX/bin
+    add-to-var PATH             $PREFIX/bin/Linux_64
 
     # The actual values for the variables are set in the GitLab CI script
 
     set-var SALOME_MG_KEYGEN_LIB_PATH "$(scbi-store-get-key MGKEYGEN)"
+}
+
+function s-meshgems-ng-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-salome-bin
+}
+
+function s-meshgems-depends()
+{
+    echo s-salome-configuration
 }
 
 function s-meshgems-out-of-tree()
