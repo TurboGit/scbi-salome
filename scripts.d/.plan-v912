@@ -190,6 +190,10 @@ s-cgal/auto:v4.13
 [ = win
         s-salome/default.core:WIN
         s-building-is:skip
-        s-ifc-open-shell:skip
+        s-ifc-open-shell/ng.ngwin:skip
         s-dataio:skip
+        s-cmake/win
+        s-visual-c/native
+        s-windows-kit/native
+        s-meshgems:#V2.13-3_windows
 ]
