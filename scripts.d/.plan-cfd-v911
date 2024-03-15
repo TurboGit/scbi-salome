@@ -6,6 +6,7 @@ s-salome/neptune.cfd
 
 s-libccmio:92f08637
 s-coolprop:#6.4.3
+s-scotch:#v7.0.4
 
 s-saturne:v8.0
 s-saturne-dbg:v8.0
