@@ -32,7 +32,6 @@ function s-saturne-default-depends()
 {
     echo os@-python3-setuptools
     echo os@-metis-dev
-    echo s-scotch
     echo s-hdf5
     echo s-cgns
     echo s-medfichier
@@ -49,6 +48,7 @@ function s-saturne-common-depends()
 {
     echo s-libccmio
     echo s-coolprop
+    echo s-scotch
 }
 
 function s-saturne-env()
