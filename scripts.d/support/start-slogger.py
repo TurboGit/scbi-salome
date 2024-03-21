@@ -154,9 +154,13 @@ def init(context, root_dir):
     PFX = USER_ID + ',' + SESSION_ID + ',' \
         + EDF_DIRECTION + ',' + SALOME_VERSION
 
-    subprocess.Popen([L_BIN,
-                      "--prefix", PFX,
-                      "--server", WEB_SERVER,
-                      "--lib-path", L_PLG,
-                      "--pid", str(PID),
-                      "--file-name", LOG_FILENAME])
+    CMDLINE=[L_BIN,
+             "--prefix", PFX,
+             "--server", WEB_SERVER,
+             "--pid", str(PID),
+             "--file-name", LOG_FILENAME ]
+
+    if not is_window:
+        CMDLINE+=[ "--lib-path", L_PLG ]
+
+    subprocess.Popen(CMDLINE)
