@@ -149,7 +149,8 @@ def init(context, root_dir):
     settings.sync()
 
     L_BIN = os.path.join(SALOME_LOGGER, "bin", "SalomeLogger")
-    L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so") if not is_window else os.path.join(SALOME_LOGGER, "bin", "FilterPlugin.dll")
+    L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so") \
+        if not is_window else os.path.join(SALOME_LOGGER, "bin", "FilterPlugin.dll")
 
     PFX = USER_ID + ',' + SESSION_ID + ',' \
         + EDF_DIRECTION + ',' + SALOME_VERSION
