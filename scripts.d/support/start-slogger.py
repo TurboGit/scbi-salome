@@ -169,4 +169,4 @@ def init(context, root_dir):
     if not is_window:
         CMDLINE+=[ "--lib-path", L_PLG ]
 
-    subprocess.Popen(CMDLINE)
+    subprocess.Popen(CMDLINE, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
