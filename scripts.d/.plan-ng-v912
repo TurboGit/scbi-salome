@@ -76,13 +76,13 @@
         s-building-is:skip
         s-ifc-open-shell/ng.ngwin:skip
         s-dataio:skip
+        s-paravisaddons-edf:skip
 ]
 
 [ = win
         s-logger
         s-salome-configuration
         s-salome-bin
-        s-paravisaddons-edf
 ] /+ngwin-default
 
 [
