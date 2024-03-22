@@ -4,6 +4,7 @@ import os
 import subprocess
 import hashlib
 import platform, getpass, tempfile
+import sys
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QRadioButton, QVBoxLayout
@@ -119,6 +120,10 @@ def init(context, root_dir):
     # Make sure the logger module has been compiled and
     # is available.
     if os.getenv('LOGGER_ROOT_DIR') == None:
+        return
+
+    # We only support salome logger in GUI mode
+    if "shell" in sys.argv:
         return
 
     SALOME_VERSION = os.environ["SALOME_VERSION"]
