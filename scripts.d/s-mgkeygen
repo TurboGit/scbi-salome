@@ -1,0 +1,93 @@
+
+function s-mgkeygen-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/mgkeygen
+}
+
+function s-mgkeygen-depends()
+{
+    echo s-salome-configuration
+    echo s-meshgems
+}
+
+function s-mgkeygen-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-mgkeygen-win-build-depends()
+{
+    echo s-visual-c
+    echo s-salome-bin
+}
+
+function s-mgkeygen-config-options()
+{
+    echo -DCONFIGURATION_ROOT_DIR=$CONFIGURATION_ROOT_DIR
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DMG_OEM_LICENSE_HEADER="$(scbi-store-get-key MGKEYGEN_HEADER)"
+}
+
+function s-mgkeygen-win-config-options()
+{
+    echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w $CONFIGURATION_ROOT_DIR)
+    echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
+    echo -DMG_OEM_LICENSE_HEADER=$(cygpath -w -s "$(scbi-store-get-key MGKEYGEN_HEADER)")
+}
+
+function s-mgkeygen-win-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake -G "NMake Makefiles" $OPTIONS ../src
+}
+
+function s-mgkeygen-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+
+    cmake $OPTIONS ../src
+}
+
+function s-mgkeygen-win-pre-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  WARNING: This is needed as on Windows we always detect the binary 2.15
+    #  version from CEA archive.
+    #  This should be properly fixed when possible.
+
+    sed -i 's/MESHGEMS_VERSION_HEX > MESHGEMS_215/0/g'  \
+        ../src/src/mgkeygen_keygenerator.cxx
+}
+
+function s-mgkeygen-win-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    nmake install
+}
+
+function s-mgkeygen-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j8 install
+}
+
+function s-mgkeygen-prefix()
+{
+    echo NONE
+}

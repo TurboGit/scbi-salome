@@ -4,6 +4,7 @@ import os
 import subprocess
 import hashlib
 import platform, getpass, tempfile
+import sys
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QRadioButton, QVBoxLayout
@@ -121,6 +122,10 @@ def init(context, root_dir):
     if os.getenv('LOGGER_ROOT_DIR') == None:
         return
 
+    # We only support salome logger in GUI mode
+    if "shell" in sys.argv:
+        return
+
     SALOME_VERSION = os.environ["SALOME_VERSION"]
     SALOME_LOGGER = os.environ["LOGGER_ROOT_DIR"]
 
@@ -149,14 +154,19 @@ def init(context, root_dir):
     settings.sync()
 
     L_BIN = os.path.join(SALOME_LOGGER, "bin", "SalomeLogger")
-    L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so") if not is_window else os.path.join(SALOME_LOGGER, "bin", "FilterPlugin.dll")
+    L_PLG = os.path.join(SALOME_LOGGER, "bin", "libFilterPlugin.so") \
+        if not is_window else os.path.join(SALOME_LOGGER, "bin", "FilterPlugin.dll")
 
     PFX = USER_ID + ',' + SESSION_ID + ',' \
         + EDF_DIRECTION + ',' + SALOME_VERSION
 
-    subprocess.Popen([L_BIN,
-                      "--prefix", PFX,
-                      "--server", WEB_SERVER,
-                      "--lib-path", L_PLG,
-                      "--pid", str(PID),
-                      "--file-name", LOG_FILENAME])
+    CMDLINE=[L_BIN,
+             "--prefix", PFX,
+             "--server", WEB_SERVER,
+             "--pid", str(PID),
+             "--file-name", LOG_FILENAME ]
+
+    if not is_window:
+        CMDLINE+=[ "--lib-path", L_PLG ]
+
+    subprocess.Popen(CMDLINE, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
