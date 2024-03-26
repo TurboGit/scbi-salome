@@ -56,6 +56,8 @@ function s-scotch-config()
         -e "s%LDFLAGS\([[:space:]]*\)=\([[:space:]]*\)\(.*\)%LDFLAGS\1=\2 \3 -lpthread%g" \
         src/Make.inc/Makefile.inc.x86-64_pc_linux2 \
         > src/Makefile.inc
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_SHARED_LIBS=ON -DBUILD_LIBSCOTCHMETIS=OFF ../src
 }
 
 function s-scotch-build()
