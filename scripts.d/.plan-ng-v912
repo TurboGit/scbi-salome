@@ -50,18 +50,21 @@
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
-        s-salome-configuration/ngwin
-        s-cmake/win
-        s-visual-c/native
-        s-windows-kit/native
-        s-salome-bin/ngwin
         s-atomic:skip
         s-salome-tar/ngwin:#9.12.0:WIN
         s-zeromq:skip
         s-persalys:skip
         s-python3-xlutils:skip
         s-cgal:skip
+        s-salome/default.core:WIN
+        s-ifc-open-shell/ng.ngwin:skip
+        s-dataio:skip
 ]
+
+[ = win
+        s-salome-configuration
+        s-salome-bin
+] /+ngwin-default
 
 [
         s-zeromq

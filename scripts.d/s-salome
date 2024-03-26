@@ -590,6 +590,17 @@ function s-salome-wrapup()
                 cp $SCBI_PLUGINS/support/servers.pvsc .
                 cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py .
 
+                # Startup Windows script to fix Python path to get
+                # access to PyQt needed by the logger start script.
+
+                if [[ $SCBI_IS_WINDOWS == yes ]]; then
+                    cp $SCBI_PLUGINS/support/run_mesa_salome.bat  .
+                    cp $SCBI_PLUGINS/support/run_paraview.bat     .
+                    cp $SCBI_PLUGINS/support/run_persalys.bat     .
+                    cp $SCBI_PLUGINS/support/run_salome.bat       .
+                    cp $SCBI_PLUGINS/support/run_salome_shell.bat .
+                fi
+
                 cd $SCBI_BDIR/s-salome
 
                 local script_name=salome-$TARGET-$variant
@@ -620,8 +631,14 @@ function s-salome-wrapup()
                 #  so no patch is needed.
 
                 if [[ $(is-enabled zip) ]]; then
-                    rm -f $script_name.zip
-                    zip -9r $script_name.zip $APPDIR
+                    rm -f $script_name.zip salome-$ref
+                    if [[ $SCBI_IS_WINDOWS == yes ]]; then
+                        ln -s $APPDIR salome-$ref
+                        zip -9r $script_name.zip salome-$ref
+                        rm -f salome-$ref
+                    else
+                        zip -9r $script_name.zip $APPDIR
+                    fi
                 else
                     makeself $O_COMPRESS --tar-quietly \
                              $APPDIR $script_name.run \
