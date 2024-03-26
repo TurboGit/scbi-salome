@@ -195,5 +195,5 @@ s-cgal/auto:v4.13
         s-cmake/win
         s-visual-c/native
         s-windows-kit/native
-        s-meshgems:#V2.13-3_windows
+        s-meshgems:skip
 ]
