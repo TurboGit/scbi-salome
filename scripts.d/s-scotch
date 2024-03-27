@@ -47,7 +47,7 @@ function s-scotch-env()
     add-to-var CXX_INCLUDE_PATH $PREFIX/include
 }
 
-function s-scotch-config()
+function s-scotch-pre-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -56,6 +56,12 @@ function s-scotch-config()
         -e "s%LDFLAGS\([[:space:]]*\)=\([[:space:]]*\)\(.*\)%LDFLAGS\1=\2 \3 -lpthread%g" \
         src/Make.inc/Makefile.inc.x86-64_pc_linux2 \
         > src/Makefile.inc
+}
+
+function s-scotch-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_SHARED_LIBS=ON -DBUILD_LIBSCOTCHMETIS=OFF ../src
 }
@@ -75,7 +81,7 @@ function s-scotch-install()
     local TARGET=$2
 
     cd src &&
-        make prefix=$PREFIX install
+        make install
 }
 
 function s-scotch-prefix()
