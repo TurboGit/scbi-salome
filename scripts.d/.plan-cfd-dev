@@ -7,6 +7,9 @@ s-salome/neptune.cfd
 s-libccmio:92f08637
 s-coolprop:#6.4.3
 
+# Starting with v7.x of scotch the build is based on cmake
+s-scotch/cmake:#v7.0.4
+
 s-saturne:master
 s-saturne-dbg:master
 s-cfd-study:master
