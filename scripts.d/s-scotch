@@ -58,7 +58,7 @@ function s-scotch-pre-config()
         > src/Makefile.inc
 }
 
-function s-scotch-config()
+function s-scotch-cmake-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -75,13 +75,21 @@ function s-scotch-build()
         make -j$SCBI_JOBS scotch
 }
 
+function s-scotch-cmake-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd src && make install
+}
+
 function s-scotch-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     cd src &&
-        make install
+        make prefix=$PREFIX install
 }
 
 function s-scotch-prefix()
