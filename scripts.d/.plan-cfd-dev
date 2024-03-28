@@ -21,6 +21,7 @@ s-python-modules/wand
 
 [ = deb,10
     s-salome/neptune.cfd:s10-DEV
+    s-padder:skip
 ]
 
 [ = deb,11
