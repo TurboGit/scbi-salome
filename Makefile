@@ -24,7 +24,7 @@ clean.install:
 	fi
 
 lint:
-	scbi/scbi lint --error scripts.d/s-*
+	scbi lint --error scripts.d/s-*
 	echo No problem detected
 
 doc: force core.doc
