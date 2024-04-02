@@ -329,9 +329,25 @@ function setup-env-salome()
             local DEPENDS_KIND=$4
             local IS_EXT=$5
             local IS_META=$6
+            local IS_AGGREGATED=$7
 
-            [[ $IS_META == true ]] || [[ $DEPENDS_KIND != default ]] &&
+            local IS_AGGREGATE=false
+
+            #  Nothing to copy for aggregated modules and build dependencies
+            [[ $DEPENDS_KIND != default ]] &&
                 return
+
+            #  Nothing to copy for meta-modules, except if aggregate
+
+            if [[ $IS_META == true ]]; then
+                #  check if aggregate module
+
+                is-meta-aggregate-module $MODREF > /dev/null
+
+                [[ $? != 0 ]] && return
+
+                local IS_AGGREGATE=true
+            fi
 
             local module_info=()
             get-module-ref module_info $MODREF $FORMODULE
@@ -348,7 +364,20 @@ function setup-env-salome()
 
             CURRENT_MODULE_NAME=$module
             CURRENT_MODULE=${module//-/_}
-            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
+
+            if [[ $IS_AGGREGATED == true ]]; then
+                local fmodule_info=()
+                get-module-ref fmodule_info $FORMODULE "@root"
+
+                local fmodule=${fmodule_info[0]}
+                local fvariant=${fmodule_info[1]}
+
+                CURRENT_MODULE_DIR=$fmodule
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$fmodule/$SCBI_TARGET-$fvariant/install
+            else
+                CURRENT_MODULE_DIR=$module
+                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
+            fi
 
             if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
                 NUM=998
@@ -364,7 +393,7 @@ function setup-env-salome()
                 echo "# $(get-module-name $module)"
                 echo "export ROOT_EDF=\${out_dir_Path}/EDF"
                 echo "export root_dir=\${out_dir_Path}"
-                echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${module}"
+                echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${CURRENT_MODULE_DIR}"
             } > $SFILE
 
             chmod a+x $SFILE
@@ -374,7 +403,7 @@ function setup-env-salome()
                 echo "import os.path"
                 echo "def init(context, root_dir):"
                 echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"
-                echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${module}\")"
+                echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${CURRENT_MODULE_DIR}\")"
             } > $PFILE
 
             # Call <module>-env hook which will be using the add-to-var
@@ -447,11 +476,25 @@ function copy-modules-salome()
         local DEPENDS_KIND=$4
         local IS_EXT=$5
         local IS_META=$6
+        local IS_AGGREGATED=$7
 
-        #  Nothing to copy for meta-modules and build dependencies
+        local IS_AGGREGATE=false
 
-        [[ $IS_META == true ]] || [[ $DEPENDS_KIND != default ]] &&
+        #  Nothing to copy for aggregated modules and build dependencies
+        [[ $IS_AGGREGATED == true ]] || [[ $DEPENDS_KIND != default ]] &&
             return
+
+        #  Nothing to copy for meta-modules, except if aggregate
+
+        if [[ $IS_META == true ]]; then
+            #  check if aggregate module
+
+            is-meta-aggregate-module $MODREF > /dev/null
+
+            [[ $? != 0 ]] && return
+
+            local IS_AGGREGATE=true
+        fi
 
         local module_info=()
         get-module-ref module_info $MODREF $FORMODULE
@@ -476,8 +519,8 @@ function copy-modules-salome()
 
         if [[ -f $SREF ]]; then
             local RDATA=( $(cat $SREF) )
-            printf "%-25s %-11s %-20s %-9s %s\n" $module \
-                   ${RDATA[0]} ${RDATA[1]} ${RDATA[2]} ${RDATA[3]} \
+            printf "%-25s %-11s %-20s %-9s %s\n" ${RDATA[0]} \
+                   ${RDATA[1]} ${RDATA[2]} ${RDATA[3]} ${RDATA[4]} \
                    >> artifacts/source-refs.txt
         fi
     }
