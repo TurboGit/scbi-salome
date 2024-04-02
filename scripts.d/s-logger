@@ -52,6 +52,9 @@ function s-logger-env()
 
 function s-logger-ngwin-config()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     cmake -G "NMake Makefiles" \
 	  -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX") ../src
 }
