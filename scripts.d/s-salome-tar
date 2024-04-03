@@ -158,6 +158,8 @@ function s-salome-tar-install()
             sed -e 's/set HOME=/# set HOME=/g' \
                 -e 's/@echo/# @echo/g' \
                 -e 's/set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;\(.*\)$/add-to-var LD_LIBRARY_PATH "\1"/' \
+                -e 's/set PYTHONPATH=%PYTHONPATH%;\(.*\)$/add-to-var PYTHONPATH "\1"/' \
+                -e 's/set PATH=%PATH%;\(.*\)$/add-to-var PATH "\1"/' \
                 -e 's/set PYTHONPATH=\([^;]*\);%PYTHONPATH%/add-to-var PYTHONPATH "\1"/' \
                 -e 's/set \(.*PATH\|INCLUDE\|LIB\|LIBS\|OpenCV_INCLUDE_DIRS\|SMESH_MeshersList\)=\([^;]*\);.*/add-to-var \1 "\2"/' \
                 -e 's/set SalomeAppConfig=%SalomeAppConfig%;\(.*\)$/add-to-var SalomeAppConfig "\1"/' \
