@@ -50,9 +50,10 @@ function s-mgkeygen-win-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    cmake -G "NMake Makefiles" $OPTIONS ../src
+    cmake -G "NMake Makefiles" "${OPTIONS[@]}" ../src
 }
 
 function s-mgkeygen-config()
@@ -61,9 +62,10 @@ function s-mgkeygen-config()
     local TARGET=$2
     local VARIANT=$3
 
-    local OPTIONS="$(get-config-options $PREFIX $TARGET $VARIANT)"
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    cmake $OPTIONS ../src
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-mgkeygen-win-pre-install()
