@@ -10,7 +10,6 @@ function s-mgkeygen-vcs()
 function s-mgkeygen-depends()
 {
     echo s-salome-configuration
-    echo s-meshgems
 }
 
 function s-mgkeygen-common-build-depends()
@@ -22,6 +21,10 @@ function s-mgkeygen-win-build-depends()
 {
     echo s-visual-c
     echo s-salome-bin
+
+    # At the end to ensure we get the proper INCLUDE
+    # in front.
+    echo s-meshgems
 }
 
 function s-mgkeygen-config-options()
@@ -66,20 +69,6 @@ function s-mgkeygen-config()
     get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
     cmake "${OPTIONS[@]}" ../src
-}
-
-function s-mgkeygen-win-pre-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    #  WARNING: This is needed as on Windows we always detect the binary 2.15
-    #  version from CEA archive.
-    #  This should be properly fixed when possible.
-
-    sed -i 's/MESHGEMS_VERSION_HEX > MESHGEMS_215/0/g'  \
-        ../src/src/mgkeygen_keygenerator.cxx
 }
 
 function s-mgkeygen-win-install()
