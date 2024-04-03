@@ -70,7 +70,6 @@
         s-cgal:skip
         s-padder:skip
         s-tefluide:skip
-        s-meshgems:skip
         s-mgkeygen/win
         s-salome/default.core:WIN
         s-building-is:skip
