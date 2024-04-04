@@ -33,19 +33,29 @@ function s-openturns-mixmod-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 }
 
+function s-openturns-mixmod-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DBUILD_DOC=OFF
+    echo -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DCMAKE_FIND_ROOT_PATH=ON
+    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+    echo -DSWIG_DIR:FILEPATH=$(swig -swiglib)
+    echo -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+}
+
 function s-openturns-mixmod-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DBUILD_DOC=OFF \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
-          -DCMAKE_FIND_ROOT_PATH=ON \
-          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
-          -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
-          -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
-          -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-openturns-mixmod-build()
