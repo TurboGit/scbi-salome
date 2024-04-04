@@ -36,6 +36,7 @@ function s-meshgems-win-env()
     prepend-to-var LIB            $(cygpath -w -s "$PREFIX/lib/Win7_64_VC14")
     prepend-to-var PATH           $PREFIX/bin
     prepend-to-var PATH           $PREFIX/bin/Win7_64_VC14
+    prepend-to-var PATH           $PREFIX/lib/Win7_64_VC14
     prepend-to-var INCLUDE        $(cygpath -w -s "$PREFIX/include")
     prepend-to-var C_INCLUDE_PATH $(cygpath -w -s "$PREFIX/include")
 
