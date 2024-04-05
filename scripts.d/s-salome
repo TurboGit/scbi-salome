@@ -144,13 +144,11 @@ function setup-env-salome()
 
     local APPDIR=$SCBI_BDIR/s-salome/$TARGET-$VARIANT
 
-    local BINDIR=$(basename $(ls -1d BINARIES-*))
-
     #  If BINARIES-* not found, this is a full EDF build
-    if [[ -z $BINDIR ]]; then
+    if [[ -z $SALOME_BINARY_DIR ]]; then
         SBINDIR=EDF/s-salome-kernel
     else
-        SBINDIR=$BINDIR/SALOME
+        SBINDIR=$SALOME_BINARY_DIR/SALOME
     fi
 
     #  THIS ROUTINE should be used to loop over all NEW dependencies (modules
@@ -423,6 +421,45 @@ EOF
     )
 }
 
+function sync-delete-installed()
+{
+    local PLUGIN=$1
+    local FROM=$2
+    local TO=$3
+
+    local BTO=${SCBI_EXTRA_NG_DEFS[$PLUGIN]}
+
+    [[ -z $BTO ]] && return
+
+    #  If module is on a separate directory, delete it
+
+    if [[ -d $TO/$BTO ]]; then
+        rm -fr $TO/$BTO
+    elif [[ -d $TO/EXT ]]; then
+        BTO=$TO/EXT
+
+        [[ -d $FROM/$PLUGIN ]] &&
+            (
+                cd $FROM/$PLUGIN
+
+                find . -type f | while read -r file; do
+		    if [[ -f $BTO/$file ]]; then
+			rm -f $BTO/$file
+		    else
+			#  This is a hack to check for a file in a directory
+			#  just above. Indeed some modules are installing the
+			#  binaries into bin/Linux_XXX/file, so we try to also
+			#  look into bin/file.
+
+			local F=$(basename $file)
+			local D=$(dirname $(dirname $file))
+			rm -f $BTO/$D/$F
+		    fi
+                done
+            )
+    fi
+}
+
 function copy-modules-salome()
 {
     function mod-callback()
@@ -468,6 +505,15 @@ function copy-modules-salome()
                 mkdir EDF/$module
                 cp -r $MODULE_PATH/* EDF/$module
             fi
+
+            #  We want to clean-up the MeshGems install provided in the
+            #  binary archive.
+
+            if [[ $module == "s-meshgems" ]] &&
+                   [[ -n $SALOME_BINARY_DIR ]];
+            then
+                sync-delete-installed $module $PWD/EDF $PWD/$SALOME_BINARY_DIR
+            fi
         fi
 
         #  Record source reference for QA
@@ -505,6 +551,14 @@ function s-salome-wrapup()
     get-module-ref module_info s-salome-tar
     SALOME_TAR_VARIANT=${module_info[1]}
 
+    local BINPAT=""
+
+    if [[ $SCBI_IS_WINDOWS == yes ]]; then
+        BINPAT=W64
+    else
+        BINPAT="BINARIES-*"
+    fi
+
    (
         #  Clean-up previous installation if any
 
@@ -524,6 +578,9 @@ function s-salome-wrapup()
                     #  Copy CEA's binaries
 
                     cp -r $SCBI_BDIR/s-salome-tar/$SCBI_TARGET-$SALOME_TAR_VARIANT/install/* .
+                    #  Now that we have copied the binary archive, get
+                    #  the binary dir
+                    SALOME_BINARY_DIR=$(basename $(ls -1d $BINPAT))
                 }
 
             #  Add some build artifacts for traceability
