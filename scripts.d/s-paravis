@@ -98,6 +98,15 @@ function s-paravis-mpi-config-options()
     echo -DSALOME_USE_MPI=ON
 }
 
+function s-paravis-ng-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DSALOME_USE_MPI=ON
+}
+
 function s-paravis-headless-config-options()
 {
     local PREFIX=$1
