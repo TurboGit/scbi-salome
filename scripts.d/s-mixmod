@@ -1,0 +1,78 @@
+
+function s-mixmod-vcs() 
+{ 
+    echo default
+    echo none 
+    echo git 
+    echo https://github.com/mixmod/mixmod.git 
+} 
+
+
+function s-mixmod-build-depends()
+{
+    echo s-cmake
+}
+
+function s-mixmod-depends()
+{
+    echo libxml++2.6-dev
+    echo s-eigen
+}
+
+function s-mixmod-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    MIXMOD_ROOT_DIR    $PREFIX
+    set-var    MIXMOD_LIBRARY     $PREFIX/lib/libmixmod.so
+    set-var    MIXMOD_INCLUDE_DIR $PREFIX/include
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var C_INCLUDE_PATH  $PREFIX/include
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+}
+
+function s-mixmod-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DMIXMOD_BUILD_IOSTREAM=ON
+    echo -DMIXMOD_BUILD_CLI=ON
+    echo -DMIXMOD_ENABLE_OPENMP=ON
+}
+
+function s-mixmod-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-mixmod-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-mixmod-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-mixmod-prefix()
+{
+    echo NONE
+}
