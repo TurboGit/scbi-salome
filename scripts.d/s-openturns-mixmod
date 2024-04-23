@@ -28,6 +28,7 @@ function s-openturns-mixmod-build-depends()
 function s-openturns-mixmod-depends()
 {
     echo s-openturns
+    echo s-mixmod
     echo os@-python3
 }
 
@@ -55,6 +56,8 @@ function s-openturns-mixmod-config-options()
     echo -DSWIG_DIR:FILEPATH=$(swig -swiglib)
     echo -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DMIXMOD_LIBRARY=$MIXMOD_LIBRARY
+    echo -DMIXMOD_INCLUDE_DIR=$MIXMOD_INCLUDE_DIR
 }
 
 function s-openturns-mixmod-config()
