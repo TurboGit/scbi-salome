@@ -178,6 +178,7 @@ s-cgal/auto:v4.13
 
 [ = deb,10
         s-salome/default.core:s10-DEV
+        s-python3-nlopt:#2.4.2
 ]
 
 [ = deb,11
