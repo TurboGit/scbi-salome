@@ -1,5 +1,5 @@
 
-with-variant native os@-python3-nlopt
+with-variant native os@-python3-nlopt:[v]
 
 
 function s-python3-nlopt-out-of-tree()
