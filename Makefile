@@ -5,9 +5,11 @@ VER=$(shell git describe)
 all: clean.install core
 	mkdir -p $(SCRDIR) $(SCRDIR)/patches
 	rm -f $(SCRDIR)/*~ scripts.d/*~
+	rm -f $(SCRDIR)/.*~ scripts.d/.*~
 	cp -r scripts.d/* $(SCRDIR)
 	cp scripts.d/.env* $(SCRDIR)
 	cp scripts.d/.plan* $(SCRDIR)
+	cp scripts.d/.pkgs* $(SCRDIR)
 	cp scbi-sod $(HOME)/.local/bin
 	echo "SALOME plugins : ${VER}" > $(SCRDIR)/.scbi_salome_version.txt
 
