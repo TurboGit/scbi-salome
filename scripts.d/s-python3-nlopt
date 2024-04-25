@@ -67,7 +67,7 @@ function s-python3-nlopt-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ./configure --enable-shared --prefix=$PREFIX
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
 }
 
 function s-python3-nlopt-build()
