@@ -1,6 +1,14 @@
 
 with-variant native os@-python3-nlopt:[v]
 
+function s-python3-nlopt-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/stevengj/nlopt.git
+}
+
 function s-python3-nlopt-archive()
 {
     local VERSION=$1
