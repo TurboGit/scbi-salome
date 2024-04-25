@@ -53,7 +53,10 @@ function s-python3-nlopt-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    NLOPT_ROOT_DIR $PREFIX
+    set-var    NLOPT_ROOT_DIR     $PREFIX
+    set-var    NLOPT_INCLUDE_DIR  $PREFIX/include
+
+    add-to-var CMAKE_PREFIX_PATH  $PREFIX/lib/cmake/nlopt
 
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
     add-to-var C_INCLUDE_PATH     $PREFIX/include
