@@ -1,3 +1,4 @@
 # OS name (Debian 10)               Debian packages
 # --------------------------------------------------
 os@-python3-nlopt                   python3-nlopt
+os@-nlopt-dev                       libnlopt-dev
