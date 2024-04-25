@@ -1,5 +1,5 @@
 
-with-variant native os@-python3-nlopt:[v] os@-nlopt-dev:[v]
+with-variant native os@-python3-nlopt:[v] os@-nlopt-dev:[v] os@-nlopt-cxx-dev:[v]
 
 function s-python3-nlopt-vcs()
 {
