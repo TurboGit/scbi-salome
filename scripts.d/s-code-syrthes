@@ -12,6 +12,18 @@ function s-code-syrthes-out-of-tree()
     echo false
 }
 
+function s-code-syrthes-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # the following patch is to remove 'blas' key
+    echo syrthes-setup.ini.patch
+}
+
 function s-code-syrthes-ng-build-depends()
 {
     echo s-salome-bin
@@ -66,9 +78,9 @@ function s-code-syrthes-install()
     local TARGET=$2
 
     cd $PREFIX/src/syrthes-install
-    cp -f setup.ini.salome setup.ini
-    chmod +x syrthes_install.py
-    ./syrthes_install.py
+    cp setup.ini.salome setup.ini
+    chmod a+x $PREFIX/src/syrthes-install/syrthes_install.py
+    python3 syrthes_install.py
 }
 
 function s-code-syrthes-post-install()

@@ -1,0 +1,13 @@
+diff --git a/src/syrthes-install/setup.ini.salome b/src/syrthes-install/setup.ini.salome
+index 3a9f0c6..481bbc7 100644
+--- a/src/syrthes-install/setup.ini.salome
++++ b/src/syrthes-install/setup.ini.salome
+@@ -114,7 +114,7 @@ syrthespost  INSTALL=yes
+ # Select the line corresponding to your choice
+ #
+ # BLAS Linear algebra library
+-blas  USE=no  INSTALL=no
++stardis  USE=no  INSTALL=no
+ #blas USE=yes PATH=/home/...
+ #
+ #--------------------------------------------------------

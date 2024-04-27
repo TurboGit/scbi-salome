@@ -10,7 +10,7 @@ s-neptune:v8.0
     s-saturne:v8.0
     s-saturne-dbg:v8.0
     s-cfd-study
-    s-code-syrthes
+    s-code-syrthes:5.0.10
     s-syrthes
 ] /+ng
 
