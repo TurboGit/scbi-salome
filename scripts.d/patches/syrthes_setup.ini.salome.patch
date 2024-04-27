@@ -1,0 +1,193 @@
+diff --git a/src/syrthes-install/setup.ini.salome b/src/syrthes-install/setup.ini.salome
+index 3a9f0c6..e8422dd 100644
+--- a/src/syrthes-install/setup.ini.salome
++++ b/src/syrthes-install/setup.ini.salome
+@@ -1,3 +1,4 @@
++#  
+ #--------------------------------------------------------
+ # Architecture Name
+ #--------------------------------------------------------
+@@ -14,118 +15,105 @@ nom_arch
+ #compC   gcc                     <- leave gcc for automatic default
+ #compCX  g++                     <- leave g++ for automatic default
+ #
+-compC   gcc
+-compCX  g++
++compC    gcc
++compCX   g++
+ #
+ # C wrapper
+ #wrapperC  mpicc                 <- for specific C wrapper without path (only needed for MPI installation)
+ #                                   leave mpicc for automatic default
+ wrapperC mpicc
+ #
+-# Specific options for compiler 
+-#specific_inc= -I /myinclude/inc -I /myinclude2/inc 
+-#specific_lib= -L /mylib/lib1 -L /mylib/lib2
+-#specific_debug= -g 
+-#specific_option= -D _SYRTHES_MPI_IO_
++# Specific options for compiler
++#specific_debug= -g
+ #
+ # parallel compilation
+-#specific_makej= -j8
++specific_makej= -j4
+ #
+-#--------------------------------------------------------
+-# Graphical user Interface
+-#--------------------------------------------------------
+-gui  INSTALL=yes 
+-#  
+-#--------------------------------------------------------
+-# Interpreted functions
+-#--------------------------------------------------------
+-# Answer by yes or no
+ #
+-# interpreted function module - SYRTHES - sequential version
+-syrthesppfunc  INSTALL=yes
+ #
+-#--------------------------------------------------------
+-# SYRTHES - kernel - sequential version
+-#--------------------------------------------------------
+-# Answer by yes or no
++# Choose your type of installation and answer by yes or no
++# Select the line corresponding to your choice
+ #
+-# SYRTHES - sequential version
+-syrthesseq     INSTALL=yes
++#****************************************
++# EXTERN LIBRARIES
++#****************************************
+ #
++# 1- MPI for parallel version
++#----------------------------
++#mpi  USE=no   INSTALL=no
++mpi  USE=yes  PATH=/usr
+ #
+-#--------------------------------------------------------
+-# SYRTHES - tools for meshes and results conversions
+-#--------------------------------------------------------
+-# Choose your type of installation and answer by yes or no
+-# Select the line corresponding to your choice
++# 2- tools for meshes conversions
++#--------------------------------
++# 
++#--------------------------------
++# --->>>> Put your own path to SYRTHES (extern-libraries directory) :
++path_extern_lib= ??
++#--------------------------------
++#
++# hdf5 and med are required for MED mesh file format conversion
++hdf5  USE=yes  PATH=${HDF5_INSTALL_DIR}
++#
++med   USE=yes  PATH=${MEDFICHIER_INSTALL_DIR}
++#
++metis  USE=yes PATH=${METIS_INSTALL_DIR}
++#
++scotch  USE=yes PATH=${SCOTCH_INSTALL_DIR}
+ #
+-# for MED format conversion : choose to istall or the path to the libraries
+-#hdf5   USE=yes  INSTALL=yes
+-#hdf5  USE=no   INSTALL=no
+-hdf5   USE=yes  PATH=${HDF5_INSTALL_DIR}
+ #
++# Radiation using Geghart factors :  stardis is required
++stardis USE=yes INSTALL=yes
++#stardis USE=yes PATH=Stardis-0.8.2-GNU-Linux64/arch/Linux_x86_64
+ #
+-#med    USE=yes  INSTALL=yes
+-#med   USE=no   INSTALL=no
+-med    USE=yes  PATH=${MEDFICHIER_INSTALL_DIR}
+ #
++#****************************************
++# SYRTHES Graphical user Interface
++#****************************************
++gui  INSTALL=yes
+ #
+-# Answer by yes or no
++#****************************************
++# SYRTHES Platform
++#****************************************
+ #
+-# mesh format conversion tool
++# 1- Interpreted functions (required)
++#-------------------------
++syrthesppfunc  INSTALL=yes
++syrthesppfunctmc  INSTALL=yes
++#
++# 2- pre- and post- processor 
++#----------------------------
++# mesh format conversion tool (Salome --> SYRTHES : med and hdf required)
+ syrthesconvert INSTALL=yes
+ #
+-# results file format conversion tool SYRTHES --> Paraview/Ensight
++# results file format conversion tool SYRTHES --> Salome-Paraview/Ensight
+ syrthesensight INSTALL=yes
+ #
++# to extract one time step out of the transient result file
++syrthesextractdt INSTALL=yes
++#
+ # results file format conversion tool SYRTHES --> SALOME-MED
+ syrthesmed     INSTALL=yes
+ #
+-#--------------------------------------------------------
+-# SYRTHES - parall version (optional)
+-#--------------------------------------------------------
+-# Choose your type of installation and answer by yes or no
+-# Select the line corresponding to your choice
+-# mpi is required, metis AND/OR scotch are required
+-#
+-#mpi   USE=yes  INSTALL=yes
+-#mpi  USE=no   INSTALL=no
+-mpi  USE=yes  PATH=/usr
+-#
+-#metis USE=yes INSTALL=yes
+-#metis USE=no  INSTALL=no
+-metis  USE=yes PATH=${METIS_INSTALL_DIR}
++#****************************************
++# SYRTHES Kernel
++#****************************************
+ #
+-#scotch USE=yes INSTALL=yes
+-#scotch USE=no  INSTALL=no
+-scotch  USE=yes PATH=${SCOTCH_INSTALL_DIR}
++# 1-building sequential version
++#------------------------------
++syrthesseq     INSTALL=yes
+ #
+-# Answer by yes or no
+ #
+-# mesh partitionning - SYRTHES parallel version - rebuilding results file
++# 2- building parallel version (mesh partitionning + parallel kernel + rebuilding global result file)
++#----------------------------------------------------------------------------------------------------
+ syrthespp    INSTALL=yes
+ syrthesmpi   INSTALL=yes
+ syrthespost  INSTALL=yes
+ #
+-#--------------------------------------------------------
+-# Optional extern libraries
+-#--------------------------------------------------------
+-# Choose your type of installation and answer by yes or no
+-# Select the line corresponding to your choice
+-#
+-# BLAS Linear algebra library
+-blas  USE=no  INSTALL=no
+-#blas USE=yes PATH=/home/...
+-#
+-#--------------------------------------------------------
+-# SYRTHES for coupling with Code-Saturne (optional)
+-#--------------------------------------------------------
+-# Warning : MPI installation must be defined before
++#**************************************************
++# SYRTHES for coupling with Code-Saturne or NEPTUNE (optional)
++#**************************************************
++# MPI is required
+ #
+-#ple USE=no
+ ple USE=yes   PATH=${SATURNE_INSTALL_DIR}
+-#
+-# Answer by yes or no
+-#
+-syrthescfd INSTALL=yes
++syrthescfd INSTALL=no
+ #

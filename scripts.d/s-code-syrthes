@@ -20,8 +20,8 @@ function s-code-syrthes-patches()
     local KIND=$4
     local REF=$5
 
-    # the following patch is to remove 'blas' key
-    echo syrthes-setup.ini.patch
+    # The following patch is to update setup
+    echo syrthes_setup.ini.salome.patch
 }
 
 function s-code-syrthes-ng-build-depends()
