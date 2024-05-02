@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Servers>
-  <Server name="cronos" resource="cs://cronos:%(PORTID)s">
+  <Server name="cronos" resource="cs://cronos.hpc.edf.fr:%(PORTID)s">
     <CommandStartup>
       <Options>
         <Option label="NNI EDF:" name="SLURM_USER" save="true">
@@ -41,7 +41,7 @@
       <ServerType value="slurm"/>
     </Hints>
   </Server>
-  <Server name="gaia" resource="cs://gaia">
+  <Server name="gaia" resource="cs://gaia.hpc.edf.fr">
     <CommandStartup>
       <Options>
         <Option label="NNI EDF:" name="SLURM_USER" save="true">
