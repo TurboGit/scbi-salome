@@ -40,15 +40,22 @@ function s-paravisaddons-edf-default-depends()
     echo s-paravis
 }
 
-function s-paravisaddons-edf-cronos-env()
+function s-paravisaddons-edf-common-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
     set-var    PARAVISADDONS_ROOT_DIR $PREFIX
+    add-to-var PATH                   $PREFIX/bin
+}
 
-    add-to-var PV_PLUGIN_PATH         $PREFIX/lib64
-    add-to-var PYTHONPATH             $PREFIX/lib64
+function s-paravisaddons-edf-cronos-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PV_PLUGIN_PATH $PREFIX/lib64
+    add-to-var PYTHONPATH     $PREFIX/lib64
 
 }
 
@@ -57,13 +64,25 @@ function s-paravisaddons-edf-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    PARAVISADDONS_ROOT_DIR $PREFIX
-    set-var    INF_SERVER_URL         "$(scbi-store-get-key INFURL)"
+    set-var    INF_SERVER_URL "$(scbi-store-get-key INFURL)"
 
-    add-to-var PATH                   $PREFIX/bin
-    add-to-var PV_PLUGIN_PATH         $PREFIX/lib/paraview
-    add-to-var PV_PLUGIN_PATH         $PREFIX/lib/paraview/pv_inference
-    add-to-var PYTHONPATH             $PREFIX/lib/paraview/pv_inference
+    add-to-var PV_PLUGIN_PATH $PREFIX/lib/paraview
+    add-to-var PV_PLUGIN_PATH $PREFIX/lib/paraview/pv_inference
+    add-to-var PYTHONPATH     $PREFIX/lib/paraview/pv_inference
+}
+
+function s-paravisaddons-edf-ngwin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PV_PLUGIN_PATH $PREFIX/lib/paraview
+    add-to-var PV_PLUGIN_PATH $PREFIX/lib/paraview/pv_inference
+    add-to-var PYTHONPATH     $PREFIX/lib/paraview/pv_inference
+
+    #  On Windows we remove plink from the PATH if present to force the
+    #  use of ssh.
+    remove-from-var PATH 'C:\Program Files\PuTTY'
 }
 
 function s-paravisaddons-edf-ctest-dir()
