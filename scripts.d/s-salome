@@ -257,7 +257,7 @@ function setup-env-salome()
                         echo "   context.removeFromVariable(r\"$VAR\", r\"$VALUE\")"
                     else
                         case "$VAR" in
-                            C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                            C_INCLUDE_PATH|INCLUDE|LIB|CPLUS_INCLUDE_PATH|CMAKE_*| \
                                 *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
                             ;;
 
