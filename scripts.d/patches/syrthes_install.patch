@@ -1,0 +1,58 @@
+diff --git a/src/syrthes-install/syrthes_install.py b/src/syrthes-install/syrthes_install.py
+index 3398538..1b2aea4 100644
+--- a/src/syrthes-install/syrthes_install.py
++++ b/src/syrthes-install/syrthes_install.py
+@@ -108,25 +108,25 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
+ 
+         # builds the Lib for SYRTHES
+         self.installFunctions={
+-			       'hdf5'        : self.installHDF,
+-			       'med'         :  self.installMED,
+-			       'mpi'         : self.installMPI,
+-			       'metis'       : self.installMETIS,
+-			       'scotch'      : self.installSCOTCH,
+-			       'ple'         : self.installple,
+-			       'profile'     : self.installprofile,
+-			       'syrthesseq'  : self.installsyrthesseq,
+-			       'syrthesconvert': self.installconvert,
+-			       'syrthesensight': self.installensight,
+-                               'syrthesextractdt': self.installextractdt,
+-			       'syrthesmed'  : self.installmed,
+-			       'syrthesppfunc' : self.installppfunc,
+-			       'syrthesppfunctmc' : self.installppfunctmc,
+-			       'syrthesmpi'  : self.installsyrthesmpi,
+-			       'syrthespp'   : self.installpp,
+-			       'syrthespost' : self.installpost,
+-			       'syrthescfd'  : self.installsyrthescfd,
+-                               'stardis' : self.installStardis}
++			        'hdf5'        : self.installHDF,
++			        'med'         : self.installMED,
++			        'mpi'         : self.installMPI,
++			        'metis'       : self.installMETIS,
++			        'scotch'      : self.installSCOTCH,
++			        'ple'         : self.installple,
++			        'profile'     : self.installprofile,
++			        'syrthesseq'  : self.installsyrthesseq,
++			        'syrthesconvert': self.installconvert,
++			        'syrthesensight': self.installensight,
++                    'syrthesextractdt': self.installextractdt,
++			        'syrthesmed'  : self.installmed,
++			        'syrthesppfunc' : self.installppfunc,
++			        'syrthesppfunctmc' : self.installppfunctmc,
++			        'syrthesmpi'  : self.installsyrthesmpi,
++			        'syrthespp'   : self.installpp,
++			        'syrthespost' : self.installpost,
++			        'syrthescfd'  : self.installsyrthescfd,
++                    'stardis'     : self.installStardis}
+ 	# builds the SYRTHES Lib
+ 
+         # Locate syrthes-install dir-name, extern-libraries/src and extern-libraries/opt
+@@ -152,7 +152,7 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
+         self.readSetup()
+ 
+         print('------------------------------')
+-        for lib in ['hdf5','med','mpi','metis','scotch','stardis']:
++        for lib in ['hdf5','med','metis','scotch','stardis']:
+             if self.dicolib[lib]['USE'].upper()=='YES':
+                 if 'PATH' in self.dicolib[lib]:
+                     print('You have chosen to use your own '+lib+' extern libraries')

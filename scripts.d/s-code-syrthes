@@ -23,6 +23,7 @@ function s-code-syrthes-patches()
     # The following patch is to update setup
     echo syrthes_setup.ini.salome.patch
     echo syrthes-gui_Install.patch
+    echo syrthes_install.patch
 }
 
 function s-code-syrthes-ng-build-depends()
