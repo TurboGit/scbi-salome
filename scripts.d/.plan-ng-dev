@@ -59,24 +59,10 @@
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
+        s-salome-tar/ngwin:#master:WIN
         s-salome-configuration/ngwin
-        s-cmake/win
-        s-visual-c/native
-        s-windows-kit/native
         s-salome-bin/ngwin
         s-paravisaddons-edf/ngwin
-        s-atomic:skip
-        s-salome-tar/ngwin:#master:WIN
-        s-zeromq:skip
-        s-melissa:skip
-        s-persalys:skip
-        s-zcracks:skip
-        s-python3-xlutils:skip
-        s-zcracks:skip
-        s-cgal:skip
-        s-padder:skip
-        s-tefluide:skip
-        s-meshgems:skip
         s-logger/ngwin
 ]
 
