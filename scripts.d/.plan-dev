@@ -70,7 +70,7 @@ s-occt:#7.5.3p5
 s-cgns/auto:#4.2.0
 s-hdf5/auto:#1.10.3
 s-catalyst:#2.0-431a8a1
-s-python-modules/default.wand.metadata.toml:master
+s-python-modules/default.wand.metadata.toml.meshio:master
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION

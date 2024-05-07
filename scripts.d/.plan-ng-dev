@@ -100,6 +100,11 @@
         s-pyqt/native
 ]
 
+# No need for meshio on NG as already in binary archive
+[
+        s-python-modules
+] /-meshio
+
 [
         s-salome
 ] /+ng-default
