@@ -1,0 +1,15 @@
+diff --git a/src/syrthes-gui/src/Install.sh b/src/syrthes-gui/src/Install.sh
+index 2461fbf..66378a2 100644
+--- a/src/syrthes-gui/src/Install.sh
++++ b/src/syrthes-gui/src/Install.sh
+@@ -8,8 +8,8 @@
+ #
+ #export SYRTHES_IHM_PYTHON=/home/E02847/SYRTHES/IHM/python
+ #
+-export python_path=$SYRTHES_IHM_PYTHON/opt/Python-3.6.5
+-export qt_path=$SYRTHES_IHM_PYTHON/opt/qt
++export python_path=/usr
++export qt_path=/usr/lib/qt5
+ 
+ export PATH=$python_path/bin:${PATH}
+ export LD_LIBRARY_PATH=$python_path/lib:${LD_LIBRARY_PATH}

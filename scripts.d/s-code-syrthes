@@ -22,6 +22,7 @@ function s-code-syrthes-patches()
 
     # The following patch is to update setup
     echo syrthes_setup.ini.salome.patch
+    echo syrthes-gui_Install.patch
 }
 
 function s-code-syrthes-ng-build-depends()
@@ -90,7 +91,9 @@ function s-code-syrthes-post-install()
     local TARGET=$2
 
     cd $PREFIX/src/syrthes-gui/src
-    sh Install.sh
-    mv $PREFIX/src/syrthes-gui/src/install \
-       $PREFIX/arch/Linux_x86_64/lib/syrthesGui
+    bash Install.sh
+    cd install
+    python3 setup_cxfl.py build
+    cd build
+    mv exe.linux-x86_64_xxx   $PREFIX/src/syrthes-gui/exe.linux-x86_64
 }
