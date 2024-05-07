@@ -4,6 +4,7 @@
 @load ng-v911/mpi
 
 s-neptune:v8.0
+s-python-modules/ng.wand.metadata.toml.freeze:master
 
 [
     s-eos

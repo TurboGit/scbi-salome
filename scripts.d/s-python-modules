@@ -132,6 +132,11 @@ function s-python-modules-telemac-config-options()
     echo jupyter-events==0.5.0 #compatibilité avec pyyaml natif s10
 }
 
+function s-python-modules-freeze-config-options()
+{
+    echo cx-Freeze
+}
+
 function s-python-modules-pre-config()
 {
     rm -f module.list
