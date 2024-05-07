@@ -46,17 +46,6 @@ function s-python-modules-pyproj-build-depends()
     echo s-proj
 }
 
-function s-python-modules-metadata-config-options()
-{
-    echo zipp==3.15.0
-    echo importlib-metadata
-}
-
-function s-python-modules-toml-config-options()
-{
-    echo toml
-}
-
 function s-python-modules-build-depends()
 {
     echo os@-python3-setuptools
@@ -79,6 +68,17 @@ function s-python-modules-env()
 
     add-to-var PYTHONPATH      \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-python-modules-metadata-config-options()
+{
+    echo zipp==3.15.0
+    echo importlib-metadata
+}
+
+function s-python-modules-toml-config-options()
+{
+    echo toml
 }
 
 function s-python-modules-wand-config-options()
