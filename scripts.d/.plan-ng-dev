@@ -50,17 +50,9 @@
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
-        s-salome-configuration/ngwin
-        s-cmake/win
-        s-visual-c/native
-        s-windows-kit/native
-        s-salome-bin/ngwin
-        s-atomic:skip
         s-salome-tar/ngwin:#master:WIN
-        s-zeromq:skip
-        s-persalys:skip
-        s-python3-xlutils:skip
-        s-cgal:skip
+        s-salome-configuration/ngwin
+        s-salome-bin/ngwin
 ]
 
 [

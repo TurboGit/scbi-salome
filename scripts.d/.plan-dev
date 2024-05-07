@@ -179,4 +179,12 @@ s-cgal/auto:v4.13
         s-salome/default.core:WIN
         s-ifc-open-shell:skip
         s-dataio:skip
+        s-cmake/win
+        s-visual-c/native
+        s-windows-kit/native
+        s-zeromq:skip
+        s-persalys:skip
+        s-python3-xlutils:skip
+        s-cgal:skip
+        s-atomic:skip
 ]
