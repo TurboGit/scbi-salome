@@ -1,5 +1,5 @@
 diff --git a/src/syrthes-gui/src/Install.sh b/src/syrthes-gui/src/Install.sh
-index 2461fbf..66378a2 100644
+index 2461fbf..2a011ce 100644
 --- a/src/syrthes-gui/src/Install.sh
 +++ b/src/syrthes-gui/src/Install.sh
 @@ -8,8 +8,8 @@
@@ -13,3 +13,16 @@ index 2461fbf..66378a2 100644
  
  export PATH=$python_path/bin:${PATH}
  export LD_LIBRARY_PATH=$python_path/lib:${LD_LIBRARY_PATH}
+@@ -97,11 +97,7 @@ cd ..
+ #
+ 
+ echo
+-echo "Press Enter for the generation with cxfreeze"
+-read x
+-
+ echo "Installation : generation with cxfreeze ..."
+ cd install; $python_path/bin/python3 setup_cxfl.py build
+ echo
+-echo "Press Enter to exit"
+-read x
++echo "generation with cxfreeze finished"
