@@ -270,52 +270,64 @@ function setup-env-salome()
 
             [[ $KEEP_VAR == yes ]] &&
                 {
-                  case "$VAR" in
-                      *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                      ;;
+                    if [[ $ACTION == REMOVE ]]; then
+                        if [[ $SCBI_IS_WINDOWS == yes ]] && [[ $VAR != "PATH" ]]; then
+                            echo remove-from-string-sep \"$VAR\" \"$VALUE\" \";\"
+                        else
+                            echo remove-from-string-sep \"$VAR\" \"$VALUE\" \":\"
+                        fi
+                    else
+                        case "$VAR" in
+                            *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                            ;;
 
-                      *)
-                          if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                              echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}}
-                          else
-                              echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}}
-                          fi
-                          ;;
-                  esac
+                            *)
+                                if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
+                                    echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}}
+                                else
+                                    echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}}
+                                fi
+                                ;;
+                        esac
+                    fi
                 } >> $SFILE
 
             #  For Python
 
             [[ $KEEP_VAR == yes ]] &&
                 {
-                  case "$VAR" in
-                      C_INCLUDE_PATH|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                          *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                      ;;
+                    if [[ $ACTION == REMOVE ]]; then
+                        echo "   context.removeFromVariable(r\"$VAR\", r\"$VALUE\")"
+                    else
+                        case "$VAR" in
+                            C_INCLUDE_PATH|INCLUDE|LIB|CPLUS_INCLUDE_PATH|CMAKE_*| \
+                                *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                            ;;
 
-                      PATH)
-                          echo "   context.addToPath($DVAR)"
-                          ;;
-                      LD_LIBRARY_PATH)
-                          echo "   context.addToLdLibraryPath($DVAR)"
-                        ;;
-                      PYTHONPATH)
-                          echo "   context.addToPythonPath($DVAR)"
-                          ;;
-                      PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
-                          if [[ $ACTION == PREPEND ]]; then
-                              echo "   context.addToVariable(r\"$VAR\", $DVAR)"
-                          else
-                              echo "   context.appendVariable(r\"$VAR\", $DVAR)"
-                          fi
-                          ;;
-                      SALOME_MODULES)
-                          echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\""
-                          ;;
-                      *)
-                          echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"
-                          ;;
-                  esac
+                            PATH)
+                                echo "   context.addToPath($DVAR)"
+                                ;;
+                            LD_LIBRARY_PATH)
+                                echo "   context.addToLdLibraryPath($DVAR)"
+                                ;;
+                            PYTHONPATH)
+                                echo "   context.addToPythonPath($DVAR)"
+                                ;;
+                            PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList)
+                                if [[ $ACTION == PREPEND ]]; then
+                                    echo "   context.addToVariable(r\"$VAR\", $DVAR)"
+                                else
+                                    echo "   context.appendVariable(r\"$VAR\", $DVAR)"
+                                fi
+                                ;;
+                            SALOME_MODULES)
+                                echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\""
+                                ;;
+                            *)
+                                echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"
+                                ;;
+                        esac
+                    fi
                 } >> $PFILE
         }
 
@@ -450,6 +462,13 @@ EOF
         SFILE="extra.env.d/000_setup.sh"
 
         {
+            #  Dump definition of remove-from-string-sep from SCBI
+            #  as needed to setup environment later.
+
+            echo -n 'function '
+            declare -f remove-from-string-sep
+            echo
+
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
             echo "export SALOME_VERSION=$SVER"
             echo "export PYTHON_VERSION=$PYTHON_VERSION"
