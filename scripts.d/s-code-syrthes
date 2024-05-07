@@ -79,7 +79,7 @@ function s-code-syrthes-install()
     local TARGET=$2
 
     cd $PREFIX/src/syrthes-install
-    cp setup.ini.salome setup.ini
+    cp -f setup.ini.salome setup.ini
     chmod a+x $PREFIX/src/syrthes-install/syrthes_install.py
     python3 syrthes_install.py
 }
