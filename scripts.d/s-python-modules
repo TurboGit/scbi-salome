@@ -134,7 +134,7 @@ function s-python-modules-telemac-config-options()
 
 function s-python-modules-freeze-config-options()
 {
-    echo cx-Freeze
+    echo cx-Freeze==5.0 # To avoid patchelf 0.18.0.0 issue with version 6.14.etc
 }
 
 function s-python-modules-pre-config()
