@@ -1,5 +1,5 @@
 diff --git a/src/syrthes-install/setup.ini.salome b/src/syrthes-install/setup.ini.salome
-index 3a9f0c6..95a9039 100644
+index 3a9f0c6..9d5a19f 100644
 --- a/src/syrthes-install/setup.ini.salome
 +++ b/src/syrthes-install/setup.ini.salome
 @@ -1,3 +1,4 @@
@@ -76,40 +76,40 @@ index 3a9f0c6..95a9039 100644
 +# --->>>> Put your own path to SYRTHES (extern-libraries directory) :
 +path_extern_lib=${SYRTHES_HOME}/extern-libraries/opt/
 +#--------------------------------
-+#
-+# hdf5 and med are required for MED mesh file format conversion
-+hdf5  USE=yes  PATH=${HDF5_INSTALL_DIR}
-+#
-+med   USE=yes  PATH=${MEDFICHIER_INSTALL_DIR}
-+#
-+metis  USE=yes PATH=${METIS_INSTALL_DIR}
-+#
-+scotch  USE=yes PATH=${SCOTCH_INSTALL_DIR}
  #
 -# for MED format conversion : choose to istall or the path to the libraries
 -#hdf5   USE=yes  INSTALL=yes
 -#hdf5  USE=no   INSTALL=no
 -hdf5   USE=yes  PATH=${HDF5_INSTALL_DIR}
++# hdf5 and med are required for MED mesh file format conversion
++hdf5  USE=yes  PATH=${HDF5_ROOT_DIR}
  #
-+# Radiation using Geghart factors :  stardis is required
-+stardis USE=yes INSTALL=yes
-+#stardis USE=yes PATH=Stardis-0.8.2-GNU-Linux64/arch/Linux_x86_64
++med   USE=yes  PATH=${MEDFILE_ROOT_DIR}
  #
 -#med    USE=yes  INSTALL=yes
 -#med   USE=no   INSTALL=no
 -med    USE=yes  PATH=${MEDFICHIER_INSTALL_DIR}
++metis  USE=yes PATH=${METIS_ROOT_DIR}
  #
++scotch  USE=yes PATH=${SCOTCH_ROOT_DIR}
+ #
+-# Answer by yes or no
+ #
+-# mesh format conversion tool
++# Radiation using Geghart factors :  stardis is required
++stardis USE=yes INSTALL=yes
++#stardis USE=yes PATH=Stardis-0.8.2-GNU-Linux64/arch/Linux_x86_64
++#
++#
 +#****************************************
 +# SYRTHES Graphical user Interface
 +#****************************************
 +gui  INSTALL=yes
- #
--# Answer by yes or no
++#
 +#****************************************
 +# SYRTHES Platform
 +#****************************************
- #
--# mesh format conversion tool
++#
 +# 1- Interpreted functions (required)
 +#-------------------------
 +syrthesppfunc  INSTALL=yes
@@ -136,7 +136,10 @@ index 3a9f0c6..95a9039 100644
 -# Choose your type of installation and answer by yes or no
 -# Select the line corresponding to your choice
 -# mpi is required, metis AND/OR scotch are required
--#
++#****************************************
++# SYRTHES Kernel
++#****************************************
+ #
 -#mpi   USE=yes  INSTALL=yes
 -#mpi  USE=no   INSTALL=no
 -mpi  USE=yes  PATH=/usr
@@ -144,10 +147,7 @@ index 3a9f0c6..95a9039 100644
 -#metis USE=yes INSTALL=yes
 -#metis USE=no  INSTALL=no
 -metis  USE=yes PATH=${METIS_INSTALL_DIR}
-+#****************************************
-+# SYRTHES Kernel
-+#****************************************
- #
+-#
 -#scotch USE=yes INSTALL=yes
 -#scotch USE=no  INSTALL=no
 -scotch  USE=yes PATH=${SCOTCH_INSTALL_DIR}
@@ -178,16 +178,19 @@ index 3a9f0c6..95a9039 100644
 -# SYRTHES for coupling with Code-Saturne (optional)
 -#--------------------------------------------------------
 -# Warning : MPI installation must be defined before
+-#
+-#ple USE=no
+-ple USE=yes   PATH=${SATURNE_INSTALL_DIR}
+-#
+-# Answer by yes or no
+-#
+-syrthescfd INSTALL=yes
 +#**************************************************
 +# SYRTHES for coupling with Code-Saturne or NEPTUNE (optional)
 +#**************************************************
 +# MPI is required
  #
--#ple USE=no
- ple USE=yes   PATH=${SATURNE_INSTALL_DIR}
--#
--# Answer by yes or no
--#
--syrthescfd INSTALL=yes
++ple USE=yes   PATH=${SATURNE_ROOT_DIR}
 +syrthescfd INSTALL=no
- #
++#
+\ No newline at end of file
