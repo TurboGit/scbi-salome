@@ -61,13 +61,21 @@ function s-python-modules-build-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 }
 
-function s-python-modules-env()
+function s-python-modules-common-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
     add-to-var PYTHONPATH      \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-python-modules-meshio-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH $PREFIX/bin
 }
 
 function s-python-modules-metadata-config-options()
@@ -99,6 +107,11 @@ function s-python-modules-pyaml-config-options()
 function s-python-modules-pyproj-config-options()
 {
     echo pyproj==3.2.1
+}
+
+function s-python-modules-meshio-config-options()
+{
+    echo meshio
 }
 
 function s-python-modules-telemac-config-options()
