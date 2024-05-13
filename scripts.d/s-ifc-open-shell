@@ -37,6 +37,8 @@ function s-ifc-open-shell-default-depends()
     echo s-occt
     echo s-swig
     echo s-cgal
+    echo s-eigen
+    echo s-nlohmann-json3
 }
 
 function s-ifc-open-shell-ng-depends()
