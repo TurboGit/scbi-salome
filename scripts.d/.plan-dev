@@ -208,3 +208,4 @@ s-cgal/auto:v4.13
         s-tefluide:skip
         s-atomic:skip
 ]
+s-tbb/auto:v2021.11.0
