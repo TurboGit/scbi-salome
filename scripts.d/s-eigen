@@ -1,3 +1,5 @@
 
 with-variant native os@-eigen3-dev \
-       --env 'set-var EIGEN_ROOT_DIR /usr'
+       --env 'set-var    EIGEN_ROOT_DIR     /usr' \
+             'add-to-var CPLUS_INCLUDE_PATH /usr/include/eigen3' \
+             'add-to-var C_INCLUDE_PATH     /usr/include/eigen3'
