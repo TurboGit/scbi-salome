@@ -13,10 +13,15 @@ function s-ifc-open-shell-patches()
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
+    local KIND=$4
+    local REF=$5
 
-    echo ifcopenshell.patch
-    echo ifcopenshell-edf.patch
-    echo ifcopenshell-occ.patch
+    [[ $REF =~ "127bcaf96" ]] &&
+        {
+            echo ifcopenshell.patch
+            echo ifcopenshell-edf.patch
+            echo ifcopenshell-occ.patch
+        }
 }
 
 function s-ifc-open-shell-default-depends()
