@@ -4,3 +4,4 @@ os@-python3-nlopt                   python3-nlopt
 os@-nlopt-dev                       libnlopt-dev
 os@-nlopt-cxx-dev                   libnlopt-cxx-dev
 os@-pypy-setuptools                 pypy-setuptools
+os@-nlohmann-json3-dev              nlohmann-json3-dev
