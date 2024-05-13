@@ -22,8 +22,6 @@ function s-occt-depends()
     echo os@-xmu-dev
     echo os@-freeimage-dev
     echo os@-gl2ps-dev
-
-    echo s-tbb
 }
 
 function s-occt-env()
@@ -66,8 +64,6 @@ function s-occt-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
-    echo -DUSE_FREEIMAGE=ON
-    echo -DUSE_TBB=ON
     echo -DUSE_TCL=OFF
     echo -DBUILD_MODULE_Draw=OFF
     echo -DUSE_FREETYPE=ON
