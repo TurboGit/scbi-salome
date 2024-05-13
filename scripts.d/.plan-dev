@@ -94,6 +94,7 @@ s-cgal/auto:v4.13
         s-netcdf
         s-eigen
         s-boost
+        s-nlohmann-json3
 ] /native
 
 # First, for repositories where master is at CEA
@@ -208,4 +209,29 @@ s-cgal/auto:v4.13
         s-tefluide:skip
         s-atomic:skip
 ]
+
 s-tbb/auto:v2021.11.0
+
+# Branch currently worked on
+# https://codev-tuleap.cea.fr/plugins/git/?action=pull-requests&tab=overview&repo_id=486&group_id=116#/pull-requests/3257/overview
+
+s-occt/default.occ78:CR780-SALOME-PATCH
+s-ifc-open-shell/default.occ78:v0.8.0
+
+[
+        s-salome-configuration
+        s-salome-kernel
+        s-salome-gui
+        s-geom
+        s-shaper
+        s-smesh
+        s-paravis
+        s-netgen-plugin
+        s-blsurf-plugin
+] /+default.occ78:OCCT780
+
+# TODO: Missing a patch for GMSH
+# gmsh-4.10.3-occt780.patch
+
+s-ifc-open-shell:skip
+s-building-is:skip
