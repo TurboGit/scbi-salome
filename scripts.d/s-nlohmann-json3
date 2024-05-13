@@ -1,0 +1,2 @@
+with-variant native os@-nlohmann-json3-dev \
+             --env 'set-var JSON_INCLUDE_DIR /usr/include'
