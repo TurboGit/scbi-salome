@@ -2,6 +2,14 @@
 with-variant native os@-tbb-dev:[v] \
              --env 'set-var TBB_ROOT /usr'
 
+function s-tbb-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/oneapi-src/oneTBB.git
+}
+
 function s-tbb-archive()
 {
     local VERSION=$1
@@ -24,9 +32,23 @@ function s-tbb-env()
     local TARGET=$2
     local VARIANT=$3
 
-    set-var    TBB_ROOT        $PREFIX
-    add-to-var TBB_INCLUDE_DIR $PREFIX/include
-    add-to-var LB_LIBRARY_PATH $PREFIX/lb
+    set-var    TBB_ROOT          $PREFIX
+    add-to-var TBB_INCLUDE_DIR   $PREFIX/include
+    add-to-var TBB_LIBRARY_DIR   $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var C_INCLUDE_DIR     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_DIR $PREFIX/include
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/TBB
+}
+
+function s-tbb-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DTBB_TEST=OFF \
+          ../src
 }
 
 function s-tbb-build()
@@ -44,10 +66,7 @@ function s-tbb-install()
     local TARGET=$2
     local VARIANT=$3
 
-    mkdir -p $PREFIX/lib
-    cp -rf ./include $PREFIX/.
-    cd build
-    cp -rf ./linux*release/* $PREFIX/lib
+    make install
 }
 
 function s-tbb-prefix()
