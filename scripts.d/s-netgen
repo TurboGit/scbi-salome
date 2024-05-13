@@ -163,7 +163,7 @@ function s-netgen-autotools-post-install()
     cp -af ./libsrc/occ/occgeom.hpp $PREFIX/include
     cp -af ./libsrc/occ/occmeshsurf.hpp $PREFIX/include
     cp -af ./libsrc/general/gzstream.h $PREFIX/include
-    [ -f ./config.h ] && cp -af ./config.h $PREFIX/include
+    [[ -f ./config.h ]] && cp -af ./config.h $PREFIX/include
 }
 
 function s-netgen-prefix()
