@@ -58,8 +58,6 @@
 [
         s-zeromq
         s-ospray
-
-        s-ifc-open-shell
 ] :skip
 
 [ = deb,9
