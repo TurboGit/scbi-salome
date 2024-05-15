@@ -232,6 +232,17 @@ function s-salome-tar-install()
 
     local BINDIR=$(ls -d BINARIES-*)
 
+    #  Copy xmlpatterns over xmlpatterns-qt5 as the later is searched by ParaView
+    #  during configuration and we may have it installed as native version on the
+    #  OS. This would clash if the native version does not correspond to the one
+    #  from the binrary archive.
+
+    if [[ -f $BINDIR/qt/bin/xmlpatterns ]] &&
+           [[ ! -f $BINDIR/qt/bin/xmlpatterns-qt5 ]];
+    then
+        cp $BINDIR/qt/bin/xmlpatterns $BINDIR/qt/bin/xmlpatterns-qt5
+    fi
+
     #  Do remove HELLO and PYHELLO from the UI
 
     for M in HELLO PYHELLO; do
