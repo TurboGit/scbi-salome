@@ -37,7 +37,14 @@ function s-netgen-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $REF =~ "5.3" ]] && echo netgen-53-for-salome.patch
+    [[ $REF =~ "5.3" ]] &&
+        {
+            echo netgen-53-for-salome.patch
+
+            [[ $(get-module-version "s-occt") =~ "780" ]] &&
+                echo netgen-53-OCCT780-linux.patch
+        }
+
     [[ $REF =~ "6.2" ]] && echo netgen-62-for-salome.patch
 }
 

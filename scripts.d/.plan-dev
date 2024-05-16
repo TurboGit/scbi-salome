@@ -43,9 +43,8 @@ s-pyqt-sip:#12.8.1
 s-cmake/auto:#3.25.2
 s-ttk:#1.1.0
 s-swig/auto:#4.0.2
+s-tbb/auto:v2021.11.0
 
-# Use IfcOpenShell from May 2018
-s-ifc-open-shell:#127bcaf96
 s-dataio:v0.1.1
 
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
@@ -66,7 +65,7 @@ s-libbatch:#2.5.0
 
 s-python-omniorb:#4.2.5
 s-omniorb/auto:#4.2.5
-s-occt:#7.5.3p5
+s-occt:CR780-SALOME-PATCH
 s-cgns/auto:#4.2.0
 s-hdf5/auto:#1.10.3
 s-catalyst:#2.0-431a8a1
@@ -80,6 +79,7 @@ s-cgal/auto:v4.13
         # s-homard tool is now merged into s-homard module
         s-homard-tool:#1112hdf51103med410
         s-tbb
+        s-ifc-open-shell:skip
 ] :skip
 
 [
@@ -88,6 +88,7 @@ s-cgal/auto:v4.13
         s-netcdf
         s-eigen
         s-boost
+        s-nlohmann-json3
 ] /native
 
 # First, for repositories where master is at CEA
