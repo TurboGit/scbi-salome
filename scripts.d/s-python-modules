@@ -31,6 +31,21 @@ function s-python-modules-meshio-depends()
     echo os@-python3-typing-extensions
 }
 
+function s-python-modules-toml-depends()
+{
+    echo os@-python3-toml
+}
+
+function s-python-modules-wand-depends()
+{
+    echo os@-python3-wand
+}
+
+function s-python-modules-lxml-depends()
+{
+    echo os@-python3-lxml
+}
+
 function s-python-modules-pyproj-build-depends()
 {
     echo s-proj
@@ -79,21 +94,6 @@ function s-python-modules-metadata-config-options()
 {
     echo zipp==3.15.0
     echo importlib-metadata
-}
-
-function s-python-modules-toml-config-options()
-{
-    echo toml
-}
-
-function s-python-modules-wand-config-options()
-{
-    echo wand
-}
-
-function s-python-modules-lxml-config-options()
-{
-    echo lxml
 }
 
 function s-python-modules-pyaml-config-options()

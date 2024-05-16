@@ -6,6 +6,7 @@ os@-nlopt-dev                       libnlopt-dev
 os@-pypy-setuptools                 pypy-setuptools
 os@-python3-cftime                  python3-cftime
 os@-python3-h5py                    python3-h5py
+os@-python3-lxml                    python3-lxml
 os@-python3-netcdf4                 python3-netcdf4
 os@-python3-nlopt                   python3-nlopt
 os@-python3-numpy                   python3-numpy
