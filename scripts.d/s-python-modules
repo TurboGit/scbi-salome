@@ -1,8 +1,7 @@
 
-#  This is a generic module not meant to be used directly. One is supposed
-#  to inherit from it and setup the module.list in config hook.
-
-
+#  Install some python modules using pip3. Note that this plug-in do not
+#  install dependencies, so the full list of modules to be installed must
+#  be explicitly specified.
 
 function s-python-modules-out-of-tree()
 {
@@ -24,6 +23,14 @@ function s-python-modules-pyaml-build-depends()
     echo libyaml-dev
 }
 
+function s-python-modules-meshio-depends()
+{
+    echo os@-python3-h5py
+    echo os@-python3-netcdf4
+    echo os@-python3-cftime
+    echo os@-python3-typing-extensions
+}
+
 function s-python-modules-pyproj-build-depends()
 {
     echo s-proj
@@ -31,17 +38,24 @@ function s-python-modules-pyproj-build-depends()
 
 function s-python-modules-build-depends()
 {
-    echo os@-python3-setuptools
-    echo os@-pypy-setuptools
+    echo os@-python3-pip
 }
 
-function s-python-modules-build-env()
+function s-python-modules-common-build-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-python-modules-meshio-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH $PREFIX/bin
 }
 
 function s-python-modules-common-env()
@@ -94,7 +108,9 @@ function s-python-modules-pyproj-config-options()
 
 function s-python-modules-meshio-config-options()
 {
-    echo meshio
+    echo numpy==1.20.3
+    echo rich==13.7.1
+    echo meshio==5.3.5
 }
 
 function s-python-modules-telemac-config-options()
@@ -128,45 +144,22 @@ function s-python-modules-telemac-config-options()
     echo jupyter-events==0.5.0 #compatibilité avec pyyaml natif s10
 }
 
-function s-python-modules-pre-config()
-{
-    rm -f module.list
-}
-
-function s-python-modules-config()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    local OPTIONS=()
-    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
-
-    for V in "${OPTIONS[@]}"; do
-        echo $V >> module.list
-    done
-}
-
-function s-python-modules-pre-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    #  Setup PyPI URL
-    PYPIURL=$(scbi-store-get-key PYPIURL)
-
-    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
-    echo "[easy_install]" > setup.cfg
-    echo "index-url = $PYPIURL" >> setup.cfg
-}
-
 function s-python-modules-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    python3 setup.py install --prefix=$PREFIX
+    PYPIURL=$(scbi-store-get-key PYPIURL)
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    pip3 install --no-deps \
+         --index-url=$PYPIURL \
+         --prefix=$PREFIX \
+         ${OPTIONS[@]}
 }
 
 function s-python-modules-post-install()
