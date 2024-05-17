@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-zipp:[v]
+
+function s-python3-zipp-config-options()
+{
+    echo zipp==$(get-version)
+}

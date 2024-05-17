@@ -21,9 +21,7 @@ function s-pyfmi-build-depends()
 function s-pyfmi-depends()
 {
     echo os@-python3
-    echo os@-python3-numpy
-    echo os@-python3-scipy
-    echo python3-lxml
+    echo s-python-modules
     echo cython3
     echo s-fmil
 }

@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-toml:[v]
+
+function s-python3-toml-config-options()
+{
+    echo toml==$(get-version)
+}

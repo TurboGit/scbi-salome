@@ -1,57 +1,6 @@
+inherit-plugin s-install-python-module
 
-function s-python3-xlutils-out-of-tree()
+function s-python3-xlutils-config-options()
 {
-    echo false
-}
-
-function s-python3-xlutils-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
-function s-python3-xlutils-common-depends()
-{
-    echo os@-python3-xlrd
-    echo os@-python3-xlwt
-}
-
-function s-python3-xlutils-default-depends()
-{
-    echo os@-python3
-}
-
-function s-python3-xlutils-build-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
-}
-
-function s-python3-xlutils-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    set-var    XLUTILS_HOME $PREFIX
-
-    add-to-var PYTHONPATH   $PREFIX/lib/python$PYTHON_VERSION/site-packages
-}
-
-function s-python3-xlutils-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    PYPIURL=$(scbi-store-get-key PYPIURL)
-
-    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
-    echo "[easy_install]" > setup.cfg
-    echo "index-url = $PYPIURL" >> setup.cfg
-    python3 setup.py install --prefix=$PREFIX
-}
-
-function s-python3-xlutils-prefix()
-{
-    echo NONE
+    echo xlutils==$(get-version)
 }

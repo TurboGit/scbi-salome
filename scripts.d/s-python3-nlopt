@@ -1,85 +1,8 @@
+inherit-plugin s-install-python-module
 
 with-variant native os@-python3-nlopt:[v] os@-nlopt-dev:[v] os@-nlopt-cxx-dev:[v]
 
-function s-python3-nlopt-vcs() 
-{ 
-    echo default 
-    echo none 
-    echo git 
-    echo https://github.com/stevengj/nlopt.git 
-} 
-
-
-function s-python3-nlopt-out-of-tree()
+function s-python3-nlopt-config-options()
 {
-    echo false
-}
-
-function s-python3-nlopt-build-depends()
-{
-    echo os@-autoconf
-    echo os@-autotools-dev
-    echo os@-libtool
-    echo os@-gcc
-}
-
-function s-python3-nlopt-depends()
-{
-    echo os@-python3
-    echo os@-python3-numpy
-    echo os@-nlopt0
-}
-
-function s-python3-nlopt-build-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    add-to-var PYTHON /usr/bin/python3
-}
-
-function s-python3-nlopt-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    set-var    NLOPT_ROOT_DIR     $PREFIX
-    set-var    NLOPT_INCLUDE_DIR  $PREFIX/include
-
-    add-to-var CMAKE_PREFIX_PATH  $PREFIX/lib/cmake/nlopt
-
-    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
-    add-to-var C_INCLUDE_PATH     $PREFIX/include
-    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
-    add-to-var PYTHONPATH         \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages
-}
-
-function s-python3-nlopt-config()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
-}
-
-function s-python3-nlopt-build()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    make -j$SCBI_JOBS
-}
-
-function s-python3-nlopt-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    make install
-}
-
-function s-python3-nlopt-prefix()
-{
-    echo NONE
+    echo nlopt==$(get-version)
 }

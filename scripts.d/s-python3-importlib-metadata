@@ -1,0 +1,13 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-importlib-metadata:[v]
+
+function s-python3-importlib-metadata-depends()
+{
+    echo s-python3-zipp
+}
+
+function s-python3-importlib-metadata-config-options()
+{
+    echo importlib-metadata==$(get-version)
+}

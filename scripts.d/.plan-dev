@@ -57,7 +57,22 @@ s-gdal/auto:#3.2.2.1
 s-proj/auto:#7.2.0
 s-medfichier:#4.1.1
 s-python3-nlopt/auto:#2.7.0
-s-python3-xlutils:#2.0.0
+s-python3-rich/auto:9.11.0
+s-python3-wand/auto:0.4.4
+s-python3-toml/auto:0.10.0
+s-python3-yaml/auto:3.13
+s-python3-lxml/auto:4.3.2
+s-python3-h5py/auto:2.8.0
+s-python3-cftime/auto:1.0.3
+s-python3-netcdf4/auto:1.5.5
+s-python3-scipy/auto:1.1
+s-python3-typing-extensions/auto:3.7.2
+s-python3-numpy/auto:1.20.3
+s-python3-proj/auto:3.2.1
+s-python3-zipp/auto:1.0
+s-python3-importlib-metadata/auto:1.6
+s-python3-meshio/auto:5.3.5
+s-python3-xlutils:2.0.0
 c-gmp/auto:6.1
 c-mpfr/auto:4.0
 
@@ -69,7 +84,7 @@ s-occt:#CR780-SALOME-PATCH
 s-cgns/auto:#4.2.0
 s-hdf5/auto:#1.10.3
 s-catalyst:#2.0-431a8a1
-s-python-modules/default.wand.metadata.toml.meshio
+s-python-modules/default.core.meshio
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
@@ -166,6 +181,7 @@ s-cgal/auto:v4.13
 
 [ = deb,10
         s-salome/default.core:s10-DEV
+        s-python3-meshio/auto:5.3.4
 ]
 
 [ = deb,11
