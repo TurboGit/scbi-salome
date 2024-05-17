@@ -82,7 +82,7 @@ index 3a9f0c6..08dfc06 100644
 +# 
 +#--------------------------------
 +# --->>>> Put your own path to SYRTHES (extern-libraries directory) :
-+path_extern_lib=""
++path_extern_lib=
 +#--------------------------------
 +#
 +# hdf5 and med are required for MED mesh file format conversion
