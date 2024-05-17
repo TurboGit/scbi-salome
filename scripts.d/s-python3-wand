@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-wand:[v]
+
+function s-python3-wand-config-options()
+{
+    echo wand==$(get-version)
+}

@@ -6,7 +6,6 @@
         s-salome-bin
         s-paravisaddons-edf
         s-atomic
-        s-python3-xlutils
         s-zeromq
         s-melissa
         s-meshgems
