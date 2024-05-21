@@ -69,7 +69,7 @@ s-libbatch:#2.5.0
 
 s-python-omniorb:#4.2.5
 s-omniorb/auto:#4.2.5
-s-occt:CR780-SALOME-PATCH
+s-occt:#CR780-SALOME-PATCH
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
