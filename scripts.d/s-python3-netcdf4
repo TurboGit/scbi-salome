@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-netcdf4:[v]
+
+function s-python3-netcdf4-config-options()
+{
+    echo netcdf4==$(get-version)
+}

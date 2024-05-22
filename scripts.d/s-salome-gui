@@ -19,6 +19,7 @@ function s-salome-gui-salome-module()
 function s-salome-gui-common-build-depends()
 {
     echo s-cmake
+    echo s-python-modules
 }
 
 function s-salome-gui-ng-build-depends()

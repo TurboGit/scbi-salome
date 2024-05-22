@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-numpy:[v]
+
+function s-python3-numpy-config-options()
+{
+    echo numpy==$(get-version)
+}

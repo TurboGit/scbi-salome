@@ -5,7 +5,6 @@
 [ = linux
         s-salome-bin
         s-atomic
-        s-python3-xlutils
         s-zeromq
         s-gnuplot-py
         s-paraview

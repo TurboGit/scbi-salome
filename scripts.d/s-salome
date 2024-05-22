@@ -31,7 +31,6 @@ function s-salome-common-modules()
 
     echo s-salome-configuration
     echo s-atomic
-    echo s-python3-xlutils
     echo s-cgal
     echo s-python-modules
 }

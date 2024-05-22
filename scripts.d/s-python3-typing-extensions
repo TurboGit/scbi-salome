@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-typing-extensions:[v]
+
+function s-python3-typing-extensions-config-options()
+{
+    echo typing-extensions==$(get-version)
+}
