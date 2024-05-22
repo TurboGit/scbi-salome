@@ -64,7 +64,7 @@ function s-code-syrthes-env()
     add-to-var LD_LIBRARY_PATH       $PREFIX/lib
     add-to-var PATH                  $SYRTHES4_HOME/bin
     add-to-var PATH                  $SYRTHES4_HOME/share/syrthes
-    add-to-var PYTHONPATH            $SPREFIX/src/syrthes-gui/src/install #/SyrthesMain
+    add-to-var PYTHONPATH            $PREFIX/src/syrthes-gui/src/install #/SyrthesMain
 }
 
 function s-code-syrthes-config()
