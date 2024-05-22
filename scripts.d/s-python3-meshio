@@ -1,0 +1,40 @@
+
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-meshio:[v]
+
+function s-python3-meshio-depends()
+{
+    echo s-python3-h5py
+    echo s-python3-netcdf4
+    echo s-python3-cftime
+    echo s-python3-typing-extensions
+    echo s-python3-numpy
+    echo s-python3-rich
+}
+
+function s-python3-meshio-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH       $PREFIX/bin
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-python3-meshio-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    MESHIO_ROOT_DIR $PREFIX
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var PYTHONPATH      $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-python3-meshio-config-options()
+{
+    echo meshio==$(get-version)
+}

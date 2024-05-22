@@ -33,7 +33,6 @@ function s-salome-common-modules()
     echo s-atomic
     echo s-paravisaddons-edf
     echo s-melissa
-    echo s-python3-xlutils
     echo s-zcracks
     echo s-cgal
     echo s-padder

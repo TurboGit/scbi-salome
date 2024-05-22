@@ -1,0 +1,32 @@
+inherit-plugin s-install-python-module
+
+function s-python3-telemac-config-options()
+{
+    echo cppy
+    echo traitlets
+    echo nbformat
+    echo ipython
+    echo owslib
+    echo pyshp
+    echo descartes
+    echo fiona==1.8.20
+    echo openpyxl
+    echo rasterio==1.1.0
+    echo doxypypy
+
+    echo jupyter-client==7.4.4
+    echo jupyter-console
+    echo jupyter
+    echo ipywidgets
+    echo geopandas==0.6.3
+    echo shapely==1.8.0
+    echo pylint
+    echo pygments==2.4.1
+    echo requests==2.28
+    echo packaging==21.3
+    echo pyzmq==24
+    echo python-dateutil==2.8.2
+    echo idna==2.8
+    echo y-py==0.5.3
+    echo jupyter-events==0.5.0 #compatibilité avec pyyaml natif s10
+}

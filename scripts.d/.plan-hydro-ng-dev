@@ -3,7 +3,7 @@
 @load hydro-dev/mpi
 @load ng-dev/mpi
 
-s-python-modules/ng.wand.pyaml.pyproj.telemac.metadata.toml:master
+s-python-modules/ng.core.pyproj.telemac:master
 
 [
     s-hydro

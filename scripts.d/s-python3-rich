@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-rich:[v]
+
+function s-python3-rich-config-options()
+{
+    echo rich==$(get-version)
+}

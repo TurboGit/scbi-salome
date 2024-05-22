@@ -1,0 +1,13 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-lxml:[v]
+
+function s-python3-lxml-build-depends()
+{
+    echo os@-xml2-dev
+}
+
+function s-python3-lxml-config-options()
+{
+    echo lxml==$(get-version)
+}

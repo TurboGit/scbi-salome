@@ -1,0 +1,13 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-yaml:[v]
+
+function s-python3-yaml-build-depends()
+{
+    echo libyaml-dev
+}
+
+function s-python3-yaml-config-options()
+{
+    echo pyaml==$(get-version)
+}

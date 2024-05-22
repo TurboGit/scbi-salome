@@ -21,7 +21,7 @@ function s-carmel-study-depends()
     echo s-qt
     echo s-medfichier
     echo s-medcoupling
-    echo python3-lxml
+    echo s-python-modules
 }
 
 function s-carmel-study-ng-build-depends()

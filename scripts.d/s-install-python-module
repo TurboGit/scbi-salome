@@ -1,0 +1,87 @@
+#  This is a generic module to be inherited for installing Python
+#  modules using pip3 tool. Note that the dependencies are not
+#  installed, only the Python modules listed in the config-options
+#  hook.
+#
+#  The usage is:
+#
+#    1. create a new plug-in
+#
+#       ex file: s-python3-h5py
+#
+#    2. inherit s-install-python-module
+#
+#       ex: inherit-plugin s-install-python-module
+#
+#    3. create the config-options hook listing the needed Python moduley
+#
+#       function s-python3-h5py-config-options()
+#       {
+#          echo h5py==$(get-version)
+#       }
+
+function s-install-python-module-build-depends()
+{
+    echo os@-python3-pip
+}
+
+function s-install-python-module-default-depends()
+{
+    echo os@-python3
+}
+
+function s-install-python-module-ng-depends()
+{
+    echo s-salome-bin
+}
+
+function s-install-python-module-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-install-python-module-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-install-python-module-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    PYPIURL=$(scbi-store-get-key PYPIURL)
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    pip3 install --no-deps \
+         --index-url=$PYPIURL \
+         --prefix=$PREFIX \
+         ${OPTIONS[@]}
+}
+
+function s-install-python-module-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local site_file=$(get-os-file /usr/lib/*/*/*/site-patch.py)
+
+    if [[ -f $site_file ]]; then
+        cp $site_file $PREFIX/lib/python$PYTHON_VERSION/site-packages/site.py
+    fi
+}
+
+function s-install-python-module-prefix()
+{
+    echo NONE
+}

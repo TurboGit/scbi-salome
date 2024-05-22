@@ -1,7 +1,20 @@
 # OS name                           Debian packages
 # --------------------------------------------------
-os@-python3-nlopt                   python3-nlopt
-os@-nlopt-dev                       libnlopt-dev
-os@-nlopt-cxx-dev                   libnlopt-cxx-dev
-os@-pypy-setuptools                 pypy-setuptools
 os@-nlohmann-json3-dev              nlohmann-json3-dev
+os@-nlopt-cxx-dev                   libnlopt-cxx-dev
+os@-nlopt-dev                       libnlopt-dev
+os@-pypy-setuptools                 pypy-setuptools
+os@-python3-cftime                  python3-cftime
+os@-python3-h5py                    python3-h5py
+os@-python3-importlib-metadata      python3-importlib-metadata
+os@-python3-lxml                    python3-lxml
+os@-python3-meshio                  python3-meshio
+os@-python3-netcdf4                 python3-netcdf4
+os@-python3-nlopt                   python3-nlopt
+os@-python3-numpy                   python3-numpy
+os@-python3-pip                     python3-pip
+os@-python3-rich                    python3-rich
+os@-python3-toml                    python3-toml
+os@-python3-typing-extensions       python3-typing-extensions
+os@-python3-wand                    python3-wand
+os@-python3-zipp                    python3-zipp

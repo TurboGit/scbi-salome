@@ -1,0 +1,13 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-pyproj:[v]
+
+function s-python3-proj-build-depends()
+{
+    echo s-proj
+}
+
+function s-python3-proj-config-options()
+{
+    echo pyproj==$(get-version)
+}
