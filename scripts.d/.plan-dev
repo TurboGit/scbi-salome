@@ -56,7 +56,7 @@ s-gmsh:#4.10.3
 s-gdal/auto:#3.2.2.1
 s-proj/auto:#7.2.0
 s-medfichier:#4.1.1
-s-python3-nlopt/auto:#2.7.0
+s-python3-nlopt/auto:2.7.0
 s-python3-rich/auto:9.11.0
 s-python3-wand/auto:0.4.4
 s-python3-toml/auto:0.10.0
@@ -182,6 +182,7 @@ s-cgal/auto:v4.13
 [ = deb,10
         s-salome/default.core:s10-DEV
         s-python3-meshio/auto:5.3.4
+        s-python3-nlopt/auto:2.6.2
 ]
 
 [ = deb,11
