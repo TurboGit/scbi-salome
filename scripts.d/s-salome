@@ -207,12 +207,19 @@ function setup-env-salome()
         CURRENT_MODULE_INSTALL=
 
         local KEEP_VAR=no
+        declare -A ENVSET=()
 
         function define-var()
         {
             local ACTION=$1
             local VAR=$2
             local VALUE=$3
+
+            local KEY="${ACTION}.${VAR}"
+
+            [[ "${ENVSET[$KEY]}" == "${VALUE}" ]] && return
+
+            ENVSET+=([$KEY]="${VALUE}")
 
             #  Special case, do not add /usr/bin to PATH from native modules.
             #  This PATH will be at the end of the PATH anyway and we do want
@@ -343,10 +350,11 @@ function setup-env-salome()
             local IS_AGGREGATE=false
 
             #  Nothing to copy for aggregated modules and build dependencies
-            [[ $DEPENDS_KIND != default ]] &&
+            [[ $DEPENDS_KIND != default ]] || [[ $IS_AGGREGATED == true ]] &&
                 return
 
-            #  Nothing to copy for meta-modules, except if aggregate
+            #  Check if aggregate module and so if env of aggregated modules must
+            #  be set in it.
 
             if [[ $IS_META == true ]]; then
                 #  check if aggregate module
@@ -418,17 +426,28 @@ function setup-env-salome()
             # Call <module>-env hook which will be using the add-to-var
             # above.
 
-            plugin-call-variant-hooks $module env \
-                                      $CURRENT_MODULE_INSTALL $TARGET $variant
+            local MLIST=()
 
-            #  Handle possible ctest support
-
-            get-hook FCT $module $variant ctest-dir
-
-            if [[ ! -z $FCT ]]; then
-                echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
-                     >> $SBINDIR/bin/salome/test/CTestTestfile.cmake
+            if [[ $IS_AGGREGATE == true ]]; then
+                MLIST=( $(plugin-call-variant-hooks \
+                              $module modules \
+                              $SCBI_PREFIX $SCBI_TARGET $variant) )
+            else
+                MLIST=( $module )
             fi
+
+            for MOD in ${MLIST[*]}; do
+                plugin-call-variant-hooks $MOD env \
+                                          $CURRENT_MODULE_INSTALL $TARGET $variant
+                #  Handle possible ctest support
+
+                get-hook FCT $MOD $variant ctest-dir
+
+                if [[ ! -z $FCT ]]; then
+                    echo "SUBDIRS(../../../../../$($FCT EDF/$MOD))" \
+                         >> $SBINDIR/bin/salome/test/CTestTestfile.cmake
+                fi
+            done
         }
 
         #  Patch env_launch.sh
