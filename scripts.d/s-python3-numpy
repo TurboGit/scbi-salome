@@ -2,6 +2,15 @@ inherit-plugin s-install-python-module
 
 with-variant native os@-python3-numpy:[v]
 
+function s-python3-numpy-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH       $PREFIX/bin
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
 function s-python3-numpy-config-options()
 {
     echo numpy==$(get-version)
