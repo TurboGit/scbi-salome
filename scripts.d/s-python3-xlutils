@@ -1,5 +1,14 @@
 inherit-plugin s-install-python-module
 
+function s-python3-xlutils-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH       $PREFIX/bin
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
 function s-python3-xlutils-config-options()
 {
     echo xlutils==$(get-version)
