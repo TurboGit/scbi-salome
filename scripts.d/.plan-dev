@@ -225,4 +225,5 @@ s-cgal/auto:v4.13
         s-padder:skip
         s-tefluide:skip
         s-atomic:skip
+        s-mgkeygen/win
 ]
