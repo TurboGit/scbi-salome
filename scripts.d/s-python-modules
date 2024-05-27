@@ -84,7 +84,7 @@ function s-python-modules-out-of-tree()
 
 function s-python-modules-aggregate()
 {
-    echo true
+    echo recursive
 }
 
 function s-python-modules-prefix()
