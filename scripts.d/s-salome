@@ -316,11 +316,7 @@ function setup-env-salome()
             if [[ $IS_META == true ]]; then
                 #  check if aggregate module
 
-                is-meta-aggregate-module $MODREF > /dev/null
-
-                [[ $? != 0 ]] && return
-
-                local IS_AGGREGATE=true
+                is-meta-aggregate-module IS_AGGREGATE $MODREF
             fi
 
             local module_info=()
@@ -334,24 +330,17 @@ function setup-env-salome()
                 KEEP_VAR=yes
             fi
 
+            #  Check if the module has been installed into EDF directory. If not it is
+            #  probably because it is an aggregated module.
+
+            [[ ! -d $APPDIR/EDF/$module ]] && return
+
             #  Initialize env script
 
             CURRENT_MODULE_NAME=$module
             CURRENT_MODULE=${module//-/_}
-
-            if [[ $IS_AGGREGATED == true ]]; then
-                local fmodule_info=()
-                get-module-ref fmodule_info $FORMODULE "@root"
-
-                local fmodule=${fmodule_info[0]}
-                local fvariant=${fmodule_info[1]}
-
-                CURRENT_MODULE_DIR=$fmodule
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$fmodule/$SCBI_TARGET-$fvariant/install
-            else
-                CURRENT_MODULE_DIR=$module
-                CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
-            fi
+            CURRENT_MODULE_DIR=$module
+            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
 
             if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
                 NUM=998
@@ -383,9 +372,11 @@ function setup-env-salome()
             # Call <module>-env hook which will be using the add-to-var
             # above.
 
+            plugin-call-env-hooks $FORMODULE $MODREF env
+
             local MLIST=()
 
-            if [[ $IS_AGGREGATE == true ]]; then
+            if [[ $IS_AGGREGATE != no ]]; then
                 MLIST=( $(plugin-call-variant-hooks \
                               $module modules \
                               $SCBI_PREFIX $SCBI_TARGET $variant) )
@@ -394,8 +385,6 @@ function setup-env-salome()
             fi
 
             for MOD in ${MLIST[*]}; do
-                plugin-call-variant-hooks $MOD env \
-                                          $CURRENT_MODULE_INSTALL $TARGET $variant
                 #  Handle possible ctest support
 
                 get-hook FCT $MOD $variant ctest-dir
@@ -520,11 +509,9 @@ function copy-modules-salome()
         if [[ $IS_META == true ]]; then
             #  check if aggregate module
 
-            is-meta-aggregate-module $MODREF > /dev/null
+            is-meta-aggregate-module IS_AGGREGATE $MODREF
 
             [[ $? != 0 ]] && return
-
-            local IS_AGGREGATE=true
         fi
 
         local module_info=()
