@@ -45,6 +45,9 @@ function s-mgkeygen-win-config-options()
     echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w $CONFIGURATION_ROOT_DIR)
     echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
     echo -DMG_OEM_LICENSE_HEADER=$(cygpath -w -s "$(scbi-store-get-key MGKEYGEN_HEADER)")
+    #  ??? For some reasons not yet understood the compilation in
+    #  Debug mode does not create a working DLL.
+    echo -DCMAKE_BUILD_TYPE=Release
 }
 
 function s-mgkeygen-win-config()
