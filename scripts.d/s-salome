@@ -458,8 +458,11 @@ EOF
         local SVER=$(get-version)
 
         {
+            echo "import os.path"
+            echo ""
             echo "def init(context, root_dir):"
             echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)'
+            echo '   context.setVariable(r"SALOME_BIN_MODULES", os.path.join(root_dir, '\"$SALOME_BINARY_DIR\"'), overwrite=True)'
             echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
             echo '   context.setVariable(r"PYTHON_VERSION", '\"$PYTHON_VERSION\"', overwrite=True)'
             echo '   context.setVariable(r"PYTHONIOENCODING", r"UTF_8", overwrite=True)'
@@ -477,6 +480,7 @@ EOF
             echo
 
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
+	    echo "export SALOME_BIN_MODULES=\${out_dir_Path}/$SALOME_BINARY_DIR"
             echo "export SALOME_VERSION=$SVER"
             echo "export PYTHON_VERSION=$PYTHON_VERSION"
             echo "export SALOME_ON_DEMAND=HIDE"
