@@ -437,7 +437,7 @@ EOF
             echo
 
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
-	    echo "export SALOME_BIN_MODULES=\${out_dir_Path}/$SALOME_BINARY_DIR"
+            echo "export SALOME_BIN_MODULES=\${out_dir_Path}/$SALOME_BINARY_DIR"
             echo "export SALOME_VERSION=$SVER"
             echo "export PYTHON_VERSION=$PYTHON_VERSION"
             echo "export SALOME_ON_DEMAND=HIDE"
@@ -473,18 +473,18 @@ function sync-delete-installed()
                 cd $FROM/$PLUGIN
 
                 find . -type f | while read -r file; do
-		    if [[ -f $BTO/$file ]]; then
-			rm -f $BTO/$file
-		    else
-			#  This is a hack to check for a file in a directory
-			#  just above. Indeed some modules are installing the
-			#  binaries into bin/Linux_XXX/file, so we try to also
-			#  look into bin/file.
+                    if [[ -f $BTO/$file ]]; then
+                        rm -f $BTO/$file
+                    else
+                        #  This is a hack to check for a file in a directory
+                        #  just above. Indeed some modules are installing the
+                        #  binaries into bin/Linux_XXX/file, so we try to also
+                        #  look into bin/file.
 
-			local F=$(basename $file)
-			local D=$(dirname $(dirname $file))
-			rm -f $BTO/$D/$F
-		    fi
+                        local F=$(basename $file)
+                        local D=$(dirname $(dirname $file))
+                        rm -f $BTO/$D/$F
+                    fi
                 done
             )
     fi
