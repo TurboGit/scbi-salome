@@ -73,6 +73,13 @@ function s-adao-build-env()
     set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 }
 
+function s-adao-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
 function s-adao-config()
 {
     local PREFIX=$1
