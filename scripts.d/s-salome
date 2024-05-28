@@ -30,6 +30,7 @@ function s-salome-common-modules()
         s-salome-ng-extra-modules
 
     echo s-salome-configuration
+    echo s-salome-bin
     echo s-atomic
     echo s-paravisaddons-edf
     echo s-melissa
@@ -350,6 +351,7 @@ function setup-env-salome()
             local IS_AGGREGATE=false
 
             #  Nothing to copy for aggregated modules and build dependencies
+
             [[ $DEPENDS_KIND != default ]] || [[ $IS_AGGREGATED == true ]] &&
                 return
 
@@ -373,10 +375,14 @@ function setup-env-salome()
                 KEEP_VAR=yes
             fi
 
-            #  Check if the module has been installed into EDF directory. If not it is
-            #  probably because it is an aggregated module.
+            #  Check if the module has been installed into EDF
+            #  directory. If not it is probably because it is an
+            #  aggregated module.
 
-            [[ ! -d $APPDIR/EDF/$module ]] && return
+            [[ ! -d $APPDIR/EDF/$module ]] &&
+                [[ $module != "s-salome-bin" ]] &&
+                [[ $module != "s-salome-tar" ]] &&
+                return
 
             #  Initialize env script
 
@@ -462,7 +468,6 @@ EOF
             echo ""
             echo "def init(context, root_dir):"
             echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)'
-            echo '   context.setVariable(r"SALOME_BIN_MODULES", os.path.join(root_dir, '\"$SALOME_BINARY_DIR\"'), overwrite=True)'
             echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
             echo '   context.setVariable(r"PYTHON_VERSION", '\"$PYTHON_VERSION\"', overwrite=True)'
             echo '   context.setVariable(r"PYTHONIOENCODING", r"UTF_8", overwrite=True)'
@@ -480,7 +485,6 @@ EOF
             echo
 
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
-            echo "export SALOME_BIN_MODULES=\${out_dir_Path}/$SALOME_BINARY_DIR"
             echo "export SALOME_VERSION=$SVER"
             echo "export PYTHON_VERSION=$PYTHON_VERSION"
             echo "export SALOME_ON_DEMAND=HIDE"
