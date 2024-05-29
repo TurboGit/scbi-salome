@@ -66,6 +66,7 @@ function s-adao-config()
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DADAO_SALOME_MODULE=OFF \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DADAO_BUILD_DOC=OFF"} \
           ../src
