@@ -1,0 +1,94 @@
+
+
+
+function s-adao-tool-build-depends()
+{
+    local DISDOC=$(is-enabled no-doc)
+
+    echo s-cmake
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-common
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
+}
+
+function s-adao-tool-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-adao-tool-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-adao-tool-default-depends()
+{
+    echo os@-python3-sphinx-rtd-theme
+    echo os@-python3-matplotlib
+    echo s-python3-nlopt
+    echo os@-python3-scipy
+}
+
+function s-adao-tool-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    ADAO_ENGINE_ROOT_DIR $PREFIX
+
+    add-to-var LD_LIBRARY_PATH      $PREFIX/lib
+    add-to-var PYTHONPATH           \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-adao-tool-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+}
+
+function s-adao-tool-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
+
+function s-adao-tool-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
+          -DADAO_SALOME_MODULE=OFF \
+          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
+          ${DISDOC:+"-DADAO_BUILD_DOC=OFF"} \
+          ../src
+}
+
+function s-adao-tool-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-adao-tool-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-adao-tool-prefix()
+{
+    echo NONE
+}
