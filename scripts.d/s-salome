@@ -663,6 +663,8 @@ function s-salome-wrapup()
                 {
                     cp $SCBI_PLUGINS/support/env_launch.sh .
                     cp $SCBI_PLUGINS/support/salome .
+                    cp EDF/s-salome-kernel/bin/salome/appliskel/.bashrc \
+                       EDF/s-salome-kernel
                     chmod a+x salome env_launch.sh
                 }
 
