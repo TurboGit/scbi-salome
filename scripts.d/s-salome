@@ -54,7 +54,6 @@ function s-salome-default-modules()
     echo s-paravis
     echo s-fields
     echo s-yacs
-    echo s-salome-adao
     echo s-ydefx
     echo s-salome-eficas
     echo s-salome-jobmanager
@@ -442,8 +441,8 @@ function setup-env-salome()
 
                 get-hook FCT $MOD $variant ctest-dir
 
-                if [[ ! -z $FCT ]]; then
-                    echo "SUBDIRS(../../../../../$($FCT EDF/$MOD))" \
+                if [[ -n $FCT ]]; then
+                    echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
                          >> $SBINDIR/bin/salome/test/CTestTestfile.cmake
                 fi
             done
