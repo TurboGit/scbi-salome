@@ -31,7 +31,7 @@ function s-salome-adao-salome-module()
     echo ADAO
 }
 
-function s-salome-adao-build-depends()
+function s-salome-adao-common-build-depends()
 {
     echo s-cmake
     echo os@-sphinx-common
@@ -39,11 +39,18 @@ function s-salome-adao-build-depends()
     echo s-adao
 }
 
-function s-salome-adao-depends()
+function s-salome-adao-ng-build-depends()
 {
-    echo os@-python3-docutils
+    echo s-salome-bin
+}
 
+function s-salome-adao-common-depends()
+{
     echo s-salome-configuration
+}
+
+function s-salome-adao-default-depends()
+{
     echo s-salome-kernel
     echo s-salome-eficas
     echo s-eficas-tools
