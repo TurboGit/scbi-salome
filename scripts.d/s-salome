@@ -30,7 +30,6 @@ function s-salome-common-modules()
         s-salome-ng-extra-modules
 
     echo s-salome-configuration
-    echo s-salome-bin
     echo s-atomic
     echo s-cgal
     echo s-python-modules
@@ -108,6 +107,11 @@ function s-salome-default-modules()
 
 function s-salome-ng-modules()
 {
+    #  The plug-in s-salome-bin must be explicitly set here as it is
+    #  a build dependency on all plug-ins but it also must be available
+    #  at run-time as it contains settings for many prerequisites.
+    echo s-salome-bin
+
     echo s-salome-tar
 }
 
@@ -307,7 +311,7 @@ function setup-env-salome()
 
             local IS_AGGREGATE=false
 
-            #  Nothing to copy for aggregated modules and build dependencies
+            #  No env setup aggregated modules and build dependencies
 
             [[ $DEPENDS_KIND != default ]] || [[ $IS_AGGREGATED == true ]] &&
                 return
