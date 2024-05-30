@@ -28,6 +28,7 @@
         s-yacs
         s-adao
         s-salome-adao
+        s-adao-tool
         s-geom
         s-persalys
         s-ydefx
