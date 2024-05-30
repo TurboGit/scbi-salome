@@ -48,7 +48,6 @@ function s-salome-default-modules()
     echo s-paravis
     echo s-fields
     echo s-yacs
-    echo s-salome-adao
     echo s-ydefx
     echo s-salome-eficas
     echo s-salome-jobmanager
@@ -399,8 +398,8 @@ function setup-env-salome()
 
                 get-hook FCT $MOD $variant ctest-dir
 
-                if [[ ! -z $FCT ]]; then
-                    echo "SUBDIRS(../../../../../$($FCT EDF/$MOD))" \
+                if [[ -n $FCT ]]; then
+                    echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
                          >> $SBINDIR/bin/salome/test/CTestTestfile.cmake
                 fi
             done
@@ -628,9 +627,9 @@ function s-salome-wrapup()
             date > artifacts/creation-time.txt
             scbi --version > artifacts/scbi_versions.txt
 
-            [[ ! -z $CI_JOB_NAME ]] &&
+            [[ -n $CI_JOB_NAME ]] &&
                 echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
-            [[ ! -z $CI_PIPELINE_ID ]] &&
+            [[ -n $CI_PIPELINE_ID ]] &&
                 echo CI_PIPELINE_ID $CI_PIPELINE_ID  >> artifacts/gitlab-ci.data
 
             #  Copy EDF's modules into sub-directory EDF

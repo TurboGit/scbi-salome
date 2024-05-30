@@ -152,7 +152,6 @@ s-cgal/auto:v4.13
 [
         s-salome-eficas
         s-eficas-tools
-        s-salome-adao
         s-adao
         s-adao-interface
 ] :$EDF_VERSION
