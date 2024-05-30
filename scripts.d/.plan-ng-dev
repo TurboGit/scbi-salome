@@ -27,6 +27,7 @@
         s-salome-openturns
         s-yacs
         s-adao
+        s-salome-adao
         s-geom
         s-persalys
         s-ydefx
