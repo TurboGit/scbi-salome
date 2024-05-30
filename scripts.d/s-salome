@@ -427,11 +427,13 @@ function setup-env-salome()
             plugin-call-env-hooks $FORMODULE $MODREF env
 
             local MLIST=()
+            local FMODULE=$FORMODULE
 
-            if [[ $IS_AGGREGATE != no ]]; then
+            if [[ $IS_AGGREGATE != false ]]; then
                 MLIST=( $(plugin-call-variant-hooks \
                               $module modules \
                               $SCBI_PREFIX $SCBI_TARGET $variant) )
+                FMODULE=$module
             else
                 MLIST=( $module )
             fi
@@ -439,7 +441,12 @@ function setup-env-salome()
             for MOD in ${MLIST[*]}; do
                 #  Handle possible ctest support
 
-                get-hook FCT $MOD $variant ctest-dir
+                local m_info=()
+                get-module-ref m_info $MOD $FMODULE
+                local m=${m_info[0]}
+                local v=${m_info[1]}
+
+                get-hook FCT $m $v ctest-dir
 
                 if [[ -n $FCT ]]; then
                     echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
