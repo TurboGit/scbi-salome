@@ -53,7 +53,7 @@ function is-root-path()
     local ROOT=$1
     local VAR=$2
 
-    [[ ! -z $VAR ]] && [[ ${VAR#$ROOT} != $VAR ]]
+    [[ -n $VAR ]] && [[ ${VAR#$ROOT} != $VAR ]]
 }
 
 function s-salome-bin-ng-env()
@@ -75,7 +75,7 @@ function s-salome-bin-ng-env()
             local DEF=( $(get-extra-module-def $MOD) )
             local PAT=${DEF[1]}
 
-            if [[ ! -z $PAT ]]; then
+            if [[ -n $PAT ]]; then
                 if [[ $VALUE =~ $PAT ]] || [[ $VAR =~ $PAT ]]; then
                     FOUND=true
                     break

@@ -244,7 +244,7 @@ function s-salome-tar-install()
         #  Ensure we match a whole word, then comment out variables
         #  pointing to the module.
 
-        if [[ ! -z $PAT ]]; then
+        if [[ -n $PAT ]]; then
             #  Match a block starting with a pattern and ending
             #  by an empty line.
             if [[ $SCBI_IS_WINDOWS == yes ]]; then
