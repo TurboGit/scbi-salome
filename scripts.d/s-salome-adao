@@ -6,6 +6,11 @@ function s-salome-adao-salome-module()
     echo ADAO
 }
 
+function s-salome-adao-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
 function s-salome-adao-build-depends()
 {
     echo s-cmake
@@ -14,7 +19,12 @@ function s-salome-adao-build-depends()
     echo s-adao-tool
 }
 
-function s-salome-adao-depends()
+function s-salome-adao-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-salome-adao-default-depends()
 {
     echo os@-python3-docutils
 
