@@ -276,9 +276,9 @@ The \emph{config} hook may require some update. Again see the SCBI User's Guide 
 
 The current module depends on new optional dependencies, the corresponding module's dependencies plug-ins must be created if needed.
 
-The new dependency is not mandatory and we want to have a way to enable it or not at build time. In this case a build variant should be introduced. This build variant may just require a \emph{depends} and \emph{config} variant hooks to activate the dependency at config time. This optional dependency is then activated by specifying the variant in the module reference.
+The new dependency is not mandatory and we want to have a way to enable it or not at build time. In this case a build variant should be introduced. This build variant may just require a \emph{depends} and \emph{config} variant hooks to activate the dependency at configuration time. This optional dependency is then activated by specifying the variant in the module reference.
 
-A good example is the \code{paraview} module where multiple variants are proposed to build \code{paraview} with or without \code{ospray}, \code{gdal}, \code{headless} and \code{vrpn}.
+A good example is the \code{s-paraview} plug-in where multiple variants are proposed to build \code{paraview} with or without \code{ospray}, \code{gdal}, \code{headless} and \code{vrpn}.
 
 \subsection{New module}
 
@@ -454,7 +454,7 @@ There is many ways to get information for a module and possible dependencies. We
 The direct dependencies for paraview:
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 show \ddash{}depends:direct s-paraview
+	\item scbi show \ddash{}env=v96 \ddash{}depends:direct s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
@@ -465,7 +465,7 @@ ospray:1.8.4
 \subsection{module's dependencies}
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 show \ddash{}depends s-paraview
+	\item scbi show \ddash{}env=v96 \ddash{}depends s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
@@ -480,7 +480,7 @@ s-clang:llvmorg-8.0.1
 \subsection{module's direct dependencies with externals}
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 show \ddash{}depends:direct \ddash{}externals s-paraview
+	\item scbi show \ddash{}env=v96 \ddash{}depends:direct \ddash{}externals s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
@@ -504,7 +504,7 @@ qtxmlpatterns5-dev-tools:5.11.3-2
 \subsection{module's dependencies with externals}
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 \ddash{}list-externals paraview
+	\item scbi show \ddash{}env=v96 \ddash{}externals s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
@@ -544,7 +544,7 @@ zlib1g-dev:1:1.2.11.dfsg-1
 We can also get modules without the version information with option \ddash{}list-no-version:
 
 \begin{shellcommand}
-	\item scbi \ddash{}env=v96 \ddash{}list-externals \ddash{}list-no-version paraview
+	\item scbi show \ddash{}env=v96 \ddash{}externals \ddash{}no-version s-paraview
 \end{shellcommand}
 
 \begin{lstlisting}
@@ -706,7 +706,7 @@ Finally, if the build-plan has not been specified in the environment by setting 
 
 And we can of course mix the environment and different build-plans if needed.
 
-\cmd{scbi \ddash{}env=v96 \ddash{}safe \ddash{}plan=debug \ddash{}deps s-salome}
+\cmd{scbi \ddash{}env=v912 \ddash{}safe \ddash{}plan=debug \ddash{}deps s-salome}
 
 If more than one module must be debugged and/or changed then just apply the same procedure for the other modules.
 
@@ -732,7 +732,7 @@ To run only the build step, and have the output on the console:
 
 Another alternative is to go into the sandbox with proper environment and debug in-place the module.
 
-\cmd{scbi \ddash{}env=v96 \ddash{}shell:sandbox paraview}
+\cmd{scbi \ddash{}env=debug shell \ddash{}mode:sandbox s-paraview}
 
 This command will open a sub-shell into the build directory of paraview in the sandbox. The environment variables are set exactly with the same values as when compiling in the sandbox. The sources can be changed directly in directory whose relative path is \file{../src}. After changing the paraview sources a simple \code{make} will recompile paraview.
 
