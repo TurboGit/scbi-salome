@@ -160,7 +160,7 @@ s-cgal/auto:v4.13
 # MPI like the two plugins.
 
 [ = mpi
-        s-medcoupling/default.mpi.scotch
+        s-medcoupling/default.mpi.ptscotch
         s-paravis/default.mpi
 ] :$CEA_VERSION
 
