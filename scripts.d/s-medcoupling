@@ -119,6 +119,10 @@ function s-medcoupling-scotch-config-options()
 {
     echo -DMEDCOUPLING_PARTITIONER_SCOTCH=ON
     echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=OFF
+
+    echo -DSCOTCH_INCLUDE_DIRS=$SCOTCH_INCLUDE_DIRS
+    echo -DSCOTCH_ERR_LIBRARIES=$SCOTCH_ERR_LIBRARIES
+    echo -DSCOTCH_LIBRARIES=$SCOTCH_LIBRARIES
 }
 
 function s-medcoupling-ng-config-options()
@@ -127,6 +131,10 @@ function s-medcoupling-ng-config-options()
     echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
     echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
     echo -DMEDCOUPLING_USE_MPI=ON
+
+    echo -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
+    echo -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
+    echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
 }
 
 function s-medcoupling-common-config-options()
