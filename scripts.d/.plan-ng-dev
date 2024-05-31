@@ -40,6 +40,9 @@
         s-salome-eficas
 ] /+ng-default
 
+s-ptscotch/ng
+s-scotch/ng
+
 #  The version for s-salome-tar has two parts, the version of the code
 #  and the version of the OS See tar hook in s-salome-tar for the
 #  MinIO download.
