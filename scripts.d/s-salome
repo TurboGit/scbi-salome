@@ -606,10 +606,10 @@ function copy-modules-salome()
         local SREF=$SCBI_BDIR/$module/source-ref
 
         if [[ -f $SREF ]]; then
-            local RDATA=( $(cat $SREF) )
-            printf "%-25s %-11s %-20s %-9s %s\n" ${RDATA[0]} \
-                   ${RDATA[1]} ${RDATA[2]} ${RDATA[3]} ${RDATA[4]} \
-                   >> artifacts/source-refs.txt
+            cat $SREF | while read v1 v2 v3 v4 v5; do
+                printf "%-25s %-11s %-20s %-9s %s\n" $v1 $v2 $v3 $v4 $v5 \
+                       >> artifacts/source-refs.txt
+            done
         fi
     }
 
