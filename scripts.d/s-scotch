@@ -1,6 +1,8 @@
 
 with-variant native os@-scotch:[v] os@-scotch-dev:[v]
 
+with-variant ng
+
 function s-scotch-vcs()
 {
     echo edf
