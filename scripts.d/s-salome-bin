@@ -221,6 +221,19 @@ function s-salome-bin-ng-env()
                        $PTSCOTCH_ROOT_DIR/lib/libptscotcherr.a
         }
 
+    is-root-path $SALOME_BIN_MODULES $SCOTCH_ROOT_DIR &&
+        {
+            add-to-var C_INCLUDE_PATH         $SCOTCH_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH     $SCOTCH_ROOT_DIR/include
+            add-to-var PATH                   $SCOTCH_ROOT_DIR/bin
+            add-to-var LIBRARY_PATH           $SCOTCH_ROOT_DIR/lib
+            set-var    SCOTCH_INCLUDE_DIRS    $SCOTCH_ROOT_DIR/include
+            set-var    SCOTCH_LIBRARIES     \
+                       $SCOTCH_ROOT_DIR/lib/libscotch.a
+            set-var    SCOTCH_ERR_LIBRARIES \
+                       $SCOTCH_ROOT_DIR/lib/libscotcherr.a
+        }
+
     add-to-var PATH                   $ISPC_ROOT_DIR/bin
     add-to-var PATH                   $SALOME_BIN_MODULES/llvm/bin
 
