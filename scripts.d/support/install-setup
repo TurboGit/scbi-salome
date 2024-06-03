@@ -5,7 +5,7 @@ source $(dirname ${BASH_SOURCE[0]})/install-setup-common
 AUTO=0
 DIRECTION=
 
-while [ -n $1 ]; do
+while [[ -n $1 ]]; do
     case "$1" in
         --auto)
             AUTO=1;
