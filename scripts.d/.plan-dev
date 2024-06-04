@@ -53,7 +53,7 @@ s-dataio:v0.1.1
 s-netgen/autotools:#5.3.1
 
 s-gmsh:#4.10.3
-s-gdal/auto:#3.2.2.1
+s-gdal/auto:#3.2.2
 s-proj/auto:#7.2.0
 s-medfichier:#4.1.1
 s-python3-nlopt/auto:2.7.0
