@@ -17,7 +17,7 @@ function s-netcdf-archive()
     echo none
     echo none
     echo none
-    echo gdal-$VERSION.tar.gz
+    echo netcdf-$VERSION.tar.gz
 }
 
 function s-netcdf-build-depends()
