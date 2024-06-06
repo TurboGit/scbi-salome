@@ -51,7 +51,26 @@ s-hdf5/native-serial
 s-boost/native
 s-cgal/native
 s-padder:20200727
-
+s-gdal/auto:#3.2.2.1
+s-proj/auto:#7.2.0
+s-medfichier:#4.1.1
+s-python3-nlopt/auto:2.4.2
+s-python3-rich/auto:9.11.0
+s-python3-wand/auto:0.4.4
+s-python3-toml/auto:0.10.0
+s-python3-yaml/auto:3.13
+s-python3-lxml/auto:4.3.2
+s-python3-h5py/auto:2.8.0
+s-python3-cftime/auto:1.0.3
+s-python3-netcdf4/auto:1.5.5
+s-python3-scipy/auto:1.1
+s-python3-typing-extensions/auto:3.7.2
+s-python3-numpy/auto:1.20.3
+s-python3-proj/auto:3.2.1
+s-python3-zipp/auto:1.0
+s-python3-importlib-metadata/auto:1.6
+s-python3-meshio/auto:5.3.5
+s-python3-xlutils:2.0.0
 [
         # s-homard tool is now merged into s-homard module
         s-homard-tool:#1112hdf51103med410
@@ -83,7 +102,7 @@ s-padder:20200727
         s-hybrid-plugin
         s-hexotic-plugin
         s-netgen-plugin
-        s-shaperstudy
+        s-shaper-study
         s-homard
         s-salome-configuration
         s-salome-jobmanager
