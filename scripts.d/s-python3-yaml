@@ -9,5 +9,5 @@ function s-python3-yaml-build-depends()
 
 function s-python3-yaml-config-options()
 {
-    echo pyaml==$(get-version)
+    echo pyyaml==$(get-version)
 }
