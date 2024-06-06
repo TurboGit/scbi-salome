@@ -14,7 +14,9 @@ os@-python3-nlopt                   python3-nlopt
 os@-python3-numpy                   python3-numpy
 os@-python3-pip                     python3-pip
 os@-python3-rich                    python3-rich
+os@-python3-scipy                   python3-scipy
 os@-python3-toml                    python3-toml
 os@-python3-typing-extensions       python3-typing-extensions
 os@-python3-wand                    python3-wand
+os@-python3-yaml                    python3-yaml
 os@-python3-zipp                    python3-zipp
