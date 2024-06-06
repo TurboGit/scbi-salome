@@ -88,15 +88,10 @@ function s-code-syrthes-install()
     python3 syrthes_install.py
 }
 
-#function s-code-syrthes-post-install()
-#{
-#    local PREFIX=$1
-#    local TARGET=$2
-#
-#    cd $PREFIX/src/syrthes-gui/src
-#    bash Install.sh
-#    cd install
-#    python3 setup_cxfl.py build
-#    cd build
-#    mv exe.linux-x86_64_xxx   $PREFIX/src/syrthes-gui/exe.linux-x86_64
-#}
+function s-code-syrthes-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    chmod a+x $PREFIX/arch/Linux_x86_64/bin/*
+}
