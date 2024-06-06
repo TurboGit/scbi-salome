@@ -50,7 +50,6 @@ function s-cgns-config()
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCGNS_ENABLE_64BIT:BOOL=OFF \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
           ../src
 }
