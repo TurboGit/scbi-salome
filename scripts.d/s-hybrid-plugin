@@ -49,6 +49,7 @@ function s-hybrid-plugin-default-depends()
     echo s-salome-gui
     echo s-geom
     echo s-smesh
+    echo s-meshgems
 }
 
 function s-hybrid-plugin-env()
