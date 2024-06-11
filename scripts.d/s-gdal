@@ -1,5 +1,8 @@
 
-with-variant native os@-gdal-dev:[v] s-hdf5 s-netcdf os@-proj-dev
+with-variant native os@-gdal-dev:[v] s-hdf5 s-netcdf os@-proj-dev \
+             --env 'set-var GDAL_ROOT_DIR    /usr' \
+                   'set-var GDAL_INCLUDE_DIR /usr/include/gdal' \
+                   'set-var GDAL_LIBRARY     /usr/lib'
 
 function s-gdal-vcs() 
 { 
@@ -33,6 +36,8 @@ function s-gdal-env()
     local TARGET=$2
 
     set-var    GDAL_ROOT_DIR      $PREFIX
+    set-var    GDAL_INCLUDE_DIR   $PREFIX/include
+    set-var    GDAL_LIBRARY       $PREFIX/lib
 
     add-to-var C_INCLUDE_PATH     $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
