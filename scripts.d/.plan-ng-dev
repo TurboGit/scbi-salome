@@ -85,7 +85,6 @@ s-scotch/ng
 
 [ = deb,10
         s-salome-tar:#master-native:DB10
-        s-gdal:skip
         s-qt:skip
         s-pyqt:skip
 ]
