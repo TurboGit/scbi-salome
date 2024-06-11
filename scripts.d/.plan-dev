@@ -184,6 +184,7 @@ s-cgal/auto:v4.13
         s-python3-nlopt/auto:2.6.2
         s-python3-yaml/auto:3.13
         s-python3-scipy/auto:1.1
+        s-gdal/auto:2.4.0
 ]
 
 [ = deb,11
