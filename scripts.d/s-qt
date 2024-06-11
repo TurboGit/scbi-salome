@@ -44,43 +44,54 @@ function s-qt-depends()
     # Avoid adding fonts
     echo libfontconfig1-dev
     # Avoid using embedded libraries
-    echo libfreetype6-dev
-    echo libjpeg-dev
-    echo libpng-dev
-    echo libssl-dev
-    echo zlib1g-dev
-    echo libx11-dev
-    echo libxcb1-dev
-    echo libxkbcommon-x11-dev
-    echo libxcb-xv0-dev
-    echo libxcb-xvmc0-dev
-    echo libxcb-xtest0-dev
-    echo libxcb-xrm-dev
-    echo libxcb-xinput-dev
-    echo libxcb-xf86dri0-dev
-    echo libxcb-util0-dev
-    echo libxcb-screensaver0-dev
-    echo libxcb-res0-dev
-    echo libxcb-render-util0-dev
-    echo libxcb-record0-dev
-    echo libxcb-keysyms1-dev
-    echo libxcb-imdkit-dev
-    echo libxcb-image0-dev
-    echo libxcb-icccm4-dev
-    echo libxcb-ewmh-dev
-    echo libxcb-dpms0-dev
-    echo libxcb-damage0-dev
-    echo libxcb-cursor-dev
-    echo libxcb-composite0-dev
-    echo libxcb-xinerama0-dev
-    echo libxrender-dev
     echo libframe6
-    echo libpq5
-    echo libsm6
+    echo libfreetype6-dev
+    echo libgl1-mesa-dev
+    echo libglu1-mesa-dev
     echo libgnomecanvas2-dev
     echo libgnomecanvasmm-2.6-dev
-    echo libglu1-mesa-dev
-    echo libgl1-mesa-dev
+    echo libjpeg-dev
+    echo libpng-dev
+    echo libpq5
+    echo libsm6
+    echo libssl-dev
+    echo libx11-dev
+    echo libxcb-composite0-dev
+    echo libxcb-cursor-dev
+    echo libxcb-damage0-dev
+    echo libxcb-dpms0-dev
+    echo libxcb-dri2-0-dev
+    echo libxcb-dri3-dev
+    echo libxcb-ewmh-dev
+    echo libxcb-glx0-dev
+    echo libxcb-icccm4-dev
+    echo libxcb-image0-dev
+    echo libxcb-imdkit-dev
+    echo libxcb-keysyms1-dev
+    echo libxcb-present-dev
+    echo libxcb-randr0-dev
+    echo libxcb-record0-dev
+    echo libxcb-render-util0-dev
+    echo libxcb-render0-dev
+    echo libxcb-res0-dev
+    echo libxcb-screensaver0-dev
+    echo libxcb-shape0-dev
+    echo libxcb-shm0-dev
+    echo libxcb-sync-dev
+    echo libxcb-util0-dev
+    echo libxcb-xf86dri0-dev
+    echo libxcb-xfixes0-dev
+    echo libxcb-xinerama0-dev
+    echo libxcb-xinput-dev
+    echo libxcb-xkb-dev
+    echo libxcb-xrm-dev
+    echo libxcb-xtest0-dev
+    echo libxcb-xv0-dev
+    echo libxcb-xvmc0-dev
+    echo libxcb1-dev
+    echo libxkbcommon-x11-dev
+    echo libxrender-dev
+    echo zlib1g-dev
 }
 
 function s-qt-env()
