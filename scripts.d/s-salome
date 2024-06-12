@@ -219,11 +219,20 @@ function setup-env-salome()
             local VAR=$2
             local VALUE=$3
 
+            #  Note that this implementation do not take into account
+            #  the prepend vs add/append.  We should already reapply a
+            #  prepend if the last action for the variable was not a
+            #  prepend. In the Shell & Python generation we should
+            #  also always take into account the prepend vs add/append
+            #  (we do this only for PV_PLUGIN_PATH, SalomeAppConfig
+            #  and SMESH_MeshersList variables in the Python case.
+
             local KEY="${ACTION}.${VAR}"
+            local CVALUE="${ENVSET[$KEY]}"
 
-            [[ "${ENVSET[$KEY]}" == "${VALUE}" ]] && return
+            [[ "${CVALUE}" =~ "|${VALUE}|" ]] && return
 
-            ENVSET+=([$KEY]="${VALUE}")
+            ENVSET+=([$KEY]="|${VALUE}|${CVALUE}")
 
             #  Special case, do not add /usr/bin to PATH from native modules.
             #  This PATH will be at the end of the PATH anyway and we do want
@@ -421,7 +430,7 @@ function setup-env-salome()
                 echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${CURRENT_MODULE_DIR}\")"
             } > $PFILE
 
-            # Call <module>-env hook which will be using the add-to-var
+            # Call <module>-env hook which will be using the define-var
             # above.
 
             plugin-call-env-hooks $FORMODULE $MODREF env
