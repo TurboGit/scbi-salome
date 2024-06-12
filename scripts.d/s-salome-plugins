@@ -12,3 +12,8 @@ function s-salome-plugins-modules()
     echo s-hexotic-plugin
     echo s-hexablock-plugin
 }
+
+function s-salome-plugins-aggregate()
+{
+    echo direct
+}
