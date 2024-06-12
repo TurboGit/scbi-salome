@@ -10,6 +10,7 @@ function s-paravisaddons-edf-vcs()
 function s-paravisaddons-edf-common-build-depends()
 {
     echo s-cmake
+    echo s-gdal
 }
 
 function s-paravisaddons-edf-ngwin-build-depends()
@@ -112,6 +113,8 @@ function s-paravisaddons-edf-config-options()
     local VARIANT=$3
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+
+    echo -DGDAL_ROOT_DIR=$GDAL_ROOT_DIR
 }
 
 function s-paravisaddons-edf-ngwin-config-options()
