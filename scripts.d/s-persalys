@@ -53,8 +53,11 @@ function s-persalys-default-depends()
     echo s-adao-interface
     echo s-ydefx
 
-    [[ -z ${DISDOC} ]] && echo os@-sphinx-common
-    [[ -z ${DISDOC} ]] && echo python3-numpydoc
+    [[ -z ${DISDOC} ]] &&
+        {
+            echo os@-sphinx-common
+            echo python3-numpydoc
+        }
 }
 
 function s-persalys-ng-depends()
