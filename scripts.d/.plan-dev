@@ -207,4 +207,7 @@ s-cgal/auto:v4.13
         s-python3-xlutils:skip
         s-cgal:skip
         s-atomic:skip
+        s-hdf5:skip
+        s-netcdf:skip
+        s-gdal:skip
 ]
