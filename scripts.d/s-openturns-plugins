@@ -1,5 +1,5 @@
 
-# Meta-modules with all plug-ins and their dependencies
+#  Meta-modules with all OpenTURNS plug-ins
 
 function s-openturns-plugins-modules()
 {
@@ -11,8 +11,10 @@ function s-openturns-plugins-modules()
     echo s-openturns-svm
     echo s-openturns-wrapy
     echo s-openturns-pod
-
     echo s-openturns-fmi
-    echo s-fmil
-    echo s-pyfmi
+}
+
+function s-openturns-plugins-aggregate()
+{
+    echo direct
 }
