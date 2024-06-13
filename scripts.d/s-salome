@@ -168,28 +168,12 @@ function setup-env-salome()
         CURRENT_MODULE_INSTALL=
 
         local KEEP_VAR=no
-        declare -A ENVSET=()
 
         function define-var()
         {
             local ACTION=$1
             local VAR=$2
             local VALUE=$3
-
-            #  Note that this implementation do not take into account
-            #  the prepend vs add/append.  We should already reapply a
-            #  prepend if the last action for the variable was not a
-            #  prepend. In the Shell & Python generation we should
-            #  also always take into account the prepend vs add/append
-            #  (we do this only for PV_PLUGIN_PATH, SalomeAppConfig
-            #  and SMESH_MeshersList variables in the Python case.
-
-            local KEY="${ACTION}.${VAR}"
-            local CVALUE="${ENVSET[$KEY]}"
-
-            [[ "${CVALUE}" =~ "|${VALUE}|" ]] && return
-
-            ENVSET+=([$KEY]="|${VALUE}|${CVALUE}")
 
             #  Special case, do not add /usr/bin to PATH from native modules.
             #  This PATH will be at the end of the PATH anyway and we do want
@@ -246,26 +230,36 @@ function setup-env-salome()
 
             [[ $KEEP_VAR == yes ]] &&
                 {
-                    if [[ $ACTION == REMOVE ]]; then
-                        if [[ $SCBI_IS_WINDOWS == yes ]] && [[ $VAR != "PATH" ]]; then
-                            echo remove-from-string-sep \"$VAR\" \"$VALUE\" \";\"
-                        else
-                            echo remove-from-string-sep \"$VAR\" \"$VALUE\" \":\"
-                        fi
-                    else
-                        case "$VAR" in
-                            *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
-                            ;;
+                    local SEP=:
 
-                            *)
-                                if [[ "${REL_DIR}" == "${REL_DIR/ /_}" ]]; then
-                                    echo export $VAR=${REL_DIR}${VSET:+:\$${VAR}}
-                                else
-                                    echo export $VAR=\"${REL_DIR}\"${VSET:+:\$${VAR}}
-                                fi
-                                ;;
-                        esac
+                    if [[ $SCBI_IS_WINDOWS == yes ]] && [[ $VAR != "PATH" ]]; then
+                        SEP=";"
                     fi
+
+                    case $ACTION in
+                        SET|S)
+                            echo export $VAR=\"${REL_DIR}\"
+                            ;;
+                        UNSET|U)
+                            echo unset $VAR
+                            ;;
+                        ADD)
+                            echo add-to-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo export $VAR
+                            ;;
+                        APPEND|A)
+                            echo append-to-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo export $VAR
+                            ;;
+                        PREPEND|P)
+                            echo prepend-to-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo export $VAR
+                            ;;
+                        REMOVE|R)
+                            echo remove-from-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo export $VAR
+                            ;;
+                    esac
                 } >> $SFILE
 
             #  For Python
@@ -453,12 +447,16 @@ EOF
         SFILE="extra.env.d/000_setup.sh"
 
         {
-            #  Dump definition of remove-from-string-sep from SCBI
+            #  Dump definition of *-var-sep from SCBI
             #  as needed to setup environment later.
 
-            echo -n 'function '
-            declare -f remove-from-string-sep
-            echo
+            for F in is-in-list remove-from-list prepend-to-list append-to-list add-to-list \
+                     remove-from-var-sep prepend-to-var-sep append-to-var-sep add-to-var-sep;
+            do
+                echo -n 'function '
+                declare -f $F
+                echo
+            done
 
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
             echo "export SALOME_VERSION=$SVER"
