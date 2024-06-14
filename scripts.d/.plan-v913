@@ -1,0 +1,213 @@
+###########################################
+# TOOLS
+
+@set CEA_VERSION = V9_13_0a1
+@set EDF_VERSION = V9_13_0a1
+@set PV_VERSION  = v5.11.0
+
+# clang 12 & s-ispc 1.16 are matching versions
+s-clang:#12.x
+# using binary version 1.16.1
+s-ispc/bin:#v1.16.1
+
+s-persalys:#16.0.1
+
+s-zeromq:#4.3.1
+s-planegcs:#0.18
+
+s-openturns:#1.22
+s-openturns-fftw:#0.14
+s-openturns-mixmod:#0.16
+s-openturns-morris:#0.15
+s-openturns-robopt:#0.13
+s-openturns-subsetinverse:#1.10
+s-openturns-svm:#0.13
+s-openturns-wrapy:#0.11
+s-openturns-pod:#0.6.10
+s-fmil:#2.0.3
+s-pyfmi:#2.6
+s-mixmod:#2.1.10
+s-openturns-fmi:#0.16.2
+
+s-embree:#3.12.2
+s-rkcommon:#1.5.1
+s-openvkl:#0.11.0
+s-ospray:#2.4.0
+s-uranie:#4.7.0
+s-root:#6-22-02
+s-qt/auto:#5.15.2
+s-qmake/auto:#5.15.2
+s-pyqt/auto:#5.15.3
+s-sip/auto:#5.5.0
+s-pyqt-sip:#12.8.1
+s-cmake/auto:#3.25.2
+s-ttk:#1.1.0
+s-swig/auto:#4.0.2
+s-tbb/auto:v2021.11.0
+
+s-dataio:v0.1.1
+
+# downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
+#
+# s-netgen/cmake:#6.2.2101
+s-netgen/autotools:#5.3.1
+
+s-gmsh:#4.10.3
+s-gdal/auto:#3.2.2
+s-proj/auto:#7.2.0
+s-medfichier:#4.1.1
+s-python3-nlopt/auto:2.7.0
+s-python3-rich/auto:9.11.0
+s-python3-wand/auto:0.4.4
+s-python3-toml/auto:0.10.0
+s-python3-yaml/auto:5.3
+s-python3-lxml/auto:4.3.2
+s-python3-h5py/auto:2.8.0
+s-python3-cftime/auto:1.0.3
+s-python3-netcdf4/auto:1.5.5
+s-python3-scipy/auto:1.6
+s-python3-typing-extensions/auto:3.7.2
+s-python3-numpy/auto:1.20.3
+s-python3-proj/auto:3.2.1
+s-python3-zipp/auto:1.0
+s-python3-importlib-metadata/auto:1.6
+s-python3-meshio/auto:5.3.5
+s-python3-xlutils:2.0.0
+c-gmp/auto:6.1
+c-mpfr/auto:4.0
+
+s-libbatch:#2.5.0
+
+s-python-omniorb:#4.2.5
+s-omniorb/auto:#4.2.5
+s-occt:#CR780-SALOME-PATCH
+s-cgns/auto:#4.2.0
+s-hdf5/auto:#1.10.3
+s-catalyst:#2.0-431a8a1
+s-python-modules/default.core.meshio
+s-scotch/auto:#6.1.2
+s-ptscotch/auto:#6.1.2
+s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
+s-cgal/auto:v4.13
+
+[
+        # s-homard tool is now merged into s-homard module
+        s-homard-tool:#1112hdf51103med410
+        s-tbb
+        s-ifc-open-shell:skip
+] :skip
+
+[
+        s-openmpi
+        s-opencv
+        s-netcdf
+        s-eigen
+        s-boost
+        s-nlohmann-json3
+] /native
+
+# First, for repositories where master is at CEA
+[
+        s-fields
+        s-geom/default.opencv
+        s-atomgen
+        s-atomic
+        s-blsurf-plugin
+        s-gmsh-plugin
+        s-hybrid-plugin
+        s-hexotic-plugin
+        s-netgen-plugin
+        s-shaper-study
+        s-homard
+        s-salome-configuration
+        s-salome-jobmanager
+        s-yacs
+        s-yacsgen
+        s-hexablock
+        s-hexablock-plugin
+        s-samples
+        s-atomsolv
+        s-calculator
+        s-genericsolver
+        s-hello
+        s-pyhello
+        s-light
+        s-pylight
+        s-shaper
+        s-salome-openturns
+        s-py2cpp
+        s-paravisaddons-common
+        s-smesh
+        s-salome-kernel
+        s-salome-gui
+        s-ghs3d-plugin
+        s-ghs3dprl-plugin
+        s-ydefx
+        s-topiivol
+        s-component
+        s-salome-bootstrap
+] :$CEA_VERSION
+
+# Second, for repositories where master is at EDF
+[
+        s-salome-eficas
+        s-eficas-tools
+        s-adao
+        s-adao-interface
+] :$EDF_VERSION
+
+# Third, the modules with MPI support or depending on
+# MPI like the two plugins.
+
+[ = mpi
+        s-medcoupling/default.mpi.ptscotch
+        s-paravis/default.mpi
+] :$CEA_VERSION
+
+[ /= mpi
+        s-medcoupling/default.scotch
+        s-paravis/default
+] :$CEA_VERSION
+
+# the s-salome meta-module version is used to name the .run, a different
+# name is used on the different platforms.
+
+[ = deb,9
+        s-salome/default.core:s9-V9_13_0
+        s-tbb/auto:#4.4.6
+        s-gdal:skip
+]
+
+[ = deb,10
+        s-salome/default.core:s10-V9_13_0
+        s-python3-meshio/auto:5.3.4
+        s-python3-nlopt/auto:2.6.2
+        s-python3-yaml/auto:3.13
+        s-python3-scipy/auto:1.1
+        s-gdal/auto:2.4.0
+]
+
+[ = deb,11
+        s-salome/default.core:s11-V9_13_0
+        # downgrade from 5.15.3 to 5.15.2 to use the native version
+        s-pyqt/auto:#5.15.2
+        s-opencv:#3.2.0       # native pkg is too recent
+        # fails to compile on Debian/11
+]
+
+[ = win
+        s-salome/default.core:WIN
+        s-ifc-open-shell:skip
+        s-dataio:skip
+        s-cmake/win
+        s-visual-c/native
+        s-windows-kit/native
+        s-zeromq:skip
+        s-persalys:skip
+        s-python3-xlutils:skip
+        s-cgal:skip
+        s-atomic:skip
+        s-hdf5:skip
+        s-netcdf:skip
+        s-gdal:skip
+]
