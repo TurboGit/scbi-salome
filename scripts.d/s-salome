@@ -223,6 +223,7 @@ function setup-env-salome()
             #  to pick other tools compiled first.
 
             [[ ${VAR} == "PATH" ]] && [[ ${VALUE} == "/usr/bin" ]] && return
+            [[ -z $VALUE ]] && return
 
             #  Compute relative directory
 
