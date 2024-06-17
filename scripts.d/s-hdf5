@@ -1,8 +1,8 @@
 
 with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
-      --env  'add-to-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
-             'add-to-var HDF5_LIBRARIES $(get-os-lib serial/libhdf5.so)' \
-             'add-to-var HDF5_INC $(get-os-inc-dir serial/hdf5.h)' \
+      --env  'set-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
+             'set-var HDF5_LIBRARIES $(get-os-lib serial/libhdf5.so)' \
+             'set-var HDF5_INC $(get-os-inc-dir serial/hdf5.h)' \
              'set-var HDF5_ROOT_DIR /usr' \
              'set-var HDF5_ROOT $HDF5_LIB' \
              'set-var HDF5_DIR $HDF5_LIB' \
@@ -15,9 +15,9 @@ with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
 
 with-variant native-mpi os@-hdf5-dev os@-hdf5-tools \
              os@-hdf5-openmpi-dev  os@-openmpi-dev \
-       --env 'add-to-var HDF5_LIB $(get-os-lib-dir openmpi/libhdf5.so)' \
-             'add-to-var HDF5_LIBRARIES $(get-os-lib openmpi/libhdf5.so)' \
-             'add-to-var HDF5_INC $(get-os-inc-dir openmpi/hdf5.h)' \
+       --env 'set-var HDF5_LIB $(get-os-lib-dir openmpi/libhdf5.so)' \
+             'set-var HDF5_LIBRARIES $(get-os-lib openmpi/libhdf5.so)' \
+             'set-var HDF5_INC $(get-os-inc-dir openmpi/hdf5.h)' \
              'set-var HDF5_ROOT_DIR /usr' \
              'set-var HDF5_ROOT $HDF5_LIB' \
              'set-var HDF5_DIR $HDF5_LIB' \
@@ -32,9 +32,9 @@ with-variant native-mpi os@-hdf5-dev os@-hdf5-tools \
 #  The default native variant is serial and it is the one that will be
 #  picked by the auto variant if the version match.
 with-variant native os@-hdf5-dev:[v] os@-hdf5-tools:[v] \
-      --env  'add-to-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
-             'add-to-var HDF5_LIBRARIES $(get-os-lib serial/libhdf5.so)' \
-             'add-to-var HDF5_INC $(get-os-inc-dir serial/hdf5.h)' \
+      --env  'set-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
+             'set-var HDF5_LIBRARIES $(get-os-lib serial/libhdf5.so)' \
+             'set-var HDF5_INC $(get-os-inc-dir serial/hdf5.h)' \
              'set-var HDF5_ROOT_DIR /usr' \
              'set-var HDF5_ROOT $HDF5_LIB' \
              'set-var HDF5_DIR $HDF5_LIB' \
