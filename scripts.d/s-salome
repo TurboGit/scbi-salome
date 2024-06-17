@@ -389,6 +389,7 @@ function setup-env-salome()
             [[ ! -d $APPDIR/EDF/$module ]] &&
                 [[ $module != "s-salome-bin" ]] &&
                 [[ $module != "s-salome-tar" ]] &&
+                [[ $variant != "native" ]] &&
                 return
 
             #  Initialize env script
