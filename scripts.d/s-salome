@@ -328,6 +328,11 @@ function setup-env-salome()
                 is-meta-aggregate-module IS_AGGREGATE $MODREF
             fi
 
+            #  A standard meta-module doesn't have an evironment
+
+            [[ $IS_META == true ]] && [[ $IS_AGGREGATE == false ]] &&
+                return
+
             local module_info=()
             get-module-ref module_info $MODREF $FORMODULE
             local module=${module_info[0]}
@@ -338,16 +343,6 @@ function setup-env-salome()
             else
                 KEEP_VAR=yes
             fi
-
-            #  Check if the module has been installed into EDF
-            #  directory. If not it is probably because it is an
-            #  aggregated module.
-
-            [[ ! -d $APPDIR/EDF/$module ]] &&
-                [[ $module != "s-salome-bin" ]] &&
-                [[ $module != "s-salome-tar" ]] &&
-                [[ $variant != "native" ]] &&
-                return
 
             #  Initialize env script
 
