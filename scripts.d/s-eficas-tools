@@ -43,9 +43,12 @@ function s-eficas-tools-env()
     set-var    EFICAS_TOOLS_ROOT_DIR $PREFIX
     set-var    EFICAS_NOUVEAU_ROOT   $PREFIX
 
-    add-to-var PYTHONPATH            $PREFIX/UiQt5
-    add-to-var PYTHONPATH            $PREFIX/InterfaceQT4
-    add-to-var PYTHONPATH            $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+    add-to-var PYTHONPATH            \
+               $PREFIX/UiQt5
+    add-to-var PYTHONPATH            \
+               $PREFIX/InterfaceQT4
+    add-to-var PYTHONPATH            \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
 function s-eficas-tools-config()
