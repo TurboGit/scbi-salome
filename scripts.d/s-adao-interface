@@ -22,6 +22,8 @@ function s-adao-interface-env()
     add-to-var LD_LIBRARY_PATH         $PREFIX/lib
     add-to-var PYTHONPATH              \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PYTHONPATH              \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome/salome
 }
 
 function s-adao-interface-build-env()
