@@ -49,6 +49,9 @@ function s-salome-eficas-env()
     add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
     add-to-var PYTHONPATH      $PREFIX/lib/salome
     add-to-var PYTHONPATH      $PREFIX/bin/salome
+    add-to-var PYTHONPATH      $PREFIX/bin/salome
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome/salome
 
     add-to-var SALOME_MODULES  EFICAS
     add-to-var SalomeAppConfig $PREFIX/share/salome/resources/eficas
