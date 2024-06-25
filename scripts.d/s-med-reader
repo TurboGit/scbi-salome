@@ -1,0 +1,111 @@
+
+
+
+function s-med-reader-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-med-reader-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-med-reader-mpi-depends()
+{
+    echo s-openmpi
+}
+
+function s-med-reader-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-med-reader-default-depends()
+{
+    echo s-hdf5
+    echo s-paraview
+    echo s-medcoupling
+}
+
+function s-med-reader-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    MEDREADER_ROOT_DIR $PREFIX
+
+    add-to-var PV_PLUGIN_PATH     $PREFIX/lib/paraview
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+	       $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-med-reader-mpi-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DSALOME_USE_MPI=ON
+}
+
+function s-med-reader-ng-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DSALOME_USE_MPI=ON
+}
+
+function s-med-reader-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DVTK_DIR=$(last-modified-directory
+                     "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*")
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+}
+
+function s-med-reader-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-med-reader-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-med-reader-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-med-reader-prefix()
+{
+    echo NONE
+}
