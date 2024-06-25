@@ -43,7 +43,7 @@ function s-fields-depends()
 {
     echo s-salome-configuration
     echo s-salome-kernel
-    echo s-medcoupling
+    echo s-med-coupling
     echo s-salome-gui
 }
 

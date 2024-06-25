@@ -19,8 +19,8 @@ function s-carmel-study-depends()
     local VARIANT=$3
 
     echo s-qt
-    echo s-medfichier
-    echo s-medcoupling
+    echo s-med-file
+    echo s-med-coupling
     echo s-python-modules
 }
 

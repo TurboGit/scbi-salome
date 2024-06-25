@@ -48,7 +48,7 @@ s-paraview/ospray.gdal:v5.9.0
 s-occt:0c61d938
 s-gmsh:gmsh_4_1_4
 s-planegcs:#0.18-3cb6890
-s-medcoupling/scotch
+s-med-coupling/scotch
 
 # On Fedora, skip gmsh has ld (GCC-10) reports duplicate symbol definitions
 # More recent version of GMSH work, but then not compatible with gmsh-plugin

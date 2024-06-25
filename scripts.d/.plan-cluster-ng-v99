@@ -2,7 +2,7 @@
 
 @load ng-v99
 
-s-medcoupling:skip
+s-med-coupling:skip
 s-paraview:skip
 s-paravis:skip
 
@@ -25,7 +25,7 @@ s-python3-xlutils:skip
 	s-atomic:skip
 	s-cmake:skip
 	s-gnuplot-py:skip
-	s-medcoupling:skip
+	s-med-coupling:skip
 	s-openmpi:skip
 	s-paraview:skip
 	s-paravis:skip

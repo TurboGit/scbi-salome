@@ -43,7 +43,7 @@ function s-hydrosolver-default-depends()
     echo s-sip
     echo s-pyqt
     echo s-tbb
-    echo s-medfichier
+    echo s-med-file
     echo s-salome-eficas
 }
 
