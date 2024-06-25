@@ -45,7 +45,7 @@ function s-syrthes-default-depends()
 {
     echo s-tbb
     echo s-salome-gui
-    echo s-medcoupling
+    echo s-med-coupling
 }
 
 function s-syrthes-env()

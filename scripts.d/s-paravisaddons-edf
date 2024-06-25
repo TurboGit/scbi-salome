@@ -36,8 +36,8 @@ function s-paravisaddons-edf-default-depends()
 {
     echo s-hdf5
 
-    echo s-medcoupling
-    echo s-medfichier
+    echo s-med-coupling
+    echo s-med-file
     echo s-paravis
 }
 

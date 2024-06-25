@@ -27,7 +27,7 @@ function s-clustertests-depends()
     echo s-melidefx
     echo s-melissa
     echo s-salome-openturns
-    echo s-medcoupling
+    echo s-med-coupling
     echo s-ydefx
 }
 

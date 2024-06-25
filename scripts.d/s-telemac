@@ -35,7 +35,7 @@ function s-telemac-common-depends()
 function s-telemac-default-depends()
 {
     echo s-hdf5
-    echo s-medfichier
+    echo s-med-file
     echo s-eficas-tools
 }
 

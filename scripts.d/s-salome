@@ -82,8 +82,8 @@ function s-salome-default-modules()
     echo s-eficas-tools
     echo s-occt
     echo s-yacsgen
-    echo s-medfichier
-    echo s-medcoupling
+    echo s-med-file
+    echo s-med-coupling
     echo s-libbatch
     echo s-py2cpp
     echo s-planegcs

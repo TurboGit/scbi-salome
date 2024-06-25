@@ -2,7 +2,7 @@
 
 @load ng-v910
 
-s-medcoupling/ng.mpi.ptscotch
+s-med-coupling/ng.mpi.ptscotch
 s-paraview/ng.mpi.ospray.gdal.catalyst:#5.11.0
 s-paravis/ng.mpi
 
@@ -24,7 +24,7 @@ s-python3-xlutils:skip
 	s-atomic:skip
 	s-cmake:skip
 	s-gnuplot-py:skip
-	s-medcoupling:skip
+	s-med-coupling:skip
 	s-openmpi:skip
 	s-paraview:skip
 	s-paravis:skip
