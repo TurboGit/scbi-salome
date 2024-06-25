@@ -54,7 +54,7 @@ function s-blsurf-plugin-default-depends()
     echo s-salome-gui
     echo s-geom
     echo s-smesh
-    echo s-medcoupling
+    echo s-med-coupling
 }
 
 function s-blsurf-plugin-env()

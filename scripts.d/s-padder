@@ -32,7 +32,7 @@ function s-padder-common-depends()
 
 function s-padder-default-depends()
 {
-    echo s-medfichier
+    echo s-med-file
 }
 
 function s-padder-ng-build-depends()
