@@ -107,7 +107,7 @@ s-salome:dev
 # MPI like the two plugins.
 
 [ = mpi
-        s-medcoupling/mpi.ptscotch
+        s-med-coupling/mpi.ptscotch
         s-paraview/default.mpi.ospray.gdal:#v5.9.0
         s-paravis/default.mpi
 ] :V9_9_0
@@ -118,7 +118,7 @@ s-salome:dev
 
 [ /= mpi
         s-hdf5/native-serial
-        s-medcoupling/ptscotch
+        s-med-coupling/ptscotch
         s-paravis/default
 ] :V9_9_0
 
@@ -139,7 +139,7 @@ s-netgen/autotools:#5.3.1
 
 s-gmsh:#4.8.4
 
-s-medfichier:#4.1.1
+s-med-file:#4.1.1
 s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
 

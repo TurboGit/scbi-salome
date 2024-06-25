@@ -48,7 +48,7 @@ function s-paravis-default-depends()
     echo s-salome-kernel
     echo s-salome-gui
     echo s-paraview
-    echo s-medcoupling
+    echo s-med-coupling
     echo s-fields
     echo s-smesh
 }

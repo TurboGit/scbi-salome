@@ -48,7 +48,7 @@ s-boost/native
 s-cgal/native
 s-gdal/auto:#3.2.2.1
 s-proj/auto:#7.2.0
-s-medfichier:#4.1.1
+s-med-file:#4.1.1
 s-python3-nlopt/auto:2.4.2
 s-python3-rich/auto:9.11.0
 s-python3-wand/auto:0.4.4
@@ -139,7 +139,7 @@ s-python3-xlutils:2.0.0
 # MPI like the two plugins.
 
 [ = mpi
-        s-medcoupling/default.mpi.ptscotch
+        s-med-coupling/default.mpi.ptscotch
         s-paravis/default.mpi
 ] :$CEA_VERSION
 
@@ -148,7 +148,7 @@ s-python3-xlutils:2.0.0
 ]
 
 [ /= mpi
-        s-medcoupling/default.ptscotch
+        s-med-coupling/default.ptscotch
         s-paravis/default
 ] :$CEA_VERSION
 
@@ -163,7 +163,7 @@ s-netgen/autotools:#5.3.1
 
 s-gmsh:#4.10.3
 
-s-medfichier:#4.1.1
+s-med-file:#4.1.1
 s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
 

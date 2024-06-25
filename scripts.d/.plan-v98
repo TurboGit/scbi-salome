@@ -102,7 +102,7 @@ s-paravisaddons-common:V9_8_0
 
 [ = mpi
         s-hdf5/native-mpi
-        s-medcoupling/mpi.ptscotch
+        s-med-coupling/mpi.ptscotch
         s-smesh/mpi
         s-salome-kernel/mpi
         s-salome-gui/mpi
@@ -112,7 +112,7 @@ s-paravisaddons-common:V9_8_0
 
 [ /= mpi
         s-hdf5/native-serial
-        s-medcoupling/ptscotch
+        s-med-coupling/ptscotch
         s-smesh
         s-salome-kernel
         s-salome-gui
@@ -123,7 +123,7 @@ s-paravisaddons-common:V9_8_0
 s-netgen/cmake:#6.2.2104
 s-gmsh:#4.8.4
 
-s-medfichier:#4.1.1
+s-med-file:#4.1.1
 s-python3-nlopt:#2.4.2
 s-python3-xlutils:#2.0.0
 

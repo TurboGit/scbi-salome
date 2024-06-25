@@ -32,8 +32,8 @@ function s-homard-depends()
     echo s-salome-configuration
     echo s-salome-kernel
     echo s-salome-gui
-    echo s-medfichier
-    echo s-medcoupling
+    echo s-med-file
+    echo s-med-coupling
     echo s-geom
     echo s-smesh
 }

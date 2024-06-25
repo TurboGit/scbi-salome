@@ -1,6 +1,6 @@
 
 
-function s-medcoupling-archive() 
+function s-med-coupling-archive() 
 { 
     local VERSION=$1 
  
@@ -11,7 +11,7 @@ function s-medcoupling-archive()
     echo medcoupling-$VERSION.tar.gz 
 } 
 
-function s-medcoupling-ng-archive() 
+function s-med-coupling-ng-archive() 
 { 
     local VERSION=$1 
  
@@ -22,17 +22,17 @@ function s-medcoupling-ng-archive()
     echo MEDCOUPLING.tgz 
 } 
 
-function s-medcoupling-common-build-depends()
+function s-med-coupling-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-medcoupling-ng-build-depends()
+function s-med-coupling-ng-build-depends()
 {
     echo s-salome-bin
 }
 
-function s-medcoupling-build-depends()
+function s-med-coupling-build-depends()
 {
     local DISDOC=$(is-enabled no-doc)
 
@@ -43,22 +43,22 @@ function s-medcoupling-build-depends()
     echo s-swig
 }
 
-function s-medcoupling-ptscotch-depends()
+function s-med-coupling-ptscotch-depends()
 {
     echo s-ptscotch
 }
 
-function s-medcoupling-scotch-depends()
+function s-med-coupling-scotch-depends()
 {
     echo s-scotch
 }
 
-function s-medcoupling-mpi-depends()
+function s-med-coupling-mpi-depends()
 {
     echo s-openmpi
 }
 
-function s-medcoupling-common-depends()
+function s-med-coupling-common-depends()
 {
     echo os@-metis-dev
     echo os@-tirpc-dev
@@ -66,12 +66,12 @@ function s-medcoupling-common-depends()
     echo s-salome-configuration
 }
 
-function s-medcoupling-default-depends()
+function s-med-coupling-default-depends()
 {
-    echo s-medfichier
+    echo s-med-file
 }
 
-function s-medcoupling-env()
+function s-med-coupling-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -92,14 +92,14 @@ function s-medcoupling-env()
     add-to-var CMAKE_PREFIX_PATH    $MEDCOUPLING_ROOT_DIR/cmake_files
 }
 
-function s-medcoupling-ctest-dir()
+function s-med-coupling-ctest-dir()
 {
     local PREFIX=$1
 
     echo $PREFIX/tests
 }
 
-function s-medcoupling-mpi-config-options()
+function s-med-coupling-mpi-config-options()
 {
     echo -DSALOME_USE_MPI=ON
     echo -DMEDCOUPLING_USE_MPI=ON
@@ -107,7 +107,7 @@ function s-medcoupling-mpi-config-options()
     echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
-function s-medcoupling-ptscotch-config-options()
+function s-med-coupling-ptscotch-config-options()
 {
     echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
     echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
@@ -117,7 +117,7 @@ function s-medcoupling-ptscotch-config-options()
     echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
 }
 
-function s-medcoupling-scotch-config-options()
+function s-med-coupling-scotch-config-options()
 {
     echo -DMEDCOUPLING_PARTITIONER_SCOTCH=ON
     echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=OFF
@@ -127,7 +127,7 @@ function s-medcoupling-scotch-config-options()
     echo -DSCOTCH_LIBRARIES=$SCOTCH_LIBRARIES
 }
 
-function s-medcoupling-ng-config-options()
+function s-med-coupling-ng-config-options()
 {
     echo -DMEDCOUPLING_ENABLE_PYTHON=ON
     echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
@@ -139,7 +139,7 @@ function s-medcoupling-ng-config-options()
     echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
 }
 
-function s-medcoupling-common-config-options()
+function s-med-coupling-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -163,7 +163,7 @@ function s-medcoupling-common-config-options()
     echo ${DISDOC:+"-DMEDCOUPLING_BUILD_DOC=OFF"}
 }
 
-function s-medcoupling-config()
+function s-med-coupling-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -175,7 +175,7 @@ function s-medcoupling-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
-function s-medcoupling-build()
+function s-med-coupling-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -183,7 +183,7 @@ function s-medcoupling-build()
     make -j$SCBI_JOBS
 }
 
-function s-medcoupling-install()
+function s-med-coupling-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -191,7 +191,7 @@ function s-medcoupling-install()
     make install
 }
 
-function s-medcoupling-prefix()
+function s-med-coupling-prefix()
 {
     echo NONE
 }

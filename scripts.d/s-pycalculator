@@ -19,8 +19,8 @@ function s-pycalculator-depends()
 {
     echo s-salome-kernel
     echo s-fields
-    echo s-medcoupling
-    echo s-medfichier
+    echo s-med-coupling
+    echo s-med-file
     echo s-omniorb
 }
 

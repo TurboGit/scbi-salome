@@ -14,7 +14,7 @@
         s-python-modules
         s-gnuplot-py
         s-paraview
-        s-medcoupling
+        s-med-coupling
         s-paravis
         s-ifc-open-shell
 
@@ -44,7 +44,7 @@
 #  Override the referrence below.
 
 s-paraview/ng.mpi.ospray.gdal.catalyst:v5.11.0
-s-medcoupling/ng.mpi.ptscotch:#
+s-med-coupling/ng.mpi.ptscotch:#
 s-paravis/ng.mpi
 
 #  The version for s-salome-tar has two parts, the version of the code

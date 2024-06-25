@@ -29,8 +29,8 @@ function s-paravisaddons-common-common-depends()
 function s-paravisaddons-common-default-depends()
 {
     echo s-hdf5
-    echo s-medcoupling
-    echo s-medfichier
+    echo s-med-coupling
+    echo s-med-file
     echo s-paravis
 }
 

@@ -25,7 +25,7 @@ function s-med-reader-default-depends()
 {
     echo s-hdf5
     echo s-paraview
-    echo s-medcoupling
+    echo s-med-coupling
 }
 
 function s-med-reader-env()

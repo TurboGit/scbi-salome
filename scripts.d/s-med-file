@@ -2,7 +2,7 @@
 inherit-plugin s-python-post-install-dist-packages
 
 
-function s-medfichier-archive() 
+function s-med-file-archive() 
 { 
     local VERSION=$1 
  
@@ -13,18 +13,18 @@ function s-medfichier-archive()
     echo med-$VERSION.tar.gz 
 } 
 
-function s-medfichier-patches()
+function s-med-file-patches()
 {
-    echo medfichier-mpi-config.patch
+    echo medfile-mpi-config.patch
 }
 
-function s-medfichier-build-depends()
+function s-med-file-build-depends()
 {
     echo s-cmake
     echo s-swig
 }
 
-function s-medfichier-depends()
+function s-med-file-depends()
 {
     echo os@-python3
     echo os@-python3-dev
@@ -34,18 +34,18 @@ function s-medfichier-depends()
     echo s-salome-configuration
 }
 
-function s-medfichier-mpi-depends()
+function s-med-file-mpi-depends()
 {
     echo s-openmpi
 }
 
-function s-medfichier-build-env()
+function s-med-file-build-env()
 {
 
     set-var PYTHON /usr/bin/python$PYTHON_VERSION
 }
 
-function s-medfichier-env()
+function s-med-file-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -63,7 +63,7 @@ function s-medfichier-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
-function s-medfichier-common-config-options()
+function s-med-file-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -84,7 +84,7 @@ function s-medfichier-common-config-options()
     echo CXXFLAGS="-O2 -m64"
 }
 
-function s-medfichier-config()
+function s-med-file-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -99,7 +99,7 @@ function s-medfichier-config()
     return $res
 }
 
-function s-medfichier-build()
+function s-med-file-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -107,7 +107,7 @@ function s-medfichier-build()
     make -j$SCBI_JOBS
 }
 
-function s-medfichier-install()
+function s-med-file-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -115,7 +115,7 @@ function s-medfichier-install()
     make install
 }
 
-function s-medfichier-prefix()
+function s-med-file-prefix()
 {
     echo NONE
 }

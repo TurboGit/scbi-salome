@@ -56,7 +56,7 @@ s-netgen/autotools:#5.3.1
 s-gmsh:#4.10.3
 s-gdal/auto:#3.2.2
 s-proj/auto:#7.2.0
-s-medfichier:#4.1.1
+s-med-file:#4.1.1
 s-python3-nlopt/auto:2.7.0
 s-python3-rich/auto:9.11.0
 s-python3-wand/auto:0.4.4
@@ -162,12 +162,12 @@ s-omniorb-core/auto
 # MPI like the two plugins.
 
 [ = mpi
-        s-medcoupling/default.mpi.ptscotch
+        s-med-coupling/default.mpi.ptscotch
         s-paravis/default.mpi
 ] :$CEA_VERSION
 
 [ /= mpi
-        s-medcoupling/default.scotch
+        s-med-coupling/default.scotch
         s-paravis/default
 ] :$CEA_VERSION
 
