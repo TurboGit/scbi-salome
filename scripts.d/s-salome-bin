@@ -274,6 +274,8 @@ function s-salome-bin-ng-env()
     unset -f define-var
     copy-function define-var-orig define-var
 
+    set-var SCBI_SALOME_BIN_ENV_SECTION extra
+
     #  Now that we have filtered out some modules we want to add the env
     #  for the extra built modules.
     #  We do that for each extra modules that are not the one being built.
@@ -283,9 +285,11 @@ function s-salome-bin-ng-env()
         local PLG=${DEF[0]}
 
         if [[ $SCBI_CURRENT_MODULE != $PLG ]]; then
-            handle-module-env "@root" $PLG env
+            handle-module-env "s-salome-bin" $PLG env
         fi
     done
+
+    unset-var SCBI_SALOME_BIN_ENV_SECTION
 
     true
 }
