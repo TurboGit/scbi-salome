@@ -35,6 +35,14 @@ function s-omniorb-archive()
     echo omniORB-$VERSION.tar.gz
 }
 
+function s-omniorb-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo omniorb-configure.patch
+}
+
 function s-omniorb-depends()
 {
     echo os@-python3-dev
@@ -58,7 +66,7 @@ function s-omniorb-config()
     local PREFIX=$1
     local TARGET=$2
 
-    ../src/configure PYTHON=/usr/bin/python3 --prefix=$PREFIX
+    ../src/configure PYTHON=$(command -v python3.11) --prefix=$PREFIX
 }
 
 function s-omniorb-build()

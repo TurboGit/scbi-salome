@@ -1,0 +1,26 @@
+*** a/configure.orig	2024-06-28 16:58:56.436504217 +0200
+--- b/configure	2024-06-28 16:59:07.740469676 +0200
+***************
+*** 4309,4315 ****
+  if ${am_cv_python_version+:} false; then :
+    $as_echo_n "(cached) " >&6
+  else
+!   am_cv_python_version=`$PYTHON -c "import sys; sys.stdout.write(sys.version[:3])"`
+  fi
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_python_version" >&5
+  $as_echo "$am_cv_python_version" >&6; }
+--- 4309,4315 ----
+  if ${am_cv_python_version+:} false; then :
+    $as_echo_n "(cached) " >&6
+  else
+!   am_cv_python_version=`$PYTHON -c "from sys import version_info as python_version_info; print(\"%d.%d\" % (python_version_info.major, python_version_info.minor))"`
+  fi
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_python_version" >&5
+  $as_echo "$am_cv_python_version" >&6; }
+***************
+*** 9025,9028 ****
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
+  $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
+  fi
+- 
+--- 9025,9027 ----
