@@ -45,14 +45,15 @@ function s-atomic-common-depends()
     echo s-salome-configuration
     echo s-python-modules
     echo s-gdal
+    echo s-boost
+    echo s-qt
+    echo s-pyqt
 }
 
 function s-atomic-default-depends()
 {
     echo s-salome-kernel
     echo s-salome-gui
-    echo s-qt
-    echo s-pyqt
 }
 
 function s-atomic-env()

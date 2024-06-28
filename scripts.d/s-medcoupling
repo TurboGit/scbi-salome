@@ -54,6 +54,8 @@ function s-medcoupling-build-depends()
     [[ -z ${DISDOC} ]] && echo os@-sphinx-common
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
     echo os@-python3-sphinx-rtd-theme
+    echo os@-cppunit-dev
+    echo s-swig
 }
 
 function s-medcoupling-ptscotch-depends()
