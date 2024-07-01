@@ -6,7 +6,7 @@ function s-omniorb-modules()
     echo s-python-omniorb
 }
 
-function s-omniorb-propagate-versions()
+function s-omniorb-propagate-version()
 {
     echo version
 }
