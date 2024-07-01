@@ -32,7 +32,7 @@ function s-python-omniorb-archive()
 
 function s-python-omniorb-depends()
 {
-    echo s-omniorb
+    echo s-omniorb-core
 }
 
 function s-python-omniorb-env()
@@ -85,9 +85,9 @@ function s-python-omniorb-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    if [[ -d $PREFIX/local ]] && [[ ! -d $PREFIX/lib ]]; then
-        mv $PREFIX/local/* $PREFIX/
-        rmdir $PREFIX/local
+    if [[ -d $PREFIX/local/lib ]]; then
+        cp -r $PREFIX/local/* $PREFIX/
+        rm -fr $PREFIX/local
 
         local LDIR=$PREFIX/lib/python$PYTHON_VERSION
 

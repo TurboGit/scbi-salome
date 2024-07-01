@@ -51,7 +51,6 @@ function s-dsccode-build-depends()
     echo os@-doxygen
     echo os@-python3-docutils
     echo s-omniorb
-    echo s-python-omniorb
     echo os@-python3
 }
 

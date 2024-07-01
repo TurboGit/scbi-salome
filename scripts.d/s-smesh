@@ -60,7 +60,6 @@ function s-smesh-common-depends()
 function s-smesh-default-depends()
 {
     echo s-qt
-    echo s-python-omniorb
     echo s-omniorb
     echo s-hdf5
     echo s-salome-kernel

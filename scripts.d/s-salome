@@ -78,7 +78,6 @@ function s-salome-default-modules()
     echo s-adao-interface
     echo s-samples
     echo s-omniorb
-    echo s-python-omniorb
     echo s-eficas-tools
     echo s-occt
     echo s-yacsgen
