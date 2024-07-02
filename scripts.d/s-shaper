@@ -54,6 +54,7 @@ function s-shaper-common-depends()
 
 function s-shaper-default-depends()
 {
+    echo s-swig
     echo s-salome-kernel
     echo s-salome-gui
     echo s-geom

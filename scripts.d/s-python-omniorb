@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 function s-python-omniorb-vcs()
 {
     echo edf
@@ -78,23 +80,6 @@ function s-python-omniorb-install()
     local TARGET=$2
 
     make install
-}
-
-function s-python-omniorb-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    if [[ -d $PREFIX/local/lib ]]; then
-        cp -r $PREFIX/local/* $PREFIX/
-        rm -fr $PREFIX/local
-
-        local LDIR=$PREFIX/lib/python$PYTHON_VERSION
-
-        if [[ -d $LDIR/dist-packages ]]; then
-            mv $LDIR/dist-packages $LDIR/site-packages
-        fi
-    fi
 }
 
 function s-python-omniorb-prefix()

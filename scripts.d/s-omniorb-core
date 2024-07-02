@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 with-variant native os@-omniorb:[v] os@-omniorb-dev:[v] os@-omniorb-idl:[v] \
              os@-omniidl:[v] os@-cos4-dev:[v] os@-omniorb-nameserver:[v]    \
              --env 'set-var    OMNIORB_ROOT_DIR   /usr'         \
@@ -90,23 +92,6 @@ function s-omniorb-core-install()
     local TARGET=$2
 
     make install
-}
-
-function s-omniorb-core-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    if [[ -d $PREFIX/local/lib ]] then
-        cp -r $PREFIX/local/* $PREFIX/
-        rm -fr $PREFIX/local
-
-        local LDIR=$PREFIX/lib/python$PYTHON_VERSION
-
-        if [[ -d $LDIR/dist-packages ]]; then
-            mv $LDIR/dist-packages $LDIR/site-packages
-        fi
-    fi
 }
 
 function s-omniorb-core-prefix()
