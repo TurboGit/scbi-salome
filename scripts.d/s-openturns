@@ -18,6 +18,22 @@ function s-openturns-archive()
     echo openturns-$VERSION.tar.bz2
 }
 
+function s-openturns-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "1.21" ]] &&
+        {
+            echo openturns-1.21.0001.patch
+            echo openturns-1.21.0005.patch
+            echo openturns-1.21.0006.patch
+        }
+}
+
 function s-openturns-common-build-depends()
 {
     echo s-cmake

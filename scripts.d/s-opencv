@@ -27,7 +27,12 @@ function s-opencv-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $REF =~ "3.2" ]] && echo opencv-3.2.0-ccache.patch
+    [[ $REF =~ "3.2" ]] &&
+        {
+            echo opencv-3.2.0-ccache.patch
+            echo opencv-3.2.0-persistence.patch
+            echo opencv-3.2.0-cv2.patch
+        }
 }
 
 function s-opencv-env()
