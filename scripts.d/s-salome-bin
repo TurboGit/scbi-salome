@@ -134,6 +134,18 @@ function s-salome-bin-ng-env()
 
     set-var SCBI_SALOME_BIN_ENV_SECTION yes
 
+    #  Only if not defined in env_launch
+
+    [[ -z $PYTHON_VERSION ]] &&
+	{
+	    # Get Python version
+	    PYTHON_VERSION=$(python3 --version | cut -d' ' -f2)
+	    # And remove the micro version
+	    PYTHON_VERSION=${PYTHON_VERSION%.*}
+	}
+
+    set-var PYTHON_VERSION $PYTHON_VERSION
+
     #  Set CMake if necessary to possibly overwrite the one from binary archive
 
     [[ -n $SCBI_CMAKE_PATH ]] &&
@@ -266,10 +278,6 @@ function s-salome-bin-ng-env()
             add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh/MacMesh
             add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh/Verima
         }
-
-    if [[ -z $PYTHON_VERSION ]]; then
-        set-var PYTHON_VERSION $(python3 --version | cut -d' ' -f2 | cut -c1-3)
-    fi
 
     unset -f define-var
     copy-function define-var-orig define-var
