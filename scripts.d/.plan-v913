@@ -1,8 +1,8 @@
 ###########################################
 # TOOLS
 
-@set CEA_VERSION = V9_13_0b1
-@set EDF_VERSION = V9_13_0b1
+@set CEA_VERSION = V9_13_BR
+@set EDF_VERSION = V9_13_BR
 @set PV_VERSION  = v5.11.0
 
 # clang 12 & s-ispc 1.16 are matching versions
