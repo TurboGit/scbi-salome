@@ -2,6 +2,8 @@
 # --------------------------------------------------
 os@-afterimage-dev                  libafterimage-dev
 os@-nlohmann-json3-dev              nlohmann-json3-dev
+os@-nlopt                           libnlopt0
+os@-nlopt-cxx                       libnlopt-cxx0
 os@-nlopt-cxx-dev                   libnlopt-cxx-dev
 os@-nlopt-dev                       libnlopt-dev
 os@-pypy-setuptools                 pypy-setuptools
