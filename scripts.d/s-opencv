@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 with-variant native os@-opencv-dev \
              --env "if  [[ -d /usr/include/opencv4 ]]; then
                        add-to-var OpenCV_INCLUDE_DIRS /usr/include/opencv4;
@@ -27,7 +29,12 @@ function s-opencv-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $REF =~ "3.2" ]] && echo opencv-3.2.0-ccache.patch
+    [[ $REF =~ "3.2" ]] &&
+        {
+            echo opencv-3.2.0-ccache.patch
+            echo opencv-3.2.0-persistence.patch
+            echo opencv-3.2.0-cv2.patch
+        }
 }
 
 function s-opencv-env()
