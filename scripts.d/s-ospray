@@ -64,7 +64,10 @@ function s-ospray-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
-          -DCMAKE_CXX_COMPILER=clang++ ../src
+          -DCMAKE_CXX_COMPILER=clang++ \
+          -DEMBREE_ISPC_SUPPORT=ON -DEMBREE_TUTORIALS=OFF \
+          -DOSPRAY_ENABLE_APPS=OFF -DCMAKE_INSTALL_LIBDIR=lib \
+          ../src
 }
 
 function s-ospray-build()
