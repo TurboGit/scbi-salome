@@ -60,6 +60,7 @@ function s-openvkl-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
+          -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_EXAMPLES=OFF \
           -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
