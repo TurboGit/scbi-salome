@@ -45,6 +45,7 @@ function s-shaper-default-build-depends()
 {
     echo os@-doxygen
     echo os@-sphinx-common
+    echo s-swig
 }
 
 function s-shaper-common-depends()
