@@ -1,0 +1,100 @@
+
+inherit-plugin s-python-post-install-dist-packages
+
+with-variant native os@-omniorb:[v] os@-omniorb-dev:[v] os@-omniorb-idl:[v] \
+             os@-omniidl:[v] os@-cos4-dev:[v] os@-omniorb-nameserver:[v]    \
+             --env 'set-var    OMNIORB_ROOT_DIR   /usr'         \
+                   'add-to-var LD_LIBRARY_PATH    /usr/lib'
+
+function s-omniorb-core-vcs()
+{
+    echo edf
+    echo none
+    echo svn
+    echo https://svn.code.sf.net/p/omniorb/svn
+    echo omniORB
+}
+
+function s-omniorb-core-cea-archive()
+{
+    local VERSION=$1
+
+    echo edf
+    echo none
+    echo wget
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo omniORB-$VERSION.tar.gz
+}
+
+function s-omniorb-core-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo omniORB-$VERSION.tar.gz
+}
+
+function s-omniorb-core-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo omniorb-configure.patch
+}
+
+function s-omniorb-core-depends()
+{
+    echo os@-python3-dev
+}
+
+function s-omniorb-core-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    OMNIORB_ROOT_DIR   $PREFIX
+
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PATH               $PREFIX/bin
+
+    local LDIR=$PREFIX/lib/python$PYTHON_VERSION
+
+    add-to-var PYTHONPATH         \
+               $LDIR/site-packages
+    add-to-var PYTHONPATH         \
+               $LDIR/site-packages/omniidl_be
+}
+
+function s-omniorb-core-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    ../src/configure PYTHON=$(command -v python3) --prefix=$PREFIX
+}
+
+function s-omniorb-core-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-omniorb-core-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-omniorb-core-prefix()
+{
+    echo NONE
+}
