@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 function s-openturns-pod-vcs()
 {
     echo edf
@@ -78,10 +80,9 @@ function s-openturns-pod-install()
 
     PYPIURL=$(scbi-store-get-key PYPIURL)
 
-    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
-    echo "[easy_install]" > setup.cfg
-    echo "index-url = $PYPIURL" >> setup.cfg
-    python3 setup.py install --prefix=$PREFIX
+    pip3 install . --no-deps  \
+         --index-url=$PYPIURL \
+         --prefix=$PREFIX
 }
 
 function s-openturns-pod-prefix()
