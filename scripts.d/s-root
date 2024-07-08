@@ -18,6 +18,23 @@ function s-root-archive()
     echo root-$VERSION-src.tar.gz
 }
 
+function s-root-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ 6-22-02 ]] &&
+        echo root-6.22.02.patch
+    [[ $REF =~ 6-22-06 ]] &&
+        echo root-6.22.06.patch
+
+    echo root-6.22-python-11.patch
+    echo root-include_limits.patch
+}
+
 function s-root-build-depends()
 {
     echo s-cmake
@@ -26,21 +43,24 @@ function s-root-build-depends()
 
 function s-root-depends()
 {
-    echo os@-x11-dev
-    echo os@-xpm-dev
-    echo os@-xft-dev
-    echo os@-xext-dev
-    echo os@-png-dev
-    echo os@-jpeg-dev
-    echo os@-ssl-dev
-    echo os@-graphviz-dev
-    echo os@-pcre3-dev
-    echo os@-glu1-mesa-dev
-    echo os@-glew-dev
-    echo os@-ftgl-dev
-    echo os@-fftw3-dev
+    echo os@-afterimage-dev
     echo os@-cfitsio-dev
+    echo os@-fftw3-dev
+    echo os@-ftgl-dev
+    echo os@-glew-dev
+    echo os@-glu1-mesa-dev
+    echo os@-graphviz-dev
+    echo os@-jpeg-dev
+    echo os@-pcre3-dev
+    echo os@-png-dev
+    echo os@-ssl-dev
     echo os@-uuid-dev
+    echo os@-x11-dev
+    echo os@-xext-dev
+    echo os@-xft-dev
+    echo os@-xml2-dev
+    echo os@-xpm-dev
+    echo os@-xxhash-dev
 }
 
 function s-root-build-env()
