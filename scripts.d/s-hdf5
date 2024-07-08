@@ -98,14 +98,14 @@ function s-hdf5-env()
     set-var    HDF5_ROOT          $PREFIX/lib
     set-var    HDF5_DIR           $PREFIX/lib
 
-    add-to-var HDF5_INCLUDE_DIRS  $HDF5_INC
-    add-to-var HDF5_INCLUDE_DIR   $HDF5_INC
+    add-to-var HDF5_INCLUDE_DIRS  $PREFIX/include
+    add-to-var HDF5_INCLUDE_DIR   $PREFIX/include
 
     add-to-var PATH               $PREFIX/bin
-    add-to-var C_INCLUDE_PATH     $HDF5_INC
-    add-to-var CPLUS_INCLUDE_PATH $HDF5_INC
-    add-to-var LIBRARY_PATH       $HDF5_LIB
-    add-to-var LD_LIBRARY_PATH    $HDF5_LIB
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
     add-to-var CMAKE_PREFIX_PATH  $PREFIX/share/cmake/hdf5
 }
 
