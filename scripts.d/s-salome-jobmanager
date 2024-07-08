@@ -61,6 +61,7 @@ function s-salome-jobmanager-env()
 
     add-to-var SALOME_MODULES  JOBMANAGER
     add-to-var SalomeAppConfig $PREFIX/share/salome/resources/jobmanager
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
 }
 
 function s-salome-jobmanager-config()
