@@ -42,7 +42,9 @@ function s-paraview-patches()
     [[ $REF =~ "5.11" ]] &&
         {
             echo paraview-5.11.0-gil.patch
+            echo paraview-5.11.0-mpi4py.patch
             echo paraview-5.11.0-openturns-1.21.patch
+            echo paraview-5.11.0-python-3.11.patch
         }
 }
 
