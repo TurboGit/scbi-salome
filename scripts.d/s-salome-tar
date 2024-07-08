@@ -93,40 +93,6 @@ function s-salome-tar-install()
     local TARGET=$2
     local VARIANT=$3
 
-    function old-replace-paths()
-    {
-        local PREFIX=$1
-        local INIT=$2
-        local ORIGDIR=$3
-        local BINDIR=$4
-
-        #  Need to fix (shebang) full path to python interpreter
-        for SCRIPTS in omniORB/bin/omniidl \
-                           Python/bin/sphinx-build \
-                           hdf5/bin/h5hlcc hdf5/bin/h5cc \
-                           netcdf/lib/pkgconfig/netcdf.pc \
-                           PyQt/bin/pyuic5 \
-                           matplotlib/bin/f2py;
-        do
-            [[ -e $PREFIX/$BINDIR/$SCRIPTS ]] &&
-                sed -i -E "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" \
-                    $PREFIX/$BINDIR/$SCRIPTS
-        done
-
-        for SCRIPTS in $PREFIX/$BINDIR/openturns/bin/f2py* \
-                           $PREFIX/$BINDIR/Python/bin/f2py* \
-                           $PREFIX/$BINDIR/C3PO/bin/f2py*;
-        do
-            sed -i -E "$INIT;s,${ORIGDIR},$PREFIX/$BINDIR,g" $SCRIPTS
-        done
-
-        #  Fix path (shebang) in bin/sip* scripts (not needed in Scibian-10)
-        find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
-            while read F; do
-                sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
-            done
-    }
-
     function replace-paths()
     {
         local PREFIX=$1
@@ -361,11 +327,7 @@ function s-salome-tar-install()
              -exec sed -i 's,"/lib/x86_64-linux-gnu/libtbb.so,"/usr/lib/x86_64-linux-gnu/libtbb.so,g' {} \;
     fi
 
-    if [[ $SCBI_OS_ID == "Debian" ]] && [[ "$SCBI_OS_MAJOR_VERSION" == "9" ]]; then
-        old-replace-paths $PREFIX $INIT $ORIGDIR $BINDIR
-    else
-        replace-paths $PREFIX $BINDIR
-    fi
+    replace-paths $PREFIX $BINDIR
 
     #  Fix path in Makefile and Python system configuration scripts
 
