@@ -70,7 +70,8 @@ function s-salome-adao-env()
     set-var    ADAO_ROOT_DIR   $PREFIX
 
     add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
-    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var PYTHONPATH \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 
     add-to-var SALOME_MODULES  ADAO
     add-to-var SalomeAppConfig $PREFIX/share/salome/resources/adao
