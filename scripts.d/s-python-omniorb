@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 function s-python-omniorb-vcs()
 {
     echo edf
@@ -32,7 +34,7 @@ function s-python-omniorb-archive()
 
 function s-python-omniorb-depends()
 {
-    echo s-omniorb
+    echo s-omniorb-core
 }
 
 function s-python-omniorb-env()
@@ -40,15 +42,18 @@ function s-python-omniorb-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    OMNIORBPY_ROOT_DIR $PREFIX
+    set-var    OMNIORBPY_ROOT_DIR    $PREFIX
+    set-var    OMNIORBPY_INCLUDE_DIR $PREFIX/include
+
+    local LDIR=$PREFIX/lib/python$PYTHON_VERSION
 
     add-to-var PYTHONPATH         \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+               $LDIR/site-packages
     add-to-var PYTHONPATH         \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/omniidl_be
+               $LDIR/site-packages/omniidl_be
     add-to-var PYTHONPATH         \
                $(dirname $(get-os-bin \
-               $PREFIX/lib*/python$PYTHON_VERSION/site-packages/_omnipy*so))
+                               $LDIR/site-packages/_omnipy*so))
 }
 
 function s-python-omniorb-config()

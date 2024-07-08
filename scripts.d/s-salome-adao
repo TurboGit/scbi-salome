@@ -59,7 +59,6 @@ function s-salome-adao-default-depends()
     echo s-eficas-tools
     echo s-yacs
     echo s-omniorb
-    echo s-python-omniorb
     echo s-python3-nlopt
 }
 

@@ -59,7 +59,6 @@ function s-geom-default-depends()
     echo s-qt
     echo s-salome-kernel
     echo s-salome-gui
-    echo s-python-omniorb
 }
 
 function s-geom-opencv-depends()
