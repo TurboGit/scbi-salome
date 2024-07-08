@@ -10,7 +10,7 @@
 with-variant native \
              os@-qtbase5-dev:[v] os@-qttools5-dev:[v] os@-qt5help5 \
              os@-qt5x11extras5-dev os@-qt5opengl5-dev os@-qt5printsupport5 \
-             os@-qt5svg5-dev os@-qtxmlpatterns5-dev-tools \
+             os@-qt5svg5-dev os@-qtxmlpatterns5-dev-tools os@-qwt-qt5-dev \
  --env 'set-var QT5_ROOT_DIR /usr' \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5' \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5LinguistTools'
