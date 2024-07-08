@@ -30,6 +30,8 @@ function s-atomgen-depends()
 {
     echo s-salome-configuration
     echo s-atomic
+    echo s-salome-kernel
+    echo s-salome-gui
 }
 
 function s-atomgen-env()
