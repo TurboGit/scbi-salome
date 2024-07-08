@@ -18,6 +18,28 @@ function s-openturns-archive()
     echo openturns-$VERSION.tar.bz2
 }
 
+function s-openturns-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "1.21" ]] &&
+        {
+            echo openturns-1.21.0001.patch
+            echo openturns-1.21.0005.patch
+            echo openturns-1.21.0006.patch
+        }
+
+    [[ $REF =~ "1.22" ]] &&
+        {
+            echo openturns-1.22.0001.patch
+            echo openturns-1.22.0002.patch
+        }
+}
+
 function s-openturns-common-build-depends()
 {
     echo s-cmake
@@ -26,6 +48,7 @@ function s-openturns-common-build-depends()
 function s-openturns-default-build-depends()
 {
     echo os@-xml2-utils
+    echo s-swig
 }
 
 function s-openturns-ng-build-depends()
@@ -45,6 +68,7 @@ function s-openturns-default-depends()
     echo s-python3-nlopt
     # since 1.13
     echo os@-cminpack-dev
+    echo s-eigen
 }
 
 function s-openturns-env()
@@ -69,7 +93,7 @@ function s-openturns-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DUSE_SPHINX=OFF
     echo -DUSE_DOXYGEN=OFF
-    echo -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DSWIG_EXECUTABLE=$SWIG_ROOT/bin/swig
 }
 
 function s-openturns-config()
