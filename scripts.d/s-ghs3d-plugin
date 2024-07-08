@@ -57,13 +57,13 @@ function s-ghs3d-plugin-env()
     local TARGET=$2
 
     set-var GHS3DPLUGIN_ROOT_DIR $PREFIX
-    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
-    add-to-var PYTHONPATH         $PREFIX/lib/salome
-    add-to-var PYTHONPATH         $PREFIX/bin/salome
-    add-to-var PYTHONPATH         \
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib/salome
+    add-to-var PYTHONPATH        $PREFIX/lib/salome
+    add-to-var PYTHONPATH        $PREFIX/bin/salome
+    add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
-    add-to-var SMESH_MeshersList  GHS3DPlugin
-    add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/ghs3dplugin
+    add-to-var SMESH_MeshersList GHS3DPlugin
+    add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/ghs3dplugin
 }
 
 function s-ghs3d-plugin-ctest-dir()

@@ -79,7 +79,6 @@ function s-salome-default-modules()
     echo s-adao-interface
     echo s-samples
     echo s-omniorb
-    echo s-python-omniorb
     echo s-eficas-tools
     echo s-occt
     echo s-yacsgen
@@ -272,11 +271,8 @@ function setup-env-salome()
             #  We set values as some are used in depends modules like
             #  s-salome-bin using SALOME_BIN_APPLICATION set in s-salome-tar.
 
-            local VSET="no"
-
             if [[ $ACTION == SET ]]; then
                 export $VAR=$VALUE
-                unset VSET
             fi
 
             #  For shell script
@@ -287,7 +283,9 @@ function setup-env-salome()
                 {
                     local SEP=:
 
-                    if [[ $SCBI_IS_WINDOWS == yes ]] && [[ $VAR != "PATH" ]]; then
+                    if [[ $SCBI_IS_WINDOWS == yes ]] &&
+                           [[ $VAR != "PATH" ]];
+                    then
                         SEP=";"
                     fi
 
@@ -299,19 +297,23 @@ function setup-env-salome()
                             echo unset $VAR
                             ;;
                         ADD)
-                            echo add-to-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo add-to-var-sep \
+                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
                             echo export $VAR
                             ;;
                         APPEND|A)
-                            echo append-to-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo append-to-var-sep \
+                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
                             echo export $VAR
                             ;;
                         PREPEND|P)
-                            echo prepend-to-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo prepend-to-var-sep \
+                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
                             echo export $VAR
                             ;;
                         REMOVE|R)
-                            echo remove-from-var-sep ${VAR} \"${REL_DIR}\" \"$SEP\"
+                            echo remove-from-var-sep \
+                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
                             echo export $VAR
                             ;;
                     esac
