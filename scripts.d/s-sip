@@ -1,4 +1,6 @@
 
+inherit-plugin --name handle-dist s-python-post-install-dist-packages
+
 with-variant native os@-sip-dev:[v]
 
 function s-sip-vcs()
@@ -84,6 +86,8 @@ function s-sip-post-install()
 
     cd $PREFIX/bin
     ln -sf sip5 sip
+
+    handle-dist-post-install $PREFIX $TARGET
 }
 
 function s-sip-prefix()
