@@ -747,14 +747,21 @@ function s-salome-wrapup()
             cp $SCBI_PLUGINS/support/icon.png .
             cp $SCBI_PLUGINS/support/salome_template.desktop .
 
-            ! has-variant $VARIANT ng &&
-                {
-                    cp $SCBI_PLUGINS/support/env_launch.sh .
-                    cp $SCBI_PLUGINS/support/salome .
-                    cp EDF/s-salome-kernel/bin/salome/appliskel/.bashrc \
-                       EDF/s-salome-kernel
-                    chmod a+x salome env_launch.sh
-                }
+            if has-variant $VARIANT ng; then
+                SMESH_ROOT_DIR=$SALOME_BINARY_DIR/SMESH
+            else
+                SMESH_ROOT_DIR=EDF/s-smesh
+                cp $SCBI_PLUGINS/support/env_launch.sh .
+                cp $SCBI_PLUGINS/support/salome .
+                cp EDF/s-salome-kernel/bin/salome/appliskel/.bashrc \
+                   EDF/s-salome-kernel
+                chmod a+x salome env_launch.sh
+            fi
+
+            #  Patch SMESH preferences
+
+            sed -i 's/use-meshgems-hypo-sets" *value="false"/use-meshgems-hypo-sets"       value="true"/'\
+                $SMESH_ROOT_DIR/share/salome/resources/smesh/SalomeAppSL.xml
 
             sed -i "s/<salome_version>/${ref#*-}/g" create-catalog
             chmod a+x create-catalog
