@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 function s-openturns-fmi-vcs()
 {
     echo edf
