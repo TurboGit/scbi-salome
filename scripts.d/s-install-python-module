@@ -20,6 +20,8 @@
 #          echo h5py==$(get-version)
 #       }
 
+inherit-plugin --name handle-dist s-python-post-install-dist-packages
+
 function s-install-python-module-build-depends()
 {
     echo os@-python3-pip
@@ -79,6 +81,8 @@ function s-install-python-module-post-install()
     if [[ -f $site_file ]]; then
         cp $site_file $PREFIX/lib/python$PYTHON_VERSION/site-packages/site.py
     fi
+
+    handle-dist-post-install $PREFIX $TARGET
 }
 
 function s-install-python-module-prefix()
