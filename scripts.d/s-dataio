@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 function s-dataio-vcs()
 {
     echo edf
