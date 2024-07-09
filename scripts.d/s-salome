@@ -638,30 +638,30 @@ function s-salome-wrapup()
                     #  the binary dir
                     SALOME_BINARY_DIR=$(basename $(ls -1d $BINPAT))
 
-		    #  Load also some variables needed for generating
-		    #  the extra.env.d scripts.  One that is very
-		    #  important is the PYTHON_VERSION which is used
-		    #  in many places to reference the site-packages
-		    #  directories. We need to set it here to ensure
-		    #  we use the version provided in the binary
-		    #  archive instead of the system one.
+                    #  Load also some variables needed for generating
+                    #  the extra.env.d scripts.  One that is very
+                    #  important is the PYTHON_VERSION which is used
+                    #  in many places to reference the site-packages
+                    #  directories. We need to set it here to ensure
+                    #  we use the version provided in the binary
+                    #  archive instead of the system one.
 
-		    function define-var()
-		    {
-			local ACTION=$1
-			local VAR=$2
-			local VALUE=$3
+                    function define-var()
+                    {
+                        local ACTION=$1
+                        local VAR=$2
+                        local VALUE=$3
 
-			if [[ $ACTION == SET ]]; then
-			    case $VAR in
-				PYTHON_VERSION)
-				    export $VAR="$VALUE"
-				    ;;
-			    esac
-			fi
-		    }
+                        if [[ $ACTION == SET ]]; then
+                            case $VAR in
+                                PYTHON_VERSION)
+                                    export $VAR="$VALUE"
+                                    ;;
+                            esac
+                        fi
+                    }
 
-		    source ./scbi_env.sh
+                    source ./scbi_env.sh
                 }
 
             #  Add some build artifacts for traceability
