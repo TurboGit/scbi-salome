@@ -1,0 +1,50 @@
+
+function s-geom-reparation-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo reparation-$VERSION.tar.bz2
+}
+
+function s-geom-reparation-out-of-tree()
+{
+    echo FALSE
+}
+
+function s-geom-reparation-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-geom-reparation-default-build-depends()
+{
+    echo s-geom
+}
+
+function s-geom-reparation-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    #  Copy the shared artifacts on top of s-geom module
+    cp -r share $GEOM_ROOT_DIR/.
+
+    #  Copy the Python module into the proper localtion. It must be
+    #  next to structelem.
+
+    if [[ -d geomrepairadv ]]; then
+        local GEOMPY=$GEOM_ROOT_DIR/lib/python$PYTHON_VERSION/site-packages
+
+        cp -r geomrepairadv $GEOMPY/salome/salome/geom/.
+    fi
+}
+
+function s-geom-reparation-prefix()
+{
+    echo NONE
+}

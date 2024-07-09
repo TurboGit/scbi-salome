@@ -39,6 +39,7 @@ function s-salome-common-modules()
     echo s-tefluide
     echo s-meshgems
     echo s-python-modules
+    echo s-geom-reparation
 }
 
 function s-salome-default-modules()

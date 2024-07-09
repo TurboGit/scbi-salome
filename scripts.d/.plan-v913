@@ -95,6 +95,7 @@ s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 s-cgal/auto:v4.13
+s-geom-reparation:#v1.0.0
 
 [
         # s-homard tool is now merged into s-homard module
