@@ -108,13 +108,14 @@ fi
 
 #  remove pyhello et hello from salome app resource file
 
-for M in PYHELLO HELLO; do
-    P1="/<parameter .*name=\"$M\"/d"
-    P2="s/(<parameter .*value=\".*)$M;/\1/g"
-    P3="s/(<parameter .*value=\".*);$M/\1/g"
+[[ -n $(ls $HOME/.config/salome/SalomeApprc* 2>/dev/null) ]] &&
+    for M in PYHELLO HELLO; do
+        P1="/<parameter .*name=\"$M\"/d"
+        P2="s/(<parameter .*value=\".*)$M;/\1/g"
+        P3="s/(<parameter .*value=\".*);$M/\1/g"
 
-    sed -i -E "$P1;$P2;$P3" /home/$USER/.config/salome/SalomeApprc*
-done
+        sed -i -E "$P1;$P2;$P3" $HOME/.config/salome/SalomeApprc*
+    done
 
 echo Installing SALOME
 echo
