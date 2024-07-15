@@ -64,11 +64,11 @@ s-scotch/ng
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
-        s-salome-tar/ngwin:#master:WIN
-        s-salome-configuration/ngwin
+        s-salome-tar/ngwin:#9.13.0:WIN
+        s-salome-configuration/ngwin:V9_13_0b1
         s-salome-bin/ngwin
-        s-paravisaddons-edf/ngwin
-        s-logger/ngwin
+        s-paravisaddons-edf/ngwin:V9_13_0b1
+        s-logger/ngwin:V9_13_0b1
 ]
 
 [
