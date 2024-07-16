@@ -837,7 +837,14 @@ function s-salome-wrapup()
                         zip -9r $script_name.zip $APPDIR
                     fi
                 else
-                    makeself $O_COMPRESS --tar-quietly \
+                    #  Use the GNU tar format to ensure that filenames
+                    #  with more than 100 characters are properly
+                    #  handled. Note that this option was the default
+                    #  up to Debian-11 and as been switched to ustar
+                    #  POSIX standard in Debian-12 for compatibility
+                    #  reasons. But the ustar format has restriction
+                    #  on filename length.
+                    makeself $O_COMPRESS --tar-quietly --tar-format gnu \
                              $APPDIR $script_name.run \
                              "SALOME Application" ./setup
                 fi
