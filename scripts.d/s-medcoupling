@@ -59,7 +59,7 @@ function s-medcoupling-mpi-depends()
 function s-medcoupling-common-depends()
 {
     echo os@-metis-dev
-    echo os@-libtirpc-dev
+    echo os@-tirpc-dev
 
     echo s-salome-configuration
 }

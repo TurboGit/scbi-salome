@@ -21,9 +21,9 @@ function s-ospray-depends()
     local TARGET=$2
     local VARIANT=$3
 
-    echo os@-libxrandr-dev
-    echo os@-libxinerama-dev
-    echo os@-libxcursor-dev
+    echo os@-xrandr-dev
+    echo os@-xinerama-dev
+    echo os@-xcursor-dev
 
     echo s-embree
     echo s-rkcommon
