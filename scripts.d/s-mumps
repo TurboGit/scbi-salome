@@ -21,7 +21,7 @@ function s-mumps-depends()
 {
     echo s-scalapack
     echo os@-gfortran
-    echo os@-libblas-dev
+    echo os@-blas-dev
 }
 
 function s-mumps-ng-build-depends()
