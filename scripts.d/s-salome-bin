@@ -179,6 +179,7 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $ZEROMQ_ROOT_DIR/share/cmake/ZeroMQ
     add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
     add-to-var CMAKE_PREFIX_PATH  $CAS_ROOT_DIR/lib/cmake/opencascade
+    #add-to-var CMAKE_PREFIX_PATH  $CPPUNIT_ROOT_DIR/lib
 
     add-to-var CMAKE_PREFIX_PATH  \
                $(last-modified-directory $EMBREE_ROOT_DIR/lib/cmake/embree-*)
@@ -277,6 +278,18 @@ function s-salome-bin-ng-env()
             add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh
             add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh/MacMesh
             add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh/Verima
+        }
+
+    is-root-path $SALOME_BIN_MODULES $HOMARD_ROOT_DIR &&
+        {
+            set-var CPPUNIT_ROOT_DIR      $IEXT
+            set-var CPPUNIT_ROOT_DIR_EXT  $IEXT
+            set-var CPPUNITHOME           $IEXT
+            set-var CPPUNIT_ROOT          $IEXT
+            add-to-var C_INCLUDE_PATH         $CPPUNIT_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH     $CPPUNIT_ROOT_DIR/include
+            add-to-var LIBRARY_PATH           $CPPUNIT_ROOT_DIR/lib
+            add-to-var LD_LIBRARY_PATH        $CPPUNIT_ROOT_DIR/lib
         }
 
     unset -f define-var

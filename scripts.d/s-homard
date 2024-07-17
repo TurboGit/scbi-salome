@@ -42,19 +42,37 @@ function s-homard-patches()
     echo activate-homard-tests.patch
 }
 
-function s-homard-build-depends()
+function s-homard-ngwin-build-depends()
+{
+    echo s-visual-c
+    echo s-salome-bin
+}
+
+function s-homard-common-build-depends()
 {
     echo s-cmake
     echo os@-sphinx-common
 }
 
-function s-homard-depends()
+function s-homard-ng-build-depends()
+{
+    # To avoid Paraview configuration issue with cmake < 3.13 to
+    # detect cmake native.
+    echo s-cmake
+    echo s-salome-bin
+}
+
+function s-homard-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-homard-default-depends()
 {
     echo s-qt
     echo s-pyqt
     echo os@-python3-sip-dev
 
-    echo s-salome-configuration
     echo s-salome-kernel
     echo s-salome-gui
     echo s-medfichier
@@ -87,6 +105,29 @@ function s-homard-ctest-dir()
     echo $PREFIX/bin/salome/test
 }
 
+function s-homard-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+}
+
+function s-homard-ngwin-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo  ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo  ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+
+    echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
+}
+
 function s-homard-config()
 {
     local PREFIX=$1
@@ -102,6 +143,18 @@ function s-homard-config()
           ../src
 }
 
+function s-homard-ngwin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake -G "NMake Makefiles" "${OPTIONS[@]}" ../src
+}
+
 function s-homard-build()
 {
     local PREFIX=$1
@@ -110,12 +163,28 @@ function s-homard-build()
     make -j$SCBI_JOBS
 }
 
+function s-homard-ngwin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    nmake
+}
+
 function s-homard-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-homard-ngwin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    nmake install
 }
 
 function s-homard-post-install()

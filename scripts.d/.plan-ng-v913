@@ -69,6 +69,7 @@ s-scotch/ng
         s-salome-bin/ngwin
         s-paravisaddons-edf/ngwin:V9_13_0b1
         s-logger/ngwin:V9_13_0b1
+        s-homard/ngwin:V9_13_0b1
 ]
 
 [
