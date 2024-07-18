@@ -56,8 +56,6 @@ function s-homard-common-build-depends()
 
 function s-homard-ng-build-depends()
 {
-    # To avoid Paraview configuration issue with cmake < 3.13 to
-    # detect cmake native.
     echo s-cmake
     echo s-salome-bin
 }
@@ -105,6 +103,18 @@ function s-homard-ctest-dir()
     echo $PREFIX/bin/salome/test
 }
 
+function s-homard-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+}
+
 function s-homard-config-options()
 {
     local PREFIX=$1
@@ -122,8 +132,6 @@ function s-homard-ngwin-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
-    echo  ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
-    echo  ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
 
     echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
 }
@@ -132,15 +140,12 @@ function s-homard-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    local CDEBUG=$(is-enabled cmake-debug)
-    local DISDOC=$(is-enabled no-doc)
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
-          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-          ../src
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-homard-ngwin-config()
