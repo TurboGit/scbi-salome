@@ -80,7 +80,7 @@ s-python3-xlutils:2.0.0
 c-gmp/auto:6.1
 c-mpfr/auto:4.0
 
-s-libbatch:#V2_5_0
+s-libbatch:#2.5.0
 
 s-python-omniorb:#4.2.5
 s-omniorb/auto:#4.2.5
