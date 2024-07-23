@@ -482,7 +482,10 @@ EOF
 
         PFILE="extra.env.d/000_setup.py"
 
-        local SVER=$(get-version)
+        local s_info=()
+        get-module-ref s_info s-salome
+        SVAR=${s_info[1]}
+        SVER=${s_info[3]}
 
         {
             echo "import os.path"
@@ -490,6 +493,7 @@ EOF
             echo "def init(context, root_dir):"
             echo '   context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)'
             echo '   context.setVariable(r"SALOME_VERSION", '\"$SVER\"', overwrite=True)'
+            echo '   context.setVariable(r"SALOME_VARIANT", '\"$SVAR\"', overwrite=True)'
             echo '   context.setVariable(r"PYTHON_VERSION", '\"$PYTHON_VERSION\"', overwrite=True)'
             echo '   context.setVariable(r"PYTHONIOENCODING", r"UTF_8", overwrite=True)'
             echo '   context.setVariable(r"SALOME_ON_DEMAND", r"HIDE", overwrite=True)'
@@ -511,6 +515,7 @@ EOF
 
             echo "export ROOT_SALOME_INSTALL=\${out_dir_Path}"
             echo "export SALOME_VERSION=$SVER"
+            echo "export SALOME_VARIANT=$SVAR"
             echo "export PYTHON_VERSION=$PYTHON_VERSION"
             echo "export SALOME_ON_DEMAND=HIDE"
             echo "export PYTHONIOENCODING=UTF_8"
