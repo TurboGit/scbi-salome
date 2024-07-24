@@ -8,7 +8,9 @@ function s-salome-bin-depends()
 
 function s-salome-bin-ngwin-env()
 {
-    local IROOT=$(cygpath -m $SALOME_BIN_MODULES)
+    export SALOME_BIN_MODULES=$(cygpath -m $SALOME_BIN_MODULES)
+    
+    local IROOT=$SALOME_BIN_MODULES
     local IEXT=$IROOT/EXT
 
     [[ -d $IROOT/cmake/bin ]] &&
@@ -43,6 +45,15 @@ function s-salome-bin-ngwin-env()
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5OpenGL
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Xml
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5DataVisualization
+
+    set-var CPPUNIT_ROOT_DIR      $IEXT
+    set-var CPPUNIT_ROOT_DIR_EXP  $IEXT
+    set-var CPPUNITHOME           $IEXT
+    set-var CPPUNIT_ROOT          $IEXT
+    add-to-var C_INCLUDE_PATH         $CPPUNIT_ROOT_DIR/include
+    add-to-var CPLUS_INCLUDE_PATH     $CPPUNIT_ROOT_DIR/include
+    add-to-var LIBRARY_PATH           $CPPUNIT_ROOT_DIR/lib
+    add-to-var LD_LIBRARY_PATH        $CPPUNIT_ROOT_DIR/lib
 }
 
 ####################################################### LINUX
@@ -179,17 +190,7 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $ZEROMQ_ROOT_DIR/share/cmake/ZeroMQ
     add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
     add-to-var CMAKE_PREFIX_PATH  $CAS_ROOT_DIR/lib/cmake/opencascade
-    #add-to-var CMAKE_PREFIX_PATH  $CPPUNIT_ROOT_DIR/lib
     
-    set-var CPPUNIT_ROOT_DIR      $IEXT
-    set-var CPPUNIT_ROOT_DIR_EXT  $IEXT
-    set-var CPPUNITHOME           $IEXT
-    set-var CPPUNIT_ROOT          $IEXT
-    add-to-var C_INCLUDE_PATH         $CPPUNIT_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH     $CPPUNIT_ROOT_DIR/include
-    add-to-var LIBRARY_PATH           $CPPUNIT_ROOT_DIR/lib
-    add-to-var LD_LIBRARY_PATH        $CPPUNIT_ROOT_DIR/lib
-
     add-to-var CMAKE_PREFIX_PATH  \
                $(last-modified-directory $EMBREE_ROOT_DIR/lib/cmake/embree-*)
     add-to-var CMAKE_PREFIX_PATH  \
