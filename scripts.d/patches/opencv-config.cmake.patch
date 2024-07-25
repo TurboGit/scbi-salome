@@ -1,0 +1,26 @@
+*** a/W64/EXT/OpenCVConfig.cmake-orig	Sat Jun 29 18:50:20 2024
+--- b/W64/EXT/OpenCVConfig.cmake	Mon Jul 29 10:49:14 2024
+***************
+*** 66,71 ****
+--- 66,72 ----
+    else()
+      set(OpenCV_ARCH x86)
+    endif()
++   message(STATUS "MSVC_VERSION detected: ${MSVC_VERSION}")
+    if(MSVC_VERSION EQUAL 1400)
+      set(OpenCV_RUNTIME vc8)
+    elseif(MSVC_VERSION EQUAL 1500)
+***************
+*** 82,87 ****
+--- 83,93 ----
+      set(OpenCV_RUNTIME vc15)
+    elseif(MSVC_VERSION EQUAL 1916)
+      set(OpenCV_RUNTIME vc15)
++   elseif(MSVC_VERSION EQUAL 1937)
++     set(OpenCV_RUNTIME vc15)
++   else()
++     message(WARNING "MSVC version not listed, default to vc15 runtime")
++     set(OpenCV_RUNTIME vc15)
+    endif()
+  elseif(MINGW)
+    set(OpenCV_RUNTIME mingw)

@@ -217,6 +217,7 @@ s-geom-reparation:#v1.0.0
         s-dataio:skip
         s-cmake/win
         s-visual-c/native
+        s-intel-fortran/native
         s-windows-kit/native
         s-meshgems/win:#V2.13-3_windows
         s-zeromq:skip

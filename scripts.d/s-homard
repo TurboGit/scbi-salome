@@ -45,6 +45,7 @@ function s-homard-patches()
 function s-homard-ngwin-build-depends()
 {
     echo s-visual-c
+    echo s-intel-fortran
     echo s-salome-bin
 }
 
@@ -134,6 +135,7 @@ function s-homard-ngwin-config-options()
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 
     echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
+    echo -DSIP_EXECUTABLE=$SIP_EXECUTABLE
 }
 
 function s-homard-config()

@@ -36,6 +36,15 @@ function s-salome-tar-out-of-tree()
     echo false
 }
 
+function s-salome-tar-ngwin-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo opencv-config.cmake.patch
+}
+
 function s-salome-tar-external-env()
 {
     echo $SCBI_EXTRA_NG_MODULES ${SCBI_EXTRA_NG_DEFS[*]}
@@ -147,22 +156,33 @@ function s-salome-tar-install()
 
         local FILE_PY=( omniORB/bin/omniidl )
 
-        local ODIR="#!/volatile"
+        if [[ $SCBI_IS_WINDOWS == yes ]]; then
+            local ODIR="#!E:\\S"
+            local FBD=$(cygpath -m $PREFIX/$BINDIR)
+            local FILE_SHEEBANG+=( sip/Scripts/*sip*py )
 
-        for SCRIPTS in ${FILE_SHEEBANG[*]}; do
-            sed -i -e "s,$ODIR.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
-                $PREFIX/$BINDIR/$SCRIPTS
-        done
+            for SCRIPTS in ${FILE_SHEEBANG[*]}; do
+                sed -i -e "s,$ODIR.*W64\(.*\),#!$FBD\1 ,g" \
+                    $PREFIX/$BINDIR/$SCRIPTS
+            done
+        else
+            local ODIR="#!/volatile"
 
-        for SCRIPTS in ${FILE_BASH[*]}; do
-            sed -i -e "s,/volatile/.*INSTALL,\${SALOME_BIN_MODULES},g" \
-                $PREFIX/$BINDIR/$SCRIPTS
-        done
+            for SCRIPTS in ${FILE_SHEEBANG[*]}; do
+                sed -i -e "s,$ODIR.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
+                    $PREFIX/$BINDIR/$SCRIPTS
+            done
 
-        for SCRIPTS in ${FILE_PY[*]}; do
-            sed -i -e "s,\"/volatile/.*INSTALL,os\.getenv\(\"SALOME_BIN_MODULES\"\) + \",g" \
-                $PREFIX/$BINDIR/$SCRIPTS
-        done
+            for SCRIPTS in ${FILE_BASH[*]}; do
+                sed -i -e "s,/volatile/.*INSTALL,\${SALOME_BIN_MODULES},g" \
+                    $PREFIX/$BINDIR/$SCRIPTS
+            done
+
+            for SCRIPTS in ${FILE_PY[*]}; do
+                sed -i -e "s,\"/volatile/.*INSTALL,os\.getenv\(\"SALOME_BIN_MODULES\"\) + \",g" \
+                    $PREFIX/$BINDIR/$SCRIPTS
+            done
+        fi
     }
 
     function sh_env2scbi()
@@ -284,7 +304,7 @@ function s-salome-tar-install()
             fi
             comment-out-python-block $PREFIX/salome "$PAT"
 
-	    PAT=$PAT'[^a-zA-Z_]'
+            PAT=$PAT'[^a-zA-Z_]'
 
             sed -i -E "s,^SUBDIRS.*$PAT,# \0,g" \
                 $BINDIR/SALOME/bin/salome/test/CTestTestfile.cmake
@@ -353,7 +373,7 @@ function s-salome-tar-install()
         done
 
     if [[ $VARIANT == "ngwin" ]]; then
-	find $PREFIX/$BINDIR -type f | xargs -n 100 -d '\n' chmod a+x
+        find $PREFIX/$BINDIR -type f | xargs -n 100 -d '\n' chmod a+x
     else
         #  Fix wrong libtbb PATH pointing to the build-time environment
 

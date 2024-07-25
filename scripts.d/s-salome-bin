@@ -9,12 +9,17 @@ function s-salome-bin-depends()
 function s-salome-bin-ngwin-env()
 {
     export SALOME_BIN_MODULES=$(cygpath -m $SALOME_BIN_MODULES)
-    
+
     local IROOT=$SALOME_BIN_MODULES
     local IEXT=$IROOT/EXT
 
     [[ -d $IROOT/cmake/bin ]] &&
         add-to-var PATH $IROOT/cmake/bin
+
+    #  ??? We need to set it before loading the env which is wrongly
+    # using PYQTDIR before its declaration.
+
+    set-var PYQTDIR $IROOT/sip
 
     . ${SALOME_BIN_APPLICATION}/scbi_env.sh
 
@@ -23,7 +28,7 @@ function s-salome-bin-ngwin-env()
     add-to-var INCLUDE            "$BOOST_INCLUDE_DIR/boost"
 
     add-to-var CMAKE_PREFIX_PATH  \
-	       $(last-modified-directory "$IROOT/cmake/share/cmake-*/Modules")
+               $(last-modified-directory "$IROOT/cmake/share/cmake-*/Modules")
     add-to-var CMAKE_PREFIX_PATH  $IEXT
     add-to-var CMAKE_PREFIX_PATH  $IEXT/cmake
     add-to-var CMAKE_PREFIX_PATH  $KERNEL_ROOT_DIR/salome_adm/cmake_files
@@ -32,19 +37,21 @@ function s-salome-bin-ngwin-env()
     add-to-var CMAKE_PREFIX_PATH  $PV_DIR
     add-to-var CMAKE_PREFIX_PATH  $PV_DIR/vtk
     add-to-var CMAKE_PREFIX_PATH  \
-    	       $(last-modified-directory "$OSPRAY_ROOT_DIR/lib/cmake/ospray*")
+               $(last-modified-directory "$OSPRAY_ROOT_DIR/lib/cmake/ospray*")
     add-to-var CMAKE_PREFIX_PATH  \
-	       $(last-modified-directory "$EMBREE_ROOT_DIR/lib/cmake/embree-*")
+               $(last-modified-directory "$EMBREE_ROOT_DIR/lib/cmake/embree-*")
     add-to-var CMAKE_PREFIX_PATH  \
-	       $(last-modified-directory "$RKCOMMON_ROOT_DIR/lib/cmake/rkcommon-*")
+               $(last-modified-directory "$RKCOMMON_ROOT_DIR/lib/cmake/rkcommon-*")
     add-to-var CMAKE_PREFIX_PATH  \
-	       $(last-modified-directory "$OPENVKL_ROOT_DIR/lib/cmake/openvkl-*")
+               $(last-modified-directory "$OPENVKL_ROOT_DIR/lib/cmake/openvkl-*")
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Test
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5UiTools
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5OpenGL
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Xml
     add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5DataVisualization
+
+    set-var SIP_EXECUTABLE $(cygpath -w -s $IROOT/sip/Scripts/sip5.exe)
 
     set-var CPPUNIT_ROOT_DIR      $IEXT
     set-var CPPUNIT_ROOT_DIR_EXP  $IEXT
@@ -114,26 +121,26 @@ function s-salome-bin-ng-env()
     local SCBI_CMAKE_PATH=$(which cmake)
 
     if [[ -z $SCBI_CMAKE_PATH ]]; then
-	#  No system or user's env CMake found
-	LOCCMAKE=0
+        #  No system or user's env CMake found
+        LOCCMAKE=0
     else
-	#  We have a CMake in the PATH, get its version
-	LOCCMAKE=( $($SCBI_CMAKE_PATH --version) )
-	LOCCMAKE=${LOCCMAKE[2]}
+        #  We have a CMake in the PATH, get its version
+        LOCCMAKE=( $($SCBI_CMAKE_PATH --version) )
+        LOCCMAKE=${LOCCMAKE[2]}
         SCBI_CMAKE_PATH=$(dirname $SCBI_CMAKE_PATH)
     fi
 
     if [[ -d $SALOME_BIN_MODULES/cmake/bin ]]; then
-	#  We have a CMake in binary archive, get its version
-	BINCMAKE=( $($SALOME_BIN_MODULES/cmake/bin/cmake --version) )
-	BINCMAKE=${BINCMAKE[2]}
+        #  We have a CMake in binary archive, get its version
+        BINCMAKE=( $($SALOME_BIN_MODULES/cmake/bin/cmake --version) )
+        BINCMAKE=${BINCMAKE[2]}
 
-	#  Use this version of CMake only if it is greater than the one
-	#  provided in the binary archive.
+        #  Use this version of CMake only if it is greater than the one
+        #  provided in the binary archive.
 
-	check-versions $BINCMAKE ">" $LOCCMAKE
+        check-versions $BINCMAKE ">" $LOCCMAKE
 
-	[[ $? == 0 ]] &&
+        [[ $? == 0 ]] &&
             SCBI_CMAKE_PATH=$SALOME_BIN_MODULES/cmake/bin
     fi
 
@@ -148,12 +155,12 @@ function s-salome-bin-ng-env()
     #  Only if not defined in env_launch
 
     [[ -z $PYTHON_VERSION ]] &&
-	{
-	    # Get Python version
-	    PYTHON_VERSION=$(python3 --version | cut -d' ' -f2)
-	    # And remove the micro version
-	    PYTHON_VERSION=${PYTHON_VERSION%.*}
-	}
+        {
+            # Get Python version
+            PYTHON_VERSION=$(python3 --version | cut -d' ' -f2)
+            # And remove the micro version
+            PYTHON_VERSION=${PYTHON_VERSION%.*}
+        }
 
     set-var PYTHON_VERSION $PYTHON_VERSION
 
@@ -190,7 +197,7 @@ function s-salome-bin-ng-env()
     add-to-var CMAKE_PREFIX_PATH  $ZEROMQ_ROOT_DIR/share/cmake/ZeroMQ
     add-to-var CMAKE_PREFIX_PATH  $EIGEN_ROOT_DIR/share/eigen3/cmake
     add-to-var CMAKE_PREFIX_PATH  $CAS_ROOT_DIR/lib/cmake/opencascade
-    
+
     add-to-var CMAKE_PREFIX_PATH  \
                $(last-modified-directory $EMBREE_ROOT_DIR/lib/cmake/embree-*)
     add-to-var CMAKE_PREFIX_PATH  \
