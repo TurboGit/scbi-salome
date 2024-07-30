@@ -832,6 +832,7 @@ function s-salome-wrapup()
                 # access to PyQt needed by the logger start script.
 
                 if [[ $SCBI_IS_WINDOWS == yes ]]; then
+                    cp $SCBI_PLUGINS/support/setup_windows.bat .
                     cp $SCBI_PLUGINS/support/run_mesa_salome.bat  .
                     cp $SCBI_PLUGINS/support/run_paraview.bat     .
                     cp $SCBI_PLUGINS/support/run_persalys.bat     .
