@@ -4,7 +4,7 @@ import io
 import os
 import readline
 import subprocess
-import sys
+import sys, platform
 
 
 readline.parse_and_bind("tab:complete")
@@ -12,12 +12,19 @@ gaia = "gaia.hpc.edf.fr"
 cronos = "cronos.hpc.edf.fr"
 nameOfEntriesToKill = []
 
-templateFile = "servers.pvsc"
+out_dir_Path=os.path.dirname(os.path.realpath(__file__))
+templateFile = os.path.join(out_dir_Path,"servers.pvsc")
 
+
+# check if window
+is_window = any(platform.win32_ver())
 
 def ping(nameOfHost):
-    p = subprocess.Popen(["ping", "-c1", "-w1", nameOfHost],
-                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if not is_window:
+        cmd = ["ping", "-c1", "-w1", nameOfHost]
+    else:
+        cmd = ["ping", "-n", "1", nameOfHost]
+    p = subprocess.Popen(cmd,  stderr=subprocess.PIPE)
     p.communicate()
     return p.returncode
 
@@ -26,7 +33,7 @@ def checkEDFRD():
     """
     To test connections
     """
-    nni = getpass.getuser()
+    nni = getpass.getuser().lower()
     if ping(gaia) != 0 and ping(cronos) != 0:
         sys.exit('Cluster Gaia and Cronos unavailable')
     return nni
@@ -152,7 +159,10 @@ if __name__ == '__main__':
     We install server.psvc file in ~/.config/ParaView
     """
     nni = checkEDFRD()
-    configPath = os.path.expanduser(os.path.join("~", ".config", "ParaView"))
+    if not is_window:
+        configPath = os.path.expanduser(os.path.join("~", ".config", "ParaView"))
+    else:
+        configPath = os.path.join(os.getenv("APPDATA"),"ParaView")
     if not os.path.exists(configPath):
         os.makedirs(configPath)
     userServersPvsc = os.path.join(configPath, "servers.pvsc")
