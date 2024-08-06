@@ -1,5 +1,5 @@
 diff --git a/src/syrthes-install/syrthes_install.py b/src/syrthes-install/syrthes_install.py
-index 3398538..1b2aea4 100644
+index 3398538..1303619 100644
 --- a/src/syrthes-install/syrthes_install.py
 +++ b/src/syrthes-install/syrthes_install.py
 @@ -108,25 +108,25 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
@@ -35,7 +35,7 @@ index 3398538..1b2aea4 100644
 +			        'syrthesseq'  : self.installsyrthesseq,
 +			        'syrthesconvert': self.installconvert,
 +			        'syrthesensight': self.installensight,
-+                    'syrthesextractdt': self.installextractdt,
++                                'syrthesextractdt': self.installextractdt,
 +			        'syrthesmed'  : self.installmed,
 +			        'syrthesppfunc' : self.installppfunc,
 +			        'syrthesppfunctmc' : self.installppfunctmc,
@@ -56,3 +56,15 @@ index 3398538..1b2aea4 100644
              if self.dicolib[lib]['USE'].upper()=='YES':
                  if 'PATH' in self.dicolib[lib]:
                      print('You have chosen to use your own '+lib+' extern libraries')
+@@ -1402,10 +1402,7 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
+         f = open("syrthes.gui",'w')
+         f.write('#/bin.sh\n')
+         f.write('# GUI Launcher\n')
+-        f.write('LD_LIBRARY_PATH=${SYRTHES_HOME}/lib/syrthes-GUI_exe/lib/PyQt5:$LD_LIBRARY_PATH\n')
+-        f.write('LD_LIBRARY_PATH=${SYRTHES_HOME}/lib/syrthes-GUI_exe/lib:$LD_LIBRARY_PATH\n')
+-        f.write('LD_LIBRARY_PATH=${SYRTHES_HOME}/lib/syrthes-GUI_exe:$LD_LIBRARY_PATH\n')
+-        f.write(self.destPath+self.arch+'/lib/syrthes-GUI_exe/SyrthesMain $1 $2 $3 $4 $5')
++        f.write('python '+self.destPath+self.arch+'/lib/syrthes-GUI_exe/SyrthesMain.py $1 $2 $3 $4 $5')
+         f.close()
+         os.system('chmod +x syrthes.gui')
+ 
