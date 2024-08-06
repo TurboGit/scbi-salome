@@ -22,8 +22,8 @@ function s-code-syrthes-patches()
 
     # The following patch is to update setup
     echo syrthes_setup.ini.salome.patch
-    echo syrthes-gui_Install.patch
     echo syrthes_install.patch
+    echo CodeSyrthesInstall_sh.patch
 }
 
 function s-code-syrthes-ng-build-depends()
@@ -82,10 +82,17 @@ function s-code-syrthes-install()
     local PREFIX=$1
     local TARGET=$2
 
+    # syrthes-gui
+    cd $PREFIX/src/syrthes-gui/src
+    bash Install.sh
+
     cd $PREFIX/src/syrthes-install
     cp -f setup.ini.salome setup.ini
     chmod a+x $PREFIX/src/syrthes-install/syrthes_install.py
     python3 syrthes_install.py
+    # On écrase l'interface précompilée par l'interface compilée avec SALOME
+    rm -rf $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/*
+    cp -r install/* $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/
 }
 
 function s-code-syrthes-post-install()

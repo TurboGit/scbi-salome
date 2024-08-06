@@ -1,0 +1,38 @@
+diff --git a/src/syrthes-gui/src/Install.sh b/src/syrthes-gui/src/Install.sh
+index 2461fbf..39329a6 100644
+--- a/src/syrthes-gui/src/Install.sh
++++ b/src/syrthes-gui/src/Install.sh
+@@ -8,8 +8,8 @@
+ #
+ #export SYRTHES_IHM_PYTHON=/home/E02847/SYRTHES/IHM/python
+ #
+-export python_path=$SYRTHES_IHM_PYTHON/opt/Python-3.6.5
+-export qt_path=$SYRTHES_IHM_PYTHON/opt/qt
++export python_path=$PYTHON_ROOT_DIR
++export qt_path=$QT5_ROOT_DIR
+ 
+ export PATH=$python_path/bin:${PATH}
+ export LD_LIBRARY_PATH=$python_path/lib:${LD_LIBRARY_PATH}
+@@ -96,12 +96,14 @@ cd ..
+ # cxfreeze
+ #
+ 
+-echo
+-echo "Press Enter for the generation with cxfreeze"
+-read x
++## Uniquement dans le cas d'une version auto-portante
+ 
+-echo "Installation : generation with cxfreeze ..."
+-cd install; $python_path/bin/python3 setup_cxfl.py build
+-echo
+-echo "Press Enter to exit"
+-read x
++#echo
++#echo "Press Enter for the generation with cxfreeze"
++#read x
++#
++#echo "Installation : generation with cxfreeze ..."
++#cd install; $python_path/bin/python3 setup_cxfl.py build
++#echo
++#echo "Press Enter to exit"
++#read x
