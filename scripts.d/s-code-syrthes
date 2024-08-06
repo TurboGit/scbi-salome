@@ -92,7 +92,7 @@ function s-code-syrthes-install()
     python3 syrthes_install.py
     # On écrase l'interface précompilée par l'interface compilée avec SALOME
     rm -rf $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/*
-    cp -r install/* $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/
+    cp -r $PREFIX/src/syrthes-gui/src/install/* $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/
 }
 
 function s-code-syrthes-post-install()
