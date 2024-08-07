@@ -1,7 +1,7 @@
 ###########################################
 # TOOLS
 
-@set CEA_VERSION = V9_13_0rc1
+@set CEA_VERSION = V9_13_0rc2
 @set EDF_VERSION = V9_13_0rc2
 @set PV_VERSION  = v5.11.0
 
