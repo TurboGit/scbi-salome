@@ -211,7 +211,7 @@ s-geom-reparation:#v1.0.0
 
 [ = win
         s-salome/default.core:WIN
-        s-homard/ngwin
+        s-homard/ngwin:esy/WindowsPatch
         s-building-is:skip
         s-ifc-open-shell:skip
         s-dataio:skip
