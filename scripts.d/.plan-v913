@@ -36,7 +36,7 @@ s-openvkl:#0.11.0
 s-ospray:#2.4.0
 s-uranie:#4.7.0
 s-root:#6-22-02
-s-zcracks:#3.2.10.1
+s-zcracks:#3.2.10.2
 s-qt/auto:#5.15.2
 s-qmake/auto:#5.15.2
 s-pyqt/auto:#5.15.3
