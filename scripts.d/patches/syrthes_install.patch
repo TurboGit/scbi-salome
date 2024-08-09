@@ -1,8 +1,8 @@
 diff --git a/src/syrthes-install/syrthes_install.py b/src/syrthes-install/syrthes_install.py
-index 3398538..1303619 100644
+index 3398538..827a9f0 100644
 --- a/src/syrthes-install/syrthes_install.py
 +++ b/src/syrthes-install/syrthes_install.py
-@@ -108,25 +108,25 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
+@@ -108,30 +108,30 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
  
          # builds the Lib for SYRTHES
          self.installFunctions={
@@ -47,6 +47,12 @@ index 3398538..1303619 100644
  	# builds the SYRTHES Lib
  
          # Locate syrthes-install dir-name, extern-libraries/src and extern-libraries/opt
+         self.installPath    = os.path.dirname(os.getcwd())+'/'
+-        self.syrthesDir     = os.path.dirname(os.path.dirname(os.getcwd()))
++        self.syrthesDir     = os.environ["SYRTHES_ROOT"]
+         self.destPath = self.syrthesDir+'/arch/'
+ 
+         self.libSourceDir=self.syrthesDir+'/extern-libraries/src'
 @@ -152,7 +152,7 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
          self.readSetup()
  
@@ -56,6 +62,15 @@ index 3398538..1303619 100644
              if self.dicolib[lib]['USE'].upper()=='YES':
                  if 'PATH' in self.dicolib[lib]:
                      print('You have chosen to use your own '+lib+' extern libraries')
+@@ -673,7 +673,7 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
+         os.chdir(destPath)
+         os.system('chmod +x '+destPath+fileProfileName)
+         print("source "+destPath+fileProfileName)
+-        os.environ['SYRTHES_HOME']=self.syrthesDir
++        #os.environ['SYRTHES_HOME']=self.syrthesDir
+ 
+         os.chdir(self.installPath)
+         print("Configure file Makefile.in for installation")
 @@ -1402,10 +1402,7 @@ class Setup(Setupmakefilein, Setupsyrthesprofile):
          f = open("syrthes.gui",'w')
          f.write('#/bin.sh\n')
