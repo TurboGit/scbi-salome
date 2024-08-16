@@ -132,7 +132,7 @@ function template-conversion()
     done
 
     FILES_SYRTHES=(*/arch/Linux_x86_64/share/syrthes/Makefile.in)
-    for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
+    for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_SYRTHES; do
         if [[ -f $SCRIPTS ]]; then
             # Common products
             sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $SCRIPTS
@@ -142,7 +142,7 @@ function template-conversion()
     done
 
     SYRTHES_GUI=(*/arch/Linux_x86_64/bin/syrthes.gui)
-    for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
+    for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_GUI; do
         if [[ -f $SCRIPTS ]]; then
             # Common products
             sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $SCRIPTS
