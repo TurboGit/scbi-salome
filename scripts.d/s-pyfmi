@@ -1,4 +1,6 @@
 
+inherit-plugin s-python-post-install-dist-packages
+
 function s-pyfmi-vcs()
 {
     echo edf
@@ -16,6 +18,20 @@ function s-pyfmi-archive()
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo PyFMI-$VERSION.tar.gz
+}
+
+function s-pyfmi-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "2.6" ]] &&
+        {
+            echo pyfmi-2.6-python-3.1x.01.patch
+        }
 }
 
 function s-pyfmi-out-of-tree()
@@ -62,11 +78,9 @@ function s-pyfmi-install()
 
     PYPIURL=$(scbi-store-get-key PYPIURL)
 
-    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
-    echo "[easy_install]" > setup.cfg
-    echo "index-url = $PYPIURL" >> setup.cfg
-    rm -rf src/pyfmi/*.c
-    python3 setup.py install --prefix=$PREFIX
+    pip3 install . --no-deps  \
+         --index-url=$PYPIURL \
+         --prefix=$PREFIX
 }
 
 function s-pyfmi-prefix()

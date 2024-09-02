@@ -82,8 +82,10 @@ c-mpfr/auto:4.0
 
 s-libbatch:#2.5.0
 
-s-python-omniorb:#4.2.5
-s-omniorb/auto:#4.2.5
+s-omniorb:#4.2.5
+s-python-omniorb
+s-omniorb-core/auto
+
 s-occt:#CR780-SALOME-PATCH
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
@@ -199,6 +201,9 @@ s-geom-reparation:#v1.0.0
         s-python3-yaml/auto:3.13
         s-python3-scipy/auto:1.1
         s-gdal/auto:2.4.0
+
+        #  Only needed starting with Debian-12
+        os@-nlopt-cxx:skip
 ]
 
 [ = deb,11
@@ -207,6 +212,40 @@ s-geom-reparation:#v1.0.0
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
         # fails to compile on Debian/11
+
+        #  Only needed starting with Debian-12
+        os@-nlopt-cxx:skip
+]
+
+[ = deb,12
+        s-salome/default.core:s12-DEV
+        # downgrade from 5.15.3 to 5.15.2 to use the native version
+        s-pyqt/auto:#5.15.2
+        s-opencv:#3.2.0       # native pkg is too recent
+        # fails to compile on Debian/11
+        s-hdf5:#1.10.3
+
+        s-python3-cftime/auto:1.6.2
+        s-python3-h5py/auto:3.7.0
+        s-python3-importlib-metadata/auto:4.12.0
+        s-python3-lxml/auto:4.9.2
+        s-python3-meshio/auto:7.0.0
+        s-python3-netcdf4/auto:1.6.2
+        s-python3-nlopt/auto:2.7.1
+        s-python3-numpy/auto:1.24.2
+        s-python3-proj/auto:3.2.1
+        s-python3-rich/auto:13.3.1
+        s-python3-scipy/auto:1.10.1
+        s-python3-toml/auto:0.10.2
+        s-python3-typing-extensions/auto:4.4.0
+        s-python3-wand/auto:0.6.11
+        s-python3-xlutils:2.0.0
+        s-python3-yaml/auto:6.0
+        s-python3-zipp/auto:1.0.0
+
+        s-gdal/native
+        s-atomic:skip
+        s-pyqt-sip:skip
 ]
 
 [ = win

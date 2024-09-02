@@ -86,7 +86,6 @@ function s-salome-kernel-default-depends()
     echo s-hdf5
     echo s-libbatch
     echo s-omniorb
-    echo s-python-omniorb
 }
 
 function s-salome-kernel-env()

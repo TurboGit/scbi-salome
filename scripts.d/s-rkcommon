@@ -56,7 +56,8 @@ function s-rkcommon-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LIBDIR=lib ../src
 }
 
 function s-rkcommon-build()

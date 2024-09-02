@@ -1,83 +1,17 @@
 
-with-variant native os@-omniorb:[v] os@-omniorb-dev:[v] os@-omniorb-idl:[v] \
-             os@-omniidl:[v] os@-cos4-dev:[v] os@-omniorb-nameserver:[v]    \
-             --env 'set-var    OMNIORB_ROOT_DIR   /usr'         \
-                   'add-to-var LD_LIBRARY_PATH    /usr/lib'
 
-function s-omniorb-vcs()
+function s-omniorb-modules()
 {
-    echo edf
-    echo none
-    echo svn
-    echo https://svn.code.sf.net/p/omniorb/svn
-    echo omniORB
+    echo s-omniorb-core
+    echo s-python-omniorb
 }
 
-function s-omniorb-cea-archive()
+function s-omniorb-propagate-version()
 {
-    local VERSION=$1
-
-    echo edf
-    echo none
-    echo wget
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
-    echo omniORB-$VERSION.tar.gz
+    echo version
 }
 
-function s-omniorb-archive()
+function s-omniorb-aggregate()
 {
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo wget
-    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
-    echo omniORB-$VERSION.tar.gz
-}
-
-function s-omniorb-depends()
-{
-    echo os@-python3-dev
-}
-
-function s-omniorb-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    set-var    OMNIORB_ROOT_DIR   $PREFIX
-
-    add-to-var C_INCLUDE_PATH     $PREFIX/include
-    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
-    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
-    add-to-var PATH               $PREFIX/bin
-}
-
-function s-omniorb-config()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    ../src/configure PYTHON=/usr/bin/python3 --prefix=$PREFIX
-}
-
-function s-omniorb-build()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    make -j$SCBI_JOBS
-}
-
-function s-omniorb-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    make install
-}
-
-function s-omniorb-prefix()
-{
-    echo NONE
+    echo direct
 }

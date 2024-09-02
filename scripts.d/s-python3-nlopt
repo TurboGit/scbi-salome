@@ -2,6 +2,12 @@ inherit-plugin s-install-python-module
 
 with-variant native os@-python3-nlopt:[v] os@-nlopt-dev:[v] os@-nlopt-cxx-dev:[v]
 
+function s-python3-nlopt-depends()
+{
+    echo os@-nlopt
+    echo os@-nlopt-cxx
+}
+
 function s-python3-nlopt-config-options()
 {
     echo nlopt==$(get-version)
