@@ -1,6 +1,9 @@
 # OS name                           Debian packages
 # --------------------------------------------------
+os@-afterimage-dev                  libafterimage-dev
 os@-nlohmann-json3-dev              nlohmann-json3-dev
+os@-nlopt                           libnlopt0
+os@-nlopt-cxx                       libnlopt-cxx0
 os@-nlopt-cxx-dev                   libnlopt-cxx-dev
 os@-nlopt-dev                       libnlopt-dev
 os@-pypy-setuptools                 pypy-setuptools
@@ -20,3 +23,4 @@ os@-python3-typing-extensions       python3-typing-extensions
 os@-python3-wand                    python3-wand
 os@-python3-yaml                    python3-yaml
 os@-python3-zipp                    python3-zipp
+os@-xxhash-dev                      libxxhash-dev

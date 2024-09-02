@@ -314,7 +314,7 @@ function s-salome-tar-install()
         #  easily use it as match terminator in ORIGDIR. And at the end
         #  this patch is rewritten, to 	 is finally removed.
         INIT="s,/INSTALL/,/	/,g"
-        ORIGDIR="/volatile/[^:;\"]*(support|workspace)/[^	]*/	"
+        ORIGDIR="/(home|volatile)/[^:;\"]*(support|workspace)/[^	]*/	"
     fi
 
     find $PREFIX/ -type f -name "*.cmake" |
