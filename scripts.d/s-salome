@@ -844,7 +844,14 @@ function s-salome-wrapup()
                     #  POSIX standard in Debian-12 for compatibility
                     #  reasons. But the ustar format has restriction
                     #  on filename length.
-                    makeself $O_COMPRESS --tar-quietly --tar-format gnu \
+
+                    local MS_OPTS="$O_COMPRESS --tar-quietly"
+
+                    if [[ $SCBI_OS_MAJOR_VERSION -ge 12 ]]; then
+                        MS_OPTS+=" --tar-format gnu"
+                    fi
+
+                    makeself $MS_OPTS \
                              $APPDIR $script_name.run \
                              "SALOME Application" ./setup
                 fi
