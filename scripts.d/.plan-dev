@@ -143,7 +143,6 @@ s-cgal/auto:v4.13
         s-salome-kernel
         s-salome-gui
         s-ghs3d-plugin
-        s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
         s-component

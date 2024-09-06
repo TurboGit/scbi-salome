@@ -144,7 +144,6 @@ s-omniorb-core/auto
         s-salome-kernel
         s-salome-gui
         s-ghs3d-plugin
-        s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
         s-component
