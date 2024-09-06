@@ -39,7 +39,6 @@
         s-gmsh-plugin
         s-blsurf-plugin
         s-ghs3d-plugin
-        s-ghs3dprl-plugin
         s-netgen-plugin
         s-hybrid-plugin
         s-hexotic-plugin

@@ -152,7 +152,6 @@ s-geom-reparation:#v1.0.0
         s-salome-kernel
         s-salome-gui
         s-ghs3d-plugin
-        s-ghs3dprl-plugin
         s-ydefx
         s-topiivol
         s-component
