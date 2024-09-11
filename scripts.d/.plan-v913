@@ -214,7 +214,7 @@ s-omniorb-core/auto
 ]
 
 [ = deb,12
-        s-salome/default.core:s12-DEV
+        s-salome/default.core:s12-V9_13_0
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
