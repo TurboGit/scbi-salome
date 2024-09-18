@@ -54,7 +54,7 @@ s-scotch/ng
 
 [ = win
         s-salome-tar/ngwin:#master:WIN
-        s-salome-configuration/ngwin
+        s-salome-configuration/ngwin:#master
         s-salome-bin/ngwin
 ]
 
