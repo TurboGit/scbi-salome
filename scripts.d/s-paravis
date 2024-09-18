@@ -2,7 +2,7 @@
 function s-paravis-vcs()
 {
     echo default
-    echo none
+    echo submodule:src/Plugins/MEDReader:https://gitlab.pleiade.edf.fr/salome/medreader
     echo git
     echo https://gitlab.pleiade.edf.fr/salome/paravis
 }
