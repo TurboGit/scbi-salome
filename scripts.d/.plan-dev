@@ -15,7 +15,6 @@ s-persalys:#16.0.1
 s-zeromq:#4.3.1
 s-planegcs:#0.18
 
-
 s-openturns:#1.22
 s-openturns-fftw:#0.14
 s-openturns-mixmod:#0.16
@@ -79,6 +78,10 @@ c-mpfr/auto:4.0
 
 s-libbatch:#2.5.0
 
+s-omniorb:#4.2.5
+s-python-omniorb
+s-omniorb-core/auto
+
 s-occt:#CR780-SALOME-PATCH
 s-cgns/auto:#4.2.0
 s-hdf5/auto:#1.10.3
@@ -88,10 +91,6 @@ s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 s-cgal/auto:v4.13
-
-s-omniorb:#4.2.5
-s-python-omniorb
-s-omniorb-core/auto
 
 [
         # s-homard tool is now merged into s-homard module
