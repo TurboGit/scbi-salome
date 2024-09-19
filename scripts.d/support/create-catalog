@@ -68,26 +68,6 @@ for name in ${!SERVER[@]}; do
     VIRTUAL_APPLI="${USERHOME[$name]}/$VERSION"
     ORIG_APPLI="${SERVER[$name]}/"
 
-    #  On CRONOS we need to check if the user has access to /rd/ or /restricted/
-    #  In this case we set ORIG_APPLI to point to the right location.
-
-    if [[ "$name" == "cronos" ]]; then
-        # Test repository access and update remote appli dir if necessary
-        connect_cronos=$(ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr "bash -c 'ls $ORIG_APPLI && echo OK'")
-
-        if [[ "$connect_cronos" =~ ^ls: ]]; then
-            ORIG_APPLI=/software/restricted/salome/logiciels/salome/
-            connect_cronos=$(ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr "bash -c 'ls $ORIG_APPLI && echo OK'")
-            if [[ "$connect_cronos" =~ ^ls: ]]; then
-                echo "Vous n'avez pas les droits suffisants sur Cronos pour installer salome."
-		_error_msg $name
-		continue
-            else
-                sed -i "s,software/rd,software/restricted,g" servers.pvsc
-            fi
-        fi
-    fi
-
     ssh -o StrictHostKeyChecking=no $USER@$name.hpc.edf.fr \
         "mkdir -p $VIRTUAL_APPLI && \
          rm -rf $VIRTUAL_APPLI/* && \
