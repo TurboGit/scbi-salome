@@ -63,10 +63,10 @@ s-scotch/ng
 
 [ = win
         s-salome-tar/ngwin:#master:WIN
-        s-salome-configuration/ngwin:#master
+        s-salome-configuration/ngwin
         s-salome-bin/ngwin
-        s-paravisaddons-edf/ngwin:#master
-        s-logger/ngwin:#master
+        s-paravisaddons-edf/ngwin
+        s-logger/ngwin
 ]
 
 [
