@@ -153,6 +153,48 @@ def prettyPrintXml(string):
     # from : http://stackoverflow.com/questions/14479656/empty-lines-while-using-minidom-toprettyxml
     return '\n'.join([line for line in parseString(string).toprettyxml(indent=' ' * 2).split('\n') if line.strip()])
 
+def check_permission_cronos(checking_dir = ""):
+    """
+    To check permission in restrited directory on cronos:
+    """
+
+    user = getpass.getuser().lower()
+    hostname = "cronos"
+
+    cmd = "ssh -o StrictHostKeyChecking=no {}@{}.hpc.edf.fr \"bash -c 'ls {} && echo OK'\"".format(user ,hostname, checking_dir)
+    p = subprocess.Popen(cmd,
+                        shell=True,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    out = p.communicate()
+    if p.returncode == 0:
+        return True
+    else:
+        return False
+
+def set_cronos_app_directory(pvsc_file_path):
+    """
+    Put salome directory on servers.pvsc according the user right.
+    """
+    rd_dir = "/software/rd/salome/logiciels/salome"
+    restricted_dir = "/software/restricted/salome/logiciels/salome"
+    orig_dir = rd_dir
+
+    def patching_servers_pvsc(app_dir):
+        with open(pvsc_file_path, 'r') as pvsc_file:
+            pvsc_data = pvsc_file.read()
+        pvsc_data = pvsc_data.replace(orig_dir,app_dir)
+
+        with open(pvsc_file_path, 'w') as pvsc_file:
+            pvsc_file.writelines(pvsc_data)
+
+    if check_permission_cronos(rd_dir):
+        pass
+    elif check_permission_cronos(restricted_dir):
+         patching_servers_pvsc(restricted_dir)
+    else:
+        print("ERROR: Vous n'avez pas les droits suffisants sur Cronos pour installer salome.")
+
 
 if __name__ == '__main__':
     """
@@ -166,7 +208,12 @@ if __name__ == '__main__':
     if not os.path.exists(configPath):
         os.makedirs(configPath)
     userServersPvsc = os.path.join(configPath, "servers.pvsc")
+
     if not os.path.exists(userServersPvsc) or os.stat(userServersPvsc).st_size == 0:
         writeFromScratchXMLFile(userServersPvsc, nni)
     else:
         tryToAddServersInXMLFile(userServersPvsc, nni)
+
+    # Rajoute salome_install_dir en vérifiant le droit d'utilisateur sur cronos
+
+    set_cronos_app_directory(userServersPvsc)
