@@ -304,9 +304,13 @@ function s-salome-tar-install()
 
     sed -i 's,\(.*BINARI[^/]*/mesa\),# \1,g' $PREFIX/mesa_salome
 
-    #  Remove TTK for EDF scbian12 pc because of SIGILL bug
+    #  Remove TTK for EDF Scbian-12 PC (Intel i5) because of SIGILL
+    #  due to compilation in a processor with better instruction set
+    #  support.
 
-    if [[ $SCBI_OS_ID == *"Debian"* ]] && [[ "$SCBI_OS_MAJOR_VERSION" == *"12"* ]]; then
+    if [[ $SCBI_OS_ID == "Debian" ]] &&
+           [[ $SCBI_OS_MAJOR_VERSION == "12" ]];
+    then
         comment-out-ttk-block $PREFIX/salome
     fi
 
