@@ -10,6 +10,17 @@ function s-geom-reparation-archive()
     echo reparation-$VERSION.tar.bz2
 }
 
+function s-geom-reparation-win-archive()
+{
+    local VERSION=$1
+
+    echo edf
+    echo --no-check-certificate
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo reparation-$VERSION.tar.bz2
+}
+
 function s-geom-reparation-out-of-tree()
 {
     echo FALSE

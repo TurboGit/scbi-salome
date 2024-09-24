@@ -67,6 +67,7 @@ s-scotch/ng
         s-salome-bin/ngwin
         s-paravisaddons-edf/ngwin:V9_13_0
         s-logger/ngwin:V9_13_0
+        s-geom-reparation/ng
 ]
 
 [
