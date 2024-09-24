@@ -89,3 +89,8 @@ function s-carmel-study-install()
 
     make install
 }
+
+function s-carmel-study-prefix()
+{
+    echo NONE
+}
