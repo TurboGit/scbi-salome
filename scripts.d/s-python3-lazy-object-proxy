@@ -1,0 +1,6 @@
+inherit-plugin s-install-python-module
+
+function s-python3-lazy-object-proxy-config-options()
+{
+    echo lazy-object-proxy
+}

@@ -7,6 +7,14 @@ function s-carmel-study-vcs()
     echo https://gitlab.opencascade.com/edf/carmel.git
 }
 
+function s-carmel-study-lille-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://gitlab.univ-lille.fr/loic.chevallier/carmelstudy.git
+}
+
 function s-carmel-study-salome-module()
 {
     echo CARMELSTUDY

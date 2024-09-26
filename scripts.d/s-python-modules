@@ -58,9 +58,45 @@ function s-python-modules-nlopt-modules()
     echo s-python3-nlopt
 }
 
+function s-python-modules-future-annotations-modules()
+{
+    echo s-python3-future-annotations
+}
+
+function s-python-modules-tokenize-rt-modules()
+{
+    echo s-python3-tokenize-rt
+}
+
+function s-python-pylint-modules()
+{
+    echo s-python3-pylint
+}
+
+function s-python-lazy-object-proxy-modules()
+{
+    echo s-python3-lazy-object-proxy
+}
+
+function s-python-pyhamcrest-modules()
+{
+    echo s-python3-pyhamcrest
+}
+
+function s-python-coverage-modules()
+{
+    echo s-python3-coverage
+}
+
 function s-python-modules-telemac-modules()
 {
     echo s-python3-telemac
+}
+
+function s-python-modules-carmel-modules()
+{
+    s-python-modules-future-annotations-modules
+    s-python-modules-tokenize-rt-modules
 }
 
 function s-python-modules-core-modules()

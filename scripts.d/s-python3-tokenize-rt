@@ -1,0 +1,6 @@
+inherit-plugin s-install-python-module
+
+function s-python3-tokenize-rt-config-options()
+{
+    echo tokenize_rt
+}

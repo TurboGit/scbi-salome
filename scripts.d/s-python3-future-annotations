@@ -1,0 +1,6 @@
+inherit-plugin s-install-python-module
+
+function s-python3-future-annotations-config-options()
+{
+    echo future-annotations
+}
