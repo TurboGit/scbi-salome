@@ -39,6 +39,7 @@ function s-carmel-study-ng-build-depends()
     local VARIANT=$3
 
     echo s-salome-bin
+    echo s-python-modules
 }
 
 function s-carmel-study-ng-depends()
