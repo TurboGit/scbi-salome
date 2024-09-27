@@ -65,7 +65,7 @@ function s-install-python-module-install()
     local OPTIONS=()
     get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    pip3 install --no-deps \
+    pip3 install --no-deps --ignore-installed \
          --index-url=$PYPIURL \
          --prefix=$PREFIX \
          ${OPTIONS[@]}
