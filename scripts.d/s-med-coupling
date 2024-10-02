@@ -60,6 +60,7 @@ function s-med-coupling-mpi-depends()
 
 function s-med-coupling-common-depends()
 {
+    echo os@-lapacke-dev
     echo os@-metis-dev
     echo os@-tirpc-dev
 
