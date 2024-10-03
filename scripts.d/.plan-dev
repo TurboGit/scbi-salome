@@ -253,6 +253,7 @@ s-cgal/auto:v4.13
 [ = mingw
         s-cmake
         s-omniorb-core
+        s-python-omniorb
         s-omniorb:#4.2.6
 	
         s-ifc-open-shell:skip

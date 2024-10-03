@@ -17,10 +17,23 @@ function s-python-omniorb-archive()
     echo default
     echo none 
     echo wget 
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
     echo omniORBpy-$VERSION.tar.gz 
 } 
 
+
+function s-python-omniorb-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Calling popen does not work by default. The patch aims to fix
+    # this anomaly after discussion with the omniORB developer.
+    echo omniorbpy-4.2.6-msys2.patch
+}
 
 function s-python-omniorb-depends()
 {
@@ -46,6 +59,22 @@ function s-python-omniorb-env()
                                $LDIR/site-packages/_omnipy*so))
 }
 
+function s-python-omniorb-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var OMNIORBPY_ROOT_DIR ${OMNIORB_ROOT_DIR}
+}
+
+function s-python-omniorb-mingw-out-of-tree()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo false
+}
+
 function s-python-omniorb-config()
 {
     local PREFIX=$1
@@ -56,6 +85,15 @@ function s-python-omniorb-config()
             PYTHON=$(command -v python3)
 }
 
+function s-python-omniorb-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    rm -fr $OMNIORBPY_DIR
+    cp -r ../src $OMNIORBPY_DIR
+}
+
 function s-python-omniorb-build()
 {
     local PREFIX=$1
@@ -64,12 +102,30 @@ function s-python-omniorb-build()
     make -j$SCBI_JOBS
 }
 
+function s-python-omniorb-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd $OMNIORBPY_DIR &&
+	make export
+}
+
 function s-python-omniorb-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-python-omniorb-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cp -r $OMNIORB_ROOT_DIR/bin     $OMNIORB_ROOT_DIR
+    cp -r $OMNIORB_ROOT_DIR/src/lib $OMNIORB_ROOT_DIR
 }
 
 function s-python-omniorb-prefix()
