@@ -1,0 +1,97 @@
+--- omniORB-4.2.6_ref/config/config.mk	2020-02-08 23:56:33.000000000 +0100
++++ omniORB-4.2.6_dev/config/config.mk	2024-07-14 16:10:10.000000000 +0200
+@@ -36,7 +36,7 @@
+ #platform = x86_win32_vs_8
+ #platform = x86_win32_vs_7
+ #platform = x86_win32_vs_6
+-#platform = x86_win32_mingw
++platform = x86_win32_mingw
+ #platform = x86_win32_dmc
+ #platform = powerpc_LynxOS_4.0
+ #platform = x86_ets
+--- omniORB-4.2.6_ref/mk/mingw.mk	2006-07-26 19:41:35.000000000 +0200
++++ omniORB-4.2.6_dev/mk/mingw.mk	2024-08-01 22:42:36.279500959 +0200
+@@ -31,8 +31,8 @@
+ MSVC_STATICLIB_CXXNODEBUGFLAGS=
+ MSVC_STATICLIB_CXXDEBUGFLAGS=
+ 
+-CXXOPTIONS     = -mthreads
+-COPTIONS       = -mthreads
++CXXOPTIONS     = -mthreads -fpermissive -std=c++14
++COPTIONS       = -mthreads -fpermissive
+ 
+ ifdef BuildDebugBinary
+ 
+--- omniORB-4.2.6_ref/src/services/mklib/dynstublib/dir.mk	2024-07-15 23:52:22.943033704 +0200
++++ omniORB-4.2.6_dev/src/services/mklib/dynstublib/dir.mk	2024-07-15 23:52:25.643084364 +0200
+@@ -74,9 +74,14 @@
+ 
+ ifdef Win32Platform
+ # in case of Win32 lossage:
++ifndef MinGW32Build
+ dynimps := COS$(OMNIORB_MAJOR_VERSION)$(OMNIORB_MINOR_VERSION)$(OMNIORB_MICRO_VERSION)_rt.lib \
+            $(patsubst $(DLLDebugSearchPattern),$(DLLNoDebugSearchPattern), $(OMNIORB_LIB))
+ else
++dynimps := -lCOS$(OMNIORB_MAJOR_VERSION)$(OMNIORB_MINOR_VERSION)$(OMNIORB_MICRO_VERSION)_rt \
++           $(patsubst $(DLLDebugSearchPattern),$(DLLNoDebugSearchPattern), $(OMNIORB_LIB))
++endif
++else
+ dynimps := $(OMNIORB_COS_LIB) $(OMNIORB_LIB)
+ endif
+ 
+@@ -150,9 +155,13 @@
+ dynsknamespec   = $(subst ., ,$(COS_DYNSKLIB_NAME).$(shareddbugversion))
+ dynskshareddbug = shareddebug/$(shell $(SharedLibraryDebugFullName) $(dynsknamespec))
+ 
++ifndef MinGW32Build
+ dbugimps  := COS$(OMNIORB_MAJOR_VERSION)$(OMNIORB_MINOR_VERSION)$(OMNIORB_MICRO_VERSION)_rtd.lib \
+ 	     $(patsubst $(DLLNoDebugSearchPattern),$(DLLDebugSearchPattern), $(OMNIORB_LIB))
+-
++else
++dbugimps  := -lCOS$(OMNIORB_MAJOR_VERSION)$(OMNIORB_MINOR_VERSION)$(OMNIORB_MICRO_VERSION)_rtd \
++	     $(patsubst $(DLLNoDebugSearchPattern),$(DLLDebugSearchPattern), $(OMNIORB_LIB))
++endif
+ MDFLAGS += -p shareddebug/
+ 
+ mkshareddbug::
+--- omniORB-4.2.6_ref/src/tool/omniidl/cxx/dir.mk	2018-05-08 18:57:00.000000000 +0200
++++ omniORB-4.2.6_dev/src/tool/omniidl/cxx/dir.mk	2024-07-31 13:09:09.009565858 +0200
+@@ -190,10 +190,11 @@
+ 
+ DIR_CPPFLAGS += -DMSDOS -DOMNIIDL_EXECUTABLE
+ 
+-PYLIBDIR := $(PYPREFIX)/libs $(PYPREFIX)/lib/x86_win32
++PYLIBDIR := $(PYPREFIX)/libs $(PYPREFIX)/lib/x86_win32 $(PYPREFIX)/bin
+ 
+ ifdef MinGW32Build
+-PYLIB     := -lpython$(subst .,,$(PYVERSION))
++PYLIB     := -lpython$(PYVERSION)
++CXXLINKOPTIONS:=$(CXXLINKOPTIONS),--subsystem,console -municode
+ CXXLINKOPTIONS += $(patsubst %,-L%,$(PYLIBDIR))
+ else
+ PYLIB     := python$(subst .,,$(PYVERSION)).lib
+--- omniORB-4.2.6_ref/mk/platforms/x86_win32_mingw.mk	2006-10-23 11:47:44.000000000 +0200
++++ omniORB-4.2.6_dev/mk/platforms/x86_win32_mingw.mk	2024-07-31 13:18:16.835989255 +0200
+@@ -20,10 +20,7 @@
+ # minimal Python from
+ # http://sourceforge.net/project/showfiles.php?group_id=51138
+ # In that case, uncomment the first line below.
+-
+-PYTHON = $(ABSTOP)/$(BINDIR)/omnipython
+-#PYTHON = /cygdrive/c/Python23/python
+-
++PYTHON = /mingw64/bin/python
+ 
+ #
+ # Include general imgw things
+--- omniORB-4.2.6_ref/src/tool/omniidl/cxx/idlpython.cc	2017-03-30 15:54:10.000000000 +0200
++++ omniORB-4.2.6_dev/src/tool/omniidl/cxx/idlpython.cc	2024-07-31 14:42:50.779868614 +0200
+@@ -1503,7 +1503,7 @@
+   static PyObject* IdlPyAlwaysTempFile(PyObject* self, PyObject* args)
+   {
+     if (!PyArg_ParseTuple(args, (char*)"")) return 0;
+-#if defined (_MSC_VER) && _MSC_VER > 1200 || defined(__DMC__)
++#if ( defined (_MSC_VER) && _MSC_VER > 1200 ) || defined(__DMC__) || (defined (__GNUC__) && defined (__MINGW64__))
+     return PyInt_FromLong(1);
+ #else
+     return PyInt_FromLong(0);
