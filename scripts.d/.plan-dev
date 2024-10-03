@@ -275,6 +275,7 @@ s-geom-reparation:#v1.0.0
 [ = mingw
         s-cmake
         s-omniorb-core
+        s-python-omniorb
         s-omniorb:#4.2.6
 	
         s-building-is:skip
