@@ -116,8 +116,7 @@ function s-python-omniorb-mingw-build()
     local PREFIX=$1
     local TARGET=$2
 
-    cd $OMNIORBPY_DIR &&
-        make export
+    make export
 }
 
 function s-python-omniorb-install()
@@ -133,8 +132,8 @@ function s-python-omniorb-mingw-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cp -r $OMNIORB_ROOT/bin     $OMNIORB_ROOT_DIR
-    cp -r $OMNIORB_ROOT/src/lib $OMNIORB_ROOT_DIR
+    cp -r $OMNIORB_ROOT_DIR/bin     $PREFIX
+    cp -r $OMNIORB_ROOT_DIR/src/lib $PREFIX
 }
 
 function s-python-omniorb-prefix()

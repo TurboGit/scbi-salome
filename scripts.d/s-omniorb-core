@@ -97,9 +97,6 @@ function s-omniorb-core-mingw-env()
     set-var    OMNIORB_LIB_DIR    ${OMNIORB_ROOT_DIR}/lib/x86_win32
     set-var    OMNIORB_BIN_DIR    ${OMNIORB_ROOT_DIR}/bin/x86_win32
     set-var    OMNIORB_USER_PATH  ${APPDATA}
-
-    set-var    OMNIORBPY_DIR      ${OMNIORB_ROOT}/src/lib/omniORBpy
-    add-to-var LD_LIBRARY_PATH    ${OMNIORB_ROOT_DIR}/lib
 }
 
 function s-omniorb-core-mingw-out-of-tree()
