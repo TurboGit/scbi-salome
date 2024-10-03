@@ -274,4 +274,5 @@ s-geom-reparation:#v1.0.0
 
 [ = mingw
         s-omniorb-core:#4.2.6
+        s-python-omniorb:#4.2.6
 ] /mingw
