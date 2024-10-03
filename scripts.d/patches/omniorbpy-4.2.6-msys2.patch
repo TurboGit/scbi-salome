@@ -1,0 +1,130 @@
+--- omniORBpy-4.2.6_ref/modules/dir.mk	2021-10-31 19:11:28.000000000 +0100
++++ omniORBpy-4.2.6_dev/modules/dir.mk	2024-07-31 13:41:15.265972985 +0200
+@@ -132,7 +132,7 @@
+ #############################################################################
+ 
+ ifdef Win32Platform
+-
++ifndef MinGW32Build
+ PYPREFIX1 := "$(shell $(PYTHON) -c 'import sys,string; sys.stdout.write(sys.prefix.lower())')"
+ PYPREFIX  := $(subst program files,progra~1,$(subst \,/,$(PYPREFIX1)))
+ PYVERSION := $(shell $(PYTHON) -c 'import sys; sys.stdout.write(".".join(sys.version.split(".")[:2]))')
+@@ -161,7 +161,31 @@
+ export:: $(lib)
+ 	@$(ExportLibrary)
+ 
++else
++PYVERSION := $(shell $(PYTHON) -c 'import sys; sys.stdout.write(".".join(sys.version.split(".")[:2]))')
++PYINCDIR  := $(PYPREFIX)/include
++PYLIBDIR := $(PYPREFIX)/libs $(PYPREFIX)/lib/x86_win32
++PYLIB     := -L$(PYPREFIX)/bin -lpython$(PYVERSION)
++CXXLINKOPTIONS += $(patsubst %,-L%,$(PYLIBDIR))
++DIR_CPPFLAGS += -I$(PYINCDIR) -I$(PYINCDIR)/python$(PYVERSION) \
++                -DPYTHON_INCLUDE="<Python.h>" -DPYTHON_THREAD_INC="<pythread.h>"
++PYLIBPATH = -L$(PYPREFIX)/libs -L$(PYPREFIX)/lib/x86_win32
++
++implib = _omnipy.lib
++lib = $(patsubst %.lib,%.pyd,$(implib))
++
++all:: $(lib)
+ 
++$(lib): $(OBJS)
++	(set -x; \
++	 $(RM) $@; \
++	 $(CXXLINK) -o $@ -shared $(CXXLINKOPTIONS) $(IMPORT_LIBRARY_FLAGS) -L$(PYPREFIX)/libs -L$(PYPREFIX)/lib/x86_win32 $(OBJS) $(OMNIORB_LIB_NODYN) $(PYLIB); \
++	)
++
++export:: $(lib)
++	@$(ExportLibrary)
++
++endif
+ endif
+ 
+ 
+--- omniORBpy-4.2.6_ref/modules/codesets/dir.mk	2021-10-31 19:11:28.000000000 +0100
++++ omniORBpy-4.2.6_dev/modules/codesets/dir.mk	2024-07-31 13:46:40.616106145 +0200
+@@ -81,7 +81,7 @@
+ #############################################################################
+ 
+ ifdef Win32Platform
+-
++ifndef MinGW32Build
+ PYPREFIX1 := "$(shell $(PYTHON) -c 'import sys,string; sys.stdout.write(sys.prefix.lower())')"
+ PYPREFIX  := $(subst program files,progra~1,$(subst \,/,$(PYPREFIX1)))
+ PYVERSION := $(shell $(PYTHON) -c 'import sys; sys.stdout.write(".".join(sys.version.split(".")[:2]))')
+@@ -110,7 +110,32 @@
+ export:: $(lib)
+ 	@$(ExportLibrary)
+ 
++else
++PYVERSION := $(shell $(PYTHON) -c 'import sys; sys.stdout.write(".".join(sys.version.split(".")[:2]))')
++PYINCDIR  := $(PYPREFIX)/include
++PYLIBDIR := $(PYPREFIX)/libs $(PYPREFIX)/lib/x86_win32
++PYLIB     := -L$(PYPREFIX)/bin -lpython$(PYVERSION)
++CXXLINKOPTIONS += $(patsubst %,-L%,$(PYLIBDIR))
++DIR_CPPFLAGS += -I$(PYINCDIR) -I$(PYINCDIR)/python$(PYVERSION) \
++                -DPYTHON_INCLUDE="<Python.h>" -DPYTHON_THREAD_INC="<pythread.h>"
++
++PYLIBPATH := -L$(PYPREFIX)/libs -L$(PYPREFIX)/lib/x86_win32
++
++implib = _omnicodesets.lib
++lib = $(patsubst %.lib,%.pyd,$(implib))
++
++all:: $(lib)
++
++$(lib): $(OBJS)
++	(set -x; \
++	 $(RM) $@; \
++	 $(CXXLINK) -o $@ -shared $(CXXLINKOPTIONS) $(IMPORT_LIBRARY_FLAGS) -L$(PYPREFIX)/libs -L$(PYPREFIX)/lib/x86_win32 $(OBJS) $(OMNIORB_CODESETS_LIB) $(PYLIB); \
++	)
+ 
++export:: $(lib)
++	@$(ExportLibrary)
++
++endif
+ endif
+ 
+ 
+--- omniORBpy-4.2.6_ref/modules/connections/dir.mk	2021-10-31 19:11:28.000000000 +0100
++++ omniORBpy-4.2.6_dev/modules/connections/dir.mk	2024-07-31 14:13:27.562511524 +0200
+@@ -88,6 +88,7 @@
+ #############################################################################
+ 
+ ifdef Win32Platform
++ifndef MinGW32Build
+ 
+ PYPREFIX1 := "$(shell $(PYTHON) -c 'import sys,string; sys.stdout.write(sys.prefix.lower())')"
+ PYPREFIX  := $(subst program files,progra~1,$(subst \,/,$(PYPREFIX1)))
+@@ -117,7 +118,32 @@
+ export:: $(lib)
+ 	@$(ExportLibrary)
+ 
++else
++PYVERSION := $(shell $(PYTHON) -c 'import sys; sys.stdout.write(".".join(sys.version.split(".")[:2]))')
++PYINCDIR  := $(PYPREFIX)/include
++PYLIBDIR := $(PYPREFIX)/libs $(PYPREFIX)/lib/x86_win32
++PYLIB     := -L$(PYPREFIX)/bin -lpython$(PYVERSION)
++CXXLINKOPTIONS += $(patsubst %,-L%,$(PYLIBDIR))
++DIR_CPPFLAGS += -I$(PYINCDIR) -I$(PYINCDIR)/python$(PYVERSION) \
++                -DPYTHON_INCLUDE="<Python.h>" -DPYTHON_THREAD_INC="<pythread.h>"
++
++PYLIBPATH := -L$(PYPREFIX)/libs -L$(PYPREFIX)/lib/x86_win32
++
++implib = _omniConnMgmt.lib
++lib = $(patsubst %.lib,%.pyd,$(implib))
++
++all:: $(lib)
+ 
++$(lib): $(OBJS)
++	(set -x; \
++	 $(RM) $@; \
++	 $(CXXLINK) -o $@ -shared $(CXXLINKOPTIONS) $(IMPORT_LIBRARY_FLAGS) -L$(PYPREFIX)/libs -L$(PYPREFIX)/lib/x86_win32 $(OBJS) $(OMNIORB_CONNECTIONS_LIB) $(OMNIORB_LIB_NODYN) $(PYLIB) $(PYLIB); \
++	)
++
++export:: $(lib)
++	@$(ExportLibrary)
++
++endif
+ endif
+ 
+ 
