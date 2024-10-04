@@ -324,7 +324,11 @@ function setup-env-salome()
             [[ $KEEP_VAR == yes ]] &&
                 {
                     if [[ $ACTION == REMOVE ]]; then
-                        echo "   context.removeFromVariable(r\"$VAR\", r\"$VALUE\")"
+                        if [[ ${VAR} == "PATH" ]]; then
+                            echo "   context.removeFromPATH(r\"$VALUE\")"
+                        else
+                            echo "   context.removeFromVariable(r\"$VAR\", r\"$VALUE\")"
+                        fi
                     else
                         case "$VAR" in
                             C_INCLUDE_PATH|INCLUDE|LIB|CPLUS_INCLUDE_PATH|CMAKE_*| \
