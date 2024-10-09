@@ -256,7 +256,8 @@ s-cgal/auto:v4.13
         s-python-omniorb
         s-omniorb:#4.2.6
         s-occt
-	
+        s-openturns
+
         s-ifc-open-shell:skip
         s-visual-c:skip
         s-windows-kit:skip

@@ -30,12 +30,31 @@ function s-openturns-patches()
         }
 }
 
+function s-openturns-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Support for new approach implemented since Python 3.8
+    # for exposing DLLs from os.add_dll_directory method
+    echo openturns-1.22.msys2.patch
+}
+
 function s-openturns-common-build-depends()
 {
     echo s-cmake
 }
 
 function s-openturns-default-build-depends()
+{
+    echo os@-xml2-utils
+    echo s-swig
+}
+
+function s-openturns-mingw-build-depends()
 {
     echo os@-xml2-utils
     echo s-swig
@@ -61,6 +80,17 @@ function s-openturns-default-depends()
     echo s-eigen
 }
 
+function s-openturns-mingw-depends()
+{
+    echo os@-blas-dev
+    echo os@-python3-dev
+    echo os@-bz2-dev
+    echo os@-python3-matplotlib
+    echo os@-python3-numpy
+    echo s-python3-nlopt
+    echo s-eigen
+}
+
 function s-openturns-env()
 {
     local PREFIX=$1
@@ -74,7 +104,22 @@ function s-openturns-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 }
 
-function s-openturns-config-options()
+function s-openturns-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    OPENTURNS_HOME    $PREFIX
+    set-var    OT_ROOT_DIR       $PREFIX
+
+    add-to-var PATH              $PREFIX/bin
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-openturns-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -83,7 +128,34 @@ function s-openturns-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DUSE_SPHINX=OFF
     echo -DUSE_DOXYGEN=OFF
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-openturns-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo -DSWIG_EXECUTABLE=$SWIG_ROOT/bin/swig
+}
+
+function s-openturns-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    # Last two digits, no dot
+
+    local PYVER=${PYTHON_VERSION//.//}
+
+    echo -Wno-dev
+    echo -DPython_EXECUTABLE=${MINGW_PREFIX}/bin/python
+    echo -DPython_LIBRARY=${MINGW_PREFIX}/lib/libpython${PYVER}.dll.a
+    echo -DCMAKE_UNITY_BUILD=ON -DCMAKE_UNITY_BUILD_BATCH_SIZE=32
+    echo -DUSE_TBB=OFF
+    echo -DSWIG_COMPILE_FLAGS="-O1 -Wno-unused-parameter -Wno-shadow"
 }
 
 function s-openturns-config()
@@ -98,6 +170,19 @@ function s-openturns-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
+function s-openturns-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    CFLAGS+=" -Wall -Wextra -Wpedantic -Wshadow -D_GLIBCXX_ASSERTIONS -Wno-deprecated-declarations -Wno-calloc-transposed-args" \
+	   cmake "${OPTIONS[@]}" ../src
+}
+
 function s-openturns-build()
 {
     local PREFIX=$1
@@ -106,12 +191,28 @@ function s-openturns-build()
     make -j$SCBI_JOBS
 }
 
+function s-openturns-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build .
+}
+
 function s-openturns-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-openturns-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-openturns-prefix()
