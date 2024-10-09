@@ -13,15 +13,19 @@ function s-occt-build-depends()
     echo s-cmake
 }
 
-function s-occt-depends()
+function s-occt-common-depends()
 {
     echo os@-tcl-dev
     echo os@-tk-dev
     echo os@-freetype6-dev
-    echo os@-xi-dev
-    echo os@-xmu-dev
     echo os@-freeimage-dev
     echo os@-gl2ps-dev
+}
+
+function s-occt-default-depends()
+{
+    echo os@-xi-dev
+    echo os@-xmu-dev
 }
 
 function s-occt-env()
@@ -56,7 +60,56 @@ function s-occt-env()
     set-var CSF_PluginDefaults        $CASRES/StdResource
 }
 
-function s-occt-config-options()
+function s-occt-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    OPENCASCADE_ROOT_DIR $PREFIX
+    set-var    CASROOT              $PREFIX
+    set-var    CAS_ROOT_DIR         $PREFIX
+
+    set-var    OCC_INCLUDE_DIR      $PREFIX/include/opencascade
+    set-var    OCC_LIBRARY_DIR      $PREFIX/lib
+
+    add-to-var PATH                 $PREFIX/win64/gcc/bin
+    add-to-var LD_LIBRARY_PATH      $PREFIX/win64/gcc/bin
+    add-to-var LIBRARY_PATH         $PREFIX/lib
+    add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
+    add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade
+    add-to-var CMAKE_MODULE_PATH    $PREFIX/lib/cmake
+    add-to-var CMAKE_PREFIX_PATH    $PREFIX/lib/cmake/opencascade
+
+    set-var CSF_UnitsLexicon          $PREFIX/src/UnitsAPI/Lexi_Expr.dat
+    set-var CSF_OCCTBinPath           $PREFIX/win64/gcc/bin
+    set-var CSF_OCCTLibPath           $PREFIX/win64/gcc/lib
+    set-var CSF_OCCTIncludePath       $PREFIX/inc
+    set-var CSF_OCCTResourcePath      $PREFIX/src
+    set-var CSF_OCCTDataPath          $PREFIX/data
+    set-var CSF_OCCTSamplesPath       $PREFIX/samples
+    set-var CSF_OCCTTestsPath         $PREFIX/tests
+    set-var CSF_OCCDocPath            $PREFIX/doc # SI DOXYGEN
+    set-var CSF_SHMessTage            $PREFIX/src/SHMessage
+    set-var CSF_MDTVTexturesDirectory $PREFIX/src/Textures
+    set-var CSF_ShadersDirectory      $PREFIX/src/Shaders
+    set-var CSF_XSMessage             $PREFIX/src/XSMessage
+    set-var CSF_TObjMessage           $PREFIX/src/TObj
+    set-var CSF_StandardDefaults      $PREFIX/src/StdResource
+    set-var CSF_PluginDefaults        $PREFIX/src/StdResource
+    set-var CSF_XCAFDefaults          $PREFIX/src/StdResource
+    set-var CSF_TObjDefaults          $PREFIX/srcStdResource
+    set-var CSF_StandardLiteDefaults  $PREFIX/src/StdResource
+    set-var CSF_IGESDefaults          $PREFIX/src/XSTEPResource
+    set-var CSF_STEPDefaults          $PREFIX/src/XSTEPResource
+    set-var CSF_XmlOcafResource       $PREFIX/src/XmlOcafResource
+    set-var CSF_MIGRATION_TYPES       $PREFIX/src/StdResource/MigrationSheet.txt
+    set-var CSF_UnitsDefinition       $PREFIX/src/UnitsAPI/Units.dat
+    set-var MMGT_CLEAR                1
+    set-var MMGT_REENTRANT            1
+    set-var CSF_LANGUAGE              us
+}
+
+function s-occt-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -71,6 +124,26 @@ function s-occt-config-options()
     echo -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON
 }
 
+function s-occt-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -Wno-dev
+    echo -D3RDPARTY_FREETYPE_DIR=$MINGW_PREFIX
+    echo -D3RDPARTY_FREEIMAGE_DIR=$MINGW_PREFIX
+    echo -D3RDPARTY_FREETYPE_LIBRARY_DIR=$MINGW_PREFIX/bin
+    echo -D3RDPARTY_FREETYPE_LIBRARY=$MINGW_PREFIX/bin/libfreetype-6.dll
+    echo -D3RDPARTY_FREEIMAGE_LIBRARY=$MINGW_PREFIX/bin/libfreeimage-3.dll
+    echo -D3RDPARTY_FREETYPE_DLL_DIR=$MINGW_PREFIX/bin
+    echo -D3RDPARTY_FREEIMAGE_DLL_DIR=$MINGW_PREFIX/bin
+    echo -DINSTALL_TEST_CASES=ON
+    echo -DBUILD_DOC_Overview=OFF
+    echo -DCMAKE_CXX_FLAGS=" -fpermissive "
+    echo -DCMAKE_SOURCE_DIR=../src
+}
+
 function s-occt-config()
 {
     local PREFIX=$1
@@ -83,6 +156,18 @@ function s-occt-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
+function s-occt-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake  -G "MSYS Makefiles" "${OPTIONS[@]}" ../src
+}
+
 function s-occt-build()
 {
     local PREFIX=$1
@@ -91,12 +176,28 @@ function s-occt-build()
     make -j$SCBI_JOBS
 }
 
+function s-occt-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build .
+}
+
 function s-occt-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-occt-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-occt-prefix()
