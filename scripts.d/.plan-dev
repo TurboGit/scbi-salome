@@ -271,3 +271,14 @@ s-geom-reparation:#v1.0.0
         s-gdal:skip
         s-mgkeygen/win
 ]
+
+[ = mingw
+        s-cmake
+	
+        s-building-is:skip
+        s-ifc-open-shell:skip
+        s-visual-c:skip
+        s-windows-kit:skip
+        s-openturns-svm:skip
+        s-med-file:skip
+] /mingw

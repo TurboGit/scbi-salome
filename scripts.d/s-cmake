@@ -2,9 +2,15 @@ inherit-plugin c-cmake
 
 with-variant native os@-cmake:[v]
 
-#  Adds a Windows variant using the MingW64 cmake version
+#  Adds a Windows variant using the MingW64 cmake version when
+#  used with Cygwin shell.
 with-variant win \
   --env 'add-to-var PATH $(cygpath -c -s "c:\opt\msys64\mingw64\bin")'
+
+#  Adds a mingw variant using the MingW64 cmake version when
+#  used with MSYS shell.
+with-variant mingw \
+  --env 'add-to-var PATH $MINGW_PREFIX'
 
 function s-cmake-vcs()
 {
