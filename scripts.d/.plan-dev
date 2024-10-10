@@ -249,3 +249,13 @@ s-cgal/auto:v4.13
         s-netcdf:skip
         s-gdal:skip
 ]
+
+[ = mingw
+        s-cmake
+	
+        s-ifc-open-shell:skip
+        s-visual-c:skip
+        s-windows-kit:skip
+        s-openturns-svm:skip
+        s-med-file:skip
+] /mingw
