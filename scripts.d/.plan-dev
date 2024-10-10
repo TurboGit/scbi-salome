@@ -280,6 +280,7 @@ s-geom-reparation:#v1.0.0
         s-occt
         s-openturns
         s-tbb:2021.13.0
+        s-rkcommon
 
         s-building-is:skip
         s-ifc-open-shell:skip
