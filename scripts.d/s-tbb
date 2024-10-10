@@ -2,6 +2,12 @@
 with-variant native os@-tbb-dev:[v] \
              --env 'set-var TBB_ROOT /usr'
 
+#  Adds a  mingw wvariant using the MingW64 tbb version
+with-variant mingw os@-tbb-dev:[v] \
+  --env 'set-var TBB_ROOT $MINGW_PREFIX' \
+        'set-var TBBDLL   $MINGW_PREFIX/bin/libtbb12.dll' \
+	'set-var TBBLIB   $MINGW_PREFIX/lib/libtbb12.dll.a'
+
 function s-tbb-vcs()
 {
     echo default
