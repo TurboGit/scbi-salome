@@ -1,0 +1,38 @@
+diff -Naur hdf5-1.10.6/CMakeLists.txt hdf5-1.10.6_dev/CMakeLists.txt
+--- hdf5-1.10.6/CMakeLists.txt	2019-12-19 17:38:30.000000000 +0100
++++ hdf5-1.10.6_dev/CMakeLists.txt	2024-07-24 19:23:29.161003700 +0200
+@@ -837,7 +837,7 @@
+ # Option to build examples
+ #-----------------------------------------------------------------------------
+ if (EXISTS "${HDF5_SOURCE_DIR}/examples" AND IS_DIRECTORY "${HDF5_SOURCE_DIR}/examples")
+-  option (HDF5_BUILD_EXAMPLES  "Build HDF5 Library Examples" ON)
++  option (HDF5_BUILD_EXAMPLES  "Build HDF5 Library Examples" OFF)
+   if (HDF5_BUILD_EXAMPLES)
+     add_subdirectory (examples)
+   endif ()
+diff -Naur hdf5-1.10.6/config/cmake_ext_mod/HDFMacros.cmake hdf5-1.10.6_dev/config/cmake_ext_mod/HDFMacros.cmake
+--- hdf5-1.10.6/config/cmake_ext_mod/HDFMacros.cmake	2019-12-17 23:14:09.000000000 +0100
++++ hdf5-1.10.6_dev/config/cmake_ext_mod/HDFMacros.cmake	2024-08-28 22:42:06.957037500 +0200
+@@ -155,14 +155,14 @@
+   endif ()
+ 
+   #----- Use MSVC Naming conventions for Shared Libraries
+-  if (MINGW AND ${libtype} MATCHES "SHARED")
+-    set_target_properties (${libtarget}
+-        PROPERTIES
+-        IMPORT_SUFFIX ".lib"
+-        IMPORT_PREFIX ""
+-        PREFIX ""
+-    )
+-  endif ()
++  # if (MINGW AND ${libtype} MATCHES "SHARED")
++    # set_target_properties (${libtarget}
++        # PROPERTIES
++        # IMPORT_SUFFIX ".lib"
++        # IMPORT_PREFIX ""
++        # PREFIX ""
++    # )
++  # endif ()
+ endmacro ()
+ 
+ #-------------------------------------------------------------------------------

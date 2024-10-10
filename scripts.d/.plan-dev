@@ -281,6 +281,7 @@ s-geom-reparation:#v1.0.0
         s-openturns
         s-tbb:2021.13.0
         s-rkcommon
+        s-hdf5:#1.10.6
 
         s-building-is:skip
         s-ifc-open-shell:skip
