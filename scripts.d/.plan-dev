@@ -258,6 +258,7 @@ s-cgal/auto:v4.13
         s-occt
         s-openturns
         s-tbb:2021.13.0
+        s-rkcommon
 
         s-ifc-open-shell:skip
         s-visual-c:skip

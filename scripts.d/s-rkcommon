@@ -10,6 +10,29 @@ function s-rkcommon-vcs()
 } 
 
 
+function s-rkcommon-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
+    echo rkCommon-$VERSION.tar.gz 
+} 
+
+function s-rkcommon-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Handling header file math.h issues under MSYS2
+    echo rkcommon-1.5.1-all.patch
+}
+
 function s-rkcommon-build-depends()
 {
     echo s-cmake
@@ -36,6 +59,7 @@ function s-rkcommon-env()
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/rkcommon
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PATH               $PREFIX/bin
 
     add-to-var CMAKE_PREFIX_PATH \
                $(last-modified-directory "$PREFIX/lib*/cmake/rkcommon-*")
@@ -48,6 +72,30 @@ function s-rkcommon-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LIBDIR=lib ../src
+}
+
+function s-rkcommon-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -G"MSYS Makefiles" \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX  \
+          -DTBB_DLL=${TBB_ROOT}/bin/libtbb12.dll \
+          -DTBB_DLL_MALLOC=${TBB_ROOT}/bin/libtbbmalloc.dll \
+          ../src
+}
+
+function s-rkcommon-mingw-pre-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local RES=../src/rkcommon/rkcommon.rc
+
+    mv $RES{,.orig}
+    iconv -f UTF-16LE -t UTF-8 ${RES}.orig > $RES
 }
 
 function s-rkcommon-build()
