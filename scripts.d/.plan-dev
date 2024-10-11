@@ -286,6 +286,7 @@ s-geom-reparation:#v1.0.0
         s-hdf5:#1.10.6
         s-salome-configuration
         s-libbatch
+        s-embree
 
         s-building-is:skip
         s-ifc-open-shell:skip
