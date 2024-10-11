@@ -264,6 +264,7 @@ s-cgal/auto:v4.13
         s-hdf5:#1.10.6
         s-salome-configuration
         s-libbatch
+        s-embree
 
         s-ifc-open-shell:skip
         s-visual-c:skip
