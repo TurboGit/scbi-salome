@@ -10,6 +10,17 @@ function s-cgns-vcs()
 } 
 
 
+function s-cgns-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
+    echo cgns-$VERSION.tar.gz 
+} 
+
 function s-cgns-build-depends()
 {
     echo s-cmake
@@ -34,14 +45,48 @@ function s-cgns-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
+function s-cgns-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-cgns-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -G"Ninja"
+    echo -DCGNS_BUILD_SHARED=ON
+    echo -DCGNS_ENABLE_HDF5=ON
+    echo -DHDF5_NEED_ZLIB=ON
+    echo -DCGNS_ENABLE_64BIT=OFF
+}
+
 function s-cgns-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-cgns-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    CXXFLAGS+=" -w -Wno-register" \
+	     cmake "${OPTIONS[@]}" ../src
 }
 
 function s-cgns-build()
@@ -52,12 +97,28 @@ function s-cgns-build()
     make -j$SCBI_JOBS
 }
 
+function s-cgns-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build . -j$SCBI_JOBS
+}
+
 function s-cgns-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-cgns-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-cgns-prefix()

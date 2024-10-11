@@ -264,6 +264,7 @@ s-cgal/auto:v4.13
         s-libbatch
         s-embree
         s-netcdf:#4.7.4
+        s-cgns
 
         s-ifc-open-shell:skip
         s-visual-c:skip
