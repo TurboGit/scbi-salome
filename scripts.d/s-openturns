@@ -206,7 +206,7 @@ function s-openturns-mingw-build()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake --build .
+    cmake --build . -j$SCBI_JOBS
 }
 
 function s-openturns-install()
