@@ -273,8 +273,6 @@ s-geom-reparation:#v1.0.0
 ]
 
 [ = mingw
-        s-cmake
-        s-swig
         s-clang
         s-omniorb-core
         s-python-omniorb
