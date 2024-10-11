@@ -251,8 +251,6 @@ s-cgal/auto:v4.13
 ]
 
 [ = mingw
-        s-cmake
-        s-swig
         s-clang
         s-omniorb-core
         s-python-omniorb
