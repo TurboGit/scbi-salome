@@ -1,5 +1,9 @@
 inherit-plugin c-clang
 
+#  Adds a mingw variant using the MingW64 clang version
+with-variant mingw os@-clang:[v] \
+  --env 'add-to-var PATH $MINGW_PREFIX'
+
 function s-clang-vcs()
 {
     echo edf
@@ -13,7 +17,7 @@ function s-clang-archive()
     local VERSION=$1
 
     echo default
-    echo none
+    echo --no-check-certificate
     echo wget
     echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
     echo llvm-$VERSION.src.tar.gz
