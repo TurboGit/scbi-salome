@@ -1,5 +1,13 @@
 
 
+function s-salome-configuration-vcs() 
+{ 
+    echo default 
+    echo none 
+    echo git 
+    echo https://github.com/SalomePlatform/configuration 
+} 
+
 function s-salome-configuration-patches()
 {
     local PREFIX=$1
@@ -11,6 +19,18 @@ function s-salome-configuration-patches()
     # the following patch is for V9_7_0 only as the corresponding
     # fix has been merged in master.
     [[ $REF =~ "9_7" ]] && echo fix-detection-of-hdf5.patch
+}
+
+function s-salome-configuration-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Fix in cmake to find Python
+    echo configuration.msys2.patch
 }
 
 function s-salome-configuration-common-env()
