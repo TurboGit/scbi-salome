@@ -1,0 +1,48 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b395f1b..8fe3793 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -35,12 +35,13 @@ SET(${PROJECT_NAME_UC}_VERSION
+   ${${PROJECT_NAME_UC}_MAJOR_VERSION}.${${PROJECT_NAME_UC}_MINOR_VERSION}.${${PROJECT_NAME_UC}_PATCH_VERSION})
+ 
+ # Our own set of macros:
++LIST(APPEND CMAKE_MODULE_PATH ${CONFIGATION_ROOT_DIR}/cmake)
+ LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
+ INCLUDE(libbatchMacros)
+ 
+ # User options
+ # ============
+-IF(WIN32 AND NOT CYGWIN)
++IF(WIN32 AND NOT CYGWIN OR NOT MINGW)
+   # This is really stupid: in the FIND_PACKAGE() command, the default paths 
+   # are not the same under Win and Nix (see CMake doc). This means we have to specify 
+   # different installation directories for LibBatchConfig.cmake:
+diff --git a/CMakeModules/FindLibbatchPython.cmake b/CMakeModules/FindLibbatchPython.cmake
+index c8a0ea9..3a3b32e 100644
+--- a/CMakeModules/FindLibbatchPython.cmake
++++ b/CMakeModules/FindLibbatchPython.cmake
+@@ -85,7 +86,7 @@ IF (PYTHONINTERP_FOUND)
+   GET_FILENAME_COMPONENT(CMAKE_INCLUDE_PATH "${_python_dir}/../include/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}" ABSOLUTE)
+   GET_FILENAME_COMPONENT(CMAKE_LIBRARY_PATH "${_python_dir}/../lib" ABSOLUTE)
+   # For a Windows install, this might look more like this:
+-  IF(WIN32)
++  IF(WIN32 AND NOT MINGW)
+     LIST(APPEND CMAKE_LIBRARY_PATH "${_python_dir}/libs" ABSOLUTE)
+     LIST(APPEND CMAKE_INCLUDE_PATH "${_python_dir}/include" ABSOLUTE)
+     SET(PYTHON_INCLUDE_DIR "${_python_dir}/include")
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 4bd7e08..e1e61f3 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -34,9 +34,9 @@ MACRO(APPEND_CLASSES_TO_HDR_FILES)
+     SET(HDR_FILES ${HDR_FILES} PARENT_SCOPE)
+ ENDMACRO(APPEND_CLASSES_TO_HDR_FILES)
+ 
+-IF (WIN32)
++IF (WIN32 AND NOT MINGW)
+   ADD_DEFINITIONS(/wd4251 /wd4290)  # Disable annoying Visual C++ warnings
+-ENDIF (WIN32)
++ENDIF (WIN32 AND NOT MINGW)
+ 
+ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR} 
+      ${PTHREAD_INCLUDE_DIR})

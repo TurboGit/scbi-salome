@@ -1,5 +1,26 @@
 
 
+function s-libbatch-vcs() 
+{ 
+    echo default 
+    echo none 
+    echo git 
+    echo https://github.com/SalomePlatform/libbatch 
+} 
+
+
+function s-libbatch-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # CMake files are currently only compatible with Microsoft Visual C++.
+    # The necessary options for MSYS2 have been added.
+    echo libbatch.msys2.patch
+}
 
 function s-libbatch-build-depends()
 {
@@ -18,9 +39,36 @@ function s-libbatch-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    LibBatch_DIR    $PREFIX
+    set-var    LibBatch_DIR      $PREFIX
+    set-var    LIBBATCH_ROOT_DIR $PREFIX
 
-    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        \
+	       ${LIBBATCH_ROOT_DIR}/lib/python${PYTHON_VERSION}/site-packages
+}
+
+function s-libbatch-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-libbatch-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local PTHREAD_ROOT_DIR=${MINGW_PREFIX}
+
+    echo -G"Ninja"
+    echo -DPYTHON_ROOT_DIR=${MINGW_PREFIX}
+    echo -DPTHREAD_LIBRARY=${PTHREAD_ROOT_DIR}/lib/libpthread.dll.a
 }
 
 function s-libbatch-config()
@@ -28,10 +76,10 @@ function s-libbatch-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-libbatch-build()
@@ -42,12 +90,28 @@ function s-libbatch-build()
     make -j$SCBI_JOBS
 }
 
+function s-libbatch-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build .
+}
+
 function s-libbatch-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-libbatch-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-libbatch-prefix()
