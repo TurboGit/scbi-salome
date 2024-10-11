@@ -9,6 +9,30 @@ function s-netcdf-vcs()
     echo https://github.com/Unidata/netcdf-c.git 
 } 
 
+function s-netcdf-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
+    echo netcdf-c-$VERSION.tar.gz 
+} 
+
+
+function s-netcdf-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Add preprocessor flag __MINGW32__ for MSYS2 support
+    echo netcdf-4.7.4.msys2.patch
+}
+
 function s-netcdf-build-depends()
 {
     echo s-cmake
@@ -27,10 +51,51 @@ function s-netcdf-env()
 
     set-var    NETCDF_ROOT_DIR    $PREFIX
 
+    add-to-var PATH               $PREFIX/bin
     add-to-var C_INCLUDE_PATH     $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+}
+
+function s-netcdf-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h
+}
+
+function s-netcdf-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -G"MSYS Makefiles"
+    echo -DCMAKE_INSTALL_LIBDIR=lib
+    echo -DENABLE_NETCDF_4=ON
+    echo -DBUILD_UTILITIES=ON
+    echo -DBUILD_SHARED_LIBS=ON
+    echo -DENABLE_DAP=OFF
+    echo -DENABLE_TESTS=ON
+    echo -DENABLE_UNIT_TESTS=OFF
+    echo -DHDF5_HL_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5_hl.dll.a
+    echo -DHDF5_C_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5.dll.a
+    echo -DHDF5_INCLUDE_DIR=${HDF5_ROOT_DIR}/include
+}
+
+function s-netcdf-default-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DHDF5_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR
+    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
+    echo -DHDF5_C_LIBRARY=$HDF5_C_LIBRARY_hdf5
+    echo -DHDF5_HL_LIBRARY=$HDF5_C_LIBRARY_hdf5_hl
+    echo -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h
 }
 
 function s-netcdf-config()
@@ -38,14 +103,10 @@ function s-netcdf-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DHDF5_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR \
-          -DHDF5_LIBRARIES=$HDF5_LIBRARIES \
-          -DHDF5_C_LIBRARY=$HDF5_C_LIBRARY_hdf5 \
-          -DHDF5_HL_LIBRARY=$HDF5_C_LIBRARY_hdf5_hl \
-          -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-netcdf-build()

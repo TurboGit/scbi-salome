@@ -1,0 +1,11 @@
+--- netcdf-c-4.7.4/ncdump/ncvalidator.c	2020-03-27 16:33:36.000000000 +0100
++++ netcdf-c-4.7.4.dev/ncdump/ncvalidator.c	2024-07-31 10:05:09.508835200 +0200
+@@ -73,7 +73,7 @@
+ #include <unistd.h>     /* read() getopt() */
+ #endif
+ 
+-#ifdef _WIN32
++#if defined(_WIN32) && !defined(__MINGW32__)
+ #include <io.h>
+ #define snprintf _snprintf
+ #include "XGetopt.h"
