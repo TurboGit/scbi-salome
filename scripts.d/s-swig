@@ -3,6 +3,11 @@ with-variant native os@-swig:[v] \
              --env 'set-var SWIG_ROOT_DIR /usr' \
                    'set-var SWIG_ROOT /usr'
 
+#  Adds a mingw variant using the MingW64 cmake version when
+#  used with MSYS shell.
+with-variant mingw \
+  --env 'add-to-var PATH $MINGW_PREFIX'
+
 function s-swig-vcs()
 {
     echo edf
