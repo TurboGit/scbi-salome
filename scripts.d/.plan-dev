@@ -290,6 +290,7 @@ s-geom-reparation:#v1.0.0
         s-netcdf:#4.7.4
         s-cgns
         s-gdal
+        s-salome-kernel
 
         s-building-is:skip
         s-ifc-open-shell:skip
