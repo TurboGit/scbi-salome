@@ -129,9 +129,9 @@ function s-omniorb-core-mingw-build()
     local TARGET=$2
 
     cd ../src/src/tool/omkdepend
-    make export
+    make -j$SCBI_JOBS export
     cd ../../
-    make export
+    make -j$SCBI_JOBS export
     cd ../..
 }
 

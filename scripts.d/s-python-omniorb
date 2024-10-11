@@ -108,7 +108,7 @@ function s-python-omniorb-mingw-build()
     local TARGET=$2
 
     cd $OMNIORBPY_DIR &&
-	make export
+	make -j$SCBI_JOBS export
 }
 
 function s-python-omniorb-install()
