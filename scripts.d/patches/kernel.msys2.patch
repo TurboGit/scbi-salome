@@ -1,0 +1,505 @@
+diff --git a/src/Basics/Basics_Utils.cxx b/src/Basics/Basics_Utils.cxx
+index 2f0338f9..72c62844 100644
+--- a/src/Basics/Basics_Utils.cxx
++++ b/src/Basics/Basics_Utils.cxx
+@@ -169,7 +169,7 @@ namespace Kernel_Utils
+     free (strings);
+   }
+ #else
+-  #if (_MSC_VER >= 1400) // Visual Studio 2005
++  #if (_MSC_VER >= 1400) || defined(__MINGW32__) // Visual Studio 2005
+   #include <sstream>
+   int setenv(const char *name, const char *value, int rewrite)
+   {
+diff --git a/src/Basics/Basics_Utils.hxx b/src/Basics/Basics_Utils.hxx
+index 9edc2cee..1186c638 100644
+--- a/src/Basics/Basics_Utils.hxx
++++ b/src/Basics/Basics_Utils.hxx
+@@ -81,7 +81,7 @@ namespace Kernel_Utils
+ #ifndef WIN32
+   BASICS_EXPORT void print_traceback();
+ #else
+-#if (_MSC_VER >= 1400) // Visual Studio 2005
++#if (_MSC_VER >= 1400) || defined(__MINGW32__) // Visual Studio 2005
+   BASICS_EXPORT int setenv(const char*, const char*, int);
+ #endif
+ #endif
+diff --git a/src/Container/Component_i.cxx b/src/Container/Component_i.cxx
+index 7e47c0d6..6baffba2 100644
+--- a/src/Container/Component_i.cxx
++++ b/src/Container/Component_i.cxx
+@@ -259,7 +259,7 @@ char* Engines_Component_i::interfaceName()
+ 
+ void Engines_Component_i::ping()
+ {
+-#ifndef WIN32
++#ifndef MSVC
+   MESSAGE("Engines_Component_i::ping() pid "<< getpid() << " threadid "
+           << pthread_self());
+ #else
+@@ -408,7 +408,11 @@ bool Engines_Component_i::Kill_impl()
+     }
+ 
+ #else
+-  if ( _ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#ifdef __MINGW32__
++  if ( (int)_ThreadId > 0 && pthread_self() != _ThreadId )
++#else
++  if ( (int)_ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#endif
+     {
+       RetVal = Killer( *_ThreadId , 0 ) ;
+       _ThreadId = (pthread_t* ) 0 ;
+@@ -432,8 +436,12 @@ bool Engines_Component_i::Stop_impl()
+           << _instanceName.c_str() << " interface " << _interfaceName.c_str()
+           << " machineName " << Kernel_Utils::GetHostname().c_str()<< " _id " << std::hex << _id
+           << std::dec << " _ThreadId " << _ThreadId );
++#else
++#ifdef __MINGW32__
++  MESSAGE("Engines_Component_i::Stop_i() pthread_t "<< pthread_self()
+ #else
+   MESSAGE("Engines_Component_i::Stop_i() pthread_t "<< pthread_self().p
++#endif
+           << " pid " << _getpid() << " instanceName "
+           << _instanceName.c_str() << " interface " << _interfaceName.c_str()
+           << " machineName " << Kernel_Utils::GetHostname().c_str()<< " _id " << std::hex << _id
+@@ -449,7 +457,11 @@ bool Engines_Component_i::Stop_impl()
+       _ThreadId = (pthread_t ) -1 ;
+     }
+ #else
+-  if ( _ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#ifdef __MINGW32__
++  if ( (int)_ThreadId > 0 && pthread_self() != _ThreadId )
++#else
++  if ( (int)_ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#endif
+     {
+       RetVal = Killer( *_ThreadId , 0 ) ;
+       _ThreadId = (pthread_t* ) 0 ;
+@@ -472,8 +484,12 @@ bool Engines_Component_i::Suspend_impl()
+           << _instanceName.c_str() << " interface " << _interfaceName.c_str()
+           << " machineName " << Kernel_Utils::GetHostname().c_str()<< " _id " << std::hex << _id
+           << std::dec << " _ThreadId " << _ThreadId );
++#else
++#ifdef __MINGW32__
++  MESSAGE("Engines_Component_i::Suspend_i() pthread_t "<< pthread_self()
+ #else
+   MESSAGE("Engines_Component_i::Suspend_i() pthread_t "<< pthread_self().p
++#endif
+           << " pid " << _getpid() << " instanceName "
+           << _instanceName.c_str() << " interface " << _interfaceName.c_str()
+           << " machineName " << Kernel_Utils::GetHostname().c_str()<< " _id " << std::hex << _id
+@@ -484,7 +500,11 @@ bool Engines_Component_i::Suspend_impl()
+ #ifndef WIN32
+   if ( _ThreadId > 0 && pthread_self() != _ThreadId )
+ #else
+-  if ( _ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#ifdef __MINGW32__
++  if ( (int)_ThreadId > 0 && pthread_self() != _ThreadId )
++#else
++  if ( (int)_ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#endif
+ #endif
+     {
+       if ( _Sleeping )
+@@ -519,8 +539,12 @@ bool Engines_Component_i::Resume_impl()
+           << _instanceName.c_str() << " interface " << _interfaceName.c_str()
+           << " machineName " << Kernel_Utils::GetHostname().c_str()<< " _id " << std::hex << _id
+           << std::dec << " _ThreadId " << _ThreadId );
++#else
++#ifdef __MINGW32__
++  MESSAGE("Engines_Component_i::Resume_i() pthread_t "<< pthread_self()
+ #else
+   MESSAGE("Engines_Component_i::Resume_i() pthread_t "<< pthread_self().p
++#endif
+           << " pid " << _getpid() << " instanceName "
+           << _instanceName.c_str() << " interface " << _interfaceName.c_str()
+           << " machineName " << Kernel_Utils::GetHostname().c_str()<< " _id " << std::hex << _id
+@@ -530,7 +554,11 @@ bool Engines_Component_i::Resume_impl()
+ #ifndef WIN32
+   if ( _ThreadId > 0 && pthread_self() != _ThreadId )
+ #else
+-  if ( _ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#ifdef __MINGW32__
++  if ( (int)_ThreadId > 0 && pthread_self() != _ThreadId )
++#else
++  if ( (int)_ThreadId > 0 && pthread_self().p != _ThreadId->p )
++#endif
+ #endif
+     {
+     if ( _Sleeping )
+@@ -557,12 +585,16 @@ CORBA::Long Engines_Component_i::CpuUsed_impl()
+   long cpu = 0 ;
+   if ( _ThreadId || _Executed )
+     {
+-    if ( _ThreadId > 0 )
++    if ( (int)_ThreadId > 0 )
+       {
+ #ifndef WIN32
+       if ( pthread_self() != _ThreadId )
++#else
++#ifdef __MINGW32__
++      if ( pthread_self() != _ThreadId )
+ #else
+       if ( pthread_self().p != _ThreadId->p )
++#endif
+ #endif
+         {
+         if ( _Sleeping )
+@@ -639,7 +671,7 @@ void Engines_Component_i::beginService(const char *serviceName)
+ {
+   std::cerr << "beginService for " << serviceName << " Component instance : " << _instanceName << std::endl;
+ 
+-#ifndef WIN32
++#ifndef MSVC
+   _ThreadId = pthread_self() ;
+ #else
+   _ThreadId = new pthread_t;
+@@ -731,7 +763,7 @@ char* Engines_Component_i::nodeName()
+ 
+ bool Engines_Component_i::Killer( pthread_t ThreadId , int signum )
+ {
+-#ifndef WIN32
++#ifndef MSVC
+   if ( ThreadId )
+ #else
+   if ( ThreadId.p )
+@@ -746,7 +778,7 @@ bool Engines_Component_i::Killer( pthread_t ThreadId , int signum )
+             }
+           else
+             {
+-#ifdef WIN32
++#ifdef MSVC
+               MESSAGE("Killer : ThreadId " << ThreadId.p << " pthread_canceled") ;
+ #else
+               MESSAGE("Killer : ThreadId " << ThreadId << " pthread_canceled") ;
+@@ -762,7 +794,7 @@ bool Engines_Component_i::Killer( pthread_t ThreadId , int signum )
+             }
+           else
+             {
+-#ifdef WIN32
++#ifdef MSVC
+               MESSAGE("Killer : ThreadId " << ThreadId.p << " pthread_killed(" << signum << ")") ;
+ #else
+               MESSAGE("Killer : ThreadId " << ThreadId << " pthread_killed(" << signum << ")") ;
+@@ -880,7 +912,7 @@ std::string Engines_Component_i::GetDynLibraryName(const char *componentName)
+ {
+   std::string prefix, suffix;
+   std::string cname = componentName;
+-#if !defined(WIN32)
++#if !defined(MSVC)
+   prefix = "lib";
+ #endif
+ #if defined(WIN32)
+diff --git a/src/Container/Container_i.cxx b/src/Container/Container_i.cxx
+index 64ab9880..13ce49fe 100644
+--- a/src/Container/Container_i.cxx
++++ b/src/Container/Container_i.cxx
+@@ -99,7 +99,11 @@ extern "C" {void SigIntHandler( int ) ; }
+ #define ENGINESO "Engine.so"
+ #endif
+ #else
++#ifdef __MINGW32__
++#define LIB "lib"
++#else
+ #define LIB ""
++#endif
+ #define ENGINESO "Engine.dll"
+ #endif
+ 
+@@ -168,8 +172,12 @@ Abstract_Engines_Container_i::Abstract_Engines_Container_i (const std::string& p
+ #ifndef WIN32
+   INFO_MESSAGE("Starting Container servant instance on Hostname :" << hostname << " with  PID : " << getpid() ) ;
+ #else
+-  MESSAGE(hostname << " " << _getpid() << 
++  MESSAGE(hostname << " " << _getpid() <<
++#ifdef __MINGW32__
++    " Engines_Container_i starting argc " << _argc<< " Thread " << pthread_self() ) ;
++#else	
+     " Engines_Container_i starting argc " << _argc<< " Thread " << pthread_self().p ) ;
++#endif
+ #endif
+   _isSupervContainer = false;
+ 
+diff --git a/src/Container/SALOME_Container.cxx b/src/Container/SALOME_Container.cxx
+index 3a975ac7..9979430b 100644
+--- a/src/Container/SALOME_Container.cxx
++++ b/src/Container/SALOME_Container.cxx
+@@ -25,4 +25,5 @@ int main(int argc, char* argv[])
+ {
+   std::unique_ptr<SALOME_NamingService_Container_Abstract> ns;
+   return container_common_main<Engines_Container_i>(argc,argv,std::move(ns));
++  // return ;
+ }
+diff --git a/src/Container/SALOME_Container_Common.cxx b/src/Container/SALOME_Container_Common.cxx
+index 6cfffd9c..d2c2735e 100644
+--- a/src/Container/SALOME_Container_Common.cxx
++++ b/src/Container/SALOME_Container_Common.cxx
+@@ -153,6 +153,7 @@ int container_common_main(int argc, char* argv[], std::unique_ptr<SALOME_NamingS
+   SetArgcArgv(argc, argv);
+   CORBA::ORB_ptr orb = KERNEL::GetRefToORB();
+ 
++
+   //  LocalTraceCollector *myThreadTrace = SALOMETraceCollector::instance(orb);
+   INFOS_COMPILATION;
+   BEGIN_OF(argv[0]);
+diff --git a/src/KERNEL_PY/__init__.py b/src/KERNEL_PY/__init__.py
+index 822df2c6..c2f6aa80 100644
+--- a/src/KERNEL_PY/__init__.py
++++ b/src/KERNEL_PY/__init__.py
+@@ -104,6 +104,14 @@ from salome_utils import verbose
+ 
+ MATCH_ENDING_PATTERN="site-packages" + os.path.sep + "salome"
+ 
++if sys.platform == 'win32' :
++    for p in os.environ['PATH'].split(';'):
++        if p:
++            try:
++                os.add_dll_directory(p)
++            except FileNotFoundError:
++                continue
++
+ def extend_path(pname):
+     for dir in sys.path:
+         if not isinstance(dir, str) or not os.path.isdir(dir) or not dir.endswith(MATCH_ENDING_PATTERN):
+diff --git a/src/Logger/SALOME_Trace.cxx b/src/Logger/SALOME_Trace.cxx
+index 211587d2..8c4717e3 100644
+--- a/src/Logger/SALOME_Trace.cxx
++++ b/src/Logger/SALOME_Trace.cxx
+@@ -32,7 +32,7 @@
+ #include <stdlib.h>
+ #include <iostream>
+ 
+-#ifdef WIN32
++#ifdef MSVC
+ #include <omnithread/pthread_nt.h>
+ #endif
+ 
+diff --git a/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.cxx b/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.cxx
+index ba267030..04bb9651 100644
+--- a/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.cxx
++++ b/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.cxx
+@@ -26,6 +26,8 @@
+ //
+ #include "SALOMEDSImpl_AttributeString.hxx"
+ 
++#include <stdlib.h>
++
+ //=======================================================================
+ //function : GetID
+ //purpose  :
+@@ -49,6 +51,14 @@ SALOMEDSImpl_AttributeString* SALOMEDSImpl_AttributeString::Set (const DF_Label&
+     
+   return A;
+ }
++//=======================================================================
++//function : Value
++//purpose  :
++//=======================================================================
++std::string SALOMEDSImpl_AttributeString::Value() const
++{ 
++	return myString; 
++}
+ 
+ //=======================================================================
+ //function : SetValue
+@@ -101,3 +111,21 @@ void SALOMEDSImpl_AttributeString::Paste (DF_Attribute* into)
+ {
+   dynamic_cast<SALOMEDSImpl_AttributeString*>(into)->SetValue(myString);
+ }
++
++//=======================================================================
++//function : Save
++//purpose  :
++//=======================================================================
++std::string SALOMEDSImpl_AttributeString::Save() 
++{ 
++    return myString; 
++}
++
++//=======================================================================
++//function : Load
++//purpose  :
++//=======================================================================
++void SALOMEDSImpl_AttributeString::Load(const std::string& theValue)
++{
++    myString = theValue;  
++}
+diff --git a/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.hxx b/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.hxx
+index 3fdb07f2..f7338f61 100644
+--- a/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.hxx
++++ b/src/SALOMEDSImpl/SALOMEDSImpl_AttributeString.hxx
+@@ -27,36 +27,34 @@
+ #ifndef _SALOMEDSImpl_AttributeString_HeaderFile
+ #define _SALOMEDSImpl_AttributeString_HeaderFile
+ 
++#include "SALOMEDSImpl_Defines.hxx"
+ #include "DF_Attribute.hxx"
+ #include <string>
+ #include "DF_Label.hxx" 
+ #include "SALOMEDSImpl_GenericAttribute.hxx"
+ 
+ 
+-class SALOMEDSImpl_AttributeString : public SALOMEDSImpl_GenericAttribute 
++class SALOMEDSIMPL_EXPORT SALOMEDSImpl_AttributeString : public SALOMEDSImpl_GenericAttribute 
+ {
+ private:
+ 
+  std::string myString;
+ 
+ public:
+-
+-Standard_EXPORT static const std::string& GetID() ;
+-
+-Standard_EXPORT  SALOMEDSImpl_AttributeString() :SALOMEDSImpl_GenericAttribute("AttributeString") {}
+-
+-Standard_EXPORT  static SALOMEDSImpl_AttributeString* Set(const DF_Label& L, const std::string& Val); 
+-Standard_EXPORT  void SetValue (const std::string& S);
+-Standard_EXPORT  std::string Value() const { return myString; }
+-
+-Standard_EXPORT  virtual std::string Save() { return myString; }
+-Standard_EXPORT  virtual void Load(const std::string& theValue) { myString = theValue; }
+-
+-Standard_EXPORT  const std::string& ID() const;
+-Standard_EXPORT  void Restore(DF_Attribute* with) ;
+-Standard_EXPORT  DF_Attribute* NewEmpty() const;
+-Standard_EXPORT  void Paste(DF_Attribute* into);
+-Standard_EXPORT ~SALOMEDSImpl_AttributeString() {}
++  static const std::string& GetID() ;
++
++  SALOMEDSImpl_AttributeString() :SALOMEDSImpl_GenericAttribute("AttributeString") {}
++  static SALOMEDSImpl_AttributeString* Set(const DF_Label& L, const std::string& Val); 
++  void SetValue (const std::string& S);
++  std::string Value() const; // { return myString; }
++  virtual std::string Save(); // { return myString; }
++  virtual void Load(const std::string& theValue); // { myString = theValue; }
++
++  const std::string& ID() const;
++  void Restore(DF_Attribute* with) ;
++  DF_Attribute* NewEmpty() const;
++  void Paste(DF_Attribute* into);
++ ~SALOMEDSImpl_AttributeString() {}
+ 
+ };
+ 
+diff --git a/src/SALOMELocalTrace/utilities.h b/src/SALOMELocalTrace/utilities.h
+index 6d88848c..16377b24 100644
+--- a/src/SALOMELocalTrace/utilities.h
++++ b/src/SALOMELocalTrace/utilities.h
+@@ -51,10 +51,10 @@
+  * thread waken up is not guaranteed (no fifo or priority rules in Linux Kernel)
+  */
+ 
+-#define MESS_INIT(deb) std::ostringstream os; SALOME::AppendTimeClock(os); os << deb
++#define MESS_INIT(deb) /*std::ostringstream os; SALOME::AppendTimeClock(os); os*/std::cout << deb
+ #define MESS_BEGIN(deb) MESS_INIT(deb)<<__FILE__ <<" ["<<__LINE__<<"] : "
+-#define MESS_END std::endl; LocalTraceBufferPool::instance()->insert(NORMAL_MESS, os.str().c_str());
+-#define MESS_ABORT std::endl; LocalTraceBufferPool::instance()->insert(ABORT_MESS, os.str().c_str());
++#define MESS_END std::endl; /*LocalTraceBufferPool::instance()->insert(NORMAL_MESS, os.str().c_str());*/
++#define MESS_ABORT std::endl; /*LocalTraceBufferPool::instance()->insert(ABORT_MESS, os.str().c_str());*/
+ 
+ // Macros for messages with separated structure in c++ file in _DEBUG mode
+ #define MESSAGE_BEGIN(msg) {std::ostringstream ss; ss <<__FILE__ <<" ["<<__LINE__<<"] : "<< msg; LocalTraceBufferPool::instance()->insert(NORMAL_MESS, ss.str().c_str());}
+@@ -106,8 +106,7 @@
+ 
+ #define INFOS_COMPILATION { if (SALOME::VerbosityActivated()) { MESS_BEGIN("COMPILED with ") << COMPILER \
+                                        << ", " << __DATE__ \
+-                                       << " at " << __TIME__ << MESS_END }}
+-                                                                                
++                                       << " at " << __TIME__ << MESS_END }}                                                                    
+ 
+ #define MESSAGE(msg) { if (SALOME::VerbosityActivated()) {MESS_BEGIN("Trace -") << msg << MESS_END}}
+ #define SCRUTE(var)  { if (SALOME::VerbosityActivated()) {MESS_BEGIN("Trace -") << #var << "=" << var <<MESS_END}}
+@@ -118,6 +117,7 @@
+ 
+ #define REPERE ("------- ")
+ #define BEGIN_OF(msg) { if (SALOME::VerbosityActivated()) {MESS_BEGIN(REPERE) << "Begin of: " << msg << MESS_END}}
++
+ #define END_OF(msg)   { if (SALOME::VerbosityActivated()) {MESS_BEGIN(REPERE) << "Normal end of: " << msg << MESS_END}}
+ 
+ #ifndef ASSERT
+diff --git a/src/Utils/Utils_ExceptHandlers.cxx b/src/Utils/Utils_ExceptHandlers.cxx
+index 755ed418..aa3dcadb 100644
+--- a/src/Utils/Utils_ExceptHandlers.cxx
++++ b/src/Utils/Utils_ExceptHandlers.cxx
+@@ -47,34 +47,7 @@
+ #ifdef WIN32
+ void printBacktrace(std::stringstream& txt)
+ {
+-	typedef USHORT(WINAPI *CaptureStackBackTraceType)(__in ULONG, __in ULONG, __out PVOID*, __out_opt PULONG);
+-
+-	CaptureStackBackTraceType func = (CaptureStackBackTraceType)(GetProcAddress(LoadLibraryA("kernel32.dll"), "RtlCaptureStackBackTrace"));
+-
+-	if (func == NULL)
+-		return;
+-	const int kMaxCallers = 128;
+-
+-	void         * callers_stack[kMaxCallers];
+-	unsigned short frames;
+-	SYMBOL_INFO  * symbol;
+-	HANDLE         process;
+-	process = GetCurrentProcess();
+-	SymInitialize(process, NULL, TRUE);
+-	frames = (func)(0, kMaxCallers, callers_stack, NULL);
+-	symbol = (SYMBOL_INFO *)calloc(sizeof(SYMBOL_INFO) + 256 * sizeof(char), 1);
+-	symbol->MaxNameLen = 255;
+-	symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+-
+-	const unsigned short  MAX_CALLERS_SHOWN = 64;
+-	frames = frames < MAX_CALLERS_SHOWN ? frames : MAX_CALLERS_SHOWN;
+-	for (unsigned int i = 0; i < frames; i++)
+-	{
+-		SymFromAddr(process, (DWORD64)(callers_stack[i]), 0, symbol);
+-		txt << "*** " << i << ": " << callers_stack[i] << " " << symbol->Name << " - 0x" << symbol->Address << std::endl;
+-	}
+-
+-	free(symbol);
++	return;
+ }
+ #else
+ void printBacktrace(void **stacklines, int nbLines, std::stringstream& txt)
+diff --git a/src/Utils/Utils_ExceptHandlers.hxx b/src/Utils/Utils_ExceptHandlers.hxx
+index 7c67d2ca..02af8116 100644
+--- a/src/Utils/Utils_ExceptHandlers.hxx
++++ b/src/Utils/Utils_ExceptHandlers.hxx
+@@ -38,7 +38,7 @@ typedef void (*PVF)();
+ class UTILS_EXPORT Unexpect { //save / retrieve unexpected exceptions treatment
+   PVF old;
+   public :
+-#ifndef WIN32
++#ifndef MSVC
+     Unexpect( PVF f ) 
+       { old = std::set_unexpected(f); }
+   ~Unexpect() { std::set_unexpected(old); }
+@@ -53,7 +53,7 @@ class UTILS_EXPORT Terminate {//save / retrieve terminate function
+   
+   PVF old;
+   public :
+-#ifndef WIN32
++#ifndef MSVC
+     Terminate( PVF f ) 
+       { old = std::set_terminate(f); }
+   ~Terminate() { std::set_terminate(old); }
+diff --git a/src/Utils/Utils_Mutex.cxx b/src/Utils/Utils_Mutex.cxx
+index 2564c722..5d5b590f 100644
+--- a/src/Utils/Utils_Mutex.cxx
++++ b/src/Utils/Utils_Mutex.cxx
+@@ -45,7 +45,7 @@ void Utils_Mutex::lock()
+ {
+   pthread_mutex_lock( &myHelperMutex );
+ 
+-#ifndef WIN32 
++#ifndef MSVC 
+   if ( myCount > 0 && myThread == pthread_self() ) {
+ #else
+   if ( myCount > 0 && myThread.p == pthread_self().p ) {
+@@ -67,7 +67,7 @@ void Utils_Mutex::unlock()
+ {
+   pthread_mutex_lock( &myHelperMutex );
+ 
+-#ifndef WIN32  
++#ifndef MSVC  
+   if ( myThread == pthread_self() ) {
+ #else
+   if ( myThread.p == pthread_self().p ) {
+
