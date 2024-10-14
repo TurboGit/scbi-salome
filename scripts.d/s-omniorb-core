@@ -45,7 +45,7 @@ function s-omniorb-core-mingw-patches()
     local VARIANT=$3
     local KIND=$4
     local REF=$5
-    
+
     # Patch for MSYS2 which is not supported by default
     echo omniorb-4.2.6-msys2.patch
 }
@@ -79,8 +79,8 @@ function s-omniorb-core-mingw-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    OMNIORB_ROOT_DIR   $PREFIX/../src
-    set-var    OMNIORB_ROOT       $PREFIX/../src
+    set-var    OMNIORB_ROOT_DIR   $PREFIX
+    set-var    OMNIORB_ROOT       $PREFIX
     add-to-var PATH               ${OMNIORB_ROOT_DIR}/bin/x86_win32
     add-to-var PATH               ${OMNIORB_ROOT_DIR}/lib/x86_win32
     add-to-var PYTHONPATH         ${OMNIORB_ROOT_DIR}/lib/python
@@ -89,9 +89,6 @@ function s-omniorb-core-mingw-env()
     set-var    OMNIORB_BIN_DIR    ${OMNIORB_ROOT_DIR}/bin/x86_win32
     add-to-var LD_LIBRARY_PATH    ${OMNIORB_ROOT_DIR}/lib
     set-var    OMNIORB_USER_PATH  ${APPDATA}
-
-    #  The location to build/install omniORBpy
-    set-var    OMNIORBPY_DIR      ${OMNIORB_ROOT}/src/lib/omniORBpy
 }
 
 function s-omniorb-core-mingw-out-of-tree()
@@ -128,7 +125,7 @@ function s-omniorb-core-mingw-build()
     local PREFIX=$1
     local TARGET=$2
 
-    cd ../src/src/tool/omkdepend
+    cd src/tool/omkdepend
     make -j$SCBI_JOBS export
     cd ../../
     make -j$SCBI_JOBS export
@@ -149,8 +146,9 @@ function s-omniorb-core-mingw-install()
     local TARGET=$2
 
     mkdir -p $PREFIX
-    cp -r ../src/bin $PREFIX
-    cp -r ../src/src/lib $PREFIX
+    cp -r bin     $PREFIX
+    cp -r lib     $PREFIX
+    cp -r include $PREFIX
 }
 
 function s-omniorb-core-prefix()

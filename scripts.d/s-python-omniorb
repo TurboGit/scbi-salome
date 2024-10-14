@@ -85,13 +85,30 @@ function s-python-omniorb-config()
             PYTHON=$(command -v python3)
 }
 
+function s-python-omniorb-mingw-post-setup()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  We need to use the omniorb core sources and place
+    #  the omniORBpy sources into src/lib/omniORBpy
+
+    local OPD=$(dirname $PREFIX)
+
+    mv $OPD/src $OPD/omniORBpy
+
+    cp -r ${SCBI_MODULES_DIR["s-omniorb-core@src"]} \
+       $OPD/src
+
+    mv $OPD/omniORBpy $OPD/src/src/lib
+}
+
 function s-python-omniorb-mingw-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    rm -fr $OMNIORBPY_DIR
-    cp -r ../src $OMNIORBPY_DIR
+    true
 }
 
 function s-python-omniorb-build()
@@ -107,8 +124,8 @@ function s-python-omniorb-mingw-build()
     local PREFIX=$1
     local TARGET=$2
 
-    cd $OMNIORBPY_DIR &&
-	make -j$SCBI_JOBS export
+    cd src/lib/omniORBpy
+    make -j$SCBI_JOBS export
 }
 
 function s-python-omniorb-install()
@@ -124,8 +141,10 @@ function s-python-omniorb-mingw-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cp -r $OMNIORB_ROOT_DIR/bin     $OMNIORB_ROOT_DIR
-    cp -r $OMNIORB_ROOT_DIR/src/lib $OMNIORB_ROOT_DIR
+    mkdir -p $PREFIX
+    cp -r bin     $PREFIX
+    cp -r lib     $PREFIX
+    cp -r include $PREFIX
 }
 
 function s-python-omniorb-prefix()
