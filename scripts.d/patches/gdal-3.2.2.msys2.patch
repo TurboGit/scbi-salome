@@ -1,0 +1,90 @@
+diff -Naur '--exclude=*.bak' gdal/configure gdal.save/configure
+--- gdal/configure	2021-03-05 12:38:35.000000000 +0100
++++ gdal.save/configure	2024-09-03 14:23:08.511660200 +0200
+@@ -40063,6 +40063,8 @@
+     JSON_INCLUDE="-I/usr/include/json-c"
+   elif test -f "/usr/local/include/json-c/json.h"; then
+     JSON_INCLUDE="-I/usr/local/include/json-c"
++  elif test -f "$MINGW_PREFIX/include/json-c/json.h"; then
++	JSON_INCLUDE="-I$MINGW_PREFIX/include/json-c"
+   else
+     as_fn_error $? "could not find json-c/json.h" "$LINENO" 5
+   fi
+diff -Naur '--exclude=*.bak' gdal/gcore/gdaljp2metadatagenerator.cpp gdal.save/gcore/gdaljp2metadatagenerator.cpp
+--- gdal/gcore/gdaljp2metadatagenerator.cpp	2021-03-05 12:38:56.000000000 +0100
++++ gdal.save/gcore/gdaljp2metadatagenerator.cpp	2024-09-03 14:23:03.022165900 +0200
+@@ -496,7 +496,7 @@
+     xmlXPathRegisterFunc(pXPathCtx, reinterpret_cast<const xmlChar *>("uuid"),
+                          GDALGMLJP2XPathUUID);
+ 
+-    pXPathCtx->error = GDALGMLJP2XPathErrorHandler;
++    pXPathCtx->error = (xmlStructuredErrorFunc)GDALGMLJP2XPathErrorHandler;
+ 
+     GDALGMLJP2RegisterNamespaces(pXPathCtx, xmlDocGetRootElement(pDoc));
+ 
+diff -Naur '--exclude=*.bak' gdal/port/cpl_xml_validate.cpp gdal.save/port/cpl_xml_validate.cpp
+--- gdal/port/cpl_xml_validate.cpp	2021-03-05 12:41:36.000000000 +0100
++++ gdal.save/port/cpl_xml_validate.cpp	2024-09-03 14:23:08.612100100 +0200
+@@ -920,7 +920,7 @@
+ 
+     if( strstr(pszStr, "since this namespace was already imported") == nullptr )
+     {
+-        xmlErrorPtr pErrorPtr = xmlGetLastError();
++        xmlErrorPtr pErrorPtr = (xmlErrorPtr)xmlGetLastError();
+         const char* pszFilename = static_cast<char *>(ctx);
+         char* pszStrDup = CPLStrdup(pszStr);
+         int nLen = static_cast<int>(strlen(pszStrDup));
+diff -Naur '--exclude=*.bak' gdal/swig/python/extensions/gdal_wrap.cpp gdal.save/swig/python/extensions/gdal_wrap.cpp
+--- gdal/swig/python/extensions/gdal_wrap.cpp	2021-03-05 12:38:46.000000000 +0100
++++ gdal.save/swig/python/extensions/gdal_wrap.cpp	2024-09-03 17:09:30.092348600 +0200
+@@ -3276,6 +3276,10 @@
+ #else
+     PyStringObject* stringobj = (PyStringObject *) obj;
+ #endif
++
++#if PY_VERSION_HEX >= 0x30A00B1
++#define  Py_SIZE(ob)  (((PyVarObject*)(ob))->ob_size)
++#endif
+     Py_SIZE(stringobj) = buf_size;
+     stringobj->ob_sval[buf_size] = '\0';
+     stringobj->ob_shash = -1;          /* invalidate cached hash value */
+diff -Naur '--exclude=*.bak' gdal/swig/python/setup.py gdal.save/swig/python/setup.py
+--- gdal/swig/python/setup.py	2021-03-05 12:38:43.000000000 +0100
++++ gdal.save/swig/python/setup.py	2024-09-03 17:09:52.764463300 +0200
+@@ -129,9 +129,10 @@
+         all_fixers = set(get_fixers_from_package('lib2to3.fixes'))
+         exclude_fixers = sorted(all_fixers.difference(fixer_names))
+ 
+-        extra['use_2to3'] = True
+-        extra['use_2to3_fixers'] = []
+-        extra['use_2to3_exclude_fixers'] = exclude_fixers
++        if sys.version_info < (3, 9):
++            extra['use_2to3'] = True
++            extra['use_2to3_fixers'] = []
++            extra['use_2to3_exclude_fixers'] = exclude_fixers
+ 
+ 
+ class gdal_config_error(Exception):
+@@ -148,7 +149,7 @@
+         from sys import version_info
+         if version_info >= (3, 0, 0):
+             try:
+-                p = subprocess.Popen([command, args], stdout=subprocess.PIPE)
++                p = subprocess.Popen([command, args], shell=True,stdout=subprocess.PIPE)
+             except OSError:
+                 e = sys.exc_info()[1]
+                 raise gdal_config_error(e)
+--- gdal/swig/python/osgeo/__init__.py	2021-03-05 12:38:44.000000000 +0100
++++ gdal.save/swig/python/osgeo/__init__.py	2024-09-04 12:17:34.134364000 +0200
+@@ -7,7 +7,10 @@
+     if 'USE_PATH_FOR_GDAL_PYTHON' in os.environ and 'PATH' in os.environ:
+         for p in os.environ['PATH'].split(';'):
+             if p:
+-                os.add_dll_directory(p)
++                try:
++                    os.add_dll_directory(p)
++                except FileNotFoundError:
++                    continue
+ 
+ if version_info >= (2, 7, 0):
+     def swig_import_helper():
