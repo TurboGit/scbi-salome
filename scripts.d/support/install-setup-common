@@ -127,7 +127,27 @@ function template-conversion()
             # Common products
             sed -i "s,/builds/[^/]*/s-salome-tar/[^/]*/[^/]*,$PREFIX,g" $SCRIPTS
             # EDF products
+            sed -i "s,$HOME/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $SCRIPTS
+        fi
+    done
+
+    SYRTHES_MAKEFILE=(*/arch/Linux_x86_64/share/syrthes/Makefile.in)
+    for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_MAKEFILE; do
+        if [[ -f $SCRIPTS ]]; then
+            # Common products
             sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $SCRIPTS
+            # EDF products
+            sed -i "s,$HOME/build-salome-v911/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $SCRIPTS
+        fi
+    done
+
+    SYRTHES_GUI=(*/arch/Linux_x86_64/bin/syrthes.gui)
+    for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_GUI; do
+        if [[ -f $SCRIPTS ]]; then
+            # Common products
+            sed -i "s,/builds/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $SCRIPTS
+            # EDF products
+            sed -i "s,$HOME/build-salome-v911/[^/]*/\([^/]*\)/[^/]*/[^/]*,$PREFIX/$EDFBINDIR/\1,g" $SCRIPTS
         fi
     done
 
