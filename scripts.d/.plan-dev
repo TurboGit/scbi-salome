@@ -274,6 +274,7 @@ s-geom-reparation:#v1.0.0
 
 [ = mingw
         s-clang
+        s-boost
         s-omniorb-core
         s-python-omniorb
         s-omniorb:#4.2.6
