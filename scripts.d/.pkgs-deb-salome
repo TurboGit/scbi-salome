@@ -24,5 +24,7 @@ os@-python3-wand                    python3-wand
 os@-python3-yaml                    python3-yaml
 os@-python3-zipp                    python3-zipp
 os@-xxhash-dev                      libxxhash-dev
+os@-boost-chrono-dev                libboost-chrono-dev
+os@-boost-date-time-dev             libboost-date-time-dev
 os@-texlive                         texlive
 os@-texlive-latex-extra             texlive-latex-extra
