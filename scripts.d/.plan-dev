@@ -252,6 +252,7 @@ s-cgal/auto:v4.13
 
 [ = mingw
         s-clang
+        s-boost
         s-omniorb-core
         s-python-omniorb
         s-omniorb:#4.2.6
