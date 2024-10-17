@@ -277,3 +277,4 @@ s-cgal/auto:v4.13
 ] /mingw
 
 @on mingw use s-mesa/mingw-bin:#24.2.6
+@on mingw use s-paraview/mingw.gdal:#$PV_VERSION

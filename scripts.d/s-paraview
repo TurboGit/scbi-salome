@@ -8,6 +8,17 @@ function s-paraview-vcs()
 } 
 
 
+function s-paraview-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
+    echo ParaView-$VERSION.tar.gz 
+} 
+
 function s-paraview-ng-archive() 
 { 
     local VERSION=$1 
@@ -40,6 +51,19 @@ function s-paraview-patches()
         }
 }
 
+function s-paraview-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Implement the threshold version of openturns.
+    # And add header files to allow compilation under MSYS2
+    echo paraview-5.11.0.msys2.patch
+}
+
 function s-paraview-ng-build-depends()
 {
     # To avoid Paraview configuration issue with cmake < 3.13
@@ -51,9 +75,21 @@ function s-paraview-ng-build-depends()
 function s-paraview-default-build-depends()
 {
     echo os@-qtxmlpatterns5-dev-tools
+    echo os@-fmt-dev
+    echo os@-gl2ps-dev
 
     echo s-cmake
     echo git-lfs
+}
+
+function s-paraview-mingw-build-depends()
+{
+    echo os@-qtxmlpatterns5-dev-tools
+    echo os@-utf8cpp
+    echo os@-fmt-dev
+    echo os@-gl2ps-dev
+
+    echo s-cmake
 }
 
 function s-paraview-gdal-depends
@@ -106,10 +142,38 @@ function s-paraview-default-depends()
     echo os@-python3-dev
     echo os@-x11-dev
     echo os@-xt-dev
+    echo os@-pugixml
 
     echo s-qt
     echo s-hdf5
     echo s-openturns
+}
+
+function s-paraview-mingw-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo os@-python3-dev
+    echo os@-pugixml-dev
+    echo os@-cli11
+    echo os@-glew-dev
+    echo os@-ogg-dev
+    echo os@-theora-dev
+    echo os@-haru-dev
+    echo os@-protobuf-dev
+
+    echo s-mesa
+    echo s-boost
+    echo s-qt
+    echo s-hdf5
+    echo s-openturns
+    echo s-gdal
+    echo s-cgns
+    echo s-netcdf
+    echo s-rkcommon
+    echo s-embree
 }
 
 function s-paraview-env()
@@ -306,6 +370,40 @@ function s-paraview-headless-config-options()
     echo -DOPENGL_opengl_LIBRARY=$(get-os-lib libGL.so)
     echo -DOPENGL_gles2_LIBRARY=$(get-os-lib libGLESv2.so)
 }
+function s-paraview-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    # python
+    local PYTHONBIN=$(which python)
+
+    echo -G"Ninja"
+    echo -DVTK_IGNORE_CMAKE_CXX11_CHECKS=ON
+    echo -DPARAVIEW_BUILD_SHARED_LIBS=ON
+    echo -DPARAVIEW_ENABLE_LAS=ON
+    echo -DPARAVIEW_VERSIONED_INSTALL=OFF
+    echo -DPARAVIEW_BUILD_WITH_EXTERNAL=ON
+    echo -DVTK_SMP_IMPLEMENTATION_TYPE=TBB
+    echo -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk=OFF
+    echo -DVTK_MODULE_USE_EXTERNAL_VTK_ioss=OFF
+    echo -DVTK_MODULE_USE_EXTERNAL_VTK_verdict=OFF
+    echo -DVTK_MODULE_USE_EXTERNAL_VTK_hdf5=ON
+    echo -DVTK_MODULE_USE_EXTERNAL_VTK_fmt=OFF
+    echo -DHDF5_IS_PARALLEL=OFF
+    echo -DHDF5_FIND_DEBUG=ON
+    echo -DHDF5_ROOT=${HDF5_ROOT_DIR}
+    echo -DHDF5_DIR=${HDF5_ROOT_DIR}/lib/cmake/hdf5
+    echo -DHDF5_C_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5.dll.a
+    echo -DHDF5_INCLUDE_DIRS=${HDF5_ROOT_DIR}/include
+    echo -DCGNS_LIBRARY=${CGNS_ROOT_DIR}/lib/libcgnsdll.dll.a
+    echo -DCGNS_INCLUDE_DIR=${CGNS_ROOT_DIR}/include
+    echo -DPython3_EXECUTABLE=${PYTHONBIN}
+    echo -DOpenTURNS_DIR=${OT_ROOT_DIR}/lib/cmake/openturns
+    echo -DGDAL_INCLUDE_DIR=${GDAL_ROOT_DIR}/include
+    echo -DTBB_ROOT=${MINGW_PREFIX}
+}
 
 function s-paraview-config()
 {
@@ -319,6 +417,19 @@ function s-paraview-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
+function s-paraview-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    CXXFLAGS+=" -w -Wno-register" \
+             cmake "${OPTIONS[@]}" ../src
+}
+
 function s-paraview-build()
 {
     local PREFIX=$1
@@ -327,12 +438,28 @@ function s-paraview-build()
     make -j$SCBI_JOBS
 }
 
+function s-paraview-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build . -j$SCBI_JOBS
+}
+
 function s-paraview-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-paraview-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-paraview-post-install()
@@ -356,6 +483,20 @@ function s-paraview-post-install()
             $IDIR/vtk/VTK-vtk-module-find-packages.cmake
 
     return 0
+}
+
+function s-paraview-mingw-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local MESABIN=${SCBI_MODULES_DIR["s-mesa"]}/bin
+
+    for DLL in opengl32.dll libgallium_wgl.dll \
+                            libglapi.dll libEGL.dll libGLESv2.dll;
+    do
+        cp $MESABIN/$DLL ../install/bin
+    done
 }
 
 function s-paraview-prefix()
