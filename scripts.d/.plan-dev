@@ -298,3 +298,5 @@ s-geom-reparation:#v1.0.0
         s-openturns-svm:skip
         s-med-file:skip
 ] /mingw
+
+@on mingw use s-paraview/mingw.gdal:#$PV_VERSION
