@@ -10,24 +10,24 @@ s-clang:#12.x
 # using binary version 1.16.1
 s-ispc/bin:#v1.16.1
 
-s-persalys:#16.0.1
+s-persalys:#17.0.1
 
 s-zeromq:#4.3.1
 s-planegcs:#0.18
 
-s-openturns:#1.22
-s-openturns-fftw:#0.14
-s-openturns-mixmod:#0.16
-s-openturns-morris:#0.15
-s-openturns-robopt:#0.13
+s-openturns:#1.23
+s-openturns-fftw:#0.15
+s-openturns-mixmod:#0.17
+s-openturns-morris:#0.16
+s-openturns-robopt:#0.14
 s-openturns-subsetinverse:#1.10
-s-openturns-svm:#0.13
-s-openturns-wrapy:#0.11
-s-openturns-pod:#0.6.10
+s-openturns-svm:#0.14
+s-openturns-wrapy:#0.12.1
+s-openturns-pod:#0.6.11
 s-fmil:#2.0.3
 s-pyfmi:#2.6
 s-mixmod:#2.1.10
-s-openturns-fmi:#0.16.2
+s-openturns-fmi:#0.16.3
 
 s-embree:#3.12.2
 s-rkcommon:#1.5.1
