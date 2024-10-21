@@ -31,6 +31,10 @@ function s-persalys-common-build-depends()
 
 function s-persalys-default-build-depends()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     local DISDOC=$(is-enabled no-doc)
 
     echo s-py2cpp
@@ -45,11 +49,19 @@ function s-persalys-default-build-depends()
 
 function s-persalys-common-depends()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo s-salome-configuration
 }
 
 function s-persalys-default-depends()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     local DISDOC=$(is-enabled no-doc)
 
     echo s-salome-gui
@@ -70,6 +82,10 @@ function s-persalys-default-depends()
 
 function s-persalys-ng-depends()
 {
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo s-salome-bin
     echo s-python-modules
 }
@@ -78,6 +94,7 @@ function s-persalys-env()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     set-var    PERSALYS_ROOT_DIR                $PREFIX
     set-var    PERSALYS_HTML_DOCUMENTATION_PATH $PREFIX/share/persalys/doc/html/
@@ -130,6 +147,7 @@ function s-persalys-build()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     make -j$SCBI_JOBS
 }
@@ -138,6 +156,7 @@ function s-persalys-install()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     make install
 }
