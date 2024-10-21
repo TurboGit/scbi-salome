@@ -48,8 +48,16 @@ function s-persalys-common-build-depends()
 
 function s-persalys-default-build-depends()
 {
+    local DISDOC=$(is-enabled no-doc)
+
     echo s-py2cpp
     echo s-swig
+
+    [[ -z ${DISDOC} ]] &&
+        {
+            echo os@-texlive
+            echo os@-texlive-latex-extra
+        }
 }
 
 function s-persalys-common-depends()
