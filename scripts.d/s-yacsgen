@@ -1,16 +1,5 @@
 
 
-function s-yacsgen-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo yacsgen-$VERSION.tar.xz 
-} 
-
 function s-yacsgen-env()
 {
     local PREFIX=$1

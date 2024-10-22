@@ -1,16 +1,5 @@
 
 
-function s-salome-configuration-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo salome-configuration-$VERSION.tar.xz 
-} 
-
 function s-salome-configuration-patches()
 {
     local PREFIX=$1

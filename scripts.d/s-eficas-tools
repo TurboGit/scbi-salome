@@ -1,16 +1,5 @@
 
 
-function s-eficas-tools-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo eficas-tools-$VERSION.tar.xz 
-} 
-
 function s-eficas-tools-common-build-depends()
 {
     echo s-cmake

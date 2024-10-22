@@ -1,16 +1,5 @@
 
 
-function s-fields-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo fields-$VERSION.tar.gz 
-} 
-
 function s-fields-salome-module()
 {
     echo FIELDS

@@ -9,17 +9,6 @@ function s-netcdf-vcs()
     echo https://github.com/Unidata/netcdf-c.git 
 } 
 
-function s-netcdf-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo none 
-    echo none 
-    echo netcdf-$VERSION.tar.gz 
-} 
-
 function s-netcdf-build-depends()
 {
     echo s-cmake
