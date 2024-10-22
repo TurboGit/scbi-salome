@@ -97,7 +97,7 @@ function s-persalys-env()
     local VARIANT=$3
 
     set-var    PERSALYS_ROOT_DIR                $PREFIX
-    set-var    PERSALYS_HTML_DOCUMENTATION_PATH $PREFIX/share/persalys/doc/html/
+    set-var    PERSALYS_HTML_PATH               $PREFIX/share/persalys/doc/html/
     set-var    OTGUI_DIR                        $PREFIX
     set-var    OTGUI_HTML_DOCUMENTATION_PATH    $PREFIX/share/otgui/doc/html/
 
