@@ -7,17 +7,6 @@ function s-logger-vcs()
     echo https://gitlab.pleiade.edf.fr/salome/slogger
 }
 
-function s-logger-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo none
-    echo none
-    echo SLOGGER_SRC_$VERSION.tar.gz
-}
-
 function s-logger-common-build-depends()
 {
     echo s-cmake

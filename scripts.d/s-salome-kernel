@@ -15,17 +15,6 @@ function s-salome-kernel-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/kernel
 }
 
-function s-salome-kernel-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo none
-    echo none
-    echo salome-kernel-$VERSION.tar.xz
-}
-
 function s-salome-kernel-salome-module()
 {
     echo KERNEL

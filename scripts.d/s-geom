@@ -15,17 +15,6 @@ function s-geom-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/geom
 }
 
-function s-geom-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo none
-    echo none
-    echo geom-$VERSION.tar.xz
-}
-
 function s-geom-salome-module()
 {
     echo GEOM

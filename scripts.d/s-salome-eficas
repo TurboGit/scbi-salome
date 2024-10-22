@@ -15,17 +15,6 @@ function s-salome-eficas-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/eficas
 }
 
-function s-salome-eficas-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo none
-    echo none
-    echo salome-eficas-$VERSION.tar.xz
-}
-
 function s-salome-eficas-salome-module()
 {
     echo EFICAS

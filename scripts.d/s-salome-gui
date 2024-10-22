@@ -15,17 +15,6 @@ function s-salome-gui-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/gui
 }
 
-function s-salome-gui-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo none
-    echo none
-    echo salome-gui-$VERSION.tar.xz
-}
-
 function s-salome-gui-salome-module()
 {
     echo GUI

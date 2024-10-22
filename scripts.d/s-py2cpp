@@ -15,17 +15,6 @@ function s-py2cpp-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/py2cpp
 }
 
-function s-py2cpp-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo none
-    echo none
-    echo py2cpp-$VERSION.tgz
-}
-
 function s-py2cpp-env()
 {
     local PREFIX=$1
