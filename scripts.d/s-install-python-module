@@ -57,6 +57,7 @@ function s-install-python-module-install()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     PYPIURL=$(scbi-store-get-key PYPIURL)
 
