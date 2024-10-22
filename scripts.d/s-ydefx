@@ -36,11 +36,6 @@ function s-ydefx-common-build-depends()
     echo s-cmake
 }
 
-function s-ydefx-default-build-depends()
-{
-    echo s-py2cpp
-}
-
 function s-ydefx-ng-build-depends()
 {
     echo s-salome-bin
@@ -53,6 +48,7 @@ function s-ydefx-common-depends()
 
 function s-ydefx-default-depends()
 {
+    echo s-py2cpp
     echo s-qt
     echo s-salome-kernel
     echo s-yacs
