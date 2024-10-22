@@ -64,6 +64,7 @@ function s-openturns-mixmod-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     local OPTIONS=()
     get-config-options OPTIONS $PREFIX $TARGET $VARIANT
