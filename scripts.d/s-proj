@@ -24,7 +24,7 @@ function s-proj-archive()
 function s-proj-build-depends()
 {
     echo s-cmake
-    echo sqlite3
+    echo os@-sqlite3
 }
 
 function s-proj-env()
