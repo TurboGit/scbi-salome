@@ -46,9 +46,9 @@ function s-ttk-depends()
     echo libpython3-dev
     echo libxt-dev
     echo libxcursor-dev
-    # for scalar field design, version 3.3.7 or later
-    echo libeigen3-dev
 
+    # for scalar field design, version 3.3.7 or later
+    echo s-eigen
     echo s-qt
     echo s-embree
     echo s-paraview
