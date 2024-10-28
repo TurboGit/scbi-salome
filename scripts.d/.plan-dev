@@ -273,6 +273,7 @@ s-geom-reparation:#v1.0.0
 ]
 
 [ = mingw
+        s-salome:MINGW
         s-clang
         s-qt
         s-boost
@@ -298,6 +299,18 @@ s-geom-reparation:#v1.0.0
         s-windows-kit:skip
         s-openturns-svm:skip
         s-med-file:skip
+        s-atomic:skip
+        s-paravisaddons-edf:skip
+        s-med-coupling:skip
+        s-melissa:skip
+        s-atomic:skip
+        s-zcracks:skip
+        s-cgal:skip
+        s-padder:skip
+        s-tefluide:skip
+        s-meshgems:skip
+        s-python-modules:skip
+        s-geom-reparation:skip
 ] /mingw
 
 @on mingw use s-mesa/mingw-bin:#24.2.6
