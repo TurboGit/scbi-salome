@@ -133,6 +133,12 @@ function s-salome-cfd-modules()
     echo s-syrthes
 }
 
+function s-salome-mingw-modules()
+{
+    echo s-paraview
+    echo s-salome-kernel
+}
+
 function s-salome-propagate-version()
 {
     echo false
