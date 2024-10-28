@@ -15,6 +15,11 @@ with-variant native \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5' \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5LinguistTools'
 
+with-variant mingw \
+             os@-qtbase5-dev:[v] os@-qttools5-dev:[v] \
+             os@-qt5svg5-dev os@-qtxmlpatterns5-dev-tools os@-qwt-qt5-dev \
+ --env 'set-var QT5_ROOT_DIR $MINGW_PREFIX'
+
 function s-qt-vcs()
 {
     echo edf
