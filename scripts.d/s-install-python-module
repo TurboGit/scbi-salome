@@ -59,7 +59,9 @@ function s-install-python-module-install()
     local TARGET=$2
     local VARIANT=$3
 
-    PYPIURL=$(scbi-store-get-key PYPIURL)
+    local PYPIURL=$(scbi-store-get-key PYPIURL)
+    local TMP=( ${PYURL//\// } )
+    local HOST=${TMP[1]}
 
     mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
@@ -67,6 +69,7 @@ function s-install-python-module-install()
     get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
     pip3 install --no-deps \
+         --trusted-host $HOST \
          --index-url=$PYPIURL \
          --prefix=$PREFIX \
          ${OPTIONS[@]}
