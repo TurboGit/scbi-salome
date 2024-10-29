@@ -18,8 +18,8 @@ clean.install:
 	if [ -f $(SCRDIR)/.salome.plugins ]; then          \
 		cat $(SCRDIR)/.salome.plugins |            \
 			while read file; do                \
-				rm -f $(SCRDIR)/$$file;    \
-			done;                              \
+				echo $(SCRDIR)/$$file;     \
+			done | xargs -n 25 rm -f ;         \
 		rm -f $(SCRDIR)/.salome.plugins;           \
 		rm -f $(SCRDIR)/.scbi_salome_version.txt;  \
 	fi
