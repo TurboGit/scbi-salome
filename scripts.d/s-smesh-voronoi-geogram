@@ -1,0 +1,104 @@
+
+function s-smesh-voronoi-geogram-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/smesh_voronoi_geogram.git
+}
+
+function s-smesh-voronoi-geogram-salome-module()
+{
+    echo SMESH_VORONOI_GEOGRAM
+}
+
+function s-smesh-voronoi-geogram-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-smesh-voronoi-geogram-build-depends()
+{
+    local DISDOC=$(is-enabled no-doc)
+
+    [[ -z ${DISDOC} ]] && echo os@-python3-sphinx
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
+
+    echo s-python-modules
+}
+
+function s-smesh-voronoi-geogram-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-smesh-voronoi-geogram-common-depends()
+{
+    echo s-salome-configuration
+    echo s-python-modules
+    echo s-gdal
+    echo s-boost
+    echo s-qt
+    echo s-pyqt
+    echo s-geogram
+}
+
+function s-smesh-voronoi-geogram-default-depends()
+{
+    echo s-salome-kernel
+    echo s-salome-gui
+}
+
+function s-smesh-voronoi-geogram-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var SMESH_VORONOI_GEOGRAM_ROOT_DIR       $PREFIX
+
+    add-to-var SMESH_PYPLUGIN_DIR $PREFIX/lib
+    add-to-var PYTHONPATH    $PREFIX/lib/VoronoiGeoGram
+}
+
+function s-smesh-voronoi-geogram-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+}
+
+function s-smesh-voronoi-geogram-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-smesh-voronoi-geogram-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-smesh-voronoi-geogram-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-smesh-voronoi-geogram-prefix()
+{
+    echo NONE
+}
