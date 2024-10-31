@@ -46,6 +46,8 @@
         s-logger
         s-eficas-tools
         s-salome-eficas
+        s-smesh-voronoi-geogram
+        s-geogram
 ] /+ng-default
 
 s-ptscotch/ng

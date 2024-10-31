@@ -98,6 +98,7 @@ s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 s-cgal/auto:v4.13
 s-geom-reparation:#v1.0.0
+s-geogram:#1.8.9
 
 [
         # s-homard tool is now merged into s-homard module
@@ -169,6 +170,7 @@ s-geom-reparation:#v1.0.0
         s-non-regression-tests
         s-clustertests
         s-logger
+        s-smesh-voronoi-geogram
 ] :$EDF_VERSION
 
 # Third, the modules with MPI support or depending on

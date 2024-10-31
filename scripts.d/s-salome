@@ -40,6 +40,8 @@ function s-salome-common-modules()
     echo s-meshgems
     echo s-python-modules
     echo s-geom-reparation
+    echo s-geogram
+    echo s-smesh-voronoi-geogram
 }
 
 function s-salome-default-modules()
