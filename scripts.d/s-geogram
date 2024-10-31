@@ -1,0 +1,94 @@
+
+# Geogram
+
+function s-geogram-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://github.com/BrunoLevy/geogram.git
+}
+
+function s-geogram-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/prerequis
+    echo geogram-$VERSION.tar.gz
+}
+
+function s-geogram-build-depends()
+{
+    echo s-cmake
+}
+
+function s-geogram-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo libglfw3-dev
+}
+
+function s-geogram-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    GEOGRAM_ROOT_DIR    $PREFIX
+    set-var    GEOGRAM_INSTALL_PREFIX    $PREFIX
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+}
+
+function s-geogram-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+    echo -DVORPALINE_PLATFORM:STRING=Linux64-gcc-dynamic
+    echo -DGEOGRAM_USE_SYSTEM_GLFW3=ON
+    echo -DGEOGRAM_WITH_GRAPHICS=OFF
+}
+
+function s-geogram-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-geogram-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-geogram-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-geogram-prefix()
+{
+    echo NONE
+}
