@@ -298,3 +298,5 @@ s-geom-reparation:#v1.0.0
         s-openturns-svm:skip
         s-med-file:skip
 ] /mingw
+
+@on mingw use s-mesa/mingw-bin:#24.2.6
