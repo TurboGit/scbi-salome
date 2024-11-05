@@ -1,0 +1,38 @@
+
+function s-mesa-mingw-bin-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default
+    echo none 
+    echo wget 
+    echo https://github.com/pal1000/mesa-dist-win/releases/download/$VERSION 
+    echo mesa3d-$VERSION-release-mingw.7z 
+} 
+
+function s-mesa-mingw-bin-out-of-tree()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo false
+}
+
+function s-mesa-mingw-bin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    mkdir -p ../install/bin
+    cp x64/* ../install/bin
+}
+
+function s-mesa-mingw-bin-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo NONE
+}
