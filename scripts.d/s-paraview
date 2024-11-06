@@ -362,6 +362,8 @@ function s-paraview-post-install()
     [[ -d $IDIR ]] &&
         sed -i 's/COMPONENTS          C/#COMPONENTS          C/g' \
             $IDIR/vtk/VTK-vtk-module-find-packages.cmake
+
+    return 0
 }
 
 function s-paraview-prefix()
