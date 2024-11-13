@@ -13,24 +13,59 @@ function s-gdal-vcs()
 } 
 
 
+function s-gdal-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
+    echo gdal-$VERSION.tar.gz 
+} 
+
+function s-gdal-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Fix gcc compilation and exposure of DLLs with add_dll_directory
+    echo gdal-3.2.2.msys2.patch
+}
+
 function s-gdal-build-depends()
 {
     echo s-cmake
 }
 
-function s-gdal-out-of-tree()
+function s-gdal-common-depends()
 {
-    echo false
-}
+    echo os@-geos-dev
+    echo os@-json-c-dev
+    echo os@-cfitsio-dev
+    echo os@-freexl-dev
+    echo os@-postgresql
+    echo os@-sfcgal-dev
 
-function s-gdal-depends()
-{
     echo s-proj
     echo s-netcdf
     echo s-hdf5
 }
 
-function s-gdal-env()
+function s-gdal-mingw-depends()
+{
+    echo os@-crypto++
+    echo os@-geos
+}
+function s-gdal-out-of-tree()
+{
+    echo false
+}
+
+function s-gdal-common-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -45,12 +80,20 @@ function s-gdal-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
+function s-gdal-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PATH $PREFIX/lib
+    add-to-var PATH $PREFIX/bin
+}
+
 function s-gdal-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cd ../src/gdal
     ./autogen.sh &&
         ./configure --with-netcdf=$NETCDF_ROOT_DIR \
                     --with-hdf5=$HDF5_ROOT_DIR \
@@ -58,12 +101,44 @@ function s-gdal-config()
                     --prefix=$PREFIX
 }
 
+function s-gdal-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local PYTHONBIN=$(which python)
+
+    CONFIGURE_FLAGS=""
+    CONFIGURE_FLAGS+=" --with-pcraster=internal"
+    CONFIGURE_FLAGS+=" --with-png=internal"
+    CONFIGURE_FLAGS+=" --with-libtiff=internal"
+    CONFIGURE_FLAGS+=" --with-geotiff=internal"
+    CONFIGURE_FLAGS+=" --with-jpeg=internal"
+    CONFIGURE_FLAGS+=" --with-gif=internal"
+    CONFIGURE_FLAGS+=" --with-python=yes"
+    CONFIGURE_FLAGS+=" --with-geos=yes"
+    CONFIGURE_FLAGS+=" --with-sqlite3=yes"
+    CONFIGURE_FLAGS+=" --with-threads"
+    CONFIGURE_FLAGS+=" --with-python=${PYTHONBIN}"
+    CONFIGURE_FLAGS+=" --with-hdf5=${HDF5_ROOT_DIR}"
+    CONFIGURE_FLAGS+=" --with-netcdf=${NETCDF_ROOT_DIR}"
+    CONFIGURE_FLAGS+=" --without-jasper"
+
+    ./configure \
+	--prefix=$PREFIX \
+	--host=$TARGET \
+	${CONFIGURE_FLAGS} \
+	LDFLAGS="-L${HDF5_ROOT_DIR}/lib/ -lhdf5 -lhdf5_hl -L${NETCDF_ROOT_DIR}/lib -lnetcdf" \
+	HDF5_CFLAGS="-I${HDF5_ROOT_DIR}/include -L${HDF5_ROOT_DIR}/lib/ -lhdf5 -lhdf5_hl" \
+	LIBS="-L${HDF5_ROOT_DIR}/lib/ -lhdf5 -lhdf5_hl -L${NETCDF_ROOT_DIR}/lib -lnetcdf" \
+	HDF5_LIBS="-L${HDF5_ROOT_DIR}/lib/ -lhdf5  -lhdf5_hl " \
+	HDF5_INCLUDE="-I${HDF5_ROOT_DIR}/include"
+}
+
 function s-gdal-build()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cd ../src/gdal
     make -j$SCBI_JOBS
 }
 
@@ -72,7 +147,6 @@ function s-gdal-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cd ../src/gdal
     make install
 }
 

@@ -1,4 +1,3 @@
-
 with-variant native-serial os@-hdf5-dev os@-hdf5-tools \
       --env  'set-var HDF5_LIB $(get-os-lib-dir serial/libhdf5.so)' \
              'set-var HDF5_LIBRARIES $(get-os-lib serial/libhdf5.so)' \
@@ -54,7 +53,30 @@ function s-hdf5-vcs()
 } 
 
 
-function s-hdf5-build-depends()
+function s-hdf5-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
+    echo hdf5-$VERSION.tar.gz 
+} 
+
+function s-hdf5-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Patch to support MSYS2 for some parts of HDF5
+    echo hdf5-1.10.6.msys2.patch
+}
+
+function s-hdf5-common-build-depends()
 {
     local DISDOC=$(is-enabled no-doc)
 
@@ -62,6 +84,11 @@ function s-hdf5-build-depends()
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
 
     echo s-cmake
+}
+
+function s-hdf5-mingw-build-depends()
+{
+    echo os@-gfortran
 }
 
 function s-hdf5-mpi-depends()
@@ -120,11 +147,27 @@ function s-hdf5-common-config-options()
     local VARIANT=$3
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DHDF5_BUILD_HL_LIB=ON
     echo -DHDF5_BUILD_TOOLS=ON
     echo -DBUILD_SHARED_LIBS=ON
     echo -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
-    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-hdf5-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_DLL_NAME_WITH_SOVERSION=ON
+    echo -DBUILD_TESTING=ON
+    echo -DCMAKE_SKIP_RPATH=ON
+    echo -DHDF5_BUILD_CPP_LIB=ON
+    echo -DHDF5_BUILD_FORTRAN=ON
+    echo -DHDF5_ENABLE_SZIP_SUPPORT=OFF
+    echo -DHDF5_INSTALL_CMAKE_DIR="lib/cmake"
+    echo -DHDF5_INSTALL_DATA_DIR="share/doc/hdf5"
 }
 
 function s-hdf5-config()
@@ -139,6 +182,19 @@ function s-hdf5-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
+function s-hdf5-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    CFLAGS+=" -Wno-implicit-function-declaration" \
+	   cmake "${OPTIONS[@]}" ../src
+}
+
 function s-hdf5-build()
 {
     local PREFIX=$1
@@ -147,12 +203,28 @@ function s-hdf5-build()
     make -j$SCBI_JOBS
 }
 
+function s-hdf5-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build . -j$SCBI_JOBS
+}
+
 function s-hdf5-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-hdf5-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-hdf5-prefix()

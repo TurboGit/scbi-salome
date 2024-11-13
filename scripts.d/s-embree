@@ -8,15 +8,48 @@ function s-embree-vcs()
 } 
 
 
-function s-embree-build-depends()
+function s-embree-archive() 
+{ 
+    local VERSION=$1 
+ 
+    echo default 
+    echo none 
+    echo wget 
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
+    echo embree-$VERSION.tar.gz 
+} 
+
+function s-embree-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # MinGW support and gcc help to find math functions.
+    echo embree-3.12.2.msys2.patch
+}
+
+function s-embree-common-build-depends()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
     echo s-cmake
-    echo s-ispc
     echo s-clang
+    echo s-rkcommon
+    echo s-tbb
+}
+
+function s-embree-default-build-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-ispc
 }
 
 function s-embree-depends()
@@ -30,12 +63,13 @@ function s-embree-depends()
     echo os@-glfw3-dev
 }
 
-function s-embree-env()
+function s-embree-common-env()
 {
     local PREFIX=$1
     local TARGET=$2
 
     set-var    embree_DIR         $PREFIX
+    set-var    EMBREE_ROOT_DIR    $PREFIX
 
     add-to-var C_INCLUDE_PATH     $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
@@ -44,15 +78,71 @@ function s-embree-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
+function s-embree-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    #  The DLL is installed into bin
+    add-to-var PATH $PREFIX/bin
+}
+
+function s-embree-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-embree-default-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION}
+    echo -DEMBREE_TUTORIALS:bool=OFF
+    echo -DCMAKE_CXX_COMPILER=clang++
+}
+
+function s-embree-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -G"Ninja"
+    echo -DEMBREE_STATIC_LIB=OFF
+    echo -DEMBREE_STACK_PROTECTOR=ON
+    echo -DEMBREE_TUTORIALS=OFF
+    echo -DEMBREE_ISPC_SUPPORT=OFF
+    echo -DEMBREE_ISA_AVX512=ON
+    echo -DEMBREE_MAX_ISA=AVX512SKX
+    echo -DBUILD_TESTING=ON
+    echo -Dtbb_DLL_RELEASE:PATH=${TBBDLL}
+    echo -Dtbb_LIBRARY_RELEASE:FILEPATH=${TBBLIB}
+}
+
 function s-embree-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
-          -DEMBREE_TUTORIALS:bool=OFF \
-          -DCMAKE_CXX_COMPILER=clang++ ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-embree-mingw-post-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local RES=../src/kernels/embree.rc
+
+    mv ${RES}{,.orig}
+    iconv -f UTF-16LE -t UTF-8 ${RES}.orig > ${RES}
 }
 
 function s-embree-build()
@@ -63,12 +153,28 @@ function s-embree-build()
     make -j$SCBI_JOBS
 }
 
+function s-embree-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build . -j$SCBI_JOBS
+}
+
 function s-embree-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-embree-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-embree-prefix()

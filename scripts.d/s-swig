@@ -1,7 +1,10 @@
 
-with-variant native os@-swig:[v] \
-             --env 'set-var SWIG_ROOT_DIR /usr' \
-                   'set-var SWIG_ROOT /usr'
+[[ -z $MINGW_PREFIX ]] &&
+    with-variant native os@-swig:[v] \
+		 --env 'set-var SWIG_ROOT_DIR /usr' \
+                       'set-var SWIG_ROOT /usr' \
+	|| \
+    with-variant native os@-swig:[v]
 
 function s-swig-vcs() 
 { 

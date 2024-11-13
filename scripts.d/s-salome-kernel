@@ -1,5 +1,27 @@
 
 
+function s-salome-kernel-vcs() 
+{ 
+    echo default 
+    echo none 
+    echo git 
+    echo https://github.com/SalomePlatform/kernel 
+} 
+
+function s-salome-kernel-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Patches for MSYS2 and no use of printBacktrace which breaks compilation.
+    # To be investigated in the long term.
+    # Also, issue related to the gcc compiler)
+    echo kernel.msys2.patch
+}
+
 function s-salome-kernel-salome-module()
 {
     echo KERNEL
@@ -19,6 +41,18 @@ function s-salome-kernel-default-build-depends()
     echo s-swig
     echo os@-doxygen
     echo os@-graphviz
+    echo os@-cppunit-dev
+}
+
+function s-salome-kernel-mingw-build-depends()
+{
+    local DISDOC=$(is-enabled no-doc)
+
+    [[ -z ${DISDOC} ]] && echo os@-sphinx-common
+    echo s-swig
+    echo os@-doxygen
+    echo os@-graphviz
+    echo os@-cppunit-dev
 }
 
 function s-salome-kernel-ng-build-depends()
@@ -38,18 +72,24 @@ function s-salome-kernel-mpi-depends()
     echo s-openmpi
 }
 
+function s-salome-kernel-mingw-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-hdf5
+    echo s-libbatch
+    echo s-omniorb
+    echo s-boost
+}
+
 function s-salome-kernel-default-depends()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
-    echo os@-boost-dev
-    echo os@-boost-filesystem-dev
-    echo os@-boost-regex-dev
-    echo os@-boost-chrono-dev
-    echo os@-boost-date-time-dev
-    echo os@-boost-thread-dev
     echo os@-cppunit-dev
     echo os@-graphviz-dev
     echo os@-xml2-dev
@@ -60,6 +100,7 @@ function s-salome-kernel-default-depends()
     echo s-hdf5
     echo s-libbatch
     echo s-omniorb
+    echo s-boost
 }
 
 function s-salome-kernel-env()
@@ -108,6 +149,7 @@ function s-salome-kernel-common-config-options()
     local DISDOC=$(is-enabled no-doc)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
     echo -DSALOME_USE_LIBBATCH=ON
     echo -DSALOME_USE_64BIT_IDS=ON
@@ -115,6 +157,54 @@ function s-salome-kernel-common-config-options()
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+}
+
+function s-salome-kernel-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+    local PYTHONBIN=$(which python)
+
+    #CPPUNIT
+    local CPPUNIT_ROOT_DIR=${MINGW_PREFIX}
+    #DOXYGEN
+    local DOXYGEN_ROOT_DIR=${MINGW_PREFIX}
+    #GRAPHVIZ
+    local GRAPHVIZ_ROOT_DIR=${MINGW_PREFIX}
+    #LIBXML2
+    local LIBXML2_ROOT_DIR=${MINGW_PREFIX}
+    #PTHREAD
+    local PTHREAD_ROOT_DIR=${MINGW_PREFIX}
+
+    #PYTHON
+    local PYTHONHOME=${MINGW_PREFIX}
+    local PYTHON_BINARY_DIR=$($PYTHONBIN -c 'import sysconfig; print(sysconfig.get_paths()["scripts"])')
+    local PYTHON_LIBRARY_DIR=$($PYTHONBIN -c 'import sysconfig; print(sysconfig.get_paths()["stdlib"])')
+    local PYTHON_INCLUDE_DIR=$($PYTHONBIN -c 'import sysconfig; print(sysconfig.get_paths()["include"])')
+    local PYTHONLEGACYWINDOWSDLLLOADING=1
+
+    echo -G"Ninja"
+    echo -DCMAKE_CXX_FLAGS=" -fpermissive"
+    echo -DPYTHON_ROOT_DIR=${PYTHONHOME}
+    echo -DCPPUNIT_ROOT_DIR=${CPPUNIT_ROOT_DIR}
+    echo -DBOOST_ROOT_DIR=${BOOST_ROOT_DIR}
+    echo -DDOXYGEN_ROOT_DIR=${DOXYGEN_ROOT_DIR}
+    echo -DGRAPHVIZ_ROOT_DIR=${GRAPHVIZ_ROOT_DIR}
+    echo -DLIBXML2_ROOT_DIR=${LIBXML2_ROOT_DIR}
+    echo -DSPHINX_INTL_EXECUTABLE=${SPHINXINTL_ROOT_DIR}/bin/sphinx-intl
+    echo -DPTHREAD_LIBRARIES=${PTHREAD_ROOT_DIR}/lib/libpthread.dll.a
+    echo -DCPPUNIT_LIBRARIES=${CPPUNIT_ROOT_DIR}/lib/libcppunit.dll.a
+    echo -DOMNIORB_LIBRARY_omniORB4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libomniORB426_rt.a
+    echo -DOMNIORB_LIBRARY_omnithread=${OMNIORB_ROOT_DIR}/lib/x86_win32/libomnithread41_rt.a
+    echo -DOMNIORB_LIBRARY_omniDynamic4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libomniDynamic426_rt.a
+    echo -DOMNIORB_LIBRARY_COS4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libCOS426_rt.a
+    echo -DOMNIORB_LIBRARY_COSDynamic4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libCOSDynamic426_rt.a
+    echo -DSALOME_CMAKE_DEBUG=ON
+    echo -DSALOME_BUILD_DOC=OFF
 }
 
 function s-salome-kernel-config()
@@ -138,6 +228,15 @@ function s-salome-kernel-build()
     make -j$SCBI_JOBS
 }
 
+function s-salome-kernel-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake --build . -j$SCBI_JOBS
+}
+
 function s-salome-kernel-install()
 {
     local PREFIX=$1
@@ -145,6 +244,15 @@ function s-salome-kernel-install()
     local VARIANT=$3
 
     make install
+}
+
+function s-salome-kernel-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake --install .
 }
 
 function s-salome-kernel-prefix()

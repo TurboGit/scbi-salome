@@ -1,0 +1,82 @@
+diff -Naur '--exclude=*.bak' ParaView/VTK/CMake/FindCGNS.cmake ParaView_dev/VTK/CMake/FindCGNS.cmake
+--- ParaView/VTK/CMake/FindCGNS.cmake	2022-11-18 15:26:52.000000000 +0100
++++ ParaView_dev/VTK/CMake/FindCGNS.cmake	2024-09-16 12:09:05.474120500 +0200
+@@ -5,6 +5,10 @@
+ # CGNS_LIBRARIES   - List of fully qualified libraries to link against when using CGNS.
+ # CGNS_FOUND       - Do not attempt to use CGNS if "no" or undefined.
+ 
++set(CGNS_ROOT_DIR $ENV{CGNS_ROOT_DIR} CACHE PATH "Path to the CGNS.")
++if(CGNS_ROOT_DIR)
++	list(APPEND CMAKE_PREFIX_PATH "${CGNS_ROOT_DIR}")
++endif(CGNS_ROOT_DIR)
+ find_path(CGNS_INCLUDE_DIR
+   NAMES
+     cgnslib.h
+diff -Naur '--exclude=*.bak' ParaView/VTK/Filters/OpenTURNS/CMakeLists.txt ParaView_dev/VTK/Filters/OpenTURNS/CMakeLists.txt
+--- ParaView/VTK/Filters/OpenTURNS/CMakeLists.txt	2022-11-18 15:26:53.000000000 +0100
++++ ParaView_dev/VTK/Filters/OpenTURNS/CMakeLists.txt	2024-09-16 12:10:53.510578000 +0200
+@@ -1,6 +1,8 @@
+-find_package(OpenTURNS 1.8 REQUIRED)
++find_package(OpenTURNS 1.21 REQUIRED)
+ # XXX(fixme)
+-include(${OPENTURNS_USE_FILE})
++if (EXISTS "${OPENTURNS_USE_FILE}")
++  include(${OPENTURNS_USE_FILE})
++endif()
+ 
+ set(classes
+   vtkOTDensityMap
+diff -Naur '--exclude=*.bak' ParaView/VTK/IO/Image/vtkSEPReader.h ParaView_dev/VTK/IO/Image/vtkSEPReader.h
+--- ParaView/VTK/IO/Image/vtkSEPReader.h	2022-11-18 15:26:53.000000000 +0100
++++ ParaView_dev/VTK/IO/Image/vtkSEPReader.h	2024-09-16 12:09:05.558352600 +0200
+@@ -25,6 +25,7 @@
+ #include "vtkImageAlgorithm.h"
+ #include "vtkNew.h" // for ivars
+ 
++#include <cstdint>
+ #include <array>  // for std::array
+ #include <string> // for std::string
+ 
+diff -Naur '--exclude=*.bak' ParaView/VTK/IO/PIO/PIOData.h ParaView_dev/VTK/IO/PIO/PIOData.h
+--- ParaView/VTK/IO/PIO/PIOData.h	2022-11-18 15:26:53.000000000 +0100
++++ ParaView_dev/VTK/IO/PIO/PIOData.h	2024-09-16 12:09:05.568591700 +0200
+@@ -10,6 +10,7 @@
+ #include <string.h>
+ #include <string>
+ #include <valarray>
++#include <cstdint>
+ 
+ struct Cstring_less
+ {
+diff -Naur '--exclude=*.bak' ParaView/VTK/Rendering/Matplotlib/vtkMatplotlibMathTextUtilities.h ParaView_dev/VTK/Rendering/Matplotlib/vtkMatplotlibMathTextUtilities.h
+--- ParaView/VTK/Rendering/Matplotlib/vtkMatplotlibMathTextUtilities.h	2022-11-18 15:26:54.000000000 +0100
++++ ParaView_dev/VTK/Rendering/Matplotlib/vtkMatplotlibMathTextUtilities.h	2024-09-16 12:09:05.568591700 +0200
+@@ -49,6 +49,7 @@
+ #include "vtkMathTextUtilities.h"
+ #include "vtkRenderingMatplotlibModule.h" // For export macro
+ 
++#include <cstdint>
+ #include <vector> // for std::vector
+ 
+ struct _object;
+diff -Naur '--exclude=*.bak' ParaView/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/collectives.cpp ParaView_dev/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/collectives.cpp
+--- ParaView/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/collectives.cpp	2022-11-18 15:27:11.000000000 +0100
++++ ParaView_dev/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/collectives.cpp	2024-09-16 12:09:05.578802600 +0200
+@@ -1,5 +1,6 @@
+ #ifdef VTKMDIY_MPI_AS_LIB
+ #include "collectives.hpp"
++#include <cstdint>
+ #endif
+ 
+ namespace diy
+diff -Naur '--exclude=*.bak' ParaView/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/window.cpp ParaView_dev/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/window.cpp
+--- ParaView/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/window.cpp	2022-11-18 15:27:11.000000000 +0100
++++ ParaView_dev/VTK/ThirdParty/vtkm/vtkvtkm/vtk-m/vtkm/thirdparty/diy/vtkmdiy/include/vtkmdiy/mpi/window.cpp	2024-09-16 12:09:05.578802600 +0200
+@@ -1,5 +1,6 @@
+ #ifdef VTKMDIY_MPI_AS_LIB
+ #include "window.hpp"
++#include <cstdint>
+ #endif
+ 
+ #include <algorithm>
+

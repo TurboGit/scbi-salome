@@ -1,0 +1,107 @@
+diff -Naur embree-3.12.2/CMakeLists.txt embree-3.12.2.dev/CMakeLists.txt
+--- embree-3.12.2/CMakeLists.txt	2021-01-21 17:55:21.000000000 +0100
++++ embree-3.12.2.dev/CMakeLists.txt	2024-07-31 16:10:09.713263500 +0200
+@@ -197,6 +197,10 @@
+   ELSEIF(${CMAKE_GENERATOR_TOOLSET} MATCHES "^Intel")
+     MESSAGE("Intel Compiler detected")
+     INCLUDE (intel)
++  ELSEIF(${CMAKE_CXX_COMPILER_FRONTEND_VARIANT} MATCHES "GNU" OR MINGW)
++    set(EMBREE_SYCL_SUPPORT OFF)
++    MESSAGE("GNU-like Compiler detected")
++    INCLUDE(gnu)
+   ELSE()
+     IF (EMBREE_ISA_AVX512)
+       MESSAGE(FATAL_ERROR "Microsoft Visual C++ Compiler does not support AVX512. Please use Intel Compiler or Clang.")
+diff -Naur embree-3.12.2/common/cmake/gnu.cmake embree-3.12.2.dev/common/cmake/gnu.cmake
+--- embree-3.12.2/common/cmake/gnu.cmake	2021-01-21 17:55:21.000000000 +0100
++++ embree-3.12.2.dev/common/cmake/gnu.cmake	2024-08-01 10:08:46.244979100 +0200
+@@ -67,11 +67,15 @@
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mmacosx-version-min=10.7")   # makes sure code runs on older MacOSX versions
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")             # link against libc++ which supports C++11 features
+ ELSE(APPLE)
+-  SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined") # issues link error for undefined symbols in shared library
+-  SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -z noexecstack")     # we do not need an executable stack
+-  SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -z relro -z now")    # re-arranges data sections to increase security
+-  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack")           # we do not need an executable stack
+-  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z relro -z now")          # re-arranges data sections to increase security
+-  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie")                     # enables position independent execution for executable
++  IF (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
++    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")   # issues link error for undefined symbols in shared library
++    IF(NOT MINGW)
++      SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -z noexecstack")     # we do not need an executable stack
++      SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -z relro -z now")    # re-arranges data sections to increase security
++      SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack")           # we do not need an executable stack
++      SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z relro -z now")          # re-arranges data sections to increase security
++    ENDIF ()
++  ENDIF ()
++  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie")                         # enables position independent execution for executable
+ ENDIF(APPLE)
+ 
+diff -Naur embree-3.12.2/common/math/constants.h embree-3.12.2.dev/common/math/constants.h
+--- embree-3.12.2/common/math/constants.h	2021-01-21 17:55:21.000000000 +0100
++++ embree-3.12.2.dev/common/math/constants.h	2024-07-31 16:18:43.100351200 +0200
+@@ -12,6 +12,26 @@
+ #include <cfloat>
+ #include <climits>
+ 
++#if defined __MINGW32__
++#if !defined _MATH_DEFINES_DEFINED && !defined M_PI
++  #define _MATH_DEFINES_DEFINED
++
++  #define M_E        2.71828182845904523536   // e
++  #define M_LOG2E    1.44269504088896340736   // log2(e)
++  #define M_LOG10E   0.434294481903251827651  // log10(e)
++  #define M_LN2      0.693147180559945309417  // ln(2)
++  #define M_LN10     2.30258509299404568402   // ln(10)
++  #define M_PI       3.14159265358979323846   // pi
++  #define M_PI_2     1.57079632679489661923   // pi/2
++  #define M_PI_4     0.785398163397448309616  // pi/4
++  #define M_1_PI     0.318309886183790671538  // 1/pi
++  #define M_2_PI     0.636619772367581343076  // 2/pi
++  #define M_2_SQRTPI 1.12837916709551257390   // 2/sqrt(pi)
++  #define M_SQRT2    1.41421356237309504880   // sqrt(2)
++  #define M_SQRT1_2  0.707106781186547524401  // 1/sqrt(2)
++#endif
++#endif
++
+ namespace embree
+ {
+   static MAYBE_UNUSED const float one_over_255 = 1.0f/255.0f;
+diff -Naur embree-3.12.2/common/sys/intrinsics.h embree-3.12.2.dev/common/sys/intrinsics.h
+--- embree-3.12.2/common/sys/intrinsics.h	2021-01-21 17:55:21.000000000 +0100
++++ embree-3.12.2.dev/common/sys/intrinsics.h	2024-07-31 16:25:44.977903200 +0200
+@@ -30,7 +30,9 @@
+ #endif
+ 
+ #if defined(__WIN32__)
+-#  define NOMINMAX
++#  if !defined(__MINGW32__)
++#    define NOMINMAX
++#  endif
+ #  include <windows.h>
+ #endif
+ 
+diff -Naur embree-3.12.2/common/sys/sysinfo.cpp embree-3.12.2.dev/common/sys/sysinfo.cpp
+--- embree-3.12.2/common/sys/sysinfo.cpp	2021-01-21 17:55:21.000000000 +0100
++++ embree-3.12.2.dev/common/sys/sysinfo.cpp	2024-08-01 08:50:18.519672200 +0200
+@@ -233,7 +233,7 @@
+ 
+   __noinline int64_t get_xcr0() 
+   {
+-#if defined (__WIN32__)
++#if defined (__WIN32__) && !defined (__MINGW32__)
+     int64_t xcr0 = 0; // int64_t is workaround for compiler bug under VS2013, Win32
+     xcr0 = _xgetbv(0);
+     return xcr0;
+diff -Naur embree-3.12.2/common/tasking/taskschedulertbb.h embree-3.12.2.dev/common/tasking/taskschedulertbb.h
+--- embree-3.12.2/common/tasking/taskschedulertbb.h	2021-01-21 17:55:21.000000000 +0100
++++ embree-3.12.2.dev/common/tasking/taskschedulertbb.h	2024-08-01 10:10:21.230381900 +0200
+@@ -11,7 +11,7 @@
+ #include "../sys/condition.h"
+ #include "../sys/ref.h"
+ 
+-#if defined(__WIN32__)
++#if defined(__WIN32__) && !defined(__MINGW32__)
+ #  define NOMINMAX
+ #endif
+ 

@@ -133,6 +133,12 @@ function s-salome-cfd-modules()
     echo s-syrthes
 }
 
+function s-salome-mingw-modules()
+{
+    echo s-paraview
+    echo s-salome-kernel
+}
+
 function s-salome-propagate-version()
 {
     echo false
@@ -207,7 +213,9 @@ function setup-env-salome()
             if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]] ||
                    [[ $CURRENT_MODULE_NAME == "s-salome-tar" ]]
             then
-                local REL_FROM="$SCBI_BDIR/s-salome-tar/$SCBI_TARGET-$SALOME_TAR_VARIANT/install"
+                local REL_FROM=""
+                get-target-dir REL_FROM s-salome-tar $SALOME_TAR_VARIANT install
+
                 local SFX_DIR="${VALUE#$REL_FROM/}"
                 local SFX_DIR="${SFX_DIR#$REL_FROM}"
                 # For shell:
@@ -365,7 +373,9 @@ function setup-env-salome()
             CURRENT_MODULE_NAME=$module
             CURRENT_MODULE=${module//-/_}
             CURRENT_MODULE_DIR=$module
-            CURRENT_MODULE_INSTALL=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
+
+            CURRENT_MODULE_INSTALL=""
+            get-target-dir CURRENT_MODULE_INSTALL $module $variant install
 
             if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
                 NUM=998
@@ -566,7 +576,8 @@ function copy-modules-salome()
         #  handled. Also there is nothing to copy for externals.
 
         if [[ $IS_EXT == false ]] && [[ $module != "s-salome-tar" ]]; then
-            local MODULE_PATH=$SCBI_BDIR/$module/$SCBI_TARGET-$variant/install
+            local MODULE_PATH=""
+            get-target-dir MODULE_PATH $module $variant install
 
             if [[ -d $MODULE_PATH ]] && [[ ! -d EDF/$module ]]; then
                 mkdir EDF/$module
@@ -644,7 +655,9 @@ function s-salome-wrapup()
                 {
                     #  Copy CEA's binaries
 
-                    cp -r $SCBI_BDIR/s-salome-tar/$SCBI_TARGET-$SALOME_TAR_VARIANT/install/* .
+                    local TVDIR=""
+                    get-target-dir TVDIR s-salome-tar $SALOME_TAR_VARIANT install
+                    cp -r $TVDIR/* .
                     #  Now that we have copied the binary archive, get
                     #  the binary dir
                     SALOME_BINARY_DIR=$(basename $(ls -1d $BINPAT))

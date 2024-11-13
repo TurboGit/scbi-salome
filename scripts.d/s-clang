@@ -1,5 +1,9 @@
 inherit-plugin c-clang
 
+#  Adds a mingw variant using the MingW64 clang version
+with-variant mingw os@-clang:[v] \
+  --env 'add-to-var PATH $MINGW_PREFIX'
+
 function s-clang-vcs() 
 { 
     echo default
