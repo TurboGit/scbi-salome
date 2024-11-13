@@ -164,7 +164,6 @@ function s-paraview-mingw-depends()
     echo os@-haru-dev
     echo os@-protobuf-dev
 
-    echo s-mesa
     echo s-boost
     echo s-qt
     echo s-hdf5
@@ -483,20 +482,6 @@ function s-paraview-post-install()
             $IDIR/vtk/VTK-vtk-module-find-packages.cmake
 
     return 0
-}
-
-function s-paraview-mingw-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    local MESABIN=${SCBI_MODULES_DIR["s-mesa"]}/bin
-
-    for DLL in opengl32.dll libgallium_wgl.dll \
-                            libglapi.dll libEGL.dll libGLESv2.dll;
-    do
-        cp $MESABIN/$DLL ../install/bin
-    done
 }
 
 function s-paraview-prefix()
