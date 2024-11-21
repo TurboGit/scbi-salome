@@ -1,0 +1,90 @@
+Submodule VTK contains modified content
+diff --git a/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.cxx b/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.cxx
+index 9ec5d94457..c95fe96495 100644
+--- a/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.cxx
++++ b/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.cxx
+@@ -825,7 +825,7 @@ int vtkEnSightGoldBinaryReader::SkipUnstructuredGrid(char line[256])
+     {
+       vtkDebugMacro("nsided");
+       int* numNodesPerElement;
+-      int numNodes = 0;
++      vtkIdType numNodes = 0;
+ 
+       // cellType = vtkEnSightReader::NSIDED;
+       this->ReadInt(&numElements);
+@@ -2112,8 +2112,8 @@ int vtkEnSightGoldBinaryReader::CreateUnstructuredGridOutput(
+     {
+       vtkDebugMacro("nsided");
+       int* numNodesPerElement;
+-      int numNodes = 0;
+-      int nodeCount = 0;
++      vtkIdType numNodes = 0;
++      vtkIdType nodeCount = 0;
+ 
+       cellType = vtkEnSightReader::NSIDED;
+       this->ReadInt(&numElements);
+@@ -2160,7 +2160,7 @@ int vtkEnSightGoldBinaryReader::CreateUnstructuredGridOutput(
+       // skipping ghost cells
+       vtkDebugMacro("g_nsided");
+       int* numNodesPerElement;
+-      int numNodes = 0;
++      vtkIdType numNodes = 0;
+ 
+       // cellType = vtkEnSightReader::NSIDED;
+       this->ReadInt(&numElements);
+@@ -2390,12 +2390,12 @@ int vtkEnSightGoldBinaryReader::CreateUnstructuredGridOutput(
+       int* numNodesPerFace;
+       int* numNodesPerElement;
+       int* nodeMarker;
+-      int numPts = 0;
+-      int numFaces = 0;
+-      int numNodes = 0;
+-      int faceCount = 0;
+-      int nodeCount = 0;
+-      int elementNodeCount = 0;
++      vtkIdType numPts = 0;
++      vtkIdType numFaces = 0;
++      vtkIdType numNodes = 0;
++      vtkIdType faceCount = 0;
++      vtkIdType nodeCount = 0;
++      vtkIdType elementNodeCount = 0;
+ 
+       cellType = vtkEnSightReader::NFACED;
+       this->ReadInt(&numElements);
+@@ -2463,10 +2463,10 @@ int vtkEnSightGoldBinaryReader::CreateUnstructuredGridOutput(
+       this->ReadIntArray(nodeIdList, numNodes);
+ 
+       // yyy begin
+-      int k;                        // indexing each node Id of a face
+-      int faceIdx = 0;              // indexing faces throughout all polyhedra
+-      int nodeIdx = 0;              // indexing nodes throughout all polyhedra
+-      int arayIdx = 0;              // indexing the array of Ids (info of faces)
++      vtkIdType k;                        // indexing each node Id of a face
++      vtkIdType faceIdx = 0;        // indexing faces throughout all polyhedra
++      vtkIdType nodeIdx = 0;        // indexing nodes throughout all polyhedra
++      vtkIdType arayIdx = 0;              // indexing the array of Ids (info of faces)
+       vtkIdType* faceAry = nullptr; // array of Ids describing a vtkPolyhedron
+       // yyy end
+ 
+@@ -3402,7 +3402,7 @@ int vtkEnSightGoldBinaryReader::ReadFloat(float* result)
+ 
+ // Internal function to read an integer array.
+ // Returns zero if there was an error.
+-int vtkEnSightGoldBinaryReader::ReadIntArray(int* result, int numInts)
++int vtkEnSightGoldBinaryReader::ReadIntArray(int* result, vtkIdType numInts)
+ {
+   if (numInts <= 0)
+   {
+diff --git a/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.h b/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.h
+index dd88876ad9..31bd8faebd 100644
+--- a/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.h
++++ b/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.h
+@@ -188,7 +188,7 @@ protected:
+    * Internal function to read in an integer array.
+    * Returns zero if there was an error.
+    */
+-  int ReadIntArray(int* result, int numInts);
++  int ReadIntArray(int* result, vtkIdType numInts);
+ 
+   /**
+    * Internal function to read in a single long.
