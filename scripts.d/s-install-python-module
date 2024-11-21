@@ -60,7 +60,7 @@ function s-install-python-module-install()
     local VARIANT=$3
 
     local PYPIURL=$(scbi-store-get-key PYPIURL)
-    local TMP=( ${PYURL//\// } )
+    local TMP=( ${PYPIURL//\// } )
     local HOST=${TMP[1]}
 
     mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
