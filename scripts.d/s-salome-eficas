@@ -1,4 +1,11 @@
 
+function s-salome-eficas-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/eficas
+}
 
 function s-salome-eficas-salome-module()
 {

@@ -1,4 +1,11 @@
 
+function s-yacs-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/yacs
+}
 
 function s-yacs-salome-module()
 {

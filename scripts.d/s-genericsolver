@@ -1,5 +1,11 @@
 
-
+function s-genericsolver-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.salome-platform.org/gitpub/samples/genericsolver
+}
 
 function s-genericsolver-salome-module()
 {

@@ -1,14 +1,13 @@
 
 inherit-plugin s-python-post-install-dist-packages
 
-function s-pyfmi-vcs() 
-{ 
+function s-pyfmi-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/modelon-community/PyFMI.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/modelon-community/PyFMI.git
+}
 
 function s-pyfmi-patches()
 {

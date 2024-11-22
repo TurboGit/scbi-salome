@@ -7,6 +7,16 @@ function s-gmsh-vcs()
     echo https://gitlab.onelab.info/gmsh/gmsh.git 
 } 
 
+function s-gmsh-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo gmsh-$VERSION.tar.gz
+}
 
 function s-gmsh-patches()
 {

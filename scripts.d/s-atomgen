@@ -1,4 +1,11 @@
 
+function s-atomgen-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.salome-platform.org/gitpub/samples/atomgen
+}
 
 function s-atomgen-salome-module()
 {

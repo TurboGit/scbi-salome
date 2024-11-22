@@ -11,6 +11,16 @@ function s-sip-vcs()
     echo https://www.riverbankcomputing.com/hg/sip 
 } 
 
+function s-sip-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo sip-$VERSION.tar.gz
+}
 
 function s-sip-depends()
 {
@@ -74,10 +84,12 @@ function s-sip-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cd $PREFIX/bin
-    ln -sf sip5 sip
-
     handle-dist-post-install $PREFIX $TARGET
+
+    # Make sure we have a sip & sip5 executable
+    cd $PREFIX/bin
+    ln -sf sip-build sip
+    ln -sf sip-build sip5
 }
 
 function s-sip-prefix()

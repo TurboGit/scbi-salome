@@ -1,4 +1,11 @@
 
+function s-fields-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/med
+}
 
 function s-fields-salome-module()
 {

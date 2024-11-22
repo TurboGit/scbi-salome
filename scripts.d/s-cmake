@@ -15,6 +15,16 @@ function s-cmake-vcs()
     echo https://github.com/Kitware/CMake.git 
 } 
 
+function s-cmake-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo cmake-$VERSION.tar.gz
+}
 
 function s-cmake-build-depends()
 {

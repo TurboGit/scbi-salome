@@ -1,24 +1,22 @@
 
-function s-ispc-vcs() 
-{ 
+function s-ispc-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/ispc/ispc.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/ispc/ispc.git
+}
 
+function s-ispc-archive()
+{
+    local VERSION=$1
 
-
-function s-ispc-ghbin-archive() 
-{ 
-    local VERSION=$1 
- 
     echo default
-    echo none 
-    echo wget 
-    echo https://github.com/ispc/ispc/releases/download/$VERSION 
-    echo ispc-$VERSION-linux.tar.gz 
-} 
+    echo none
+    echo wget
+    echo https://github.com/ispc/ispc/releases/download/$VERSION
+    echo ispc-$VERSION-linux.tar.gz
+}
 
 function s-ispc-build-depends()
 {

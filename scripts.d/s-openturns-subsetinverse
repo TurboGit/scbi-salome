@@ -1,12 +1,11 @@
 
-function s-openturns-subsetinverse-vcs() 
-{ 
+function s-openturns-subsetinverse-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otsubsetinverse.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/openturns/otsubsetinverse.git
+}
 
 function s-openturns-subsetinverse-build-depends()
 {

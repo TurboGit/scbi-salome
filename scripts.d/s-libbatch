@@ -8,7 +8,6 @@ function s-libbatch-vcs()
     echo https://github.com/SalomePlatform/libbatch 
 } 
 
-
 function s-libbatch-mingw-patches()
 {
     local PREFIX=$1

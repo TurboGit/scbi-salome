@@ -1,15 +1,14 @@
 
+function s-planegcs-archive()
+{
+    local VERSION=$1
 
-function s-planegcs-archive() 
-{ 
-    local VERSION=$1 
- 
     echo default
-    echo none 
-    echo wget 
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
-    echo planegcs-$VERSION.tar.gz 
-} 
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo planegcs-$VERSION.tar.gz
+}
 
 function s-planegcs-patches()
 {

@@ -1,4 +1,15 @@
 
+function s-uranie-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://uranie.cea.fr/tarball
+    echo URANIE-$VERSION-Source.tar.gz
+}
+
 
 function s-uranie-build-depends()
 {

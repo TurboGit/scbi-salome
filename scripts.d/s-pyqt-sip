@@ -1,4 +1,18 @@
 
+inherit-plugin --name handle-dist s-python-post-install-dist-packages
+
+with-variant native os@pyqt-sip:[v]
+
+function s-pyqt-sip-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo PyQt5_sip-$VERSION.tar.gz
+}
 
 function s-pyqt-sip-depends()
 {
@@ -58,6 +72,8 @@ function s-pyqt-sip-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
+
+    handle-dist-post-install $PREFIX $TARGET
 
     #  Copy headers
 

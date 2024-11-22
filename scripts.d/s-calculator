@@ -1,5 +1,11 @@
 
-
+function s-calculator-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/calculator
+}
 
 function s-calculator-salome-module()
 {

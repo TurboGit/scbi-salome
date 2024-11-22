@@ -1,5 +1,11 @@
 
-
+function s-component-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/component
+}
 
 function s-component-salome-module()
 {

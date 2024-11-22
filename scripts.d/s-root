@@ -7,6 +7,16 @@ function s-root-vcs()
     echo https://github.com/root-project/root.git 
 } 
 
+function s-root-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo root-$VERSION.tar.gz
+}
 
 function s-root-patches()
 {

@@ -7,6 +7,16 @@ function s-ospray-vcs()
     echo https://github.com/ospray/ospray.git 
 } 
 
+function s-ospray-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ospray-$VERSION.tar.gz
+}
 
 function s-ospray-build-depends()
 {

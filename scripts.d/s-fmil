@@ -1,4 +1,10 @@
-
+function s-fmil-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/modelon-community/fmi-library.git
+}
 
 function s-fmil-build-depends()
 {

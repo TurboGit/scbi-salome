@@ -1,4 +1,11 @@
 
+function s-aed2-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/AquaticEcoDynamics/libaed2
+}
 
 function s-aed2-out-of-tree()
 {

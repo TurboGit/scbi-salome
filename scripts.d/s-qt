@@ -9,7 +9,7 @@
 
 with-variant native \
              os@-qtbase5-dev:[v] os@-qttools5-dev:[v] os@-qt5help5 \
-             os@-qt5x11extras5-dev os@-qt5opengl5-dev os@-qt5printsupport5 \
+             os@-qt5x11extras5-dev os@-qt5opengl5-dev \
              os@-qt5svg5-dev os@-qtxmlpatterns5-dev-tools os@-qwt-qt5-dev \
  --env 'set-var QT5_ROOT_DIR /usr' \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5' \
@@ -28,6 +28,16 @@ function s-qt-vcs()
     echo https://github.com/qt/qt5.git 
 } 
 
+function s-qt-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo qt-$VERSION.tar.gz
+}
 
 function s-qt-build-depends()
 {
@@ -40,11 +50,10 @@ function s-qt-depends()
     echo libfontconfig1-dev
     # Avoid using embedded libraries
     echo libframe6
-    echo libfreetype6-dev
+    echo libfreetype-dev
     echo libgl1-mesa-dev
     echo libglu1-mesa-dev
     echo libgnomecanvas2-dev
-    echo libgnomecanvasmm-2.6-dev
     echo libjpeg-dev
     echo libpng-dev
     echo libpq5

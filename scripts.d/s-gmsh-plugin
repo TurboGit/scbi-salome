@@ -1,5 +1,11 @@
 
-
+function s-gmsh-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/gmshplugin
+}
 
 function s-gmsh-plugin-salome-module()
 {

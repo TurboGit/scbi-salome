@@ -10,7 +10,6 @@ function s-proj-vcs()
     echo https://github.com/OSGeo/PROJ.git 
 } 
 
-
 function s-proj-build-depends()
 {
     echo s-cmake

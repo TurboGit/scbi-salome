@@ -1,12 +1,11 @@
 
-
-function s-salome-kernel-vcs() 
-{ 
-    echo default 
-    echo none 
-    echo git 
-    echo https://github.com/SalomePlatform/kernel 
-} 
+function s-salome-kernel-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/kernel
+}
 
 function s-salome-kernel-mingw-patches()
 {
@@ -157,6 +156,20 @@ function s-salome-kernel-common-config-options()
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+}
+
+function s-salome-kernel-permissive-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    #  To compile with recent compiler
+    local FLAGS="-Wno-incompatible-pointer-types"
+    local FLAGS+=" -Wno-implicit-function-declaration"
+
+    echo -DCMAKE_C_FLAGS=$FLAGS
+    echo -DCMAKE_CXX_FLAGS=$FLAGS
 }
 
 function s-salome-kernel-mingw-config-options()

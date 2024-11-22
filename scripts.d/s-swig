@@ -14,6 +14,16 @@ function s-swig-vcs()
     echo https://github.com/swig/swig 
 } 
 
+function s-swig-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo swig-$VERSION.tar.gz
+}
 
 function s-swig-common-env()
 {

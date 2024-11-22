@@ -1,5 +1,11 @@
 
-
+function s-smesh-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/smesh
+}
 
 function s-smesh-salome-module()
 {

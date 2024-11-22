@@ -1,15 +1,22 @@
 
+function s-med-coupling-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/medcoupling
+}
 
-function s-med-coupling-ng-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo cp 
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES 
-    echo MEDCOUPLING.tgz 
-} 
+function s-med-coupling-ng-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo cp
+    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
+    echo MEDCOUPLING.tgz
+}
 
 function s-med-coupling-common-build-depends()
 {
@@ -102,9 +109,12 @@ function s-med-coupling-ptscotch-config-options()
     echo -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
     echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
 
-    echo -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
-    echo -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
-    echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
+    [[ -n $PTSCOTCH_INCLUDE_DIRS ]] &&
+        echo -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
+    [[ -n $PTSCOTCH_ERR_LIBRARIES ]] &&
+        echo -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
+    [[ -n $PTSCOTCH_LIBRARIES ]] &&
+        echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
 }
 
 function s-med-coupling-scotch-config-options()
@@ -124,9 +134,12 @@ function s-med-coupling-ng-config-options()
     echo -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
     echo -DMEDCOUPLING_USE_MPI=ON
 
-    echo -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
-    echo -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
-    echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
+    [[ -n $PTSCOTCH_INCLUDE_DIRS ]] &&
+        echo -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
+    [[ -n $PTSCOTCH_ERR_LIBRARIES ]] &&
+        echo -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
+    [[ -n $PTSCOTCH_LIBRARIES ]] &&
+        echo -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
 }
 
 function s-med-coupling-common-config-options()

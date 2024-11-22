@@ -1,53 +1,44 @@
+# Inherit from dev plan, but we need here to overwrite the version
+# naming to conform to public VCS or archives.
+
 @load dev
 
+@set PV_VERSION  = 5.11.0
+
+s-paraview/default.mpi.catalyst.gdal:#$PV_VERSION
+
+[ = deb,12
+        s-salome/default:s12-DEV
+        s-gdal/native
+        s-atomic:skip
+        s-libbatch:V2_5_0
+        s-openturns:1.23
+        s-occt:CR780-SALOME-PATCH
+        s-planegcs:#0.18-3cb6890
+        s-persalys:#v17.0.1
+        s-clang:llvmorg-12.0.1
+        s-openvkl:v0.11.0
+        s-root:#6.22.02
+
+        s-openturns-fftw:v0.15
+        s-mixmod:v2.1.10
+        s-openturns-mixmod:v0.17
+        s-openturns-morris:v0.16
+        s-openturns-robopt:v0.14
+        s-openturns-subsetinverse:v1.10
+        s-openturns-svm:v0.14
+        s-openturns-wrapy:v0.12.1
+        s-openturns-pod:v0.6.11
+        s-fmil:2.0.3
+        s-pyfmi:PyFMI-2.6
+        s-openturns-fmi:v0.16.3
+
+        s-sip:#6.6.2
+        s-pyqt-sip:#12.11.0
+]
+
 [
-	s-blsurf-plugin
-	s-ghs3dprl-plugin
-	s-hexotic-plugin
-	s-persalys
-	s-openturns-fftw
-	s-openturns-mixmod
-	s-openturns-morris
-	s-openturns-pmml
-	s-openturns-robopt
-	s-openturns-subsetinverse
-	s-openturns-svm
-	s-openturns-wrapy
-	s-salome-openturns
-	s-zeromq
-	s-uranie
-	s-paravisaddons
-	s-homard-tool
-	s-python3-xlutils
-	s-root
+        # Needs MESHGEMS
+        s-blsurf-plugin
+        s-hybrid-plugin
 ] :skip
-
-[
-	s-python3-nlopt
-	s-openmpi
-	s-ptscotch
-	s-scotch
-] /native
-
-s-cmake:v3.13.5
-s-omniorb/auto:#4.2.2
-s-python-omniorb:#4.2.2
-
-s-openturns:1.16
-
-s-embree:v3.12.2
-s-rkcommon:v1.6.0
-s-openvkl:v0.11.0
-s-ospray:v2.4.0
-s-paraview/ospray.gdal:v5.9.0
-s-occt:0c61d938
-s-gmsh:gmsh_4_1_4
-s-planegcs:#0.18-3cb6890
-s-med-coupling/scotch
-
-# On Fedora, skip gmsh has ld (GCC-10) reports duplicate symbol definitions
-# More recent version of GMSH work, but then not compatible with gmsh-plugin
-# More generally any version of GCC > 9 causes troubles with various parts
-# of SALOME.
-@on fed use s-gmsh:skip
-@on fed use s-gmsh-plugin:skip

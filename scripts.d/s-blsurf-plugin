@@ -1,5 +1,11 @@
 
-
+function s-blsurf-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/blsurfplugin
+}
 
 function s-blsurf-plugin-salome-module()
 {

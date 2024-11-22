@@ -1,12 +1,11 @@
 
-function s-openturns-robopt-vcs() 
-{ 
+function s-openturns-robopt-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otrobopt.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/openturns/otrobopt.git
+}
 
 function s-openturns-robopt-build-depends()
 {

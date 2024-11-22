@@ -1,5 +1,12 @@
 
 
+function s-atomsolv-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.salome-platform.org/gitpub/samples/atomsolv
+}
 
 function s-atomsolv-salome-module()
 {

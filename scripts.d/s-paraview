@@ -1,34 +1,33 @@
 
-function s-paraview-vcs() 
-{ 
+function s-paraview-vcs()
+{
     echo default
-    echo lfs 
-    echo git 
-    echo https://github.com/Kitware/ParaView.git 
-} 
+    echo lfs
+    echo git
+    echo https://github.com/Kitware/ParaView.git
+}
 
+function s-paraview-archive()
+{
+    local VERSION=$1
 
-function s-paraview-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo ParaView-$VERSION.tar.gz 
-} 
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ParaView-$VERSION.tar.gz
+}
 
-function s-paraview-ng-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo cp 
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES 
-    echo ParaView-$VERSION.tar.gz 
-} 
+function s-paraview-ng-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo cp
+    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
+    echo ParaView-$VERSION.tar.gz
+}
 
 function s-paraview-patches()
 {

@@ -1,5 +1,11 @@
 
-
+function s-hexablock-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/hexablock
+}
 
 function s-hexablock-salome-module()
 {

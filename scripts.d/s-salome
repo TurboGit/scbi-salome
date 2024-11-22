@@ -723,8 +723,6 @@ function s-salome-wrapup()
 
             # install some support scripts & patch version
 
-            cp $SCBI_PLUGINS/support/install-meshgems .
-            cp $SCBI_PLUGINS/support/create-catalog .
             cp $SCBI_PLUGINS/support/icon.png .
             cp $SCBI_PLUGINS/support/salome_template.desktop .
 
@@ -737,27 +735,6 @@ function s-salome-wrapup()
                 cp EDF/s-salome-kernel/bin/salome/appliskel/.bashrc \
                    EDF/s-salome-kernel
                 chmod a+x salome env_launch.sh
-            fi
-
-            #  Patch SMESH preferences
-
-            sed -i 's/use-meshgems-hypo-sets" *value="false"/use-meshgems-hypo-sets"       value="true"/'\
-                $SMESH_ROOT_DIR/share/salome/resources/smesh/SalomeAppSL.xml
-
-            sed -i "s/<salome_version>/${ref#*-}/g" create-catalog
-            chmod a+x create-catalog
-
-            chmod a+x install-meshgems
-
-            # do we want to activate the logger
-
-            if [[ $(is-enabled logger) ]]; then
-                # add script to start the logger
-                local WSERVER=$(scbi-store LOGGER_WEB_SERVER)
-                sed -e "s/__SALOME_VERSION__/$ref/g" \
-                    -e "s,__WEB_SERVER__,$WSERVER,g" \
-                    $SCBI_PLUGINS/support/start-slogger.py \
-                    > extra.env.d/999_start_s_logger.py
             fi
 
             # is the installer to be created?
@@ -788,11 +765,7 @@ function s-salome-wrapup()
                 host=$(hostname)
                 local TMPLT=""
 
-                if [[ $host =~ "crfront" ]] || [[ $host =~ "gafront" ]]; then
-                    TMPLT=$SCBI_PLUGINS/support/install-setup-cluster
-                else
-                    TMPLT=$SCBI_PLUGINS/support/install-setup
-                fi
+                TMPLT=$SCBI_PLUGINS/support/install-setup
 
                 sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" \
                     $TMPLT > setup
@@ -802,7 +775,6 @@ function s-salome-wrapup()
                 chmod a+x setup
 
                 cp $SCBI_PLUGINS/support/servers.pvsc .
-                cp $SCBI_PLUGINS/support/salome_hpc_visu_servers.py .
 
                 # Startup Windows script to fix Python path to get
                 # access to PyQt needed by the logger start script.

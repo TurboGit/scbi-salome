@@ -8,6 +8,16 @@ function s-persalys-phimeca-vcs()
     echo https://git.phimeca.com/persalys/persalys.git 
 } 
 
+function s-persalys-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo persalys_$VERSION.tar.gz
+}
 
 function s-persalys-patches()
 {

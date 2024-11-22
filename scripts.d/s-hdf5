@@ -44,25 +44,24 @@ with-variant native os@-hdf5-dev:[v] os@-hdf5-tools:[v] \
              'add-to-var CPLUS_INCLUDE_PATH $HDF5_INC'  \
              'add-to-var LIBRARY_PATH $HDF5_LIB'
 
-function s-hdf5-vcs() 
-{ 
+function s-hdf5-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git 
-} 
+    echo none
+    echo git
+    echo https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git
+}
 
+function s-hdf5-archive()
+{
+    local VERSION=$1
 
-function s-hdf5-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo hdf5-$VERSION.tar.gz 
-} 
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo hdf5-$VERSION.tar.gz
+}
 
 function s-hdf5-mingw-patches()
 {
@@ -154,6 +153,21 @@ function s-hdf5-common-config-options()
     echo -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
 }
 
+function s-hdf5-permissive-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    #  To compile with recent compiler
+    local FLAGS="-Wno-incompatible-pointer-types"
+    local FLAGS+=" -Wno-implicit-function-declaration"
+
+    echo -DCMAKE_C_FLAGS=$FLAGS
+    echo -DCMAKE_CXX_FLAGS=$FLAGS
+    echo -DALLOW_UNSUPPORTED=ON
+}
+
 function s-hdf5-mingw-config-options()
 {
     local PREFIX=$1
@@ -182,6 +196,7 @@ function s-hdf5-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
+# TODO: can probably be removed
 function s-hdf5-mingw-config()
 {
     local PREFIX=$1

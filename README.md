@@ -15,6 +15,25 @@ $ cd ./scbi-salome
 $ make
 ```
 
+# Install some prerequisites
+
+  This is to ensure that some natives modules are used instead of building
+  them. The list above is for Debian-12:
+
+```
+  apt install libnlopt-dev libnlopt-cxx-dev
+  apt install python3-nlopt python3-h5py python3-netcdf4
+  apt install libproj-dev
+  apt install libgdal-dev
+  apt install libhdf5-openmpi-dev libopenmpi-dev
+
+  apt install qtbase5-dev qttools5-dev libqt5help5 libqt5x11extras5-dev
+  apt install libqt5opengl5-dev libqt5svg5-dev qtxmlpatterns5-dev-tools
+  apt install libqwt-qt5-dev
+  apt install python3-meshio
+  apt install pyqt5-dev pyqt5-dev-tools python3-pyqt5 python3-pyqt5.sip
+```
+
 # A simple tutorial to build SALOME
 
   To build SALOME master just run:
@@ -27,15 +46,4 @@ $ scbi --env=xdev --deps --update --safe s-salome
 
 ```
 $ scbi --env=xdev --deps --update --safe --enable-installer s-salome
-```
-
-# OS Specific Instructions
-
-## CentOS
-
-For now on CentOS and Debian-9 the documentation cannot be built. The
-compilation must be done with the `--enable-no-doc` option:
-
-```
-$ scbi --env=xdev --deps --update --enable-no-doc --safe s-salome
 ```

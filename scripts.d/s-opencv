@@ -10,6 +10,16 @@ with-variant native os@-opencv-dev \
                        add-to-var OpenCV_INCLUDE_DIRS /usr/include;
                     fi"
 
+function s-opencv-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo opencv-$VERSION.tar.gz
+}
 
 function s-opencv-patches()
 {

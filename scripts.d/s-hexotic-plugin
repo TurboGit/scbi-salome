@@ -1,5 +1,11 @@
 
-
+function s-hexotic-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/hexoticplugin
+}
 
 function s-hexotic-plugin-salome-module()
 {

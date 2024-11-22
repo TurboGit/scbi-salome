@@ -1,14 +1,13 @@
 
 inherit-plugin s-python-post-install-dist-packages
 
-function s-openturns-pod-vcs() 
-{ 
+function s-openturns-pod-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otpod.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/openturns/otpod.git
+}
 
 function s-openturns-pod-patches()
 {

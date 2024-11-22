@@ -1,5 +1,11 @@
 
-
+function s-light-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.salome-platform.org/gitpub/samples/light
+}
 
 function s-light-salome-module()
 {

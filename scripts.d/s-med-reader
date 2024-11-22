@@ -1,5 +1,11 @@
 
-
+function s-med-reader-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/medreader
+}
 
 function s-med-reader-common-build-depends()
 {

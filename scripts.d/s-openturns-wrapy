@@ -1,14 +1,13 @@
 
 inherit-plugin s-python-post-install-dist-packages
 
-function s-openturns-wrapy-vcs() 
-{ 
+function s-openturns-wrapy-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otwrapy.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/openturns/otwrapy.git
+}
 
 function s-openturns-wrapy-out-of-tree()
 {

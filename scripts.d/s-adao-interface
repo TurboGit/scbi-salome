@@ -1,4 +1,11 @@
 
+function s-adao-interface-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/adao_interface
+}
 
 function s-adao-interface-build-depends()
 {

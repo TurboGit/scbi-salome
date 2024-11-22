@@ -1,5 +1,11 @@
 
-
+function s-samples-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/datafiles
+}
 
 function s-samples-out-of-tree()
 {

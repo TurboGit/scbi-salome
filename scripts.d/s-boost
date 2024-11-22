@@ -1,7 +1,9 @@
 with-variant native os@-boost-dev:[v] os@-boost-filestsystem-dev:[v] \
              os@-boost-regex-dev:[v] os@-boost-thread-dev:[v] \
              os@-boost-chrono-dev:[v] os@-boost-date-time-dev:[v] \
-  --env "set-var BOOSTDIR /usr"
+             os@-boost-serialization-dev:[v] \
+  --env "set-var BOOST_ROOT_DIR /usr" \
+        "set-var BOOSTDIR /usr"
 
 #  Adds a mingw variant using the MingW64 boost version
 with-variant mingw os@-boost-dev:[v] \

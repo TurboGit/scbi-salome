@@ -1,4 +1,11 @@
 
+function s-salome-bootstrap-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/salome_bootstrap
+}
 
 function s-salome-bootstrap-common-build-depends()
 {

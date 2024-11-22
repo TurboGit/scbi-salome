@@ -1,4 +1,11 @@
 
+function s-salome-gui-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/gui
+}
 
 function s-salome-gui-salome-module()
 {

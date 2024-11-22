@@ -1,5 +1,11 @@
 
-
+function s-ghs3d-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/ghs3dplugin
+}
 
 function s-ghs3d-plugin-salome-module()
 {

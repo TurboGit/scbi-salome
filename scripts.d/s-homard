@@ -1,5 +1,11 @@
 
-
+function s-homard-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/homard
+}
 
 function s-homard-salome-module()
 {

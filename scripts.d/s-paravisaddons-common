@@ -1,4 +1,11 @@
 
+function s-paravisaddons-common-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/paravisaddons_common
+}
 
 function s-paravisaddons-common-ng-archive() 
 { 

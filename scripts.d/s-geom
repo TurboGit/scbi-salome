@@ -1,4 +1,11 @@
 
+function s-geom-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/geom
+}
 
 function s-geom-salome-module()
 {
@@ -86,7 +93,8 @@ function s-geom-common-config-options()
 
     local CDEBUG=$(is-enabled cmake-debug)
 
-    echo -DCMAKE_INSTALL_PREFIX=$PREFIX ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 }

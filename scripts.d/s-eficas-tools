@@ -1,4 +1,11 @@
 
+function s-eficas-tools-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/eficas_tools
+}
 
 function s-eficas-tools-common-build-depends()
 {

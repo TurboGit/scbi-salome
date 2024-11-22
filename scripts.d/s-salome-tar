@@ -232,7 +232,7 @@ function s-salome-tar-install()
     #  Now remove all extra modules found in the binary archive.
     #  And unset variables that are pointing to those directories.
 
-    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ } s-meshgems; do
+    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ } e-meshgems; do
         local DEF=( $(get-extra-module-def $MOD) )
         local PAT=${DEF[1]}
 

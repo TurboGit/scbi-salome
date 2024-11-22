@@ -1,23 +1,33 @@
 
-function s-catalyst-vcs() 
-{ 
+function s-catalyst-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://gitlab.kitware.com/paraview/catalyst.git 
-} 
+    echo none
+    echo git
+    echo https://gitlab.kitware.com/paraview/catalyst.git
+}
 
+function s-catalyst-archive()
+{
+    local VERSION=$1
 
-function s-catalyst-ng-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo cp 
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES 
-    echo catalyst-$VERSION.tar.gz 
-} 
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo catalyst-$VERSION.tar.gz
+}
+
+function s-catalyst-ng-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo cp
+    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
+    echo catalyst-$VERSION.tar.gz
+}
 
 function s-catalyst-env()
 {

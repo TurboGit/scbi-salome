@@ -3,14 +3,24 @@ with-variant native os@-scotch:[v] os@-scotch-dev:[v]
 
 with-variant ng
 
-function s-scotch-vcs() 
-{ 
+function s-scotch-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://gitlab.inria.fr/scotch/scotch 
-} 
+    echo none
+    echo git
+    echo https://gitlab.inria.fr/scotch/scotch
+}
 
+function s-scotch-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo scotch-$VERSION.tar.gz
+}
 
 function s-scotch-depends()
 {

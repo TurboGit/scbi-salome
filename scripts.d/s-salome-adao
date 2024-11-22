@@ -1,5 +1,11 @@
 
-
+function s-salome-adao-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/adao
+}
 
 function s-salome-adao-salome-module()
 {

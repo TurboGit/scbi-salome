@@ -1,5 +1,11 @@
 
-
+function s-topiivol-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/top_ii_vol
+}
 
 function s-topiivol-out-of-tree()
 {

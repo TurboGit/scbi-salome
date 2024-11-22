@@ -1,12 +1,11 @@
 
-function s-openturns-fftw-vcs() 
-{ 
+function s-openturns-fftw-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otfftw.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/openturns/otfftw.git
+}
 
 function s-openturns-fftw-build-depends()
 {

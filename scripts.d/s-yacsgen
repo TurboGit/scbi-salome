@@ -1,4 +1,11 @@
 
+function s-yacsgen-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/yacsgen
+}
 
 function s-yacsgen-env()
 {

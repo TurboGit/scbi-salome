@@ -1,4 +1,11 @@
 
+function s-gotm-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/gotm-model/code.git
+}
 
 function s-gotm-ng-build-depends()
 {

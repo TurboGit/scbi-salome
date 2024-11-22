@@ -1,4 +1,11 @@
 
+function s-shaper-study-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/shaper_study
+}
 
 function s-shaper-study-salome-module()
 {

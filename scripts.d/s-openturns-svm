@@ -1,12 +1,11 @@
 
-function s-openturns-svm-vcs() 
-{ 
+function s-openturns-svm-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otsvm.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/openturns/otsvm.git
+}
 
 function s-openturns-svm-build-depends()
 {

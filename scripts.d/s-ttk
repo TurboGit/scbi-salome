@@ -1,25 +1,24 @@
 
 # Topology ToolKit
 
-function s-ttk-vcs() 
-{ 
+function s-ttk-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/topology-tool-kit/ttk.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/topology-tool-kit/ttk.git
+}
 
-function s-ttk-gh-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo https://github.com/topology-tool-kit/ttk/archive/ 
-    echo $VERSION.tgz 
-} 
+function s-ttk-archive()
+{
+    local VERSION=$1
 
+    echo default
+    echo none
+    echo wget
+    echo https://github.com/topology-tool-kit/ttk/archive/refs/tags
+    echo $VERSION.tar.gz
+}
 
 function s-ttk-build-depends()
 {

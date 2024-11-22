@@ -1,23 +1,22 @@
 
-function s-netgen-vcs() 
-{ 
+function s-netgen-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/NGSolve/netgen.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/NGSolve/netgen.git
+}
 
+function s-netgen-archive()
+{
+    local VERSION=$1
 
-function s-netgen-archive() 
-{ 
-    local VERSION=$1 
- 
     echo default
-    echo none 
-    echo wget 
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
-    echo netgen-$VERSION.tar.gz 
-} 
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo netgen-$VERSION.tar.gz
+}
 
 function s-netgen-autotools-out-of-tree()
 {

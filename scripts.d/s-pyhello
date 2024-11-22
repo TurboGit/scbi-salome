@@ -1,5 +1,11 @@
 
-
+function s-pyhello-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/pyhello
+}
 
 function s-pyhello-salome-module()
 {

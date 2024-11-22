@@ -1,17 +1,16 @@
 
 inherit-plugin s-python-post-install-dist-packages
 
+function s-med-file-archive()
+{
+    local VERSION=$1
 
-function s-med-file-archive() 
-{ 
-    local VERSION=$1 
- 
     echo default
-    echo none 
-    echo wget 
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites 
-    echo med-$VERSION.tar.gz 
-} 
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo med-$VERSION.tar.gz
+}
 
 function s-med-file-patches()
 {

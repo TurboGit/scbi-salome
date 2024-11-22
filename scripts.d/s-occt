@@ -1,12 +1,22 @@
 
-function s-occt-vcs() 
-{ 
+function s-occt-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://git.dev.opencascade.org/repos/occt.git 
-} 
+    echo none
+    echo git
+    echo https://git.dev.opencascade.org/repos/occt.git
+}
 
+function s-occt-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags
+    echo $VERSION.zip
+}
 
 function s-occt-build-depends()
 {
@@ -17,7 +27,7 @@ function s-occt-common-depends()
 {
     echo os@-tcl-dev
     echo os@-tk-dev
-    echo os@-freetype6-dev
+    echo os@-freetype-dev
     echo os@-freeimage-dev
     echo os@-gl2ps-dev
 }
@@ -122,6 +132,21 @@ function s-occt-common-config-options()
     echo -DUSE_FREETYPE=ON
     echo -DUSE_FREEIMAGE=ON
     echo -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON
+}
+
+function s-occt-permissive-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    #  To compile with recent compiler
+    local FLAGS="-Wno-incompatible-pointer-types"
+    local FLAGS+=" -Wno-implicit-function-declaration"
+    local FLAGS+=" -fpermissive"
+
+    echo -DCMAKE_C_FLAGS=$FLAGS
+    echo -DCMAKE_CXX_FLAGS=$FLAGS
 }
 
 function s-occt-mingw-config-options()

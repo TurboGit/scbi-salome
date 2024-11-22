@@ -1,5 +1,11 @@
 
-
+function s-netgen-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/netgenplugin
+}
 
 function s-netgen-plugin-salome-module()
 {

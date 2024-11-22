@@ -7,7 +7,6 @@ function s-openturns-vcs()
     echo https://github.com/openturns/openturns.git 
 } 
 
-
 function s-openturns-patches()
 {
     local PREFIX=$1

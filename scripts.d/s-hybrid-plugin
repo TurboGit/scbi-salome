@@ -1,5 +1,12 @@
 
 
+function s-hybrid-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/hybridplugin
+}
 
 function s-hybrid-plugin-salome-module()
 {
