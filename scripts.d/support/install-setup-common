@@ -126,21 +126,21 @@ function template-conversion()
         if [[ -f $SCRIPTS ]]; then
             ## VM build
             # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPT
+            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPT
+            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPT
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPT
+            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
+            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
             # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPT
+            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPT
+            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPT
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPT
+            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
+            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
         fi
     done
 
@@ -149,21 +149,21 @@ function template-conversion()
         if [[ -f $SCRIPTS ]]; then
             ## VM build
             # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPT
+            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPT
+            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPT
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPT
+            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
+            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
             # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPT
+            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPT
+            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPT
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPT
+            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
+            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
         fi
     done
 
@@ -172,21 +172,21 @@ function template-conversion()
         if [[ -f $SCRIPTS ]]; then
             ## VM build
             # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPT
+            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPT
+            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPT
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPT
+            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
+            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
             # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPT
+            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPT
+            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPT
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPT
+            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
+            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
         fi
     done
 
