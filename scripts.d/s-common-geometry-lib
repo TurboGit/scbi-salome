@@ -1,0 +1,87 @@
+
+function s-common-geometry-lib-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/common_geometry_lib
+}
+
+function s-common-geometry-lib-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-common-geometry-lib-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-common-geometry-lib-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-common-geometry-lib-default-depends()
+{
+    echo s-occt
+}
+
+function s-common-geometry-lib-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var CommonGeomLib_ROOT_DIR $PREFIX
+
+    add-to-var PATH                  $PREFIX/bin/salome
+    add-to-var LD_LIBRARY_PATH       $PREFIX/lib/salome
+    add-to-var PYTHONPATH            $PREFIX/bin/salome
+    add-to-var PYTHONPATH            \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+}
+
+function s-common-geometry-lib-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-common-geometry-lib-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-common-geometry-lib-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-common-geometry-lib-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-common-geometry-lib-prefix()
+{
+    echo NONE
+}
