@@ -1,0 +1,763 @@
+diff --git a/src/ifcgeom/IfcBSplineSurfaceWithKnots.cpp b/src/ifcgeom/IfcBSplineSurfaceWithKnots.cpp
+index 910e71393..a8f2350f5 100644
+--- a/src/ifcgeom/IfcBSplineSurfaceWithKnots.cpp
++++ b/src/ifcgeom/IfcBSplineSurfaceWithKnots.cpp
+@@ -71,7 +71,7 @@ bool IfcGeom::Kernel::convert(const IfcSchema::IfcBSplineSurfaceWithKnots* l, To
+ 	for (std::vector<int>::const_iterator it = vmults.begin(); it != vmults.end(); ++it, ++i) {
+ 		VMults(i) = *it;
+ 	}
+-	Handle_Geom_Surface surf = new Geom_BSplineSurface(Poles, UKnots, VKnots, UMults, VMults, UDegree, VDegree);
++	Handle(Geom_Surface) surf = new Geom_BSplineSurface(Poles, UKnots, VKnots, UMults, VMults, UDegree, VDegree);
+ 
+ #if OCC_VERSION_HEX < 0x60502
+ 	face = BRepBuilderAPI_MakeFace(surf);
+diff --git a/src/ifcgeom/IfcCompositeCurve.cpp b/src/ifcgeom/IfcCompositeCurve.cpp
+index 13837b938..42354f895 100644
+--- a/src/ifcgeom/IfcCompositeCurve.cpp
++++ b/src/ifcgeom/IfcCompositeCurve.cpp
+@@ -138,7 +138,7 @@ bool IfcGeom::Kernel::convert(const IfcSchema::IfcCompositeCurve* l, TopoDS_Wire
+ 
+ 		if (curve->as<IfcSchema::IfcLine>()) {
+ 			Logger::Notice("Infinite IfcLine used as ParentCurve of segment, treating as a segment", *it);
+-			Handle_Geom_Curve handle;
++			Handle(Geom_Curve) handle;
+ 			convert_curve(curve, handle);
+ 			double u0 = 0.0;
+ 			double u1 = curve->as<IfcSchema::IfcLine>()->Dir()->Magnitude() * getValue(GV_LENGTH_UNIT);
+diff --git a/src/ifcgeom/IfcEdgeCurve.cpp b/src/ifcgeom/IfcEdgeCurve.cpp
+index 7cf5a3445..8beb866c8 100644
+--- a/src/ifcgeom/IfcEdgeCurve.cpp
++++ b/src/ifcgeom/IfcEdgeCurve.cpp
+@@ -47,7 +47,7 @@ bool IfcGeom::Kernel::convert(const IfcSchema::IfcEdgeCurve* l, TopoDS_Wire& res
+ 	}
+ 	
+ 	BRepBuilderAPI_MakeWire mw;
+-	Handle_Geom_Curve crv;
++	Handle(Geom_Curve) crv;
+ 
+ 	// The lack of a clear separation between topological and geometrical entities
+ 	// is starting to get problematic. If the underlying curve is bounded it is
+diff --git a/src/ifcgeom/IfcFace.cpp b/src/ifcgeom/IfcFace.cpp
+index 37a265fef..6d848eb92 100644
+--- a/src/ifcgeom/IfcFace.cpp
++++ b/src/ifcgeom/IfcFace.cpp
+@@ -292,7 +292,9 @@ bool IfcGeom::Kernel::convert(const IfcSchema::IfcFace* l, TopoDS_Shape& result)
+ 					TopTools_ListIteratorOfListOfShape kt(shapes);
+ 					for (; kt.More(); kt.Next()) {
+ 						// Apparently the wire got reversed, so register it with opposite orientation in the map
+-						wire_senses.Bind(kt.Value(), wire_senses.Find(w) == TopAbs_FORWARD ? TopAbs_REVERSED : TopAbs_FORWARD);
++						Standard_Integer aValue;
++						if (wire_senses.Find(w, aValue))
++							wire_senses.Bind(kt.Value(), wire_senses.Find(w) == TopAbs_FORWARD ? TopAbs_REVERSED : TopAbs_FORWARD);
+ 					}
+ 				}
+ 			}
+diff --git a/src/ifcgeom/IfcGeom.cpp b/src/ifcgeom/IfcGeom.cpp
+index 8b1bfda10..13d3d982a 100644
+--- a/src/ifcgeom/IfcGeom.cpp
++++ b/src/ifcgeom/IfcGeom.cpp
+@@ -634,8 +634,8 @@ IfcGeom::BRepElement* IfcGeom::Kernel::create_brep_for_representation_and_produc
+ 		if (util::flatten_shape_list(shapes, merge, false, getValue(GV_PRECISION))) {
+ 			if (util::count(merge, TopAbs_FACE) > 0) {
+ 				std::vector<double> thickness;
+-				std::vector<Handle_Geom_Surface> layers;
+-				std::vector< std::vector<Handle_Geom_Surface> > folded_layers;
++				std::vector<Handle(Geom_Surface)> layers;
++				std::vector< std::vector<Handle(Geom_Surface)> > folded_layers;
+ 				std::vector<std::shared_ptr<const SurfaceStyle>> styles;
+ 				if (convert_layerset(product, layers, styles, thickness)) {
+ 
+@@ -1076,9 +1076,9 @@ std::pair<std::string, double> IfcGeom::Kernel::initializeUnits(IfcSchema::IfcUn
+ 	return std::pair<std::string, double>(unit_name, unit_magnitude);
+ }
+ 
+-bool IfcGeom::Kernel::convert_layerset(const IfcSchema::IfcProduct* product, std::vector<Handle_Geom_Surface>& surfaces, std::vector<std::shared_ptr<const SurfaceStyle>>& styles, std::vector<double>& thicknesses) {
++bool IfcGeom::Kernel::convert_layerset(const IfcSchema::IfcProduct* product, std::vector<Handle(Geom_Surface)>& surfaces, std::vector<std::shared_ptr<const SurfaceStyle>>& styles, std::vector<double>& thicknesses) {
+ 	IfcSchema::IfcMaterialLayerSetUsage* usage = 0;
+-	Handle_Geom_Surface reference_surface;
++	Handle(Geom_Surface) reference_surface;
+ 
+ 	IfcSchema::IfcRelAssociates::list::ptr associations = product->HasAssociations();
+ 	for (IfcSchema::IfcRelAssociates::list::it it = associations->begin(); it != associations->end(); ++it) {
+@@ -1129,17 +1129,17 @@ bool IfcGeom::Kernel::convert_layerset(const IfcSchema::IfcProduct* product, std
+ 		}
+ 
+ 		double u1, u2;
+-		Handle_Geom_Curve axis_curve = BRep_Tool::Curve(axis_edge, u1, u2);
++		Handle(Geom_Curve) axis_curve = BRep_Tool::Curve(axis_edge, u1, u2);
+ 
+ 		if (true) { /**< @todo Why always true? */
+ 			if (axis_curve->DynamicType() == STANDARD_TYPE(Geom_Line)) {
+-				Handle_Geom_Line axis_line = Handle_Geom_Line::DownCast(axis_curve);
++				Handle(Geom_Line) axis_line = Handle(Geom_Line)::DownCast(axis_curve);
+ 				// @todo note that this creates an offset into the wrong order, the cross product arguments should be
+ 				// reversed. This causes some inversions later on, e.g. if(positive) { reverse(); }
+ 				reference_surface = new Geom_Plane(axis_line->Lin().Location(), axis_line->Lin().Direction() ^ gp::DZ());
+ 			} else if (axis_curve->DynamicType() == STANDARD_TYPE(Geom_Circle)) {
+ 				// @todo note that in this branch this inversion does not seem to take place.
+-				Handle_Geom_Circle axis_line = Handle_Geom_Circle::DownCast(axis_curve);
++				Handle(Geom_Circle) axis_line = Handle(Geom_Circle)::DownCast(axis_curve);
+ 				reference_surface = new Geom_CylindricalSurface(axis_line->Position(), axis_line->Radius());
+ 			} else {
+ 				Logger::Message(Logger::LOG_ERROR, "Unsupported underlying curve of Axis representation:", product);
+@@ -1254,7 +1254,7 @@ bool IfcGeom::Kernel::find_wall_end_points(const IfcSchema::IfcWall* wall, gp_Pn
+ 	return true;
+ }
+ 
+-bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepresentationShapeItems& items, const std::vector<Handle_Geom_Surface>& surfaces, const std::vector<double>& thicknesses, std::vector< std::vector<Handle_Geom_Surface> >& result) {
++bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepresentationShapeItems& items, const std::vector<Handle(Geom_Surface)>& surfaces, const std::vector<double>& thicknesses, std::vector< std::vector<Handle(Geom_Surface)> >& result) {
+ 	/*
+ 	 * @todo isn't it easier to do this based on the non-folded surfaces of
+ 	 * the connected walls and fold both pairs of layersets simultaneously?
+@@ -1266,11 +1266,11 @@ bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepre
+ 	connections->push(wall->ConnectedFrom()->as<IfcSchema::IfcRelConnectsPathElements>());
+ 	connections->push(  wall->ConnectedTo()->as<IfcSchema::IfcRelConnectsPathElements>());
+ 
+-	typedef std::vector<Handle_Geom_Surface> surfaces_t;
+-	typedef std::pair<Handle_Geom_Surface, Handle_Geom_Curve> curve_on_surface;
++	typedef std::vector<Handle(Geom_Surface)> surfaces_t;
++	typedef std::pair<Handle(Geom_Surface), Handle(Geom_Curve)> curve_on_surface;
+ 	typedef std::vector<curve_on_surface> curves_on_surfaces_t;
+ 	typedef std::vector< std::pair< std::pair<IfcSchema::IfcConnectionTypeEnum::Value, IfcSchema::IfcConnectionTypeEnum::Value>, const IfcSchema::IfcProduct*> > endpoint_connections_t;
+-	typedef std::vector< std::vector<Handle_Geom_Surface> > result_t;
++	typedef std::vector< std::vector<Handle(Geom_Surface)> > result_t;
+ 	endpoint_connections_t endpoint_connections;
+ 
+ 	// Find the semantic connections to other wall elements when they are not connected 'AT_PATH' because
+@@ -1318,8 +1318,8 @@ bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepre
+ 	{
+ 		// Copy the unfolded surfaces
+ 		result.resize(surfaces.size());
+-		std::vector< std::vector<Handle_Geom_Surface> >::iterator result_it = result.begin() + 1;
+-		std::vector<Handle_Geom_Surface>::const_iterator input_it = surfaces.begin() + 1;
++		std::vector< std::vector<Handle(Geom_Surface)> >::iterator result_it = result.begin() + 1;
++		std::vector<Handle(Geom_Surface)>::const_iterator input_it = surfaces.begin() + 1;
+ 		for(; input_it != surfaces.end() - 1; ++result_it, ++input_it) {
+ 			result_it->push_back(*input_it);
+ 		}
+@@ -1448,7 +1448,7 @@ bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepre
+ 		// that represents the entire 1d domain of the other wall
+ 		// Sometimes there are multiple edges in the Axis shape
+ 		// but it is assumed these are colinear.
+-		Handle_Geom_Curve other_axis_curve;
++		Handle(Geom_Curve) other_axis_curve;
+ 		double axis_u1, axis_u2;
+ 		{
+ 			TopExp_Explorer exp(axis_shape, TopAbs_EDGE);
+@@ -1496,7 +1496,7 @@ bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepre
+ 			bool found_intersection = false, parallel = false;
+ 			boost::optional<gp_Pnt> point_outside_param_range;
+ 
+-			const Handle_Geom_Surface& surface = *jt;
++			const Handle(Geom_Surface)& surface = *jt;
+ 
+ 			// Find the intersection point between the layerset surface
+ 			// and the other axis curve. If it's within the parametric
+@@ -1541,14 +1541,14 @@ bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepre
+ 				intersect(xy, yz2);
+ 				*/
+ 
+-				Handle_Geom_Surface plane = new Geom_Plane(*point_outside_param_range, gp::DZ());
++				Handle(Geom_Surface) plane = new Geom_Plane(*point_outside_param_range, gp::DZ());
+ 
+ 				// vertical edges at wall end point face.
+ 				curves_on_surfaces_t layer_ends;
+ 				util::intersect(surface, body_shape, layer_ends);
+ 
+-				Handle_Geom_Curve layer_body_intersection;
+-				Handle_Geom_Surface body_surface;
++				Handle(Geom_Curve) layer_body_intersection;
++				Handle(Geom_Surface) body_surface;
+ 				double mind = std::numeric_limits<double>::infinity();
+ 				for (curves_on_surfaces_t::const_iterator kt = layer_ends.begin(); kt != layer_ends.end(); ++kt) {
+ 					gp_Pnt p;
+@@ -1592,7 +1592,7 @@ bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepre
+ 					// Intersect layerset surface with ground plane
+ 					GeomAPI_IntSS intersection3(surface, plane, 1.e-7);
+ 					if (intersection3.IsDone() && intersection3.NbLines() == 1) {
+-						Handle_Geom_Curve layer_line = intersection3.Line(1);
++						Handle(Geom_Curve) layer_line = intersection3.Line(1);
+ 						GeomAdaptor_Curve layer_line_adaptor(layer_line);
+ 						ShapeAnalysis_Curve sac;
+ 						gp_Pnt layer_end_point_projected; double layer_end_point_param;
+@@ -1607,13 +1607,13 @@ bool IfcGeom::Kernel::fold_layers(const IfcSchema::IfcWall* wall, const IfcRepre
+ 
+ 							GeomAPI_IntSS intersection4(body_surface, plane, 1.e-7);
+ 							if (intersection4.IsDone() && intersection4.NbLines() == 1) {
+-								Handle_Geom_Curve body_trim_curve = intersection4.Line(1);
++								Handle(Geom_Curve) body_trim_curve = intersection4.Line(1);
+ 								ShapeAnalysis_Curve sac2;
+ 								gp_Pnt layer_fold_point_projected; double layer_fold_point_param;
+ 								sac2.Project(body_trim_curve, layer_fold_point, 1.e-7, layer_fold_point_projected, layer_fold_point_param, false);
+-								Handle_Geom_Curve fold_curve = new Geom_OffsetCurve(body_trim_curve->Reversed(), layer_fold_point_projected.Distance(layer_fold_point), gp::DZ());
++								Handle(Geom_Curve) fold_curve = new Geom_OffsetCurve(body_trim_curve->Reversed(), layer_fold_point_projected.Distance(layer_fold_point), gp::DZ());
+ 
+-								Handle_Geom_Surface fold_surface = new Geom_SurfaceOfLinearExtrusion(fold_curve, gp::DZ());
++								Handle(Geom_Surface) fold_surface = new Geom_SurfaceOfLinearExtrusion(fold_curve, gp::DZ());
+ 								result_vector->push_back(fold_surface);
+ 								folds_made = true;
+ 							}
+diff --git a/src/ifcgeom/IfcGeom.h b/src/ifcgeom/IfcGeom.h
+index 65be6ac83..abd9e4f68 100644
+--- a/src/ifcgeom/IfcGeom.h
++++ b/src/ifcgeom/IfcGeom.h
+@@ -268,8 +268,8 @@ public:
+ 	bool convert_face(const IfcUtil::IfcBaseInterface* L, TopoDS_Shape& result);
+ 	bool convert_openings(const IfcSchema::IfcProduct* entity, const IfcSchema::IfcRelVoidsElement::list::ptr& openings, const IfcRepresentationShapeItems& entity_shapes, const gp_Trsf& entity_trsf, IfcRepresentationShapeItems& cut_shapes);
+ 
+-	bool convert_layerset(const IfcSchema::IfcProduct*, std::vector<Handle_Geom_Surface>&, std::vector<std::shared_ptr<const SurfaceStyle>>&, std::vector<double>&);
+-	bool fold_layers(const IfcSchema::IfcWall*, const IfcRepresentationShapeItems&, const std::vector<Handle_Geom_Surface>&, const std::vector<double>&, std::vector< std::vector<Handle_Geom_Surface> >&);
++	bool convert_layerset(const IfcSchema::IfcProduct*, std::vector<Handle(Geom_Surface)>&, std::vector<std::shared_ptr<const SurfaceStyle>>&, std::vector<double>&);
++	bool fold_layers(const IfcSchema::IfcWall*, const IfcRepresentationShapeItems&, const std::vector<Handle(Geom_Surface)>&, const std::vector<double>&, std::vector< std::vector<Handle(Geom_Surface)> >&);
+ 	bool find_wall_end_points(const IfcSchema::IfcWall*, gp_Pnt& start, gp_Pnt& end);
+ 
+ 	IfcSchema::IfcSurfaceStyleShading* get_surface_style(IfcSchema::IfcRepresentationItem* item);
+diff --git a/src/ifcgeom/IfcPlane.cpp b/src/ifcgeom/IfcPlane.cpp
+index 1d635afc5..6d84e37b2 100644
+--- a/src/ifcgeom/IfcPlane.cpp
++++ b/src/ifcgeom/IfcPlane.cpp
+@@ -32,7 +32,7 @@
+ bool IfcGeom::Kernel::convert(const IfcSchema::IfcPlane* l, TopoDS_Shape& face) {
+ 	gp_Pln pln;
+ 	convert(l, pln);
+-	Handle_Geom_Surface surf = new Geom_Plane(pln);
++	Handle(Geom_Surface) surf = new Geom_Plane(pln);
+ #if OCC_VERSION_HEX < 0x60502
+ 	face = BRepBuilderAPI_MakeFace(surf);
+ #else
+diff --git a/src/ifcgeom/IfcPolygonalBoundedHalfSpace.cpp b/src/ifcgeom/IfcPolygonalBoundedHalfSpace.cpp
+index 59abf35fe..7d10882f5 100644
+--- a/src/ifcgeom/IfcPolygonalBoundedHalfSpace.cpp
++++ b/src/ifcgeom/IfcPolygonalBoundedHalfSpace.cpp
+@@ -52,8 +52,8 @@ bool IfcGeom::Kernel::convert(const IfcSchema::IfcPolygonalBoundedHalfSpace* l,
+ 		util::sequence_of_point_to_wire(points, wire, wire.Closed() != 0);
+ 	}
+ 
+-	TopoDS_Shape prism = BRepPrimAPI_MakePrism(BRepBuilderAPI_MakeFace(wire),gp_Vec(0,0,200));
+-	gp_Trsf down; down.SetTranslation(gp_Vec(0,0,-100.0));
++    TopoDS_Shape prism = BRepPrimAPI_MakePrism(BRepBuilderAPI_MakeFace(wire),gp_Vec(0, 0, 200*getValue(GV_LENGTH_UNIT)));
++	gp_Trsf down; down.SetTranslation(gp_Vec(0, 0, -100.0*getValue(GV_LENGTH_UNIT)));
+ 	
+ 	// `trsf` and `down` both have a unit scale factor
+ 	prism.Move(trsf*down);	
+diff --git a/src/ifcgeom/IfcTrimmedCurve.cpp b/src/ifcgeom/IfcTrimmedCurve.cpp
+index 76a8760af..78d6fda01 100644
+--- a/src/ifcgeom/IfcTrimmedCurve.cpp
++++ b/src/ifcgeom/IfcTrimmedCurve.cpp
+@@ -162,10 +162,10 @@ bool IfcGeom::Kernel::convert(const IfcSchema::IfcTrimmedCurve* l, TopoDS_Wire&
+ 
+ 		double radius = 1.0;
+ 		if (curve->DynamicType() == STANDARD_TYPE(Geom_Circle)) {
+-			auto circle_curve = Handle_Geom_Circle::DownCast(curve);
++			auto circle_curve = Handle(Geom_Circle)::DownCast(curve);
+ 			radius = circle_curve->Radius();
+ 		} else if (curve->DynamicType() == STANDARD_TYPE(Geom_Ellipse)) {
+-			auto circle_curve = Handle_Geom_Ellipse::DownCast(curve);
++			auto circle_curve = Handle(Geom_Ellipse)::DownCast(curve);
+ 			radius = (circle_curve->MajorRadius() + circle_curve->MinorRadius()) / 2.;
+ 		}
+ 
+diff --git a/src/ifcgeom/Serialization.cpp b/src/ifcgeom/Serialization.cpp
+index 9c3104a61..75bee3723 100644
+--- a/src/ifcgeom/Serialization.cpp
++++ b/src/ifcgeom/Serialization.cpp
+@@ -95,16 +95,16 @@ namespace {
+ #endif
+ 
+ template <>
+-int convert_to_ifc(const Handle_Geom_Curve& c, IfcSchema::IfcCurve*& curve, bool advanced) {
++int convert_to_ifc(const Handle(Geom_Curve)& c, IfcSchema::IfcCurve*& curve, bool advanced) {
+ 	if (c->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve)) {
+-		Handle_Geom_TrimmedCurve trim = Handle_Geom_TrimmedCurve::DownCast(c);
+-		const Handle_Geom_Curve basis = trim->BasisCurve();
++		Handle(Geom_TrimmedCurve) trim = Handle(Geom_TrimmedCurve)::DownCast(c);
++		const Handle(Geom_Curve) basis = trim->BasisCurve();
+ 		return convert_to_ifc(basis, curve, advanced);
+ 	} else if (c->DynamicType() == STANDARD_TYPE(Geom_Line)) {
+ 		IfcSchema::IfcDirection* d;
+ 		IfcSchema::IfcCartesianPoint* p;
+ 
+-		Handle_Geom_Line line = Handle_Geom_Line::DownCast(c);
++		Handle(Geom_Line) line = Handle(Geom_Line)::DownCast(c);
+ 
+ 		if (!convert_to_ifc(line->Position().Location(), p, advanced)) {
+ 			return 0;
+@@ -120,7 +120,7 @@ int convert_to_ifc(const Handle_Geom_Curve& c, IfcSchema::IfcCurve*& curve, bool
+ 	} else if (c->DynamicType() == STANDARD_TYPE(Geom_Circle)) {
+ 		IfcSchema::IfcAxis2Placement3D* ax;
+ 
+-		Handle_Geom_Circle circle = Handle_Geom_Circle::DownCast(c);
++		Handle(Geom_Circle) circle = Handle(Geom_Circle)::DownCast(c);
+ 
+ 		convert_to_ifc(circle->Position(), ax, advanced);
+ 		curve = new IfcSchema::IfcCircle(ax, circle->Radius());
+@@ -129,7 +129,7 @@ int convert_to_ifc(const Handle_Geom_Curve& c, IfcSchema::IfcCurve*& curve, bool
+ 	} else if (c->DynamicType() == STANDARD_TYPE(Geom_Ellipse)) {
+ 		IfcSchema::IfcAxis2Placement3D* ax;
+ 
+-		Handle_Geom_Ellipse ellipse = Handle_Geom_Ellipse::DownCast(c);
++		Handle(Geom_Ellipse) ellipse = Handle(Geom_Ellipse)::DownCast(c);
+ 
+ 		convert_to_ifc(ellipse->Position(), ax, advanced);
+ 		curve = new IfcSchema::IfcEllipse(ax, ellipse->MajorRadius(), ellipse->MinorRadius());
+@@ -138,7 +138,7 @@ int convert_to_ifc(const Handle_Geom_Curve& c, IfcSchema::IfcCurve*& curve, bool
+ 	}
+ #ifdef SCHEMA_HAS_IfcRationalBSplineSurfaceWithKnots
+ 	else if (c->DynamicType() == STANDARD_TYPE(Geom_BezierCurve)) {
+-		Handle_Geom_BezierCurve bezier = Handle_Geom_BezierCurve::DownCast(c);
++		Handle(Geom_BezierCurve) bezier = Handle(Geom_BezierCurve)::DownCast(c);
+ 
+ 		std::vector<int> mults;
+ 		std::vector<double> knots;
+@@ -184,7 +184,7 @@ int convert_to_ifc(const Handle_Geom_Curve& c, IfcSchema::IfcCurve*& curve, bool
+ 		return 1;
+ 	}
+ 	else if (c->DynamicType() == STANDARD_TYPE(Geom_BSplineCurve)) {
+-		Handle_Geom_BSplineCurve bspline = Handle_Geom_BSplineCurve::DownCast(c);
++		Handle(Geom_BSplineCurve) bspline = Handle(Geom_BSplineCurve)::DownCast(c);
+ 
+ 		IfcSchema::IfcCartesianPoint::list::ptr points(new IfcSchema::IfcCartesianPoint::list);
+ 		TColgp_Array1OfPnt poles(1, bspline->NbPoles());
+@@ -263,9 +263,9 @@ int convert_to_ifc(const Handle_Geom_Curve& c, IfcSchema::IfcCurve*& curve, bool
+ }
+ 
+ template <>
+-int convert_to_ifc(const Handle_Geom_Surface& s, IfcSchema::IfcSurface*& surface, bool advanced) {
++int convert_to_ifc(const Handle(Geom_Surface)& s, IfcSchema::IfcSurface*& surface, bool advanced) {
+ 	if (s->DynamicType() == STANDARD_TYPE(Geom_Plane)) {
+-		Handle_Geom_Plane plane = Handle_Geom_Plane::DownCast(s);
++		Handle(Geom_Plane) plane = Handle(Geom_Plane)::DownCast(s);
+ 		IfcSchema::IfcAxis2Placement3D* place;
+ 		/// @todo: Note that the Ax3 is converted to an Ax2 here
+ 		if (!convert_to_ifc(plane->Position().Ax2(), place, advanced)) {
+@@ -276,7 +276,7 @@ int convert_to_ifc(const Handle_Geom_Surface& s, IfcSchema::IfcSurface*& surface
+ 	}
+ #ifdef SCHEMA_HAS_IfcRationalBSplineSurfaceWithKnots
+ 	else if (s->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface)) {
+-		Handle_Geom_CylindricalSurface cyl = Handle_Geom_CylindricalSurface::DownCast(s);
++		Handle(Geom_CylindricalSurface) cyl = Handle(Geom_CylindricalSurface)::DownCast(s);
+ 		IfcSchema::IfcAxis2Placement3D* place;
+ 		/// @todo: Note that the Ax3 is converted to an Ax2 here
+ 		if (!convert_to_ifc(cyl->Position().Ax2(), place, advanced)) {
+@@ -287,7 +287,7 @@ int convert_to_ifc(const Handle_Geom_Surface& s, IfcSchema::IfcSurface*& surface
+ 	} else if (s->DynamicType() == STANDARD_TYPE(Geom_BSplineSurface)) {
+ 		typedef aggregate_of_aggregate_of<IfcSchema::IfcCartesianPoint> points_t;
+ 
+-		Handle_Geom_BSplineSurface bspline = Handle_Geom_BSplineSurface::DownCast(s);
++		Handle(Geom_BSplineSurface) bspline = Handle(Geom_BSplineSurface)::DownCast(s);
+ 		points_t::ptr points(new points_t);
+ 
+ 		TColgp_Array2OfPnt poles(1, bspline->NbUPoles(), 1, bspline->NbVPoles());
+@@ -390,7 +390,7 @@ int convert_to_ifc(const TopoDS_Edge& e, IfcSchema::IfcCurve*& c, bool advanced)
+ 	double a, b;
+ 	IfcSchema::IfcCurve* base;
+ 
+-	Handle_Geom_Curve crv = BRep_Tool::Curve(e, a, b);
++	Handle(Geom_Curve) crv = BRep_Tool::Curve(e, a, b);
+ 	if (!convert_to_ifc(crv, base, advanced)) {
+ 		return 0;
+ 	}
+@@ -421,7 +421,7 @@ int convert_to_ifc(const TopoDS_Edge& e, IfcSchema::IfcEdge*& edge, bool advance
+ 		return 0;
+ 	}
+ 
+-	Handle_Geom_Curve crv = BRep_Tool::Curve(e, a, b);
++	Handle(Geom_Curve) crv = BRep_Tool::Curve(e, a, b);
+ 
+ 	if (crv.IsNull()) {
+ 		return 0;
+@@ -445,13 +445,13 @@ int convert_to_ifc(const TopoDS_Edge& e, IfcSchema::IfcEdge*& edge, bool advance
+ }
+ 
+ namespace {
+-	bool is_polygonal(const Handle_Geom_Curve& crv) {
++	bool is_polygonal(const Handle(Geom_Curve)& crv) {
+ 		if (crv->DynamicType() == STANDARD_TYPE(Geom_Line)) {
+ 			return true;
+ 		} else if (crv->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve)) {
+-			return is_polygonal(Handle_Geom_TrimmedCurve::DownCast(crv)->BasisCurve());
++			return is_polygonal(Handle(Geom_TrimmedCurve)::DownCast(crv)->BasisCurve());
+ 		} else if (crv->DynamicType() == STANDARD_TYPE(Geom_BSplineCurve)) {
+-			auto bspl = Handle_Geom_BSplineCurve::DownCast(crv);
++			auto bspl = Handle(Geom_BSplineCurve)::DownCast(crv);
+ 			return bspl->NbPoles() == 2 && bspl->Degree() == 1;
+ 		} else {
+ 			return false;
+@@ -464,7 +464,7 @@ int convert_to_ifc(const TopoDS_Wire& wire, IfcSchema::IfcLoop*& loop, bool adva
+ 	bool polygonal = true;
+ 	for (TopExp_Explorer exp(wire, TopAbs_EDGE); exp.More(); exp.Next()) {
+ 		double a, b;
+-		Handle_Geom_Curve crv = BRep_Tool::Curve(TopoDS::Edge(exp.Current()), a, b);
++		Handle(Geom_Curve) crv = BRep_Tool::Curve(TopoDS::Edge(exp.Current()), a, b);
+ 		if (crv.IsNull()) {
+ 			continue;
+ 		}
+@@ -511,7 +511,7 @@ int convert_to_ifc(const TopoDS_Wire& wire, IfcSchema::IfcLoop*& loop, bool adva
+ 
+ template <>
+ int convert_to_ifc(const TopoDS_Face& f, IfcSchema::IfcFace*& face, bool advanced) {
+-	Handle_Geom_Surface surf = BRep_Tool::Surface(f);
++	Handle(Geom_Surface) surf = BRep_Tool::Surface(f);
+ 	TopExp_Explorer exp(f, TopAbs_WIRE);
+ 	IfcSchema::IfcFaceBound::list::ptr bounds(new IfcSchema::IfcFaceBound::list);
+ 	int index = 0;
+diff --git a/src/ifcgeom_schema_agnostic/IfcGeomRepresentation.cpp b/src/ifcgeom_schema_agnostic/IfcGeomRepresentation.cpp
+index e30b9a356..52803e431 100644
+--- a/src/ifcgeom_schema_agnostic/IfcGeomRepresentation.cpp
++++ b/src/ifcgeom_schema_agnostic/IfcGeomRepresentation.cpp
+@@ -312,7 +312,7 @@ IfcGeom::Representation::Triangulation::Triangulation(const BRep& shape_model)
+ 		for (exp.Init(s, TopAbs_FACE); exp.More(); exp.Next(), ++num_faces) {
+ 			TopoDS_Face face = TopoDS::Face(exp.Current());
+ 			TopLoc_Location loc;
+-			Handle_Poly_Triangulation tri = BRep_Tool::Triangulation(face, loc);
++			Handle(Poly_Triangulation) tri = BRep_Tool::Triangulation(face, loc);
+ 
+ 			if (tri.IsNull()) {
+ 				Logger::Message(Logger::LOG_ERROR, "Triangulation missing for face");
+@@ -346,7 +346,7 @@ IfcGeom::Representation::Triangulation::Triangulation(const BRep& shape_model)
+ 						if (normal_direction.Magnitude() > 1.e-9) {
+ 							normal = gp_Dir(normal_direction.XYZ() * rotation_matrix);
+ 						} else {
+-							Handle_Geom_Surface surf = BRep_Tool::Surface(face);
++							Handle(Geom_Surface) surf = BRep_Tool::Surface(face);
+ 							// Special case the normal at the poles of a spherical surface
+ 							if (surf->DynamicType() == STANDARD_TYPE(Geom_SphericalSurface)) {
+ 								if (fabs(fabs(uv.Y()) - M_PI / 2.) < 1.e-9) {
+diff --git a/src/ifcgeom_schema_agnostic/base_utils.cpp b/src/ifcgeom_schema_agnostic/base_utils.cpp
+index daf3712c7..d38dffa55 100644
+--- a/src/ifcgeom_schema_agnostic/base_utils.cpp
++++ b/src/ifcgeom_schema_agnostic/base_utils.cpp
+@@ -191,7 +191,7 @@ gp_Trsf IfcGeom::util::combine_offset_and_rotation(const gp_Vec & offset, const
+ }
+ 
+ 
+-bool IfcGeom::util::project(const Handle_Geom_Surface& srf, const TopoDS_Shape& shp, double& u1, double& v1, double& u2, double& v2, double widen) {
++bool IfcGeom::util::project(const Handle(Geom_Surface)& srf, const TopoDS_Shape& shp, double& u1, double& v1, double& u2, double& v2, double widen) {
+ 	// @todo std::unique_ptr for C++11
+ 	ShapeAnalysis_Surface* sas = 0;
+ 	Handle(Geom_Plane) pln;
+@@ -238,7 +238,7 @@ bool IfcGeom::util::project(const Handle_Geom_Surface& srf, const TopoDS_Shape&
+ 			const TopoDS_Edge& e = TopoDS::Edge(exp.Current());
+ 
+ 			double a, b;
+-			Handle_Geom_Curve crv = BRep_Tool::Curve(e, a, b);
++			Handle(Geom_Curve) crv = BRep_Tool::Curve(e, a, b);
+ 			gp_Pnt p;
+ 			crv->D0((a + b) / 2., p);
+ 
+@@ -391,24 +391,24 @@ bool IfcGeom::util::fit_halfspace(const TopoDS_Shape& a, const TopoDS_Shape& b,
+ }
+ 
+ 
+-const Handle_Geom_Curve IfcGeom::util::intersect(const Handle_Geom_Surface& a, const Handle_Geom_Surface& b) {
++const Handle(Geom_Curve) IfcGeom::util::intersect(const Handle(Geom_Surface)& a, const Handle(Geom_Surface)& b) {
+ 	GeomAPI_IntSS x(a, b, 1.e-7);
+ 	if (x.IsDone() && x.NbLines() == 1) {
+ 		return x.Line(1);
+ 	} else {
+-		return Handle_Geom_Curve();
++		return Handle(Geom_Curve)();
+ 	}
+ }
+ 
+-const Handle_Geom_Curve IfcGeom::util::intersect(const Handle_Geom_Surface& a, const TopoDS_Face& b) {
++const Handle(Geom_Curve) IfcGeom::util::intersect(const Handle(Geom_Surface)& a, const TopoDS_Face& b) {
+ 	return intersect(a, BRep_Tool::Surface(b));
+ }
+ 
+-const Handle_Geom_Curve IfcGeom::util::intersect(const TopoDS_Face& a, const Handle_Geom_Surface& b) {
++const Handle(Geom_Curve) IfcGeom::util::intersect(const TopoDS_Face& a, const Handle(Geom_Surface)& b) {
+ 	return intersect(BRep_Tool::Surface(a), b);
+ }
+ 
+-bool IfcGeom::util::intersect(const Handle_Geom_Curve& a, const Handle_Geom_Surface& b, gp_Pnt& p) {
++bool IfcGeom::util::intersect(const Handle(Geom_Curve)& a, const Handle(Geom_Surface)& b, gp_Pnt& p) {
+ 	GeomAPI_IntCS x(a, b);
+ 	if (x.IsDone() && x.NbPoints() == 1) {
+ 		p = x.Point(1);
+@@ -418,11 +418,11 @@ bool IfcGeom::util::intersect(const Handle_Geom_Curve& a, const Handle_Geom_Surf
+ 	}
+ }
+ 
+-bool IfcGeom::util::intersect(const Handle_Geom_Curve& a, const TopoDS_Face& b, gp_Pnt &c) {
++bool IfcGeom::util::intersect(const Handle(Geom_Curve)& a, const TopoDS_Face& b, gp_Pnt &c) {
+ 	return intersect(a, BRep_Tool::Surface(b), c);
+ }
+ 
+-bool IfcGeom::util::intersect(const Handle_Geom_Curve& a, const TopoDS_Shape& b, std::vector<gp_Pnt>& out) {
++bool IfcGeom::util::intersect(const Handle(Geom_Curve)& a, const TopoDS_Shape& b, std::vector<gp_Pnt>& out) {
+ 	TopExp_Explorer exp(b, TopAbs_FACE);
+ 	gp_Pnt p;
+ 	for (; exp.More(); exp.Next()) {
+@@ -433,12 +433,12 @@ bool IfcGeom::util::intersect(const Handle_Geom_Curve& a, const TopoDS_Shape& b,
+ 	return !out.empty();
+ }
+ 
+-bool IfcGeom::util::intersect(const Handle_Geom_Surface& a, const TopoDS_Shape& b, std::vector< std::pair<Handle_Geom_Surface, Handle_Geom_Curve> >& out) {
++bool IfcGeom::util::intersect(const Handle(Geom_Surface)& a, const TopoDS_Shape& b, std::vector< std::pair<Handle(Geom_Surface), Handle(Geom_Curve)> >& out) {
+ 	TopExp_Explorer exp(b, TopAbs_FACE);
+ 	for (; exp.More(); exp.Next()) {
+ 		const TopoDS_Face& f = TopoDS::Face(exp.Current());
+-		const Handle_Geom_Surface& s = BRep_Tool::Surface(f);
+-		Handle_Geom_Curve crv = intersect(a, s);
++		const Handle(Geom_Surface)& s = BRep_Tool::Surface(f);
++		Handle(Geom_Curve) crv = intersect(a, s);
+ 		if (!crv.IsNull()) {
+ 			out.push_back(std::make_pair(s, crv));
+ 		}
+@@ -458,7 +458,7 @@ bool IfcGeom::util::closest(const gp_Pnt& a, const std::vector<gp_Pnt>& b, gp_Pn
+ 	return minimal_distance != std::numeric_limits<double>::infinity();
+ }
+ 
+-bool IfcGeom::util::project(const Handle_Geom_Curve& crv, const gp_Pnt& pt, gp_Pnt& p, double& u, double& d) {
++bool IfcGeom::util::project(const Handle(Geom_Curve)& crv, const gp_Pnt& pt, gp_Pnt& p, double& u, double& d) {
+ 	ShapeAnalysis_Curve sac;
+ 	sac.Project(crv, pt, 1e-3, p, u, false);
+ 	d = pt.Distance(p);
+diff --git a/src/ifcgeom_schema_agnostic/base_utils.h b/src/ifcgeom_schema_agnostic/base_utils.h
+index f00d399a5..9cf761ccb 100644
+--- a/src/ifcgeom_schema_agnostic/base_utils.h
++++ b/src/ifcgeom_schema_agnostic/base_utils.h
+@@ -53,16 +53,16 @@ namespace IfcGeom {
+ 		gp_Pnt point_above_plane(const gp_Pln& pln, bool agree = true);
+ 
+ 		bool fit_halfspace(const TopoDS_Shape& a, const TopoDS_Shape& b, TopoDS_Shape& box, double& height, double tol);
+-		const Handle_Geom_Curve intersect(const Handle_Geom_Surface&, const Handle_Geom_Surface&);
+-		const Handle_Geom_Curve intersect(const Handle_Geom_Surface&, const TopoDS_Face&);
+-		const Handle_Geom_Curve intersect(const TopoDS_Face&, const Handle_Geom_Surface&);
+-		bool intersect(const Handle_Geom_Curve&, const Handle_Geom_Surface&, gp_Pnt&);
+-		bool intersect(const Handle_Geom_Curve&, const TopoDS_Face&, gp_Pnt&);
+-		bool intersect(const Handle_Geom_Curve&, const TopoDS_Shape&, std::vector<gp_Pnt>&);
+-		bool intersect(const Handle_Geom_Surface&, const TopoDS_Shape&, std::vector< std::pair<Handle_Geom_Surface, Handle_Geom_Curve> >&);
++		const Handle(Geom_Curve) intersect(const Handle(Geom_Surface)&, const Handle(Geom_Surface)&);
++		const Handle(Geom_Curve) intersect(const Handle(Geom_Surface)&, const TopoDS_Face&);
++		const Handle(Geom_Curve) intersect(const TopoDS_Face&, const Handle(Geom_Surface)&);
++		bool intersect(const Handle(Geom_Curve)&, const Handle(Geom_Surface)&, gp_Pnt&);
++		bool intersect(const Handle(Geom_Curve)&, const TopoDS_Face&, gp_Pnt&);
++		bool intersect(const Handle(Geom_Curve)&, const TopoDS_Shape&, std::vector<gp_Pnt>&);
++		bool intersect(const Handle(Geom_Surface)&, const TopoDS_Shape&, std::vector< std::pair<Handle(Geom_Surface), Handle(Geom_Curve)> >&);
+ 		bool closest(const gp_Pnt&, const std::vector<gp_Pnt>&, gp_Pnt&);
+-		bool project(const Handle_Geom_Curve&, const gp_Pnt&, gp_Pnt& p, double& u, double& d);
+-		bool project(const Handle_Geom_Surface&, const TopoDS_Shape&, double& u1, double& v1, double& u2, double& v2, double widen = 0.1);
++		bool project(const Handle(Geom_Curve)&, const gp_Pnt&, gp_Pnt& p, double& u, double& d);
++		bool project(const Handle(Geom_Surface)&, const TopoDS_Shape&, double& u1, double& v1, double& u2, double& v2, double widen = 0.1);
+ 
+ 
+ 		double shape_volume(const TopoDS_Shape& s);
+diff --git a/src/ifcgeom_schema_agnostic/boolean_utils.cpp b/src/ifcgeom_schema_agnostic/boolean_utils.cpp
+index d6c4b144a..f7cdf3670 100644
+--- a/src/ifcgeom_schema_agnostic/boolean_utils.cpp
++++ b/src/ifcgeom_schema_agnostic/boolean_utils.cpp
+@@ -264,8 +264,8 @@ bool IfcGeom::util::get_edge_axis(const TopoDS_Edge & e, gp_Ax1 & ax) {
+ 	double _, __;
+ 
+ 	auto crv = BRep_Tool::Curve(e, _, __);
+-	auto line = Handle_Geom_Line::DownCast(crv);
+-	auto bsple = Handle_Geom_BSplineCurve::DownCast(crv);
++	auto line = Handle(Geom_Line)::DownCast(crv);
++	auto bsple = Handle(Geom_BSplineCurve)::DownCast(crv);
+ 
+ 	if (line) {
+ 		ax = line->Position();
+diff --git a/src/ifcgeom_schema_agnostic/layerset.cpp b/src/ifcgeom_schema_agnostic/layerset.cpp
+index bc99a2d0c..15a29adb7 100644
+--- a/src/ifcgeom_schema_agnostic/layerset.cpp
++++ b/src/ifcgeom_schema_agnostic/layerset.cpp
+@@ -161,12 +161,12 @@ namespace {
+ }
+ 
+ 
+-bool IfcGeom::util::apply_folded_layerset(const IfcRepresentationShapeItems& items, const std::vector< std::vector<Handle_Geom_Surface> >& surfaces, const std::vector<std::shared_ptr<const SurfaceStyle>>& styles, IfcRepresentationShapeItems& result, double tol) {
++bool IfcGeom::util::apply_folded_layerset(const IfcRepresentationShapeItems& items, const std::vector< std::vector<Handle(Geom_Surface)> >& surfaces, const std::vector<std::shared_ptr<const SurfaceStyle>>& styles, IfcRepresentationShapeItems& result, double tol) {
+ 	Bnd_Box bb;
+ 	TopoDS_Shape input;
+ 	flatten_shape_list(items, input, false, tol);
+ 
+-	typedef std::vector< std::vector<Handle_Geom_Surface> > folded_surfaces_t;
++	typedef std::vector< std::vector<Handle(Geom_Surface)> > folded_surfaces_t;
+ 	typedef std::vector< std::pair< TopoDS_Face, std::pair<gp_Pnt, gp_Pnt> > > faces_with_mass_t;
+ 
+ 	TopTools_ListOfShape shells;
+@@ -175,7 +175,7 @@ bool IfcGeom::util::apply_folded_layerset(const IfcRepresentationShapeItems& ite
+ 		if (it->empty()) {
+ 			continue;
+ 		} else if (it->size() == 1) {
+-			const Handle_Geom_Surface& surface = (*it)[0];
++			const Handle(Geom_Surface)& surface = (*it)[0];
+ 			double u1, v1, u2, v2;
+ 			if (!project(surface, input, u1, v1, u2, v2)) {
+ 				continue;
+@@ -184,7 +184,7 @@ bool IfcGeom::util::apply_folded_layerset(const IfcRepresentationShapeItems& ite
+ 		} else {
+ 			faces_with_mass_t solids;
+ 			for (folded_surfaces_t::value_type::const_iterator jt = it->begin(); jt != it->end(); ++jt) {
+-				const Handle_Geom_Surface& surface = *jt;
++				const Handle(Geom_Surface)& surface = *jt;
+ 				double u1, v1, u2, v2;
+ 				if (!project(surface, input, u1, v1, u2, v2)) {
+ 					continue;
+@@ -279,7 +279,7 @@ bool IfcGeom::util::apply_folded_layerset(const IfcRepresentationShapeItems& ite
+ 
+ }
+ 
+-bool IfcGeom::util::apply_layerset(const IfcRepresentationShapeItems& items, const std::vector<Handle_Geom_Surface>& surfaces, const std::vector<std::shared_ptr<const SurfaceStyle>>& styles, IfcRepresentationShapeItems& result, double tol) {
++bool IfcGeom::util::apply_layerset(const IfcRepresentationShapeItems& items, const std::vector<Handle(Geom_Surface)>& surfaces, const std::vector<std::shared_ptr<const SurfaceStyle>>& styles, IfcRepresentationShapeItems& result, double tol) {
+ 	if (surfaces.size() < 3) {
+ 
+ 		return false;
+@@ -369,7 +369,7 @@ bool IfcGeom::util::apply_layerset(const IfcRepresentationShapeItems& items, con
+ }
+ 
+ 
+-bool IfcGeom::util::split_solid_by_surface(const TopoDS_Shape& input, const Handle_Geom_Surface& surface, TopoDS_Shape& front, TopoDS_Shape& back, double tol) {
++bool IfcGeom::util::split_solid_by_surface(const TopoDS_Shape& input, const Handle(Geom_Surface)& surface, TopoDS_Shape& front, TopoDS_Shape& back, double tol) {
+ 	// Use an unbounded surface, that isolate part of the input shape,
+ 	// to split this shape into two parts. Make sure that the addition
+ 	// of the two result volumes matches that of the input.
+@@ -407,7 +407,7 @@ bool IfcGeom::util::split_solid_by_shell(const TopoDS_Shape& input, const TopoDS
+ #if OCC_VERSION_HEX >= 0x70300
+ 	TopTools_ListOfShape shapes;
+ #else
+-	BOPCol_ListOfShape shapes;
++	TopTools_ListOfShape shapes;
+ #endif
+ 	shapes.Append(input);
+ 	shapes.Append(solid);
+diff --git a/src/ifcgeom_schema_agnostic/layerset.h b/src/ifcgeom_schema_agnostic/layerset.h
+index aff234aa2..227d9d442 100644
+--- a/src/ifcgeom_schema_agnostic/layerset.h
++++ b/src/ifcgeom_schema_agnostic/layerset.h
+@@ -10,11 +10,11 @@
+ 
+ namespace IfcGeom {
+ 	namespace util {
+-		bool apply_layerset(const IfcRepresentationShapeItems&, const std::vector<Handle_Geom_Surface>&, const std::vector<std::shared_ptr<const SurfaceStyle>>&, IfcRepresentationShapeItems&, double tol);
++		bool apply_layerset(const IfcRepresentationShapeItems&, const std::vector<Handle(Geom_Surface)>&, const std::vector<std::shared_ptr<const SurfaceStyle>>&, IfcRepresentationShapeItems&, double tol);
+ 
+-		bool apply_folded_layerset(const IfcRepresentationShapeItems&, const std::vector< std::vector<Handle_Geom_Surface> >&, const std::vector<std::shared_ptr<const SurfaceStyle>>&, IfcRepresentationShapeItems&, double tol);
++		bool apply_folded_layerset(const IfcRepresentationShapeItems&, const std::vector< std::vector<Handle(Geom_Surface)> >&, const std::vector<std::shared_ptr<const SurfaceStyle>>&, IfcRepresentationShapeItems&, double tol);
+ 
+-		bool split_solid_by_surface(const TopoDS_Shape&, const Handle_Geom_Surface&, TopoDS_Shape&, TopoDS_Shape&, double tol);
++		bool split_solid_by_surface(const TopoDS_Shape&, const Handle(Geom_Surface)&, TopoDS_Shape&, TopoDS_Shape&, double tol);
+ 
+ 		bool split_solid_by_shell(const TopoDS_Shape&, const TopoDS_Shape& s, TopoDS_Shape&, TopoDS_Shape&, double tol);
+ 	}
+diff --git a/src/ifcgeom_schema_agnostic/sweep_utils.cpp b/src/ifcgeom_schema_agnostic/sweep_utils.cpp
+index dcb9424b1..eabc4c5c0 100644
+--- a/src/ifcgeom_schema_agnostic/sweep_utils.cpp
++++ b/src/ifcgeom_schema_agnostic/sweep_utils.cpp
+@@ -118,7 +118,7 @@ bool IfcGeom::util::is_single_linear_edge(const TopoDS_Wire & wire) {
+ 		return false;
+ 	}
+ 	double u, v;
+-	Handle_Geom_Curve crv = BRep_Tool::Curve(e, u, v);
++	Handle(Geom_Curve) crv = BRep_Tool::Curve(e, u, v);
+ 	return crv->DynamicType() == STANDARD_TYPE(Geom_Line);
+ }
+ 
+@@ -133,7 +133,7 @@ bool IfcGeom::util::is_single_circular_edge(const TopoDS_Wire & wire) {
+ 		return false;
+ 	}
+ 	double u, v;
+-	Handle_Geom_Curve crv = BRep_Tool::Curve(e, u, v);
++	Handle(Geom_Curve) crv = BRep_Tool::Curve(e, u, v);
+ 	return crv->DynamicType() == STANDARD_TYPE(Geom_Circle);
+ }
+ 
+@@ -141,7 +141,7 @@ void IfcGeom::util::process_sweep_as_extrusion(const TopoDS_Wire & wire, const T
+ 	TopExp_Explorer exp(wire, TopAbs_EDGE);
+ 	TopoDS_Edge e = TopoDS::Edge(exp.Current());
+ 	double u, v;
+-	Handle_Geom_Curve crv = BRep_Tool::Curve(e, u, v);
++	Handle(Geom_Curve) crv = BRep_Tool::Curve(e, u, v);
+ 	const auto& dir = Handle(Geom_Line)::DownCast(crv)->Position().Direction();
+ 	// OCCT line is normalized so diff in parametric coords equals length
+ 	const double depth = std::abs(u - v);
+@@ -154,7 +154,7 @@ void IfcGeom::util::process_sweep_as_revolution(const TopoDS_Wire & wire, const
+ 	TopExp_Explorer exp(wire, TopAbs_EDGE);
+ 	TopoDS_Edge e = TopoDS::Edge(exp.Current());
+ 	double u, v;
+-	Handle_Geom_Curve crv = BRep_Tool::Curve(e, u, v);
++	Handle(Geom_Curve) crv = BRep_Tool::Curve(e, u, v);
+ 	auto circ = Handle(Geom_Circle)::DownCast(crv);
+ 	// @todo we could be extruding the wire only when we know this is an intermediate edge.
+ 	const double depth = std::abs(u - v);
+@@ -270,7 +270,7 @@ void IfcGeom::util::segment_adjacent_non_linear(const TopoDS_Wire & wire, std::v
+ 
+ 	for (int i = 0; i < (int)sorted_edges.size() - 1; ++i) {
+ 		const auto& e = sorted_edges[i];
+-		Handle_Geom_Curve crv = BRep_Tool::Curve(e, u, v);
++		Handle(Geom_Curve) crv = BRep_Tool::Curve(e, u, v);
+ 		const bool is_linear = crv->DynamicType() == STANDARD_TYPE(Geom_Line);
+ 
+ 		const auto& f = sorted_edges[i + 1];
+diff --git a/src/ifcgeom_schema_agnostic/wire_builder.cpp b/src/ifcgeom_schema_agnostic/wire_builder.cpp
+index f63f88f49..204ebc66f 100644
+--- a/src/ifcgeom_schema_agnostic/wire_builder.cpp
++++ b/src/ifcgeom_schema_agnostic/wire_builder.cpp
+@@ -81,7 +81,7 @@ double IfcGeom::util::deflection_for_approximating_circle(double radius, double
+ 	return -radius * std::cos(1. / 2. * param) * std::cos(param) - radius * std::sin(1. / 2. * param) * std::sin(param) + radius;
+ }
+ 
+-bool IfcGeom::util::create_edge_over_curve_with_log_messages(const Handle_Geom_Curve & crv, const double eps, const gp_Pnt & p1, const gp_Pnt & p2, TopoDS_Edge & result) {
++bool IfcGeom::util::create_edge_over_curve_with_log_messages(const Handle(Geom_Curve) & crv, const double eps, const gp_Pnt & p1, const gp_Pnt & p2, TopoDS_Edge & result) {
+ 	if (crv->IsClosed() && p1.Distance(p2) <= eps) {
+ 		BRepBuilderAPI_MakeEdge me(crv);
+ 		if (me.IsDone()) {
+diff --git a/src/ifcgeom_schema_agnostic/wire_builder.h b/src/ifcgeom_schema_agnostic/wire_builder.h
+index 7a75c32a7..339aef5f2 100644
+--- a/src/ifcgeom_schema_agnostic/wire_builder.h
++++ b/src/ifcgeom_schema_agnostic/wire_builder.h
+@@ -98,7 +98,7 @@ namespace IfcGeom {
+ 
+ 		double deflection_for_approximating_circle(double radius, double param);
+ 
+-		bool create_edge_over_curve_with_log_messages(const Handle_Geom_Curve& crv, const double eps, const gp_Pnt& p1, const gp_Pnt& p2, TopoDS_Edge& result);
++		bool create_edge_over_curve_with_log_messages(const Handle(Geom_Curve)& crv, const double eps, const gp_Pnt& p1, const gp_Pnt& p2, TopoDS_Edge& result);
+ 	}
+ }
+ 
+diff --git a/src/ifcgeom_schema_agnostic/wire_utils.cpp b/src/ifcgeom_schema_agnostic/wire_utils.cpp
+index b2a2eb50b..534eb9ada 100644
+--- a/src/ifcgeom_schema_agnostic/wire_utils.cpp
++++ b/src/ifcgeom_schema_agnostic/wire_utils.cpp
+@@ -209,7 +209,7 @@ IfcGeom::util::triangulate_wire_result IfcGeom::util::triangulate_wire(const std
+ 
+ 	int n123[3];
+ 	TopLoc_Location loc;
+-	Handle_Poly_Triangulation tri = BRep_Tool::Triangulation(face, loc);
++	Handle(Poly_Triangulation) tri = BRep_Tool::Triangulation(face, loc);
+ 
+ 	if (!tri.IsNull()) {
+ 
+@@ -507,7 +507,7 @@ bool IfcGeom::util::wire_intersections(const TopoDS_Wire& wire, TopTools_ListOfS
+ 								// Substitute with a new edge from/to the intersection point
+ 								if (p1.Distance(p2) > eps_real * 2) {
+ 									double _, __;
+-									Handle_Geom_Curve crv = BRep_Tool::Curve(e, _, __);
++									Handle(Geom_Curve) crv = BRep_Tool::Curve(e, _, __);
+ 									BRepBuilderAPI_MakeEdge me(crv, p1, p2);
+ 									TopoDS_Edge ed = me.Edge();
+ 									mw.Add(ed);
+@@ -600,7 +600,7 @@ bool IfcGeom::util::wire_to_sequence_of_point(const TopoDS_Wire& w, TColgp_Seque
+ 	TopExp_Explorer exp(w, TopAbs_EDGE);
+ 	for (; exp.More(); exp.Next()) {
+ 		double a, b;
+-		Handle_Geom_Curve crv = BRep_Tool::Curve(TopoDS::Edge(exp.Current()), a, b);
++		Handle(Geom_Curve) crv = BRep_Tool::Curve(TopoDS::Edge(exp.Current()), a, b);
+ 		if (crv->DynamicType() != STANDARD_TYPE(Geom_Line)) {
+ 			return false;
+ 		}
+diff --git a/src/serializers/SvgSerializer.cpp b/src/serializers/SvgSerializer.cpp
+index 36b3cdb1d..3c5c8c03f 100644
+--- a/src/serializers/SvgSerializer.cpp
++++ b/src/serializers/SvgSerializer.cpp
+@@ -130,7 +130,7 @@ void SvgSerializer::write(path_object& p, const TopoDS_Shape& comp_or_wire, boos
+ 			Handle(Geom2d_Curve) curve2d;
+ 			if (curve.IsNull()) {
+ 				TopLoc_Location loc;
+-				Handle_Geom_Surface surf;
++				Handle(Geom_Surface) surf;
+ 
+ 				BRep_Tool::CurveOnSurface(edge, curve2d, surf, loc, u1, u2);
+ 
