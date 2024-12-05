@@ -79,7 +79,7 @@ check-for-python3
 
 #  Run create_catalog for clusters setup
 
-[ -f create-catalog ] && ./create-catalog
+[[ -f create-catalog ]] && ./create-catalog
 
 #  Setup the HPC servers, the template file servers.pvsc will be used
 #  by the following script to replace (and copy with date if exist)
