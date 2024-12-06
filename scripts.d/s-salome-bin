@@ -279,6 +279,15 @@ function s-salome-bin-ng-env()
             add-to-var PYTHONPATH    $SMESH_ROOT_DIR/share/salome/plugins/smesh/Verima
         }
 
+    is-root-path $SALOME_BIN_MODULES $HDF5_ROOT_DIR &&
+        {
+            add-to-var CMAKE_PREFIX_PATH  $HDF5_ROOT_DIR/share/cmake/hdf5
+            set-var    HDF5_LIB           $HDF5_ROOT_DIR/lib
+            set-var    HDF5_LIBRARIES     $HDF5_ROOT_DIR/lib/libhdf5_cpp.so
+            add-to-var C_INCLUDE_PATH     $HDF5_INCLUDE_DIRS
+            add-to-var CPLUS_INCLUDE_PATH $HDF5_INCLUDE_DIRS
+        }
+
     unset -f define-var
     copy-function define-var-orig define-var
 
