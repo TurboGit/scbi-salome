@@ -36,6 +36,7 @@ function s-geom-common-depends()
 
 function s-geom-default-depends()
 {
+    echo s-common-geometry-lib
     echo s-omniorb
     echo s-qt
     echo s-salome-kernel

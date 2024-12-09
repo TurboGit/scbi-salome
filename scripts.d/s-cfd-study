@@ -1,4 +1,11 @@
 
+function s-cfd-study-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/code-saturne/salome_cfd_extensions
+}
 
 function s-cfd-study-out-of-tree()
 {

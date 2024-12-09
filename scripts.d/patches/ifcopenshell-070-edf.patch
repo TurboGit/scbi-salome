@@ -1,0 +1,30 @@
+diff --git a/cmake/CMakeLists.txt b/cmake/CMakeLists.txt
+index ebca9496e..ad91b0c97 100644
+--- a/cmake/CMakeLists.txt
++++ b/cmake/CMakeLists.txt
+@@ -794,6 +794,12 @@ endforeach()
+ string(REPLACE ";" ")(" schema_version_seq "(${SCHEMA_VERSIONS})")
+ add_definitions(-DSCHEMA_SEQ=${schema_version_seq})
+ 
++# GBO warning: We force the detection of python interp at this step instead of
++# in src/ifcwrap/CMakeListes.txt, to be sure that the SALOME python is used
++SET(PythonInterp_FIND_VERSION 3)
++SET(PythonInterp_FIND_VERSION_MAJOR 3)
++find_package(PythonInterp)
++
+ if(COMPILE_SCHEMA)
+     # @todo, this appears to be untested at the moment
+     find_package(PythonInterp)
+diff --git a/src/ifcwrap/CMakeLists.txt b/src/ifcwrap/CMakeLists.txt
+index b359410d6..1d41b9e33 100644
+--- a/src/ifcwrap/CMakeLists.txt
++++ b/src/ifcwrap/CMakeLists.txt
+@@ -66,6 +66,8 @@ endif()
+ 
+ # Try to find the Python interpreter to get the site-packages
+ # directory in which the wrapper can be installed.
++SET(PYTHON_MODULE_INSTALL_DIR lib/python)
++
+ FIND_PACKAGE(PythonInterp)
+ IF((PYTHONINTERP_FOUND AND NOT "${PYTHON_EXECUTABLE}" STREQUAL "") OR PYTHON_MODULE_INSTALL_DIR)
+     if (PYTHON_MODULE_INSTALL_DIR)

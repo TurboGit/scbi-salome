@@ -77,35 +77,6 @@ fi
 
 check-for-python3
 
-#  Run create_catalog for clusters setup
-
-[ -f create-catalog ] && ./create-catalog
-
-#  Setup the HPC servers, the template file servers.pvsc will be used
-#  by the following script to replace (and copy with date if exist)
-#  the file in $HOME/.config/ParaView
-
-CONFIG_PATH="$HOME/.config/ParaView"
-USER_SERVER_PVSC="$CONFIG_PATH/servers.pvsc"
-USER_PVSC_BACKUP=$USER_SERVER_PVSC"_"$(date '+%Y_%m_%d')
-
-cp $USER_SERVER_PVSC $USER_PVSC_BACKUP
-
-# Update server.pvsc
-python3 salome_hpc_visu_servers.py
-
-#  check that the new pvsc is different or not
-#  if the same we just delete the backup
-
-diff -q $USER_SERVER_PVSC $USER_PVSC_BACKUP
-if [[ $? -eq 0 ]]; then
-    rm $USER_PVSC_BACKUP
-else
-    echo "Files $USER_SERVER_PVSC and servers.pvsc are different."
-    echo "The backup $USER_PVSC_BACKUP has been created."
-fi
-
-
 #  remove pyhello et hello from salome app resource file
 
 [[ -n $(ls $HOME/.config/salome/SalomeApprc* 2>/dev/null) ]] &&

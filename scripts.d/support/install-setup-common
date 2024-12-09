@@ -190,17 +190,6 @@ function template-conversion()
         fi
     done
 
-    # Logger
-
-    [[ -f $PREFIX/extra.env.d/999_start_s_logger.py ]] &&
-        {
-            local USER_SHA=( $(echo $HOME | sha1sum) )
-            local USER_ID==${USER_SHA[0]}
-
-            sed -i "s/__USERID__/$USER_ID/g" \
-                $PREFIX/extra.env.d/999_start_s_logger.py
-        }
-
     true
 }
 
@@ -273,10 +262,10 @@ function check-for-python3()
         echo Python is embedded into salome on Red Hat
 
     else
-        if [ -z "$(python --version 2>&1 | grep ' 3\.')" ]; then
+        if [[ -z "$(python --version 2>&1 | grep ' 3\.')" ]]; then
             echo Python2 is default, checking for python3
 
-            if [ -f /usr/bin/python3 ]; then
+            if [[ -f /usr/bin/python3 ]]; then
                 echo Found Python3 in /usr/bin/python3, setup links
                 ln -s /usr/bin/python3 $SBINDIR/bin/salome/python
             else

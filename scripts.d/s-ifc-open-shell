@@ -1,12 +1,11 @@
 
-function s-ifc-open-shell-vcs() 
-{ 
+function s-ifc-open-shell-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/IfcOpenShell/IfcOpenShell.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/IfcOpenShell/IfcOpenShell.git
+}
 
 function s-ifc-open-shell-patches()
 {
@@ -16,6 +15,12 @@ function s-ifc-open-shell-patches()
     local KIND=$4
     local REF=$5
 
+    [[ $REF =~ 0.7 ]] &&
+        {
+            echo ifcopenshell-070.patch
+            echo ifcopenshell-070-edf.patch
+        }
+
     [[ $REF =~ "127bcaf96" ]] &&
         {
             echo ifcopenshell.patch
@@ -24,7 +29,7 @@ function s-ifc-open-shell-patches()
         }
 }
 
-function s-ifc-open-shell-default-depends()
+function s-ifc-open-shell-common-depends()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -33,11 +38,20 @@ function s-ifc-open-shell-default-depends()
     echo os@-python3
     echo c-gmp
     echo c-mpfr
+    echo s-eigen
+}
+
+function s-ifc-open-shell-default-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
     echo s-boost
     echo s-occt
     echo s-swig
     echo s-cgal
-    echo s-eigen
+    echo s-hdf5
     echo s-nlohmann-json3
 }
 
