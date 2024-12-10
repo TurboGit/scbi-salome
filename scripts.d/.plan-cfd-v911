@@ -13,18 +13,18 @@ s-scotch/cmake:#v7.0.4
 s-saturne:v8.0
 s-saturne-dbg:v8.0
 s-cfd-study:master
-s-code-syrthes:yf/master
+s-code-syrthes:5.0.10
 s-syrthes:mpa/salome9
 s-python-modules/wand
 
 [ = deb,10
-    s-salome/neptune.cfd:s10-V9_11_0
+    s-salome/cfd:s10-V9_11_0
 ]
 
 [ = deb,11
-    s-salome/neptune.cfd:s11-V9_11_0
+    s-salome/cfd:s11-V9_11_0
 ]
 
 [ = deb,9
-    s-salome/neptune.cfd:s9-V9_11_0
+    s-salome/cfd:s9-V9_11_0
 ]

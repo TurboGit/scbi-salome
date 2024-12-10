@@ -3,15 +3,20 @@
 @load cfd-v911/mpi
 @load ng-v911/mpi
 
+s-libccmio:92f08637
+s-coolprop:#6.4.3
+
+# Starting with v7.x of scotch the build is based on cmake
+s-scotch/cmake:#v7.0.4
 
 [
     s-saturne:v8.0
     s-saturne-dbg:v8.0
-    s-cfd-study
-    s-code-syrthes
-    s-syrthes
+    s-cfd-study:master
+    s-code-syrthes:5.0.10
+    s-syrthes:mpa/salome9
 ] /+ng
 
 [
     s-salome
-] /-core+ng.neptune.cfd
+] /-core+ng.cfd
