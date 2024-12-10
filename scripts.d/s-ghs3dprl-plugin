@@ -19,10 +19,6 @@ function s-ghs3dprl-plugin-ng-build-depends()
     echo s-salome-bin
 }
 
-function s-ghs3dprl-plugin-common-depends()
-{
-}
-
 function s-ghs3dprl-plugin-default-depends()
 {
     echo s-qt
