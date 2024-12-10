@@ -48,6 +48,8 @@ function s-saturne-common-depends()
 {
     echo s-libccmio
     echo s-coolprop
+    echo s-eos
+    echo s-neptune
     echo s-scotch
 }
 
@@ -150,3 +152,4 @@ function s-saturne-post-install()
     local TARGET=$2
 
     make install-doc
+}
