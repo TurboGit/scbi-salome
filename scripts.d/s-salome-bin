@@ -286,6 +286,20 @@ function s-salome-bin-ng-env()
             set-var    HDF5_LIBRARIES     $HDF5_ROOT_DIR/lib/libhdf5_cpp.so
             add-to-var C_INCLUDE_PATH     $HDF5_INCLUDE_DIRS
             add-to-var CPLUS_INCLUDE_PATH $HDF5_INCLUDE_DIRS
+        } ||
+            {
+                set-var    HDF5_ROOT_DIR      /usr
+                set-var    HDF5_LIB           $HDF5_ROOT_DIR/lib
+                set-var    HDF5_LIBRARIES     $(get-os-lib serial/libhdf5_cpp.so)
+                add-to-var C_INCLUDE_PATH     $(get-os-inc-dir serial/hdf5.h)
+                add-to-var CPLUS_INCLUDE_PATH $(get-os-inc-dir serial/hdf5.h)
+            }
+
+    is-root-path $SALOME_BIN_MODULES $CGAL_ROOT_DIR &&
+        {
+            add-to-var CMAKE_PREFIX_PATH  $CGAL_ROOT_DIR/lib/cmake/CGAL
+            add-to-var C_INCLUDE_PATH     $CGAL_ROOT_DIR/include
+            add-to-var CPLUS_INCLUDE_PATH $CGAL_ROOT_DIR/include
         }
 
     unset -f define-var

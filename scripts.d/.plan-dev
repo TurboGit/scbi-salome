@@ -90,7 +90,7 @@ s-python-modules/default.core.meshio
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
-s-cgal/auto:v4.13
+s-cgal/auto:v5.5.1
 s-ifc-open-shell:v0.7.0
 
 [
