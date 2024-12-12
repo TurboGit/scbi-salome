@@ -75,7 +75,7 @@ fi
 
 #  Check for python3
 
-check-for-python3
+check-for-python3 s-salome-kernel
 
 #  remove pyhello et hello from salome app resource file
 
