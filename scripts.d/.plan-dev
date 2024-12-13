@@ -177,6 +177,7 @@ s-ifc-open-shell:v0.7.0
         s-salome/default.core:s9-DEV
         s-tbb/auto:#4.4.6
         s-gdal:skip
+        s-ifc-open-shell:skip
 ]
 
 [ = deb,10
@@ -186,6 +187,7 @@ s-ifc-open-shell:v0.7.0
         s-python3-yaml/auto:3.13
         s-python3-scipy/auto:1.1
         s-gdal/auto:2.4.0
+        s-ifc-open-shell:skip
 
         #  Only needed starting with Debian-12
         os@-nlopt-cxx:skip
