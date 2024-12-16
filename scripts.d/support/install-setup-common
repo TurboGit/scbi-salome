@@ -242,7 +242,7 @@ function get-pck-status()
 # =============================================== get-pck-status
 function check-for-python3()
 {
-    local PULGIN=$1
+    local PLUGIN=$1
 
     local BINDIR=$(get-modules-dir $PWD)
 
