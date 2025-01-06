@@ -78,9 +78,9 @@ c-mpfr/auto:4.0
 
 s-libbatch:#2.5.0
 
-e-omniorb:#4.2.5
-e-python-omniorb
-e-omniorb-core/auto
+s-omniorb:#4.2.5
+s-python-omniorb
+s-omniorb-core/auto
 
 s-occt:#7.5.3p5
 s-cgns/auto:#4.2.0
