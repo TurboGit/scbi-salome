@@ -19,14 +19,16 @@ function s-hexablock-patches()
 
 function s-hexablock-build-depends()
 {
-    echo s-cmake
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
-    echo s-swig
     echo os@-graphviz-dev
     echo os@-doxygen
     echo os@-python3-docutils
+
+    echo s-cmake
+    echo s-swig
     echo s-salome-configuration
+    echo s-salome-bootstrap
 }
 
 function s-hexablock-depends()

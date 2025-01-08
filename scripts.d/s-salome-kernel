@@ -43,6 +43,7 @@ function s-salome-kernel-default-build-depends()
     echo os@-cppunit-dev
 
     echo s-swig
+    echo s-salome-bootstrap
 }
 
 function s-salome-kernel-mingw-build-depends()
@@ -118,6 +119,8 @@ function s-salome-kernel-env()
     add-to-var PATH               $PREFIX/bin/salome
     add-to-var CMAKE_PREFIX_PATH  $SalomeKERNEL_DIR
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/salome
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
     add-to-var PYTHONPATH         $PREFIX/bin/salome
     add-to-var PYTHONPATH         $PREFIX/lib/salome
     add-to-var PYTHONPATH         \
@@ -152,10 +155,8 @@ function s-salome-kernel-common-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
-    echo -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
     echo -DSALOME_USE_LIBBATCH=ON
     echo -DSALOME_USE_64BIT_IDS=ON
-    echo -DSALOME_BUILD_TESTS=ON
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}

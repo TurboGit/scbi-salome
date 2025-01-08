@@ -31,6 +31,7 @@ function s-light-build-depends()
 function s-light-depends()
 {
     echo s-salome-gui
+    echo s-salome-bootstrap
 }
 
 function s-light-env()

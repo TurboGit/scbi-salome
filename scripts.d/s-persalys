@@ -31,6 +31,11 @@ function s-persalys-patches()
         {
             echo persalys-v14.1-001.patch
         }
+
+    [[ $REF =~ "17.0" ]] &&
+        {
+            echo persalys-v17.0.1-001.patch
+        }
 }
 
 function s-persalys-common-build-depends()
@@ -49,6 +54,7 @@ function s-persalys-default-build-depends()
 
     echo s-py2cpp
     echo s-swig
+    echo s-salome-bootstrap
 
     [[ -z ${DISDOC} ]] &&
         {
@@ -138,6 +144,8 @@ function s-persalys-config-options()
     echo -DSalomeGUI_DIR=$SalomeGUI_DIR
     echo -DSalomeYACS_DIR=$SalomeYACS_DIR
     echo -DUSE_SPHINX=$DISDOC
+    echo -DPY2CPP_ROOT_DIR=$PY2CPP_ROOT_DIR
+    echo -DSalomeBootstrap_DIR=$SALOMEBOOTSTRAP_ROOT_DIR/__RUN_SALOME__/salome_adm/cmake_files
 }
 
 function s-persalys-config()

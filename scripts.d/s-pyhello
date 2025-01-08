@@ -14,12 +14,14 @@ function s-pyhello-salome-module()
 
 function s-pyhello-build-depends()
 {
+    echo os@-doxygen
+
     echo s-cmake
     echo s-swig
-    echo os@-doxygen
     echo s-salome-configuration
     echo s-qt
     echo s-pyqt
+    echo s-salome-bootstrap
 }
 
 function s-pyhello-depends()

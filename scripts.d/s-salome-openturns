@@ -20,10 +20,12 @@ function s-salome-openturns-common-build-depends()
 function s-salome-openturns-default-build-depends()
 {
     echo os@-python3-sphinx
-    echo s-swig
     echo os@-graphviz-dev
     echo os@-doxygen
     echo os@-python3-docutils
+
+    echo s-swig
+    echo s-salome-bootstrap
 }
 
 function s-salome-openturns-common-depends()
