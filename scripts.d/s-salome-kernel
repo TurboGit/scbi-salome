@@ -99,6 +99,7 @@ function s-salome-kernel-default-depends()
     echo os@-python3-numpy
     echo os@-python3-psutil
 
+    echo s-salome-bootstrap
     echo s-hdf5
     echo s-libbatch
     echo s-omniorb
@@ -118,6 +119,8 @@ function s-salome-kernel-env()
     add-to-var PATH               $PREFIX/bin/salome
     add-to-var CMAKE_PREFIX_PATH  $SalomeKERNEL_DIR
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/salome
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
     add-to-var PYTHONPATH         $PREFIX/bin/salome
     add-to-var PYTHONPATH         $PREFIX/lib/salome
     add-to-var PYTHONPATH         \

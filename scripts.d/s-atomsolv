@@ -22,6 +22,7 @@ function s-atomsolv-build-depends()
 function s-atomsolv-depends()
 {
     echo s-salome-configuration
+    echo s-salome-kernel
     echo s-atomgen
 }
 
