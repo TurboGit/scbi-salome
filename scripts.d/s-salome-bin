@@ -27,8 +27,9 @@ function s-salome-bin-ngwin-env()
     add-to-var CMAKE_PREFIX_PATH  $KERNEL_ROOT_DIR/salome_adm/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $GUI_ROOT_DIR/adm_local/cmake_files
     add-to-var CMAKE_PREFIX_PATH  $BOOST_ROOT_DIR/lib/cmake/tbb
-    add-to-var CMAKE_PREFIX_PATH  $PV_DIR
-    add-to-var CMAKE_PREFIX_PATH  $PV_DIR/vtk
+
+    add-to-var CMAKE_PREFIX_PATH  $PARAVIEW_ROOT_DIR
+    add-to-var CMAKE_PREFIX_PATH  $PARAVIEW_ROOT_DIR/lib/vtk
     add-to-var CMAKE_PREFIX_PATH  \
     	       $(last-modified-directory "$OSPRAY_ROOT_DIR/lib/cmake/ospray*")
     add-to-var CMAKE_PREFIX_PATH  \
@@ -37,12 +38,13 @@ function s-salome-bin-ngwin-env()
 	       $(last-modified-directory "$RKCOMMON_ROOT_DIR/lib/cmake/rkcommon-*")
     add-to-var CMAKE_PREFIX_PATH  \
 	       $(last-modified-directory "$OPENVKL_ROOT_DIR/lib/cmake/openvkl-*")
-    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5
-    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Test
-    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5UiTools
-    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5OpenGL
-    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5Xml
-    add-to-var CMAKE_PREFIX_PATH  $QT5_ROOT_DIR/lib/cmake/Qt5DataVisualization
+
+    add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5
+    add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5Test
+    add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5UiTools
+    add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5OpenGL
+    add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5Xml
+    add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5DataVisualization
 }
 
 ####################################################### LINUX
