@@ -52,6 +52,7 @@ function s-salome-gui-default-depends()
     echo s-pyqt
     echo s-paraview
     echo s-salome-kernel
+    echo s-salome-bootstrap
     echo s-occt
     echo s-hdf5
 }
