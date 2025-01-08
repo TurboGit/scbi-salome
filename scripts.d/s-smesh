@@ -26,6 +26,8 @@ function s-smesh-default-build-depends()
 {
     echo os@-sphinx-common
     echo os@-sphinx-intl
+
+    echo s-salome-bootstrap
 }
 
 function s-smesh-mpi-depends()

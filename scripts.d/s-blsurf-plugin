@@ -18,6 +18,11 @@ function s-blsurf-plugin-common-build-depends()
     echo os@-sphinx-common
 }
 
+function s-blsurf-plugin-default-build-depends()
+{
+    echo s-salome-bootstrap
+}
+
 function s-blsurf-plugin-ng-build-depends()
 {
     echo s-salome-bin

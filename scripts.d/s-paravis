@@ -7,16 +7,16 @@ function s-paravis-vcs()
     echo https://github.com/SalomePlatform/paravis
 }
 
-function s-paravis-ng-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo cp 
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES 
-    echo PARAVIS.tgz 
-} 
+function s-paravis-ng-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo cp
+    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
+    echo PARAVIS.tgz
+}
 
 function s-paravis-salome-module()
 {
@@ -36,6 +36,7 @@ function s-paravis-ng-build-depends()
 function s-paravis-default-build-depends()
 {
     echo s-qt
+    echo s-salome-bootstrap
 }
 
 function s-paravis-mpi-depends()

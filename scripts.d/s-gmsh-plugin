@@ -35,6 +35,7 @@ function s-gmsh-plugin-common-depends()
 function s-gmsh-plugin-default-depends()
 {
     echo s-salome-kernel
+    echo s-salome-bootstrap
     echo s-salome-gui
     echo s-omniorb
     echo s-qt

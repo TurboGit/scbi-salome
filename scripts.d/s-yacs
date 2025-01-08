@@ -20,6 +20,7 @@ function s-yacs-common-build-depends()
 function s-yacs-default-build-depends()
 {
     echo s-swig
+    echo s-salome-bootstrap
 }
 
 function s-yacs-ng-build-depends()

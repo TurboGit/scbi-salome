@@ -18,6 +18,11 @@ function s-component-common-build-depends()
     echo s-swig
 }
 
+function s-component-default-build-depends()
+{
+    echo s-salome-bootstrap
+}
+
 function s-component-ng-build-depends()
 {
     echo s-salome-bin

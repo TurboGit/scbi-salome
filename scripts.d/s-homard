@@ -169,6 +169,7 @@ function s-homard-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          -DSWIG_EXECUTABLE=${SWIG_ROOT_DIR}/bin/swig \
           ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
           ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
           ../src

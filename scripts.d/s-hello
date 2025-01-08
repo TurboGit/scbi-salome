@@ -14,7 +14,6 @@ function s-hello-salome-module()
 
 function s-hello-build-depends()
 {
-    echo s-cmake
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen
@@ -23,8 +22,11 @@ function s-hello-build-depends()
     echo os@-sphinx-intl
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
+
+    echo s-cmake
     echo s-swig
     echo s-salome-configuration
+    echo s-salome-bootstrap
 }
 
 function s-hello-depends()
