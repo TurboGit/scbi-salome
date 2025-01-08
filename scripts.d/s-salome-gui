@@ -27,6 +27,8 @@ function s-salome-gui-build-depends()
 {
     echo os@-sphinx-common
     [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
+
+    echo s-salome-bootstrap
 }
 
 function s-salome-gui-mpi-depends()
@@ -50,7 +52,6 @@ function s-salome-gui-default-depends()
     echo s-pyqt
     echo s-paraview
     echo s-salome-kernel
-    echo s-salome-bootstrap
     echo s-occt
     echo s-hdf5
 }
