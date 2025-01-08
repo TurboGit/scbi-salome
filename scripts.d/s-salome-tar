@@ -303,7 +303,6 @@ function s-salome-tar-install()
             bat_env2scbi env_launch.bat
         else
             sh_env2scbi env_launch.sh
-
         fi
     } > scbi_env.sh
 

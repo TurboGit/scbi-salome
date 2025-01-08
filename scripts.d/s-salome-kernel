@@ -37,10 +37,12 @@ function s-salome-kernel-default-build-depends()
 
     [[ -z ${DISDOC} ]] && echo os@-sphinx-common
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
-    echo s-swig
+
     echo os@-doxygen
     echo os@-graphviz
     echo os@-cppunit-dev
+
+    echo s-swig
 }
 
 function s-salome-kernel-mingw-build-depends()
@@ -48,10 +50,11 @@ function s-salome-kernel-mingw-build-depends()
     local DISDOC=$(is-enabled no-doc)
 
     [[ -z ${DISDOC} ]] && echo os@-sphinx-common
-    echo s-swig
     echo os@-doxygen
     echo os@-graphviz
     echo os@-cppunit-dev
+
+    echo s-swig
 }
 
 function s-salome-kernel-ng-build-depends()
