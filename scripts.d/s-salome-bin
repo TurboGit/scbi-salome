@@ -45,6 +45,43 @@ function s-salome-bin-ngwin-env()
     add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5OpenGL
     add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5Xml
     add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5DataVisualization
+
+    is-root-path $SALOME_BIN_MODULES $HOMARD_ROOT_DIR &&
+        {
+            # S inspirer de :
+        #    add-to-var PATH                   $NETCDF_ROOT_DIR/bin
+        #    add-to-var C_INCLUDE_PATH         $NETCDF_ROOT_DIR/include
+        #    add-to-var CPLUS_INCLUDE_PATH     $NETCDF_ROOT_DIR/include
+        #    add-to-var LIBRARY_PATH           $NETCDF_ROOT_DIR/lib
+        #    add-to-var LD_LIBRARY_PATH        $NETCDF_ROOT_DIR/lib
+
+            #HOMARD
+            add-to-var PATH                   "C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\bin"
+            add-to-var PATH                   $HOMARD_ROOT_DIR/bin
+            add-to-var PATH                   $HOMARD_ROOT_DIR/bin/salome
+            add-to-var PATH                   $HOMARD_ROOT_DIR/lib/salome
+# Variable deja prises en compte dans s-homard :
+#            add-to-var PYTHONPATH                   $HOMARD_ROOT_DIR/lib/salome/python3.9/site-packages/salome
+#            add-to-var SALOME_MODULES         HOMARD
+#            add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/homard
+#            set-var    HOMARD_ROOT_DIR    $PREFIX
+#            set-var    HOMARD_REP_EXE     $PREFIX/bin/salome
+#            set-var    HOMARD_EXE         homard
+    # variables à intégrer :
+    #[HOMARD]
+## context.addToPath(r"C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\bin")
+# PAS besoin # context.setVariable(r"HOMARD_ROOT_DIR", r"C:\Users\MS3EC48L\Work\issue28716\homard\install", overwrite=True)
+## context.addToPath(r"%HOMARD_ROOT_DIR%\bin")
+# context.addToPath(r"%HOMARD_ROOT_DIR%\bin\salome")
+# context.addToPath(r"%HOMARD_ROOT_DIR%\lib\salome")
+# context.addToPythonPath(r"%HOMARD_ROOT_DIR%\bin\salome")
+# context.addToPythonPath(r"%HOMARD_ROOT_DIR%\lib\salome")
+# context.addToPythonPath(r"%HOMARD_ROOT_DIR%\lib\python3.9\site-packages\salome")
+# context.appendVariable(r"SALOME_MODULES", r"HOMARD",separator=",")
+# context.appendVariable(r"SalomeAppConfig", r"%HOMARD_ROOT_DIR%\share\salome\resources\homard",separator=";")
+# context.setVariable(r"HOMARD_REP_EXE", r"%HOMARD_ROOT_DIR%\bin\salome", overwrite=True)
+# context.setVariable(r"HOMARD_EXE", r"homard.exe", overwrite=True)
+        }
 }
 
 ####################################################### LINUX
