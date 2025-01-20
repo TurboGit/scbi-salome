@@ -97,6 +97,9 @@ s-ifc-open-shell:v0.7.0
         # s-homard tool is now merged into s-homard module
         s-homard-tool:#1112hdf51103med410
         s-tbb
+        s-genericsolver
+        s-light
+        s-pylight
 ] :skip
 
 [
@@ -130,11 +133,9 @@ s-ifc-open-shell:v0.7.0
         s-samples
         s-atomsolv
         s-calculator
-        s-genericsolver
+        s-pycalculator
         s-hello
         s-pyhello
-        s-light
-        s-pylight
         s-shaper
         s-salome-openturns
         s-py2cpp
