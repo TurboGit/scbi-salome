@@ -6,13 +6,13 @@
 	|| \
     with-variant native os@-swig:[v]
 
-function s-swig-vcs() 
-{ 
+function s-swig-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/swig/swig 
-} 
+    echo none
+    echo git
+    echo https://github.com/swig/swig
+}
 
 function s-swig-archive()
 {
@@ -31,9 +31,9 @@ function s-swig-common-env()
     local TARGET=$2
     local VARIANT=$3
 
-    set-var    SWIG_ROOT_DIR $PREFIX
-    set-var    SWIG_ROOT     $PREFIX
-    add-to-var PATH          $PREFIX/bin
+    set-var        SWIG_ROOT_DIR $PREFIX
+    set-var        SWIG_ROOT     $PREFIX
+    prepend-to-var PATH          $PREFIX/bin
 }
 
 function s-swig-win-env()
