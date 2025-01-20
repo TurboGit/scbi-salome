@@ -104,6 +104,9 @@ function s-homard-ngwin-config-options()
     local PREFIX=$1
     local TARGET=$2
 # section a comparer avec la commande fiche pleiade https://forge.pleiade.edf.fr/issues/28716
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
     echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
 
     echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
