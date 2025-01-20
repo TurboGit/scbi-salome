@@ -35,6 +35,12 @@ function s-homard-default-build-depends()
     echo os@-sphinx-common
 }
 
+function s-homard-ngwin-build-depends()
+{
+    echo s-visual-c
+    echo s-salome-bin
+}
+
 function s-homard-common-depends()
 {
     echo s-salome-configuration
@@ -52,12 +58,6 @@ function s-homard-default-depends()
     echo s-med-coupling
     echo s-geom
     echo s-smesh
-}
-
-function s-homard-ngwin-build-depends()
-{
-    echo s-visual-c
-    echo e-salome-bin
 }
 
 function s-homard-ng-depends()
