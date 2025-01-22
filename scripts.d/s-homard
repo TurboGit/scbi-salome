@@ -88,6 +88,7 @@ function s-homard-ngwin-env()
     echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
 
     echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
+    #context.addToPath(r"C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\bin")
 }
 
 function s-homard-ctest-dir()
@@ -102,15 +103,17 @@ function s-homard-ngwin-config-options()
     local PREFIX=$1
     local TARGET=$2
 # section a comparer avec la commande fiche pleiade https://forge.pleiade.edf.fr/issues/28716
-    local CDEBUG=$(is-enabled cmake-debug)
-    local DISDOC=$(is-enabled no-doc)
+#    local CDEBUG=$(is-enabled cmake-debug)
+#    local DISDOC=$(is-enabled no-doc)
 
     echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
 
     echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
-    echo -DCMAKE_BUILD_TYPE="$(get-build-type CMAKE Release)"
-    echo  ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
-    echo  ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+    echo -DCMAKE_BUILD_TYPE=Release
+    #echo -DSALOME_CMAKE_DEBUG=ON
+    echo -DSALOME_BUILD_DOC=OFF
+# doute sur ces 2 options : -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_PARALLEL_LEVEL=8 
+#cmake -DCMAKE_INSTALL_PREFIX=C:\Users\ES4C769N\WP_DUC\install -DCONFIGURATION_ROOT_DIR=C:\Users\ES4C769N\Desktop\S_HOMARD\SOURCES\CONFIGURATION -DSALOME_BUILD_DOC=OFF  -S C:\Users\ES4C769N\Desktop\S_HOMARD\wp_DUC\FINAL\homard
 }
 
 function s-homard-config()
@@ -199,8 +202,25 @@ function s-homard-ngwin-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
+    # When building the documentation the .py & .med have been downloaded
+    # by sphinx. We need the fr artifacts to be on top of the _downloads
+    # directory for the tests to pass.
+
+    cd ../install
+
+    local DDIR=share/doc/salome/gui/HOMARD/fr/_downloads/
+
+    if [ -d $DDIR ]; then
+        (
+            cd $DDIR
+            for dir in $(ls -d *); do
+                ln -s $dir/* .
+            done
+        )
+    fi
+
 # télécharger les librairies manquantes :
-#    wget salome/Releases/Additionnal_windows_lib HOMARD_ROOT_DIR%\lib\salome
+    wget salome/Releases/Additionnal_windows_lib/medfwrap.dll HOMARD_ROOT_DIR%\lib\salome
 #     salome/Releases/Additionnal_windows_lib HOMARD_ROOT_DIR%\lib\salome
 }
 
