@@ -7,6 +7,25 @@ function s-homard-vcs()
     echo https://github.com/SalomePlatform/homard
 }
 
+function s-homard-cea-vcs()
+{
+    echo edf
+    echo none
+    echo git
+    echo https://codev-tuleap.cea.fr/plugins/git/salome/homard
+}
+
+function s-homard-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://minio.retd.edf.fr/salome/YAMM/Public/SALOME/sources/modules
+    echo HOMARD_SRC_$VERSION.tgz
+}
+
 function s-homard-salome-module()
 {
     echo HOMARD
@@ -78,6 +97,13 @@ function s-homard-env()
 
     add-to-var SALOME_MODULES     HOMARD
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/homard
+}
+
+function s-homard-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
 }
 
 function s-homard-ngwin-env()
