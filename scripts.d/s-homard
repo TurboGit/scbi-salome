@@ -58,6 +58,7 @@ function s-homard-ngwin-build-depends()
 {
     echo s-visual-c
     echo s-salome-bin
+    echo os@-cppunit-dev
 }
 
 function s-homard-common-depends()
@@ -140,6 +141,10 @@ function s-homard-ngwin-config-options()
     echo -DCMAKE_BUILD_TYPE=Release
     #echo -DSALOME_CMAKE_DEBUG=ON
     echo -DSALOME_BUILD_DOC=OFF
+
+    echo -DCPPUNIT_ROOT_DIR=${CPPUNIT_ROOT_DIR}
+    echo -DCPPUNIT_LIBRARIES=${CPPUNIT_ROOT_DIR}/lib/libcppunit.dll.a
+    echo -DBOOST_ROOT_DIR=${BOOST_ROOT_DIR}
 # doute sur ces 2 options : -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_PARALLEL_LEVEL=8 
 #cmake -DCMAKE_INSTALL_PREFIX=C:\Users\ES4C769N\WP_DUC\install -DCONFIGURATION_ROOT_DIR=C:\Users\ES4C769N\Desktop\S_HOMARD\SOURCES\CONFIGURATION -DSALOME_BUILD_DOC=OFF  -S C:\Users\ES4C769N\Desktop\S_HOMARD\wp_DUC\FINAL\homard
 }

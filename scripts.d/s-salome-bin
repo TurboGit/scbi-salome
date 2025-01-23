@@ -46,17 +46,18 @@ function s-salome-bin-ngwin-env()
     add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5Xml
     add-to-var CMAKE_PREFIX_PATH  $Qt5_DIR/lib/cmake/Qt5DataVisualization
 
+    add-to-var CMAKE_PREFIX_PATH  $IEXT/lib
     set-var CPPUNIT_ROOT_DIR      $IEXT
     set-var CPPUNIT_ROOT_DIR_EXP  $IEXT
     set-var CPPUNITHOME           $IEXT
     set-var CPPUNIT_ROOT          $IEXT
-    add-to-var C_INCLUDE_PATH         $CPPUNIT_ROOT_DIR/include
-    add-to-var CPLUS_INCLUDE_PATH     $CPPUNIT_ROOT_DIR/include
+    add-to-var C_INCLUDE_PATH         $CPPUNIT_ROOT_DIR/include/cppunit
+    add-to-var CPLUS_INCLUDE_PATH     $CPPUNIT_ROOT_DIR/include/cppunit
     add-to-var LIBRARY_PATH           $CPPUNIT_ROOT_DIR/lib
     add-to-var LD_LIBRARY_PATH        $CPPUNIT_ROOT_DIR/lib
 
-    is-root-path $SALOME_BIN_MODULES $HOMARD_ROOT_DIR &&
-        {
+#    is-root-path $SALOME_BIN_MODULES $HOMARD_ROOT_DIR &&
+#        {
             # S inspirer de :
         #    add-to-var PATH                   $NETCDF_ROOT_DIR/bin
         #    add-to-var C_INCLUDE_PATH         $NETCDF_ROOT_DIR/include
@@ -90,7 +91,7 @@ function s-salome-bin-ngwin-env()
 # context.appendVariable(r"SalomeAppConfig", r"%HOMARD_ROOT_DIR%\share\salome\resources\homard",separator=";")
 # context.setVariable(r"HOMARD_REP_EXE", r"%HOMARD_ROOT_DIR%\bin\salome", overwrite=True)
 # context.setVariable(r"HOMARD_EXE", r"homard.exe", overwrite=True)
-        }
+#        }
 }
 
 ####################################################### LINUX
