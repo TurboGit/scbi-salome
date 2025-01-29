@@ -251,6 +251,7 @@ s-ifc-open-shell:v0.7.0
         s-hdf5:skip
         s-netcdf:skip
         s-gdal:skip
+        s-salome-configuration:$CEA_VERSION
 ]
 
 [ = mingw
