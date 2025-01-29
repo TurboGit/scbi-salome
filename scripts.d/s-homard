@@ -112,9 +112,23 @@ function s-homard-ngwin-env()
     local PREFIX=$1
     local TARGET=$2
 
-    echo -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$PREFIX")
 
-    echo -DCONFIGURATION_ROOT_DIR=$(cygpath -w "$CONFIGURATION_ROOT_DIR")
+    set-var    SALOME_BIN_MODULES $(cygpath -m $SALOME_BIN_MODULES)
+
+    set-var    HOMARD_ROOT_DIR    $PREFIX
+    set-var    HOMARD_REP_EXE     $PREFIX/bin/salome
+    set-var    HOMARD_EXE         homard
+
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
+    add-to-var PYTHONPATH         \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+
+    add-to-var SALOME_MODULES     HOMARD
+    add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/homard
+    #  On Windows we remove plink from the PATH if present to force the
+    #  use of ssh.
+    remove-from-var PATH 'C:\Program Files\PuTTY'
+
     #context.addToPath(r"C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\bin")
 }
 
@@ -140,6 +154,9 @@ function s-homard-ngwin-config-options()
     #echo -DSALOME_CMAKE_DEBUG=ON
     echo -DSALOME_BUILD_DOC=OFF
 
+    echo -DPython3_EXECUTABLE=$(cygpath -m $PYTHONBIN)
+    echo -DPython3_LIBRARIES=$Python3_LIBRARIES
+    echo -DPython3_INCLUDE_DIRS=$Python3_INCLUDE_DIRS
     echo -DCPPUNIT_ROOT_DIR=${CPPUNIT_ROOT_DIR}
     echo -DCPPUNIT_LIBRARIES=${CPPUNIT_ROOT_DIR}/lib/libcppunit.dll.a
     echo -DBOOST_ROOT_DIR=${BOOST_ROOT_DIR}
