@@ -134,13 +134,6 @@ function s-homard-ngwin-env()
     #context.addToPath(r"C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\bin")
 }
 
-function s-homard-ctest-dir()
-{
-    local PREFIX=$1
-
-    echo $PREFIX/bin/salome/test
-}
-
 function s-homard-ngwin-config-options()
 {
     local PREFIX=$1
