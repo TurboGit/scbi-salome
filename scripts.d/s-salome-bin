@@ -16,6 +16,14 @@ function s-salome-bin-ngwin-env()
 
     . ${SALOME_BIN_APPLICATION}/scbi_env.sh
 
+    local VAR_WINDOWS_PATH=( CPPUNIT_ROOT_DIR_EXP GRAPHVIZ_ROOT_DIR_EXP  DOXYGEN_ROOT_DIR_EXP )
+    for V in ${VAR_WINDOWS_PATH[*]}; do
+        set-var $V $(cygpath -w ${!V})
+    done
+
+    echo $GUI_ROOT_DIR > /home/ES4C769N/tmp_env.sh
+    echo $CPPUNIT_ROOT_DIR_EXP >> /home/ES4C769N/tmp_env.sh
+
     #  Add some missing env vars
     set-var    LIBXML2_LIBRARY    $IEXT/lib/libxml2.lib
     add-to-var INCLUDE            "$BOOST_INCLUDE_DIR/boost"
