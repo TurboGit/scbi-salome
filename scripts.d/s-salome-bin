@@ -16,17 +16,21 @@ function s-salome-bin-ngwin-env()
 
     . ${SALOME_BIN_APPLICATION}/scbi_env.sh
 
-    local VAR_WINDOWS_PATH=( CPPUNIT_ROOT_DIR_EXP GRAPHVIZ_ROOT_DIR_EXP  DOXYGEN_ROOT_DIR_EXP )
-    for V in ${VAR_WINDOWS_PATH[*]}; do
-        set-var $V $(cygpath -w ${!V})
-    done
-
     echo $GUI_ROOT_DIR > /home/ES4C769N/tmp_env.sh
     echo $CPPUNIT_ROOT_DIR_EXP >> /home/ES4C769N/tmp_env.sh
 
     #  Add some missing env vars
     set-var    LIBXML2_LIBRARY    $IEXT/lib/libxml2.lib
     add-to-var INCLUDE            "$BOOST_INCLUDE_DIR/boost"
+
+    #HOMARD
+    add-to-var PATH                   "C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\bin"
+    add-to-var PATH                   $HOMARD_ROOT_DIR/bin
+    add-to-var PATH                   $HOMARD_ROOT_DIR/bin/salome
+    add-to-var PATH                   $HOMARD_ROOT_DIR/lib/salome
+
+    add-to-var CMAKE_PREFIX_PATH  $OPENCV_ROOT_DIR/W64/EXT/x64/vc15/lib
+
 
     add-to-var CMAKE_PREFIX_PATH  \
 	       $(last-modified-directory "$IROOT/cmake/share/cmake-*/Modules")
@@ -73,11 +77,6 @@ function s-salome-bin-ngwin-env()
         #    add-to-var LIBRARY_PATH           $NETCDF_ROOT_DIR/lib
         #    add-to-var LD_LIBRARY_PATH        $NETCDF_ROOT_DIR/lib
 
-            #HOMARD
-            add-to-var PATH                   "C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\bin"
-            add-to-var PATH                   $HOMARD_ROOT_DIR/bin
-            add-to-var PATH                   $HOMARD_ROOT_DIR/bin/salome
-            add-to-var PATH                   $HOMARD_ROOT_DIR/lib/salome
 # Variable deja prises en compte dans s-homard :
 #            add-to-var PYTHONPATH                   $HOMARD_ROOT_DIR/lib/salome/python3.9/site-packages/salome
 #            add-to-var SALOME_MODULES         HOMARD
