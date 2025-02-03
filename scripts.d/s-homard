@@ -151,7 +151,7 @@ function s-homard-ngwin-config-options()
     echo -DSIP_DIR=$(cygpath -m $SIPDIR)
     echo -DSIP_INCLUDE_DIR=$(cygpath -m $SIP_DIR/Lib/site-packages/sipbuild/module/source/12.7)
     echo -DOpenCV_DIR=$(cygpath -m $OPENCV_ROOT_DIR/x64/vc15/lib)
-    echo -DCMAKE_Fortran_COMPILER="C:/Program Files (x86)/Intel/oneAPI/compiler/2025.0/bin"
+    echo -DCMAKE_Fortran_COMPILER="C:/Program Files (x86)/Intel/oneAPI/compiler/2025.0/bin/ifx.exe"
     echo -DCPPUNIT_ROOT_DIR=$(cygpath -m $CPPUNIT_ROOT_DIR)
     echo -DCPPUNIT_LIBRARIES=${CPPUNIT_ROOT_DIR}/lib/libcppunit.dll.a
     echo -DBOOST_ROOT_DIR=${BOOST_ROOT_DIR}
