@@ -388,6 +388,7 @@ function s-salome-tar-install()
 
     if [[ -e $LIGHTAPPGUI ]]; then
         sed -i "s,https://www.salome-platform.org,https://salome.der.edf.fr,g" $LIGHTAPPGUI
+        sed -i "s,https://discourse.salome-platform.org,https://forge.pleiade.edf.fr/projects/salome-rex/issues,g" $LIGHTAPPGUI
     fi
 }
 
