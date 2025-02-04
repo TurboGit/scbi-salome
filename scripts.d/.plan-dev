@@ -279,7 +279,6 @@ s-ifc-open-shell:v0.7.0
         s-windows-kit:skip
         s-openturns-svm:skip
         s-med-file:skip
-        s-atomic:skip
         s-med-coupling:skip
         s-atomic:skip
         s-cgal:skip
