@@ -45,6 +45,7 @@ function s-atomic-common-depends()
 function s-atomic-default-depends()
 {
     echo s-salome-kernel
+    echo s-salome-bootstrap
     echo s-salome-gui
 }
 

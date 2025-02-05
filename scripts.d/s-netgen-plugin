@@ -32,8 +32,10 @@ function s-netgen-plugin-default-build-depends()
     echo os@-sphinx-intl
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
+
     echo s-swig
     echo s-qt
+    echo s-salome-bootstrap
 }
 
 function s-netgen-plugin-common-depends()

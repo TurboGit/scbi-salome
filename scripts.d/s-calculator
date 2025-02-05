@@ -14,17 +14,19 @@ function s-calculator-salome-module()
 
 function s-calculator-build-depends()
 {
-    echo s-cmake
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-python3-sphinx
     echo os@-python3-sphinx-rtd-theme
-    echo s-swig
     echo os@-graphviz-dev
     echo os@-graphviz
     echo os@-doxygen
     echo os@-python3-docutils
+
+    echo s-cmake
+    echo s-swig
     echo s-salome-configuration
+    echo s-salome-bootstrap
 }
 
 function s-calculator-depends()

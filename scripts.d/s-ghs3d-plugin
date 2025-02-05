@@ -27,6 +27,7 @@ function s-ghs3d-plugin-ng-build-depends()
 function s-ghs3d-plugin-default-depends()
 {
     echo s-salome-kernel
+    echo s-salome-bootstrap
     echo s-salome-gui
     echo s-geom
     echo s-smesh

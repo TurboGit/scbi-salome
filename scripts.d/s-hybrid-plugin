@@ -1,5 +1,4 @@
 
-
 function s-hybrid-plugin-vcs()
 {
     echo default
@@ -28,6 +27,7 @@ function s-hybrid-plugin-ng-build-depends()
 function s-hybrid-plugin-default-depends()
 {
     echo s-salome-kernel
+    echo s-salome-bootstrap
     echo s-salome-gui
     echo s-geom
     echo s-smesh

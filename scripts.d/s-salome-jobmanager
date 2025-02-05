@@ -22,6 +22,11 @@ function s-salome-jobmanager-ng-build-depends()
     echo s-salome-bin
 }
 
+function s-salome-jobmanager-default-build-depends()
+{
+    echo s-salome-bootstrap
+}
+
 function s-salome-jobmanager-common-depends()
 {
     echo s-salome-configuration

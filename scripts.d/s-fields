@@ -14,10 +14,12 @@ function s-fields-salome-module()
 
 function s-fields-build-depends()
 {
-    echo s-cmake
     echo os@-sphinx-common
     echo os@-sphinx-intl
     echo os@-python3-stemmer
+
+    echo s-cmake
+    echo s-salome-bootstrap
 }
 
 function s-fields-depends()

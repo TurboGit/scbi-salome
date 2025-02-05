@@ -97,7 +97,10 @@ s-ifc-open-shell:v0.7.0
         # s-homard tool is now merged into s-homard module
         s-homard-tool:#1112hdf51103med410
         s-tbb
+
+        # Not working with salome bootstrap
         s-genericsolver
+        s-atomsolv
         s-light
         s-pylight
 ] :skip
@@ -131,7 +134,6 @@ s-ifc-open-shell:v0.7.0
         s-hexablock
         s-hexablock-plugin
         s-samples
-        s-atomsolv
         s-calculator
         s-pycalculator
         s-hello
@@ -279,7 +281,6 @@ s-ifc-open-shell:v0.7.0
         s-windows-kit:skip
         s-openturns-svm:skip
         s-med-file:skip
-        s-atomic:skip
         s-med-coupling:skip
         s-atomic:skip
         s-cgal:skip
