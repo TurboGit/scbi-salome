@@ -5,6 +5,20 @@ function s-code-syrthes-out-of-tree()
     echo false
 }
 
+function s-code-syrthes-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # The following patch is to update setup
+    echo syrthes_setup.ini.salome.patch
+    echo syrthes_install.patch
+    echo CodeSyrthesInstall_sh.patch
+}
+
 function s-code-syrthes-ng-build-depends()
 {
     echo s-salome-bin
@@ -38,12 +52,14 @@ function s-code-syrthes-env()
     set-var    NOM_ARCH              Linux_x86_64
     set-var    SYRTHES_ROOT          $PREFIX
     set-var    SYRTHES_HOME          $PREFIX/arch/Linux_x86_64
+    set-var    SYRTHES4_HOME         $PREFIX/arch/Linux_x86_64
 
     add-to-var LD_LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH       $PREFIX/extern-libraries/opt/Stardis-0.8.2-GNU-Linux64/arch/Linux_x86_64/lib
     add-to-var PATH                  $SYRTHES_HOME/bin
     add-to-var PATH                  $SYRTHES_HOME/share/syrthes
-    add-to-var PYTHONPATH            $SYRTHES_HOME/lib/syrthesGui
+    add-to-var PYTHONPATH            $SYRTHES_ROOT/src/syrthes-gui/src/install #/SyrthesMain
+
 }
 
 function s-code-syrthes-config()
@@ -59,10 +75,17 @@ function s-code-syrthes-install()
     local PREFIX=$1
     local TARGET=$2
 
+    # syrthes-gui
+    cd $PREFIX/src/syrthes-gui/src
+    bash Install.sh
+
     cd $PREFIX/src/syrthes-install
     cp -f setup.ini.salome setup.ini
-    chmod +x syrthes_install.py
-    ./syrthes_install.py
+    chmod a+x $PREFIX/src/syrthes-install/syrthes_install.py
+    python3 syrthes_install.py
+    # On écrase l'interface précompilée par l'interface compilée avec SALOME
+    rm -rf $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/*
+    cp -r $PREFIX/src/syrthes-gui/src/install/* $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/
 }
 
 function s-code-syrthes-post-install()
@@ -70,8 +93,5 @@ function s-code-syrthes-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cd $PREFIX/src/syrthes-gui/src
-    sh Install.sh
-    mv $PREFIX/src/syrthes-gui/src/install \
-       $PREFIX/arch/Linux_x86_64/lib/syrthesGui
+    chmod a+x $PREFIX/arch/Linux_x86_64/bin/*
 }
