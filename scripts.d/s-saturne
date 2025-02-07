@@ -5,6 +5,19 @@ function s-saturne-out-of-tree()
     echo false
 }
 
+function s-saturne-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Patch for python path saturne8
+    echo salomeModuleLight.patch
+}
+
+
 function s-saturne-common-build-depends()
 {
     echo s-cmake
