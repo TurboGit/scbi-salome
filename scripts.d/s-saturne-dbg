@@ -7,6 +7,8 @@ function s-saturne-dbg-config-options()
     local TARGET=$2
 
     echo FC=gfortran
+    echo CC=mpicc
+    echo CCX=mpicxx
     echo --prefix=$PREFIX
     echo --enable-debug
     echo --disable-frontend
