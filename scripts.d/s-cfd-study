@@ -12,18 +12,6 @@ function s-cfd-study-out-of-tree()
     echo false
 }
 
-function s-cfd-study-patches()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-    local KIND=$4
-    local REF=$5
-
-    # the following patch is for V9_11_0 and above
-    echo cfdstudygui-actionshandler.patch
-}
-
 function s-cfd-study-salome-module()
 {
     echo CFDSTUDY
@@ -67,27 +55,30 @@ function s-cfd-study-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 
     add-to-var SALOME_MODULES    CFDSTUDY
-    add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/cfdstudy
+    add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/saturne8
 }
 
-function s-cfd-study-pre-config()
+function s-cfd-study-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    ../src/sbin/bootstrap
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DSALOME_BUILD_DOC=OFF
 }
 
 function s-cfd-study-config()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
-    ../src/configure --prefix=$PREFIX \
-                     --with-salome=$SALOME_ROOT_DIR \
-                     CS_ROOT_DIR=$CS_ROOT_DIR \
-                     OMNIIDL=$SALOME_BIN_MODULES/omniORB/bin/omniidl \
-                     SALOMEENVCMD=echo
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-cfd-study-build()
@@ -111,6 +102,6 @@ function s-cfd-study-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cp $PREFIX/share/salome/resources/cfdstudy/SalomeApp.xml \
-       $PREFIX/share/salome/resources/cfdstudy/SalomeAppSL.xml
+    cp $PREFIX/share/salome/resources/saturne8/SalomeAppSL.xml \
+       $PREFIX/share/salome/resources/saturne8/SalomeApp.xml
 }
