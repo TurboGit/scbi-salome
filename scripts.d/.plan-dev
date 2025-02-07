@@ -34,7 +34,7 @@ s-rkcommon:#1.5.1
 s-openvkl:#0.11.0
 s-ospray:#2.4.0
 s-uranie:#4.7.0
-s-root:#6-22-02
+s-root:#v6-28-10
 s-qt/auto:#5.15.2
 s-qmake/auto:#5.15.2
 s-pyqt/auto:#5.15.3
