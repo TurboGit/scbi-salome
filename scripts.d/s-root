@@ -1,11 +1,11 @@
 
-function s-root-vcs() 
-{ 
+function s-root-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/root-project/root.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/root-project/root.git
+}
 
 function s-root-archive()
 {
@@ -31,8 +31,11 @@ function s-root-patches()
     [[ $REF =~ 6-22-06 ]] &&
         echo root-6.22.06.patch
 
-    echo root-6.22-python-11.patch
-    echo root-include_limits.patch
+    [[ ! $REF =~ 6-28-10 ]] &&
+        {
+            echo root-6.22-python-11.patch
+            echo root-include_limits.patch
+        }
 }
 
 function s-root-build-depends()
