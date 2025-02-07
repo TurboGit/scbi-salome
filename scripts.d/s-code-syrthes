@@ -14,9 +14,17 @@ function s-code-syrthes-patches()
     local REF=$5
 
     # The following patch is to update setup
-    echo syrthes_setup.ini.salome.patch
-    echo syrthes_install.patch
-    echo CodeSyrthesInstall_sh.patch
+    echo syrthes/0001-fix-setup.ini.salome.patch
+    echo syrthes/0002-correction-lecture-fichiers-med-le-type-med_int-peut.patch
+    echo syrthes/0003-suppression-des-modifs-setup.ini.patch
+    echo syrthes/0004-conversion-format-msh-4.1-ascii-vers-syrthes-lecture.patch
+    echo syrthes/0005-Salome-Syrthes-module-name-changed-in-SYRTHES5GUI.patch
+    echo syrthes/0006-adapt-copy-selection-from-salome.patch
+    echo syrthes/0007-wip-show-dialog-option-for-SyrthesMain-default-True.patch
+    echo syrthes/0008-conversion-format-msh-4.1-ASCII-vers-Syrthes.-Lectur.patch
+    echo syrthes/0009-conversion-format-msh-4.1-ASCII-vers-Syrthes.-lectur.patch
+    echo syrthes/0010-optionnel.patch
+    echo syrthes/0011-menage.patch
 }
 
 function s-code-syrthes-ng-build-depends()
@@ -75,17 +83,10 @@ function s-code-syrthes-install()
     local PREFIX=$1
     local TARGET=$2
 
-    # syrthes-gui
-    cd $PREFIX/src/syrthes-gui/src
-    bash Install.sh
-
     cd $PREFIX/src/syrthes-install
     cp -f setup.ini.salome setup.ini
     chmod a+x $PREFIX/src/syrthes-install/syrthes_install.py
-    python3 syrthes_install.py
-    # On écrase l'interface précompilée par l'interface compilée avec SALOME
-    rm -rf $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/*
-    cp -r $PREFIX/src/syrthes-gui/src/install/* $PREFIX/arch/Linux_x86_64/lib/syrthes-GUI_exe/
+    python3 syrthes_install.py    
 }
 
 function s-code-syrthes-post-install()
