@@ -23,7 +23,7 @@ function s-homard-patches()
     echo activate-homard-tests.patch
 }
 
-function s-homard-build-depends()
+function s-homard-default-build-depends()
 {
     echo os@-sphinx-common
 
@@ -32,12 +32,12 @@ function s-homard-build-depends()
     echo s-salome-bootstrap
 }
 
-function s-homard-depends()
+function s-homard-default-depends()
 {
-    echo s-qt
-    echo s-pyqt
     echo os@-python3-sip-dev
 
+    echo s-qt
+    echo s-pyqt
     echo s-salome-configuration
     echo s-salome-kernel
     echo s-salome-gui
