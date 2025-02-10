@@ -78,7 +78,7 @@ function s-syrthes-pre-config()
     local PREFIX=$1
     local TARGET=$2
 
-    export PRE_CONFIG_DIR=$(pwd) && cd ../src && rm -rf * && git apply ${SCBI_ENV_DIR}/patches/module_syrthes/0001-SYRTHES-Resume-all-commits-from-moduleLight.patch && cd $PRE_CONFIG_DIR
+    export PRE_CONFIG_DIR=$(pwd) && cd ../../src && git apply ${SCBI_ENV_DIR}/patches/module_syrthes/0001-SYRTHES-Resume-all-commits-from-moduleLight.patch && cd $PRE_CONFIG_DIR
     wait
 }
 
