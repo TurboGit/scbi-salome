@@ -1,16 +1,15 @@
 
 
-function s-syrthes-patches()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-    local KIND=$4
-    local REF=$5
-
-    # The following patches are for mode SSL
-    echo fix_ssl_mode_sythes.patch
-}
+#function s-syrthes-patches()
+#{
+#    local PREFIX=$1
+#    local TARGET=$2
+#    local VARIANT=$3
+#    local KIND=$4
+#    local REF=$5
+#
+#    echo module_syrthes/moduleLightSYRTHES.patch
+#}
 
 function s-syrthes-salome-module()
 {
@@ -79,11 +78,8 @@ function s-syrthes-pre-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cd ../src
-    $(command -v python$PYTHON_VERSION) components.py
-    rm -rf doc idl resources src
-    mv SYRTHES_SRC/* .
-    cp -f CMakeLists.txt.tmp src/SYRTHES/CMakeLists.txt
+    export PRE_CONFIG_DIR=$(pwd) && cd ../src && rm -rf * && git apply ${SCBI_ENV_DIR}/patches/module_syrthes/0001-SYRTHES-Resume-all-commits-from-moduleLight.patch && cd $PRE_CONFIG_DIR
+    wait
 }
 
 function s-syrthes-config()
