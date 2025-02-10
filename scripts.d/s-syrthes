@@ -47,6 +47,8 @@ function s-syrthes-env()
     local TARGET=$2
 
     set-var     SYRTHES_ROOT_DIR    $PREFIX
+    set-var     SYRTHES5_ROOT_DIR    $PREFIX
+    set-var     SYRTHES5_DIR    $PREFIX
 
     add-to-var  LD_LIBRARY_PATH     $PREFIX/lib/salome
     add-to-var  PATH                $PREFIX/bin/salome
@@ -114,6 +116,6 @@ function s-syrthes-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cp $PREFIX/share/salome/resources/syrthes/SalomeApp.xml \
-       $PREFIX/share/salome/resources/syrthes/SalomeAppSL.xml
+    cp $PREFIX/share/salome/resources/syrthes5/SalomeAppSL.xml \
+       $PREFIX/share/salome/resources/syrthes5/SalomeApp.xml
 }
