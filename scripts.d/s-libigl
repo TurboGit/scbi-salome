@@ -1,0 +1,70 @@
+
+function s-libigl-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/libigl/libigl.git
+}
+
+function s-libigl-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-boost
+    echo s-eigen
+    echo s-pyqt
+    echo s-python3-numpy
+    echo s-cgal
+}
+
+function s-libigl-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    add-to-var PATH               $PREFIX/bin
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+}
+
+function s-libigl-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_INSTALL_LIBDIR:STRING=lib \
+          ../src
+}
+
+function s-libigl-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-libigl-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-libigl-prefix()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo NONE
+}
