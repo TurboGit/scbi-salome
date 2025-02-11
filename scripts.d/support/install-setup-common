@@ -269,6 +269,7 @@ function check-for-python3()
 
             if [[ -f /usr/bin/python3 ]]; then
                 echo Found Python3 in /usr/bin/python3, setup links
+                rm -f $SBINDIR/bin/salome/python
                 ln -s /usr/bin/python3 $SBINDIR/bin/salome/python
             else
                 echo Cannot found a Python3 installation.
