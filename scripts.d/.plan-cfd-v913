@@ -1,0 +1,30 @@
+# This plan is to build SALOME CFD
+
+@load v913/mpi
+
+s-salome/neptune.cfd
+
+s-libccmio:92f08637
+s-coolprop:#6.4.3
+
+# Starting with v7.x of scotch the build is based on cmake
+s-scotch/cmake:#v7.0.4
+
+s-saturne:salomeModuleLight
+s-saturne-dbg:salomeModuleLight
+s-cfd-study:moduleLight
+s-code-syrthes:6f974415ff
+s-syrthes:2988a157b
+s-python-modules/wand
+
+[ = deb,10
+    s-salome/cfd:s10-V9_13_0
+]
+
+[ = deb,11
+    s-salome/cfd:s11-V9_13_0
+]
+
+[ = deb,9
+    s-salome/cfd:s9-V9_13_0
+]
