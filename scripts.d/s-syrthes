@@ -1,16 +1,4 @@
 
-
-#function s-syrthes-patches()
-#{
-#    local PREFIX=$1
-#    local TARGET=$2
-#    local VARIANT=$3
-#    local KIND=$4
-#    local REF=$5
-#
-#    echo module_syrthes/moduleLightSYRTHES.patch
-#}
-
 function s-syrthes-salome-module()
 {
     echo SYRTHES
@@ -78,8 +66,7 @@ function s-syrthes-pre-config()
     local PREFIX=$1
     local TARGET=$2
 
-    export PRE_CONFIG_DIR=$(pwd) && cd ../../src && rm -rf * && git apply ${SCBI_ENV_DIR}/patches/module_syrthes/0001-SYRTHES-Resume-all-commits-from-moduleLight.patch && cd $PRE_CONFIG_DIR
-    wait
+    export PRE_CONFIG_DIR=$(pwd) && cd ../src && git apply --whitespace=nowarn ${SCBI_ENV_DIR}/patches/module_syrthes/0001-SYRTHES-Resume-all-commits-from-moduleLight.patch && cd $PRE_CONFIG_DIR
 }
 
 function s-syrthes-config()
