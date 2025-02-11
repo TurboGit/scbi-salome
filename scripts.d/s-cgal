@@ -2,13 +2,13 @@ with-variant native os@-cgal-dev:[v] \
        --env 'set-var CGALHOME /usr' \
              '[[ ${SCBI_MODVER[s-cgal]} =~ :*4. ]] && set-var CGALLIB -lCGAL'
 
-function s-cgal-vcs() 
-{ 
+function s-cgal-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/CGAL/cgal.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/CGAL/cgal.git
+}
 
 
 function s-cgal-patches()
