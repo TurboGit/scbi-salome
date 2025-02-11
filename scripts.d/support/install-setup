@@ -1,17 +1,25 @@
 #!/bin/bash
 
+#  Options:
+#
+#  --auto             : Automatic installation, no question,
+#                       no cluster support.
+#
+#  --direction <name> : Set direction to <name>, do not ask interactivelly
+#                       for it.
+
 source $(dirname ${BASH_SOURCE[0]})/install-setup-common
 
-AUTO=0
+AUTO=no
 DIRECTION=
 
 while [[ -n $1 ]]; do
     case "$1" in
         --auto)
-            AUTO=1;
+            AUTO=yes
             ;;
         --direction)
-            DIRECTION=$2;
+            DIRECTION=$2
             shift
             ;;
         *)
@@ -19,43 +27,6 @@ while [[ -n $1 ]]; do
     esac
     shift;
 done
-
-# verify salome-prerequisites version
-#
-pkg="salome-prerequisites-__SALOMEVERSION__"
-status=( $(get-pck-status "$pkg") )
-
-installed=${status[0]}
-candidate=${status[1]}
-depository=${status[2]}
-EXIT=0
-if [[ "$installed" == "(none)" ]]; then
-    echo "The package salome-prerequisites-__SALOMEVERSION__ is missing."
-    echo "Follow these steps to install the package:"
-    echo
-    echo "      # Refresh your sources.list:"
-    echo "          pkcon refresh"
-    echo
-    echo "      # Install the package:"
-    echo "          pkcon install salome-prerequisites-__SALOMEVERSION__"
-    echo
-    EXIT=1
-else
-    if [[ "$candidate" != "(none)" && "$installed" != "$candidate" ]] || [[ "$installed" != "$depository" ]]; then
-        echo "The package salome-prerequisites installed in your system is not up-to-date"
-        echo "Follow these steps to update your package: "
-        echo
-        echo "      # Remove your obsolete version of salome-prerequisites-__SALOMEVERSION__:"
-        echo "          pkcon remove salome-prerequisites-__SALOMEVERSION__"
-        echo
-        echo "      # Refresh your sources.list:"
-        echo "          pkcon refresh"
-        echo
-        echo "      # Install the package:"
-        echo "          pkcon install salome-prerequisites-__SALOMEVERSION__"
-        EXIT=1
-    fi
-fi
 
 if [[ $EXIT -ne "0" ]]; then
     read -p "Do you want to continue installation of salome? [Yes|No] "
@@ -96,7 +67,7 @@ echo
 prefix=$PWD
 SUDO=""
 
-if [[ $AUTO == 0 ]]; then
+if [[ $AUTO == no ]]; then
     prefix=$(get-install-directory \$HOME/opt/salome)
 
     SUDO=""
@@ -112,7 +83,7 @@ template-conversion $prefix $DISTRIBUTION_ID $OS_VERSION
 # Add icon link on desktop
 create-desktop-icon $prefix __SALOMEVERSION__
 
-if [[ $AUTO == 0 ]]; then
+if [[ $AUTO == no ]]; then
     $SUDO rm -f $prefix/setup $prefix/install-setup-common
 
     $SUDO chown $USER -R $prefix
