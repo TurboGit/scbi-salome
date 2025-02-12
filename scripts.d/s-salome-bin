@@ -347,7 +347,7 @@ function s-salome-bin-ng-env()
             {
                 #  We are in NG mode and HDF5 is not provided in the binaries,
                 #  use the OS one.
-                set-var    HDF5_ROOT_DIR      /usr
+                set-var    HDF5_ROOT_DIR      $(get-os-lib serial)
                 set-var    HDF5_LIB           $HDF5_ROOT_DIR/lib
                 set-var    HDF5_LIBRARIES     \
                            "$(get-os-lib serial/libhdf5.so);$(get-os-lib serial/libhdf5_cpp.so)"
