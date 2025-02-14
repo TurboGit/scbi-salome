@@ -30,6 +30,7 @@ function s-occt-common-depends()
     echo os@-freetype-dev
     echo os@-freeimage-dev
     echo os@-gl2ps-dev
+    echo os@-rapidjson-dev
 }
 
 function s-occt-default-depends()
