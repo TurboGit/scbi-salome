@@ -30,4 +30,4 @@ os@-texlive                         texlive
 os@-texlive-latex-extra             texlive-latex-extra
 os@-boost-serialization-dev         libboost-serialization-dev
 os@-boost-filestsystem-dev          libboost-filesystem-dev
-os@pyqt-sip                         python3-pyqt5.sip
+os@-pyqt-sip                        python3-pyqt5.sip

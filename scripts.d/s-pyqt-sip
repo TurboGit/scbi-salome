@@ -1,7 +1,7 @@
 
 inherit-plugin --name handle-dist s-python-post-install-dist-packages
 
-with-variant native os@pyqt-sip:[v]
+with-variant native os@-pyqt-sip:[v]
 
 function s-pyqt-sip-archive()
 {
