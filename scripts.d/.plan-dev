@@ -47,6 +47,8 @@ s-tbb/auto:v2021.11.0
 
 s-dataio:v0.1.1
 
+s-irbm:main
+
 # downgrade netgen to 5.3.1 because 6.x creates buggy meshes in many cases.
 #
 # s-netgen/cmake:#6.2.2101
