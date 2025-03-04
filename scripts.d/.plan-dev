@@ -47,6 +47,7 @@ s-tbb/auto:v2021.11.0
 
 s-dataio:v0.1.1
 
+s-mesh-boolean-plugin:main
 s-irbm:main
 s-libigl:v2.5.0
 

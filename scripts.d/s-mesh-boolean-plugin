@@ -1,0 +1,103 @@
+
+function s-mesh-boolean-plugin-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/meshbooleanplugin
+}
+
+function s-mesh-boolean-plugin-build-depends()
+{
+    echo s-cmake
+}
+
+function s-mesh-boolean-plugin-depends()
+{
+    echo os@-qwt-qt5-dev
+
+    echo s-salome-configuration
+    echo s-smesh
+    echo s-libigl
+    echo s-irbm
+    echo s-pyqt
+    echo s-python3-numpy
+    echo s-cgal
+}
+
+function s-mesh-boolean-plugin-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    MESHBOOLEANGPLUGIN_ROOT_DIR $PREFIX
+    add-to-var PATH                        $PREFIX/bin
+    add-to-var PYTHONPATH                  $PREFIX/plugins
+}
+
+function s-mesh-boolean-plugin-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DCMAKE_INSTALL_LIBDIR:STRING=lib
+    echo -DBUILD_CGAL=ON
+    echo -DBUILD_MCUT=OFF
+    echo -DBUILD_IRMB=OFF
+    echo -DBUILD_CORK=OFF
+    echo -DBUILD_IGL=ON
+}
+
+function s-mesh-boolean-plugin-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-mesh-boolean-plugin-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make -j$SCBI_JOBS
+}
+
+function s-mesh-boolean-plugin-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
+}
+
+function s-mesh-boolean-plugin-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local FILE=${PREFIX}/plugins/meshbooleanplugin/MyPlugDialog_ui.py
+
+    #  Delete last line:
+    sed '$d' $FILE > MyPlugDialog_ui.py
+
+    #  Then add:
+    echo "from qwt import QwtPlot" >> MyPlugDialog_ui.py
+    echo                           >> MyPlugDialog_ui.py
+
+    #  Copy back the Python module
+    mv MyPlugDialog_ui.py $FILE
+}
+
+function s-mesh-boolean-plugin-prefix()
+{
+    echo NONE
+}
