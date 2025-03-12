@@ -125,8 +125,8 @@ function template-conversion()
     for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
         if [[ -f $SCRIPTS ]]; then
             ## VM build
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
+            # (e/s)-salome-tar (keep BINARIES-DB11)
+            sed -i "s,/builds/.*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
             sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
@@ -134,8 +134,8 @@ function template-conversion()
             sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
+            # (e/s)-salome-tar (keep BINARIES-DB11)
+            sed -i "s,$HOME/dev/build-[0-Z\-]*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
             sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
@@ -148,8 +148,8 @@ function template-conversion()
     for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_MAKEFILE; do
         if [[ -f $SCRIPTS ]]; then
             ## VM build
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
+            # (e/s)-salome-tar (keep BINARIES-DB11)
+            sed -i "s,/builds/.*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
             sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
@@ -157,8 +157,8 @@ function template-conversion()
             sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
+            # (e/s)-salome-tar (keep BINARIES-DB11)
+            sed -i "s,$HOME/dev/build-[0-Z\-]*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
             sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
@@ -171,8 +171,8 @@ function template-conversion()
     for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_GUI; do
         if [[ -f $SCRIPTS ]]; then
             ## VM build
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
+            # (e/s)-salome-tar (keep BINARIES-DB11)
+            sed -i "s,/builds/.*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
             sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
@@ -180,8 +180,8 @@ function template-conversion()
             sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
+            # (e/s)-salome-tar (keep BINARIES-DB11)
+            sed -i "s,$HOME/dev/build-[0-Z\-]*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
             sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
