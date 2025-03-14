@@ -49,19 +49,12 @@ function comment-out-sh-block()
     comment-out-block $FILE "setting environ for $PAT[^[:alpha:]]" "# "
 }
 
-function comment-out-python-block()
+function disable-binary-module()
 {
-    local FILE=$1
+    local PREFIX=$1
     local PAT="$2"
 
-    comment-out-block $FILE "#\[$PAT\]" "# "
-}
-
-function comment-out-ttk-block()
-{
-    local FILE=$1
-
-    comment-out-block $FILE  "#\[TTK\]" "# "
+    rm -f $PREFIX/extra.env.d/????_${PAT}*
 }
 
 function s-salome-tar-install()
@@ -259,7 +252,8 @@ function s-salome-tar-install()
             else
                 comment-out-sh-block $PREFIX/env_launch.sh "$PAT"
             fi
-            comment-out-python-block $PREFIX/salome "$PAT"
+
+            disable-binary-module $PREFIX "$PAT"
 
 	    PAT=$PAT'[^a-zA-Z_]'
 
@@ -281,7 +275,7 @@ function s-salome-tar-install()
     if [[ $SCBI_OS_ID == "Debian" ]] &&
            [[ $SCBI_OS_MAJOR_VERSION == "12" ]];
     then
-        comment-out-ttk-block $PREFIX/salome
+        disable-binary-module $PREFIX TTK
     fi
 
     #  Remove CONFIGURATION setting from env_launch.sh & salome driver
@@ -293,7 +287,8 @@ function s-salome-tar-install()
     else
         comment-out-sh-block $PREFIX/env_launch.sh "CONFIGURATION"
     fi
-    comment-out-python-block $PREFIX/salome "CONFIGURATION"
+
+    disable-binary-module $PREFIX CONFIGURATION
 
     #  Create the SCBI version of env_launch.sh -> env_scbi.sh
     #  We also patches some syntax error: out_dir_Path -> ${out_dir_Path}
