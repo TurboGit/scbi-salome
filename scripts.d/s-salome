@@ -151,12 +151,16 @@ function setup-env-salome()
     local VARIANT=$3
 
     local APPDIR=$SCBI_BDIR/s-salome/$TARGET-$VARIANT
+    local N=0
 
     #  If BINARIES-* not found, this is a full EDF build
     if [[ -z $SALOME_BINARY_DIR ]]; then
         SBINDIR=EDF/s-salome-kernel
     else
         SBINDIR=$SALOME_BINARY_DIR/SALOME
+        #  Start EDF env script numbering at 500. The binary modules
+        #  comes with some scripts starting at 0001.
+        local N=500
     fi
 
     #  THIS ROUTINE should be used to loop over all NEW dependencies (modules
@@ -166,7 +170,6 @@ function setup-env-salome()
     (
         local SFILE=""
         local PFILE=""
-        local N=1
 
         CURRENT_MODULE_NAME=
         CURRENT_MODULE=
@@ -378,9 +381,9 @@ function setup-env-salome()
             get-target-dir CURRENT_MODULE_INSTALL $module $variant install
 
             if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
-                NUM=998
+                NUM="0998"
             else
-                NUM=$(printf "%03d" ${N})
+                NUM=$(printf "%04d" ${N})
             fi
 
             SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
@@ -451,8 +454,10 @@ EOF
         mkdir -p extra.env.d
 
         #  Override some possible values
+        NUM=$(printf "%04d" ${N})
+        N=$(( N + 1 ))
 
-        PFILE="extra.env.d/000_setup.py"
+        PFILE="extra.env.d/${NUM}_setup.py"
 
         local s_info=()
         get-module-ref s_info s-salome
@@ -471,7 +476,7 @@ EOF
             echo '   context.setVariable(r"SALOME_ON_DEMAND", r"HIDE", overwrite=True)'
         } > $PFILE
 
-        SFILE="extra.env.d/000_setup.sh"
+        SFILE="extra.env.d/${NUM}_setup.sh"
 
         {
             #  Dump definition of *-var-sep from SCBI
