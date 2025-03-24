@@ -10,11 +10,11 @@ s-coolprop:#6.4.3
 s-scotch/cmake:#v7.0.4
 
 [
-    s-saturne:v8.0
-    s-saturne-dbg:v8.0
-    s-cfd-study:master
-    s-code-syrthes:5.0.10
-    s-syrthes:mpa/salome9
+    s-saturne
+    s-saturne-dbg
+    s-cfd-study
+    s-code-syrthes
+    s-syrthes
 ] /+ng
 
 [
