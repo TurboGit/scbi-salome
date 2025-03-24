@@ -12,7 +12,7 @@ s-scotch/cmake:#v7.0.4
 
 s-saturne:salomeModuleLight
 s-saturne-dbg:salomeModuleLight
-s-cfd-study:moduleLight
+s-cfd-study:new_gui
 s-code-syrthes:6f974415ff
 s-syrthes:2988a157b
 s-python-modules/wand
