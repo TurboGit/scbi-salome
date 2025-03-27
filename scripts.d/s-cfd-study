@@ -14,7 +14,7 @@ function s-cfd-study-out-of-tree()
 
 function s-cfd-study-salome-module()
 {
-    echo SATURNE8
+    echo CFDSTUDY
 }
 
 function s-cfd-study-ng-build-depends()
@@ -48,7 +48,6 @@ function s-cfd-study-env()
 
     set-var    CFDSTUDY_ROOT_DIR $PREFIX
     set-var    CFDSTUDY_DIR      $PREFIX
-    set-var    SATURNE8_ROOT_DIR $PREFIX
 
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PATH              $PREFIX/bin/salome
@@ -56,8 +55,8 @@ function s-cfd-study-env()
     add-to-var PYTHONPATH        \
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 
-    add-to-var SALOME_MODULES    SATURNE8
-    add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/saturne8
+    add-to-var SALOME_MODULES    CFDSTUDY
+    add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/cfdstudy
 }
 
 function s-cfd-study-common-config-options()
@@ -104,6 +103,6 @@ function s-cfd-study-post-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cp $PREFIX/share/salome/resources/saturne8/SalomeAppSL.xml \
-       $PREFIX/share/salome/resources/saturne8/SalomeApp.xml
+    cp $PREFIX/share/salome/resources/cfdstudy/SalomeAppSL.xml \
+       $PREFIX/share/salome/resources/cfdstudy/SalomeApp.xml
 }
