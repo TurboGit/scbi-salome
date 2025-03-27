@@ -33,6 +33,8 @@ function s-swig-common-env()
 
     set-var        SWIG_ROOT_DIR $PREFIX
     set-var        SWIG_ROOT     $PREFIX
+    set-var        SWIG_LIB      \
+                   $(last-modified-directory $PREFIX/share/swig/*)
     prepend-to-var PATH          $PREFIX/bin
 }
 
@@ -43,15 +45,6 @@ function s-swig-win-env()
     local VARIANT=$3
 
     set-var SWIG_LIB $PREFIX/Lib
-}
-
-function s-swig-default-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    set-var SWIG_LIB $(last-modified-directory $PREFIX/share/swig/*)
 }
 
 function s-swig-config()
