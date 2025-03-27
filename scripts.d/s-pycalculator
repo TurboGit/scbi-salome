@@ -14,11 +14,11 @@ function s-pycalculator-salome-module()
 
 function s-pycalculator-build-depends()
 {
+    echo os@-doxygen
+
     echo s-cmake
     echo s-salome-configuration
     echo s-swig
-
-    echo os@-doxygen
 }
 
 function s-pycalculator-depends()

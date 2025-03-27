@@ -1,25 +1,27 @@
 
-function s-openturns-mixmod-vcs() 
-{ 
+function s-openturns-mixmod-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otmixmod.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/openturns/otmixmod.git
+}
 
 
 function s-openturns-mixmod-build-depends()
 {
+    echo os@-python3-sphinx
+
     echo s-cmake
     echo s-swig
-    echo os@-python3-sphinx
 }
 
 function s-openturns-mixmod-depends()
 {
+    echo os@-python3
+
     echo s-openturns
     echo s-mixmod
-    echo os@-python3
 }
 
 function s-openturns-mixmod-env()

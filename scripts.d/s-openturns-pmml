@@ -1,24 +1,25 @@
 
-function s-openturns-pmml-vcs() 
-{ 
+function s-openturns-pmml-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/otpmml.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/openturns/otpmml.git
+}
 
 function s-openturns-pmml-build-depends()
 {
+    echo os@-python3-sphinx
+
     echo s-cmake
     echo s-swig
-    echo os@-python3-sphinx
 }
 
 function s-openturns-pmml-depends()
 {
-    echo s-openturns
     echo os@-python3
+
+    echo s-openturns
 }
 
 function s-openturns-pmml-env()

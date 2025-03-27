@@ -40,8 +40,9 @@ function s-persalys-patches()
 
 function s-persalys-common-build-depends()
 {
-    echo s-cmake
     echo os@-boost-locale-dev
+
+    echo s-cmake
 }
 
 function s-persalys-default-build-depends()
@@ -52,15 +53,15 @@ function s-persalys-default-build-depends()
 
     local DISDOC=$(is-enabled no-doc)
 
-    echo s-py2cpp
-    echo s-swig
-    echo s-salome-bootstrap
-
     [[ -z ${DISDOC} ]] &&
         {
             echo os@-texlive
             echo os@-texlive-latex-extra
         }
+
+    echo s-py2cpp
+    echo s-swig
+    echo s-salome-bootstrap
 }
 
 function s-persalys-common-depends()

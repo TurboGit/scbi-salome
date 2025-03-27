@@ -9,15 +9,17 @@ function s-openturns-morris-vcs()
 
 function s-openturns-morris-default-build-depends()
 {
+    echo os@-python3-sphinx
+
     echo s-cmake
     echo s-swig
-    echo os@-python3-sphinx
 }
 
 function s-openturns-morris-default-depends()
 {
-    echo s-openturns
     echo os@-python3
+
+    echo s-openturns
 }
 
 function s-openturns-morris-env()

@@ -9,15 +9,17 @@ function s-openturns-svm-vcs()
 
 function s-openturns-svm-build-depends()
 {
+    echo os@-python3-sphinx
+
     echo s-cmake
     echo s-swig
-    echo os@-python3-sphinx
 }
 
 function s-openturns-svm-depends()
 {
-    echo s-openturns
     echo os@-python3
+
+    echo s-openturns
 }
 
 function s-openturns-svm-env()

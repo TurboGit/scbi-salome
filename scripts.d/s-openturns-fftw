@@ -9,16 +9,18 @@ function s-openturns-fftw-vcs()
 
 function s-openturns-fftw-build-depends()
 {
+    echo os@-python3-sphinx
+
     echo s-cmake
     echo s-swig
-    echo os@-python3-sphinx
 }
 
 function s-openturns-fftw-depends()
 {
-    echo s-openturns
     echo os@-python3
     echo os@-fftw3-dev
+
+    echo s-openturns
 }
 
 function s-openturns-fftw-env()
