@@ -64,11 +64,15 @@ function s-paraview-mingw-patches()
     echo paraview-5.11.0.msys2.patch
 }
 
-function s-paraview-ng-build-depends()
+function s-paraview-common-build-depends()
 {
     # To avoid Paraview configuration issue with cmake < 3.13
     # to detect cmake native.
     echo s-cmake
+}
+
+function s-paraview-ng-build-depends()
+{
     echo s-salome-bin
 }
 
@@ -78,7 +82,6 @@ function s-paraview-default-build-depends()
     echo os@-fmt-dev
     echo os@-gl2ps-dev
 
-    echo s-cmake
     echo git-lfs
 }
 
@@ -88,8 +91,6 @@ function s-paraview-mingw-build-depends()
     echo os@-utf8cpp
     echo os@-fmt-dev
     echo os@-gl2ps-dev
-
-    echo s-cmake
 }
 
 function s-paraview-gdal-depends
