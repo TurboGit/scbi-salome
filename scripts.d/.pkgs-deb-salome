@@ -1,6 +1,7 @@
 # OS name                           Debian packages
 # --------------------------------------------------
 os@-afterimage-dev                  libafterimage-dev
+os@-meshio-tools                    meshio-tools
 os@-nlohmann-json3-dev              nlohmann-json3-dev
 os@-nlopt                           libnlopt0
 os@-nlopt-cxx                       libnlopt-cxx0

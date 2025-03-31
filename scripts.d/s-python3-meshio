@@ -1,7 +1,7 @@
 
 inherit-plugin s-install-python-module
 
-with-variant native os@-python3-meshio:[v]
+with-variant native os@-python3-meshio:[v] os@-meshio-tools:[v]
 
 function s-python3-meshio-depends()
 {
