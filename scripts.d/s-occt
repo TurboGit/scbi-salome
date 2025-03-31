@@ -133,6 +133,7 @@ function s-occt-common-config-options()
     echo -DUSE_FREETYPE=ON
     echo -DUSE_FREEIMAGE=ON
     echo -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON
+    echo -DUSE_RAPIDJSON=ON
 }
 
 function s-occt-permissive-config-options()
