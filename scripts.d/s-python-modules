@@ -63,6 +63,46 @@ function s-python-modules-telemac-modules()
     echo s-python3-telemac
 }
 
+function s-python-modules-fmpy-modules()
+{
+    echo s-python3-fmpy
+}
+
+function s-python-modules-buildingspy-modules()
+{
+    echo s-python3-buildingspy
+}
+
+function s-python-modules-lark-modules()
+{
+    echo s-python3-lark
+}
+
+function s-python-modules-msgpack-modules()
+{
+    echo s-python3-msgpack
+}
+
+function s-python-modules-gitdb-modules()
+{
+    echo s-python3-gitdb
+}
+
+function s-python-modules-gitpython-modules()
+{
+    echo s-python3-gitpython
+}
+
+function s-python-modules-pytidylib-modules()
+{
+    echo s-python3-pytidylib
+}
+
+function s-python-modules-smmap-modules()
+{
+    echo s-python3-smmap
+}
+
 function s-python-modules-core-modules()
 {
     #  All the core python modules for SALOME
@@ -75,6 +115,15 @@ function s-python-modules-core-modules()
     s-python-modules-numpy-modules
     s-python-modules-scipy-modules
     s-python-modules-nlopt-modules
+
+    s-python-modules-fmpy-modules
+    s-python-modules-buildingspy-modules
+    s-python-modules-lark-modules
+    s-python-modules-msgpack-modules
+    s-python-modules-gitdb-modules
+    s-python-modules-gitpython-modules
+    s-python-modules-pytidylib-modules
+    s-python-modules-smmap-modules
 }
 
 function s-python-modules-out-of-tree()

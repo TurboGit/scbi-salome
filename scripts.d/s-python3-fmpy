@@ -1,0 +1,6 @@
+inherit-plugin s-install-python-module
+
+function s-python3-fmpy-config-options()
+{
+    echo fmpy==$(get-version)
+}

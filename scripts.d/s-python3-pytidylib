@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-tidylib:[v]
+
+function s-python3-pytidylib-config-options()
+{
+    echo pytidylib==$(get-version)
+}
