@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-smmap:[v]
+
+function s-python3-smmap-config-options()
+{
+    echo smmap==$(get-version)
+}

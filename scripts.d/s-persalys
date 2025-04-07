@@ -27,15 +27,15 @@ function s-persalys-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $REF =~ "14.1" ]] &&
-        {
+    case "$REF" in
+        *14.1*)
             echo persalys-v14.1-001.patch
-        }
-
-    [[ $REF =~ "17.0" ]] &&
-        {
+            break
+            ;;
+        *17.0*|*18.0*)
             echo persalys-v17.0.1-001.patch
-        }
+            ;;
+    esac
 }
 
 function s-persalys-common-build-depends()
@@ -145,8 +145,6 @@ function s-persalys-config-options()
     echo -DSalomeGUI_DIR=$SalomeGUI_DIR
     echo -DSalomeYACS_DIR=$SalomeYACS_DIR
     echo -DUSE_SPHINX=$DISDOC
-    echo -DPY2CPP_ROOT_DIR=$PY2CPP_ROOT_DIR
-    echo -DSalomeBootstrap_DIR=$SALOMEBOOTSTRAP_ROOT_DIR/__RUN_SALOME__/salome_adm/cmake_files
 }
 
 function s-persalys-config()
