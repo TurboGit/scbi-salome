@@ -49,6 +49,15 @@ function s-paraview-patches()
             echo paraview-5.11.0-python-3.11.patch
             echo ensightgoldbinaryreader-fix-int-overflow.patch
         }
+
+    [[ $REF =~ "5.13" ]] &&
+        {
+            echo paraview-5.13-2918b94391-add_dll_directory.patch
+            echo paraview-5.13-2918b94391-findmpi.patch
+            echo paraview-5.13-2918b94391-findcgns.patch
+            echo paraview-5.13-2918b94391-findfreetype.patch
+            echo paraview-5.13-2918b94391-vtkmodule.patch
+        }
 }
 
 function s-paraview-mingw-patches()

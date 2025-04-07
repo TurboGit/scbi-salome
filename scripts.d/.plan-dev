@@ -3,7 +3,7 @@
 
 @set CEA_VERSION = master
 @set EDF_VERSION = master
-@set PV_VERSION  = v5.11.0
+@set PV_VERSION  = v5.13-2918b94391
 
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
@@ -102,7 +102,7 @@ s-catalyst:#2.0-431a8a1
 s-python-modules/default.core.meshio
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
-s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
+s-paraview/default.mpi.ospray.gdal:#$PV_VERSION
 s-cgal/auto:#v5.5.1
 s-ifc-open-shell:v0.7.0
 
