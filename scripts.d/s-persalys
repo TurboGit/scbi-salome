@@ -27,15 +27,15 @@ function s-persalys-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $REF =~ "14.1" ]] &&
-        {
+    case "$REF" in
+        *14.1*)
             echo persalys-v14.1-001.patch
-        }
-
-    [[ $REF =~ "17.0" ]] &&
-        {
+            break
+            ;;
+        *17.0*|*18.0*)
             echo persalys-v17.0.1-001.patch
-        }
+            ;;
+    esac
 }
 
 function s-persalys-common-build-depends()
