@@ -145,8 +145,6 @@ function s-persalys-config-options()
     echo -DSalomeGUI_DIR=$SalomeGUI_DIR
     echo -DSalomeYACS_DIR=$SalomeYACS_DIR
     echo -DUSE_SPHINX=$DISDOC
-    echo -DPY2CPP_ROOT_DIR=$PY2CPP_ROOT_DIR
-    echo -DSalomeBootstrap_DIR=$SALOMEBOOTSTRAP_ROOT_DIR/__RUN_SALOME__/salome_adm/cmake_files
 }
 
 function s-persalys-config()
