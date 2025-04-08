@@ -216,6 +216,8 @@ s-ifc-open-shell:v0.7.0
         s-opencv:#3.2.0       # native pkg is too recent
         # fails to compile on Debian/11
 
+        s-python3-fmpy:0.3.21
+
         #  Only needed starting with Debian-12
         os@-nlopt-cxx:skip
 ]
