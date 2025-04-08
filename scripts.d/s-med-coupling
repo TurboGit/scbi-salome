@@ -58,6 +58,7 @@ function s-med-coupling-common-depends()
 {
     echo os@-lapacke-dev
     echo os@-metis-dev
+    echo os@-openblas-dev
     echo os@-tirpc-dev
 
     echo s-salome-configuration
