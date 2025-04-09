@@ -10,8 +10,8 @@ s-coolprop:#6.4.3
 # Starting with v7.x of scotch the build is based on cmake
 s-scotch/cmake:#v7.0.4
 
-s-saturne:#salomeModuleLight
-s-saturne-dbg:#salomeModuleLight
+s-saturne:v9.0
+s-saturne-dbg:v9.0
 s-cfd-study:new_gui
 s-code-syrthes:6f974415ff
 s-syrthes:2988a157b
