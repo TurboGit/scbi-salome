@@ -130,7 +130,7 @@ function s-salome-cfd-modules()
     echo s-saturne-dbg
     echo s-cfd-study
     echo s-code-syrthes
-    echo s-syrthes
+    echo s-salome-syrthes
 }
 
 function s-salome-mingw-modules()
