@@ -321,6 +321,9 @@ function setup-env-salome()
                             SALOME_MODULES)
                                 echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\""
                                 ;;
+                            PYTHON_VERSION)
+                                echo "   context.setVariable(r\"$VAR\", \"$VALUE\", overwrite=True)"
+                                ;;
                             *)
                                 echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"
                                 ;;
