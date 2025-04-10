@@ -299,7 +299,7 @@ function setup-env-salome()
                     else
                         case "$VAR" in
                             C_INCLUDE_PATH|INCLUDE|LIB|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                                *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH)
+                                *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH|SCBI_SALOME_BIN_ENV_SECTION)
                             ;;
 
                             PATH)
