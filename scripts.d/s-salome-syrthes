@@ -1,34 +1,34 @@
 
-function s-syrthes-salome-module()
+function s-salome-syrthes-salome-module()
 {
     echo SYRTHES
 }
 
-function s-syrthes-ng-build-depends()
+function s-salome-syrthes-ng-build-depends()
 {
     echo s-salome-bin
 }
 
-function s-syrthes-common-build-depends()
+function s-salome-syrthes-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-syrthes-common-depends()
+function s-salome-syrthes-common-depends()
 {
     echo s-saturne
     echo s-code-syrthes
     echo s-salome-configuration
 }
 
-function s-syrthes-default-depends()
+function s-salome-syrthes-default-depends()
 {
     echo s-tbb
     echo s-salome-gui
     echo s-med-coupling
 }
 
-function s-syrthes-env()
+function s-salome-syrthes-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -50,7 +50,7 @@ function s-syrthes-env()
     add-to-var  CPLUS_INCLUDE_PATH  $PREFIX/include
 }
 
-function s-syrthes-build-env()
+function s-salome-syrthes-build-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -59,7 +59,7 @@ function s-syrthes-build-env()
     set-var ROOT_SALOME $ROOT_SALOME_INSTALL
 }
 
-function s-syrthes-config()
+function s-salome-syrthes-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -68,7 +68,7 @@ function s-syrthes-config()
            ../src
 }
 
-function s-syrthes-build()
+function s-salome-syrthes-build()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -76,7 +76,7 @@ function s-syrthes-build()
     make -j$SCBI_JOBS
 }
 
-function s-syrthes-install()
+function s-salome-syrthes-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -84,7 +84,7 @@ function s-syrthes-install()
     make install
 }
 
-function s-syrthes-post-install()
+function s-salome-syrthes-post-install()
 {
     local PREFIX=$1
     local TARGET=$2

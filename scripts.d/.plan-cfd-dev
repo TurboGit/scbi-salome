@@ -14,7 +14,7 @@ s-saturne:master
 s-saturne-dbg:master
 s-cfd-study:master
 s-code-syrthes:yf/master
-s-syrthes:mpa/salome9
+s-salome-syrthes:mpa/salome9
 s-python-modules/wand
 
 [ = deb,10
