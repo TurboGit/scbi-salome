@@ -13,7 +13,7 @@ s-scotch/cmake:#v7.0.4
     s-saturne
     s-saturne-dbg
     s-cfd-study
-    s-code-syrthes
+    s-syrthes
     s-salome-syrthes
 ] /+ng
 
