@@ -13,7 +13,7 @@ s-scotch/cmake:#v7.0.4
 s-saturne:master
 s-saturne-dbg:master
 s-cfd-study:master
-s-code-syrthes:yf/master
+s-syrthes:yf/master
 s-salome-syrthes:mpa/salome9
 s-python-modules/wand
 

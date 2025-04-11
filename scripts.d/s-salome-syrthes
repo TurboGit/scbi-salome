@@ -17,7 +17,7 @@ function s-salome-syrthes-common-build-depends()
 function s-salome-syrthes-common-depends()
 {
     echo s-saturne
-    echo s-code-syrthes
+    echo s-syrthes
     echo s-salome-configuration
 }
 

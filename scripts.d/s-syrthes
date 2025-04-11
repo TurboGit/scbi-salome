@@ -1,11 +1,11 @@
 
 
-function s-code-syrthes-out-of-tree()
+function s-syrthes-out-of-tree()
 {
     echo false
 }
 
-function s-code-syrthes-patches()
+function s-syrthes-patches()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -27,31 +27,31 @@ function s-code-syrthes-patches()
     echo syrthes/0011-menage.patch
 }
 
-function s-code-syrthes-ng-build-depends()
+function s-syrthes-ng-build-depends()
 {
     echo s-salome-bin
 }
 
-function s-code-syrthes-common-build-depends()
+function s-syrthes-common-build-depends()
 {
     echo s-cmake
 }
 
-function s-code-syrthes-common-depends()
+function s-syrthes-common-depends()
 {
     echo s-cfd-study
     echo s-saturne
     echo s-scotch
 }
 
-function s-code-syrthes-default-depends()
+function s-syrthes-default-depends()
 {
     echo os@-metis-dev
     echo s-hdf5
     echo s-med-coupling
 }
 
-function s-code-syrthes-env()
+function s-syrthes-env()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -70,7 +70,7 @@ function s-code-syrthes-env()
 
 }
 
-function s-code-syrthes-config()
+function s-syrthes-config()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -78,7 +78,7 @@ function s-code-syrthes-config()
     rsync -az ../src/* $PREFIX
 }
 
-function s-code-syrthes-install()
+function s-syrthes-install()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -89,7 +89,7 @@ function s-code-syrthes-install()
     python3 syrthes_install.py    
 }
 
-function s-code-syrthes-post-install()
+function s-syrthes-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
