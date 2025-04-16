@@ -6,14 +6,13 @@ function s-saturne-dbg-config-options()
     local PREFIX=$1
     local TARGET=$2
 
-    echo FC=gfortran
-    echo CC=mpicc
-    echo CCX=mpicxx
     echo --prefix=$PREFIX
     echo --enable-debug
     echo --disable-frontend
     echo --with-salome=$SALOME_ROOT_DIR
     echo --with-mpi=$MPI_ROOT_DIR
+    echo --enable-relocatable # Indispensable pour déplacer l'installeur
+    echo --with-catalyst # Ajouter "=salome" pour scibian12 si besoin
 }
 
 function s-saturne-dbg-env()
