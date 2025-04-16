@@ -14,7 +14,7 @@ s-saturne:v9.0
 s-saturne-dbg:v9.0
 s-cfd-study:new_gui
 s-syrthes:6f974415ff
-s-salome-syrthes:2988a157b
+s-salome-syrthes:master
 s-python-modules/wand
 
 [ = deb,10
