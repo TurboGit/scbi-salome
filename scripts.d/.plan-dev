@@ -80,7 +80,7 @@ s-python3-xlutils:2.0.0
 c-gmp/auto:6.1
 c-mpfr/auto:4.0
 
-s-python3-fmpy:0.3.22
+#s-python3-fmpy:0.3.22
 s-python3-buildingspy:2.0.0
 s-python3-lark/auto:1.2.2
 s-python3-msgpack/auto:1.1.0
@@ -216,7 +216,7 @@ s-ifc-open-shell:v0.7.0
         s-opencv:#3.2.0       # native pkg is too recent
         # fails to compile on Debian/11
 
-        s-python3-fmpy:0.3.21
+        #s-python3-fmpy:0.3.21
 
         #  Only needed starting with Debian-12
         os@-nlopt-cxx:skip

@@ -63,10 +63,10 @@ function s-python-modules-telemac-modules()
     echo s-python3-telemac
 }
 
-function s-python-modules-fmpy-modules()
-{
-    echo s-python3-fmpy
-}
+#function s-python-modules-fmpy-modules()
+#{
+#    echo s-python3-fmpy
+#}
 
 function s-python-modules-buildingspy-modules()
 {
@@ -116,7 +116,7 @@ function s-python-modules-core-modules()
     s-python-modules-scipy-modules
     s-python-modules-nlopt-modules
 
-    s-python-modules-fmpy-modules
+    #s-python-modules-fmpy-modules
     s-python-modules-buildingspy-modules
     s-python-modules-lark-modules
     s-python-modules-msgpack-modules
