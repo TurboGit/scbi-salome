@@ -144,13 +144,27 @@ function s-salome-propagate-version()
     echo false
 }
 
+function s-salome-external-env()
+{
+    echo A
+    is-enabled application
+    echo I
+    is-enabled installer
+    echo L
+    is-enabled logger
+    echo Z
+    is-enabled zip
+    echo X
+    is-enabled xz
+}
+
 function setup-env-salome()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
-    local APPDIR=$SCBI_BDIR/s-salome/$TARGET-$VARIANT
+    local APPDIR=$SCBI_BDIR/s-salome/$TARGET-$VARIANT/app
     local N=0
 
     #  If BINARIES-* not found, this is a full EDF build
@@ -628,7 +642,8 @@ function s-salome-wrapup()
     local TARGET=$2
     local VARIANT=$3
 
-    local APPDIR=$TARGET-$VARIANT
+    local TVDIR=$TARGET-$VARIANT
+    local APPDIR=$TARGET-$VARIANT/app
 
     # Get s-salome-tar variant as used for s-salome-bin & s-salome-tar
     # env file creation and to copy the binaries.
@@ -645,14 +660,13 @@ function s-salome-wrapup()
         BINPAT="BINARIES-*"
     fi
 
-   (
+    (
         #  Clean-up previous installation if any
+
+        rm -fr $APPDIR
 
         mkdir -p $APPDIR
         cd $APPDIR
-
-        #  Remove everything from previous build expect logs
-        rm -fr x $(ls | grep -v logs)
 
         if [[ "$(is-enabled application)" = "yes" ]] \
                || [[ "$(is-enabled installer)" = "yes" ]];
@@ -663,9 +677,10 @@ function s-salome-wrapup()
                 {
                     #  Copy CEA's binaries
 
-                    local TVDIR=""
-                    get-target-dir TVDIR s-salome-tar $SALOME_TAR_VARIANT install
-                    cp -r $TVDIR/* .
+                    local TVDIRTAR=""
+                    get-target-dir TVDIRTAR e-salome-tar $SALOME_TAR_VARIANT install
+                    cp -r $TVDIRTAR/* .
+
                     #  Now that we have copied the binary archive, get
                     #  the binary dir
                     SALOME_BINARY_DIR=$(basename $(ls -1d $BINPAT))
@@ -699,8 +714,7 @@ function s-salome-wrapup()
             #  Add some build artifacts for traceability
 
             mkdir -p artifacts
-            cp logs/build-plan artifacts
-            rm -fr logs
+            cp ../logs/build-plan artifacts
 
             date > artifacts/creation-time.txt
             scbi --version > artifacts/scbi_versions.txt
@@ -854,7 +868,6 @@ function s-salome-wrapup()
                              "SALOME Application" ./setup
                 fi
                 res=$?
-                rm -rf application_tmp
             fi
 
             if [[ $res == 0 ]]; then
