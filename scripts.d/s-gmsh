@@ -1,11 +1,11 @@
 
-function s-gmsh-vcs() 
-{ 
+function s-gmsh-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://gitlab.onelab.info/gmsh/gmsh.git 
-} 
+    echo none
+    echo git
+    echo https://gitlab.onelab.info/gmsh/gmsh.git
+}
 
 function s-gmsh-archive()
 {
@@ -26,7 +26,12 @@ function s-gmsh-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $(get-module-version "s-occt") =~ "780" ]] &&
+    local OCCTV=$(get-module-version "s-occt")
+
+    [[ $OCCTV =~ "780" ]] &&
+        echo gmsh-4.10.3-occt780.patch
+
+    [[ $OCCTV =~ "790" ]] &&
         echo gmsh-4.10.3-occt780.patch
 }
 
