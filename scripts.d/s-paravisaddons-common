@@ -7,16 +7,16 @@ function s-paravisaddons-common-vcs()
     echo https://github.com/SalomePlatform/paravisaddons_common
 }
 
-function s-paravisaddons-common-ng-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo cp 
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES 
-    echo PARAVISADDONS.tgz 
-} 
+function s-paravisaddons-common-ng-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo cp
+    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
+    echo PARAVISADDONS.tgz
+}
 
 function s-paravisaddons-common-common-build-depends()
 {
