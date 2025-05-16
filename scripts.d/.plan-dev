@@ -59,7 +59,7 @@ s-netgen/autotools:#5.3.1
 s-gmsh:#4.10.3
 s-gdal/auto:#3.2.2
 s-proj/auto:#7.2.0
-s-med-file:#4.1.1
+s-med-file:#4.1.2
 s-python3-nlopt/auto:2.7.0
 s-python3-rich/auto:9.11.0
 s-python3-wand/auto:0.4.4
@@ -89,13 +89,13 @@ s-python3-gitpython/auto:3.1.44
 s-python3-pytidylib/auto:0.3.2
 s-python3-smmap/auto:5.0.2
 
-s-libbatch:V2_6_0
+s-libbatch:V2_6_1
 
 s-omniorb:#4.2.5
 s-python-omniorb
 s-omniorb-core/auto
 
-s-occt:#CR790-SALOME-PATCH
+s-occt:#SALOME_9_15_V7_9_0a1
 s-cgns/auto:#4.2.0
 s-hdf5/auto:#1.10.3
 s-catalyst:#2.0-431a8a1

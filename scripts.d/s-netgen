@@ -41,6 +41,7 @@ function s-netgen-patches()
             echo netgen-53-for-salome.patch
 
             local OCCTV=$(get-module-version "s-occt")
+            OCCTV=${OCCTV//_/}
 
             [[ $OCCTV =~ "780" ]] &&
                 echo netgen-53-OCCT780-linux.patch

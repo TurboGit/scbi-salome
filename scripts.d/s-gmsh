@@ -27,6 +27,7 @@ function s-gmsh-patches()
     local REF=$5
 
     local OCCTV=$(get-module-version "s-occt")
+    OCCTV=${OCCTV//_/}
 
     [[ $OCCTV =~ "780" ]] &&
         echo gmsh-4.10.3-occt780.patch
