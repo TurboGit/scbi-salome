@@ -87,12 +87,6 @@ function s-install-python-module-post-install()
     fi
 
     handle-dist-post-install $PREFIX $TARGET
-
-    # Remove win32 and win64 repositories
-    local tcp_rep_32=$PREFIX/lib/python$PYTHON_VERSION/site-packages/fmpy/remoting/win32
-    local tcp_rep_64=$PREFIX/lib/python$PYTHON_VERSION/site-packages/fmpy/remoting/win64
-
-    rm -rf $tcp_rep_32 $tcp_rep_64
 }
 
 function s-install-python-module-prefix()

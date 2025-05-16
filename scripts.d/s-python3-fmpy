@@ -1,6 +1,25 @@
 inherit-plugin s-install-python-module
 
+inherit-plugin --name handle-post-inst \
+               --hooks=post-install s-install-python-module
+
 function s-python3-fmpy-config-options()
 {
     echo fmpy==$(get-version)
+}
+
+function s-python3-fmpy-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    handle-post-inst-post-install $PREFIX $TARGET
+
+    # Remove win32 and win64 repositories
+    # This is a temporary workaround for a false-positive
+    # from an antivirus software. The proper solution would be
+    # to check at the source and have the files put in a white list.
+
+    local sitepkg=$PREFIX/lib/python$PYTHON_VERSION/site-packages
+    rm -fr $sitepkg/fmpy/remoting/win32 $sitepkg/fmpy/remoting/win64
 }
