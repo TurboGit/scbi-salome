@@ -42,8 +42,6 @@ function s-saturne-dbg-post-install()
     sed "s|# compute_versions =|${APPEND}|" \
         code_saturne.cfg.template > code_saturne.cfg
 
-    sed "/distant installation paths/a\slurm_cronos=/sofware/rd/saturne/code_saturne/9.0/arch
-slurm_gaia=/projets/saturne/Code_Saturne/9.0/arch" \
-        code_saturne.cfg > code_saturne.cfg.template
-    mv code_saturne.cfg.template code_saturne.cfg
+    sed "s&distant installation paths&distant installation paths\nslurm_cronos=/sofware/rd/saturne/code_saturne/9.0/arch\nslurm_gaia=/projets/saturne/Code_Saturne/9.0/arch&" code_saturne.cfg > code_saturne.cfg.template
+    cp code_saturne.cfg.template code_saturne.cfg
 }
