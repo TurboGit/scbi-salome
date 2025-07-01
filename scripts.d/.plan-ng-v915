@@ -2,6 +2,8 @@
 
 @load v915/mpi
 
+@set CEA_ARCH = 9.15.0br
+
 [ = linux
         s-salome-bin
         s-atomic
@@ -53,7 +55,7 @@ s-scotch/ng
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
-        s-salome-tar/ngwin:#9.15.0:WIN
+        s-salome-tar/ngwin:#${CEA_ARCH}:WIN
         s-salome-configuration/ngwin
         s-salome-bin/ngwin
 ]
@@ -64,7 +66,7 @@ s-scotch/ng
 ] :skip
 
 [ = deb,9
-        s-salome-tar:#9.15.0:DB09
+        s-salome-tar:#${CEA_ARCH}:DB09
         s-gdal:skip
         s-cgal/ng:#4.0
         s-tbb:skip
@@ -83,13 +85,13 @@ s-scotch/ng
 ]
 
 [ = deb,11
-        s-salome-tar:#9.15.0-native:DB11
+        s-salome-tar:#${CEA_ARCH}-native:DB11
         s-qt/native
         s-pyqt/native
 ]
 
 [ = deb,12
-        s-salome-tar:#9.15.0-native:DB12
+        s-salome-tar:#${CEA_ARCH}-native:DB12
         s-qt/native
         s-pyqt/native
 ]
