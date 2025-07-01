@@ -1,0 +1,104 @@
+# This plan is to build some modules on top of a SALOME binary distribution
+
+@load v915/mpi
+
+[ = linux
+        s-salome-bin
+        s-atomic
+        s-zeromq
+        s-gnuplot-py
+        s-paraview
+        s-med-coupling
+        s-python-modules
+        s-ifc-open-shell
+
+        # other modules that can be built in ng mode
+        s-smesh
+        s-shaper
+        s-salome-kernel
+        s-salome-openturns
+        s-yacs
+        s-adao
+        s-salome-adao
+        s-adao-tool
+        s-geom
+        s-persalys
+        s-ydefx
+        s-salome-gui
+        s-salome-jobmanager
+        s-paravis
+        s-paravisaddons-common
+        s-gmsh-plugin
+        s-blsurf-plugin
+        s-ghs3d-plugin
+        s-netgen-plugin
+        s-hybrid-plugin
+        s-hexotic-plugin
+        s-hexablock-plugin
+        s-eficas-tools
+        s-salome-eficas
+] /+ng-default
+
+s-ptscotch/ng
+s-scotch/ng
+
+#  The version for s-salome-tar has two parts, the version of the code
+#  and the version of the OS See tar hook in s-salome-tar for the
+#  MinIO download.
+#
+#  Modules are marked skip below as the variant may introduce an
+#  unwanted dependency but yet the configuration need the know about
+#  the variant. This is the case for ParaView, for example the ospray
+#  variant is set as we need to activate ospray during configuration
+#  but the dependency is not needed as provided by the binary archive.
+
+[ = win
+        s-salome-tar/ngwin:#9.15.0:WIN
+        s-salome-configuration/ngwin
+        s-salome-bin/ngwin
+]
+
+[
+        s-zeromq
+        s-ospray
+] :skip
+
+[ = deb,9
+        s-salome-tar:#9.15.0:DB09
+        s-gdal:skip
+        s-cgal/ng:#4.0
+        s-tbb:skip
+        s-qt:skip
+        s-pyqt:skip
+        s-python-modules/ng.wand.lxml:master
+        os@-boost-locale-dev:skip
+        os@-python3:skip
+        os@-python3-numpy:skip
+        os@-python3-xlrd:skip
+        os@-python3-xlwt:skip
+        os@-python3-setuptools:skip
+        os@-boost-dev:skip
+        os@-hdf5-dev:skip
+        s-boost:skip
+]
+
+[ = deb,11
+        s-salome-tar:#9.15.0-native:DB11
+        s-qt/native
+        s-pyqt/native
+]
+
+[ = deb,12
+        s-salome-tar:#9.15.0-native:DB12
+        s-qt/native
+        s-pyqt/native
+]
+
+# No need for meshio on NG as already in binary archive
+[
+        s-python-modules
+] /-meshio
+
+[
+        s-salome
+] /+ng-default
