@@ -82,12 +82,6 @@ s-scotch/ng
         s-boost:skip
 ]
 
-[ = deb,10
-        s-salome-tar:#9.15.0-native:DB10
-        s-qt:skip
-        s-pyqt:skip
-]
-
 [ = deb,11
         s-salome-tar:#9.15.0-native:DB11
         s-qt/native
