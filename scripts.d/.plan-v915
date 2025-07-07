@@ -190,14 +190,14 @@ s-ifc-open-shell:v0.7.0
 # name is used on the different platforms.
 
 [ = deb,9
-        s-salome/default.core:s9-DEV
+        s-salome/default.core:s9-V9_15_0
         s-tbb/auto:#4.4.6
         s-gdal:skip
         s-ifc-open-shell:skip
 ]
 
 [ = deb,10
-        s-salome/default.core:s10-DEV
+        s-salome/default.core:s10-V9_15_0
         s-python3-meshio/auto:5.3.4
         s-python3-nlopt/auto:2.6.2
         s-python3-yaml/auto:3.13
@@ -210,7 +210,7 @@ s-ifc-open-shell:v0.7.0
 ]
 
 [ = deb,11
-        s-salome/default.core:s11-DEV
+        s-salome/default.core:s11-V9_15_0
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
@@ -223,7 +223,7 @@ s-ifc-open-shell:v0.7.0
 ]
 
 [ = deb,12
-        s-salome/default.core:s12-DEV
+        s-salome/default.core:s12-V9_15_0
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
