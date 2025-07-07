@@ -4,7 +4,7 @@
 @set CEA_VERSION = V9_15_BR
 @set EDF_VERSION = V9_15_BR
 @set PV_VERSION  = v5.13-2918b94391
-@set RUN_VERSION = V9.15.0
+@set RUN_VERSION = V9_15_0
 
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
