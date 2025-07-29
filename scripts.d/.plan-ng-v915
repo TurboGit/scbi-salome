@@ -2,7 +2,7 @@
 
 @load v915/mpi
 
-@set CEA_ARCH = 9.15.0br
+@set CEA_ARCH = 9.15.0rc1
 
 [ = linux
         s-salome-bin
