@@ -3,6 +3,14 @@
 #  install dependencies, so the full list of modules to be installed must
 #  be explicitly specified.
 
+function s-python-modules-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://gitlab.pleiade.edf.fr/salome/python-modules.git
+}
+
 function s-python-modules-wand-modules()
 {
     echo s-python3-wand
