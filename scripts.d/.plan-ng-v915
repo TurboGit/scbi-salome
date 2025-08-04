@@ -2,7 +2,8 @@
 
 @load v915/mpi
 
-@set CEA_ARCH = 9.15.0rc1
+@set CEA_ARCH = 9.15.0
+@set EDF_VERSION = V9_15_0
 
 [ = linux
         s-salome-bin
@@ -72,7 +73,7 @@ s-scotch/ng
         s-tbb:skip
         s-qt:skip
         s-pyqt:skip
-        s-python-modules/ng.wand.lxml:master
+        s-python-modules/ng.wand.lxml:${EDF_VERSION}
         os@-boost-locale-dev:skip
         os@-python3:skip
         os@-python3-numpy:skip
