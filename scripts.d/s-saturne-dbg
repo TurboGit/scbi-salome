@@ -1,5 +1,81 @@
 
-inherit-plugin s-saturne
+function s-saturne-dbg-out-of-tree()
+{
+    echo false
+}
+
+function s-saturne-dbg-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-saturne-dbg-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-saturne-dbg-build-depends()
+{
+    echo os@-autoconf
+    echo os@-automake
+    echo os@-autotools-dev
+    echo os@-libtool
+}
+
+function s-saturne-dbg-default-build-depends()
+{
+    echo os@-python3-setuptools
+}
+
+function s-saturne-dbg-default-depends()
+{
+    echo os@-python3-setuptools
+    echo os@-metis-dev
+    echo s-cgns
+    echo s-med-file
+    echo s-salome-kernel
+    echo s-salome-gui
+    echo s-yacs
+    echo s-smesh
+    echo s-paravis
+    echo s-paraview
+    echo s-med-coupling
+}
+
+function s-saturne-dbg-common-depends()
+{
+    echo s-libccmio
+    echo s-coolprop
+    echo s-eos
+    echo s-neptune
+    echo s-scotch
+    echo s-hdf5
+}
+
+function s-saturne-dbg-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    SATURNE_ROOT_DIR    $PREFIX
+    set-var    CS_ROOT_DIR         $PREFIX
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var PATH            $PREFIX/libexec/code_saturne
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-saturne-dbg-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    rsync -a $(dirname ${SCBI_MODULES_DIR["s-neptune"]})/src/* \
+        neptune_cfd
+
+    ../src/sbin/bootstrap
+}
 
 function s-saturne-dbg-config-options()
 {
@@ -15,10 +91,12 @@ function s-saturne-dbg-config-options()
     echo --with-catalyst # Ajouter "=salome" pour scibian12 si besoin
 }
 
-function s-saturne-dbg-env()
+function s-saturne-dbg-build()
 {
     local PREFIX=$1
     local TARGET=$2
+
+    make -j$SCBI_JOBS
 }
 
 function s-saturne-dbg-post-build()
@@ -27,6 +105,14 @@ function s-saturne-dbg-post-build()
     local TARGET=$2
 
     make doc
+}
+
+function s-saturne-dbg-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make install
 }
 
 function s-saturne-dbg-post-install()
