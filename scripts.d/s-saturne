@@ -125,3 +125,23 @@ function s-saturne-install()
 
     make install
 }
+
+function s-saturne-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd $PREFIX/etc
+
+    local APPEND=`echo "compute_versions = :$(basename $PREFIX)"`
+    sed "s|# compute_versions =|${APPEND}|" \
+        code_saturne.cfg.template > code_saturne.cfg
+
+    sed "s&distant installation paths&distant installation paths\nslurm_cronos=/sofware/rd/saturne/code_saturne/9.0/arch\nslurm_gaia=/projets/saturne/Code_Saturne/9.0/arch&" code_saturne.cfg > code_saturne.cfg.template
+
+    sed "s&# rcfile =&# rcfile =/${SATURNE_ROOT_DIR}/etc/salome.rc&" code_saturne.cfg > code_saturne.cfg.template
+
+    cp code_saturne.cfg.template code_saturne.cfg
+
+    cp $SCBI_PLUGINS/support/salome.rc $PREFIX/etc
+}
