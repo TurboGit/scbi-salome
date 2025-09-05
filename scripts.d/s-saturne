@@ -118,6 +118,14 @@ function s-saturne-build()
     make -j$SCBI_JOBS
 }
 
+function s-saturne-post-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    make doc
+}
+
 function s-saturne-install()
 {
     local PREFIX=$1
@@ -130,6 +138,8 @@ function s-saturne-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
+
+    make install-doc
 
     cd $PREFIX/etc
 

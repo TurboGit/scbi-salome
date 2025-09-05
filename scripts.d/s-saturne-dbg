@@ -91,6 +91,18 @@ function s-saturne-dbg-config-options()
     echo --with-catalyst # Ajouter "=salome" pour scibian12 si besoin
 }
 
+function s-saturne-dbg-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    ../src/configure "${OPTIONS[@]}"
+}
+
 function s-saturne-dbg-build()
 {
     local PREFIX=$1
