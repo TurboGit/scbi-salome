@@ -41,6 +41,7 @@ function s-salome-kernel-default-build-depends()
     echo os@-doxygen
     echo os@-graphviz
     echo os@-cppunit-dev
+    echo os@-chrpath
 
     echo s-swig
 }
