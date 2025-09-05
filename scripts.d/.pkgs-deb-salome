@@ -40,3 +40,4 @@ os@-rapidjson-dev                   rapidjson-dev
 os@-texlive                         texlive
 os@-texlive-latex-extra             texlive-latex-extra
 os@-xxhash-dev                      libxxhash-dev
+os@-chrpath                         chrpath
