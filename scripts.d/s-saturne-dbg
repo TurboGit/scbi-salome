@@ -52,20 +52,6 @@ function s-saturne-dbg-common-depends()
     echo s-hdf5
 }
 
-function s-saturne-dbg-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    set-var    SATURNE_ROOT_DIR    $PREFIX
-    set-var    CS_ROOT_DIR         $PREFIX
-
-    add-to-var PATH            $PREFIX/bin
-    add-to-var PATH            $PREFIX/libexec/code_saturne
-    add-to-var PYTHONPATH      \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages
-}
-
 function s-saturne-dbg-pre-config()
 {
     local PREFIX=$1
