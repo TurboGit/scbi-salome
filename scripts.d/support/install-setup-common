@@ -150,7 +150,6 @@ function template-conversion()
 
     for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
         if [[ -f $SCRIPTS ]]; then
-
             ROOT_DIR=$(dirname "$(dirname "$SCRIPTS")")
             MODULE_DIR=$(basename $ROOT_DIR)
             FICHIER_CHEMIN=$(find $ROOT_DIR -name *Prefix_dir_at_build_time.txt)
@@ -161,16 +160,6 @@ function template-conversion()
 
             pattern=$(<$FICHIER_CHEMIN)
             sed -i "s&${pattern}&${PREFIX}/${EDFBINDIR}/${MODULE_DIR}&g" $FILE_OLD
-
-            ## VM build
-            # remove x86_64-linux-gnu-ng/install
-#            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-#            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
-
-            ## Local build :
-            # remove x86_64-linux-gnu-ng/install
-#            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-#            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
         fi
     done
 
