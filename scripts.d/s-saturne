@@ -154,4 +154,7 @@ function s-saturne-post-install()
     cp code_saturne.cfg.template code_saturne.cfg
 
     cp $SCBI_PLUGINS/support/salome.rc $PREFIX/etc
+
+    # File to store PREFIX, used to be replaced at installation step:
+    echo $PREFIX > $PREFIX/saturnePrefix_dir_at_build_time.txt
 }
