@@ -95,4 +95,7 @@ function s-syrthes-post-install()
     local TARGET=$2
 
     chmod a+x $PREFIX/arch/Linux_x86_64/bin/*
+
+    # File to store PREFIX, used to be replaced at installation step:
+    echo $PREFIX > $PREFIX/syrthesPrefix_dir_at_build_time.txt
 }
