@@ -118,29 +118,21 @@ function template-conversion()
     fi
 
     # cfg file from CFD with paths to patch
-
     local FILES_CFG=(*/lib/code_saturne_build.cfg)
     local EDFBINDIR="EDF"
 
     for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
         if [[ -f $SCRIPTS ]]; then
-            ## VM build
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            ROOT_DIR=$(dirname "$(dirname "$SCRIPTS")")
+            MODULE_DIR=$(basename $ROOT_DIR)
+            FICHIER_CHEMIN=$(find $ROOT_DIR -name *Prefix_dir_at_build_time.txt)
+            FILE_OLD=$SCRIPTS
+            FILE_ORIG=$SCRIPTS".orig"
 
-            ## Local build :
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            cp ${FILE_OLD} ${FILE_ORIG}
+
+            pattern=$(<$FICHIER_CHEMIN)
+            sed -i "s&${pattern}&${PREFIX}/${EDFBINDIR}/${MODULE_DIR}&g" $FILE_OLD
         fi
     done
 
@@ -163,49 +155,37 @@ function template-conversion()
         fi
     done
 
+    # File from CFD in syrthes repository with paths to patch
     SYRTHES_MAKEFILE=(*/arch/Linux_x86_64/share/syrthes/Makefile.in)
     for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_MAKEFILE; do
         if [[ -f $SCRIPTS ]]; then
-            ## VM build
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            ROOT_DIR=$(dirname "$(dirname "$(dirname "$(dirname "$(dirname "$SCRIPTS")")")")")
+            MODULE_DIR=$(basename $ROOT_DIR)
+            FICHIER_CHEMIN=$(find $ROOT_DIR -name *Prefix_dir_at_build_time.txt)
+            FILE_OLD=$SCRIPTS
+            FILE_ORIG=$SCRIPTS".orig"
 
-            ## Local build :
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            cp ${FILE_OLD} ${FILE_ORIG}
+
+            pattern=$(<$FICHIER_CHEMIN)
+            sed -i "s&${pattern}&${PREFIX}/${EDFBINDIR}/${MODULE_DIR}&g" $FILE_OLD
         fi
     done
 
+    # File from CFD in syrthes repository with paths to patch
     SYRTHES_GUI=(*/arch/Linux_x86_64/bin/syrthes.gui)
     for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_GUI; do
         if [[ -f $SCRIPTS ]]; then
-            ## VM build
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            ROOT_DIR=$(dirname "$(dirname "$(dirname "$(dirname "$SCRIPTS")")")")
+            MODULE_DIR=$(basename $ROOT_DIR)
+            FICHIER_CHEMIN=$(find $ROOT_DIR -name *Prefix_dir_at_build_time.txt)
+            FILE_OLD=$SCRIPTS
+            FILE_ORIG=$SCRIPTS".orig"
 
-            ## Local build :
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            cp ${FILE_OLD} ${FILE_ORIG}
+
+            pattern=$(<$FICHIER_CHEMIN)
+            sed -i "s&${pattern}&${PREFIX}/${EDFBINDIR}/${MODULE_DIR}&g" $FILE_OLD
         fi
     done
 
