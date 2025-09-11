@@ -32,7 +32,8 @@ function s-salome-bootstrap-env()
     set-var SALOME_APPLICATION_DIR   $PREFIX
 
     prepend-to-var PYTHONPATH         $PREFIX/__SALOME_BOOTSTRAP__
-    prepend-to-var PYTHONPATH         $PREFIX/__RUN_SALOME__/lib/salome
+    prepend-to-var PYTHONPATH         \
+                   $PREFIX/__RUN_SALOME__/lib/python$PYTHON_VERSION/site-packages
     prepend-to-var PYTHONPATH         $PREFIX/__RUN_SALOME__/bin/salome
     prepend-to-var LD_LIBRARY_PATH    $PREFIX/__RUN_SALOME__/lib/salome
     add-to-var     CMAKE_PREFIX_PATH  \
