@@ -150,6 +150,7 @@ function s-saturne-post-install()
     sed "s&distant installation paths&distant installation paths\nslurm_cronos=/sofware/rd/saturne/code_saturne/9.0/arch\nslurm_gaia=/projets/saturne/Code_Saturne/9.0/arch&" code_saturne.cfg > code_saturne.cfg.template
 
     sed "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg > code_saturne.cfg.template
+    sed "s&compute_versions = :install&compute_versions = :e-saturne-dbg&" code_saturne.cfg > code_saturne.cfg.template
 
     cp code_saturne.cfg.template code_saturne.cfg
 
