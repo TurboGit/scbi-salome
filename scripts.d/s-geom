@@ -100,6 +100,9 @@ function s-geom-common-config-options()
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+    #  Temporary disable doc as it breaks the installation step
+    echo -DSALOME_BUILD_DOC=FALSE
 }
 
 function s-geom-config()
