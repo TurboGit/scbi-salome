@@ -128,13 +128,16 @@ function s-saturne-dbg-post-install()
 
     sed "s&distant installation paths&distant installation paths\nslurm_cronos=/sofware/rd/saturne/code_saturne/9.0/arch\nslurm_gaia=/projets/saturne/Code_Saturne/9.0/arch&" code_saturne.cfg > code_saturne.cfg.template
 
-    sed "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg > code_saturne.cfg.template
-    sed "s&compute_versions&#compute_versions&" code_saturne.cfg > code_saturne.cfg.template
+    sed "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg > code_saturne.cfg_rc
+    sed "s&compute_versions&#compute_versions&" code_saturne.cfg_rc > code_saturne.cfg.template
 
     cp code_saturne.cfg.template code_saturne.cfg
+    rm code_saturne.cfg_rc
 
     cp $SCBI_PLUGINS/support/salome.rc $PREFIX/etc
 
     # File to store PREFIX, used to be replaced at installation step:
     echo $PREFIX > $PREFIX/saturneDbgPrefix_dir_at_build_time.txt
+    # Replace salome install prefix at installation step. Needed for dependancies at runtime (pleiade 32228)
+    echo $SALOME_BIN_APPLICATION > $PREFIX/salomeTarPrefix_dir_at_build_time.txt
 }
