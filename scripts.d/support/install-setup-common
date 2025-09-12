@@ -124,23 +124,29 @@ function template-conversion()
 
     for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
         if [[ -f $SCRIPTS ]]; then
-            ## VM build
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            ROOT_DIR=$(dirname "$(dirname "$SCRIPTS")")
+            MODULE_DIR=$(basename $ROOT_DIR)
+            # Replace module install path
+            if [[ "$MODULE_DIR" == "e-saturne-dbg" ]]; then
+                ## Saturne dbg
+                FICHIER_CHEMIN=$PREFIX/$EDFBINDIR/$MODULE_DIR/saturneDbgPrefix_dir_at_build_time.txt
+                ## Replace salome install path for dependancies at runtime (pleiade 32228)
+                FICHIER_CHEMIN_TAR=$PREFIX/$EDFBINDIR/$MODULE_DIR/salomeTarPrefix_dir_at_build_time.txt
+            elif [[ "$MODULE_DIR" == "e-saturne" ]]; then
+                ## Saturne
+                FICHIER_CHEMIN=$PREFIX/$EDFBINDIR/$MODULE_DIR/saturnePrefix_dir_at_build_time.txt
+                ## Replace salome install path for dependancies at runtime (pleiade 32228)
+                FICHIER_CHEMIN_TAR=$PREFIX/$EDFBINDIR/$MODULE_DIR/salomeTarPrefix_dir_at_build_time.txt
+            fi
+            FILE_OLD=$SCRIPTS
+            FILE_ORIG=$SCRIPTS".orig"
 
-            ## Local build :
-            # (e/s)-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/[a-z]-salome-tar/,$PREFIX/,g" $SCRIPTS
-            # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
-            # remove x86_64-linux-gnu-ng/install
-            sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
+            cp ${FILE_OLD} ${FILE_ORIG}
+
+            pattern=$(<$FICHIER_CHEMIN)
+            sed -i "s&${pattern}&${PREFIX}/${EDFBINDIR}/${MODULE_DIR}&g" $FILE_OLD
+            pattern_tar=$(<$FICHIER_CHEMIN_TAR)
+            sed -i "s&${pattern_tar}&${PREFIX}&g" $FILE_OLD
         fi
     done
 
@@ -152,7 +158,14 @@ function template-conversion()
         if [[ -f $SCRIPTS ]]; then
             ROOT_DIR=$(dirname "$(dirname "$SCRIPTS")")
             MODULE_DIR=$(basename $ROOT_DIR)
-            FICHIER_CHEMIN=$(find $ROOT_DIR -name *Prefix_dir_at_build_time.txt)
+            # Replace module install path
+            if [[ "$MODULE_DIR" == "e-saturne-dbg" ]]; then
+                ## Saturne dbg
+                FICHIER_CHEMIN=$PREFIX/$EDFBINDIR/$MODULE_DIR/saturneDbgPrefix_dir_at_build_time.txt
+            elif [[ "$MODULE_DIR" == "e-saturne" ]]; then
+                ## Saturne
+                FICHIER_CHEMIN=$PREFIX/$EDFBINDIR/$MODULE_DIR/saturnePrefix_dir_at_build_time.txt
+            fi
             FILE_OLD=$SCRIPTS
             FILE_ORIG=$SCRIPTS".orig"
 
