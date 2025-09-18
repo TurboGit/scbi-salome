@@ -45,7 +45,7 @@ function s-ydefx-env()
     add-to-var CMAKE_PREFIX_PATH $PREFIX/salome_adm/cmake_files
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib/salome
     add-to-var PYTHONPATH        \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-ydefx-ctest-dir()

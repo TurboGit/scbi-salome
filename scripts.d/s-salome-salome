@@ -1,0 +1,94 @@
+
+function s-salome-salome-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/SALOME
+}
+
+function s-salome-salome-common-build-depends()
+{
+    echo s-cmake
+}
+
+function s-salome-salome-ng-build-depends()
+{
+    echo s-salome-bin
+}
+
+function s-salome-salome-common-depends()
+{
+    echo s-salome-configuration
+}
+
+function s-salome-salome-default-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-salome-kernel
+    echo s-salome-gui
+}
+
+function s-salome-salome-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    set-var    SALOME_ROOT_DIR    $PREFIX
+    set-var    SALOME_INSTALL_DIR $PREFIX
+
+    add-to-var PATH               $PREFIX/bin/salome
+    add-to-var PYTHONPATH         $PREFIX/bin/salome
+}
+
+function s-salome-salome-common-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
+}
+
+function s-salome-salome-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
+}
+
+function s-salome-salome-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make -j$SCBI_JOBS
+}
+
+function s-salome-salome-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    make install
+}
+
+function s-salome-salome-prefix()
+{
+    echo NONE
+}

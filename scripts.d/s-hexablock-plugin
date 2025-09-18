@@ -53,7 +53,7 @@ function s-hexablock-plugin-env()
     add-to-var PYTHONPATH                $PREFIX/lib/salome
     add-to-var PYTHONPATH                $PREFIX/bin/salome
     add-to-var PYTHONPATH                \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
     add-to-var SMESH_MeshersList         HEXABLOCKPlugin
     add-to-var SalomeAppConfig           \
                $PREFIX/share/salome/resources/hexablock

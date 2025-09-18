@@ -9,21 +9,38 @@ import os
 import sys
 import subprocess
 import os.path
+from pathlib import Path
+import glob
+import re
 
 os.environ["SALOME_MODULES"] = ""
 
 # Add the pwdPath to able to run the launcher after unpacking a package
 # Used only in case of a salomeTools package
-out_dir_Path=os.path.dirname(os.path.realpath(__file__))
+out_dir_Path = Path( os.path.realpath(__file__) ).parent.absolute()
+main_site_packages_tmp = out_dir_Path.parent.parent.parent / "lib"
+
+pythonDirInLibCandidate = [ os.path.basename(elt) for elt in glob.glob( f"{main_site_packages_tmp}/python*" ) ]
+if len(pythonDirInLibCandidate) != 1:
+  raise RuntimeError( f"Fail to locate python* in {main_site_packages_tmp}" )
+pythonDir = pythonDirInLibCandidate[0]
+
+pat = re.compile("^python([\d])\.([\d]+)$")
+if not pat.match(pythonDir):
+  raise RuntimeError( f"Fail to locate pythonX.Y in {main_site_packages_tmp}" )
+main_site_packages = main_site_packages_tmp / pythonDir / "site-packages"
 
 # Preliminary work to initialize path to SALOME Python modules
 def __initialize():
 
-  sys.path[:0] = [ out_dir_Path + r'/EDF/s-salome-kernel/bin/salome' ]
-
+  # relative to __file__ supposed to be located on bin/salome/appli/salome
+  sys.path[:0] = [
+    f"{main_site_packages}",
+    f"{out_dir_Path}" # parent directory of the current directory
+  ]
   # define folder to store omniorb config (initially in virtual application folder)
   try:
-    from salomeContextUtils import setOmniOrbUserPath
+    from salome.kernel.salomeContextUtils import setOmniOrbUserPath
     setOmniOrbUserPath()
   except Exception as e:
     print(e)
@@ -56,7 +73,7 @@ def main(args):
   reinitialise_paths=True
 
   if args == ['--help']:
-    from salomeContext import usage
+    from salome.kernel.salomeContext_impl import usage
     usage()
     sys.exit(0)
 
@@ -66,7 +83,7 @@ def main(args):
 
   # Create a SalomeContext which parses configFileNames to initialize environment
   try:
-    from salomeContext import SalomeContext, SalomeContextException
+    from salome.kernel.salomeContext_impl import SalomeContext, SalomeContextException
     if 'appendVariable' not in dir(SalomeContext):
       # check whether the appendVariable method is implemented
       def appendVariable(self, name, value, separator=os.pathsep):

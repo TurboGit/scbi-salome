@@ -64,7 +64,7 @@ function s-cfd-study-env()
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PATH              $PREFIX/bin
     add-to-var PYTHONPATH        \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
     add-to-var SALOME_MODULES    CFDSTUDY
     add-to-var SalomeAppConfig   $PREFIX/share/salome/resources/cfdstudy

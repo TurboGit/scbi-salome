@@ -21,6 +21,18 @@ function s-python-omniorb-archive()
     echo omniORBpy-$VERSION.tar.gz 
 } 
 
+function s-python-omniorb-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    # Calling popen does not work by default. The patch aims to fix
+    # this anomaly after discussion with the omniORB developer.
+    echo omniorb-noinitfile.patch
+}
 
 function s-python-omniorb-mingw-patches()
 {

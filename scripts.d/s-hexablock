@@ -49,7 +49,7 @@ function s-hexablock-env()
 
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib/salome
     add-to-var PYTHONPATH         \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
     add-to-var SALOME_MODULES     HEXABLOCK
     add-to-var SalomeAppConfig    $PREFIX/share/salome/resources/hexablock

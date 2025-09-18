@@ -39,7 +39,7 @@ function s-pycalculator-env()
     add-to-var LD_LIBRARY_PATH       $PREFIX/lib/salome
     add-to-var PYTHONPATH            $PREFIX/bin/salome
     add-to-var PYTHONPATH            \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-pycalculator-config()

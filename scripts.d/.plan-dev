@@ -157,6 +157,7 @@ s-ifc-open-shell:v0.7.0
         s-paravisaddons-common
         s-smesh
         s-salome-kernel
+        s-salome-salome
         s-salome-gui
         s-ghs3d-plugin
         s-ydefx
@@ -289,6 +290,7 @@ s-ifc-open-shell:v0.7.0
         s-cgns
         s-gdal
         s-salome-kernel
+        s-salome-salome
 
         s-ifc-open-shell:skip
         s-visual-c:skip

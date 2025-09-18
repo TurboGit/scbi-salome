@@ -169,7 +169,7 @@ function setup-env-salome()
 
     #  If BINARIES-* not found, this is a full EDF build
     if [[ -z $SALOME_BINARY_DIR ]]; then
-        SBINDIR=EDF/s-salome-kernel
+        SBINDIR=EDF/s-salome-salome
     else
         SBINDIR=$SALOME_BINARY_DIR/SALOME
         #  Start EDF env script numbering at 500. The binary modules
