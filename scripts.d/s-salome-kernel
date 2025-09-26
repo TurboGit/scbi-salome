@@ -44,7 +44,6 @@ function s-salome-kernel-default-build-depends()
     echo os@-chrpath
 
     echo s-swig
-    echo s-salome-bootstrap
 }
 
 function s-salome-kernel-mingw-build-depends()
@@ -101,6 +100,7 @@ function s-salome-kernel-default-depends()
     echo os@-python3-numpy
     echo os@-python3-psutil
 
+    echo s-salome-bootstrap
     echo s-hdf5
     echo s-libbatch
     echo s-omniorb
