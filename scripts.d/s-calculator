@@ -26,11 +26,11 @@ function s-calculator-build-depends()
     echo s-cmake
     echo s-swig
     echo s-salome-configuration
-    echo s-salome-bootstrap
 }
 
 function s-calculator-depends()
 {
+    echo s-salome-bootstrap
     echo s-fields
 }
 
