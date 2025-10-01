@@ -71,10 +71,7 @@ function s-saturne-pre-config()
     local PREFIX=$1
     local TARGET=$2
 
-    rsync -a $(dirname ${SCBI_MODULES_DIR["s-neptune"]})/src/* \
-        neptune_cfd
-
-    ../src/sbin/bootstrap
+    sbin/bootstrap
 }
 
 function s-saturne-config-options()
