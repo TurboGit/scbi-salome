@@ -14,9 +14,8 @@ function s-syrthes-patches()
     local REF=$5
 
     # The following patch is to update setup
-    echo syrthes/0001-fix-setup.ini.salome.patch
+    echo syrthes_setup.ini.salome.patch
     echo syrthes/0002-correction-lecture-fichiers-med-le-type-med_int-peut.patch
-    echo syrthes/0003-suppression-des-modifs-setup.ini.patch
     echo syrthes/0004-conversion-format-msh-4.1-ascii-vers-syrthes-lecture.patch
     echo syrthes/0005-Salome-Syrthes-module-name-changed-in-SYRTHES5GUI.patch
     echo syrthes/0006-adapt-copy-selection-from-salome.patch
