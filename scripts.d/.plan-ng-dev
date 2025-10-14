@@ -2,6 +2,9 @@
 
 @load dev/mpi
 
+@set CEA_ARCH = master
+@set EDF_VERSION = master
+
 [ = linux
         s-salome-bin
         s-atomic
@@ -53,7 +56,7 @@ s-scotch/ng
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
-        s-salome-tar/ngwin:#master:WIN
+        s-salome-tar/ngwin:#${CEA_ARCH}:WIN
         s-salome-configuration/ngwin
         s-salome-bin/ngwin
 ]
@@ -64,13 +67,13 @@ s-scotch/ng
 ] :skip
 
 [ = deb,9
-        s-salome-tar:#master:DB09
+        s-salome-tar:#${CEA_ARCH}:DB09
         s-gdal:skip
         s-cgal/ng:#4.0
         s-tbb:skip
         s-qt:skip
         s-pyqt:skip
-        s-python-modules/ng.wand.lxml:master
+        s-python-modules/ng.wand.lxml:${EDF_VERSION}
         os@-boost-locale-dev:skip
         os@-python3:skip
         os@-python3-numpy:skip
@@ -82,20 +85,14 @@ s-scotch/ng
         s-boost:skip
 ]
 
-[ = deb,10
-        s-salome-tar:#master-native:DB10
-        s-qt:skip
-        s-pyqt:skip
-]
-
 [ = deb,11
-        s-salome-tar:#master-native:DB11
+        s-salome-tar:#${CEA_ARCH}-native:DB11
         s-qt/native
         s-pyqt/native
 ]
 
 [ = deb,12
-        s-salome-tar:#master-native:DB12
+        s-salome-tar:#${CEA_ARCH}-native:DB12
         s-qt/native
         s-pyqt/native
 ]
