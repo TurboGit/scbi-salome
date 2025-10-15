@@ -2,7 +2,7 @@
 
 @load v913/mpi
 
-s-salome/neptune.cfd
+s-salome/cfd
 
 s-libccmio:92f08637
 s-coolprop:#6.4.3

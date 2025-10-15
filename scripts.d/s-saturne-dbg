@@ -46,8 +46,6 @@ function s-saturne-dbg-common-depends()
 {
     echo s-libccmio
     echo s-coolprop
-    echo s-eos
-    echo s-neptune
     echo s-scotch
     echo s-hdf5
 }
