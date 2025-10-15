@@ -123,13 +123,11 @@ function s-saturne-dbg-post-install()
     sed "s|# compute_versions =|${APPEND}|" \
         code_saturne.cfg.template > code_saturne.cfg
 
-    sed "s&distant installation paths&distant installation paths\nslurm_cronos=/sofware/rd/saturne/code_saturne/9.0/arch\nslurm_gaia=/projets/saturne/Code_Saturne/9.0/arch&" code_saturne.cfg > code_saturne.cfg.template
+    sed "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg > code_saturne.cfg.template
 
-    sed "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg > code_saturne.cfg_rc
-    sed "s&compute_versions&#compute_versions&" code_saturne.cfg_rc > code_saturne.cfg.template
+    sed -i "s&compute_versions&#compute_versions&" code_saturne.cfg.template
 
     cp code_saturne.cfg.template code_saturne.cfg
-    rm code_saturne.cfg_rc
 
     cp $SCBI_PLUGINS/support/salome.rc $PREFIX/etc
 
