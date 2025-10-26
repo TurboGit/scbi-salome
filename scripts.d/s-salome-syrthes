@@ -33,7 +33,7 @@ function s-salome-syrthes-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var     SALOME_SYRTHES_ROOT_DIR    $PREFIX
+    set-var     SYRTHES_ROOT_DIR           $PREFIX
     set-var     SYRTHES_DIR                $PREFIX
 
     add-to-var  PATH                $PREFIX/bin/salome
