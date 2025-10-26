@@ -76,7 +76,7 @@ function s-syrthes-install()
     cd $PREFIX/src/syrthes-install
     cp -f setup.ini.salome setup.ini
     chmod a+x $PREFIX/src/syrthes-install/syrthes_install.py
-    python3 syrthes_install.py    
+    python3 syrthes_install.py setup.ini
 }
 
 function s-syrthes-post-install()
@@ -89,3 +89,14 @@ function s-syrthes-post-install()
     # File to store PREFIX, used to be replaced at installation step:
     echo $PREFIX > $PREFIX/syrthesPrefix_dir_at_build_time.txt
 }
+
+#function s-syrthes-post-install()
+#{
+#    local PREFIX=$1
+#    local TARGET=$2
+#
+#    cd $PREFIX/src/syrthes-gui/src
+#    sh Install.sh
+#    mv $PREFIX/src/syrthes-gui/src/install \
+#       $PREFIX/arch/Linux_x86_64/lib/syrthesGui
+#}
