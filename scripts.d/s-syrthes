@@ -46,7 +46,7 @@ function s-syrthes-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    CODESYRTHES_ROOT_DIR  $PREFIX
+    set-var    SYRTHES_ROOT_DIR      $PREFIX
     set-var    NOM_ARCH              Linux_x86_64
     set-var    SYRTHES_ROOT          $PREFIX
     set-var    SYRTHES_HOME          $PREFIX/arch/Linux_x86_64
@@ -74,6 +74,7 @@ function s-syrthes-install()
     local TARGET=$2
 
     cd $PREFIX/src/syrthes-install
+    sed -i "s&path_extern_lib=&path_extern_lib=\${SYRTHES_ROOT_DIR}/extern-libraries/opt/&" setup.ini.salome
     cp -f setup.ini.salome setup.ini
     chmod a+x $PREFIX/src/syrthes-install/syrthes_install.py
     python3 syrthes_install.py setup.ini
