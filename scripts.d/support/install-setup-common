@@ -176,6 +176,7 @@ function template-conversion()
         fi
     done
 
+    # SYRTHES file with paths to patch
     SYRTHES_MAKEFILE=(*/arch/Linux_x86_64/share/syrthes/Makefile.in)
     for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_MAKEFILE; do
         if [[ -f $SCRIPTS ]]; then
@@ -196,6 +197,7 @@ function template-conversion()
         fi
     done
 
+    # SYRTHES file with paths to patch
     SYRTHES_GUI=(*/arch/Linux_x86_64/bin/syrthes.gui)
     for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_GUI; do
         if [[ -f $SCRIPTS ]]; then
