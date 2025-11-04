@@ -14,7 +14,14 @@ function s-med-file-archive()
 
 function s-med-file-patches()
 {
-    echo medfile-mpi-config.patch
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ "4." ]] &&
+        echo medfile-mpi-config.patch
 }
 
 function s-med-file-build-depends()
