@@ -1,11 +1,10 @@
 
-
-function s-persalys-phimeca-vcs()
+function s-persalys-vcs()
 {
     echo default
     echo none
     echo git
-    echo https://git.phimeca.com/persalys/persalys.git
+    echo https://github.com/persalys/persalys.git
 }
 
 function s-persalys-archive()
