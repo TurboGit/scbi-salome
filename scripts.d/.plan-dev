@@ -15,15 +15,15 @@ s-persalys:#18.0
 s-zeromq:#4.3.1
 s-planegcs:#0.18
 
-s-openturns:#1.24
-s-openturns-fftw:#0.16
-s-openturns-mixmod:#0.18
-s-openturns-morris:#0.17
-s-openturns-robopt:#0.15
+s-openturns:#1.25.1
+s-openturns-fftw:#0.17
+s-openturns-mixmod:#0.19
+s-openturns-morris:#0.18
+s-openturns-robopt:#0.16
 s-openturns-subsetinverse:#1.10
-s-openturns-svm:#0.15
+s-openturns-svm:#0.16
 s-openturns-wrapy:#0.12.1
-s-openturns-pod:#0.6.11
+s-openturns-pod:#0.6.12
 s-fmil:#2.0.3
 s-pyfmi:#2.6
 s-mixmod:#2.1.10
