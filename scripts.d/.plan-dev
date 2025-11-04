@@ -10,7 +10,7 @@ s-clang:#12.x
 # using binary version 1.16.1
 s-ispc/bin:#v1.16.1
 
-s-persalys:#18.0
+s-persalys:#19.0
 
 s-zeromq:#4.3.1
 s-planegcs:#0.18
