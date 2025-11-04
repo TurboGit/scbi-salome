@@ -42,7 +42,7 @@ s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
 s-cmake/auto:#3.31.6
 s-ttk:#1.1.0
-s-swig/auto:#4.0.2
+s-swig:#4.0.2
 s-tbb/auto:v2021.11.0
 
 s-dataio:v0.1.1
