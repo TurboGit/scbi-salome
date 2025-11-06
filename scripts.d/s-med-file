@@ -76,15 +76,14 @@ function s-med-file-common-config-options()
 
     echo --prefix=$PREFIX
     echo --with-swig=$(command -v swig)
-    echo --with-hdf5=$HDF5_LIB
-    echo --with-hdf5-include=$HDF5_INC
-    echo --with-hdf5-lib=$HDF5_LIB
-    echo --with-hdf5-bin=$HDF5_BIN
+    echo --with-hdf5=$HDF5_ROOT_DIR
     echo --enable-mesgerr
+    echo --enable-python=yes
+    echo --with-f90
     echo --with-med_int=long
 
-    echo FFLAGS="-O2 -fdefault-integer-8"
-    echo FCLAGS="-O2 -fdefault-integer-8"
+    echo FFLAGS="-O2 -fdefault-integer-8 -fallow-argument-mismatch"
+    echo FCLAGS="-O2 -fdefault-integer-8 -fallow-argument-mismatch"
     echo CFLAGS="-O2 -m64"
     echo CXXFLAGS="-O2 -m64"
 }
