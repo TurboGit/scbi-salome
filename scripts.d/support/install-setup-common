@@ -218,6 +218,27 @@ function template-conversion()
         fi
     done
 
+    # SYRTHES file with paths to patch
+    SYRTHES_PROF=(*/arch/Linux_x86_64/bin/syrthes.profile)
+    for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_PROF; do
+        if [[ -f $SCRIPTS ]]; then
+            ROOT_DIR=$(dirname "$(dirname "$(dirname "$(dirname "$SCRIPTS")")")")
+            MODULE_DIR=$(basename $ROOT_DIR)
+            # Replace module install path
+            if [[ "$MODULE_DIR" == "e-syrthes" ]]; then
+                ## Syrthes
+                FICHIER_CHEMIN=$PREFIX/$EDFBINDIR/$MODULE_DIR/syrthesPrefix_dir_at_build_time.txt
+            fi
+            FILE_OLD=$SCRIPTS
+            FILE_ORIG=$SCRIPTS".orig"
+
+            cp ${FILE_OLD} ${FILE_ORIG}
+
+            pattern=$(<$FICHIER_CHEMIN)
+            sed -i "s&${pattern}&${PREFIX}/${EDFBINDIR}/${MODULE_DIR}&g" $FILE_OLD
+        fi
+    done
+
     true
 }
 

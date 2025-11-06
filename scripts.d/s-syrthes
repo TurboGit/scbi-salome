@@ -89,6 +89,8 @@ function s-syrthes-post-install()
 
     # File to store PREFIX, used to be replaced at installation step:
     echo $PREFIX > $PREFIX/syrthesPrefix_dir_at_build_time.txt
+    # To remove bad prefix path :
+    sed -i "s&\${CODESYRTHES_ROOT_DIR}/extern-libraries/opt/&&" $PREFIX/arch/Linux_x86_64/bin/syrthes.profile
 }
 
 #function s-syrthes-post-install()
