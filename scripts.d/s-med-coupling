@@ -100,10 +100,10 @@ function s-med-coupling-ctest-dir()
 
 function s-med-coupling-mpi-config-options()
 {
-    echo -DSALOME_USE_MPI=ON
     echo -DMEDCOUPLING_USE_MPI=ON
 
     echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+    echo -DCMAKE_C_COMPILER=$(get-os-bin mpicc)
 }
 
 function s-med-coupling-ptscotch-config-options()
@@ -158,15 +158,13 @@ function s-med-coupling-common-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
-    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
-    echo -DMED_INT_IS_LONG=ON
-    echo -DHDF5_LIBRARIES=$HDF5_LIBRARIES
+    echo -DMEDCOUPLING_ENABLE_PYTHON=ON
     echo -DMEDCOUPLING_ENABLE_PARTITIONER=ON
-    echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
-    echo -DMEDCOUPLING_PARTITIONER_METIS=ON
     echo -DMEDCOUPLING_ENABLE_RENUMBER=ON
+    echo -DMEDCOUPLING_PARTITIONER_METIS=ON
+    echo -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
     echo -DMEDCOUPLING_MICROMED=OFF
-    echo -DMEDCOUPLING_BUILD_TESTS=ON
     echo -DMEDCOUPLING_ENABLE_SHAPERECOGN=ON
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DMEDCOUPLING_BUILD_DOC=OFF"}
