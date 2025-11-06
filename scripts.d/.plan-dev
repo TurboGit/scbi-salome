@@ -194,26 +194,6 @@ s-smesh:bos/47612
 # the s-salome meta-module version is used to name the .run, a different
 # name is used on the different platforms.
 
-[ = deb,9
-        s-salome/default.core:s9-DEV
-        s-tbb/auto:#4.4.6
-        s-gdal:skip
-        s-ifc-open-shell:skip
-]
-
-[ = deb,10
-        s-salome/default.core:s10-DEV
-        s-python3-meshio/auto:5.3.4
-        s-python3-nlopt/auto:2.6.2
-        s-python3-yaml/auto:3.13
-        s-python3-scipy/auto:1.1
-        s-gdal/auto:2.4.0
-        s-ifc-open-shell:skip
-
-        #  Only needed starting with Debian-12
-        os@-nlopt-cxx:skip
-]
-
 [ = deb,11
         s-salome/default.core:s11-DEV
         # downgrade from 5.15.3 to 5.15.2 to use the native version
