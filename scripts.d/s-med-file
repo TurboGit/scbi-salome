@@ -47,7 +47,6 @@ function s-med-file-mpi-depends()
 
 function s-med-file-build-env()
 {
-
     set-var PYTHON /usr/bin/python$PYTHON_VERSION
 }
 
