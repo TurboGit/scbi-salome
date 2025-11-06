@@ -100,9 +100,6 @@ function s-med-file-config()
     get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
     ../src/configure "${OPTIONS[@]}"
-    res=$?
-
-    return $res
 }
 
 function s-med-file-build()
