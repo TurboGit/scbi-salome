@@ -58,6 +58,14 @@ function s-salome-syrthes-build-env()
     set-var ROOT_SALOME $ROOT_SALOME_INSTALL
 }
 
+function s-salome-syrthes-pre-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    sed -i "s&getSalomePyQt().getDesktop(), True, showDialog)&getSalomePyQt().getDesktop(), showDialog)&" ../src/src/SYRTHESGUI/clientgui.py
+}
+
 function s-salome-syrthes-config()
 {
     local PREFIX=$1
