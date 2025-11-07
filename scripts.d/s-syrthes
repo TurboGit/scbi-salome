@@ -53,7 +53,8 @@ function s-syrthes-env()
     set-var    SYRTHES4_HOME         $PREFIX/arch/Linux_x86_64
 
     add-to-var LD_LIBRARY_PATH       $PREFIX/lib
-
+    # Stardis lib path has to be checked at each version:
+    add-to-var LD_LIBRARY_PATH       $PREFIX/extern-libraries/opt/stardis-solver_0.16.1/arch/Linux_x86_64/lib
     add-to-var PATH                  $SYRTHES_HOME/bin
     add-to-var PATH                  $SYRTHES_HOME/share/syrthes
     add-to-var PYTHONPATH            $SYRTHES_ROOT/src/syrthes-gui/src/install #/SyrthesMain
@@ -84,15 +85,6 @@ function s-syrthes-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
-
-    # To fix Stardis lib path detection :
-    STARDIS_LIB_PATH=$(ls -d $PREFIX/extern-libraries/opt/*/arch/Linux_x86_64/lib 2>/dev/null | sort | tail -n 1)
-    if [ -d "$STARDIS_LIB_PATH" ]; then
-        add-to-var LD_LIBRARY_PATH   $STARDIS_LIB_PATH
-    else
-        echo "Error : Not any Stardis repository found for $STARDIS_LIB_PATH" >&2
-        exit 1
-    fi
 
     chmod a+x $PREFIX/arch/Linux_x86_64/bin/*
 
