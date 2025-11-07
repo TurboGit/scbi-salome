@@ -53,7 +53,17 @@ function s-syrthes-env()
     set-var    SYRTHES4_HOME         $PREFIX/arch/Linux_x86_64
 
     add-to-var LD_LIBRARY_PATH       $PREFIX/lib
-    add-to-var LD_LIBRARY_PATH       $PREFIX/extern-libraries/opt/Stardis-0.8.2-GNU-Linux64/arch/Linux_x86_64/lib
+
+    # To fix Stardis lib path detection :
+    STARDIS_LIB_PATH=$(ls -d $PREFIX/extern-libraries/opt/*/arch/Linux_x86_64/lib 2>/dev/null | sort | tail -n 1)
+
+    if [ -d "$LIB_PATH" ]; then
+        add-to-var LD_LIBRARY_PATH   $PREFIX/$STARDIS_LIB_PATH
+    else
+        echo "Error : Not any Stardis repository found for extern-libraries/opt/*/arch/Linux_x86_64/lib" >&2
+        exit 1
+    fi
+
     add-to-var PATH                  $SYRTHES_HOME/bin
     add-to-var PATH                  $SYRTHES_HOME/share/syrthes
     add-to-var PYTHONPATH            $SYRTHES_ROOT/src/syrthes-gui/src/install #/SyrthesMain
