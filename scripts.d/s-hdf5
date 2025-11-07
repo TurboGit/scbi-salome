@@ -133,11 +133,12 @@ function s-hdf5-mpi-config-options()
     local VARIANT=$3
 
     echo -DHDF5_ENABLE_PARALLEL=ON
+    echo -DCMAKE_CXX_COMPILER=$(command -v mpicxx)
     echo -DCMAKE_C_COMPILER=$(command -v mpicc)
 
     echo -DHDF5_BUILD_JAVA:BOOL=OFF
     echo -DHDF5_ENABLE_THREADSAFE:BOOL=OFF
-    echo -DHDF5_BUILD_CPP_LIB:BOOL=OFF
+    echo -DHDF5_BUILD_TOOLS=ON
 }
 
 function s-hdf5-common-config-options()
@@ -149,9 +150,10 @@ function s-hdf5-common-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DHDF5_BUILD_HL_LIB=ON
-    echo -DHDF5_BUILD_TOOLS=ON
+    echo -DHDF5_BUILD_CPP_LIB=ON
     echo -DBUILD_SHARED_LIBS=ON
     echo -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
+    echo -DHDF5_ALLOW_EXTERNAL_SUPPORT=ON
 }
 
 function s-hdf5-permissive-config-options()
