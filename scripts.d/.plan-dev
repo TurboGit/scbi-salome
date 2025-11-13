@@ -199,7 +199,9 @@ s-smesh:bos/47612
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
+
         # fails to compile on Debian/11
+        s-persalys/default.nodoc:#19.0
 
         s-python3-fmpy:0.3.21
 
