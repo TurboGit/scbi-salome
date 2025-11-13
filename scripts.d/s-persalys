@@ -128,7 +128,16 @@ function s-persalys-env()
                $(last-modified-directory $PREFIX/lib/paraview-*/plugins)
 }
 
-function s-persalys-config-options()
+function s-persalys-nodoc-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DUSE_SPHINX=OFF
+}
+
+function s-persalys-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
