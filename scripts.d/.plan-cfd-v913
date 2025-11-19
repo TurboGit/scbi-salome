@@ -17,14 +17,10 @@ s-syrthes:6f974415ff
 s-salome-syrthes:master
 s-python-modules/wand
 
-[ = deb,10
-    s-salome/cfd:s10-V9_13_0
-]
-
 [ = deb,11
     s-salome/cfd:s11-V9_13_0
 ]
 
-[ = deb,9
-    s-salome/cfd:s9-V9_13_0
+[ = deb,12
+    s-salome/cfd:s12-V9_13_0
 ]
