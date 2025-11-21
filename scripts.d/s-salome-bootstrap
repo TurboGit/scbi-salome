@@ -12,6 +12,11 @@ function s-salome-bootstrap-common-build-depends()
     echo s-cmake
 }
 
+function s-salome-bootstrap-default-build-depends()
+{
+    echo s-swig
+}
+
 function s-salome-bootstrap-ng-build-depends()
 {
     echo s-salome-bin
