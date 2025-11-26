@@ -138,8 +138,8 @@ function s-saturne-post-install()
 
     cd $PREFIX/etc
 
+    sed -i "# compute_versions =&compute_versions = :e-saturne-dbg&" code_saturne.cfg.template
     sed -i "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg.template
-    sed -i "s&compute_versions = :install&compute_versions = :e-saturne-dbg&" code_saturne.cfg.template
 
     cp code_saturne.cfg.template code_saturne.cfg
 

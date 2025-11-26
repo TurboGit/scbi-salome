@@ -117,13 +117,7 @@ function s-saturne-dbg-post-install()
 
     cd $PREFIX/etc
 
-    local APPEND=`echo "compute_versions = :$(basename $PREFIX)"`
-    sed "s|# compute_versions =|${APPEND}|" \
-        code_saturne.cfg.template > code_saturne.cfg
-
-    sed "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg > code_saturne.cfg.template
-
-    sed -i "s&compute_versions&#compute_versions&" code_saturne.cfg.template
+    sed -i "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg.template
 
     cp code_saturne.cfg.template code_saturne.cfg
 
