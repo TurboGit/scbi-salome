@@ -100,6 +100,13 @@ s-scotch/ng
         s-pyqt/native
 ]
 
+[ = deb,13
+        s-salome-tar:#master-native:DB13
+        s-qt/native
+        s-pyqt:skip
+        s-sip:skip
+]
+
 # No need for meshio on NG as already in binary archive
 [
         s-python-modules
