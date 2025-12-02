@@ -1,13 +1,13 @@
 
 # Intel® Open Volume Kernel Library
 
-function s-openvkl-vcs() 
-{ 
+function s-openvkl-vcs()
+{
     echo default
-    echo no-recursive 
-    echo git 
-    echo https://github.com/openvkl/openvkl.git 
-} 
+    echo no-recursive
+    echo git
+    echo https://github.com/openvkl/openvkl.git
+}
 
 
 function s-openvkl-build-depends()

@@ -4,25 +4,30 @@ with-variant native os@-gdal-dev:[v] s-hdf5 s-netcdf os@-proj-dev \
                    'set-var GDAL_INCLUDE_DIR /usr/include/gdal' \
                    'set-var GDAL_LIBRARY     /usr/lib'
 
-function s-gdal-vcs() 
-{ 
+function s-gdal-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/OSGeo/gdal.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/OSGeo/gdal.git
+}
 
 
-function s-gdal-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo gdal-$VERSION.tar.gz 
-} 
+function s-gdal-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo gdal-$VERSION.tar.gz
+}
+
+function s-gdal-out-of-tree()
+{
+    echo true
+}
 
 function s-gdal-mingw-patches()
 {
@@ -59,10 +64,6 @@ function s-gdal-mingw-depends()
 {
     echo os@-crypto++
     echo os@-geos
-}
-function s-gdal-out-of-tree()
-{
-    echo false
 }
 
 function s-gdal-common-env()
