@@ -104,6 +104,7 @@ function s-embree-default-config-options()
     echo -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION}
     echo -DEMBREE_TUTORIALS:bool=OFF
     echo -DCMAKE_CXX_COMPILER=clang++
+    echo -DEMBREE_ISPC_SUPPORT=ON
 }
 
 function s-embree-mingw-config-options()
