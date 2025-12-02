@@ -44,6 +44,7 @@ function s-gdal-mingw-patches()
 function s-gdal-build-depends()
 {
     echo s-cmake
+    echo s-swig
 }
 
 function s-gdal-common-depends()
@@ -58,7 +59,6 @@ function s-gdal-common-depends()
     echo s-proj
     echo s-netcdf
     echo s-hdf5
-    echo s-swig
 }
 
 function s-gdal-mingw-depends()
