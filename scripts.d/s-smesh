@@ -7,6 +7,11 @@ function s-smesh-vcs()
     echo https://github.com/SalomePlatform/smesh
 }
 
+function s-smesh-patches()
+{
+    false && echo smesh-med60.patch
+}
+
 function s-smesh-salome-module()
 {
     echo SMESH
