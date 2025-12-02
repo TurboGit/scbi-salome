@@ -58,6 +58,7 @@ function s-gdal-common-depends()
     echo s-proj
     echo s-netcdf
     echo s-hdf5
+    echo s-swig
 }
 
 function s-gdal-mingw-depends()
@@ -90,16 +91,61 @@ function s-gdal-mingw-env()
     add-to-var PATH $PREFIX/bin
 }
 
-function s-gdal-config()
+function s-gdal-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    ./autogen.sh &&
-        ./configure --with-netcdf=$NETCDF_ROOT_DIR \
-                    --with-hdf5=$HDF5_ROOT_DIR \
-                    --with-proj=$PROJ_ROOT_DIR \
-                    --prefix=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=Release
+    echo -DCMAKE_INSTALL_PREFIX:STRING=${PREFIX}
+    echo -DCMAKE_INSTALL_LIBDIR:STRING=lib
+    echo -DCMAKE_INSTALL_NAME_DIR:PATH=${PREFIX}/lib
+    echo -DGDAL_USE_EXTERNAL_LIBS:BOOL=OFF
+    echo -DGDAL_USE_INTERNAL_LIBS:BOOL=OFF
+    echo -DGDAL_USE_CURL:BOOL=ON
+    echo -DGDAL_USE_LIBXML2:BOOL=ON
+    echo -DGDAL_USE_EXPAT:BOOL=ON
+    echo -DGDAL_USE_ZLIB:BOOL=ON
+    echo -DGDAL_USE_HDF5:BOOL=ON
+    echo -DGDAL_USE_ICONV:BOOL=ON
+    echo -DGDAL_USE_OPENSSL:BOOL=ON
+    echo -DGDAL_USE_SQLITE3:BOOL=ON
+    echo -DGDAL_BUILD_OPTIONAL_DRIVERS:BOOL=OFF
+    echo -DGDAL_ENABLE_DRIVER_HDF5:BOOL=ON
+    echo -DOGR_ENABLE_DRIVER_DGN:BOOL=OFF
+    echo -DOGR_ENABLE_DRIVER_IDRISI:BOOL=OFF
+    echo -DOGR_ENABLE_DRIVER_SDTS:BOOL=OFF
+    echo -DOGR_ENABLE_DRIVER_S57:BOOL=OFF
+    echo -DBUILD_APPS:BOOL=OFF
+    echo -DBUILD_CSHARP_BINDINGS:BOOL=OFF
+    echo -DBUILD_JAVA_BINDINGS:BOOL=OFF
+    echo -DBUILD_PYTHON_BINDINGS:BOOL=ON
+    echo -DBUILD_TESTING:BOOL=OFF
+    echo -DCMAKE_INSTALL_RPATH:STRING=${PREFIX}/lib
+    echo -DGDAL_USE_ZSTD:BOOL=ON
+    echo -DGDAL_USE_PCRE2:BOOL=ON
+    echo -DGDAL_USE_GEOS:BOOL=ON
+    echo -DGDAL_USE_NETCDF:BOOL=ON
+    echo -DGDAL_USE_LIBLZMA:BOOL=ON
+    echo -DGDAL_USE_GEOTIFF_INTERNAL:BOOL=ON
+    echo -DGDAL_USE_JPEG_INTERNAL:BOOL=ON
+    echo -DGDAL_USE_PNG_INTERNAL:BOOL=ON
+    echo -DGDAL_USE_TIFF_INTERNAL:BOOL=ON
+    echo -DGDAL_USE_GIF_INTERNAL:BOOL=ON
+    echo -DGDAL_USE_JSONC_INTERNAL:BOOL=ON
+    echo -DGDAL_USE_BLOSC_INTERNAL:BOOL=ON
+}
+
+function s-gdal-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-gdal-mingw-config()

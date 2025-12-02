@@ -209,33 +209,6 @@ s-smesh:bos/47612
         os@-nlopt-cxx:skip
 ]
 
-[ = deb,13
-        s-salome/default.core:s13-DEV
-        # downgrade from 5.15.3 to 5.15.2 to use the native version
-        s-pyqt/auto:#5.15.2
-        s-opencv:#3.2.0       # native pkg is too recent
-
-        s-python3-cftime/auto:1.6.2
-        s-python3-h5py/auto:3.7.0
-        s-python3-importlib-metadata/auto:4.12.0
-        s-python3-lxml/auto:4.9.2
-        s-python3-netcdf4/auto:1.6.2
-        s-python3-nlopt/auto:2.7.1
-        s-python3-numpy/auto:1.24.2
-        s-python3-proj/auto:3.2.1
-        s-python3-rich/auto:13.3.1
-        s-python3-scipy/auto:1.10.1
-        s-python3-toml/auto:0.10.2
-        s-python3-typing-extensions/auto:4.4.0
-        s-python3-wand/auto:0.6.11
-        s-python3-xlutils:2.0.0
-        s-python3-yaml/auto:6.0
-        s-python3-zipp/auto:1.0.0
-
-        s-gdal/native
-        s-pyqt-sip:skip
-]
-
 [ = deb,12
         s-salome/default.core:s12-DEV
         # downgrade from 5.15.3 to 5.15.2 to use the native version
@@ -260,6 +233,7 @@ s-smesh:bos/47612
         s-python3-zipp/auto:1.0.0
 
         s-gdal/native
+        s-atomic:skip
         s-pyqt-sip:skip
 ]
 
