@@ -43,15 +43,32 @@ function s-openvkl-env()
                $(last-modified-directory "$PREFIX/lib*/cmake/openvkl-*")
 }
 
-function s-openvkl-config()
+function s-openvkl-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} \
-          -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_EXAMPLES=OFF \
-          -DCMAKE_CXX_COMPILER=clang++ ../src
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_INSTALL_NAME_DIR:PATH=$PREFIX/lib
+    echo -DCMAKE_INSTALL_LIBDIR:STRING=lib
+    echo -DCMAKE_INSTALL_INCLUDEDIR:STRING=include
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DBUILD_TESTING=OFF
+    echo -DBUILD_EXAMPLES=OFF
+    echo -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION}
+    echo -DCMAKE_CXX_COMPILER=clang++
+}
+
+function s-openvkl-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-openvkl-build()
