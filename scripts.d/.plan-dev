@@ -57,7 +57,7 @@ s-libigl:v2.5.0
 s-netgen/autotools:#5.3.1
 
 s-gmsh:#4.10.3
-s-gdal/auto:#3.2.2
+s-gdal/auto:#3.7.1
 s-proj/auto:#7.2.0
 s-med-file:#6.0.0
 s-python3-nlopt/auto:2.7.0
@@ -232,7 +232,6 @@ s-smesh:bos/47612
         s-python3-yaml/auto:6.0
         s-python3-zipp/auto:1.0.0
 
-        s-gdal/native
         s-atomic:skip
         s-pyqt-sip:skip
 ]
