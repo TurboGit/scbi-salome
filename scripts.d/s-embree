@@ -1,23 +1,23 @@
 
-function s-embree-vcs() 
-{ 
+function s-embree-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/embree/embree.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/embree/embree.git
+}
 
 
-function s-embree-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo embree-$VERSION.tar.gz 
-} 
+function s-embree-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo embree-$VERSION.tar.gz
+}
 
 function s-embree-mingw-patches()
 {
@@ -104,6 +104,7 @@ function s-embree-default-config-options()
     echo -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION}
     echo -DEMBREE_TUTORIALS:bool=OFF
     echo -DCMAKE_CXX_COMPILER=clang++
+    echo -DEMBREE_ISPC_SUPPORT=ON
 }
 
 function s-embree-mingw-config-options()

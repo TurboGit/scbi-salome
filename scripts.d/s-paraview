@@ -58,6 +58,12 @@ function s-paraview-patches()
             echo paraview-5.13-2918b94391-findfreetype.patch
             echo paraview-5.13-2918b94391-vtkmodule.patch
         }
+
+    [[ $REF =~ "6.1" ]] &&
+        {
+            echo paraview-6.1.c61dcc8ee.0001-LATA-reader.patch
+            echo paraview-6.1.c61dcc8ee.0002-vtkUnstructuredGridRelevantPointsFilter-fix-for-poly.patch
+        }
 }
 
 function s-paraview-mingw-patches()

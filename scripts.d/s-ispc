@@ -52,7 +52,9 @@ function s-ispc-bin-env()
     local PREFIX=$1
     local TARGET=$2
 
-    add-to-var PATH $PREFIX/bin
+    add-to-var PATH              $PREFIX/bin
+    add-to-var CMAKE_PREFIX_PATH \
+               $(last-modified-directory $PREFIX/lib*/cmake/ispcrt-*)
 }
 
 function s-ispc-config()

@@ -4,11 +4,12 @@
 @set CEA_VERSION = master
 @set EDF_VERSION = master
 @set PV_VERSION  = v5.13-2918b94391
+# @set PV_VERSION  = c61dcc8ee
 
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
 # using binary version 1.16.1
-s-ispc/bin:#v1.16.1
+s-ispc/bin:#v1.21.1
 
 s-persalys:#19.0
 
@@ -29,10 +30,10 @@ s-pyfmi:#2.6
 s-mixmod:#2.1.10
 s-openturns-fmi:#0.16.6
 
-s-embree:#3.12.2
-s-rkcommon:#1.5.1
-s-openvkl:#0.11.0
-s-ospray:#2.4.0
+s-embree:#4.4.0
+s-rkcommon:#1.11.0
+s-openvkl:#1.3.2
+s-ospray:#2.12.0
 s-uranie:#4.7.0
 s-root:#v6-28-10
 s-qt/auto:#5.15.2
@@ -41,9 +42,10 @@ s-pyqt/auto:#5.15.3
 s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
 s-cmake/auto:#3.31.6
-s-ttk:#1.1.0
+s-ttk:#1.3.0
 s-swig:#4.0.2
 s-tbb/auto:v2021.11.0
+s-netcdf:#4.9.2
 
 s-dataio:v0.1.1
 
@@ -57,9 +59,9 @@ s-libigl:v2.5.0
 s-netgen/autotools:#5.3.1
 
 s-gmsh:#4.10.3
-s-gdal/auto:#3.2.2
-s-proj/auto:#7.2.0
-s-med-file:#6.0.0
+s-gdal/auto:#3.7.1
+s-proj/auto:#9.2.1
+s-med-file:#6.0.1
 s-python3-nlopt/auto:2.7.0
 s-python3-rich/auto:9.11.0
 s-python3-wand/auto:0.4.4
@@ -166,6 +168,14 @@ s-ifc-open-shell:v0.7.0
         s-salome-bootstrap
 ] :$CEA_VERSION
 
+[ = disabled
+    s-salome-gui:kw_186_geom_extractor_version
+    s-smesh:kw_186_variant_api
+#    s-med-reader:kw_186_data_array
+    s-paravis:kw_186_data_array
+    s-paravisaddons-common:kw_186_medcoupling_dataarray
+]
+
 #  ??? Temporary use branch instead of master, the follwing line
 #  can be removed when master is fixed.
 s-smesh:bos/47612
@@ -232,7 +242,6 @@ s-smesh:bos/47612
         s-python3-yaml/auto:6.0
         s-python3-zipp/auto:1.0.0
 
-        s-gdal/native
         s-atomic:skip
         s-pyqt-sip:skip
 ]

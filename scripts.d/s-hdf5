@@ -106,12 +106,12 @@ function s-hdf5-env()
     local TARGET=$2
 
     set-var    HDF5_ROOT_DIR      $PREFIX
+    set-var    HDF5_ROOT          $PREFIX
 
     #  For medfichier autoconf:
     add-to-var HDF5_INC           $PREFIX/include
     add-to-var HDF5_LIB           $PREFIX/lib
     add-to-var HDF5_BIN           $PREFIX/bin
-    set-var    HDF5_ROOT          $PREFIX/lib
     set-var    HDF5_DIR           $PREFIX/lib
 
     set-var    HDF5_LIBRARIES     "$PREFIX/lib/libhdf5.so;$PREFIX/lib/libhdf5_cpp.so"
