@@ -58,7 +58,7 @@ s-libigl:v2.5.0
 # s-netgen/cmake:#6.2.2101
 s-netgen/autotools:#5.3.1
 
-s-gmsh:#4.10.3
+s-gmsh:#4.14.1
 s-gdal/auto:#3.7.1
 s-proj/auto:#9.2.1
 s-med-file:#6.0.1

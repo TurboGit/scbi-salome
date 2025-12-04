@@ -29,11 +29,14 @@ function s-gmsh-patches()
     local OCCTV=$(get-module-version "s-occt")
     OCCTV=${OCCTV//_/}
 
-    [[ $OCCTV =~ "780" ]] &&
-        echo gmsh-4.10.3-occt780.patch
+    [[ $REF =~ 4.10 ]] &&
+        {
+            [[ $OCCTV =~ "780" ]] &&
+                echo gmsh-4.10.3-occt780.patch
 
-    [[ $OCCTV =~ "790" ]] &&
-        echo gmsh-4.10.3-occt780.patch
+            [[ $OCCTV =~ "790" ]] &&
+                echo gmsh-4.10.3-occt780.patch
+        }
 }
 
 function s-gmsh-build-depends()
