@@ -2,13 +2,13 @@
 with-variant native os@-proj-dev:[v] \
       --env  'set-var PROJ_ROOT_DIR /usr'
 
-function s-proj-vcs() 
-{ 
+function s-proj-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/OSGeo/PROJ.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/OSGeo/PROJ.git
+}
 
 function s-proj-build-depends()
 {
