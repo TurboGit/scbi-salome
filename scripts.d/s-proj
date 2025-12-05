@@ -36,7 +36,7 @@ function s-proj-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DPROJ_TESTS=OFF \
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_TESTING=OFF \
           ../src
 }
 
