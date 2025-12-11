@@ -20,6 +20,17 @@ function s-ttk-archive()
     echo $VERSION.tar.gz
 }
 
+function s-ttk-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo ttk-enable-torch.patch
+}
+
 function s-ttk-build-depends()
 {
     echo s-cmake
@@ -66,9 +77,9 @@ function s-ttk-config-options()
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 
     echo -DTTK_BUILD_PARAVIEW_PLUGINS=ON
-    echo -DEMBREE_INCLUDE_DIR=${embree_DIR}/include
     echo -DTTK_ENABLE_CPU_OPTIMIZATION=OFF
     echo -DTTK_ENABLE_EIGEN=ON
+    echo -DTTK_ENABLE_TORCH=OFF
 }
 
 function s-ttk-config()

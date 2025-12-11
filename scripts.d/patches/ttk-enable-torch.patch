@@ -1,0 +1,22 @@
+*** a/CMake/config.cmake.orig	2025-12-11 13:22:43.908901664 +0100
+--- b/CMake/config.cmake	2025-12-11 13:22:53.416891217 +0100
+***************
+*** 153,158 ****
+--- 153,159 ----
+  
+  # optional packages
+  
++ if(TTK_ENABLE_TORCH)
+  find_package(Torch QUIET)
+  if(TORCH_FOUND)
+    option(TTK_ENABLE_TORCH "Enable Torch support" ON)
+***************
+*** 161,166 ****
+--- 162,168 ----
+    option(TTK_ENABLE_TORCH "Enable Torch support" OFF)
+    message(STATUS "Torch not found, disabling Torch support in TTK.")
+  endif()
++ endif()
+  
+  find_package(ZLIB QUIET)
+  if(ZLIB_FOUND)
