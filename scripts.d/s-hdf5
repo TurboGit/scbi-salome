@@ -123,7 +123,7 @@ function s-hdf5-env()
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
-    add-to-var CMAKE_PREFIX_PATH  $PREFIX/share/cmake/hdf5
+    add-to-var CMAKE_PREFIX_PATH  $PREFIX/cmake
 }
 
 function s-hdf5-mpi-config-options()
