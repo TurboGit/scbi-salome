@@ -13,18 +13,14 @@ s-scotch/cmake:#v7.0.4
 s-saturne:master
 s-saturne-dbg:master
 s-cfd-study:master
-s-syrthes:yf/master
+s-syrthes:6f974415ff
 s-salome-syrthes:master
 s-python-modules/wand
-
-[ = deb,10
-    s-salome/cfd:s10-DEV
-]
 
 [ = deb,11
     s-salome/cfd:s11-DEV
 ]
 
-[ = deb,9
-    s-salome/cfd:s9-DEV
+[ = deb,12
+    s-salome/cfd:s12-DEV
 ]
