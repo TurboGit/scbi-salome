@@ -3,10 +3,15 @@
 @load cfd-dev/mpi
 @load ng-dev/mpi
 
+s-libccmio:92f08637
+s-coolprop:#6.4.3
+
+# Starting with v7.x of scotch the build is based on cmake
+s-scotch/cmake:#v7.0.4
 
 [
-    s-saturne:v8.0
-    s-saturne-dbg:v8.0
+    s-saturne
+    s-saturne-dbg
     s-cfd-study
     s-syrthes
     s-salome-syrthes
