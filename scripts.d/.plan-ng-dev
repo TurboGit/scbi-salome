@@ -11,6 +11,7 @@
         s-med-coupling
         s-python-modules
         s-ifc-open-shell
+    	s-saturne
 
         # other modules that can be built in ng mode
         s-smesh

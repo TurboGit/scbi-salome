@@ -101,6 +101,7 @@ function s-salome-default-modules()
     echo s-sip
     echo s-topiivol
     echo s-component
+    echo s-saturne
 }
 
 function s-salome-ng-modules()
@@ -126,11 +127,10 @@ function s-salome-cfd-modules()
 {
     echo s-coolprop
     echo s-libccmio
-    echo s-saturne
     echo s-saturne-dbg
     echo s-cfd-study
-    echo s-code-syrthes
     echo s-syrthes
+    echo s-salome-syrthes
 }
 
 function s-salome-mingw-modules()
