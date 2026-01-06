@@ -1,5 +1,4 @@
 
-
 function s-saturne-out-of-tree()
 {
     echo false
@@ -32,7 +31,6 @@ function s-saturne-default-depends()
 {
     echo os@-python3-setuptools
     echo os@-metis-dev
-    echo s-hdf5
     echo s-cgns
     echo s-med-file
     echo s-salome-kernel
@@ -49,6 +47,7 @@ function s-saturne-common-depends()
     echo s-libccmio
     echo s-coolprop
     echo s-scotch
+    echo s-hdf5
 }
 
 function s-saturne-env()
@@ -70,10 +69,7 @@ function s-saturne-pre-config()
     local PREFIX=$1
     local TARGET=$2
 
-    rsync -a $(dirname ${SCBI_MODULES_DIR["s-neptune"]})/src/* \
-        neptune_cfd
-
-    ../src/sbin/bootstrap
+    sbin/bootstrap
 }
 
 function s-saturne-config-options()
@@ -81,22 +77,11 @@ function s-saturne-config-options()
     local PREFIX=$1
     local TARGET=$2
 
-    echo FC=gfortran
     echo --prefix=$PREFIX
-    echo --enable-relocatable
-    echo --enable-silent-rules
+    echo --enable-relocatable # Indispensable pour déplacer l'installeur
     echo --with-salome=$SALOME_ROOT_DIR
-    echo --with-eos=$EOS_ROOT_DIR
     echo --with-mpi=$MPI_ROOT_DIR
-    echo --with-metis=$METIS_ROOT_DIR
-    echo --with-scotch=$SCOTCH_ROOT_DIR
-    echo --with-hdf5=$HDF5_ROOT_DIR
-    echo --with-cgns=$CGNS_ROOT_DIR
-    echo --with-coolprop=$COOLPROP_ROOT_DIR
-    echo --with-med=$MEDFILE_ROOT_DIR
-    echo --with-medcoupling=$MEDCOUPLING_ROOT_DIR
-    echo --with-ccm-include=$LIBCCMIO_ROOT_DIR/include
-    echo --with-ccm-lib=$LIBCCMIO_LIB_DIR
+    echo --with-catalyst # Ajouter "=salome" pour scibian12 si besoin
 }
 
 function s-saturne-mesa-config-options()
@@ -150,3 +135,18 @@ function s-saturne-post-install()
     local TARGET=$2
 
     make install-doc
+
+    cd $PREFIX/etc
+
+    sed -i "s&# compute_versions =&compute_versions = :e-saturne-dbg&" code_saturne.cfg.template
+    sed -i "s&# rcfile =&rcfile =${PREFIX}/etc/salome.rc&" code_saturne.cfg.template
+
+    cp code_saturne.cfg.template code_saturne.cfg
+
+    cp $SCBI_PLUGINS/support/salome.rc $PREFIX/etc
+
+    # File to store PREFIX, used to be replaced at installation step:
+    echo $PREFIX > $PREFIX/saturnePrefix_dir_at_build_time.txt
+    # Replace salome install prefix at installation step. Needed for dependancies at runtime (pleiade 32228)
+    echo $SALOME_BIN_APPLICATION > $PREFIX/salomeTarPrefix_dir_at_build_time.txt
+}

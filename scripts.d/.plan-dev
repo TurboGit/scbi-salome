@@ -107,6 +107,9 @@ s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal:#$PV_VERSION
 s-cgal/auto:#v5.5.1
 s-ifc-open-shell:v0.7.0
+s-saturne:master
+s-libccmio:92f08637
+s-coolprop:#6.4.3
 
 [
         # s-homard tool is now merged into s-homard module
