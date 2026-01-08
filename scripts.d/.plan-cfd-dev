@@ -2,7 +2,7 @@
 
 @load dev/mpi
 
-s-salome/neptune.cfd
+s-salome/cfd
 
 s-libccmio:92f08637
 s-coolprop:#6.4.3
@@ -13,18 +13,14 @@ s-scotch/cmake:#v7.0.4
 s-saturne:master
 s-saturne-dbg:master
 s-cfd-study:master
-s-code-syrthes:yf/master
-s-syrthes:mpa/salome9
+s-syrthes:6f974415ff
+s-salome-syrthes:master
 s-python-modules/wand
 
-[ = deb,10
-    s-salome/neptune.cfd:s10-DEV
-]
-
 [ = deb,11
-    s-salome/neptune.cfd:s11-DEV
+    s-salome/cfd:s11-DEV
 ]
 
-[ = deb,9
-    s-salome/neptune.cfd:s9-DEV
+[ = deb,12
+    s-salome/cfd:s12-DEV
 ]
