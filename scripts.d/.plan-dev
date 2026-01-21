@@ -97,7 +97,7 @@ s-omniorb-core/auto
 
 s-occt:#CR790-SALOME-PATCH
 s-cgns/auto:#4.2.0
-s-hdf5/auto:#1.14.6
+s-hdf5/native-mpi:#1.14.6
 s-catalyst:#2.0-431a8a1
 s-python-modules/default.core.meshio
 s-scotch/auto:#6.1.2
