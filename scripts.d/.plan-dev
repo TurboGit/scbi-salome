@@ -4,6 +4,7 @@
 @set CEA_VERSION = master
 @set EDF_VERSION = master
 @set PV_VERSION  = v5.13-2918b94391
+@set RUN_VERSION = master
 
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
@@ -166,10 +167,6 @@ s-ifc-open-shell:v0.7.0
         s-salome-bootstrap
 ] :$CEA_VERSION
 
-#  ??? Temporary use branch instead of master, the follwing line
-#  can be removed when master is fixed.
-s-smesh:bos/47612
-
 # Second, for repositories where master is at EDF
 [
         s-salome-eficas
@@ -195,7 +192,7 @@ s-smesh:bos/47612
 # name is used on the different platforms.
 
 [ = deb,11
-        s-salome/default.core:s11-DEV
+        s-salome/default.core:s11-$RUN_VERSION
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
@@ -210,7 +207,7 @@ s-smesh:bos/47612
 ]
 
 [ = deb,13
-        s-salome/default.core:s13-DEV
+        s-salome/default.core:s13-$RUN_VERSION
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
@@ -237,7 +234,7 @@ s-smesh:bos/47612
 ]
 
 [ = deb,12
-        s-salome/default.core:s12-DEV
+        s-salome/default.core:s12-$RUN_VERSION
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
