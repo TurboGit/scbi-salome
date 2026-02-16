@@ -4,7 +4,7 @@
 @set CEA_VERSION = master
 @set EDF_VERSION = master
 @set PV_VERSION  = v5.13-2918b94391
-@set RUN_VERSION = master
+@set RUN_VERSION = DEV
 
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
