@@ -82,6 +82,9 @@ function s-saturne-config-options()
     echo --with-salome=$SALOME_ROOT_DIR
     echo --with-mpi=$MPI_ROOT_DIR
     echo --with-catalyst # Ajouter "=salome" pour scibian12 si besoin
+    echo CPPFLAGS="-I/usr/include/hdf5/serial"
+    echo LDFLAGS="-L/usr/lib/x86_64-linux-gnu/hdf5/serial"
+    echo LIBS="-lhdf5"
 }
 
 function s-saturne-mesa-config-options()
