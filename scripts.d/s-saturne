@@ -82,7 +82,7 @@ function s-saturne-config-options()
     echo --with-salome=$SALOME_ROOT_DIR
     echo --with-mpi=$MPI_ROOT_DIR
     echo --with-catalyst # Ajouter "=salome" pour scibian12 si besoin
-}
+ }
 
 function s-saturne-mesa-config-options()
 {

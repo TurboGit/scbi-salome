@@ -91,6 +91,8 @@ function s-ifc-open-shell-common-config-options()
     local TARGET=$2
     local VARIANT=$3
 
+    DEBIAN_VERSION=$(lsb_release -r | awk '{print $2}')
+
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCOLLADA_SUPPORT=OFF
@@ -98,7 +100,9 @@ function s-ifc-open-shell-common-config-options()
     echo -DBUILD_SHARED_LIBS=ON
     echo -DOCC_INCLUDE_DIR=$CAS_ROOT_DIR/include/opencascade
     echo -DOCC_LIBRARY_DIR=$CAS_ROOT_DIR/lib
-    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+    if [[ $DEBIAN_VERSION -le "12" ]] ; then
+        echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+    fi
 }
 
 function s-ifc-open-shell-config()
