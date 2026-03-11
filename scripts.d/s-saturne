@@ -89,6 +89,11 @@ function s-saturne-scibian13-config-options()
     local PREFIX=$1
     local TARGET=$2
 
+    echo --prefix=$PREFIX
+    echo --enable-relocatable # Needed to move installer
+    echo --with-salome=$SALOME_ROOT_DIR
+    echo --with-mpi=$MPI_ROOT_DIR
+    echo --with-catalyst # Add "=salome" for scibian12 if need
     echo --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/serial # needed with scibian13 and hdf5 native
 }
 
