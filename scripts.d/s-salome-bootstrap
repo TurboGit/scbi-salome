@@ -17,6 +17,11 @@ function s-salome-bootstrap-ng-build-depends()
     echo s-salome-bin
 }
 
+function s-salome-bootstrap-default-build-depends()
+{
+    echo s-swig
+}
+
 function s-salome-bootstrap-common-depends()
 {
     echo s-salome-configuration

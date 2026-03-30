@@ -74,7 +74,9 @@ function s-med-file-common-config-options()
     echo --with-hdf5-include=$HDF5_INC
     echo --with-hdf5-lib=$HDF5_LIB
     echo --with-hdf5-bin=$HDF5_BIN
+    echo --enable-python=yes
     echo --enable-mesgerr
+    echo --disable-installtest
     echo --with-med_int=long
 
     echo FFLAGS="-O2 -fdefault-integer-8"
@@ -103,7 +105,7 @@ function s-med-file-build()
     local PREFIX=$1
     local TARGET=$2
 
-    make -j$SCBI_JOBS
+    make SWIG="SWIG_LIB=$SWIG_LIB $SWIG_ROOT/bin/swig" -j1
 }
 
 function s-med-file-install()
