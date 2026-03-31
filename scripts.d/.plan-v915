@@ -166,6 +166,9 @@ s-ifc-open-shell:v0.7.0
         s-salome-bootstrap
 ] :$CEA_VERSION
 
+#  Use V9_15_BR to fix parallel compilation
+s-homard:V9_15_BR
+
 # Second, for repositories where master is at EDF
 [
         s-salome-eficas
