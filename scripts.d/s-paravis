@@ -127,7 +127,7 @@ function s-paravis-common-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DVTK_DIR=$(last-modified-directory
-                     "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*")
+                     "$PARAVIEW_INSTALL_DIR/lib*/cmake/paraview-*")
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
 

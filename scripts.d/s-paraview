@@ -59,6 +59,12 @@ function s-paraview-patches()
             echo paraview-5.13-2918b94391-vtkmodule.patch
         }
 
+    [[ $REF =~ "6.0" ]] &&
+        {
+            echo paraview-6.0.0-c61dcc8ee0.p001-FindCGNS.patch
+            echo paraview-6.0.0-c61dcc8ee0.p005-LATA_V2.1-plugin.patch
+        }
+
     [[ $REF =~ "6.1" ]] &&
         {
             echo paraview-6.1.c61dcc8ee.0001-LATA-reader.patch
