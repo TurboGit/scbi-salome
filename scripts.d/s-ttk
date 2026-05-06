@@ -29,6 +29,9 @@ function s-ttk-patches()
     local REF=$5
 
     echo ttk-enable-torch.patch
+
+    [[ $REF =~ 1.3 ]] &&
+        echo ttk-1.3.0-embree-include.patch
 }
 
 function s-ttk-build-depends()
@@ -73,6 +76,132 @@ function s-ttk-config-options()
     local TARGET=$2
     local VARIANT=$3
 
+    ttk_modules=(
+        # core modules
+        ttkAlgorithm
+        ttkTriangulationAlgorithm
+        ttkProgramBase
+
+        # testing
+        ttkHelloWorld
+        ttkTriangulationManager
+        ttkTriangulationRequest
+
+        # utility
+        ttkArrayEditor
+        ttkArrayPreconditioning
+        ttkBlockAggregator
+        ttkExtract
+        ttkFlattenMultiBlock
+        ttkForEach
+        ttkEndFor
+        ttkGridLayout
+        ttkIcosphere
+        ttkIcosphereFromObject
+        ttkIcospheresFromPoints
+        ttkIdentifierRandomizer
+        ttkIdentifyByScalarField
+        ttkPeriodicGhostsGeneration # dep for ttkTriangulationManager
+        ttkPointDataSelector
+        ttkScalarFieldNormalizer
+        ttkScalarFieldSmoother
+        ttkTextureMapFromField
+
+        # topology
+        ttkContinuousScatterPlot
+        ttkContourAroundPoint
+        ttkContourTree
+        ttkContourTreeAlignment
+        ttkFiber
+        ttkFiberSurface
+        ttkIntegralLines
+        ttkJacobiSet
+        ttkMergeTree
+        # ttkMergeTreeAutoencoder   # need pytorch
+        # ttkMergeTreeAutoencoderDecoding # need pytorch
+        ttkMergeTreePrincipalGeodesics
+        ttkMergeTreePrincipalGeodesicsDecoding
+        ttkMergeTreePrincipalGeodesicsDecoding_PathTrees
+        ttkMergeTreePrincipalGeodesicsDecoding_Surface
+        ttkMergeTreeTemporalReduction
+        ttkMergeTreeTemporalReductionDecoding
+        ttkMeshGraph
+        ttkMorseSmaleComplex
+        ttkPathCompression
+        ttkPersistenceCurve
+        ttkPersistenceDiagram
+        ttkPersistentGenerators
+        ttkPlanarGraphLayout
+        ttkReebGraph
+        ttkReebSpace
+        ttkRipsComplex
+        ttkScalarFieldCriticalPoints
+        ttkTopologicalSimplification
+        ttkTopologicalSimplificationByPersistence
+        ttkTrackingFromPersistenceDiagrams # dep for ttkTrackingFromFields
+        ttkTrackingFromFields
+        ttkTrackingFromOverlap
+
+        # geometry processing
+        ttkBottleneckDistance # dep for ttkTrackingFromPersistenceDiagrams
+        ttkDepthImageBasedGeometryApproximation
+        ttkDistanceField
+        ttkGeometrySmoother
+        ttkManifoldCheck
+        ttkMarchingTetrahedra
+        ttkMorseSmaleQuadrangulation
+        ttkPointSetToCurve
+        ttkPointSetToSurface
+        ttkProjectionFromField
+        ttkQuadrangulationSubdivision
+        ttkSignedDistanceField
+        ttkSurfaceGeometrySmoother
+
+        # clustering
+        ttkLDistanceMatrix
+        ttkMatrixToHeatMap
+        ttkMergeTreeClustering
+        ttkMergeTreeDistanceMatrix
+        ttkPersistenceDiagramClustering
+        ttkPersistenceDiagramDistanceMatrix
+
+        # ensemble
+        ttkMandatoryCriticalPoints
+        ttkDimensionReduction # no sklearn available, only TopoMap
+
+        # cinema
+        ttkCinemaReader
+        ttkCinemaWriter
+        ttkCinemaQuery
+        ttkCinemaImaging
+        ttkCinemaProductReader
+
+        # compression
+        ttkTopologicalCompressionWriter # dependency for ttkCinemaWriter
+        ttkTopologicalCompressionReader # going with the writer...
+
+        # darkroom
+        ttkDarkroomCamera
+        ttkDarkroomColorMapping
+        ttkDarkroomCompositing
+        ttkDarkroomFXAA
+        ttkDarkroomIBS
+        ttkDarkroomSSAO
+        ttkDarkroomSSDoF
+        ttkDarkroomSSSAO
+
+        # table
+        ttkDataSetToTable
+        ttkMergeBlockTables
+        ttkProjectionFromTable
+        ttkTableDataSelector
+        ttkTableDistanceMatrix
+
+        # web scocket related, disabled because of missing dependency
+        # ttkWebSocketIO
+        # ttkWebSocketIO
+    )
+
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 
@@ -80,6 +209,32 @@ function s-ttk-config-options()
     echo -DTTK_ENABLE_CPU_OPTIMIZATION=OFF
     echo -DTTK_ENABLE_EIGEN=ON
     echo -DTTK_ENABLE_TORCH=OFF
+
+    echo -DCMAKE_INSTALL_LIBDIR:STRING=lib
+    echo -DBUILD_SHARED_LIBS:BOOL=ON
+    echo -DTTK_BUILD_STANDALONE_APPS:BOOL=FALSE
+    echo -DCMAKE_INSTALL_LIBDIR:PATH=lib
+    echo -DCMAKE_INSTALL_NAME_DIR:PATH=${PRODUCT_INSTALL}/lib
+    echo -DCMAKE_INSTALL_RPATH:STRING=$PRODUCT_INSTALL
+    echo -DTTK_INSTALL_PLUGIN_DIR:PATH=${PARAVIEW_PLUGINS_DIR}
+
+    echo -DTTK_ENABLE_KAMIKAZE:BOOL=TRUE
+    echo -DTTK_ENABLE_CPU_OPTIMIZATION:BOOL=FALSE
+    echo -DTTK_ENABLE_DOUBLE_TEMPLATING:BOOL=OFF
+
+    echo -DTTK_ENABLE_EIGEN:BOOL=ON
+    echo -DTTK_ENABLE_EMBREE:BOOL=ON
+    echo -DTTK_ENABLE_GRAPHVIZ:BOOL=ON
+    echo -DTTK_ENABLE_OPENMP:BOOL=ON
+    echo -DTTK_ENABLE_MPI:BOOL=ON
+    echo -DTTK_ENABLE_SCIKIT_LEARN:BOOL=OFF
+    echo -DTTK_ENABLE_ZFP:BOOL=OFF
+
+    echo -DTTK_WHITELIST_MODE:BOOL=TRUE
+
+    for tmodule in "${ttk_modules[@]}"; do
+        echo -DVTK_MODULE_ENABLE_${tmodule}:STRING=YES
+    done
 }
 
 function s-ttk-config()
