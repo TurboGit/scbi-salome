@@ -167,18 +167,6 @@ s-ifc-open-shell:v0.7.0
         s-salome-bootstrap
 ] :$CEA_VERSION
 
-[ = disabled
-    s-salome-gui:kw_186_geom_extractor_version
-    s-smesh:kw_186_variant_api
-#    s-med-reader:kw_186_data_array
-    s-paravis:kw_186_data_array
-    s-paravisaddons-common:kw_186_medcoupling_dataarray
-]
-
-#  ??? Temporary use branch instead of master, the follwing line
-#  can be removed when master is fixed.
-s-smesh:bos/47612
-
 # Second, for repositories where master is at EDF
 [
         s-salome-eficas
