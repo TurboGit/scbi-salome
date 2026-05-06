@@ -18,7 +18,6 @@ function s-pyqt-patches()
 function s-pyqt-depends()
 {
     echo s-qt
-    echo s-pyqt-sip
     echo s-sip
 }
 

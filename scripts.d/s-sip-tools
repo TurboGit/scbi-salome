@@ -1,0 +1,142 @@
+
+inherit-plugin --name handle-dist s-python-post-install-dist-packages
+
+with-variant native os@-sip-dev:[v]
+
+function s-sip-tools-vcs()
+{
+    echo default
+    echo none
+    echo hg
+    echo https://www.riverbankcomputing.com/hg/sip
+}
+
+function s-sip-tools-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo sip-$VERSION.tar.gz
+}
+
+function s-sip-tools-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ 4.19.6 ]] &&
+        echo sip-4.19-f_back.patch
+    [[ $REF =~ 4.19.25 ]] &&
+        echo sip-4.19.25-f_back.patch
+}
+
+function s-sip-tools-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo s-python-modules
+}
+
+function s-sip-tools-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    SIP_ROOT_DIR    $PREFIX
+    set-var    SIPDIR          $PREFIX
+    set-var    SIP_DIR         $PREFIX
+
+    add-to-var PATH            $PREFIX/bin
+    add-to-var PYTHONPATH      $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-sip-tools-build-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-sip-tools-out-of-tree()
+{
+    echo false
+}
+
+function s-sip-tools-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    if [[ $(cat ../source-id) =~ 5.5. ]]; then
+        :
+    else
+        python3 ./configure.py -b ${PREFIX}/bin \
+                -d ${PREFIX}/lib/python${PYTHON_VERSION}/site-packages \
+                -e ${PREFIX}/include/python${PYTHON_VERSION} \
+                -v ${PREFIX}/sip
+    fi
+}
+
+function s-sip-tools-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    if [[ $(cat ../source-id) =~ 5.5. ]]; then
+        pip3 install --ignore-installed \
+             . --no-deps --prefix=$PREFIX
+    else
+        sed -i 's/-fPIC/-fPIC -fpermissive/g' siplib/Makefile
+        make
+    fi
+}
+
+function s-sip-tools-pre-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-sip-tools-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    if [[ $(cat ../source-id) =~ 5.5. ]]; then
+        python3 setup.py install --prefix=$PREFIX
+    else
+        make install
+    fi
+}
+
+function s-sip-tools-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    handle-dist-post-install $PREFIX $TARGET
+
+    # Make sure we have a sip & sip5 executable
+    cd $PREFIX/bin
+    [[ ! -f sip ]] &&
+        {
+            ln -sf sip-build sip
+            ln -sf sip-build sip5
+        } || true
+}
+
+function s-sip-tools-prefix()
+{
+    echo NONE
+}

@@ -28,6 +28,7 @@ function s-salome-gui-build-depends()
     echo os@-sphinx-common
     [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
 
+    echo s-sip
     echo s-salome-bootstrap
 }
 
@@ -44,8 +45,6 @@ function s-salome-gui-common-depends()
 function s-salome-gui-default-depends()
 {
     echo os@-qwt-qt5-dev
-    echo os@-python3-sip-dev
-    echo os@-python3-sip
     echo os@-glu1-mesa-dev
 
     echo s-qt

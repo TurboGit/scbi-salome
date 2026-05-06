@@ -1,98 +1,24 @@
 
-inherit-plugin --name handle-dist s-python-post-install-dist-packages
-
-with-variant native os@-sip-dev:[v]
-
-function s-sip-vcs() 
-{ 
-    echo default
-    echo none 
-    echo hg 
-    echo https://www.riverbankcomputing.com/hg/sip 
-} 
-
-function s-sip-archive()
+function s-sip-modules()
 {
     local VERSION=$1
 
-    echo default
-    echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
-    echo sip-$VERSION.tar.gz
+    echo s-sip-tools
+    echo s-pyqt-sip
 }
 
-function s-sip-depends()
+function s-sip-aggregate()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    echo s-python-modules
-}
-
-function s-sip-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    set-var    SIP_ROOT_DIR  $PREFIX
-    set-var    PYQT_SIPS_DIR $PREFIX
-
-    add-to-var PATH          $PREFIX/bin
-    add-to-var PYTHONPATH    $PREFIX/lib/python$PYTHON_VERSION/site-packages
-}
-
-function s-sip-build-env()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
-}
-
-function s-sip-out-of-tree()
-{
-    echo false
-}
-
-function s-sip-build()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    python3 setup.py build
-}
-
-function s-sip-pre-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
-}
-
-function s-sip-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    python3 setup.py install --prefix=$PREFIX
-}
-
-function s-sip-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    handle-dist-post-install $PREFIX $TARGET
-
-    # Make sure we have a sip & sip5 executable
-    cd $PREFIX/bin
-    ln -sf sip-build sip
-    ln -sf sip-build sip5
+    echo direct
 }
 
 function s-sip-prefix()
 {
+    local PREFIX=$1
+    local TARGET=$2
+
     echo NONE
 }
