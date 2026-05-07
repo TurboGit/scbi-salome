@@ -16,7 +16,7 @@ function s-pyqt-sip-archive()
 
 function s-pyqt-sip-depends()
 {
-    echo s-sip
+    echo s-sip-tools
 }
 
 function s-pyqt-sip-env()
