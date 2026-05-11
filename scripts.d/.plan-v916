@@ -5,26 +5,26 @@
 @set EDF_VERSION = V9_16_0b1
 @set PV_VERSION  = v5.13-2918b94391
 @set RUN_VERSION = V9_16_0
-_
+
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#12.x
 # using binary version 1.16.1
 s-ispc/bin:#v1.16.1
 
-s-persalys:#18.0
+s-persalys:#19.0
 
 s-zeromq:#4.3.1
 s-planegcs:#0.18
 
-s-openturns:#1.24
-s-openturns-fftw:#0.16
-s-openturns-mixmod:#0.18
-s-openturns-morris:#0.17
-s-openturns-robopt:#0.15
+s-openturns:#1.25.1
+s-openturns-fftw:#0.17
+s-openturns-mixmod:#0.19
+s-openturns-morris:#0.18
+s-openturns-robopt:#0.16
 s-openturns-subsetinverse:#1.10
-s-openturns-svm:#0.15
+s-openturns-svm:#0.16
 s-openturns-wrapy:#0.12.1
-s-openturns-pod:#0.6.11
+s-openturns-pod:#0.6.12
 s-fmil:#2.0.3
 s-pyfmi:#2.6
 s-mixmod:#2.1.10
@@ -43,7 +43,7 @@ s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
 s-cmake/auto:#3.31.6
 s-ttk:#1.1.0
-s-swig/auto:#4.0.2
+s-swig:#4.0.2
 s-tbb/auto:v2021.11.0
 
 s-dataio:v0.1.1
@@ -60,7 +60,7 @@ s-netgen/autotools:#5.3.1
 s-gmsh:#4.10.3
 s-gdal/auto:#3.2.2
 s-proj/auto:#7.2.0
-s-med-file:#4.2.0
+s-med-file:#6.0.0
 s-python3-nlopt/auto:2.7.0
 s-python3-rich/auto:9.11.0
 s-python3-wand/auto:0.4.4
@@ -96,9 +96,9 @@ s-omniorb:#4.2.5
 s-python-omniorb
 s-omniorb-core/auto
 
-s-occt:#SALOME_9_15_V7_9_0a1
+s-occt:#CR790-SALOME-PATCH
 s-cgns/auto:#4.2.0
-s-hdf5/auto:#1.10.3
+s-hdf5/auto:#1.14.6
 s-catalyst:#2.0-431a8a1
 s-python-modules/default.core.meshio
 s-scotch/auto:#6.1.2
@@ -106,6 +106,9 @@ s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal:#$PV_VERSION
 s-cgal/auto:#v5.5.1
 s-ifc-open-shell:v0.7.0
+s-saturne:master
+s-libccmio:92f08637
+s-coolprop:#6.4.3
 
 [
         # s-homard tool is now merged into s-homard module
@@ -190,32 +193,14 @@ s-ifc-open-shell:v0.7.0
 # the s-salome meta-module version is used to name the .run, a different
 # name is used on the different platforms.
 
-[ = deb,9
-        s-salome/default.core:s9-$RUN_VERSION
-        s-tbb/auto:#4.4.6
-        s-gdal:skip
-        s-ifc-open-shell:skip
-]
-
-[ = deb,10
-        s-salome/default.core:s10-$RUN_VERSION
-        s-python3-meshio/auto:5.3.4
-        s-python3-nlopt/auto:2.6.2
-        s-python3-yaml/auto:3.13
-        s-python3-scipy/auto:1.1
-        s-gdal/auto:2.4.0
-        s-ifc-open-shell:skip
-
-        #  Only needed starting with Debian-12
-        os@-nlopt-cxx:skip
-]
-
 [ = deb,11
         s-salome/default.core:s11-$RUN_VERSION
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
+
         # fails to compile on Debian/11
+        s-persalys/default.nodoc:#19.0
 
         s-python3-fmpy:0.3.21
 
@@ -223,13 +208,11 @@ s-ifc-open-shell:v0.7.0
         os@-nlopt-cxx:skip
 ]
 
-[ = deb,12
-        s-salome/default.core:s12-$RUN_VERSION
+[ = deb,13
+        s-salome/default.core:s13-$RUN_VERSION
         # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
-        # fails to compile on Debian/11
-        s-hdf5:#1.10.3
 
         s-python3-cftime/auto:1.6.2
         s-python3-h5py/auto:3.7.0
@@ -249,7 +232,33 @@ s-ifc-open-shell:v0.7.0
         s-python3-zipp/auto:1.0.0
 
         s-gdal/native
-        s-atomic:skip
+        s-pyqt-sip:skip
+]
+
+[ = deb,12
+        s-salome/default.core:s12-$RUN_VERSION
+        # downgrade from 5.15.3 to 5.15.2 to use the native version
+        s-pyqt/auto:#5.15.2
+        s-opencv:#3.2.0       # native pkg is too recent
+
+        s-python3-cftime/auto:1.6.2
+        s-python3-h5py/auto:3.7.0
+        s-python3-importlib-metadata/auto:4.12.0
+        s-python3-lxml/auto:4.9.2
+        s-python3-netcdf4/auto:1.6.2
+        s-python3-nlopt/auto:2.7.1
+        s-python3-numpy/auto:1.24.2
+        s-python3-proj/auto:3.2.1
+        s-python3-rich/auto:13.3.1
+        s-python3-scipy/auto:1.10.1
+        s-python3-toml/auto:0.10.2
+        s-python3-typing-extensions/auto:4.4.0
+        s-python3-wand/auto:0.6.11
+        s-python3-xlutils:2.0.0
+        s-python3-yaml/auto:6.0
+        s-python3-zipp/auto:1.0.0
+
+        s-gdal/native
         s-pyqt-sip:skip
 ]
 
