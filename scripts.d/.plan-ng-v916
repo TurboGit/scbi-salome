@@ -2,7 +2,7 @@
 
 @load v916/mpi
 
-@set CEA_ARCH = 9.16.0br1
+@set CEA_ARCH = 9.16.0b1
 
 [ = linux
         s-salome-bin
@@ -13,6 +13,7 @@
         s-med-coupling
         s-python-modules
         s-ifc-open-shell
+        s-saturne
 
         # other modules that can be built in ng mode
         s-smesh
@@ -94,6 +95,14 @@ s-scotch/ng
         s-salome-tar:#${CEA_ARCH}-native:DB12
         s-qt/native
         s-pyqt/native
+]
+
+[ = deb,13
+        s-salome-tar:#master-native:DB13
+        s-qt/native
+        s-pyqt:skip
+        s-sip:skip
+        s-saturne/scibian13
 ]
 
 # No need for meshio on NG as already in binary archive
