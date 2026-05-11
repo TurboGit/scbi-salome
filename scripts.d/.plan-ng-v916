@@ -98,7 +98,7 @@ s-scotch/ng
 ]
 
 [ = deb,13
-        s-salome-tar:#master-native:DB13
+        s-salome-tar:#${CEA_ARCH}-native:DB13
         s-qt/native
         s-pyqt:skip
         s-sip:skip
