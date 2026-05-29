@@ -161,7 +161,6 @@ s-coolprop:#6.4.3
         s-paravisaddons-common
         s-smesh
         s-salome-kernel
-        s-salome-salome
         s-salome-gui
         s-ghs3d-plugin
         s-ydefx
@@ -312,7 +311,6 @@ s-smesh:bos/47612
         s-cgns
         s-gdal
         s-salome-kernel
-        s-salome-salome
 
         s-ifc-open-shell:skip
         s-visual-c:skip
