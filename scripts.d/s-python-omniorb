@@ -1,25 +1,25 @@
 
 inherit-plugin s-python-post-install-dist-packages
 
-function s-python-omniorb-vcs() 
-{ 
+function s-python-omniorb-vcs()
+{
     echo default
-    echo none 
-    echo svn 
-    echo https://svn.code.sf.net/p/omniorb/svn 
-    echo omniORBpy 
-} 
+    echo none
+    echo svn
+    echo https://svn.code.sf.net/p/omniorb/svn
+    echo omniORBpy
+}
 
-function s-python-omniorb-archive() 
-{ 
-    local VERSION=$1 
- 
+function s-python-omniorb-archive()
+{
+    local VERSION=$1
+
     echo default
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo omniORBpy-$VERSION.tar.gz 
-} 
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo omniORBpy-$VERSION.tar.gz
+}
 
 function s-python-omniorb-patches()
 {
@@ -32,6 +32,12 @@ function s-python-omniorb-patches()
     # Calling popen does not work by default. The patch aims to fix
     # this anomaly after discussion with the omniORB developer.
     echo omniorb-noinitfile.patch
+
+    [[ $REF =~ 4.2.5 ]] &&
+        {
+            echo omniorbpy-4.2.5.p2.patch
+            echo omniorbpy-4.2.5.p3.patch
+        }
 }
 
 function s-python-omniorb-mingw-patches()
