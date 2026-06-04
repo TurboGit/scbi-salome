@@ -29,6 +29,7 @@ function s-salome-gui-build-depends()
     [[ -z $(is-enabled no-doc) ]] && echo os@-sphinx-intl
 
     echo s-sip
+    echo s-swig
     echo s-salome-bootstrap
 }
 
@@ -99,6 +100,8 @@ function s-salome-gui-common-config-options()
     echo -DSALOME_BUILD_TESTS=OFF
     echo -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DSWIG_EXECUTABLE=$SWIG_ROOT_DIR/bin/swig
+    echo -DSIP_MODULE_EXECUTABLE=$SIP_ROOT_DIR/bin/sip-module
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
 }
