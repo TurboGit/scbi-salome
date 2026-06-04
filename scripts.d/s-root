@@ -54,7 +54,7 @@ function s-root-depends()
     echo os@-glu1-mesa-dev
     echo os@-graphviz-dev
     echo os@-jpeg-dev
-    echo os@-pcre3-dev
+    echo os@-pcre2-dev
     echo os@-png-dev
     echo os@-ssl-dev
     echo os@-uuid-dev
