@@ -1,0 +1,15 @@
+diff --git a/src/MEDWrapper/MED_Factory.cxx b/src/MEDWrapper/MED_Factory.cxx
+index 7173b227c..91ac0e207 100644
+--- a/src/MEDWrapper/MED_Factory.cxx
++++ b/src/MEDWrapper/MED_Factory.cxx
+@@ -56,8 +56,8 @@ extern "C"
+ // Empty file content for MED-4.x should be provided (EMPTY_FILE_4x) and method CreateEmptyMEDFile should be updated.
+ // *******************************************************************************************************************
+ 
+-#define MED_MAJOR_EXPECTED 4
+-#define MED_MINOR_EXPECTED 2
++#define MED_MAJOR_EXPECTED 6
++#define MED_MINOR_EXPECTED 0
+ #if MED_MAJOR_NUM != MED_MAJOR_EXPECTED
+   #error "MED major version does not correspond to the expected version, fix the minor and major compatibility values in CheckCompatibility method (MED_VERSIONS_APPEND_COMPATIBLE) and set the correct expected version (MED_MAJOR_EXPECTED, MED_MINOR_EXPECTED)"
+ #endif
