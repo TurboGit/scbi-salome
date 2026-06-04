@@ -1,0 +1,19 @@
+*** a/siplib.c-orig	2026-04-16 15:27:18.828230222 +0200
+--- b/siplib.c	2026-04-16 15:27:44.744172032 +0200
+***************
+*** 12722,12728 ****
+  
+      while (frame != NULL && depth > 0)
+      {
+!         frame = frame->f_back;
+          --depth;
+      }
+  
+--- 12722,12728 ----
+  
+      while (frame != NULL && depth > 0)
+      {
+!         frame = PyFrame_GetBack(frame);
+          --depth;
+      }
+  
