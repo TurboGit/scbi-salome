@@ -243,6 +243,8 @@ s-ifc-open-shell:v0.7.0
         s-pyqt:#5.15.3
         s-sip-tools:#5.5.0
         s-pyqt-sip:#12.17.0
+        s-fmil:#2.4.1
+        s-pyfmi/assimulo:#2.13.1
 
         s-python3-cftime/auto:1.6.2
         s-python3-h5py/auto:3.7.0
