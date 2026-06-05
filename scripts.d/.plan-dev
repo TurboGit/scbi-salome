@@ -25,6 +25,7 @@ s-openturns-svm:#0.16
 s-openturns-wrapy:#0.12.1
 s-openturns-pod:#0.6.12
 s-fmil:#2.0.3
+s-assimulo:#3.5.2
 s-pyfmi:#2.6
 s-mixmod:#2.1.10
 s-openturns-fmi:#0.16.6
