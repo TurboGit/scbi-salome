@@ -33,7 +33,7 @@ function s-pyfmi-build-depends()
     echo os@-python3-setuptools
 }
 
-function s-pyfmi-depends()
+function s-pyfmi-common-depends()
 {
     echo os@-python3
     echo s-python-modules
@@ -41,13 +41,9 @@ function s-pyfmi-depends()
     echo s-fmil
 }
 
-function s-pyfmi-build-env()
+function s-pyfmi-assimulo-depends()
 {
-    local PREFIX=$1
-    local TARGET=$2
-
-    add-to-var PYTHONPATH        \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+    echo s-assimulo
 }
 
 function s-pyfmi-env()
@@ -67,7 +63,8 @@ function s-pyfmi-install()
 
     PYPIURL=$(scbi-store-get-key PYPIURL)
 
-    pip3 install . --no-deps  \
+    pip3 install . --no-deps \
+         --ignore-installed \
          --index-url=$PYPIURL \
          --prefix=$PREFIX
 }

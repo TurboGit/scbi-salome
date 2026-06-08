@@ -31,6 +31,7 @@ function s-fmil-config()
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
           -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          -DCMAKE_C_FLAGS="-fpermissive" \
           -DFMILIB_INSTALL_PREFIX=$PREFIX ../src
 }
 

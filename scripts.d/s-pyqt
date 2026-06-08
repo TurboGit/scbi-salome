@@ -3,6 +3,16 @@ with-variant native \
              os@-python3-pyqt5:[v] os@-pyqt5-dev:[v]  os@-pyqt5-dev-tools \
        --env 'set-var PYQT5_ROOT_DIR /usr'
 
+function s-pyqt-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo PyQt-$VERSION.tar.gz
+}
 
 function s-pyqt-patches()
 {
@@ -12,7 +22,11 @@ function s-pyqt-patches()
     local KIND=$4
     local REF=$5
 
-    [[ $REF =~ "5.15" ]] && echo qpycore-init-pyqtparaview.patch
+    [[ $REF =~ "5.15" ]] &&
+        echo qpycore-init-pyqtparaview.patch
+
+    [[ $REF =~ "5.15.3" ]] &&
+        echo pyqt-5.15.3-sip5-py313.patch
 }
 
 function s-pyqt-depends()
@@ -30,12 +44,12 @@ function s-pyqt-env()
     set-var    PYQT_ROOT_DIR  $PREFIX
 
     add-to-var PATH           $PREFIX/bin
-    add-to-var PYTHONPATH     $PREFIX/lib/python/site-packages
+    add-to-var PYTHONPATH     $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-pyqt-out-of-tree()
 {
-    echo false
+    echo true
 }
 
 function s-pyqt-config()
@@ -43,13 +57,15 @@ function s-pyqt-config()
     local PREFIX=$1
     local TARGET=$2
 
-    python3 ./configure.py --confirm-license --no-designer-plugin --verbose \
+    python3 ../src/configure.py --confirm-license \
+            --no-designer-plugin --verbose \
             --bindir=$PREFIX/bin \
-            --destdir=$PREFIX/lib/python$PYTHON/site-packages \
-            --stubsdir=$PREFIX/lib/python$PYTHON/site-packages \
+            --destdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages \
+            --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages \
             --sipdir=${SIP_ROOT_DIR} \
             --disable=QtNetwork \
-            --disable=QtWebSockets
+            --disable=QtWebSockets \
+            --qml-plugindir=$PREFIX/lib
 }
 
 function s-pyqt-build()
@@ -66,6 +82,21 @@ function s-pyqt-install()
     local TARGET=$2
 
     make install
+}
+
+function s-pyqt-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # TODO
+    # Needed to build s-salome-gui
+
+    [[ -n $SIP_ROOT_DIR ]] &&
+        {
+            mkdir -p $PREFIX/sip
+            cp -r $SIP_ROOT_DIR/* $PREFIX/sip
+        }
 }
 
 function s-pyqt-prefix()

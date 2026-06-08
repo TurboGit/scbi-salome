@@ -14,9 +14,18 @@ function s-pyqt-sip-archive()
     echo PyQt5_sip-$VERSION.tar.gz
 }
 
-function s-pyqt-sip-depends()
+function s-pyqt-sip-patches()
 {
-    echo s-sip-tools
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    [[ $REF =~ 12.8 ]] &&
+        {
+            echo pyqtsip-12.8-f_back.patch
+        }
 }
 
 function s-pyqt-sip-env()
@@ -24,11 +33,14 @@ function s-pyqt-sip-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var    SIP_ROOT_DIR  $PREFIX
     set-var    PYQT_SIPS_DIR $PREFIX
 
-    add-to-var PATH          $PREFIX/bin
-    add-to-var PYTHONPATH    $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var C_INCLUDE_PATH \
+               $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH \
+               $PREFIX/include
+    add-to-var PYTHONPATH \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-pyqt-sip-build-env()
@@ -44,14 +56,6 @@ function s-pyqt-sip-out-of-tree()
     echo false
 }
 
-function s-pyqt-sip-build()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    python3 setup.py build
-}
-
 function s-pyqt-sip-pre-install()
 {
     local PREFIX=$1
@@ -65,7 +69,9 @@ function s-pyqt-sip-install()
     local PREFIX=$1
     local TARGET=$2
 
-    python3 setup.py install --prefix=$PREFIX
+    CFLAGS='-fpermissive -Wno-implicit-function-declaration -Wno-deprecated-declarations -Wno-int-conversion -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2' \
+          pip3 install --ignore-installed \
+          . --no-deps --prefix=$PREFIX
 }
 
 function s-pyqt-sip-post-install()
@@ -79,11 +85,6 @@ function s-pyqt-sip-post-install()
 
     mkdir -p $PREFIX/include
     cp *.h $PREFIX/include
-
-    #  Add a link PyQt5
-
-    cd $PREFIX/lib/python$PYTHON_VERSION/site-packages
-    ln -sf PyQt5_sip-*-py*-linux-x86_64.egg/PyQt5
 }
 
 function s-pyqt-sip-prefix()

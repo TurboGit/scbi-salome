@@ -1,0 +1,50 @@
+
+inherit-plugin s-python-post-install-dist-packages
+
+function s-assimulo-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/modelon-community/Assimulo.git
+}
+
+function s-assimulo-out-of-tree()
+{
+    echo false
+}
+
+function s-assimulo-build-depends()
+{
+    echo os@-python3
+    echo s-python-modules
+    echo cython3
+}
+
+function s-assimulo-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    add-to-var PYTHONPATH      \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
+function s-assimulo-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    PYPIURL=$(scbi-store-get-key PYPIURL)
+
+    pip3 install . --no-deps  --ignore-installed \
+         --no-build-isolation \
+         --index-url=$PYPIURL \
+         --prefix=$PREFIX
+}
+
+function s-assimulo-prefix()
+{
+    echo NONE
+}

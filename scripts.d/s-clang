@@ -4,11 +4,10 @@ inherit-plugin c-clang
 with-variant mingw os@-clang:[v] \
   --env 'add-to-var PATH $MINGW_PREFIX'
 
-function s-clang-vcs() 
-{ 
+function s-clang-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/llvm/llvm-project.git 
-} 
-
+    echo none
+    echo git
+    echo https://github.com/llvm/llvm-project.git
+}

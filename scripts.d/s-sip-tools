@@ -86,16 +86,26 @@ function s-sip-tools-config()
     fi
 }
 
+function s-sip-tools-pre-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    if [[ $(cat ../source-id) =~ 5.5. ]]; then
+        :
+    else
+        sed -i 's/-fPIC/-fPIC -fpermissive/g' siplib/Makefile
+    fi
+}
+
 function s-sip-tools-build()
 {
     local PREFIX=$1
     local TARGET=$2
 
     if [[ $(cat ../source-id) =~ 5.5. ]]; then
-        pip3 install --ignore-installed \
-             . --no-deps --prefix=$PREFIX
+        :
     else
-        sed -i 's/-fPIC/-fPIC -fpermissive/g' siplib/Makefile
         make
     fi
 }
@@ -114,7 +124,8 @@ function s-sip-tools-install()
     local TARGET=$2
 
     if [[ $(cat ../source-id) =~ 5.5. ]]; then
-        python3 setup.py install --prefix=$PREFIX
+        pip3 install --ignore-installed \
+             . --no-deps --prefix=$PREFIX
     else
         make install
     fi
@@ -129,10 +140,9 @@ function s-sip-tools-post-install()
 
     # Make sure we have a sip & sip5 executable
     cd $PREFIX/bin
-    [[ ! -f sip ]] &&
+    [[ ! -f sip5 ]] &&
         {
-            ln -sf sip-build sip
-            ln -sf sip-build sip5
+            cp sip-build sip5
         } || true
 }
 
