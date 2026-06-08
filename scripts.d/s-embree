@@ -39,7 +39,6 @@ function s-embree-common-build-depends()
 
     echo s-cmake
     echo s-clang
-    echo s-rkcommon
     echo s-tbb
 }
 
@@ -61,6 +60,8 @@ function s-embree-depends()
     echo os@-c6-dev
     echo os@-tbb-dev
     echo os@-glfw3-dev
+
+    echo s-rkcommon
 }
 
 function s-embree-common-env()

@@ -33,12 +33,6 @@ function s-paravis-ng-build-depends()
     echo s-salome-bin
 }
 
-function s-paravis-default-build-depends()
-{
-    echo s-qt
-    echo s-salome-bootstrap
-}
-
 function s-paravis-mpi-depends()
 {
     echo s-openmpi
@@ -51,6 +45,8 @@ function s-paravis-common-depends()
 
 function s-paravis-default-depends()
 {
+    echo s-qt
+    echo s-salome-bootstrap
     echo s-hdf5
     echo s-salome-kernel
     echo s-salome-gui
