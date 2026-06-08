@@ -17,11 +17,6 @@ function s-netgen-plugin-common-build-depends()
     echo s-cmake
 }
 
-function s-netgen-plugin-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-netgen-plugin-default-build-depends()
 {
     echo os@-graphviz-dev

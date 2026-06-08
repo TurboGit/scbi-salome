@@ -7,11 +7,6 @@ function s-gotm-vcs()
     echo https://github.com/gotm-model/code.git
 }
 
-function s-gotm-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-gotm-common-build-depends()
 {
     echo s-cmake

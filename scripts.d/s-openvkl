@@ -9,7 +9,6 @@ function s-openvkl-vcs()
     echo https://github.com/openvkl/openvkl.git
 }
 
-
 function s-openvkl-build-depends()
 {
     echo s-cmake

@@ -19,11 +19,6 @@ function s-ghs3d-plugin-common-build-depends()
     echo os@-sphinx-common
 }
 
-function s-ghs3d-plugin-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-ghs3d-plugin-default-depends()
 {
     echo s-salome-kernel

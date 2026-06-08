@@ -58,11 +58,6 @@ function s-salome-kernel-mingw-build-depends()
     echo s-swig
 }
 
-function s-salome-kernel-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-salome-kernel-common-depends()
 {
     echo s-salome-configuration
@@ -136,11 +131,6 @@ function s-kernel-ctest-dir()
 }
 
 function s-salome-kernel-mpi-config-options()
-{
-    echo -DSALOME_USE_MPI=ON
-}
-
-function s-salome-kernel-ng-config-options()
 {
     echo -DSALOME_USE_MPI=ON
 }

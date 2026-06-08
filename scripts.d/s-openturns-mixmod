@@ -7,7 +7,6 @@ function s-openturns-mixmod-vcs()
     echo https://github.com/openturns/otmixmod.git
 }
 
-
 function s-openturns-mixmod-build-depends()
 {
     echo os@-python3-sphinx

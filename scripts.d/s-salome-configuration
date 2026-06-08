@@ -1,5 +1,4 @@
 
-
 function s-salome-configuration-vcs() 
 { 
     echo default 

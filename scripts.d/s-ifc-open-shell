@@ -55,15 +55,6 @@ function s-ifc-open-shell-default-depends()
     echo s-nlohmann-json3
 }
 
-function s-ifc-open-shell-ng-depends()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    echo s-salome-bin
-}
-
 function s-ifc-open-shell-build-depends()
 {
     local PREFIX=$1

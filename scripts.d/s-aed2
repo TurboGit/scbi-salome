@@ -17,11 +17,6 @@ function s-aed2-build-depends()
     echo os@-gfortran
 }
 
-function s-aed2-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-aed2-env()
 {
     local PREFIX=$1

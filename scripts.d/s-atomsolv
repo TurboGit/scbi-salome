@@ -1,5 +1,4 @@
 
-
 function s-atomsolv-vcs()
 {
     echo default

@@ -59,11 +59,6 @@ function s-openturns-mingw-build-depends()
     echo s-swig
 }
 
-function s-openturns-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-openturns-default-depends()
 {
     echo os@-blas-dev

@@ -1,6 +1,4 @@
 
-
-
 function s-ghs3dprl-plugin-salome-module()
 {
     echo GHS3DPRLPLUGIN
@@ -12,11 +10,6 @@ function s-ghs3dprl-plugin-common-build-depends()
     echo s-salome-configuration
     echo s-swig
     echo os@-doxygen
-}
-
-function s-ghs3dprl-plugin-ng-build-depends()
-{
-    echo s-salome-bin
 }
 
 function s-ghs3dprl-plugin-default-depends()

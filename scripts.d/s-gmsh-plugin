@@ -22,11 +22,6 @@ function s-gmsh-plugin-default-build-depends()
     echo os@-sphinx-common
 }
 
-function s-gmsh-plugin-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-gmsh-plugin-common-depends()
 {
     echo s-salome-configuration

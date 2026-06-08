@@ -1,5 +1,4 @@
 
-
 function s-homard-tool-out-of-tree()
 {
     echo false

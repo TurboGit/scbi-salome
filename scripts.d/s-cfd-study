@@ -29,11 +29,6 @@ function s-cfd-study-salome-module()
     echo CFDSTUDY
 }
 
-function s-cfd-study-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-cfd-study-common-build-depends()
 {
     echo s-cmake

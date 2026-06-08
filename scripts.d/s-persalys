@@ -99,16 +99,6 @@ function s-persalys-default-depends()
         }
 }
 
-function s-persalys-ng-depends()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    echo s-salome-bin
-    echo s-python-modules
-}
-
 function s-persalys-env()
 {
     local PREFIX=$1

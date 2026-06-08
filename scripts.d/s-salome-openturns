@@ -43,11 +43,6 @@ function s-salome-openturns-default-depends()
     echo s-persalys
 }
 
-function s-salome-openturns-ng-depends()
-{
-    echo s-salome-bin
-}
-
 function s-salome-openturns-env()
 {
     local PREFIX=$1

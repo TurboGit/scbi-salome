@@ -1,5 +1,4 @@
 
-
 function s-libbatch-vcs() 
 { 
     echo default 

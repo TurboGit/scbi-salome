@@ -27,11 +27,6 @@ function s-atomic-build-depends()
     echo s-python-modules
 }
 
-function s-atomic-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-atomic-common-depends()
 {
     echo s-salome-configuration

@@ -8,14 +8,6 @@
 #               archive. It is used to remove this from the NG environment
 #               by matching the variable name and the variable values.
 
-function s-salome-ng-extra-modules()
-{
-    for MOD in ${SCBI_EXTRA_NG_MODULES//:/ }; do
-        local DEF=( $(get-extra-module-def $MOD) )
-        echo ${DEF[0]}
-    done
-}
-
 function s-salome-common-modules()
 {
     local PREFIX=$1
@@ -25,9 +17,6 @@ function s-salome-common-modules()
     #  We need the extra modules to be handled first because they are
     #  supposed to replace some modules from the binary archive and
     #  may be a dependency from other modules listed after.
-
-    $(has-variant $VARIANT ng) &&
-        s-salome-ng-extra-modules
 
     echo s-salome-configuration
     echo s-atomic
@@ -102,16 +91,6 @@ function s-salome-default-modules()
     echo s-component
 }
 
-function s-salome-ng-modules()
-{
-    #  The plug-in s-salome-bin must be explicitly set here as it is
-    #  a build dependency on all plug-ins but it also must be available
-    #  at run-time as it contains settings for many prerequisites.
-    echo s-salome-bin
-
-    echo s-salome-tar
-}
-
 function s-salome-hydro-modules()
 {
     echo s-libecw2
@@ -164,187 +143,13 @@ function setup-env-salome()
     local VARIANT=$3
 
     local APPDIR=$SCBI_BDIR/s-salome/$TARGET-$VARIANT/app
-    local N=0
-
-    #  If BINARIES-* not found, this is a full EDF build
-    if [[ -z $SALOME_BINARY_DIR ]]; then
-        SBINDIR=EDF/s-salome-salome
-    else
-        SBINDIR=$SALOME_BINARY_DIR/SALOME
-        #  Start EDF env script numbering at 500. The binary modules
-        #  comes with some scripts starting at 0001.
-        local N=500
-    fi
+    local SBINDIR=EDF/s-salome-salome
 
     #  THIS ROUTINE should be used to loop over all NEW dependencies (modules
     #  built on top of the binary archive) and patch the env_launch.sh
     #  to add the necessary configs.
 
     (
-        local SFILE=""
-        local PFILE=""
-
-        CURRENT_MODULE_NAME=
-        CURRENT_MODULE=
-        CURRENT_MODULE_INSTALL=
-
-        local KEEP_VAR=no
-
-        function define-var()
-        {
-            local ACTION=$1
-            local VAR=$2
-            local VALUE=$3
-
-            #  Special case, do not add /usr/bin to PATH from native modules.
-            #  This PATH will be at the end of the PATH anyway and we do want
-            #  to pick other tools compiled first.
-
-            [[ ${VAR} == "PATH" ]] && [[ ${VALUE} == "/usr/bin" ]] && return
-            [[ -z $VALUE ]] && return
-
-            if [[ $VAR == "SCBI_SALOME_BIN_ENV_SECTION" ]]; then
-                if [[ ${VALUE} == yes ]]; then
-                    KEEP_VAR=yes
-                elif [[ ${VALUE} == extra ]]; then
-                    KEEP_VAR=no
-                    return
-                else
-                    KEEP_VAR=no
-                    return
-                fi
-            fi
-
-            #  Compute relative directory
-
-            local CURRENT_MODULE_VAR=${CURRENT_MODULE}_ROOT_INSTALL_DIR
-            local REPLTO="\${${CURRENT_MODULE_VAR}}"
-            local REL_TMP="${VALUE/$CURRENT_MODULE_INSTALL/$REPLTO}"
-            local REL_DIR="${REL_TMP/$SCBI_BDIR/\$\{ROOT_EDF\}}"
-            local REL_PDIR="${VALUE#$CURRENT_MODULE_INSTALL}"
-
-            #  s-salome-bin & s-salome-tar need a specific handling as
-            #  the variables points to the binary install directories.
-
-            if [[ $CURRENT_MODULE_NAME == "s-salome-bin" ]] ||
-                   [[ $CURRENT_MODULE_NAME == "s-salome-tar" ]]
-            then
-                local REL_FROM=""
-                get-target-dir REL_FROM s-salome-tar $SALOME_TAR_VARIANT install
-
-                local SFX_DIR="${VALUE#$REL_FROM/}"
-                local SFX_DIR="${SFX_DIR#$REL_FROM}"
-                # For shell:
-                local REL_DIR="${VALUE/$REL_FROM/\$\{root_dir\}}"
-                # For Python:
-                local DVAR="os.path.join(root_dir, r\"$SFX_DIR\")"
-
-            elif [[ "$VALUE" == "$REL_PDIR" ]]; then
-                local DVAR="\"$VALUE\""
-            else
-                [[ ${REL_PDIR:0:1} == '/' ]] &&
-                    local REL_PDIR=${REL_PDIR:1}
-
-                local DVAR="os.path.join($CURRENT_MODULE_VAR, r\"$REL_PDIR\")"
-            fi
-
-            #  We set values as some are used in depends modules like
-            #  s-salome-bin using SALOME_BIN_APPLICATION set in s-salome-tar.
-
-            if [[ $ACTION == SET ]]; then
-                export $VAR=$VALUE
-            fi
-
-            #  For shell script
-            #  Not that we always append to existing variables as some
-            #  may have been set by the binary package's env_lauch.sh.
-
-            [[ $KEEP_VAR == yes ]] &&
-                {
-                    local SEP=:
-
-                    if [[ $SCBI_IS_WINDOWS == yes ]] &&
-                           [[ $VAR != "PATH" ]];
-                    then
-                        SEP=";"
-                    fi
-
-                    case $ACTION in
-                        SET|S)
-                            echo export $VAR=\"${REL_DIR}\"
-                            ;;
-                        UNSET|U)
-                            echo unset $VAR
-                            ;;
-                        ADD)
-                            echo add-to-var-sep \
-                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
-                            echo export $VAR
-                            ;;
-                        APPEND|A)
-                            echo append-to-var-sep \
-                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
-                            echo export $VAR
-                            ;;
-                        PREPEND|P)
-                            echo prepend-to-var-sep \
-                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
-                            echo export $VAR
-                            ;;
-                        REMOVE|R)
-                            echo remove-from-var-sep \
-                                 ${VAR} \"${REL_DIR}\" \"$SEP\"
-                            echo export $VAR
-                            ;;
-                    esac
-                } >> $SFILE
-
-            #  For Python
-
-            [[ $KEEP_VAR == yes ]] &&
-                {
-                    if [[ $ACTION == REMOVE ]]; then
-                        if [[ ${VAR} == "PATH" ]]; then
-                            echo "   context.removeFromPATH(r\"$VALUE\")"
-                        else
-                            echo "   context.removeFromVariable(r\"$VAR\", r\"$VALUE\")"
-                        fi
-                    else
-                        case "$VAR" in
-                            C_INCLUDE_PATH|INCLUDE|LIB|CPLUS_INCLUDE_PATH|CMAKE_*| \
-                                *INCLUDE_DIR|*INCLUDE_DIRS|LIBRARY_PATH|SCBI_SALOME_BIN_ENV_SECTION)
-                            ;;
-
-                            PATH)
-                                echo "   context.addToPath($DVAR)"
-                                ;;
-                            LD_LIBRARY_PATH)
-                                echo "   context.addToLdLibraryPath($DVAR)"
-                                ;;
-                            PYTHONPATH)
-                                echo "   context.addToPythonPath($DVAR)"
-                                ;;
-                            PV_PLUGIN_PATH|SalomeAppConfig|SMESH_MeshersList|SMESH_PYPLUGIN_DIR)
-                                if [[ $ACTION == PREPEND ]]; then
-                                    echo "   context.addToVariable(r\"$VAR\", $DVAR)"
-                                else
-                                    echo "   context.appendVariable(r\"$VAR\", $DVAR)"
-                                fi
-                                ;;
-                            SALOME_MODULES)
-                                echo "   os.environ[\"SALOME_MODULES\"] = os.getenv(\"SALOME_MODULES\") + \",\" + \"$VALUE\""
-                                ;;
-                            PYTHON_VERSION)
-                                echo "   context.setVariable(r\"$VAR\", \"$VALUE\", overwrite=True)"
-                                ;;
-                            *)
-                                echo "   context.setVariable(r\"$VAR\", $DVAR, overwrite=True)"
-                                ;;
-                        esac
-                    fi
-                } >> $PFILE
-        }
-
         function mod-callback()
         {
             local FORMODULE=$1
@@ -380,53 +185,6 @@ function setup-env-salome()
             get-module-ref module_info $MODREF $FORMODULE
             local module=${module_info[0]}
             local variant=${module_info[1]}
-
-            if [[ $module == "s-salome-bin" ]]; then
-                KEEP_VAR=no
-            else
-                KEEP_VAR=yes
-            fi
-
-            #  Initialize env script
-
-            CURRENT_MODULE_NAME=$module
-            CURRENT_MODULE=${module//-/_}
-            CURRENT_MODULE_DIR=$module
-
-            CURRENT_MODULE_INSTALL=""
-            get-target-dir CURRENT_MODULE_INSTALL $module $variant install
-
-            if [[ ${CURRENT_MODULE_NAME} == "s-meshgems" ]]; then
-                NUM="0998"
-            else
-                NUM=$(printf "%04d" ${N})
-            fi
-
-            SFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.sh"
-            PFILE="$APPDIR/extra.env.d/${NUM}_${CURRENT_MODULE}.py"
-            N=$(( N + 1 ))
-
-            {
-                echo "# $(get-module-name $module)"
-                echo "export ROOT_EDF=\${out_dir_Path}/EDF"
-                echo "export root_dir=\${out_dir_Path}"
-                echo "${CURRENT_MODULE}_ROOT_INSTALL_DIR=\${ROOT_EDF}/${CURRENT_MODULE_DIR}"
-            } > $SFILE
-
-            chmod a+x $SFILE
-
-            {
-                echo "# $(get-module-name $module)"
-                echo "import os.path"
-                echo "def init(context, root_dir):"
-                echo "   ROOT_EDF=os.path.join(root_dir, r\"EDF\")"
-                echo "   ${CURRENT_MODULE}_ROOT_INSTALL_DIR=os.path.join(ROOT_EDF, r\"${CURRENT_MODULE_DIR}\")"
-            } > $PFILE
-
-            # Call <module>-env hook which will be using the define-var
-            # above.
-
-            plugin-call-env-hooks $FORMODULE $MODREF env
 
             local MLIST=()
             local FMODULE=$FORMODULE
@@ -470,10 +228,7 @@ EOF
         mkdir -p extra.env.d
 
         #  Override some possible values
-        NUM=$(printf "%04d" ${N})
-        N=$(( N + 1 ))
-
-        PFILE="extra.env.d/${NUM}_setup.py"
+        PFILE="extra.env.d/0000_setup.py"
 
         local s_info=()
         get-module-ref s_info s-salome
@@ -492,7 +247,7 @@ EOF
             echo '   context.setVariable(r"SALOME_ON_DEMAND", r"HIDE", overwrite=True)'
         } > $PFILE
 
-        SFILE="extra.env.d/${NUM}_setup.sh"
+        SFILE="extra.env.d/0000_setup.sh"
 
         {
             #  Dump definition of *-var-sep from SCBI
@@ -519,45 +274,6 @@ EOF
 
         for-all-modules-with-meta mod-callback s-salome
     )
-}
-
-function sync-delete-installed()
-{
-    local PLUGIN=$1
-    local FROM=$2
-    local TO=$3
-
-    local BTO=${SCBI_EXTRA_NG_DEFS[$PLUGIN]}
-
-    [[ -z $BTO ]] && return
-
-    #  If module is on a separate directory, delete it
-
-    if [[ -d $TO/$BTO ]]; then
-        rm -fr $TO/$BTO
-    elif [[ -d $TO/EXT ]]; then
-        BTO=$TO/EXT
-
-        [[ -d $FROM/$PLUGIN ]] &&
-            (
-                cd $FROM/$PLUGIN
-
-                find . -type f | while read -r file; do
-                    if [[ -f $BTO/$file ]]; then
-                        rm -f $BTO/$file
-                    else
-                        #  This is a hack to check for a file in a directory
-                        #  just above. Indeed some modules are installing the
-                        #  binaries into bin/Linux_XXX/file, so we try to also
-                        #  look into bin/file.
-
-                        local F=$(basename $file)
-                        local D=$(dirname $(dirname $file))
-                        rm -f $BTO/$D/$F
-                    fi
-                done
-            )
-    fi
 }
 
 function copy-modules-salome()
@@ -593,28 +309,6 @@ function copy-modules-salome()
         local module=${module_info[0]}
         local variant=${module_info[1]}
 
-        #  Skip s-salome-tar as it is the root install and already
-        #  handled. Also there is nothing to copy for externals.
-
-        if [[ $IS_EXT == false ]] && [[ $module != "s-salome-tar" ]]; then
-            local MODULE_PATH=""
-            get-target-dir MODULE_PATH $module $variant install
-
-            if [[ -d $MODULE_PATH ]] && [[ ! -d EDF/$module ]]; then
-                mkdir EDF/$module
-                cp -r $MODULE_PATH/* EDF/$module
-            fi
-
-            #  We want to clean-up the MeshGems install provided in the
-            #  binary archive.
-
-            if [[ $module == "s-meshgems" ]] &&
-                   [[ -n $SALOME_BINARY_DIR ]];
-            then
-                sync-delete-installed $module $PWD/EDF $PWD/$SALOME_BINARY_DIR
-            fi
-        fi
-
         #  Record source reference for QA
 
         local SREF=$SCBI_BDIR/$module/source-ref
@@ -644,25 +338,11 @@ function s-salome-wrapup()
     local TVDIR=$TARGET-$VARIANT
     local APPDIR=$TARGET-$VARIANT/app
 
-    # Get s-salome-tar variant as used for s-salome-bin & s-salome-tar
-    # env file creation and to copy the binaries.
-
-    local module_info=()
-    get-module-ref module_info s-salome-tar
-    SALOME_TAR_VARIANT=${module_info[1]}
-
-    local BINPAT=""
-
-    if [[ $SCBI_IS_WINDOWS == yes ]]; then
-        BINPAT=W64
-    else
-        BINPAT="BINARIES-*"
-    fi
-
     (
         #  Clean-up previous installation if any
 
-        rm -fr $APPDIR
+        rm -f $APPDIR/*
+        rm -fr $APPDIR/artifacts
 
         mkdir -p $APPDIR
         cd $APPDIR
@@ -671,44 +351,6 @@ function s-salome-wrapup()
                || [[ "$(is-enabled installer)" = "yes" ]];
         then
             dlog salome prepare the application directory
-
-            has-variant $VARIANT ng &&
-                {
-                    #  Copy CEA's binaries
-
-                    local TVDIRTAR=""
-                    get-target-dir TVDIRTAR e-salome-tar $SALOME_TAR_VARIANT install
-                    cp -r $TVDIRTAR/* .
-
-                    #  Now that we have copied the binary archive, get
-                    #  the binary dir
-                    SALOME_BINARY_DIR=$(basename $(ls -1d $BINPAT))
-
-                    #  Load also some variables needed for generating
-                    #  the extra.env.d scripts.  One that is very
-                    #  important is the PYTHON_VERSION which is used
-                    #  in many places to reference the site-packages
-                    #  directories. We need to set it here to ensure
-                    #  we use the version provided in the binary
-                    #  archive instead of the system one.
-
-                    function define-var()
-                    {
-                        local ACTION=$1
-                        local VAR=$2
-                        local VALUE=$3
-
-                        if [[ $ACTION == SET ]]; then
-                            case $VAR in
-                                PYTHON_VERSION)
-                                    export $VAR="$VALUE"
-                                    ;;
-                            esac
-                        fi
-                    }
-
-                    source ./scbi_env.sh
-                }
 
             #  Add some build artifacts for traceability
 
@@ -747,16 +389,12 @@ function s-salome-wrapup()
             cp $SCBI_PLUGINS/support/icon.png .
             cp $SCBI_PLUGINS/support/salome_template.desktop .
 
-            if has-variant $VARIANT ng; then
-                SMESH_ROOT_DIR=$SALOME_BINARY_DIR/SMESH
-            else
-                SMESH_ROOT_DIR=EDF/s-smesh
-                cp $SCBI_PLUGINS/support/env_launch.sh .
-                cp $SCBI_PLUGINS/support/salome .
-                cp EDF/s-salome-kernel/bin/salome/appliskel/.bashrc \
-                   EDF/s-salome-kernel
-                chmod a+x salome env_launch.sh
-            fi
+            SMESH_ROOT_DIR=EDF/s-smesh
+            cp $SCBI_PLUGINS/support/env_launch.sh .
+            cp $SCBI_PLUGINS/support/salome .
+            cp EDF/s-salome-kernel/bin/salome/appliskel/.bashrc \
+               EDF/s-salome-kernel
+            chmod a+x salome env_launch.sh
 
             # is the installer to be created?
 

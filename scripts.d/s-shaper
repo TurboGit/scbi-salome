@@ -17,11 +17,6 @@ function s-shaper-common-build-depends()
     echo s-cmake
 }
 
-function s-shaper-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-shaper-default-build-depends()
 {
     echo os@-doxygen

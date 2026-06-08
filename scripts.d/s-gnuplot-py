@@ -1,5 +1,4 @@
 
-
 function s-gnuplot-py-out-of-tree()
 {
     echo false
@@ -15,11 +14,6 @@ function s-gnuplot-py-common-depends()
     echo gnuplot
     echo os@-python3-numpy
     echo os@-python3
-}
-
-function s-gnuplot-py-ng-depends()
-{
-    echo s-salome-bin
 }
 
 function s-gnuplot-py-build-env()

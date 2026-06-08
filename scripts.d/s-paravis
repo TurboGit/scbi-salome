@@ -7,17 +7,6 @@ function s-paravis-vcs()
     echo https://github.com/SalomePlatform/paravis
 }
 
-function s-paravis-ng-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo cp
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
-    echo PARAVIS.tgz
-}
-
 function s-paravis-salome-module()
 {
     echo PARAVIS
@@ -26,11 +15,6 @@ function s-paravis-salome-module()
 function s-paravis-common-build-depends()
 {
     echo s-cmake
-}
-
-function s-paravis-ng-build-depends()
-{
-    echo s-salome-bin
 }
 
 function s-paravis-mpi-depends()
@@ -82,15 +66,6 @@ function s-paravis-ctest-dir()
 }
 
 function s-paravis-mpi-config-options()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    echo -DSALOME_USE_MPI=ON
-}
-
-function s-paravis-ng-config-options()
 {
     local PREFIX=$1
     local TARGET=$2

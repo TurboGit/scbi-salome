@@ -16,11 +16,6 @@ function s-adao-tool-build-depends()
     [[ -z ${DISDOC} ]] && echo os@-sphinx-intl
 }
 
-function s-adao-tool-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-adao-tool-common-depends()
 {
     echo s-salome-configuration

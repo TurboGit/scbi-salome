@@ -17,11 +17,6 @@ function s-ydefx-common-build-depends()
     echo s-cmake
 }
 
-function s-ydefx-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-ydefx-common-depends()
 {
     echo s-salome-configuration

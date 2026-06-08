@@ -1,5 +1,4 @@
 
-
 function s-syrthes-patches()
 {
     local PREFIX=$1
@@ -15,11 +14,6 @@ function s-syrthes-patches()
 function s-syrthes-salome-module()
 {
     echo SYRTHES
-}
-
-function s-syrthes-ng-build-depends()
-{
-    echo s-salome-bin
 }
 
 function s-syrthes-common-build-depends()

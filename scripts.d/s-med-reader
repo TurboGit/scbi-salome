@@ -12,11 +12,6 @@ function s-med-reader-common-build-depends()
     echo s-cmake
 }
 
-function s-med-reader-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-med-reader-mpi-depends()
 {
     echo s-openmpi
@@ -49,15 +44,6 @@ function s-med-reader-env()
 }
 
 function s-med-reader-mpi-config-options()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    echo -DSALOME_USE_MPI=ON
-}
-
-function s-med-reader-ng-config-options()
 {
     local PREFIX=$1
     local TARGET=$2

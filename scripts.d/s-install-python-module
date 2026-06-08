@@ -32,11 +32,6 @@ function s-install-python-module-default-depends()
     echo os@-python3
 }
 
-function s-install-python-module-ng-depends()
-{
-    echo s-salome-bin
-}
-
 function s-install-python-module-build-env()
 {
     local PREFIX=$1

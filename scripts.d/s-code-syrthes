@@ -1,13 +1,7 @@
 
-
 function s-code-syrthes-out-of-tree()
 {
     echo false
-}
-
-function s-code-syrthes-ng-build-depends()
-{
-    echo s-salome-bin
 }
 
 function s-code-syrthes-common-build-depends()

@@ -18,11 +18,6 @@ function s-salome-gui-common-build-depends()
     echo s-python-modules
 }
 
-function s-salome-gui-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-salome-gui-build-depends()
 {
     echo os@-sphinx-common

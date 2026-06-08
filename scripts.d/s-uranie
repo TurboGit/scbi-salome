@@ -10,7 +10,6 @@ function s-uranie-archive()
     echo URANIE-$VERSION-Source.tar.gz
 }
 
-
 function s-uranie-build-depends()
 {
     echo s-cmake

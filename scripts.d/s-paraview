@@ -18,17 +18,6 @@ function s-paraview-archive()
     echo ParaView-$VERSION.tar.gz
 }
 
-function s-paraview-ng-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo cp
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
-    echo ParaView-$VERSION.tar.gz
-}
-
 function s-paraview-patches()
 {
     local PREFIX=$1
@@ -84,11 +73,6 @@ function s-paraview-common-build-depends()
     # To avoid Paraview configuration issue with cmake < 3.13
     # to detect cmake native.
     echo s-cmake
-}
-
-function s-paraview-ng-build-depends()
-{
-    echo s-salome-bin
 }
 
 function s-paraview-default-build-depends()

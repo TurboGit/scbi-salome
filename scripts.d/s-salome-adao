@@ -12,11 +12,6 @@ function s-salome-adao-salome-module()
     echo ADAO
 }
 
-function s-salome-adao-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-salome-adao-build-depends()
 {
     echo s-cmake

@@ -20,7 +20,6 @@ function s-netcdf-archive()
     echo netcdf-c-$VERSION.tar.gz 
 } 
 
-
 function s-netcdf-mingw-patches()
 {
     local PREFIX=$1

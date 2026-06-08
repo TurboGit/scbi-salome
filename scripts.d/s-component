@@ -23,11 +23,6 @@ function s-component-default-build-depends()
     echo s-salome-bootstrap
 }
 
-function s-component-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-component-common-depends()
 {
     echo s-salome-configuration

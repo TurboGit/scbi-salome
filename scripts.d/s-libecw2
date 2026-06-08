@@ -1,5 +1,4 @@
 
-
 function s-libecw2-out-of-tree()
 {
     echo false

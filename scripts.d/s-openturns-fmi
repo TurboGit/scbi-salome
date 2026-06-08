@@ -9,7 +9,6 @@ function s-openturns-fmi-vcs()
     echo https://github.com/openturns/otfmi.git 
 } 
 
-
 function s-openturns-fmi-out-of-tree()
 {
     echo false

@@ -26,7 +26,6 @@ function s-omniorb-core-archive()
     echo omniORB-$VERSION.tar.gz 
 } 
 
-
 function s-omniorb-core-patches()
 {
     local PREFIX=$1

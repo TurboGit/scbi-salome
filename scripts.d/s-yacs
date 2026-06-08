@@ -23,11 +23,6 @@ function s-yacs-default-build-depends()
     echo s-salome-bootstrap
 }
 
-function s-yacs-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-yacs-common-depends()
 {
     echo s-salome-configuration

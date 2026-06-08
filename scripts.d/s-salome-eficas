@@ -17,11 +17,6 @@ function s-salome-eficas-common-build-depends()
     echo s-cmake
 }
 
-function s-salome-eficas-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-salome-eficas-common-depends()
 {
     echo s-salome-configuration

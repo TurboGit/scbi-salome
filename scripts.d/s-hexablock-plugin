@@ -29,11 +29,6 @@ function s-hexablock-plugin-default-build-depends()
     echo s-salome-bootstrap
 }
 
-function s-hexablock-plugin-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-hexablock-plugin-default-depends()
 {
     echo s-qt

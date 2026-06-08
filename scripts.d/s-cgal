@@ -10,7 +10,6 @@ function s-cgal-vcs()
     echo https://github.com/CGAL/cgal.git
 }
 
-
 function s-cgal-patches()
 {
     local PREFIX=$1
@@ -25,11 +24,6 @@ function s-cgal-patches()
 function s-cgal-common-build-depends()
 {
     echo s-cmake
-}
-
-function s-cgal-ng-build-depends()
-{
-    echo s-salome-bin
 }
 
 function s-cgal-common-depends()

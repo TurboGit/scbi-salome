@@ -1,5 +1,4 @@
 
-
 function s-libccmio-out-of-tree()
 {
     echo false

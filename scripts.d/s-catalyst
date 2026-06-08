@@ -18,17 +18,6 @@ function s-catalyst-archive()
     echo catalyst-$VERSION.tar.gz
 }
 
-function s-catalyst-ng-archive()
-{
-    local VERSION=$1
-
-    echo default
-    echo none
-    echo cp
-    echo $SCBI_BDIR/s-salome-tar/archive-src/ARCHIVES
-    echo catalyst-$VERSION.tar.gz
-}
-
 function s-catalyst-env()
 {
     local PREFIX=$1

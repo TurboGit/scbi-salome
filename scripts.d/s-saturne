@@ -1,5 +1,4 @@
 
-
 function s-saturne-out-of-tree()
 {
     echo false
@@ -8,11 +7,6 @@ function s-saturne-out-of-tree()
 function s-saturne-common-build-depends()
 {
     echo s-cmake
-}
-
-function s-saturne-ng-build-depends()
-{
-    echo s-salome-bin
 }
 
 function s-saturne-build-depends()

@@ -13,11 +13,6 @@ function s-eficas-tools-common-build-depends()
     echo os@-sphinx-common
 }
 
-function s-eficas-tools-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-eficas-tools-common-depends()
 {
     echo s-salome-configuration

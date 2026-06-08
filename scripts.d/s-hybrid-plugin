@@ -19,11 +19,6 @@ function s-hybrid-plugin-common-build-depends()
     echo os@-sphinx-common
 }
 
-function s-hybrid-plugin-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-hybrid-plugin-default-depends()
 {
     echo s-salome-kernel

@@ -22,11 +22,6 @@ function s-smesh-common-build-depends()
     echo s-cmake
 }
 
-function s-smesh-ng-build-depends()
-{
-    echo s-salome-bin
-}
-
 function s-smesh-default-build-depends()
 {
     echo os@-sphinx-common
@@ -88,16 +83,6 @@ function s-smesh-ctest-dir()
     local PREFIX=$1
 
     echo $PREFIX/bin/salome/test
-}
-
-function s-smesh-ng-config-options()
-{
-    local PREFIX=$1
-    local TARGET=$2
-    local VARIANT=$3
-
-    echo -DSALOME_USE_MPI=ON
-    echo -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 }
 
 function s-smesh-mpi-config-options()
