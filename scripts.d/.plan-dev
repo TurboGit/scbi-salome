@@ -6,7 +6,7 @@
 @set PV_VERSION  = v6.0.0-c61dcc8ee
 
 # clang 12 & s-ispc 1.16 are matching versions
-s-clang:#12.x
+s-clang:#16.x
 # using binary version 1.16.1
 s-ispc/bin:#v1.16.1
 
