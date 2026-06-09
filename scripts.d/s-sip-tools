@@ -1,7 +1,8 @@
 
 inherit-plugin --name handle-dist s-python-post-install-dist-packages
 
-with-variant native os@-sip-dev:[v]
+with-variant native os@-sip-dev:[v] \
+             --env 'set-var SIP_ROOT_DIR /usr'
 
 function s-sip-tools-vcs()
 {
@@ -53,9 +54,12 @@ function s-sip-tools-env()
     set-var    SIPDIR          $PREFIX
     set-var    SIP_DIR         $PREFIX
 
-    add-to-var PATH            $PREFIX/bin
-    add-to-var PYTHONPATH      $PREFIX/lib/python$PYTHON_VERSION/site-packages
-    add-to-var LD_LIBRARY_PATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    prepend-to-var PATH            \
+                   $PREFIX/bin
+    add-to-var     PYTHONPATH      \
+                   $PREFIX/lib/python$PYTHON_VERSION/site-packages
+    add-to-var     LD_LIBRARY_PATH \
+                   $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-sip-tools-build-env()
