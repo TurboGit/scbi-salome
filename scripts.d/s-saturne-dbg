@@ -92,14 +92,6 @@ function s-saturne-dbg-build()
     make -j$SCBI_JOBS
 }
 
-function s-saturne-dbg-post-build()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    make doc
-}
-
 function s-saturne-dbg-install()
 {
     local PREFIX=$1
@@ -112,8 +104,6 @@ function s-saturne-dbg-post-install()
 {
     local PREFIX=$1
     local TARGET=$2
-
-    make install-doc
 
     cd $PREFIX/etc
 
