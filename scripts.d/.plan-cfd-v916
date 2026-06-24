@@ -18,9 +18,9 @@ s-salome-syrthes:master
 s-python-modules/wand
 
 [ = deb,11
-    s-salome/cfd:s11-V9_13_0
+    s-salome/cfd:s11-V9_16_0
 ]
 
 [ = deb,12
-    s-salome/cfd:s12-V9_13_0
+    s-salome/cfd:s12-V9_16_0
 ]
