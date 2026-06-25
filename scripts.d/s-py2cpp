@@ -37,15 +37,26 @@ function s-py2cpp-depends()
     echo s-salome-configuration
 }
 
+function s-py2cpp-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
 function s-py2cpp-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-py2cpp-build()

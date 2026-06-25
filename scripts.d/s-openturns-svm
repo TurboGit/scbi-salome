@@ -34,19 +34,31 @@ function s-openturns-svm-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 }
 
+function s-openturns-svm-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DCMAKE_FIND_ROOT_PATH=ON
+    echo -DSWIG_DIR:FILEPATH=$(swig -swiglib)
+    echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
+    echo -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+    echo -DUSE_SPHINX=OFF
+}
+
 function s-openturns-svm-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DUSE_SPHINX=OFF \
-          -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION) \
-          -DCMAKE_FIND_ROOT_PATH=ON \
-          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
-          -DSWIG_DIR:FILEPATH=$(swig -swiglib) \
-          -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
-          -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-openturns-svm-build()

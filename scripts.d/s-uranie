@@ -32,7 +32,19 @@ function s-uranie-env()
     add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PYTHONPATH        \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
+}
+
+function s-uranie-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DLOCAL_PYTHON_EXEC=$(command -v python$PYTHON_VERSION)
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
 }
 
 function s-uranie-config()
@@ -40,9 +52,10 @@ function s-uranie-config()
     local PREFIX=$1
     local TARGET=$2
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DLOCAL_PYTHON_EXEC=$(command -v python$PYTHON_VERSION) \
-          ../src
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-uranie-build()
@@ -59,6 +72,20 @@ function s-uranie-install()
     local TARGET=$2
 
     make install
+}
+
+function s-uranie-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    
+    [[ -d "$PREFIX"/lib/python/URANIE ]] && 
+        {
+            mkdir -p "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+            mv "$PREFIX"/lib/python/URANIE "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+            rmdir "$PREFIX"/lib/python
+        }
 }
 
 function s-uranie-prefix()

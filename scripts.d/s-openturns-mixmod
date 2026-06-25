@@ -41,7 +41,8 @@ function s-openturns-mixmod-config-options()
     local TARGET=$2
 
     echo -DBUILD_DOC=OFF
-    echo -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DCMAKE_FIND_ROOT_PATH=ON
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo -DSWIG_DIR:FILEPATH=$(swig -swiglib)
