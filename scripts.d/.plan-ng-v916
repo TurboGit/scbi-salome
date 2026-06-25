@@ -2,8 +2,6 @@
 
 @load v916/mpi
 
-@set CEA_ARCH = 9.16.0rc1
-
 [ = linux
         s-salome-bin
         s-atomic
@@ -13,7 +11,6 @@
         s-med-coupling
         s-python-modules
         s-ifc-open-shell
-        s-saturne
 
         # other modules that can be built in ng mode
         s-smesh
@@ -56,8 +53,8 @@ s-scotch/ng
 #  but the dependency is not needed as provided by the binary archive.
 
 [ = win
-        s-salome-tar/ngwin:#${CEA_ARCH}:WIN
-        s-salome-configuration/ngwin
+        s-salome-tar/ngwin:#9.16.0:WIN
+        s-salome-configuration/ngwin:V9_16_0
         s-salome-bin/ngwin
 ]
 
@@ -67,7 +64,7 @@ s-scotch/ng
 ] :skip
 
 [ = deb,9
-        s-salome-tar:#${CEA_ARCH}:DB09
+        s-salome-tar:#9.16.0:DB09
         s-gdal:skip
         s-cgal/ng:#4.0
         s-tbb:skip
@@ -85,24 +82,22 @@ s-scotch/ng
         s-boost:skip
 ]
 
+[ = deb,10
+        s-salome-tar:#9.16.0-native:DB10
+        s-qt:skip
+        s-pyqt:skip
+]
+
 [ = deb,11
-        s-salome-tar:#${CEA_ARCH}-native:DB11
+        s-salome-tar:#9.16.0-native:DB11
         s-qt/native
         s-pyqt/native
 ]
 
 [ = deb,12
-        s-salome-tar:#${CEA_ARCH}-native:DB12
+        s-salome-tar:#9.16.0-native:DB12
         s-qt/native
         s-pyqt/native
-]
-
-[ = deb,13
-        s-salome-tar:#${CEA_ARCH}-native:DB13
-        s-qt/native
-        s-pyqt:skip
-        s-sip:skip
-        s-saturne/scibian13
 ]
 
 # No need for meshio on NG as already in binary archive
