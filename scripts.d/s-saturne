@@ -144,3 +144,4 @@ function s-saturne-post-install()
     local TARGET=$2
 
     make install-doc
+}

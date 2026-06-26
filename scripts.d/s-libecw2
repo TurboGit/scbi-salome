@@ -51,3 +51,4 @@ function s-libecw2-install()
 function s-libecw2-prefix()
 {
     echo NONE
+}
