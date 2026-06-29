@@ -54,21 +54,34 @@ function s-fields-ctest-dir()
     echo $PREFIX/bin/salome/test
 }
 
+function s-fields-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local CDEBUG=$(is-enabled cmake-debug)
+    local DISDOC=$(is-enabled no-doc)
+
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo -DMEDCOUPLING_USE_64BIT_IDS=ON
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+}
+
 function s-fields-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
-    local CDEBUG=$(is-enabled cmake-debug)
-    local DISDOC=$(is-enabled no-doc)
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-          -DSALOME_BUILD_TESTS=OFF \
-          -DMEDCOUPLING_USE_64BIT_IDS=ON \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
-          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-          ../src
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-fields-build()

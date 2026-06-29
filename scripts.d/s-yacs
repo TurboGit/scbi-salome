@@ -65,21 +65,35 @@ function s-yacs-ctest-dir()
     echo $PREFIX/bin/salome/test
 }
 
-function s-yacs-config()
+function s-yacs-common-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
+    local VARIANT=$3
 
     local CDEBUG=$(is-enabled cmake-debug)
     local DISDOC=$(is-enabled no-doc)
 
-    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_GUI=ON \
-          -DSWIG_EXECUTABLE:PATH=$(command -v swig) \
-          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
-          -DSALOME_BUILD_TESTS=ON \
-          ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"} \
-          ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"} \
-          ../src
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DSWIG_EXECUTABLE=$SWIG_ROOT_DIR/bin/swig
+    echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DSALOME_BUILD_TESTS=ON
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
+    echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
+}
+
+function s-yacs-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    cmake "${OPTIONS[@]}" ../src
 }
 
 function s-yacs-build()

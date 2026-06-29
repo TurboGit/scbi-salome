@@ -95,6 +95,8 @@ function s-salome-gui-common-config-options()
     echo -DSALOME_BUILD_TESTS=OFF
     echo -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DSWIG_EXECUTABLE=$SWIG_ROOT_DIR/bin/swig
     echo ${DISDOC:+"-DSALOME_BUILD_DOC=OFF"}
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}

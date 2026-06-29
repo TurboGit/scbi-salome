@@ -147,6 +147,8 @@ function s-salome-kernel-common-config-options()
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DSALOME_USE_LIBBATCH=ON
     echo -DSALOME_USE_64BIT_IDS=ON
     echo -DSALOME_BUILD_TESTS=ON

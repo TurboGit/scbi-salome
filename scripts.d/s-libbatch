@@ -52,6 +52,8 @@ function s-libbatch-common-config-options()
     local VARIANT=$3
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DSWIG_EXECUTABLE:PATH=$(command -v swig)
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 }
