@@ -1,11 +1,11 @@
 
-function s-salome-configuration-vcs() 
-{ 
-    echo default 
-    echo none 
-    echo git 
+function s-salome-configuration-vcs()
+{
+    echo default
+    echo none
+    echo git
     echo https://github.com/SalomePlatform/configuration
-} 
+}
 
 function s-salome-configuration-patches()
 {

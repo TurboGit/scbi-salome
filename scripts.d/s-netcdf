@@ -1,24 +1,24 @@
 
 with-variant native s-hdf5 os@-netcdf-dev
 
-function s-netcdf-vcs() 
-{ 
+function s-netcdf-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/Unidata/netcdf-c.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/Unidata/netcdf-c.git
+}
 
-function s-netcdf-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo netcdf-c-$VERSION.tar.gz 
-} 
+function s-netcdf-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo netcdf-c-$VERSION.tar.gz
+}
 
 function s-netcdf-mingw-patches()
 {

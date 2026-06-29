@@ -1,9 +1,9 @@
 inherit-plugin c-llvm
 
-function s-llvm-vcs() 
-{ 
+function s-llvm-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/llvm/llvm-project.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/llvm/llvm-project.git
+}

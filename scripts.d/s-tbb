@@ -8,13 +8,13 @@ with-variant mingw os@-tbb-dev:[v] \
         'set-var TBBDLL   $MINGW_PREFIX/bin/libtbb12.dll' \
 	'set-var TBBLIB   $MINGW_PREFIX/lib/libtbb12.dll.a'
 
-function s-tbb-vcs() 
-{ 
-    echo default 
-    echo none 
-    echo git 
-    echo https://github.com/oneapi-src/oneTBB.git 
-} 
+function s-tbb-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/oneapi-src/oneTBB.git
+}
 
 function s-tbb-out-of-tree()
 {

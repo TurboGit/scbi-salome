@@ -142,8 +142,8 @@ function s-ifc-open-shell-post-install()
         -e 's/__swig_getmethods__/#__swig_getmethods__/g' \
         -e 's/__swig_setmethods__/#__swig_setmethods__/g' \
         $PREFIX/lib/python/ifcopenshell/ifcopenshell_wrapper.py
-    
-    [[ -d "$PREFIX"/lib/python/ifcopenshell ]] && 
+
+    [[ -d "$PREFIX"/lib/python/ifcopenshell ]] &&
         {
             mkdir -p "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
             mv "$PREFIX"/lib/python/ifcopenshell "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages

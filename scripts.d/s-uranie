@@ -79,8 +79,8 @@ function s-uranie-post-install()
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
-    
-    [[ -d "$PREFIX"/lib/python/URANIE ]] && 
+
+    [[ -d "$PREFIX"/lib/python/URANIE ]] &&
         {
             mkdir -p "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
             mv "$PREFIX"/lib/python/URANIE "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages

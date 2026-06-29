@@ -1,24 +1,24 @@
 
 with-variant native os@-cgns-dev:[v]
 
-function s-cgns-vcs() 
-{ 
+function s-cgns-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/CGNS/CGNS 
-} 
+    echo none
+    echo git
+    echo https://github.com/CGNS/CGNS
+}
 
-function s-cgns-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo cgns-$VERSION.tar.gz 
-} 
+function s-cgns-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo cgns-$VERSION.tar.gz
+}
 
 function s-cgns-build-depends()
 {

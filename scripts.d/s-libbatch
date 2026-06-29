@@ -1,11 +1,11 @@
 
-function s-libbatch-vcs() 
-{ 
-    echo default 
-    echo none 
-    echo git 
-    echo https://github.com/SalomePlatform/libbatch 
-} 
+function s-libbatch-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/libbatch
+}
 
 function s-libbatch-mingw-patches()
 {

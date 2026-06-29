@@ -1,11 +1,11 @@
 
-function s-pvwidgetexample-vcs() 
-{ 
-    echo default 
-    echo none 
-    echo git 
-    echo https://git.phimeca.com/ot-edf/pvwidgetexample.git 
-} 
+function s-pvwidgetexample-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://git.phimeca.com/ot-edf/pvwidgetexample.git
+}
 
 function s-pvwidgetexample-build-depends()
 {

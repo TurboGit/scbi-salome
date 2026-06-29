@@ -1,11 +1,11 @@
 
-function s-vrpn-vcs() 
-{ 
+function s-vrpn-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo git clone https://github.com/vrpn/vrpn 
-} 
+    echo none
+    echo git
+    echo git clone https://github.com/vrpn/vrpn
+}
 
 function s-vrpn-build-depends()
 {

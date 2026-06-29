@@ -20,13 +20,13 @@ with-variant mingw \
              os@-qt5svg5-dev os@-qtxmlpatterns5-dev-tools os@-qwt-qt5-dev \
  --env 'set-var QT5_ROOT_DIR $MINGW_PREFIX'
 
-function s-qt-vcs() 
-{ 
+function s-qt-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/qt/qt5.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/qt/qt5.git
+}
 
 function s-qt-archive()
 {

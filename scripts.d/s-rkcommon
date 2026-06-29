@@ -1,24 +1,24 @@
 
 # Intel RenderKit Common library
 
-function s-rkcommon-vcs() 
-{ 
+function s-rkcommon-vcs()
+{
     echo default
-    echo no-recursive 
-    echo git 
-    echo https://github.com/ospray/rkcommon.git 
-} 
+    echo no-recursive
+    echo git
+    echo https://github.com/ospray/rkcommon.git
+}
 
-function s-rkcommon-archive() 
-{ 
-    local VERSION=$1 
- 
-    echo default 
-    echo none 
-    echo wget 
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites 
-    echo rkCommon-$VERSION.tar.gz 
-} 
+function s-rkcommon-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo rkCommon-$VERSION.tar.gz
+}
 
 function s-rkcommon-mingw-patches()
 {

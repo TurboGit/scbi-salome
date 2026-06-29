@@ -1,11 +1,11 @@
 
-function s-openturns-vcs() 
-{ 
+function s-openturns-vcs()
+{
     echo default
-    echo none 
-    echo git 
-    echo https://github.com/openturns/openturns.git 
-} 
+    echo none
+    echo git
+    echo https://github.com/openturns/openturns.git
+}
 
 function s-openturns-patches()
 {

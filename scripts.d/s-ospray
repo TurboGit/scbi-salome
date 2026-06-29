@@ -1,11 +1,11 @@
 
-function s-ospray-vcs() 
-{ 
+function s-ospray-vcs()
+{
     echo default
-    echo no-recursive 
-    echo git 
-    echo https://github.com/ospray/ospray.git 
-} 
+    echo no-recursive
+    echo git
+    echo https://github.com/ospray/ospray.git
+}
 
 function s-ospray-archive()
 {
