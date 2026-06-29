@@ -73,7 +73,8 @@ function s-ifc-open-shell-common-env()
     set-var    IFCOPENSHELL_ROOT_DIR $PREFIX
     add-to-var PATH                  $PREFIX/bin
     add-to-var LD_LIBRARY_PATH       $PREFIX/lib
-    add-to-var PYTHONPATH            $PREFIX/lib/python
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-ifc-open-shell-common-config-options()
@@ -84,6 +85,8 @@ function s-ifc-open-shell-common-config-options()
 
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DCOLLADA_SUPPORT=OFF
     echo -DUNICODE_SUPPORT=OFF
     echo -DBUILD_SHARED_LIBS=ON
@@ -139,6 +142,13 @@ function s-ifc-open-shell-post-install()
         -e 's/__swig_getmethods__/#__swig_getmethods__/g' \
         -e 's/__swig_setmethods__/#__swig_setmethods__/g' \
         $PREFIX/lib/python/ifcopenshell/ifcopenshell_wrapper.py
+    
+    [[ -d "$PREFIX"/lib/python/ifcopenshell ]] && 
+        {
+            mkdir -p "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+            mv "$PREFIX"/lib/python/ifcopenshell "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+            rmdir "$PREFIX"/lib/python
+        }
 }
 
 function s-ifc-open-shell-prefix()
