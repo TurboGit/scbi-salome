@@ -266,9 +266,11 @@ function s-salome-tar-install()
 
     #  Remove MESA setting from env_launch.sh
 
-    #   Beware of lines number that could change in the future, here 120 and 122 !
-    sed -i '120 s,^,#,' $PREFIX/mesa_salome
-    sed -i '122 s,^,#,' $PREFIX/mesa_salome
+    #   Beware of lines number that could change in the future, here 120 and 122 for debian 11 and 12 !
+
+    sed -Ei '120{/^[[:space:]]*(if reinitialise_paths:)$/ s/^/#/;}' $PREFIX/mesa_salome
+    sed -Ei '122{/^[[:space:]]*(else:)$/ s/^/#/;}' $PREFIX/mesa_salome
+
     sed -i 's,\(.*BINARI[^/]*/mesa\),# \1,g' $PREFIX/mesa_salome
 
     #  Remove TTK for EDF Scbian-12 PC (Intel i5) because of SIGILL
