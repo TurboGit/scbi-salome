@@ -167,17 +167,6 @@ function s-med-coupling-install()
     make install
 }
 
-function s-med-coupling-post-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
-    # Fix s-field compilation failure
-    local FILE="$PREFIX/lib/python$PYTHON_VERSION/site-packages/to_pyvista.py"
-
-    [[ -f $FILE ]] && cp $FILE $PREFIX/include
-}
-
 function s-med-coupling-prefix()
 {
     echo NONE
