@@ -60,6 +60,7 @@ function s-gmsh-env()
     add-to-var C_INCLUDE_PATH     $PREFIX/include
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PYTHONPATH         $PREFIX/lib
 }
 
 function s-gmsh-config-options()
