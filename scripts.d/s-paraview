@@ -50,7 +50,7 @@ function s-paraview-patches()
 
     [[ $REF =~ "6.0" ]] &&
         {
-            echo paraview-6.0.0-c61dcc8ee0.p001-FindCGNS.patch
+            echo paraview-5.11.0-findcgns.patch
             echo paraview-6.0.0-c61dcc8ee0.p005-LATA_V2.1-plugin.patch
         }
 
