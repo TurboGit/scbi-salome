@@ -65,7 +65,7 @@ function s-yacs-ctest-dir()
     echo $PREFIX/bin/salome/test
 }
 
-function s-yacs-common-config-options()
+function s-yacs-config-options()
 {
     local PREFIX=$1
     local TARGET=$2

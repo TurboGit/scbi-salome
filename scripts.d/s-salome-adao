@@ -61,7 +61,7 @@ function s-salome-adao-build-env()
     set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 }
 
-function s-salome-adao-common-config-options()
+function s-salome-adao-config-options()
 {
     local PREFIX=$1
     local TARGET=$2
@@ -72,7 +72,6 @@ function s-salome-adao-common-config-options()
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DADAO_PYTHON_MODULE=OFF
-
 
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
