@@ -25,7 +25,7 @@ if len(pythonDirInLibCandidate) != 1:
   raise RuntimeError( f"Fail to locate python* in {main_site_packages_tmp}" )
 pythonDir = pythonDirInLibCandidate[0]
 
-pat = re.compile("^python([\d])\.([\d]+)$")
+pat = re.compile(r"^python([\d])\.([\d]+)$")
 if not pat.match(pythonDir):
   raise RuntimeError( f"Fail to locate pythonX.Y in {main_site_packages_tmp}" )
 main_site_packages = main_site_packages_tmp / pythonDir / "site-packages"

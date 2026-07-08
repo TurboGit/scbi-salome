@@ -48,6 +48,12 @@ function s-paraview-patches()
             echo paraview-5.13-2918b94391-vtkmodule.patch
         }
 
+    [[ $REF =~ "6.0" ]] &&
+        {
+            echo paraview-5.11.0-findcgns.patch
+            echo paraview-6.0.0-c61dcc8ee0.p005-LATA_V2.1-plugin.patch
+        }
+
     [[ $REF =~ "6.1" ]] &&
         {
             echo paraview-6.1.c61dcc8ee.0001-LATA-reader.patch
@@ -209,6 +215,9 @@ function s-paraview-common-config-options()
     echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
 
+    echo -DPARAVIEW_GIT_DESCRIBE=disabled
+    echo -DPARAVIEW_VERSIONED_INSTALL=OFF
+
     echo -DBUILD_EXAMPLES:BOOL=OFF
     echo -DBUILD_TESTING:BOOL=OFF
 
@@ -228,6 +237,7 @@ function s-paraview-common-config-options()
     echo -DPARAVIEW_PLUGIN_ENABLE_PacMan:BOOL=OFF
     echo -DPARAVIEW_PLUGIN_ENABLE_pvblot:BOOL=OFF
     echo -DPARAVIEW_PLUGIN_ENABLE_SurfaceLIC=OFF
+    echo -DPARAVIEW_PLUGIN_ENABLE_XArrayCFReader=OFF
 
     # Auto load
 
