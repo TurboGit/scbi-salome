@@ -127,7 +127,7 @@ function s-kernel-ctest-dir()
 {
     local PREFIX=$1
 
-    echo $PREFIX/bin/salome/test
+    echo $PREFIX/bin/salome/test/kernel
 }
 
 function s-salome-kernel-mpi-config-options()

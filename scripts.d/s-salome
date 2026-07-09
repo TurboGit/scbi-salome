@@ -198,6 +198,7 @@ function setup-env-salome()
                 MLIST=( $module )
             fi
 
+            local ctestfile=$SBINDIR/bin/salome/test/CTestTestfile.cmake
             for MOD in ${MLIST[*]}; do
                 #  Handle possible ctest support
 
@@ -209,8 +210,10 @@ function setup-env-salome()
                 get-hook FCT $m $v ctest-dir
 
                 if [[ -n $FCT ]]; then
-                    echo "SUBDIRS(../../../../../$($FCT EDF/$module))" \
-                         >> $SBINDIR/bin/salome/test/CTestTestfile.cmake
+                    local line="SUBDIRS(../../../../../$($FCT EDF/$module))"
+                    if [[ -z $(grep -q -F -x "$line" "$ctestfile") ]]; then
+                        echo "$line" >> "$ctestfile"
+                    fi
                 fi
             done
         }
