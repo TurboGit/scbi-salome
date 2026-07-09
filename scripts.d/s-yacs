@@ -62,7 +62,7 @@ function s-yacs-ctest-dir()
 {
     local PREFIX=$1
 
-    echo $PREFIX/bin/salome/test
+    echo $PREFIX/bin/salome/test/yacs
 }
 
 function s-yacs-config-options()
