@@ -125,6 +125,8 @@ function s-openturns-common-config-options()
     local VARIANT=$3
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DUSE_SPHINX=OFF
     echo -DUSE_DOXYGEN=OFF
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)

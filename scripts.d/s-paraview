@@ -228,6 +228,8 @@ function s-paraview-common-config-options()
 
     echo -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE Release)
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DPython_EXECUTABLE=$(command -v python$PYTHON_VERSION)
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
 
     echo -DBUILD_EXAMPLES:BOOL=OFF
     echo -DBUILD_TESTING:BOOL=OFF
