@@ -90,32 +90,11 @@ function template-conversion()
 
     local FILES_LIST=(*/bin/omniidl */bin/h5hlcc */bin/h5cc)
 
-    if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
-        FILES_LIST+=(*/lib/pkgconfig/netcdf.pc */bin/pyuic5)
-    fi
-
     for SCRIPTS in ${FILES_LIST[*]}; do
         if [[ -n $(ls $PREFIX/$BINDIR/$SCRIPTS 2> /dev/null) ]]; then
             sed -i "s,${ORIG_BINDIR},$PREFIX/${BINDIR},g" $PREFIX/$BINDIR/$SCRIPTS
         fi
     done
-
-    if [[ $DISTRIBUTION_ID -eq "Debian" ]] && [[ $OS_VERSION -eq "9" ]]; then
-        #  For sip
-
-        find $PREFIX/$BINDIR/sip/bin -type f -name "*sip*" |
-            while read F; do
-                sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
-            done
-
-        #  For Python
-
-        find $PREFIX/$BINDIR/Python -type f \
-             \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
-            while read F; do
-                sed -i "s,$ORIG_BINDIR,$PREFIX/${BINDIR},g" $F
-            done
-    fi
 
     # cfg file from CFD with paths to patch
 
@@ -257,10 +236,7 @@ function check-for-python3()
     # DISTRIBUTION_ID & OS_VERSION defined below
     #
 
-    if [[ $DISTRIBUTION_ID -eq "Debian" && $OS_VERSION -eq "9" ]]; then
-        echo Python is embedded into salome on debian9
-
-    elif [[ "$(lsb_release -d)" =~ "Red Hat" ]]; then
+    if [[ "$(lsb_release -d)" =~ "Red Hat" ]]; then
         echo Python is embedded into salome on Red Hat
 
     else
