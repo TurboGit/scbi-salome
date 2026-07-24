@@ -17,7 +17,7 @@ function check-writable()
     local DIR=$1
 
     while [[ ! -d $(dirname $DIR) ]]; do
-          DIR=$(dirname $DIR)
+        DIR=$(dirname $DIR)
     done
 
     [[ -w $(dirname $DIR) ]]
@@ -57,25 +57,6 @@ function get-install-directory()
     echo -n $prefix
 }
 
-# =============================================== get-modules-dir
-
-function get-modules-dir()
-{
-    local PREFIX=$1
-
-    local BIN="unknown"
-
-    local DIRS=($PREFIX/BINARIES-*)
-
-    if [[ -d ${DIRS[0]} ]]; then
-        BIN=${DIRS[0]}
-    elif [[ -d $PREFIX/EDF ]]; then
-        BIN=$PREFIX/EDF
-    fi
-
-    echo $(basename $BIN)
-}
-
 # =============================================== template-conversion
 function template-conversion()
 {
@@ -86,7 +67,7 @@ function template-conversion()
     # Convert the template files (omniidl, h5hlcc, ...)
 
     local ORIG_BINDIR="__BINDIR__"
-    local BINDIR=$(get-modules-dir $PREFIX)
+    local BINDIR="EDF"
 
     local FILES_LIST=(*/bin/omniidl */bin/h5hlcc */bin/h5cc)
 
@@ -99,73 +80,54 @@ function template-conversion()
     # cfg file from CFD with paths to patch
 
     local FILES_CFG=(*/lib/code_saturne_build.cfg)
-    local EDFBINDIR="EDF"
 
-    for SCRIPTS in $PREFIX/$EDFBINDIR/$FILES_CFG; do
+    for SCRIPTS in $PREFIX/$BINDIR/$FILES_CFG; do
         if [[ -f $SCRIPTS ]]; then
             ## VM build
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
+            sed -i "s,/builds/\([^/]*\),$PREFIX/$BINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
             sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
+            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$BINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
             sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
         fi
     done
 
     SYRTHES_MAKEFILE=(*/arch/Linux_x86_64/share/syrthes/Makefile.in)
-    for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_MAKEFILE; do
+    for SCRIPTS in $PREFIX/$BINDIR/$SYRTHES_MAKEFILE; do
         if [[ -f $SCRIPTS ]]; then
             ## VM build
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
+            sed -i "s,/builds/\([^/]*\),$PREFIX/$BINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
             sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
+            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$BINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
             sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
         fi
     done
 
     SYRTHES_GUI=(*/arch/Linux_x86_64/bin/syrthes.gui)
-    for SCRIPTS in $PREFIX/$EDFBINDIR/$SYRTHES_GUI; do
+    for SCRIPTS in $PREFIX/$BINDIR/$SYRTHES_GUI; do
         if [[ -f $SCRIPTS ]]; then
             ## VM build
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,/builds/.*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,/builds/\([^/]*\),$PREFIX/$EDFBINDIR,g" $SCRIPTS
+            sed -i "s,/builds/\([^/]*\),$PREFIX/$BINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
             sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
 
             ## Local build :
-            # s-salome-tar (keep BINARIES-DB11)
-            sed -i "s,$HOME/dev/build-[0-Z\-]*/s-salome-tar/,$PREFIX/,g" $SCRIPTS
             # all other modules (replace /builds/<...> by $PREFIX/EDF
-            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$EDFBINDIR,g" $SCRIPTS
+            sed -i "s,$HOME/dev/build-[0-Z\-]*,$PREFIX/$BINDIR,g" $SCRIPTS
             # remove x86_64-linux-gnu-ng/install
             sed -i "s,/x86_64-linux-gnu-default/install,,g" $SCRIPTS
-            sed -i "s,/x86_64-linux-gnu-ng/install,,g" $SCRIPTS
         fi
     done
 
@@ -223,14 +185,7 @@ function check-for-python3()
 {
     local PLUGIN=$1
 
-    local BINDIR=$(get-modules-dir $PWD)
-
-    #  If EDF, this is a full EDF build as we try first BINARIES-*
-    if [[ $BINDIR == "EDF" ]]; then
-        local SBINDIR=EDF/$PLUGIN
-    else
-        local SBINDIR=$BINDIR/SALOME
-    fi
+    local SBINDIR=EDF/$PLUGIN
 
     #
     # DISTRIBUTION_ID & OS_VERSION defined below
