@@ -135,6 +135,44 @@ function s-salome-tar-install()
         done
     }
 
+    function replace-paths2()
+    {
+        local PREFIX=$1
+        local BINDIR=$2
+
+        #  Need to fix (shebang) full path to python interpreter
+        local FILE_SHEEBANG=( Python/bin/sphinx-build
+                              matplotlib/bin/f2py
+                              openturns/bin/f2py*
+                              Python/bin/f2py*
+                              C3PO/bin/f2py*
+                              sip/bin/*sip* )
+
+        local FILE_BASH=( hdf5/bin/h5hlcc
+                          hdf5/bin/h5cc
+                          netcdf/lib/pkgconfig/netcdf.pc
+                          PyQt/bin/pyuic5 )
+
+        local FILE_PY=( omniORB/bin/omniidl )
+
+        local ODIR="#!/volatile2"
+
+        for SCRIPTS in ${FILE_SHEEBANG[*]}; do
+            sed -i -e "s,$ODIR.*INSTALL*\(.*bin\)/\(.*\),#!/bin/env -S PATH=\${SALOME_BIN_MODULES}\1:\${PATH} \2,g" \
+                $PREFIX/$BINDIR/$SCRIPTS
+        done
+
+        for SCRIPTS in ${FILE_BASH[*]}; do
+            sed -i -e "s,/volatile2/.*INSTALL,\${SALOME_BIN_MODULES},g" \
+                $PREFIX/$BINDIR/$SCRIPTS
+        done
+
+        for SCRIPTS in ${FILE_PY[*]}; do
+            sed -i -e "s,\"/volatile2/.*INSTALL,os\.getenv\(\"SALOME_BIN_MODULES\"\) + \",g" \
+                $PREFIX/$BINDIR/$SCRIPTS
+        done
+    }
+
     function sh_env2scbi()
     {
         local ENV_FILE=$1
@@ -331,11 +369,13 @@ function s-salome-tar-install()
         #  this patch is rewritten, to 	 is finally removed.
         INIT="s,/INSTALL/,/	/,g"
         ORIGDIR="/(home|volatile)/[^:;\"]*(support|workspace)/[^	]*/	"
+        ORIGDIR2="/(home|volatile2)/[^:;\"]*(support|workspace)/[^	]*/	"
     fi
 
     find $PREFIX/ -type f -name "*.cmake" |
         while read F; do
             sed -i -E "$INIT;s,$ORIGDIR/,$TGTDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR2/,$TGTDIR/,g" $F
         done
 
     if [[ $VARIANT == "ngwin" ]]; then
@@ -350,8 +390,10 @@ function s-salome-tar-install()
 
     if [[ $SCBI_OS_ID == "Debian" ]] && [[ "$SCBI_OS_MAJOR_VERSION" == "9" ]]; then
         old-replace-paths $PREFIX $INIT $ORIGDIR $BINDIR
+        old-replace-paths $PREFIX $INIT $ORIGDIR2 $BINDIR
     else
         replace-paths $PREFIX $BINDIR
+        replace-paths2 $PREFIX $BINDIR
     fi
 
     #  Fix path in Makefile and Python system configuration scripts
@@ -360,6 +402,7 @@ function s-salome-tar-install()
          \( -name "Makefile" -o -name "_sysconfigdata*py" \) |
         while read F; do
             sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR2/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Fix path in gcc/lib64/ binaries scripts
@@ -367,6 +410,7 @@ function s-salome-tar-install()
     find $PREFIX/$BINDIR/gcc/lib64 -type f -name "*la*" |
         while read F; do
             sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR2/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Fix path in PyQt/bin/ binaries scripts
@@ -374,6 +418,7 @@ function s-salome-tar-install()
     find $PREFIX/$BINDIR/PyQt/bin/ -type f |
         while read F; do
             sed -i -E "$INIT;s,$ORIGDIR/,$PREFIX/$BINDIR/,g" $F
+            sed -i -E "$INIT;s,$ORIGDIR2/,$PREFIX/$BINDIR/,g" $F
         done
 
     #  Make appear Persalys's icon on Salome gui
