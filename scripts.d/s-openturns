@@ -215,3 +215,10 @@ function s-openturns-prefix()
 {
     echo NONE
 }
+
+function s-openturns-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/bin/salome/test
+}
