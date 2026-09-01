@@ -71,3 +71,10 @@ function s-salome-bootstrap-prefix()
 {
     echo NONE
 }
+
+function s-salome-bootstrap-ctest-dir()
+{
+    local PREFIX=$1
+
+    echo $PREFIX/__SALOME_EXT__/bin/salome/test/BOOTSTRAP
+}
