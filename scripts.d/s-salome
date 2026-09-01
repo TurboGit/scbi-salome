@@ -211,7 +211,7 @@ function setup-env-salome()
 
                 if [[ -n $FCT ]]; then
                     local line="SUBDIRS(../../../../../$($FCT EDF/$module))"
-                    if [[ -z $(grep -q -F -x "$line" "$ctestfile") ]]; then
+                    grep -q -F -x "$line" "$ctestfile" > /dev/null 2>&1 ||
                         echo "$line" >> "$ctestfile"
                     fi
                 fi
