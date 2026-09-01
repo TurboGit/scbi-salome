@@ -395,7 +395,7 @@ function s-salome-wrapup()
             SMESH_ROOT_DIR=EDF/s-smesh
             cp $SCBI_PLUGINS/support/env_launch.sh .
             cp $SCBI_PLUGINS/support/salome .
-            cp EDF/s-salome-kernel/bin/salome/appliskel/.bashrc \
+            cp EDF/s-salome-kernel/bin/salome/appli/.bashrc \
                EDF/s-salome-kernel
             chmod a+x salome env_launch.sh
 
