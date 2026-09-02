@@ -42,7 +42,7 @@ function s-paravisaddons-common-ctest-dir()
 {
     local PREFIX=$1
 
-    echo $PREFIX/tests
+    echo $PREFIX/bin/salome/test
 }
 
 function s-paravisaddons-common-common-config-options()

@@ -79,7 +79,7 @@ function s-med-coupling-ctest-dir()
 {
     local PREFIX=$1
 
-    echo $PREFIX/tests
+    echo $PREFIX/bin/salome/test
 }
 
 function s-med-coupling-mpi-config-options()
