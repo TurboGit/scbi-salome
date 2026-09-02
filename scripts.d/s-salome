@@ -213,7 +213,6 @@ function setup-env-salome()
                     local line="SUBDIRS(../../../../../$($FCT EDF/$module))"
                     grep -q -F -x "$line" "$ctestfile" > /dev/null 2>&1 ||
                         echo "$line" >> "$ctestfile"
-                    fi
                 fi
             done
         }
