@@ -72,6 +72,7 @@ function s-openturns-default-depends()
     # since 1.13
     echo os@-cminpack-dev
     echo s-eigen
+    echo s-hdf5
 }
 
 function s-openturns-mingw-depends()
@@ -83,6 +84,7 @@ function s-openturns-mingw-depends()
     echo os@-python3-numpy
     echo s-python3-nlopt
     echo s-eigen
+    echo s-hdf5
 }
 
 function s-openturns-env()
