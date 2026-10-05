@@ -7,6 +7,18 @@ function s-openturns-svm-vcs()
     echo https://github.com/openturns/otsvm.git
 }
 
+function s-openturns-svm-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VERSION.tar.gz
+    echo otsvm-$VERSION
+}
+
 function s-openturns-svm-build-depends()
 {
     echo os@-python3-sphinx

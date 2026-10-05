@@ -11,3 +11,19 @@ function s-clang-vcs()
     echo git
     echo https://github.com/llvm/llvm-project.git
 }
+
+function s-clang-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo llvm-project-$VERSION.src.tar.gz
+}
+
+function s-clang-build-depends()
+{
+    echo s-cmake
+}

@@ -14,7 +14,7 @@ function s-occt-archive()
     echo default
     echo none
     echo wget
-    echo https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags
+    echo https://github.com/Open-Cascade-SAS/OCCT-Archive/archive/refs/tags
     echo $VERSION.zip
 }
 

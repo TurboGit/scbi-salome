@@ -9,6 +9,17 @@ function s-openturns-pod-vcs()
     echo https://github.com/openturns/otpod.git
 }
 
+function s-openturns-pod-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VERSION.tar.gz
+    echo otpod-$VERSION
+}
 function s-openturns-pod-patches()
 {
     local PREFIX=$1

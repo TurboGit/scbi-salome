@@ -9,6 +9,17 @@ function s-openvkl-vcs()
     echo https://github.com/openvkl/openvkl.git
 }
 
+function s-openvkl-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openvkl-$VERSION.tar.gz
+}
+
 function s-openvkl-build-depends()
 {
     echo s-cmake

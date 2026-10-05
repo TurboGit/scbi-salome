@@ -7,6 +7,18 @@ function s-openturns-morris-vcs()
     echo https://github.com/openturns/otmorris.git
 }
 
+function s-openturns-morris-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VERSION.tar.gz
+    echo otmorris-$VERSION
+}
+
 function s-openturns-morris-default-build-depends()
 {
     echo os@-python3-sphinx

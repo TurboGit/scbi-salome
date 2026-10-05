@@ -13,8 +13,8 @@ function s-embree-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo embree-$VERSION.tar.gz
 }
 
