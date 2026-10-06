@@ -70,6 +70,7 @@ function s-paravisaddons-common-common-config-options()
     local CDEBUG=$(is-enabled cmake-debug)
 
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DPython3_EXECUTABLE=$(command -v python$PYTHON_VERSION)
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo ${CDEBUG:+"-DSALOME_CMAKE_DEBUG=ON"}
     echo -DMEDCOUPLING_USE_64BIT_IDS=ON
