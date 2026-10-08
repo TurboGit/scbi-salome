@@ -11,3 +11,8 @@ function s-clang-vcs()
     echo git
     echo https://github.com/llvm/llvm-project.git
 }
+
+function s-clang-build-depends()
+{
+    echo s-cmake
+}
