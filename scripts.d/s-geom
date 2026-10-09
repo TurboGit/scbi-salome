@@ -51,8 +51,7 @@ function s-geom-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var GEOM_ROOT_DIR $PREFIX
-
+    set-var    GEOM_ROOT_DIR $PREFIX
     set-var    PARALLEL_VISU         1
     set-var    GEOM_PluginsList      \
                "BREPPlugin:STEPPlugin:IGESPlugin:STLPlugin:XAOPlugin:VTKPlugin:AdvancedGEOM"
