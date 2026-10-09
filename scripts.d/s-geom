@@ -73,6 +73,14 @@ function s-geom-ctest-dir()
     echo $PREFIX/bin/salome/test
 }
 
+function s-geom-nodoc-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo -DSALOME_BUILD_DOC=OFF
+}
+
 function s-geom-default-config-options()
 {
     echo -DSALOME_GEOM_USE_OPENCV=OFF
