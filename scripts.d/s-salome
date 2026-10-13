@@ -396,6 +396,14 @@ function s-salome-wrapup()
             cp $SCBI_PLUGINS/support/salome .
             cp EDF/s-salome-kernel/bin/salome/appli/.bashrc \
                EDF/s-salome-kernel
+
+            KERNEL_PYTHON=EDF/s-salome-kernel/lib/python$PYTHON_VERSION
+            if [[ -d $KERNEL_PYTHON/site-packages/salome/salome/kernel ]]; then
+                cp $SCBI_PLUGINS/support/salome-new-python-layout salome
+            else
+                cp $SCBI_PLUGINS/support/salome .
+            fi
+
             chmod a+x salome env_launch.sh
 
             # is the installer to be created?

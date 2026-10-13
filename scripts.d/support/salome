@@ -17,8 +17,15 @@ os.environ["SALOME_MODULES"] = ""
 
 # Add the pwdPath to able to run the launcher after unpacking a package
 # Used only in case of a salomeTools package
-out_dir_Path = Path( os.path.realpath(__file__) ).parent.absolute()
-main_site_packages_tmp = out_dir_Path.parent.parent.parent / "lib"
+out_dir_Path=os.path.dirname(os.path.realpath(__file__))
+
+kernel_module_dir=os.path.join(out_dir_Path, r'EDF/s-salome-kernel')
+if not os.path.exists(kernel_module_dir):
+  print("cannot start SALOME, missing KERNEL module")
+
+kernel_module_dir = Path( os.path.realpath(kernel_module_dir) ).absolute()
+
+main_site_packages_tmp = kernel_module_dir / "lib"
 
 pythonDirInLibCandidate = [ os.path.basename(elt) for elt in glob.glob( f"{main_site_packages_tmp}/python*" ) ]
 if len(pythonDirInLibCandidate) != 1:
@@ -29,6 +36,7 @@ pat = re.compile(r"^python([\d])\.([\d]+)$")
 if not pat.match(pythonDir):
   raise RuntimeError( f"Fail to locate pythonX.Y in {main_site_packages_tmp}" )
 main_site_packages = main_site_packages_tmp / pythonDir / "site-packages"
+
 
 # Preliminary work to initialize path to SALOME Python modules
 def __initialize():
@@ -113,12 +121,14 @@ def main(args):
       context.setVariable(r"LIBPATH", "", overwrite=True)
 
     # [APPLI variables]
-    context.setVariable(r"ABSOLUTE_APPLI_PATH", out_dir_Path + r"/EDF/s-salome-kernel", overwrite=True)
-    context.setVariable(r"APPLI", out_dir_Path + r"/salome", overwrite=True)
+    appli_path = "{}".format( main_site_packages_tmp.parent.parent )
+    context.getLogger().info( f'appli_path: {appli_path}' )
+    context.setVariable(r"ABSOLUTE_APPLI_PATH", appli_path + r"/s-salome-salome", overwrite=True)
+    context.setVariable(r"APPLI", os.path.join(out_dir_Path, r"salome"), overwrite=True)
 
     # Load all files env.d/*.py and call the module's init routine]
 
-    extradir=out_dir_Path + r"/extra.env.d"
+    extradir=os.path.join(out_dir_Path, r"extra.env.d")
 
     if os.path.exists(extradir):
         import importlib
