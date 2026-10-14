@@ -13,9 +13,9 @@ function s-gmsh-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
-    echo gmsh-$VERSION.tar.gz
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo gmsh-$VERSION-source.tgz
 }
 
 function s-gmsh-patches()

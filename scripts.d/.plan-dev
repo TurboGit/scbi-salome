@@ -3,7 +3,7 @@
 
 @set CEA_VERSION = master
 @set EDF_VERSION = master
-@set PV_VERSION  = v6.0.0-c61dcc8ee
+@set PV_VERSION  = 6.0.0-c61dcc8ee0
 
 # clang 12 & s-ispc 1.16 are matching versions
 s-clang:#16.x
@@ -13,7 +13,7 @@ s-ispc/bin:#v1.16.1
 s-persalys:#19.0
 
 s-zeromq:#4.3.1
-s-planegcs:#0.18
+s-planegcs:#0.18-3cb6890
 
 s-openturns:#1.25.1
 s-openturns-fftw:#0.17
@@ -27,13 +27,13 @@ s-openturns-pod:#0.6.12
 s-fmil:#2.0.3
 s-assimulo:#3.5.2
 s-pyfmi:#2.6
-s-mixmod:#2.1.10
+s-mixmod:#2.1.11
 s-openturns-fmi:#0.16.6
 
 s-embree:#3.13.1
-s-rkcommon:#1.7.0
+s-rkcommon:#v1.7.0
 s-openvkl:#1.0.1
-s-ospray:#2.7.1
+s-ospray:#v2.7.1
 s-uranie:#4.7.0
 s-root:#v6-28-10
 s-qt/auto:#5.15.2
@@ -95,7 +95,7 @@ s-libbatch:V2_6_1
 
 s-omniorb:#4.2.5
 
-s-occt:#CR790-SALOME-PATCH
+s-occt:#SALOME_9_15_V7_9_0a1
 s-cgns/auto:#4.2.0
 s-hdf5/auto:#1.14.6
 s-catalyst:#2.0-431a8a1
@@ -103,7 +103,7 @@ s-python-modules/default.core.meshio
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal:#$PV_VERSION
-s-cgal/auto:#v5.5.1
+s-cgal/auto:v5.5.1
 s-ifc-open-shell:v0.7.0
 
 [
@@ -131,11 +131,7 @@ s-ifc-open-shell:v0.7.0
 [
         s-fields
         s-geom/default.opencv
-        s-atomgen
-        s-atomic
-        s-blsurf-plugin
         s-gmsh-plugin
-        s-hybrid-plugin
         s-hexotic-plugin
         s-netgen-plugin
         s-shaper-study
@@ -190,21 +186,6 @@ s-ifc-open-shell:v0.7.0
 # the s-salome meta-module version is used to name the .run, a different
 # name is used on the different platforms.
 
-[ = deb,11
-        s-salome/default.core:s11-DEV
-        # downgrade from 5.15.3 to 5.15.2 to use the native version
-        s-pyqt/auto:#5.15.2
-        s-opencv:#3.2.0       # native pkg is too recent
-
-        # fails to compile on Debian/11
-        s-persalys/default.nodoc:#19.0
-
-        s-python3-fmpy:0.3.21
-
-        #  Only needed starting with Debian-12
-        os@-nlopt-cxx:skip
-]
-
 [ = deb,12
         s-salome/default.core:s12-DEV
         # downgrade from 5.15.3 to 5.15.2 to use the native version
@@ -228,7 +209,6 @@ s-ifc-open-shell:v0.7.0
         s-python3-yaml/auto:6.0
         s-python3-zipp/auto:1.0.0
 
-        s-atomic:skip
         s-pyqt-sip:skip
 ]
 
@@ -238,32 +218,31 @@ s-ifc-open-shell:v0.7.0
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
 
-        s-clang:#16.x
+        s-clang:#16.0.6
 
         s-pyqt:#5.15.3
-        s-sip-tools:#5.5.0
-        s-pyqt-sip:#12.17.0
+        s-sip-tools:#5.5.0|12.17.0
+        s-pyqt-sip:#5.5.0|12.17.0
         s-fmil:#2.4.1
         s-pyfmi/assimulo:#2.13.1
 
         s-python3-cftime/auto:1.6.2
         s-python3-h5py/auto:3.7.0
         s-python3-importlib-metadata/auto:4.12.0
-        s-python3-lxml/auto:4.9.2
+        s-python3-lxml/auto:5.4.0
         s-python3-netcdf4/auto:1.7.2
         s-python3-nlopt/auto:2.7.1
-        s-python3-numpy/auto:1.24.2
+        s-python3-numpy/auto:2.2.4
         s-python3-proj/auto:3.2.1
         s-python3-rich/auto:13.3.1
-        s-python3-scipy/auto:1.10.1
+        s-python3-scipy/auto:1.15.3
         s-python3-toml/auto:0.10.2
         s-python3-typing-extensions/auto:4.4.0
         s-python3-wand/auto:0.6.11
         s-python3-xlutils:2.0.0
-        s-python3-yaml/auto:6.0
-        s-python3-zipp/auto:1.0.0
+        s-python3-yaml/auto:6.0.2
+        s-python3-zipp/auto:3.21.0
 
-        s-atomic:skip
         s-catalyst:skip
 ]
 
@@ -278,7 +257,6 @@ s-ifc-open-shell:v0.7.0
         s-persalys:skip
         s-python3-xlutils:skip
         s-cgal:skip
-        s-atomic:skip
         s-hdf5:skip
         s-netcdf:skip
         s-gdal:skip
@@ -312,7 +290,6 @@ s-ifc-open-shell:v0.7.0
         s-openturns-svm:skip
         s-med-file:skip
         s-med-coupling:skip
-        s-atomic:skip
         s-cgal:skip
         s-python-modules:skip
 ] /mingw

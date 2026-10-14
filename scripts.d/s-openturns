@@ -7,6 +7,18 @@ function s-openturns-vcs()
     echo https://github.com/openturns/openturns.git
 }
 
+function s-openturns-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VERSION.tar.gz
+    echo openturns-$VERSION
+}
+
 function s-openturns-patches()
 {
     local PREFIX=$1
