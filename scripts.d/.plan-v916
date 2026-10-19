@@ -6,8 +6,8 @@
 @set PV_VERSION  = v6.0.0-c61dcc8ee
 @set RUN_VERSION = V9_16_0_1
 
-# clang 12 & s-ispc 1.16 are matching versions
-s-clang:#12.x
+# clang 16 & s-ispc 1.16.1 are matching versions
+s-clang:#16.x
 # using binary version 1.16.1
 s-ispc/bin:#v1.16.1
 
@@ -30,10 +30,10 @@ s-pyfmi:#2.6
 s-mixmod:#2.1.10
 s-openturns-fmi:#0.16.6
 
-s-embree:#3.12.2
-s-rkcommon:#1.5.1
-s-openvkl:#0.11.0
-s-ospray:#2.4.0
+s-embree:#3.13.1
+s-rkcommon:#1.7.0
+s-openvkl:#1.0.1
+s-ospray:#2.7.1
 s-uranie:#4.7.0
 s-root:#v6-28-10
 s-qt/auto:#5.15.2
@@ -57,10 +57,10 @@ s-libigl:v2.5.0
 # s-netgen/cmake:#6.2.2101
 s-netgen/autotools:#5.3.1
 
-s-gmsh:#4.10.3
-s-gdal/auto:#3.2.2
-s-proj/auto:#7.2.0
-s-med-file:#6.0.0
+s-gmsh:#4.14.1
+s-gdal/auto:#3.7.1
+s-proj/auto:#9.2.0
+s-med-file:#6.0.1
 s-python3-nlopt/auto:2.7.0
 s-python3-rich/auto:9.11.0
 s-python3-wand/auto:0.4.4
@@ -160,7 +160,7 @@ s-coolprop:#6.4.3
         s-py2cpp
         s-paravisaddons-common
         s-smesh
-        s-salome-kernel
+        s-salome-kernel/default.permissive
         s-salome-gui
         s-ghs3d-plugin
         s-ydefx
@@ -242,11 +242,17 @@ s-coolprop:#6.4.3
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
 
+        s-pyqt:#5.15.3
+        s-sip-tools:#5.5.0
+        s-pyqt-sip:#12.17.0
+        s-fmil:#2.4.1
+        s-pyfmi/assimulo:#2.13.1
+
         s-python3-cftime/auto:1.6.2
         s-python3-h5py/auto:3.7.0
         s-python3-importlib-metadata/auto:4.12.0
         s-python3-lxml/auto:4.9.2
-        s-python3-netcdf4/auto:1.6.2
+        s-python3-netcdf4/auto:1.7.2
         s-python3-nlopt/auto:2.7.1
         s-python3-numpy/auto:1.24.2
         s-python3-proj/auto:3.2.1
@@ -260,7 +266,7 @@ s-coolprop:#6.4.3
         s-python3-zipp/auto:1.0.0
 
         s-gdal/native
-        s-pyqt-sip:skip
+        s-catalyst:skip
 ]
 
 [ = win
@@ -299,7 +305,7 @@ s-coolprop:#6.4.3
         s-netcdf:#4.7.4
         s-cgns
         s-gdal
-        s-salome-kernel
+        s-salome-kernel/default.permissive
 
         s-ifc-open-shell:skip
         s-visual-c:skip

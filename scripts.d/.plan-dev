@@ -238,8 +238,6 @@ s-ifc-open-shell:v0.7.0
         s-pyqt/auto:#5.15.2
         s-opencv:#3.2.0       # native pkg is too recent
 
-        s-clang:#16.x
-
         s-pyqt:#5.15.3
         s-sip-tools:#5.5.0
         s-pyqt-sip:#12.17.0
