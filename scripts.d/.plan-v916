@@ -26,6 +26,7 @@ s-openturns-svm:#0.16
 s-openturns-wrapy:#0.12.1
 s-openturns-pod:#0.6.12
 s-fmil:#2.0.3
+s-assimulo:#3.5.2
 s-pyfmi:#2.6
 s-mixmod:#2.1.10
 s-openturns-fmi:#0.16.6
@@ -59,7 +60,7 @@ s-netgen/autotools:#5.3.1
 
 s-gmsh:#4.14.1
 s-gdal/auto:#3.7.1
-s-proj/auto:#9.2.0
+s-proj/auto:#9.2.1
 s-med-file:#6.0.1
 s-python3-nlopt/auto:2.7.0
 s-python3-rich/auto:9.11.0
