@@ -20,6 +20,7 @@ function s-common-geometry-lib-common-depends()
 function s-common-geometry-lib-default-depends()
 {
     echo s-occt
+    echo s-salome-bootstrap
 }
 
 function s-common-geometry-lib-env()
