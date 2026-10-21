@@ -10,6 +10,17 @@ function s-cgal-vcs()
     echo https://github.com/CGAL/cgal.git
 }
 
+function s-cgal-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo cgal-$VERSION.tar.gz
+}
+
 function s-cgal-patches()
 {
     local PREFIX=$1

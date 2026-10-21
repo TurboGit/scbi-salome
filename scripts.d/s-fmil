@@ -6,6 +6,17 @@ function s-fmil-vcs()
     echo https://github.com/modelon-community/fmi-library.git
 }
 
+function s-fmil-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo FMILibrary-$VERSION.tar.gz
+}
+
 function s-fmil-build-depends()
 {
     echo s-cmake

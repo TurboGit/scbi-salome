@@ -16,8 +16,8 @@ function s-opencv-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo opencv-$VERSION.tar.gz
 }
 

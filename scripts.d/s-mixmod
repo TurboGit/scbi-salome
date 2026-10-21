@@ -7,6 +7,21 @@ function s-mixmod-vcs()
     echo https://github.com/mixmod/mixmod.git
 }
 
+function s-mixmod-archive()
+{
+    local VERSION=$1
+
+    local VOPT=${VERSION%|*}
+    local VOTM=${VERSION#*|}
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VOPT.tar.gz
+    echo mixmod-$VOTM
+}
+
 function s-mixmod-build-depends()
 {
     echo s-cmake

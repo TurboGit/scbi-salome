@@ -16,11 +16,17 @@ function s-sip-tools-archive()
 {
     local VERSION=$1
 
+    # The archive contains sip & pyqt-sip, both in top level directory
+    # of the archive. The two versions are separated by |.
+    local VSIP=${VERSION%|*}
+    local VPQS=${VERSION#*|}
+
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
-    echo sip-$VERSION.tar.gz
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo sip-${VSIP}-PyQt5_sip-${VPQS}.tar.gz
+    echo sip-$VSIP
 }
 
 function s-sip-tools-patches()

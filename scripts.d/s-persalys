@@ -13,9 +13,9 @@ function s-persalys-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
-    echo persalys_$VERSION.tar.gz
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo persalys_v$VERSION.tar.gz
 }
 
 function s-persalys-patches()

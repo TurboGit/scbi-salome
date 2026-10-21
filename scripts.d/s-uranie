@@ -5,8 +5,8 @@ function s-uranie-archive()
 
     echo default
     echo none
-    echo wget
-    echo https://uranie.cea.fr/tarball
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo URANIE-$VERSION-Source.tar.gz
 }
 
