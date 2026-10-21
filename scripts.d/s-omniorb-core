@@ -52,6 +52,7 @@ function s-omniorb-core-mingw-patches()
 function s-omniorb-core-depends()
 {
     echo os@-python3-dev
+    echo os@-python3-distutils-extra
 }
 
 function s-omniorb-core-env()
