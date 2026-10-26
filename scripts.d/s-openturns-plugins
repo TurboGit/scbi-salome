@@ -7,7 +7,6 @@ function s-openturns-plugins-modules()
     echo s-openturns-mixmod
     echo s-openturns-morris
     echo s-openturns-robopt
-    echo s-openturns-subsetinverse
     echo s-openturns-svm
     echo s-openturns-wrapy
     echo s-openturns-pod

@@ -7,6 +7,21 @@ function s-openturns-robopt-vcs()
     echo https://github.com/openturns/otrobopt.git
 }
 
+function s-openturns-robopt-archive()
+{
+    local VERSION=$1
+
+    local VOPT=${VERSION%|*}
+    local VOTM=${VERSION#*|}
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VOPT.tar.gz
+    echo otrobopt-$VOTM
+}
+
 function s-openturns-robopt-build-depends()
 {
     echo os@-python3-sphinx

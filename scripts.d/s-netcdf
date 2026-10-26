@@ -15,8 +15,8 @@ function s-netcdf-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo netcdf-c-$VERSION.tar.gz
 }
 

@@ -58,8 +58,8 @@ function s-hdf5-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo hdf5-$VERSION.tar.gz
 }
 

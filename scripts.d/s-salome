@@ -19,7 +19,6 @@ function s-salome-common-modules()
     #  may be a dependency from other modules listed after.
 
     echo s-salome-configuration
-    echo s-atomic
     echo s-cgal
     echo s-python-modules
 }
@@ -41,7 +40,6 @@ function s-salome-default-modules()
     echo s-salome-eficas
     echo s-salome-jobmanager
     echo s-homard
-    echo s-atomgen
     echo s-hexablock
     echo s-atomsolv
     echo s-calculator

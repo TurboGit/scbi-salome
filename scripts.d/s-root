@@ -13,8 +13,8 @@ function s-root-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
     echo root-$VERSION.tar.gz
 }
 
@@ -31,7 +31,7 @@ function s-root-patches()
     [[ $REF =~ 6-22-06 ]] &&
         echo root-6.22.06.patch
 
-    [[ ! $REF =~ 6-28-10 ]] &&
+    [[ ! $REF =~ 6.28.10 ]] &&
         {
             echo root-6.22-python-11.patch
             echo root-include_limits.patch

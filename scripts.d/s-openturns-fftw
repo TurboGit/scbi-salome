@@ -7,6 +7,21 @@ function s-openturns-fftw-vcs()
     echo https://github.com/openturns/otfftw.git
 }
 
+function s-openturns-fftw-archive()
+{
+    local VERSION=$1
+
+    local VOPT=${VERSION%|*}
+    local VOTM=${VERSION#*|}
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VOPT.tar.gz
+    echo otfftw-$VOTM
+}
+
 function s-openturns-fftw-build-depends()
 {
     echo os@-python3-sphinx

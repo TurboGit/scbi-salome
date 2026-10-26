@@ -9,6 +9,21 @@ function s-openturns-wrapy-vcs()
     echo https://github.com/openturns/otwrapy.git
 }
 
+function s-openturns-wrapy-archive()
+{
+    local VERSION=$1
+
+    local VOPT=${VERSION%|*}
+    local VOTM=${VERSION#*|}
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VOPT.tar.gz
+    echo otwrapy-$VOTM
+}
+
 function s-openturns-wrapy-out-of-tree()
 {
     echo false

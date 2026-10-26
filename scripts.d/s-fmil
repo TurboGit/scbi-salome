@@ -6,6 +6,17 @@ function s-fmil-vcs()
     echo https://github.com/modelon-community/fmi-library.git
 }
 
+function s-fmil-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo FMILibrary-$VERSION.tar.gz
+}
+
 function s-fmil-build-depends()
 {
     echo s-cmake
@@ -17,7 +28,7 @@ function s-fmil-env()
     local PREFIX=$1
     local TARGET=$2
 
-    set-var FMIL_HOME $PREFIX
+    set-var    FMIL_HOME         $PREFIX
 
     add-to-var LD_LIBRARY_PATH   $PREFIX/lib
     add-to-var PATH              $PREFIX/bin

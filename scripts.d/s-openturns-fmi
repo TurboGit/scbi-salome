@@ -9,6 +9,21 @@ function s-openturns-fmi-vcs()
     echo https://github.com/openturns/otfmi.git
 }
 
+function s-openturns-fmi-archive()
+{
+    local VERSION=$1
+
+    local VOPT=${VERSION%|*}
+    local VOTM=${VERSION#*|}
+
+    echo default
+    echo none
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo openturns-$VOPT.tar.gz
+    echo otfmi-$VOTM
+}
+
 function s-openturns-fmi-out-of-tree()
 {
     echo false

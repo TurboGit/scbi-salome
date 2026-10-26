@@ -15,9 +15,9 @@ function s-rkcommon-archive()
 
     echo default
     echo none
-    echo wget
-    echo ftp://ftp.cea.fr/pub/salome/prerequisites
-    echo rkCommon-$VERSION.tar.gz
+    echo ftp
+    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo rkcommon-$VERSION.tar.gz
 }
 
 function s-rkcommon-mingw-patches()
