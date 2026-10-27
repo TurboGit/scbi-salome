@@ -3,7 +3,8 @@
 Source Code Build Infrastructure - Scripts for building SALOME
 
 Those are based on the SCBI build driver. See project
-and documentation here: https://github.com/TurboGit/scbi
+[here](https://github.com/TurboGit/scbi) and
+[documentation](https://github.com/TurboGit/scbi/releases/latest/download/scbi.pdf).
 
 # Install
 
@@ -69,6 +70,8 @@ chroot.
 ```
 
 # A simple tutorial to build SALOME
+
+  Never launch scbi from the scbi-salome repository.
 
   To build SALOME master just run:
 
