@@ -53,7 +53,6 @@ function s-gdal-common-depends()
     echo os@-cfitsio-dev
     echo os@-freexl-dev
     echo os@-postgresql
-    echo os@-sfcgal-dev
 
     echo s-proj
     echo s-netcdf
@@ -64,6 +63,7 @@ function s-gdal-mingw-depends()
 {
     echo os@-crypto++
     echo os@-geos
+    echo os@-sfcgal-dev
 }
 
 function s-gdal-common-env()
