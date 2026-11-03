@@ -1,3 +1,4 @@
+.SILENT: lint
 
 SCRDIR=$(HOME)/.config/scbi
 VER=$(shell git describe)
