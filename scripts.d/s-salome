@@ -5,15 +5,13 @@ function s-salome-common-modules()
     local TARGET=$2
     local VARIANT=$3
 
-
     echo s-salome-configuration
-    echo s-cgal
     echo s-python-modules
+    echo s-cmake
 }
 
 function s-salome-default-modules()
 {
-    echo s-cmake
     echo s-salome-kernel
     echo s-salome-gui
     echo s-salome-plugins
@@ -75,6 +73,7 @@ function s-salome-default-modules()
     echo s-sip
     echo s-topiivol
     echo s-component
+    echo s-cgal
 }
 
 function s-salome-hydro-modules()
