@@ -117,7 +117,7 @@ function s-salome-mingw-modules()
 
 function s-salome-propagate-version()
 {
-    echo false
+    echo no
 }
 
 function s-salome-external-env()
