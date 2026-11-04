@@ -14,5 +14,5 @@ function s-salome-plugins-aggregate()
 {
     #  Impossible to use an aggregate project as the aggregated tests
     #  are using common files in the same directory hierarchy.
-    echo false
+    echo no
 }
