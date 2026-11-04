@@ -111,14 +111,6 @@ function s-cgns-install()
     local PREFIX=$1
     local TARGET=$2
 
-    make install
-}
-
-function s-cgns-install()
-{
-    local PREFIX=$1
-    local TARGET=$2
-
     cmake --install .
 }
 
