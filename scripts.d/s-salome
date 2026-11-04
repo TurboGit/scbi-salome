@@ -1,22 +1,10 @@
 
-#  Extra modules can be set in environment variable SCBI_EXTRA_NG_MODULES.
-#  The syntax is: <PLUGIN-1>(PATTERN-1)[:<PLUGIN-2>(PATTERN-2)]
-#  where:
-#     PLUGIN  : The SCBI plug-in name (must have an ng variant) to be
-#               handled as extra module.
-#     PATTERN : A regular expression of the module as found in the binary
-#               archive. It is used to remove this from the NG environment
-#               by matching the variable name and the variable values.
-
 function s-salome-common-modules()
 {
     local PREFIX=$1
     local TARGET=$2
     local VARIANT=$3
 
-    #  We need the extra modules to be handled first because they are
-    #  supposed to replace some modules from the binary archive and
-    #  may be a dependency from other modules listed after.
 
     echo s-salome-configuration
     echo s-cgal
