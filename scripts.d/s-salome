@@ -128,7 +128,7 @@ function setup-env-salome()
     local VARIANT=$3
 
     local APPDIR=$SCBI_BDIR/s-salome/$TARGET-$VARIANT/app
-    local SBINDIR=EDF/s-salome-salome
+    local SBINDIR=EDF/s-salome-kernel
 
     #  THIS ROUTINE should be used to loop over all NEW dependencies (modules
     #  built on top of the binary archive) and patch the env_launch.sh
