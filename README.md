@@ -73,14 +73,26 @@ chroot.
 
   Never launch scbi from the scbi-salome repository.
 
-  To build SALOME master just run:
+## To build SALOME master:
 
 ```
- scbi --env=dev --deps --update --safe s-salome
+ scbi --env=dev --deps --update --safe --enable-application s-salome
 ```
 
-  To build SALOME master and create an installer:
+And to also create an installer:
 
 ```
  scbi --env=dev --deps --update --safe --enable-installer s-salome
+```
+
+## To build SALOME v916:
+
+```
+ scbi --env=v916 --deps --update --safe --enable-application s-salome
+```
+
+And to also create an installer:
+
+```
+ scbi --env=v916 --deps --update --safe --enable-installer s-salome
 ```
