@@ -8,7 +8,7 @@ function s-salome-common-modules()
     echo s-python-modules
     echo s-cmake
     echo s-salome-configuration
-    echo e-salome-bootstrap
+    echo s-salome-bootstrap
 }
 
 function s-salome-custom-modules()
