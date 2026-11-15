@@ -125,7 +125,7 @@ function s-salome-kernel-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 }
 
-function s-kernel-ctest-dir()
+function s-salome-kernel-ctest-dir()
 {
     local PREFIX=$1
 
