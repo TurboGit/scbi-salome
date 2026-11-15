@@ -1,0 +1,9 @@
+plugin: s-omniorb
+
+modules:
+  - s-omniorb-core
+  - s-python-omniorb
+
+aggregate: direct
+
+propagate-version: version

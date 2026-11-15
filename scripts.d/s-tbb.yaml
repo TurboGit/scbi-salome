@@ -1,0 +1,40 @@
+plugin: s-tbb
+
+with-variants:
+  native:
+    packages:
+      - os@-tbb-dev:[v]
+    env:
+      - set-var TBB_ROOT /usr
+  mingw:
+    packages:
+      - os@-tbb-dev:[v]
+    env:
+      - set-var TBB_ROOT $MINGW_PREFIX
+      - set-var TBBDLL $MINGW_PREFIX/bin/libtbb12.dll
+      - set-var TBBLIB $MINGW_PREFIX/lib/libtbb12.dll.a
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/oneapi-src/oneTBB.git
+
+env:
+  - set-var TBB_ROOT $PREFIX
+  - add-to-var TBB_INCLUDE_DIR $PREFIX/include
+  - add-to-var TBB_LIBRARY_DIR $PREFIX/lib
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_DIR $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_DIR $PREFIX/include
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/TBB
+
+out-of-tree: false
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DTBB_TEST=OFF ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

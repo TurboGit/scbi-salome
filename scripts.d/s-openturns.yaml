@@ -1,0 +1,118 @@
+plugin: s-openturns
+
+functions:
+  s-openturns-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/openturns/openturns.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: openturns-$VERSION.tar.gz
+  dir: openturns-$VERSION
+
+patches:
+  _:
+    - if ref =~ 1.21:
+        - openturns-1.21.0001.patch
+        - openturns-1.21.0005.patch
+        - openturns-1.21.0006.patch
+    - if ref =~ 1.22:
+        - openturns-1.22.0001.patch
+        - openturns-1.22.0002.patch
+  mingw:
+    - openturns-1.22.msys2.patch
+
+depends:
+  default:
+    - os@-blas-dev
+    - os@-lapack-dev
+    - os@-python3
+    - os@-python3-dev
+    - os@-bz2-dev
+    - os@-python3-matplotlib
+    - os@-python3-numpy
+    - s-python3-nlopt
+    - os@-cminpack-dev
+    - s-eigen
+    - s-hdf5
+  mingw:
+    - os@-blas-dev
+    - os@-python3-dev
+    - os@-bz2-dev
+    - os@-python3-matplotlib
+    - os@-python3-numpy
+    - s-python3-nlopt
+    - s-eigen
+    - s-hdf5
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - os@-xml2-utils
+    - s-swig
+  mingw:
+    - os@-xml2-utils
+    - s-swig
+
+env:
+  _:
+    - set-var OPENTURNS_HOME $PREFIX
+    - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+    - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+  mingw:
+    - set-var OPENTURNS_HOME $PREFIX
+    - set-var OT_ROOT_DIR $PREFIX
+    - add-to-var PATH $PREFIX/bin
+    - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+    - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+config-options:
+  _:
+    - -DSWIG_EXECUTABLE=$SWIG_ROOT/bin/swig
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DUSE_SPHINX=OFF
+    - -DUSE_DOXYGEN=OFF
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  mingw:
+    - -Wno-dev
+    - -DPython_EXECUTABLE=${MINGW_PREFIX}/bin/python
+    - -DPython_LIBRARY=${MINGW_PREFIX}/lib/libpython${PYTHON_VERSION//.//}.dll.a
+    - -DCMAKE_UNITY_BUILD=ON -DCMAKE_UNITY_BUILD_BATCH_SIZE=32
+    - -DUSE_TBB=OFF
+    - -DSWIG_COMPILE_FLAGS=-O1 -Wno-unused-parameter -Wno-shadow
+
+config:
+  _: |-
+    OPTIONS =
+    OPTIONS = config-options
+    cmake $OPTIONS ../src
+  mingw: |-
+    OPTIONS =
+    OPTIONS = config-options
+    CFLAGS="$CFLAGS -Wall -Wextra -Wpedantic -Wshadow -D_GLIBCXX_ASSERTIONS -Wno-deprecated-declarations -Wno-calloc-transposed-args" cmake $OPTIONS ../src
+
+build:
+  _: make -j$SCBI_JOBS
+  mingw: cmake --build . -j$SCBI_JOBS
+
+install:
+  _: make install
+  mingw: cmake --install .
+
+prefix: NONE

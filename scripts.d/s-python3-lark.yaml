@@ -1,0 +1,12 @@
+plugin: s-python3-lark
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-lark:[v]
+
+config-options:
+  - lark==$(get-version)

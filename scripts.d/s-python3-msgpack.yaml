@@ -1,0 +1,12 @@
+plugin: s-python3-msgpack
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-msgpack:[v]
+
+config-options:
+  - msgpack==$(get-version)

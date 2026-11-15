@@ -1,0 +1,49 @@
+plugin: s-blsurf-plugin
+
+functions:
+  s-blsurf-plugin-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-blsurf-plugin-salome-module:
+    run: echo BLSURFPLUGIN
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/blsurfplugin
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-salome-kernel
+    - s-salome-gui
+    - s-geom
+    - s-smesh
+    - s-med-coupling
+
+build-depends:
+  common:
+    - s-cmake
+    - os@-sphinx-common
+  default:
+    - s-salome-bootstrap
+
+env:
+  - set-var BLSURFPLUGIN_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SMESH_MeshersList BLSURFPlugin
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/blsurfplugin
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

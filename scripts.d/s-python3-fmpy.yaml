@@ -1,0 +1,16 @@
+plugin: s-python3-fmpy
+
+inherit:
+  - from: s-install-python-module
+  - from: s-install-python-module
+    hooks:
+      - post-install
+    name: handle-post-inst
+
+config-options:
+  - fmpy==$(get-version)
+
+post-install: |-
+  handle-post-inst-post-install $PREFIX $TARGET
+  sitepkg = $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  rm -fr $sitepkg/fmpy/remoting/win32 $sitepkg/fmpy/remoting/win64

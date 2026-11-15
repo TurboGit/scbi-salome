@@ -1,0 +1,42 @@
+plugin: s-calculator
+
+functions:
+  s-calculator-salome-module:
+    run: echo CALCULATOR
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/calculator
+
+depends:
+  - s-salome-bootstrap
+  - s-fields
+
+build-depends:
+  - os@-sphinx-common
+  - os@-sphinx-intl
+  - os@-python3-sphinx
+  - os@-python3-sphinx-rtd-theme
+  - os@-graphviz-dev
+  - os@-graphviz
+  - os@-doxygen
+  - os@-python3-docutils
+  - s-cmake
+  - s-swig
+  - s-salome-configuration
+
+env:
+  - set-var CALCULATOR_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

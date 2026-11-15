@@ -1,0 +1,13 @@
+plugin: s-homard-tool
+
+env:
+  - set-var HOMARD_REP_EXE $PREFIX
+  - set-var HOMARD_EXE homard
+
+out-of-tree: false
+
+install: |-
+  cd ..
+  rsync -a --delete src/. install
+
+prefix: NONE

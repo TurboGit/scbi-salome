@@ -1,0 +1,27 @@
+plugin: s-libigl
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/libigl/libigl.git
+
+depends:
+  - s-boost
+  - s-eigen
+  - s-pyqt
+  - s-python3-numpy
+  - s-cgal
+
+env:
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_INSTALL_LIBDIR:STRING=lib ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,86 @@
+plugin: s-embree
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/embree/embree.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: embree-$VERSION.tar.gz
+
+patches:
+  mingw:
+    - embree-3.12.2.msys2.patch
+
+depends:
+  - os@-c6-dev
+  - os@-tbb-dev
+  - os@-glfw3-dev
+  - s-rkcommon
+
+build-depends:
+  common:
+    - s-cmake
+    - s-clang
+    - s-tbb
+  default:
+    - s-ispc
+
+env:
+  common:
+    - set-var embree_DIR $PREFIX
+    - set-var EMBREE_ROOT_DIR $PREFIX
+    - set-var EMBREE_INCLUDE_DIR $PREFIX/include
+    - add-to-var C_INCLUDE_PATH $PREFIX/include
+    - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    - add-to-var CMAKE_PREFIX_PATH $(last-modified-directory "$PREFIX/lib/cmake/embree-*")
+    - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  mingw:
+    - add-to-var PATH $PREFIX/bin
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  default:
+    - -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION}
+    - -DEMBREE_TUTORIALS:bool=OFF
+    - -DCMAKE_CXX_COMPILER=clang++
+    - -DEMBREE_ISPC_SUPPORT=ON
+  mingw:
+    - -GNinja
+    - -DEMBREE_STATIC_LIB=OFF
+    - -DEMBREE_STACK_PROTECTOR=ON
+    - -DEMBREE_TUTORIALS=OFF
+    - -DEMBREE_ISPC_SUPPORT=OFF
+    - -DEMBREE_ISA_AVX512=ON
+    - -DEMBREE_MAX_ISA=AVX512SKX
+    - -DBUILD_TESTING=ON
+    - -Dtbb_DLL_RELEASE:PATH=${TBBDLL}
+    - -Dtbb_LIBRARY_RELEASE:FILEPATH=${TBBLIB}
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+post-config:
+  mingw: |-
+    RES = ../src/kernels/embree.rc
+    mv ${RES}{,.orig}
+    iconv -f UTF-16LE -t UTF-8 ${RES}.orig > ${RES}
+
+build:
+  _: make -j$SCBI_JOBS
+  mingw: cmake --build . -j$SCBI_JOBS
+
+install:
+  _: make install
+  mingw: cmake --install .
+
+prefix: NONE

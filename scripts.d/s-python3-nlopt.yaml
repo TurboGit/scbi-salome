@@ -1,0 +1,18 @@
+plugin: s-python3-nlopt
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-nlopt:[v]
+      - os@-nlopt-dev:[v]
+      - os@-nlopt-cxx-dev:[v]
+
+depends:
+  - os@-nlopt
+  - os@-nlopt-cxx
+
+config-options:
+  - nlopt==$(get-version)

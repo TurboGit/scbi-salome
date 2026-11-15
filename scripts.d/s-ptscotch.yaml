@@ -1,0 +1,32 @@
+plugin: s-ptscotch
+
+inherit:
+  - from: s-scotch
+
+with-variants:
+  native:
+    packages:
+      - os@-ptscotch-dev:[v]
+    env:
+      - set-var PTSCOTCH_ROOT_DIR $(get-os-inc-dir scotch-long/ptscotch.h)
+      - add-to-var PTSCOTCH_INCLUDE_DIRS $PTSCOTCH_ROOT_DIR
+      - add-to-var PTSCOTCH_LIBRARIES $(get-os-lib libptscotch.so)
+      - add-to-var PTSCOTCH_ERR_LIBRARIES $(get-os-lib libptscotcherr.so)
+
+depends:
+  - os@-flex
+  - os@-bison
+  - s-openmpi
+
+env:
+  - set-var PTSCOTCH_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CXX_INCLUDE_PATH $PREFIX/include
+  - add-to-var PTSCOTCH_INCLUDE_DIRS $PREFIX/include
+  - add-to-var PTSCOTCH_LIBRARIES $PREFIX/lib/libptscotch.a
+  - add-to-var PTSCOTCH_ERR_LIBRARIES $PREFIX/lib/libptscotcherr.a
+
+pre-config: sed -e "s%CFLAGS\([[:space:]]*\)=\([[:space:]]*\)\(.*\)%CFLAGS\1=\2-fPIC -DPIC -DINTSIZE64 -DSCOTCH_PTHREAD -I${MPI_INCLUDE_DIR} \3%g" src/Make.inc/Makefile.inc.x86-64_pc_linux2 > src/Makefile.inc
+
+build: cd src && make -j$SCBI_JOBS ptscotch

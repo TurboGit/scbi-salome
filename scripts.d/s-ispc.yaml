@@ -1,0 +1,49 @@
+plugin: s-ispc
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/ispc/ispc.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: wget
+  url: https://github.com/ispc/ispc/releases/download/$VERSION
+  file: ispc-$VERSION-linux.tar.gz
+
+build-depends:
+  _:
+    - os@-zlib1g-dev
+    - os@-ncurses-dev
+    - s-cmake
+    - s-clang
+    - flex
+    - bison
+    - m4
+  bin: []
+
+env:
+  _:
+    - add-to-var PATH $SCBI_BDIR/install/bin
+  bin:
+    - add-to-var PATH $PREFIX/bin
+    - add-to-var CMAKE_PREFIX_PATH $(last-modified-directory $PREFIX/lib*/cmake/ispcrt-*)
+
+config:
+  _: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION} -DCMAKE_CXX_COMPILER=clang++ ../src
+  bin: true
+
+build:
+  _: make -j$SCBI_JOBS
+  bin: true
+
+install:
+  _: make install
+  bin: |-
+    rm -fr ../install
+    ln -s src ../install
+
+prefix:
+  bin: NONE

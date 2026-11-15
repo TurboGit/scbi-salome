@@ -1,0 +1,69 @@
+plugin: s-python-modules
+
+variants:
+  core:
+    - wand
+    - pyaml
+    - toml
+    - metadata
+    - xlutils
+    - lxml
+    - numpy
+    - scipy
+    - nlopt
+    - fmpy
+    - buildingspy
+    - lark
+    - msgpack
+    - gitdb
+    - gitpython
+    - pytidylib
+    - smmap
+
+out-of-tree: false
+
+prefix: NONE
+
+modules:
+  buildingspy:
+    - s-python3-buildingspy
+  fmpy:
+    - s-python3-fmpy
+  gitdb:
+    - s-python3-gitdb
+  gitpython:
+    - s-python3-gitpython
+  lark:
+    - s-python3-lark
+  lxml:
+    - s-python3-lxml
+  meshio:
+    - s-python3-meshio
+  metadata:
+    - s-python3-importlib-metadata
+  msgpack:
+    - s-python3-msgpack
+  nlopt:
+    - s-python3-nlopt
+  numpy:
+    - s-python3-numpy
+  pyaml:
+    - s-python3-yaml
+  pyproj:
+    - s-python3-proj
+  pytidylib:
+    - s-python3-pytidylib
+  scipy:
+    - s-python3-scipy
+  smmap:
+    - s-python3-smmap
+  telemac:
+    - s-python3-telemac
+  toml:
+    - s-python3-toml
+  wand:
+    - s-python3-wand
+  xlutils:
+    - s-python3-xlutils
+
+aggregate: recursive

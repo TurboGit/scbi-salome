@@ -1,0 +1,97 @@
+plugin: s-med-coupling
+
+functions:
+  s-med-coupling-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/medcoupling
+
+depends:
+  common:
+    - os@-lapacke-dev
+    - os@-metis-dev
+    - os@-openblas-dev
+    - os@-tirpc-dev
+    - s-salome-configuration
+  default:
+    - s-med-file
+  mpi:
+    - s-openmpi
+  ptscotch:
+    - s-ptscotch
+  scotch:
+    - s-scotch
+
+build-depends:
+  _:
+    - if not enabled(no-doc): os@-sphinx-common
+    - if not enabled(no-doc): os@-sphinx-intl
+    - os@-python3-sphinx-rtd-theme
+    - os@-cppunit-dev
+    - s-swig
+  common:
+    - s-cmake
+
+env:
+  - set-var MEDCOUPLING_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var MEDCoupling_DIR $PREFIX/cmake_files
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var PYTHONPATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/tests/MEDLoader_Swig
+  - add-to-var PYTHONPATH $PREFIX/tests/MEDCoupling_Swig
+  - add-to-var PYTHONPATH $PREFIX/tests/MEDPartitioner_Swig
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var CMAKE_PREFIX_PATH $MEDCOUPLING_ROOT_DIR/cmake_files
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DMEDCOUPLING_ENABLE_PYTHON=ON
+    - -DMEDCOUPLING_ENABLE_PARTITIONER=ON
+    - -DMEDCOUPLING_ENABLE_RENUMBER=ON
+    - -DMEDCOUPLING_PARTITIONER_METIS=ON
+    - -DMEDCOUPLING_PARTITIONER_PARMETIS=OFF
+    - -DMEDCOUPLING_USE_64BIT_IDS=ON
+    - -DMEDCOUPLING_MICROMED=OFF
+    - -DMEDCOUPLING_ENABLE_SHAPERECOGN=ON
+    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - ${DISDOC:+-DMEDCOUPLING_BUILD_DOC=OFF}
+  mpi:
+    - -DMEDCOUPLING_USE_MPI=ON
+    - -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+    - -DCMAKE_C_COMPILER=$(get-os-bin mpicc)
+  ptscotch:
+    - -DMEDCOUPLING_PARTITIONER_SCOTCH=OFF
+    - -DMEDCOUPLING_PARTITIONER_PTSCOTCH=ON
+    - if not empty($PTSCOTCH_INCLUDE_DIRS): -DPTSCOTCH_INCLUDE_DIRS=$PTSCOTCH_INCLUDE_DIRS
+    - if not empty($PTSCOTCH_ERR_LIBRARIES): -DPTSCOTCH_ERR_LIBRARIES=$PTSCOTCH_ERR_LIBRARIES
+    - if not empty($PTSCOTCH_LIBRARIES): -DPTSCOTCH_LIBRARIES=$PTSCOTCH_LIBRARIES
+  scotch:
+    - -DMEDCOUPLING_PARTITIONER_SCOTCH=ON
+    - -DMEDCOUPLING_PARTITIONER_PTSCOTCH=OFF
+    - if not empty($SCOTCH_INCLUDE_DIRS): -DSCOTCH_INCLUDE_DIRS=$SCOTCH_INCLUDE_DIRS
+    - if not empty($SCOTCH_ERR_LIBRARIES): -DSCOTCH_ERR_LIBRARIES=$SCOTCH_ERR_LIBRARIES
+    - if not empty($SCOTCH_LIBRARIES): -DSCOTCH_LIBRARIES=$SCOTCH_LIBRARIES
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

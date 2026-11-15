@@ -1,0 +1,27 @@
+plugin: s-clang
+
+inherit:
+  - from: c-clang
+
+with-variants:
+  mingw:
+    packages:
+      - os@-clang:[v]
+    env:
+      - add-to-var PATH $MINGW_PREFIX
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/llvm/llvm-project.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: llvm-project-$VERSION.src.tar.gz
+
+build-depends:
+  - s-cmake

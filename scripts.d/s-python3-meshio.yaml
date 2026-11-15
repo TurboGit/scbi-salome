@@ -1,0 +1,30 @@
+plugin: s-python3-meshio
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-meshio:[v]
+      - os@-meshio-tools:[v]
+
+depends:
+  - s-python3-h5py
+  - s-python3-netcdf4
+  - s-python3-cftime
+  - s-python3-typing-extensions
+  - s-python3-numpy
+  - s-python3-rich
+
+env:
+  - set-var MESHIO_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+build-env:
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+config-options:
+  - meshio==$(get-version)

@@ -1,0 +1,39 @@
+plugin: s-light
+
+functions:
+  s-light-salome-module:
+    run: echo LIGHT
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://git.salome-platform.org/gitpub/samples/light
+
+depends:
+  - s-salome-gui
+  - s-salome-bootstrap
+
+build-depends:
+  - os@-graphviz-dev
+  - os@-graphviz
+  - os@-doxygen
+  - os@-python3-docutils
+  - os@-sphinx-common
+  - os@-sphinx-intl
+  - os@-python3-sphinx
+  - os@-python3-sphinx-rtd-theme
+  - s-cmake
+  - s-swig
+  - s-salome-configuration
+
+env:
+  - set-var LIGHT_ROOT_DIR $PREFIX
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

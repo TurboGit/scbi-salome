@@ -1,0 +1,30 @@
+plugin: s-atomsolv
+
+functions:
+  s-atomsolv-salome-module:
+    run: echo ATOMSOLV
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://git.salome-platform.org/gitpub/samples/atomsolv
+
+depends:
+  - s-salome-configuration
+  - s-atomgen
+
+build-depends:
+  - s-cmake
+  - s-swig
+
+env:
+  - set-var ATOMSOLV_ROOT_DIR $PREFIX
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

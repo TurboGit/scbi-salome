@@ -1,0 +1,32 @@
+plugin: s-python3-telemac
+
+inherit:
+  - from: s-install-python-module
+
+config-options:
+  - cppy
+  - traitlets
+  - nbformat
+  - ipython
+  - owslib
+  - pyshp
+  - descartes
+  - fiona==1.8.20
+  - openpyxl
+  - rasterio==1.1.0
+  - doxypypy
+  - jupyter-client==7.4.4
+  - jupyter-console
+  - jupyter
+  - ipywidgets
+  - geopandas==0.6.3
+  - shapely==1.8.0
+  - pylint
+  - pygments==2.4.1
+  - requests==2.28
+  - packaging==21.3
+  - pyzmq==24
+  - python-dateutil==2.8.2
+  - idna==2.8
+  - y-py==0.5.3
+  - jupyter-events==0.5.0

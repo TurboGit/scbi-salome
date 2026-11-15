@@ -1,0 +1,41 @@
+plugin: s-salome-salome
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/SALOME
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-salome-kernel
+    - s-salome-gui
+
+build-depends:
+  common:
+    - s-cmake
+
+env:
+  - set-var SALOME_ROOT_DIR $PREFIX
+  - set-var SALOME_INSTALL_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,15 @@
+plugin: s-python3-yaml
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-yaml:[v]
+
+build-depends:
+  - libyaml-dev
+
+config-options:
+  - pyyaml==$(get-version)

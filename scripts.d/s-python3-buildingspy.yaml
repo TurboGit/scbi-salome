@@ -1,0 +1,7 @@
+plugin: s-python3-buildingspy
+
+inherit:
+  - from: s-install-python-module
+
+config-options:
+  - buildingspy==$(get-version)

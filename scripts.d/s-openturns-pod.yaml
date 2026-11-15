@@ -1,0 +1,49 @@
+plugin: s-openturns-pod
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/openturns/otpod.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: openturns-${VERSION%|*}.tar.gz
+  dir: otpod-${VERSION#*|}
+
+patches:
+  - otpod-dep.patch
+
+depends:
+  - s-openturns
+  - os@-python3
+  - python3-statsmodels
+  - python3-decorator
+  - python3-matplotlib
+  - python3-numpy
+  - python3-scipy
+
+build-depends:
+  - os@-python3-setuptools
+
+env:
+  - set-var OTpod_HOME $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+build-env:
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+out-of-tree: false
+
+install: |-
+  PYPIURL = $(store-key PYPIURL)
+  pip3 install . --no-deps --index-url=$PYPIURL --prefix=$PREFIX
+
+prefix: NONE

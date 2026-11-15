@@ -1,0 +1,63 @@
+plugin: s-salome-adao
+
+functions:
+  s-salome-adao-salome-module:
+    run: echo ADAO
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/adao
+
+depends:
+  common:
+    - s-salome-configuration
+  _:
+    - os@-python3-docutils
+    - s-salome-configuration
+    - s-salome-kernel
+    - s-salome-eficas
+    - s-eficas-tools
+    - s-yacs
+    - s-omniorb
+    - s-python3-nlopt
+
+build-depends:
+  - s-cmake
+  - os@-sphinx-common
+  - s-adao-tool
+
+env:
+  - set-var ADAO_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SALOME_MODULES ADAO
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/adao
+
+build-env:
+  - set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DADAO_PYTHON_MODULE=OFF
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
+  - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DKERNEL_ROOT_DIR=$KERNEL_ROOT_DIR
+  - -DEFICAS_ROOT_DIR=$EFICAS_TOOLS_ROOT_DIR
+  - -DADAO_PYTHON_ROOT_DIR=$PREFIX
+  - -DFILE_OF_ADAO_PYTHON_MODULE=$PREFIX/daComposant/lib/python$PYTHON_VERSION/site-packages/lib/python$PYTHON_VERSION/site-packages/salome/adao/daCore/__init__.py
+  - -DADAO_SALOME_MODULE=ON
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

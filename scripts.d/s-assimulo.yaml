@@ -1,0 +1,34 @@
+plugin: s-assimulo
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/modelon-community/Assimulo.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: assimulo-$VERSION.tar.gz
+
+build-depends:
+  - os@-python3
+  - s-python-modules
+  - cython3
+
+env:
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+out-of-tree: false
+
+install: |-
+  PYPIURL = $(store-key PYPIURL)
+  pip3 install . --no-deps --ignore-installed --no-build-isolation --index-url=$PYPIURL --prefix=$PREFIX
+
+prefix: NONE

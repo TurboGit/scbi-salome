@@ -1,0 +1,12 @@
+plugin: s-python3-pytidylib
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-tidylib:[v]
+
+config-options:
+  - pytidylib==$(get-version)

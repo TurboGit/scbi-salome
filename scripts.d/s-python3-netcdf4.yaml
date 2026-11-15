@@ -1,0 +1,12 @@
+plugin: s-python3-netcdf4
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-netcdf4:[v]
+
+config-options:
+  - netcdf4==$(get-version)

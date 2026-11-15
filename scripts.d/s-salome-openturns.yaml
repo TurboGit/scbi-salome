@@ -1,0 +1,54 @@
+plugin: s-salome-openturns
+
+functions:
+  s-salome-openturns-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-salome-openturns-salome-module:
+    run: echo OPENTURNS
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/openturns_salome
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-qt
+    - s-salome-kernel
+    - s-salome-gui
+    - s-openturns
+    - s-yacs
+    - s-persalys
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - os@-python3-sphinx
+    - os@-graphviz-dev
+    - os@-doxygen
+    - os@-python3-docutils
+    - s-swig
+    - s-salome-bootstrap
+
+env:
+  - set-var OPENTURNS_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/openturns/
+  - add-to-var SALOME_MODULES OPENTURNS
+
+config: |-
+  CDEBUG = is-enabled cmake-debug
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

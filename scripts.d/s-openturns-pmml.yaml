@@ -1,0 +1,33 @@
+plugin: s-openturns-pmml
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/openturns/otpmml.git
+
+depends:
+  - os@-python3
+  - s-openturns
+
+build-depends:
+  - os@-python3-sphinx
+  - s-cmake
+  - s-swig
+
+env:
+  - set-var OTPMML_HOME $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+config: |-
+  _S1 = command-path python$PYTHON_VERSION
+  _S2 = command-path swig
+  _S3 = output-words swig -swiglib
+  cmake -DBUILD_DOC=OFF -DPYTHON_EXECUTABLE=$_S1 -DCMAKE_FIND_ROOT_PATH=ON -DSWIG_EXECUTABLE:PATH=$_S2 -DSWIG_DIR:FILEPATH=$_S3 -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

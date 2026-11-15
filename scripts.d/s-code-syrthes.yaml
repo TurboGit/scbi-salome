@@ -1,0 +1,41 @@
+plugin: s-code-syrthes
+
+depends:
+  common:
+    - s-cfd-study
+    - s-saturne
+    - s-scotch
+  default:
+    - os@-metis-dev
+    - s-hdf5
+    - s-med-coupling
+
+build-depends:
+  common:
+    - s-cmake
+
+env:
+  - set-var CODESYRTHES_ROOT_DIR $PREFIX
+  - set-var NOM_ARCH Linux_x86_64
+  - set-var SYRTHES_ROOT $PREFIX
+  - set-var SYRTHES_HOME $PREFIX/arch/Linux_x86_64
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var LD_LIBRARY_PATH $PREFIX/extern-libraries/opt/Stardis-0.8.2-GNU-Linux64/arch/Linux_x86_64/lib
+  - add-to-var PATH $SYRTHES_HOME/bin
+  - add-to-var PATH $SYRTHES_HOME/share/syrthes
+  - add-to-var PYTHONPATH $SYRTHES_HOME/lib/syrthesGui
+
+out-of-tree: false
+
+config: rsync -az ../src/* $PREFIX
+
+install: |-
+  cd $PREFIX/src/syrthes-install
+  cp -f setup.ini.salome setup.ini
+  chmod +x syrthes_install.py
+  ./syrthes_install.py
+
+post-install: |-
+  cd $PREFIX/src/syrthes-gui/src
+  sh Install.sh
+  mv $PREFIX/src/syrthes-gui/src/install $PREFIX/arch/Linux_x86_64/lib/syrthesGui

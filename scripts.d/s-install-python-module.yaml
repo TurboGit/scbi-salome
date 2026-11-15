@@ -1,0 +1,58 @@
+#  This is a generic module to be inherited for installing Python
+#  modules using pip3 tool. Note that the dependencies are not
+#  installed, only the Python modules listed in the config-options
+#  hook.
+#
+#  The usage is:
+#
+#    1. create a new plug-in
+#
+#       ex file: s-python3-h5py.yaml
+#
+#    2. inherit s-install-python-module
+#
+#       inherit:
+#         - from: s-install-python-module
+#
+#    3. create the config-options hook listing the needed Python modules
+#
+#       config-options:
+#         - h5py==$(get-version)
+plugin: s-install-python-module
+
+inherit:
+  - from: s-python-post-install-dist-packages
+    name: handle-dist
+
+depends:
+  default:
+    - os@-python3
+
+build-depends:
+  - os@-python3-pip
+
+env:
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+build-env:
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+install: |-
+  PYPIURL = $(store-key PYPIURL)
+  #  the host of the URL (https://<host>/...)
+  HOST = ${PYPIURL#*://}
+  HOST = ${HOST%%/*}
+  mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  pip3 install --ignore-installed --no-deps --trusted-host $HOST --index-url=$PYPIURL --prefix=$PREFIX $(config-options)
+
+post-install: |-
+  for site_file in /usr/lib/*/*/*/site-patch.py:
+      if is-file($site_file):
+          copy $site_file $PREFIX/lib/python$PYTHON_VERSION/site-packages/site.py
+  handle-dist-post-install $PREFIX $TARGET
+  if not exists($PREFIX/bin/python):
+      mkdir -p $PREFIX/bin
+      ln -fs $(command-path python$PYTHON_VERSION) $PREFIX/bin/python
+
+prefix: NONE

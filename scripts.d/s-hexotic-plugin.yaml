@@ -1,0 +1,42 @@
+plugin: s-hexotic-plugin
+
+functions:
+  s-hexotic-plugin-salome-module:
+    run: echo HEXOTICPLUGIN
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/hexoticplugin
+
+depends:
+  default:
+    - s-salome-kernel
+    - s-salome-gui
+    - s-geom
+    - s-smesh
+
+build-depends:
+  common:
+    - s-salome-configuration
+    - s-cmake
+  default:
+    - s-salome-bootstrap
+
+env:
+  - set-var HEXOTICPLUGIN_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SMESH_MeshersList HexoticPLUGIN
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/hexoticplugin
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,26 @@
+plugin: s-mumps
+
+with-variants:
+  native:
+    packages:
+      - libmumps-dev:[v]
+
+depends:
+  - s-scalapack
+  - os@-gfortran
+  - os@-blas-dev
+
+env:
+  - set-var MUMPSDIR $PREFIX
+  - set-var MUMPS_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+out-of-tree: false
+
+pre-config: copy $SCBI_PLUGINS/support/mumps-makefile.inc ../src/Makefile.inc
+
+build: make -j$SCBI_JOBS
+
+install: mkdir -p $PREFIX/include && cp -pv include/* $PREFIX/include && mkdir $PREFIX/lib && cp -pv lib/* $PREFIX/lib
+
+prefix: NONE

@@ -1,0 +1,19 @@
+plugin: s-samples
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/datafiles
+
+env:
+  - set-var SAMPLES_ROOT_DIR $PREFIX
+  - set-var DATA_DIR $PREFIX
+
+out-of-tree: false
+
+install: |-
+  cd ..
+  rsync -a --delete src/. install
+
+prefix: NONE

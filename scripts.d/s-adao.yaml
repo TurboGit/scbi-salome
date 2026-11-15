@@ -1,0 +1,7 @@
+plugin: s-adao
+
+modules:
+  - s-adao-tool
+  - s-salome-adao
+
+aggregate: direct

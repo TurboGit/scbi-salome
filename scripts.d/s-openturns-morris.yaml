@@ -1,0 +1,53 @@
+plugin: s-openturns-morris
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/openturns/otmorris.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: openturns-${VERSION%|*}.tar.gz
+  dir: otmorris-${VERSION#*|}
+
+depends:
+  default:
+    - os@-python3
+    - s-openturns
+
+build-depends:
+  default:
+    - os@-python3-sphinx
+    - s-cmake
+    - s-swig
+
+env:
+  - set-var OTMORRIS_HOME $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/otmorris
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DCMAKE_FIND_ROOT_PATH=ON
+  - -DSWIG_DIR:FILEPATH=$(output swig -swiglib)
+  - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
+  - -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+  - -DUSE_SPHINX=OFF
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

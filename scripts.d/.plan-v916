@@ -97,7 +97,6 @@ s-libbatch:V2_6_1
 s-omniorb:#4.2.5
 s-python-omniorb
 s-omniorb-core/auto
- e-smesh-edf-plugins
 s-occt:#SALOME_9_15_V7_9_0a1
 s-cgns/auto:#4.2.0
 s-hdf5/auto:#1.14.6
@@ -122,7 +121,7 @@ s-coolprop:#6.4.3
         s-atomsolv
         s-light
         s-pylight
-] :skip e-smesh-edf-plugins
+] :skip
 
 [
         s-openmpi
@@ -198,7 +197,7 @@ s-coolprop:#6.4.3
 
 [ = deb,11
         s-salome/default.core:s11-$RUN_VERSION
-        # downgrade from 5.1 e-smesh-edf-plugins5.3 to 5.15.2 to use the native version
+        # downgrade from 5.15.3 to 5.15.2 to use the native version
         s-pyqt:#5.15.3
         s-opencv:#3.2.0       # native pkg is too recent
         s-pyfmi:#2.6

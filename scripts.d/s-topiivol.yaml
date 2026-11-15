@@ -1,0 +1,31 @@
+plugin: s-topiivol
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/top_ii_vol
+
+depends:
+  - s-openmpi
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var TOPIIVOLMESH_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+
+out-of-tree: false
+
+pre-config: autoreconf -i
+
+config: |-
+  _S1 = command-path mpic++
+  ../src/configure --prefix=$PREFIX --with-MPICXX=$_S1
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

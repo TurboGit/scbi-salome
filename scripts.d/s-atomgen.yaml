@@ -1,0 +1,32 @@
+plugin: s-atomgen
+
+functions:
+  s-atomgen-salome-module:
+    run: echo ATOMGEN
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://git.salome-platform.org/gitpub/samples/atomgen
+
+depends:
+  - s-salome-configuration
+  - s-atomic
+  - s-salome-kernel
+  - s-salome-gui
+
+build-depends:
+  - s-cmake
+  - s-swig
+
+env:
+  - set-var ATOMGEN_ROOT_DIR $PREFIX
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

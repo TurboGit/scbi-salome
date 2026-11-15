@@ -1,0 +1,55 @@
+plugin: s-gmsh-plugin
+
+functions:
+  s-gmsh-plugin-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-gmsh-plugin-salome-module:
+    run: echo GMSHPLUGIN
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/gmshplugin
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-salome-kernel
+    - s-salome-bootstrap
+    - s-salome-gui
+    - s-omniorb
+    - s-qt
+    - s-occt
+    - s-geom
+    - s-gmsh
+    - s-smesh
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - os@-sphinx-common
+
+env:
+  - set-var GMSHPLUGIN_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SMESH_MeshersList GMSHPlugin
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/gmshplugin
+
+config: |-
+  CDEBUG = is-enabled cmake-debug
+  DISDOC = is-enabled no-doc
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ${DISDOC:+-DSALOME_BUILD_DOC=OFF} ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

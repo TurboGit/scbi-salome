@@ -1,0 +1,72 @@
+plugin: s-ifc-open-shell
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/IfcOpenShell/IfcOpenShell.git
+
+patches:
+  - if ref =~ 0.7:
+      - ifcopenshell-070.patch
+      - ifcopenshell-070-edf.patch
+  - if ref =~ 127bcaf96:
+      - ifcopenshell.patch
+      - ifcopenshell-edf.patch
+      - ifcopenshell-occ.patch
+
+depends:
+  common:
+    - os@-python3
+    - c-gmp
+    - c-mpfr
+    - s-eigen
+  default:
+    - s-boost
+    - s-occt
+    - s-swig
+    - s-cgal
+    - s-hdf5
+    - s-nlohmann-json3
+
+build-depends:
+  - s-cmake
+
+env:
+  common:
+    - set-var IFCOPENSHELL_ROOT_DIR $PREFIX
+    - add-to-var PATH $PREFIX/bin
+    - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+config-options:
+  common:
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DCOLLADA_SUPPORT=OFF
+    - -DUNICODE_SUPPORT=OFF
+    - -DBUILD_SHARED_LIBS=ON
+    - -DOCC_INCLUDE_DIR=$CAS_ROOT_DIR/include/opencascade
+    - -DOCC_LIBRARY_DIR=$CAS_ROOT_DIR/lib
+    - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src/cmake
+
+build: make -j$SCBI_HALF_JOBS
+
+install: make install
+
+post-install: |-
+  sed -i '6i_newclass=True' $PREFIX/lib/python/ifcopenshell/ifcopenshell_wrapper.py
+  sed -i -e 's/__swig_getmethods__/#__swig_getmethods__/g' -e 's/__swig_setmethods__/#__swig_setmethods__/g' $PREFIX/lib/python/ifcopenshell/ifcopenshell_wrapper.py
+  if is-dir($PREFIX/lib/python/ifcopenshell):
+      mkdir -p "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+      mv "$PREFIX"/lib/python/ifcopenshell "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+      rmdir "$PREFIX"/lib/python
+
+prefix: NONE

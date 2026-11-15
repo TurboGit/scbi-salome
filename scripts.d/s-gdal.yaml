@@ -1,0 +1,134 @@
+plugin: s-gdal
+
+with-variants:
+  native:
+    packages:
+      - os@-gdal-dev:[v]
+      - s-hdf5
+      - s-netcdf
+      - os@-proj-dev
+    env:
+      - set-var GDAL_ROOT_DIR /usr
+      - set-var GDAL_INCLUDE_DIR /usr/include/gdal
+      - set-var GDAL_LIBRARY /usr/lib
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/OSGeo/gdal.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: gdal-$VERSION.tar.gz
+
+patches:
+  mingw:
+    - gdal-3.2.2.msys2.patch
+
+depends:
+  common:
+    - os@-geos-dev
+    - os@-json-c-dev
+    - os@-cfitsio-dev
+    - os@-freexl-dev
+    - os@-postgresql
+    - s-proj
+    - s-netcdf
+    - s-hdf5
+  mingw:
+    - os@-crypto++
+    - os@-geos
+    - os@-sfcgal-dev
+
+build-depends:
+  - s-cmake
+  - s-swig
+
+env:
+  common:
+    - set-var GDAL_ROOT_DIR $PREFIX
+    - set-var GDAL_INCLUDE_DIR $PREFIX/include
+    - set-var GDAL_LIBRARY $PREFIX/lib
+    - add-to-var C_INCLUDE_PATH $PREFIX/include
+    - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    - add-to-var LIBRARY_PATH $PREFIX/lib
+    - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  mingw:
+    - add-to-var PATH $PREFIX/lib
+    - add-to-var PATH $PREFIX/bin
+
+out-of-tree: true
+
+config-options:
+  - -DCMAKE_BUILD_TYPE=Release
+  - -DCMAKE_INSTALL_PREFIX:STRING=${PREFIX}
+  - -DCMAKE_INSTALL_LIBDIR:STRING=lib
+  - -DCMAKE_INSTALL_NAME_DIR:PATH=${PREFIX}/lib
+  - -DGDAL_USE_EXTERNAL_LIBS:BOOL=OFF
+  - -DGDAL_USE_INTERNAL_LIBS:BOOL=OFF
+  - -DGDAL_USE_CURL:BOOL=ON
+  - -DGDAL_USE_LIBXML2:BOOL=ON
+  - -DGDAL_USE_EXPAT:BOOL=ON
+  - -DGDAL_USE_ZLIB:BOOL=ON
+  - -DGDAL_USE_HDF5:BOOL=ON
+  - -DGDAL_USE_ICONV:BOOL=ON
+  - -DGDAL_USE_OPENSSL:BOOL=ON
+  - -DGDAL_USE_SQLITE3:BOOL=ON
+  - -DGDAL_BUILD_OPTIONAL_DRIVERS:BOOL=OFF
+  - -DGDAL_ENABLE_DRIVER_HDF5:BOOL=ON
+  - -DOGR_ENABLE_DRIVER_DGN:BOOL=OFF
+  - -DOGR_ENABLE_DRIVER_IDRISI:BOOL=OFF
+  - -DOGR_ENABLE_DRIVER_SDTS:BOOL=OFF
+  - -DOGR_ENABLE_DRIVER_S57:BOOL=OFF
+  - -DBUILD_APPS:BOOL=OFF
+  - -DBUILD_CSHARP_BINDINGS:BOOL=OFF
+  - -DBUILD_JAVA_BINDINGS:BOOL=OFF
+  - -DBUILD_PYTHON_BINDINGS:BOOL=ON
+  - -DBUILD_TESTING:BOOL=OFF
+  - -DCMAKE_INSTALL_RPATH:STRING=${PREFIX}/lib
+  - -DGDAL_USE_ZSTD:BOOL=ON
+  - -DGDAL_USE_PCRE2:BOOL=ON
+  - -DGDAL_USE_GEOS:BOOL=ON
+  - -DGDAL_USE_NETCDF:BOOL=ON
+  - -DGDAL_USE_LIBLZMA:BOOL=ON
+  - -DGDAL_USE_GEOTIFF_INTERNAL:BOOL=ON
+  - -DGDAL_USE_JPEG_INTERNAL:BOOL=ON
+  - -DGDAL_USE_PNG_INTERNAL:BOOL=ON
+  - -DGDAL_USE_TIFF_INTERNAL:BOOL=ON
+  - -DGDAL_USE_GIF_INTERNAL:BOOL=ON
+  - -DGDAL_USE_JSONC_INTERNAL:BOOL=ON
+  - -DGDAL_USE_BLOSC_INTERNAL:BOOL=ON
+
+config:
+  _: |-
+    OPTIONS =
+    OPTIONS = config-options
+    cmake $OPTIONS ../src
+  mingw: |-
+    PYTHONBIN = command-path python
+    CONFIGURE_FLAGS = ""
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-pcraster=internal
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-png=internal
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-libtiff=internal
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-geotiff=internal
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-jpeg=internal
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-gif=internal
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-python=yes
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-geos=yes
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-sqlite3=yes
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-threads
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-python=${PYTHONBIN}
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-hdf5=${HDF5_ROOT_DIR}
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --with-netcdf=${NETCDF_ROOT_DIR}
+    CONFIGURE_FLAGS = $CONFIGURE_FLAGS  --without-jasper
+    ./configure --prefix=$PREFIX --host=$TARGET ${CONFIGURE_FLAGS} LDFLAGS="-L${HDF5_ROOT_DIR}/lib/ -lhdf5 -lhdf5_hl -L${NETCDF_ROOT_DIR}/lib -lnetcdf" HDF5_CFLAGS="-I${HDF5_ROOT_DIR}/include -L${HDF5_ROOT_DIR}/lib/ -lhdf5 -lhdf5_hl" LIBS="-L${HDF5_ROOT_DIR}/lib/ -lhdf5 -lhdf5_hl -L${NETCDF_ROOT_DIR}/lib -lnetcdf" HDF5_LIBS="-L${HDF5_ROOT_DIR}/lib/ -lhdf5  -lhdf5_hl " HDF5_INCLUDE="-I${HDF5_ROOT_DIR}/include"
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

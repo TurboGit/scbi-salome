@@ -1,0 +1,23 @@
+plugin: s-aed2
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/AquaticEcoDynamics/libaed2
+
+build-depends:
+  - os@-gfortran
+
+env:
+  - set-var AED2DIR $PREFIX
+  - set-var AED2_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+out-of-tree: false
+
+build: make -j1
+
+install: mkdir -p $PREFIX/include && cp -pv *.mod $PREFIX/include && cp -pv include/* $PREFIX/include && mkdir $PREFIX/lib && cp -pv libaed2.* $PREFIX/lib
+
+prefix: NONE

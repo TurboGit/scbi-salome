@@ -1,0 +1,26 @@
+plugin: s-catalyst
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://gitlab.kitware.com/paraview/catalyst.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: catalyst-$VERSION.tar.gz
+
+env:
+  - add-to-var CMAKE_PREFIX_PATH $(last-modified-directory $PREFIX/lib/cmake/catalyst*)
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+config: cmake -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE Release) -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

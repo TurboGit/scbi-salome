@@ -1,0 +1,12 @@
+plugin: s-python3-h5py
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-h5py:[v]
+
+config-options:
+  - h5py==$(get-version)

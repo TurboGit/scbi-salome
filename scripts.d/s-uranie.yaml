@@ -1,0 +1,46 @@
+plugin: s-uranie
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: URANIE-$VERSION-Source.tar.gz
+
+depends:
+  - s-root
+  - os@-python3
+  - os@-python3-dev
+  - os@-boost-dev
+
+build-depends:
+  - s-cmake
+  - os@-xml2-utils
+
+env:
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DLOCAL_PYTHON_EXEC=$(command-path python$PYTHON_VERSION)
+  - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install: |-
+  if is-dir($PREFIX/lib/python/URANIE):
+      mkdir -p "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+      mv "$PREFIX"/lib/python/URANIE "$PREFIX"/lib/python${PYTHON_VERSION}/site-packages
+      rmdir "$PREFIX"/lib/python
+
+prefix: NONE

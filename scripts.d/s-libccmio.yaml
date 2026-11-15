@@ -1,0 +1,31 @@
+plugin: s-libccmio
+
+env:
+  - set-var LIBCCMIO_ROOT_DIR $PREFIX
+  - set-var LIBCCMIO_LIB_DIR $PREFIX/arch/Linux_$(output uname -m)/lib
+  - add-to-var LD_LIBRARY_PATH $LIBCCMIO_LIB_DIR
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+build-env:
+  - set-var libccmio_install_dir $PREFIX/arch/Linux_$(output uname -m)
+  - set-var inc_dir $PREFIX/include/libccmio
+  - add-to-var LD_LIBRARY_PATH ../src/builds/$usetelcfg/lib
+
+out-of-tree: false
+
+build: |-
+  SBDIR = output dirname $PREFIX
+  LIBCCMIO_SRC_DIR = last-modified-directory "$SBDIR/src/libccmio-*"
+  cd $LIBCCMIO_SRC_DIR
+  make -f Makefile.linux adfdebug FC=gfortran FFLAGS="-g -fPIC"
+  make -f Makefile.linux ccmiodebug LDLIBS=-ladf
+
+install: |-
+  SBDIR = output dirname $PREFIX
+  LIBCCMIO_SRC_DIR = last-modified-directory "$SBDIR/src/libccmio-*"
+  mkdir $PREFIX
+  mkdir -p $libccmio_install_dir
+  copy $LIBCCMIO_SRC_DIR/linux/debug/64/lib $libccmio_install_dir
+  mkdir -p $inc_dir
+  copy $LIBCCMIO_SRC_DIR/libccmio/*.h $inc_dir

@@ -1,0 +1,12 @@
+plugin: s-python3-typing-extensions
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-typing-extensions:[v]
+
+config-options:
+  - typing-extensions==$(get-version)

@@ -1,0 +1,12 @@
+plugin: s-python3-gitpython
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-git:[v]
+
+config-options:
+  - gitpython==$(get-version)

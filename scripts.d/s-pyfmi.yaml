@@ -1,0 +1,44 @@
+plugin: s-pyfmi
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/modelon-community/PyFMI.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: PyFMI-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 2.6: pyfmi-2.6-python-3.1x.01.patch
+
+depends:
+  common:
+    - os@-python3
+    - s-python-modules
+    - cython3
+    - s-fmil
+  assimulo:
+    - s-assimulo
+
+build-depends:
+  - os@-python3-setuptools
+
+env:
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+out-of-tree: false
+
+install: |-
+  PYPIURL = $(store-key PYPIURL)
+  pip3 install . --no-deps --ignore-installed --index-url=$PYPIURL --prefix=$PREFIX
+
+prefix: NONE

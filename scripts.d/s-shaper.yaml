@@ -1,0 +1,55 @@
+plugin: s-shaper
+
+functions:
+  s-shaper-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-shaper-salome-module:
+    run: echo SHAPER
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/shaper
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-salome-kernel
+    - s-salome-gui
+    - s-geom
+    - s-planegcs
+    - s-qt
+    - s-occt
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - os@-doxygen
+    - os@-sphinx-common
+    - s-swig
+    - s-salome-bootstrap
+
+env:
+  - set-var SHAPER_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var SALOME_MODULES SHAPER
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/shaper
+
+config: |-
+  _S1 = command-path swig
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DNO_SolveSpace=TRUE -DADD_MODELS_TESTS=ON -DADD_COMPATIBILITY_TESTS=ON -DADD_HDF_TESTS=ON -DSWIG_EXECUTABLE:PATH=$_S1 ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

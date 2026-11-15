@@ -1,0 +1,34 @@
+plugin: s-saturne-dbg
+
+inherit:
+  - from: s-saturne
+
+env: []
+
+config-options:
+  - FC=gfortran
+  - --prefix=$PREFIX
+  - --enable-debug
+  - --disable-frontend
+  - --with-salome=$SALOME_ROOT_DIR
+  - --with-eos=$EOS_ROOT_DIR
+  - --with-mpi=$OPENMPIDIR
+  - --with-metis=$METIS_ROOT_DIR
+  - --with-scotch=$SCOTCH_ROOT_DIR
+  - --with-hdf5=$HDF5_ROOT_DIR
+  - --with-cgns=$CGNS_ROOT_DIR
+  - --with-coolprop=$COOLPROP_ROOT_DIR
+  - --with-med=$MEDFILE_ROOT_DIR
+  - --with-medcoupling=$MEDCOUPLING_ROOT_DIR
+  - --with-ccm-include=$LIBCCMIO_ROOT_DIR/include
+  - --with-ccm-lib=$LIBCCMIO_LIB_DIR
+
+post-build: make doc
+
+post-install: |-
+  make install-doc
+  cd $PREFIX/etc
+  APPEND = "compute_versions = :$(basename $PREFIX)"
+  sed "s|# compute_versions =|${APPEND}|" code_saturne.cfg.template > code_saturne.cfg
+  sed "/distant installation paths/a\slurm_cronos=/sofware/rd/saturne/code_saturne/7.0/arch\nslurm_gaia=/projets/saturne/Code_Saturne/7.0/arch" code_saturne.cfg > code_saturne.cfg.template
+  mv code_saturne.cfg.template code_saturne.cfg

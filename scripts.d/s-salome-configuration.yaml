@@ -1,0 +1,38 @@
+plugin: s-salome-configuration
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/configuration
+
+patches:
+  _:
+    - if ref =~ 9_7: fix-detection-of-hdf5.patch
+  mingw:
+    - configuration.msys2.patch
+
+env:
+  _:
+    - set-var CONFIGURATION_ROOT_DIR $PREFIX
+    - set-var CONFIGURATION_CMAKE_DIR $PREFIX/cmake
+    - add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
+    - add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
+    - set-var PYQT5_NOT_MASTER 1
+  common:
+    - set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
+    - set-var SALOME_ACTOR_DELEGATE_TO_VTK 1
+    - set-var ORBgiopMaxMsgSize 2147483648
+    - set-var SALOME_MODULES_ORDER SHAPER:SHAPERSTUDY:GEOM:SMESH
+  ngwin:
+    - local WPREFIX $(output cygpath -w "$PREFIX")
+    - set-var CONFIGURATION_ROOT_DIR $WPREFIX
+    - set-var CONFIGURATION_CMAKE_DIR $WPREFIX/cmake
+    - add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
+    - add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
+
+out-of-tree: false
+
+install: |-
+  cd ..
+  rsync -a --delete src/. install

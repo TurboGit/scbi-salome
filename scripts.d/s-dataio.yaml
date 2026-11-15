@@ -1,0 +1,15 @@
+plugin: s-dataio
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+env:
+  - set-var DATAIO_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+out-of-tree: FALSE
+
+install: python3 setup.py install --prefix=$PREFIX
+
+prefix: NONE

@@ -1,0 +1,38 @@
+plugin: s-shaper-study
+
+functions:
+  s-shaper-study-salome-module:
+    run: echo SHAPERSTUDY
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/shaper_study
+
+depends:
+  - s-salome-configuration
+  - s-salome-kernel
+  - s-geom
+  - s-shaper
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var SHAPERSTUDY_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var SALOME_MODULES SHAPERSTUDY
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/shaperstudy
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

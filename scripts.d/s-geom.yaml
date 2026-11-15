@@ -1,0 +1,74 @@
+plugin: s-geom
+
+functions:
+  s-geom-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-geom-salome-module:
+    run: echo GEOM
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/geom
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-common-geometry-lib
+    - s-omniorb
+    - s-qt
+    - s-salome-kernel
+    - s-salome-gui
+    - s-eigen
+  opencv:
+    - s-opencv
+
+build-depends:
+  _:
+    - os@-sphinx-common
+    - os@-python3-psutil
+    - s-swig
+    - s-salome-bootstrap
+  common:
+    - s-cmake
+
+env:
+  - set-var GEOM_ROOT_DIR $PREFIX
+  - set-var PARALLEL_VISU 1
+  - set-var GEOM_PluginsList BREPPlugin:STEPPlugin:IGESPlugin:STLPlugin:XAOPlugin:VTKPlugin:AdvancedGEOM
+  - set-var CSF_ShHealingDefaults $PREFIX/share/salome/resources/geom
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SALOME_MODULES GEOM
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/geom
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  default:
+    - -DSALOME_GEOM_USE_OPENCV=OFF
+  nodoc:
+    - -DSALOME_BUILD_DOC=OFF
+  opencv:
+    - -DSALOME_GEOM_USE_OPENCV=ON
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

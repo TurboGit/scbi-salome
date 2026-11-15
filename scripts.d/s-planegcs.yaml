@@ -1,0 +1,32 @@
+plugin: s-planegcs
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: planegcs-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 0.20: planegcs-0.20.patch
+
+depends:
+  - os@-boost-graph-dev
+  - s-eigen
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var PLANEGCS_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

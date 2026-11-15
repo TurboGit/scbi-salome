@@ -1,0 +1,69 @@
+plugin: s-opencv
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+with-variants:
+  native:
+    packages:
+      - os@-opencv-dev
+    env:
+      - if exists(/usr/include/opencv4):
+          - add-to-var OpenCV_INCLUDE_DIRS /usr/include/opencv4
+          - add-to-var C_INCLUDE_PATH /usr/include/opencv4
+          - add-to-var CPLUS_INCLUDE_PATH /usr/include/opencv4
+      - if not exists(/usr/include/opencv4):
+          - add-to-var OpenCV_INCLUDE_DIRS /usr/include
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: opencv-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 3.2:
+      - opencv-3.2.0-ccache.patch
+      - opencv-3.2.0-persistence.patch
+      - opencv-3.2.0-cv2.patch
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var OPENCV_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX:STRING=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DBUILD_NEW_PYTHON_SUPPORT=ON
+  - -DBUILD_EXAMPLES:BOOL=OFF
+  - -DENABLE_PRECOMPILED_HEADERS:BOOL=OFF
+  - -DCMAKE_C_FLAGS=-fPIC -fpermissive
+  - -DCMAKE_CXX_FLAGS=-fPIC -std=c++14 -fpermissive
+  - -DCMAKE_CXX_STANDARD=14
+  - -DWITH_IPP:BOOL=OFF
+  - -DBUILD_opencv_java:BOOL=OFF
+  - -DWITH_FFMPEG:BOOL=OFF
+  - -DWITH_LAPACK:BOOL=OFF
+  - -DWITH_CUDA:BOOL=OFF
+  - -DWITH_VTK:BOOL=OFF
+  - -DWITH_GTK:BOOL=OFF
+  - -DWITH_GSTREAMER:BOOL=OFF
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

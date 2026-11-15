@@ -1,0 +1,38 @@
+plugin: s-pycalculator
+
+functions:
+  s-pycalculator-salome-module:
+    run: echo PYCALCULATOR
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/pycalculator
+
+depends:
+  - s-salome-kernel
+  - s-fields
+  - s-med-coupling
+  - s-med-file
+  - s-omniorb
+
+build-depends:
+  - os@-doxygen
+  - s-cmake
+  - s-salome-configuration
+  - s-swig
+
+env:
+  - set-var PYCALCULATOR_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

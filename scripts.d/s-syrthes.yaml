@@ -1,0 +1,53 @@
+plugin: s-syrthes
+
+functions:
+  s-syrthes-salome-module:
+    run: echo SYRTHES
+
+patches:
+  - fix_ssl_mode_sythes.patch
+
+depends:
+  common:
+    - s-saturne
+    - s-code-syrthes
+    - s-salome-configuration
+  default:
+    - s-tbb
+    - s-salome-gui
+    - s-med-coupling
+
+build-depends:
+  common:
+    - s-cmake
+
+env:
+  - set-var SYRTHES_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/syrthes
+  - add-to-var SALOME_MODULES SYRTHES
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+build-env:
+  - set-var ROOT_SALOME $ROOT_SALOME_INSTALL
+
+pre-config: |-
+  cd ../src
+  _S1 = command-path python$PYTHON_VERSION
+  $_S1 components.py
+  rm -rf doc idl resources src
+  mv SYRTHES_SRC/* .
+  cp -f CMakeLists.txt.tmp src/SYRTHES/CMakeLists.txt
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install: copy $PREFIX/share/salome/resources/syrthes/SalomeApp.xml $PREFIX/share/salome/resources/syrthes/SalomeAppSL.xml

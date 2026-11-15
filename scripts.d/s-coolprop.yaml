@@ -1,0 +1,28 @@
+plugin: s-coolprop
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/CoolProp/CoolProp
+
+build-depends:
+  common:
+    - s-cmake
+    - s-python-modules
+
+env:
+  - set-var COOLPROP_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/shared_library/Linux/64bit
+
+out-of-tree: false
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCOOLPROP_INSTALL_PREFIX=$PREFIX -DCOOLPROP_SHARED_LIBRARY=ON ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install: |-
+  copy include/CoolProp.h $PREFIX/shared_library/
+  copy include/PlatformDetermination.h $PREFIX/shared_library/

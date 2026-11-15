@@ -1,0 +1,31 @@
+plugin: s-fmil
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/modelon-community/fmi-library.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: FMILibrary-$VERSION.tar.gz
+
+build-depends:
+  - s-cmake
+  - os@-doxygen
+
+env:
+  - set-var FMIL_HOME $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PATH $PREFIX/bin
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DCMAKE_C_FLAGS="-fpermissive" -DFMILIB_INSTALL_PREFIX=$PREFIX ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

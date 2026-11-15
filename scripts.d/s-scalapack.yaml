@@ -1,0 +1,23 @@
+plugin: s-scalapack
+
+with-variants:
+  native:
+    packages:
+      - libscalapack-openmpi-dev:[v]
+
+build-depends:
+  - s-cmake
+  - os@-gfortran
+
+env:
+  - set-var SCALAPACKDIR $PREFIX
+  - set-var SCALAPACKDIR_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_SHARED_LIBS=ON ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

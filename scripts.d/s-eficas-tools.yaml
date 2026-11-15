@@ -1,0 +1,36 @@
+plugin: s-eficas-tools
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/eficas_tools
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-pyqt
+    - s-qt
+
+build-depends:
+  common:
+    - s-cmake
+    - os@-sphinx-common
+
+env:
+  - set-var EFICAS_ROOT $PREFIX
+  - set-var EFICAS_TOOLS_ROOT $PREFIX
+  - set-var EFICAS_TOOLS_ROOT_DIR $PREFIX
+  - set-var EFICAS_NOUVEAU_ROOT $PREFIX
+  - add-to-var PYTHONPATH $PREFIX/UiQt5
+  - add-to-var PYTHONPATH $PREFIX/InterfaceQT4
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DWITH_TELEMAC_CATA=ON -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

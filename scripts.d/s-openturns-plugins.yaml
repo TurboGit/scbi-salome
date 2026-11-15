@@ -1,0 +1,13 @@
+plugin: s-openturns-plugins
+
+modules:
+  - s-openturns-fftw
+  - s-openturns-mixmod
+  - s-openturns-morris
+  - s-openturns-robopt
+  - s-openturns-svm
+  - s-openturns-wrapy
+  - s-openturns-pod
+  - s-openturns-fmi
+
+aggregate: direct

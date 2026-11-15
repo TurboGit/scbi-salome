@@ -1,0 +1,35 @@
+plugin: s-proj
+
+with-variants:
+  native:
+    packages:
+      - os@-proj-dev:[v]
+    env:
+      - set-var PROJ_ROOT_DIR /usr
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/OSGeo/PROJ.git
+
+build-depends:
+  - s-cmake
+  - os@-sqlite3
+
+env:
+  - set-var PROJ_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/proj
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var PYTHONPATH $PREFIX/lib
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_TESTING=OFF ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,12 @@
+plugin: s-python3-cftime
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-cftime:[v]
+
+config-options:
+  - cftime==$(get-version)

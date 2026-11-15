@@ -1,0 +1,80 @@
+plugin: s-saturne
+
+depends:
+  common:
+    - s-libccmio
+    - s-coolprop
+    - s-scotch
+  default:
+    - os@-python3-setuptools
+    - os@-metis-dev
+    - s-hdf5
+    - s-cgns
+    - s-med-file
+    - s-salome-kernel
+    - s-salome-gui
+    - s-yacs
+    - s-smesh
+    - s-paravis
+    - s-paraview
+    - s-med-coupling
+
+build-depends:
+  _:
+    - os@-autoconf
+    - os@-automake
+    - os@-autotools-dev
+    - os@-libtool
+  common:
+    - s-cmake
+  default:
+    - os@-python3-setuptools
+
+env:
+  - set-var SATURNE_ROOT_DIR $PREFIX
+  - set-var CS_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PATH $PREFIX/libexec/code_saturne
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+out-of-tree: false
+
+config-options:
+  _:
+    - FC=gfortran
+    - --prefix=$PREFIX
+    - --enable-relocatable
+    - --enable-silent-rules
+    - --with-salome=$SALOME_ROOT_DIR
+    - --with-eos=$EOS_ROOT_DIR
+    - --with-mpi=$MPI_ROOT_DIR
+    - --with-metis=$METIS_ROOT_DIR
+    - --with-scotch=$SCOTCH_ROOT_DIR
+    - --with-hdf5=$HDF5_ROOT_DIR
+    - --with-cgns=$CGNS_ROOT_DIR
+    - --with-coolprop=$COOLPROP_ROOT_DIR
+    - --with-med=$MEDFILE_ROOT_DIR
+    - --with-medcoupling=$MEDCOUPLING_ROOT_DIR
+    - --with-ccm-include=$LIBCCMIO_ROOT_DIR/include
+    - --with-ccm-lib=$LIBCCMIO_LIB_DIR
+  mesa:
+    - --with-catalyst=$PARAVIEW_OSMESA_INSTALL_DIR
+    - --enable-dlopen-rtld-global
+
+pre-config: |-
+  _S1 = output-words dirname ${SCBI_MODULES_DIR[s-neptune]}
+  rsync -a $_S1/src/* neptune_cfd
+  ../src/sbin/bootstrap
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  ../src/configure $OPTIONS
+
+build: make -j$SCBI_JOBS
+
+post-build: make doc
+
+install: make install
+
+post-install: make install-doc

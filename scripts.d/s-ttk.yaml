@@ -1,0 +1,171 @@
+plugin: s-ttk
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/topology-tool-kit/ttk.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: wget
+  url: https://github.com/topology-tool-kit/ttk/archive/refs/tags
+  file: $VERSION.tar.gz
+
+patches:
+  - ttk-enable-torch.patch
+  - if ref =~ 1.3: ttk-1.3.0-embree-include.patch
+
+depends:
+  - libboost-system-dev
+  - libpython3-dev
+  - libxt-dev
+  - libxcursor-dev
+  - s-eigen
+  - s-qt
+  - s-embree
+  - s-paraview
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var TTK_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PV_PLUGIN_PATH $PREFIX/bin/plugins
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DTTK_BUILD_PARAVIEW_PLUGINS=ON
+  - -DTTK_ENABLE_CPU_OPTIMIZATION=OFF
+  - -DTTK_ENABLE_EIGEN=ON
+  - -DTTK_ENABLE_TORCH=OFF
+  - -DCMAKE_INSTALL_LIBDIR:STRING=lib
+  - -DBUILD_SHARED_LIBS:BOOL=ON
+  - -DTTK_BUILD_STANDALONE_APPS:BOOL=FALSE
+  - -DCMAKE_INSTALL_LIBDIR:PATH=lib
+  - -DCMAKE_INSTALL_NAME_DIR:PATH=${PRODUCT_INSTALL}/lib
+  - -DCMAKE_INSTALL_RPATH:STRING=$PRODUCT_INSTALL
+  - -DTTK_INSTALL_PLUGIN_DIR:PATH=${PARAVIEW_PLUGINS_DIR}
+  - -DTTK_ENABLE_KAMIKAZE:BOOL=TRUE
+  - -DTTK_ENABLE_CPU_OPTIMIZATION:BOOL=FALSE
+  - -DTTK_ENABLE_DOUBLE_TEMPLATING:BOOL=OFF
+  - -DTTK_ENABLE_EIGEN:BOOL=ON
+  - -DTTK_ENABLE_EMBREE:BOOL=ON
+  - -DTTK_ENABLE_GRAPHVIZ:BOOL=ON
+  - -DTTK_ENABLE_OPENMP:BOOL=ON
+  - -DTTK_ENABLE_MPI:BOOL=ON
+  - -DTTK_ENABLE_SCIKIT_LEARN:BOOL=OFF
+  - -DTTK_ENABLE_ZFP:BOOL=OFF
+  - -DTTK_WHITELIST_MODE:BOOL=TRUE
+  - -DVTK_MODULE_ENABLE_ttkAlgorithm:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTriangulationAlgorithm:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkProgramBase:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkHelloWorld:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTriangulationManager:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTriangulationRequest:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkArrayEditor:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkArrayPreconditioning:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkBlockAggregator:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkExtract:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkFlattenMultiBlock:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkForEach:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkEndFor:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkGridLayout:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkIcosphere:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkIcosphereFromObject:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkIcospheresFromPoints:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkIdentifierRandomizer:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkIdentifyByScalarField:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPeriodicGhostsGeneration:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPointDataSelector:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkScalarFieldNormalizer:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkScalarFieldSmoother:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTextureMapFromField:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkContinuousScatterPlot:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkContourAroundPoint:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkContourTree:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkContourTreeAlignment:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkFiber:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkFiberSurface:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkIntegralLines:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkJacobiSet:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTree:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreePrincipalGeodesics:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreePrincipalGeodesicsDecoding:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreePrincipalGeodesicsDecoding_PathTrees:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreePrincipalGeodesicsDecoding_Surface:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreeTemporalReduction:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreeTemporalReductionDecoding:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMeshGraph:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMorseSmaleComplex:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPathCompression:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPersistenceCurve:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPersistenceDiagram:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPersistentGenerators:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPlanarGraphLayout:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkReebGraph:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkReebSpace:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkRipsComplex:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkScalarFieldCriticalPoints:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTopologicalSimplification:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTopologicalSimplificationByPersistence:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTrackingFromPersistenceDiagrams:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTrackingFromFields:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTrackingFromOverlap:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkBottleneckDistance:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDepthImageBasedGeometryApproximation:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDistanceField:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkGeometrySmoother:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkManifoldCheck:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMarchingTetrahedra:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMorseSmaleQuadrangulation:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPointSetToCurve:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPointSetToSurface:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkProjectionFromField:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkQuadrangulationSubdivision:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkSignedDistanceField:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkSurfaceGeometrySmoother:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkLDistanceMatrix:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMatrixToHeatMap:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreeClustering:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeTreeDistanceMatrix:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPersistenceDiagramClustering:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkPersistenceDiagramDistanceMatrix:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMandatoryCriticalPoints:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDimensionReduction:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkCinemaReader:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkCinemaWriter:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkCinemaQuery:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkCinemaImaging:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkCinemaProductReader:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTopologicalCompressionWriter:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTopologicalCompressionReader:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomCamera:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomColorMapping:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomCompositing:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomFXAA:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomIBS:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomSSAO:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomSSDoF:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDarkroomSSSAO:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkDataSetToTable:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkMergeBlockTables:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkProjectionFromTable:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTableDataSelector:STRING=YES
+  - -DVTK_MODULE_ENABLE_ttkTableDistanceMatrix:STRING=YES
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

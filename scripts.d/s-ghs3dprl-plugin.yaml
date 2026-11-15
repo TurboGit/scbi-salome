@@ -1,0 +1,48 @@
+plugin: s-ghs3dprl-plugin
+
+functions:
+  s-ghs3dprl-plugin-salome-module:
+    run: echo GHS3DPRLPLUGIN
+
+depends:
+  default:
+    - s-qt
+    - s-smesh
+    - s-ghs3d-plugin
+
+build-depends:
+  common:
+    - s-cmake
+    - s-salome-configuration
+    - s-swig
+    - os@-doxygen
+
+env:
+  - set-var GHS3DPRLPLUGIN_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SMESH_MeshersList GHS3DPRLPlugin
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/ghs3dprlplugin
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DMESHGEMS_ROOT_DIR=$MESHGEMS_ROOT_DIR
+    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+  mpi:
+    - -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

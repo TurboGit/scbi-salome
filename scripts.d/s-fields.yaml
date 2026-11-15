@@ -1,0 +1,59 @@
+plugin: s-fields
+
+functions:
+  s-fields-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-fields-salome-module:
+    run: echo FIELDS
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/med
+
+depends:
+  - s-salome-configuration
+  - s-salome-kernel
+  - s-med-coupling
+  - s-salome-gui
+
+build-depends:
+  - os@-sphinx-common
+  - os@-sphinx-intl
+  - os@-python3-stemmer
+  - s-cmake
+  - s-salome-bootstrap
+
+env:
+  - set-var FIELDS_ROOT_DIR $PREFIX
+  - add-to-var C_INCLUDE_PATH $PREFIX/include/salome
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var SALOME_MODULES FIELDS
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/fields
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DMEDCOUPLING_USE_64BIT_IDS=ON
+  - -DMEDCOUPLING_USE_64BIT_IDS=ON
+  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+  - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

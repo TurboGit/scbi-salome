@@ -1,0 +1,62 @@
+plugin: s-cgns
+
+with-variants:
+  native:
+    packages:
+      - os@-cgns-dev:[v]
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/CGNS/CGNS
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: cgns-$VERSION.tar.gz
+
+depends:
+  - s-hdf5
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var CGNS_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var LIBRARY_PATH $PREFIX/lib
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  mingw:
+    - -GNinja
+    - -DCGNS_BUILD_SHARED=ON
+    - -DCGNS_ENABLE_HDF5=ON
+    - -DHDF5_NEED_ZLIB=ON
+    - -DCGNS_ENABLE_64BIT=OFF
+
+config:
+  _: |-
+    OPTIONS =
+    OPTIONS = config-options
+    cmake $OPTIONS ../src
+  mingw: |-
+    OPTIONS =
+    OPTIONS = config-options
+    CXXFLAGS="$CXXFLAGS -w -Wno-register" cmake $OPTIONS ../src
+
+build:
+  _: make -j$SCBI_JOBS
+  mingw: cmake --build . -j$SCBI_JOBS
+
+install: cmake --install .
+
+prefix: NONE

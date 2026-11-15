@@ -1,0 +1,12 @@
+plugin: s-python3-toml
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-toml:[v]
+
+config-options:
+  - toml==$(get-version)

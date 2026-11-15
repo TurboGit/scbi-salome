@@ -1,0 +1,38 @@
+plugin: s-pylight
+
+functions:
+  s-pylight-salome-module:
+    run: echo PYLIGHT
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://git.salome-platform.org/gitpub/samples/pylight
+
+depends:
+  - s-salome-gui
+
+build-depends:
+  - os@-graphviz-dev
+  - os@-graphviz
+  - os@-doxygen
+  - os@-python3-docutils
+  - os@-sphinx-common
+  - os@-sphinx-intl
+  - os@-python3-sphinx
+  - os@-python3-sphinx-rtd-theme
+  - s-cmake
+  - s-swig
+  - s-salome-configuration
+
+env:
+  - set-var PYLIGHT_ROOT_DIR $PREFIX
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

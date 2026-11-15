@@ -1,0 +1,291 @@
+plugin: s-paraview
+
+vcs:
+  proxy: default
+  options: lfs
+  protocol: git
+  url: https://github.com/Kitware/ParaView.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: ParaView-$VERSION.tar.gz
+
+patches:
+  _:
+    - if ref =~ 5.8: paraview-autoload.patch
+    - if ref =~ 5.9: paraview-5.9.patch
+    - if ref =~ 5.11:
+        - paraview-5.11.0-findcgns.patch
+        - paraview-5.11.0-client.patch
+        - paraview-5.11.0-gil.patch
+        - paraview-5.11.0-mpi4py.patch
+        - paraview-5.11.0-openturns-1.21.patch
+        - paraview-5.11.0-python-3.11.patch
+        - ensightgoldbinaryreader-fix-int-overflow.patch
+    - if ref =~ 5.13:
+        - paraview-5.13-2918b94391-add_dll_directory.patch
+        - paraview-5.13-2918b94391-findmpi.patch
+        - paraview-5.13-2918b94391-findcgns.patch
+        - paraview-5.13-2918b94391-findfreetype.patch
+        - paraview-5.13-2918b94391-vtkmodule.patch
+    - if ref =~ 6.0:
+        - paraview-5.11.0-findcgns.patch
+        - paraview-6.0.0-c61dcc8ee0.p005-LATA_V2.1-plugin.patch
+    - if ref =~ 6.1:
+        - paraview-6.1.c61dcc8ee.0001-LATA-reader.patch
+        - paraview-6.1.c61dcc8ee.0002-vtkUnstructuredGridRelevantPointsFilter-fix-for-poly.patch
+  mingw:
+    - paraview-5.11.0.msys2.patch
+
+depends:
+  default:
+    - os@-python3-dev
+    - os@-x11-dev
+    - os@-xt-dev
+    - os@-pugixml
+    - s-qt
+    - s-hdf5
+    - s-openturns
+  catalyst:
+    - s-catalyst
+  egl:
+    - os@-egl1-mesa-dev
+  gdal:
+    - s-gdal
+  headless:
+    - os@-egl1-mesa-dev
+  mesa:
+    - os@-osmesa-dev
+  mingw:
+    - os@-python3-dev
+    - os@-pugixml-dev
+    - os@-cli11
+    - os@-glew-dev
+    - os@-ogg-dev
+    - os@-theora-dev
+    - os@-haru-dev
+    - os@-protobuf-dev
+    - s-boost
+    - s-qt
+    - s-hdf5
+    - s-openturns
+    - s-gdal
+    - s-cgns
+    - s-netcdf
+    - s-rkcommon
+    - s-embree
+  mpi:
+    - s-openmpi
+  ospray:
+    - s-ospray
+  vrpn:
+    - s-vrpn
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - os@-qtxmlpatterns5-dev-tools
+    - os@-fmt-dev
+    - os@-gl2ps-dev
+    - git-lfs
+  mingw:
+    - os@-qtxmlpatterns5-dev-tools
+    - os@-utf8cpp
+    - os@-fmt-dev
+    - os@-gl2ps-dev
+
+env:
+  - local CMAKE_PV $(last-modified-directory "$PREFIX/lib*/cmake/paraview-*")
+  - set-var PARAVIEW_ROOT_DIR $PREFIX
+  - set-var PARAVIEW_INSTALL_DIR $PREFIX
+  - add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}
+  - add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}/vtk
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PV_PLUGIN_PATH $(last-modified-directory "$PREFIX/lib*/paraview*/plugins")
+  - if exists($PREFIX/lib):
+      - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+      - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+      - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+      - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - if exists($PREFIX/lib64):
+      - add-to-var LD_LIBRARY_PATH $PREFIX/lib64
+      - add-to-var PYTHONPATH $PREFIX/lib64/python$PYTHON_VERSION/site-packages
+      - add-to-var PYTHONPATH $PREFIX/lib64/python$PYTHON_VERSION/site-packages/salome
+      - add-to-var PYTHONPATH $PREFIX/lib64/salome
+
+config-options:
+  common:
+    - -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE Release)
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DPARAVIEW_GIT_DESCRIBE=disabled
+    - -DPARAVIEW_VERSIONED_INSTALL=OFF
+    - -DBUILD_EXAMPLES:BOOL=OFF
+    - -DBUILD_TESTING:BOOL=OFF
+    - -DPARAVIEW_USE_QT:BOOL=ON
+    - -DPARAVIEW_BUILD_SHARED_LIBS:BOOL=ON
+    - -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON
+    - -DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON
+    - -DPARAVIEW_ENABLE_OPENTURNS=ON
+    - -DPARAVIEW_ENABLE_WEB:BOOL=OFF
+    - -DPARAVIEW_USE_PYTHON:BOOL=ON
+    - -DPARAVIEW_PLUGIN_ENABLE_GeographicalMap=ON
+    - -DPARAVIEW_PLUGIN_ENABLE_NodeEditor=OFF
+    - -DPARAVIEW_PLUGIN_ENABLE_Moments:BOOL=OFF
+    - -DPARAVIEW_PLUGIN_ENABLE_SLACTools:BOOL=OFF
+    - -DPARAVIEW_PLUGIN_ENABLE_PacMan:BOOL=OFF
+    - -DPARAVIEW_PLUGIN_ENABLE_pvblot:BOOL=OFF
+    - -DPARAVIEW_PLUGIN_ENABLE_SurfaceLIC=OFF
+    - -DPARAVIEW_PLUGIN_ENABLE_XArrayCFReader=OFF
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_AcceleratedAlgorithms=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_AnalyzeNIfTIReaderWriter=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_ArrowGlyph=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_BagPlotViewsAndFilters=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_Datamine=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_DigitalRockPhysics=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_EmbossingRepresentations=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_ExplicitStructuredGrid=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_FlipBookPlugin=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_GMVReader=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_GenericIOReader=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_GeodesicMeasurement=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_GeographicalMap=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_HyperTreeGridADR=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_LANLX3DReader=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_LagrangianParticleTracker=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_LegacyExodusReader=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_Moments=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_MooseXfemClip=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_NonOrthogonalSource=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_PanoramicProjectionView=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_ParametricSurfaces=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_SLACTools=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_SaveStateAndScreenshot=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_StreamLinesRepresentation=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_StreamingParticles=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_SurfaceLIC=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_ThickenLayeredCells=ON
+    - -DPARAVIEW_PLUGIN_AUTOLOAD_VTKmFilters=ON
+    - -DVTK_ALL_NEW_OBJECT_FACTORY=ON
+    - -DVTK_BUILD_QT_DESIGNER_PLUGIN:BOOL=OFF
+    - -DVTK_NO_PYTHON_THREADS=OFF
+    - -DVTK_PYTHON_FULL_THREADSAFE=ON
+    - -DVTK_PYTHON_VERSION=3
+    - -DVTK_SMP_IMPLEMENTATION_TYPE=OpenMP
+    - -DVTK_USE_64BIT_IDS:BOOL=ON
+    - -DVTK_MODULE_USE_EXTERNAL_VTK_netcdf=ON
+    - -DVTK_MODULE_ENABLE_VTK_RenderingLOD=YES
+    - -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES
+    - -DVTK_MODULE_ENABLE_VTK_CommonCore=YES
+    - -DVTK_MODULE_ENABLE_VTK_IOCore=YES
+    - -DVTK_MODULE_ENABLE_VTK_IOEnSight=YES
+    - -DVTK_MODULE_ENABLE_VTK_IOInfovis=YES
+    - -DHDF5_IS_PARALLEL=OFF
+    - -DVTK_MODULE_USE_EXTERNAL_VTK_hdf5:BOOL=ON
+    - -DHDF5_DIR:PATH=${HDF5_ROOT_DIR}/share/cmake/hdf5
+    - -DHDF5_USE_STATIC_LIBRARIES:BOOL=OFF
+    - -DHDF5_ROOT:PATH=${HDF5_ROOT_DIR}
+    - -DHDF5_hdf5_LIBRARY_RELEASE=${HDF5_ROOT_DIR}/lib
+    - -DHDF5_hdf5_hl_LIBRARY_RELEASE=${HDF5_ROOT_DIR}/lib/libhdf5_hl.so
+    - -DHDF5_hdf5_CXX_LIBRARY_RELEASE=${HDF5_ROOT_DIR}/lib/libhdf5_cpp.so
+    - -DHDF5_HL_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5_hl.so
+    - -DHDF5_C_INCLUDE_DIR=${HDF5_ROOT_DIR}/include
+    - -DHDF5_HL_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5_hl.so
+    - -DHDF5_C_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5.so
+    - -DHDF5_INCLUDE_DIRS=${HDF5_ROOT_DIR}/include
+  catalyst:
+    - -DPARAVIEW_ENABLE_CATALYST=ON
+  egl:
+    - -DVTK_OPENGL_HAS_EGL:BOOL=ON
+    - -DEGL_INCLUDE_DIR=/usr/include
+    - -DEGL_LIBRARY=$(get-os-lib libEGL.so)
+    - -DEGL_opengl_LIBRARY=$(get-os-lib libOpenGL.so)
+  gdal:
+    - -DPARAVIEW_ENABLE_GDAL:BOOL=ON
+  headless:
+    - -DVTK_OPENGL_HAS_EGL=ON
+    - -DVTK_USE_X=OFF
+    - -DVTK_DEFAULT_RENDER_WINDOW_HEADLESS=ON
+    - -DPARAVIEW_USE_QT:BOOL=OFF
+    - -DOPENGL_gl_LIBRARY=$(get-os-lib libGL.so)
+    - -DOPENGL_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/gl.h)
+    - -DOPENGL_EGL_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/egl.h)
+    - -DOPENGL_GLES2_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/gl2.h)
+    - -DOPENGL_GLES3_INCLUDE_DIR=$(get-os-inc-dir /usr/include/*/gl3.h)
+    - -DOPENGL_egl_LIBRARY=$(get-os-lib libEGL.so)
+    - -DOPENGL_opengl_LIBRARY=$(get-os-lib libGL.so)
+    - -DOPENGL_gles2_LIBRARY=$(get-os-lib libGLESv2.so)
+  mesa:
+    - -DVTK_OPENGL_HAS_MESA:BOOL=ON
+    - -DOSMESA_INCLUDE_DIR=/usr/include
+    - -DOSMESA_LIBRARY=$(get-os-lib libOSMesa.so)
+  mingw:
+    - -GNinja
+    - -DVTK_IGNORE_CMAKE_CXX11_CHECKS=ON
+    - -DPARAVIEW_BUILD_SHARED_LIBS=ON
+    - -DPARAVIEW_ENABLE_LAS=ON
+    - -DPARAVIEW_VERSIONED_INSTALL=OFF
+    - -DPARAVIEW_BUILD_WITH_EXTERNAL=ON
+    - -DVTK_SMP_IMPLEMENTATION_TYPE=TBB
+    - -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk=OFF
+    - -DVTK_MODULE_USE_EXTERNAL_VTK_ioss=OFF
+    - -DVTK_MODULE_USE_EXTERNAL_VTK_verdict=OFF
+    - -DVTK_MODULE_USE_EXTERNAL_VTK_hdf5=ON
+    - -DVTK_MODULE_USE_EXTERNAL_VTK_fmt=OFF
+    - -DHDF5_IS_PARALLEL=OFF
+    - -DHDF5_FIND_DEBUG=ON
+    - -DHDF5_ROOT=${HDF5_ROOT_DIR}
+    - -DHDF5_DIR=${HDF5_ROOT_DIR}/lib/cmake/hdf5
+    - -DHDF5_C_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5.dll.a
+    - -DHDF5_INCLUDE_DIRS=${HDF5_ROOT_DIR}/include
+    - -DCGNS_LIBRARY=${CGNS_ROOT_DIR}/lib/libcgnsdll.dll.a
+    - -DCGNS_INCLUDE_DIR=${CGNS_ROOT_DIR}/include
+    - -DPython3_EXECUTABLE=$(command-path python)
+    - -DOpenTURNS_DIR=${OT_ROOT_DIR}/lib/cmake/openturns
+    - -DGDAL_INCLUDE_DIR=${GDAL_ROOT_DIR}/include
+    - -DTBB_ROOT=${MINGW_PREFIX}
+  mpi:
+    - -DPARAVIEW_USE_MPI:BOOL=ON
+    - -DVTK_MODULE_ENABLE_VTK_ParallelMPI=YES
+    - -DVTK_MODULE_ENABLE_VTK_FiltersParallelGeometry=YES
+    - -DVTK_MODULE_ENABLE_VTK_FiltersParallelMPI=YES
+  ospray:
+    - -DPARAVIEW_ENABLE_RAYTRACING:BOOL=ON
+  vrpn:
+    - -DPARAVIEW_USE_MPI:BOOL=ON
+    - -DPARAVIEW_BUILD_PLUGIN_VRPlugin:BOOL=ON
+    - -DPARAVIEW_USE_VRPN:BOOL=ON
+    - -DPARAVIEW_AUTOLOAD_PLUGIN_VRPlugin=ON
+    - -DVRPN_LIBRARY=$VRPN_ROOT_DIR/lib/libvrpn.a
+    - -DVRPN_INCLUDE_DIR=$VRPN_ROOT_DIR/include
+
+config:
+  _: |-
+    OPTIONS =
+    OPTIONS = config-options
+    cmake $OPTIONS ../src
+  mingw: |-
+    OPTIONS =
+    OPTIONS = config-options
+    CXXFLAGS="$CXXFLAGS -w -Wno-register" cmake $OPTIONS ../src
+
+build:
+  _: make -j$SCBI_JOBS
+  mingw: cmake --build . -j$SCBI_JOBS
+
+install:
+  _: make install
+  mingw: cmake --install .
+
+post-install: |-
+  IDIR = last-modified-directory ../install/lib*/cmake/paraview-*
+  if is-dir($IDIR):
+      sed -i 's/COMPONENTS          C/#COMPONENTS          C/g' $IDIR/vtk/VTK-vtk-module-find-packages.cmake
+  return 0
+
+prefix: NONE

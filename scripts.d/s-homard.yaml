@@ -1,0 +1,66 @@
+plugin: s-homard
+
+functions:
+  s-homard-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-homard-salome-module:
+    run: echo HOMARD
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/homard
+
+patches:
+  - activate-homard-tests.patch
+
+depends:
+  default:
+    - os@-python3-sip-dev
+    - s-qt
+    - s-pyqt
+    - s-salome-configuration
+    - s-salome-kernel
+    - s-salome-gui
+    - s-med-file
+    - s-med-coupling
+    - s-geom
+    - s-smesh
+
+build-depends:
+  default:
+    - os@-sphinx-common
+    - s-cmake
+    - s-swig
+    - s-salome-bootstrap
+
+env:
+  - set-var HOMARD_ROOT_DIR $PREFIX
+  - set-var HOMARD_REP_EXE $PREFIX/bin/salome
+  - set-var HOMARD_EXE homard
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var SALOME_MODULES HOMARD
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/homard
+
+config: |-
+  CDEBUG = is-enabled cmake-debug
+  DISDOC = is-enabled no-doc
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DSWIG_EXECUTABLE=${SWIG_ROOT_DIR}/bin/swig ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ${DISDOC:+-DSALOME_BUILD_DOC=OFF} ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install: |-
+  cd ../install
+  DDIR = share/doc/salome/gui/HOMARD/fr/_downloads/
+  if is-dir($DDIR):
+      cd $DDIR
+      for dir in *:
+          ln -s $dir/* .
+
+prefix: NONE

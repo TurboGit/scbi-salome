@@ -1,0 +1,66 @@
+plugin: s-med-file
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: med-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 4.: medfile-mpi-config.patch
+
+depends:
+  _:
+    - os@-python3
+    - os@-python3-dev
+    - os@-gfortran
+    - s-hdf5
+    - s-salome-configuration
+  mpi:
+    - s-openmpi
+
+build-depends:
+  - s-cmake
+  - s-swig
+
+env:
+  - set-var MEDFILE_ROOT_DIR $PREFIX
+  - set-var MEDFile_DIR $(last-modified-directory "$PREFIX/share/cmake/med-fichier-*")
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+build-env:
+  - set-var PYTHON /usr/bin/python$PYTHON_VERSION
+
+config-options:
+  common:
+    - --prefix=$PREFIX
+    - --with-swig=$(command-path swig)
+    - --with-hdf5=$HDF5_ROOT_DIR
+    - --enable-mesgerr
+    - --enable-python=yes
+    - --with-f90
+    - --with-med_int=long
+    - FFLAGS=-O2 -fdefault-integer-8 -fallow-argument-mismatch
+    - FCLAGS=-O2 -fdefault-integer-8 -fallow-argument-mismatch
+    - CFLAGS=-O2 -m64
+    - CXXFLAGS=-O2 -m64
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  ../src/configure $OPTIONS
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

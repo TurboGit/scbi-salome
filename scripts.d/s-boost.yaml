@@ -1,0 +1,20 @@
+plugin: s-boost
+
+with-variants:
+  native:
+    packages:
+      - os@-boost-dev:[v]
+      - os@-boost-filestsystem-dev:[v]
+      - os@-boost-regex-dev:[v]
+      - os@-boost-thread-dev:[v]
+      - os@-boost-chrono-dev:[v]
+      - os@-boost-date-time-dev:[v]
+      - os@-boost-serialization-dev:[v]
+    env:
+      - set-var BOOST_ROOT_DIR /usr
+      - set-var BOOSTDIR /usr
+  mingw:
+    packages:
+      - os@-boost-dev:[v]
+    env:
+      - set-var BOOST_ROOT_DIR $MINGW_PREFIX

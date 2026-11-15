@@ -1,0 +1,33 @@
+plugin: s-gnuplot-py
+
+depends:
+  common:
+    - gnuplot
+    - os@-python3-numpy
+    - os@-python3
+
+build-depends:
+  common:
+    - os@-python3-setuptools
+
+env:
+  - set-var GNUPLOTPY_HOME $PREFIX
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+build-env:
+  - unset-var PYTHONHOME
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+out-of-tree: false
+
+install: |-
+  PYPIURL = $(store-key PYPIURL)
+  mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  echo "[easy_install]" > setup.cfg
+  echo "index-url = $PYPIURL" >> setup.cfg
+  python3 setup.py install --prefix=$PREFIX
+  sed -i "s/import gp, PlotItems, termdefs, Errors/import gp, PlotItems, termdefs\nimport Gnuplot.Errors as Errors/g" $PREFIX/lib/python$PYTHON_VERSION/site-packages/Gnuplot/_Gnuplot.py
+  sed -i "s/import gp, utils, Errors/import gp\nimport Gnuplot.Errors as Errors\nimport Gnuplot.utils as utils/g" $PREFIX/lib/python$PYTHON_VERSION/site-packages/Gnuplot/PlotItems.py
+  sed -i "s/import Gnuplot, utils/import Gnuplot\nimport Gnuplot.utils as utils/g" $PREFIX/lib/python$PYTHON_VERSION/site-packages/Gnuplot/funcutils.py
+
+prefix: NONE

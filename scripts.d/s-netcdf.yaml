@@ -1,0 +1,74 @@
+plugin: s-netcdf
+
+with-variants:
+  native:
+    packages:
+      - s-hdf5
+      - os@-netcdf-dev
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/Unidata/netcdf-c.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: netcdf-c-$VERSION.tar.gz
+
+patches:
+  mingw:
+    - netcdf-4.7.4.msys2.patch
+
+depends:
+  - s-hdf5
+  - os@-curl4-gnutls-dev
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var NETCDF_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var LIBRARY_PATH $PREFIX/lib
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h
+  default:
+    - -DHDF5_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR
+    - -DHDF5_LIBRARIES=$HDF5_LIBRARIES
+    - -DHDF5_C_LIBRARY=$HDF5_C_LIBRARY_hdf5
+    - -DHDF5_HL_LIBRARY=$HDF5_C_LIBRARY_hdf5_hl
+    - -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h
+  mingw:
+    - -GMSYS Makefiles
+    - -DCMAKE_INSTALL_LIBDIR=lib
+    - -DENABLE_NETCDF_4=ON
+    - -DBUILD_UTILITIES=ON
+    - -DBUILD_SHARED_LIBS=ON
+    - -DENABLE_DAP=OFF
+    - -DENABLE_TESTS=ON
+    - -DENABLE_UNIT_TESTS=OFF
+    - -DHDF5_HL_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5_hl.dll.a
+    - -DHDF5_C_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5.dll.a
+    - -DHDF5_INCLUDE_DIR=${HDF5_ROOT_DIR}/include
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,59 @@
+plugin: s-atomic
+
+functions:
+  s-atomic-salome-module:
+    run: echo ATOMIC
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://git.salome-platform.org/gitpub/samples/atomic
+
+depends:
+  common:
+    - s-salome-configuration
+    - s-python-modules
+    - s-gdal
+    - s-boost
+    - s-qt
+    - s-pyqt
+  default:
+    - s-salome-kernel
+    - s-salome-bootstrap
+    - s-salome-gui
+
+build-depends:
+  _:
+    - if not enabled(no-doc): os@-python3-sphinx
+    - if not enabled(no-doc): os@-sphinx-intl
+    - s-python-modules
+  common:
+    - s-cmake
+
+env:
+  - set-var ATOMIC_ROOT_DIR $PREFIX
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/adm_local/cmake_files
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var SALOME_MODULES ATOMIC
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/atomic
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_INCLUDE_DIRECTORIES_BEFORE=ON
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+  - -DGDAL_ROOT_DIR=$GDAL_ROOT_DIR
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,47 @@
+plugin: s-adao-tool
+
+functions:
+  s-adao-tool-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/adao
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - os@-python3-sphinx-rtd-theme
+    - os@-python3-matplotlib
+    - s-python3-nlopt
+    - os@-python3-scipy
+
+build-depends:
+  - s-cmake
+  - if not enabled(no-doc): os@-sphinx-common
+  - if not enabled(no-doc): os@-sphinx-intl
+
+env:
+  - set-var ADAO_ENGINE_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+build-env:
+  - set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+
+config: |-
+  CDEBUG = is-enabled cmake-debug
+  DISDOC = is-enabled no-doc
+  _S1 = command-path python$PYTHON_VERSION
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DPYTHON_EXECUTABLE=$_S1 -DADAO_SALOME_MODULE=OFF ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ${DISDOC:+-DADAO_BUILD_DOC=OFF} ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

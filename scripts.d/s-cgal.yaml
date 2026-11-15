@@ -1,0 +1,67 @@
+plugin: s-cgal
+
+with-variants:
+  native:
+    packages:
+      - os@-cgal-dev:[v]
+    env:
+      - set-var CGALHOME /usr
+      - if ${SCBI_MODVER[s-cgal]} =~ :*4.: set-var CGALLIB -lCGAL
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/CGAL/cgal.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: cgal-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 4.: cgal-cmake352.patch
+
+depends:
+  common:
+    - s-salome-configuration
+    - s-boost
+  default:
+    - os@-boost-thread-dev
+    - os@-boost-system-dev
+    - os@-program-options-dev
+    - os@-zlib1g-dev
+    - os@-gcc
+    - s-tbb
+
+build-depends:
+  common:
+    - s-cmake
+
+env:
+  - set-var CGALHOME $PREFIX
+  - set-var CGAL_INCLUDE_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - if ${SCBI_MODVER[s-cgal]} =~ :*4.: set-var CGALLIB -lCGAL
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DWITH_CGAL_Qt3:BOOL=OFF
+  - -DWITH_CGAL_Qt4:BOOL=OFF
+  - -DWITH_GMP:BOOL=OFF
+  - -DWITH_GMPXX:BOOL=OFF
+  - -DBOOST_ROOT=$BOOSTDIR
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

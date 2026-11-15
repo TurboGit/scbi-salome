@@ -1,0 +1,53 @@
+plugin: s-mesh-boolean-plugin
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/meshbooleanplugin
+
+depends:
+  - os@-qwt-qt5-dev
+  - s-salome-configuration
+  - s-smesh
+  - s-libigl
+  - s-irbm
+  - s-pyqt
+  - s-python3-numpy
+  - s-cgal
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var MESHBOOLEANGPLUGIN_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/plugins
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DCMAKE_INSTALL_LIBDIR:STRING=lib
+  - -DBUILD_CGAL=ON
+  - -DBUILD_MCUT=OFF
+  - -DBUILD_IRMB=OFF
+  - -DBUILD_CORK=OFF
+  - -DBUILD_IGL=ON
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install: |-
+  FILE = ${PREFIX}/plugins/meshbooleanplugin/MyPlugDialog_ui.py
+  sed '$d' $FILE > MyPlugDialog_ui.py
+  echo "from qwt import QwtPlot" >> MyPlugDialog_ui.py
+  echo >> MyPlugDialog_ui.py
+  mv MyPlugDialog_ui.py $FILE
+
+prefix: NONE

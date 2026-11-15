@@ -1,0 +1,20 @@
+plugin: s-mesa
+
+archive:
+  mingw-bin:
+    proxy: default
+    options: none
+    protocol: wget
+    url: https://github.com/pal1000/mesa-dist-win/releases/download/$VERSION
+    file: mesa3d-$VERSION-release-mingw.7z
+
+out-of-tree:
+  mingw-bin: false
+
+install:
+  mingw-bin: |-
+    mkdir -p ../install/bin
+    copy x64/* ../install/bin
+
+prefix:
+  mingw-bin: NONE

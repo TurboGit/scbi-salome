@@ -1,0 +1,15 @@
+plugin: s-python3-importlib-metadata
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-importlib-metadata:[v]
+
+depends:
+  - s-python3-zipp
+
+config-options:
+  - importlib-metadata==$(get-version)

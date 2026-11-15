@@ -1,0 +1,52 @@
+plugin: s-libbatch
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/libbatch
+
+patches:
+  mingw:
+    - libbatch.msys2.patch
+
+depends:
+  - os@-python3-dev
+  - s-salome-configuration
+
+build-depends:
+  - s-cmake
+  - s-swig
+
+env:
+  - set-var LibBatch_DIR $PREFIX
+  - set-var LIBBATCH_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH ${LIBBATCH_ROOT_DIR}/lib/python${PYTHON_VERSION}/site-packages
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  mingw:
+    - -GNinja
+    - -DPYTHON_ROOT_DIR=${MINGW_PREFIX}
+    - -DPTHREAD_LIBRARY=${MINGW_PREFIX}/lib/libpthread.dll.a
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build:
+  _: make -j$SCBI_JOBS
+  mingw: cmake --build .
+
+install:
+  _: make install
+  mingw: cmake --install .
+
+prefix: NONE

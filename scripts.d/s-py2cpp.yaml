@@ -1,0 +1,37 @@
+plugin: s-py2cpp
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/py2cpp
+
+depends:
+  - s-salome-configuration
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var PY2CPP_ROOT_DIR $PREFIX
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/py2cpp
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

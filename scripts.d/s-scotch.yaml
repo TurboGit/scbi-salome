@@ -1,0 +1,48 @@
+plugin: s-scotch
+
+with-variants:
+  native:
+    packages:
+      - os@-scotch:[v]
+      - os@-scotch-dev:[v]
+  ng:
+    packages: []
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://gitlab.inria.fr/scotch/scotch
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: scotch-$VERSION.tar.gz
+
+depends:
+  - os@-flex
+  - os@-bison
+
+env:
+  - set-var SCOTCH_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CXX_INCLUDE_PATH $PREFIX/include
+
+out-of-tree: false
+
+pre-config: sed -e "s%CFLAGS\([[:space:]]*\)=\([[:space:]]*\)\(.*\)%CFLAGS\1=\2-fPIC \3%g" -e "s%LDFLAGS\([[:space:]]*\)=\([[:space:]]*\)\(.*\)%LDFLAGS\1=\2 \3 -lpthread%g" src/Make.inc/Makefile.inc.x86-64_pc_linux2 > src/Makefile.inc
+
+config:
+  cmake: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_SHARED_LIBS=ON -DBUILD_LIBSCOTCHMETIS=OFF ../src
+
+build: cd src && make -j$SCBI_JOBS scotch
+
+install:
+  _: cd src && make prefix=$PREFIX install
+  cmake: cd src && make install
+
+prefix: NONE

@@ -1,0 +1,50 @@
+plugin: s-rkcommon
+
+vcs:
+  proxy: default
+  options: no-recursive
+  protocol: git
+  url: https://github.com/ospray/rkcommon.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: rkcommon-$VERSION.tar.gz
+
+patches:
+  mingw:
+    - rkcommon-1.5.1-all.patch
+
+depends:
+  - s-tbb
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var RKCOMMON_ROOT_DIR $PREFIX
+  - set-var RKCOMMON_BUILD_DIR $PREFIX/../build
+  - add-to-var C_INCLUDE_PATH $PREFIX/include/rkcommon
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/rkcommon
+  - add-to-var LIBRARY_PATH $PREFIX/lib
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var CMAKE_PREFIX_PATH $(last-modified-directory "$PREFIX/lib*/cmake/rkcommon-*")
+
+config:
+  _: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LIBDIR=lib ../src
+  mingw: cmake -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DCMAKE_INSTALL_PREFIX=$PREFIX -DTBB_DLL=${TBB_ROOT}/bin/libtbb12.dll -DTBB_DLL_MALLOC=${TBB_ROOT}/bin/libtbbmalloc.dll ../src
+
+pre-build:
+  mingw: |-
+    RES = ../src/rkcommon/rkcommon.rc
+    mv $RES{,.orig}
+    iconv -f UTF-16LE -t UTF-8 ${RES}.orig > $RES
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

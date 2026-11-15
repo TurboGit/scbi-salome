@@ -1,0 +1,49 @@
+plugin: s-cfd-study
+
+functions:
+  s-cfd-study-salome-module:
+    run: echo CFDSTUDY
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/code-saturne/salome_cfd_extensions
+
+patches:
+  - cfdstudygui-actionshandler.patch
+
+depends:
+  common:
+    - s-saturne
+
+build-depends:
+  common:
+    - s-cmake
+    - os@-autoconf
+    - os@-automake
+    - os@-autotools-dev
+    - os@-libtool
+  default:
+    - os@-python3-setuptools
+
+env:
+  - set-var CFDSTUDY_ROOT_DIR $PREFIX
+  - set-var CFDSTUDY_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var SALOME_MODULES CFDSTUDY
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/cfdstudy
+
+out-of-tree: false
+
+pre-config: ../src/sbin/bootstrap
+
+config: ../src/configure --prefix=$PREFIX --with-salome=$SALOME_ROOT_DIR CS_ROOT_DIR=$CS_ROOT_DIR OMNIIDL=$SALOME_BIN_MODULES/omniORB/bin/omniidl SALOMEENVCMD=echo
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install: copy $PREFIX/share/salome/resources/cfdstudy/SalomeApp.xml $PREFIX/share/salome/resources/cfdstudy/SalomeAppSL.xml

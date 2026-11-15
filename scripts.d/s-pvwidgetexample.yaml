@@ -1,0 +1,22 @@
+plugin: s-pvwidgetexample
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://git.phimeca.com/ot-edf/pvwidgetexample.git
+
+depends:
+  - s-paraview
+  - s-salome-configuration
+
+build-depends:
+  - s-cmake
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

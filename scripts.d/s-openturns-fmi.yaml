@@ -1,0 +1,47 @@
+plugin: s-openturns-fmi
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/openturns/otfmi.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: openturns-${VERSION%|*}.tar.gz
+  dir: otfmi-${VERSION#*|}
+
+depends:
+  - s-openturns
+  - s-fmil
+  - s-pyfmi
+  - os@-python3
+
+build-depends:
+  - os@-python3-setuptools
+
+env:
+  - set-var OTfmi_HOME $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+build-env:
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+out-of-tree: false
+
+install: |-
+  PYPIURL = $(store-key PYPIURL)
+  mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  echo "[easy_install]" > setup.cfg
+  echo "index-url = $PYPIURL" >> setup.cfg
+  python3 setup.py install --prefix=$PREFIX
+
+prefix: NONE

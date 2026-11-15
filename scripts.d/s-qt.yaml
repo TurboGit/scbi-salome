@@ -1,0 +1,135 @@
+plugin: s-qt
+
+with-variants:
+  native:
+    packages:
+      - os@-qtbase5-dev:[v]
+      - os@-qttools5-dev:[v]
+      - os@-qt5help5
+      - os@-qt5x11extras5-dev
+      - os@-qt5opengl5-dev
+      - os@-qt5svg5-dev
+      - os@-qtxmlpatterns5-dev-tools
+      - os@-qwt-qt5-dev
+    env:
+      - set-var QT5_ROOT_DIR /usr
+      - add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5
+      - add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5LinguistTools
+  mingw:
+    packages:
+      - os@-qtbase5-dev:[v]
+      - os@-qttools5-dev:[v]
+      - os@-qt5svg5-dev
+      - os@-qtxmlpatterns5-dev-tools
+      - os@-qwt-qt5-dev
+    env:
+      - set-var QT5_ROOT_DIR $MINGW_PREFIX
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/qt/qt5.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: qt-$VERSION.tar.gz
+
+depends:
+  - libfontconfig1-dev
+  - libframe6
+  - libfreetype-dev
+  - libgl1-mesa-dev
+  - libglu1-mesa-dev
+  - libgnomecanvas2-dev
+  - libjpeg-dev
+  - libpng-dev
+  - libpq5
+  - libsm6
+  - libssl-dev
+  - libx11-dev
+  - libxcb-composite0-dev
+  - libxcb-cursor-dev
+  - libxcb-damage0-dev
+  - libxcb-dpms0-dev
+  - libxcb-dri2-0-dev
+  - libxcb-dri3-dev
+  - libxcb-ewmh-dev
+  - libxcb-glx0-dev
+  - libxcb-icccm4-dev
+  - libxcb-image0-dev
+  - libxcb-imdkit-dev
+  - libxcb-keysyms1-dev
+  - libxcb-present-dev
+  - libxcb-randr0-dev
+  - libxcb-record0-dev
+  - libxcb-render-util0-dev
+  - libxcb-render0-dev
+  - libxcb-res0-dev
+  - libxcb-screensaver0-dev
+  - libxcb-shape0-dev
+  - libxcb-shm0-dev
+  - libxcb-sync-dev
+  - libxcb-util0-dev
+  - libxcb-xf86dri0-dev
+  - libxcb-xfixes0-dev
+  - libxcb-xinerama0-dev
+  - libxcb-xinput-dev
+  - libxcb-xkb-dev
+  - libxcb-xrm-dev
+  - libxcb-xtest0-dev
+  - libxcb-xv0-dev
+  - libxcb-xvmc0-dev
+  - libxcb1-dev
+  - libxkbcommon-x11-dev
+  - libxrender-dev
+  - zlib1g-dev
+
+build-depends:
+  - os@-autoconf
+
+env:
+  - set-var QT5_ROOT_DIR $PREFIX
+  - set-var QTDIR $PREFIX
+  - set-var QT_XKB_CONFIG_ROOT /usr/share/X11/xkb
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var QT_LIB_DIR $PREFIX/lib
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var QT_PLUGIN_PATH $PREFIX/plugins
+  - add-to-var QT_QPA_PLATFORM_PLUGIN_PATH $PREFIX/plugins
+
+config-options:
+  - --prefix=$PREFIX
+  - -opensource
+  - -confirm-license
+  - -skip
+  - qtwebengine
+  - -skip
+  - wayland
+  - -skip
+  - qtgamepad
+  - -nomake
+  - examples
+  - -nomake
+  - tests
+  - -no-rpath
+  - -xcb
+  - -xkbcommon
+  - -qt-libpng
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  ../src/configure $OPTIONS
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

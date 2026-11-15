@@ -1,0 +1,12 @@
+plugin: s-python3-rich
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-rich:[v]
+
+config-options:
+  - rich==$(get-version)

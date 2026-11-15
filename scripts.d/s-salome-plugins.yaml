@@ -1,0 +1,10 @@
+plugin: s-salome-plugins
+
+modules:
+  - s-ghs3d-plugin
+  - s-gmsh-plugin
+  - s-netgen-plugin
+  - s-hexotic-plugin
+  - s-hexablock-plugin
+
+aggregate: no

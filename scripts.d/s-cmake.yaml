@@ -1,0 +1,32 @@
+plugin: s-cmake
+
+inherit:
+  - from: c-cmake
+
+with-variants:
+  native:
+    packages:
+      - os@-cmake:[v]
+  win:
+    packages: []
+    env:
+      #  the MingW64 cmake when used with a Cygwin shell
+      - add-to-var PATH $(output cygpath -c -s 'c:\opt\msys64\mingw64\bin')
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/Kitware/CMake.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: cmake-$VERSION.tar.gz
+
+build-depends:
+  - os@-g++
+  - os@-make
+  - os@-openssl-dev

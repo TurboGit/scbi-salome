@@ -1,0 +1,15 @@
+plugin: s-python3-lxml
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-lxml:[v]
+
+build-depends:
+  - os@-xml2-dev
+
+config-options:
+  - lxml==$(get-version)

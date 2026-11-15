@@ -1,0 +1,48 @@
+plugin: s-mixmod
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/mixmod/mixmod.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: openturns-${VERSION%|*}.tar.gz
+  dir: mixmod-${VERSION#*|}
+
+depends:
+  - libxml++2.6-dev
+  - s-eigen
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var MIXMOD_ROOT_DIR $PREFIX
+  - set-var MIXMOD_LIBRARY $PREFIX/lib/libmixmod.so
+  - set-var MIXMOD_INCLUDE_DIR $PREFIX/include
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DMIXMOD_BUILD_IOSTREAM=ON
+  - -DMIXMOD_BUILD_CLI=ON
+  - -DMIXMOD_ENABLE_OPENMP=ON
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

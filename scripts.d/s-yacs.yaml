@@ -1,0 +1,67 @@
+plugin: s-yacs
+
+functions:
+  s-yacs-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test/yacs
+  s-yacs-salome-module:
+    run: echo YACS
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/yacs
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - os@-graphviz-dev
+    - os@-graphviz
+    - os@-sphinx-common
+    - os@-sphinx-intl
+    - s-salome-kernel
+    - s-salome-gui
+    - s-yacsgen
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - s-swig
+    - s-salome-bootstrap
+
+env:
+  - set-var YACS_ROOT_DIR $PREFIX
+  - set-var SalomeYACS_DIR $PREFIX/adm/cmake
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SALOME_MODULES YACS
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/yacs
+  - add-to-var CMAKE_PREFIX_PATH $SalomeYACS_DIR
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DSWIG_EXECUTABLE=$SWIG_ROOT_DIR/bin/swig
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DSALOME_BUILD_TESTS=ON
+  - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

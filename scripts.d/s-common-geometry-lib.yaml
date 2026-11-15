@@ -1,0 +1,42 @@
+plugin: s-common-geometry-lib
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/common_geometry_lib
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-occt
+    - s-salome-bootstrap
+
+build-depends:
+  common:
+    - s-cmake
+
+env:
+  - set-var CommonGeomLib_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,79 @@
+plugin: s-smesh
+
+functions:
+  s-smesh-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test
+  s-smesh-salome-module:
+    run: echo SMESH
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/smesh
+
+patches: []
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-qt
+    - s-omniorb
+    - s-hdf5
+    - s-salome-kernel
+    - s-salome-gui
+    - s-geom
+    - s-shaper-study
+    - s-med-file
+    - s-med-coupling
+    - s-cgns
+  mpi:
+    - s-openmpi
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - os@-sphinx-common
+    - os@-sphinx-intl
+    - s-salome-bootstrap
+
+env:
+  - set-var SMESH_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var PYTHONPATH $PREFIX/share/salome/plugins/smesh
+  - add-to-var PYTHONPATH $PREFIX/share/salome/plugins/smesh/Verima
+  - add-to-var PYTHONPATH $PREFIX/share/salome/plugins/smesh/MacMesh
+  - add-to-var SMESH_MeshersList StdMeshers
+  - add-to-var SALOME_MODULES SMESH
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/smesh
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DSALOME_SMESH_USE_CGNS=ON
+    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+  mpi:
+    - -DSALOME_USE_MPI=ON
+    - -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

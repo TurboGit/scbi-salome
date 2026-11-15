@@ -1,0 +1,54 @@
+plugin: s-openvkl
+
+vcs:
+  proxy: default
+  options: no-recursive
+  protocol: git
+  url: https://github.com/openvkl/openvkl.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: openvkl-$VERSION.tar.gz
+
+depends:
+  - s-embree
+  - s-rkcommon
+
+build-depends:
+  - s-cmake
+  - s-ispc
+  - s-clang
+
+env:
+  - set-var OPENVKL_ROOT_DIR $PREFIX
+  - set-var OPENVKL_BUILD_DIR $PREFIX/../build
+  - add-to-var C_INCLUDE_PATH $PREFIX/include/openvkl
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/openvkl
+  - add-to-var LIBRARY_PATH $PREFIX/lib
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var CMAKE_PREFIX_PATH $(last-modified-directory "$PREFIX/lib*/cmake/openvkl-*")
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_INSTALL_NAME_DIR:PATH=$PREFIX/lib
+  - -DCMAKE_INSTALL_LIBDIR:STRING=lib
+  - -DCMAKE_INSTALL_INCLUDEDIR:STRING=include
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DBUILD_TESTING=OFF
+  - -DBUILD_EXAMPLES=OFF
+  - -DCMAKE_C_COMPILER=clang-${SCBI_CLANG_VERSION}
+  - -DCMAKE_CXX_COMPILER=clang++
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

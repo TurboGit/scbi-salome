@@ -1,0 +1,43 @@
+plugin: s-pyqt-sip
+
+inherit:
+  - from: s-python-post-install-dist-packages
+    name: handle-dist
+
+with-variants:
+  native:
+    packages:
+      - os@-pyqt-sip:[v]
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: sip-${VERSION%|*}-PyQt5_sip-${VERSION#*|}.tar.gz
+  dir: PyQt5_sip-${VERSION#*|}
+
+patches:
+  - if ref =~ 12.8: pyqtsip-12.8-f_back.patch
+
+env:
+  - set-var PYQT_SIPS_DIR $PREFIX
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+build-env:
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+out-of-tree: false
+
+pre-install: mkdir -p $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+install: CFLAGS='-fpermissive -Wno-implicit-function-declaration -Wno-deprecated-declarations -Wno-int-conversion -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2' pip3 install --ignore-installed . --no-deps --prefix=$PREFIX
+
+post-install: |-
+  handle-dist-post-install $PREFIX $TARGET
+  mkdir -p $PREFIX/include
+  copy *.h $PREFIX/include
+
+prefix: NONE

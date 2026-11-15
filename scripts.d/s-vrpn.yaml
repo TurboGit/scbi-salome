@@ -1,0 +1,23 @@
+plugin: s-vrpn
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: git clone https://github.com/vrpn/vrpn
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var VRPN_ROOT_DIR $PREFIX
+  - add-to-var VRPN_INCLUDE_DIR $PREFIX/include
+  - add-to-var VRPN_LIBRARY $PREFIX/lib
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,15 @@
+plugin: s-python3-proj
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-pyproj:[v]
+
+build-depends:
+  - s-proj
+
+config-options:
+  - pyproj==$(get-version)

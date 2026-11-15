@@ -1,0 +1,87 @@
+plugin: s-persalys
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/persalys/persalys.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: persalys_v$VERSION.tar.gz
+
+patches:
+  - if ref =~ 14.1: persalys-v14.1-001.patch
+  - if ref =~ 17.0: persalys-v17.0.1-001.patch
+  - if ref =~ 18.0: persalys-v17.0.1-001.patch
+  - if ref =~ 19.0: persalys-v19.0-001.patch
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-salome-gui
+    - s-salome-kernel
+    - s-openturns
+    - s-openturns-plugins
+    - s-yacs
+    - s-adao
+    - s-adao-interface
+    - s-ydefx
+    - if not enabled(no-doc):
+        - os@-sphinx-common
+        - python3-numpydoc
+
+build-depends:
+  common:
+    - os@-boost-locale-dev
+    - s-cmake
+  default:
+    - if not enabled(no-doc):
+        - os@-texlive
+        - os@-texlive-latex-extra
+    - s-py2cpp
+    - s-swig
+    - s-salome-bootstrap
+
+env:
+  - set-var PERSALYS_ROOT_DIR $PREFIX
+  - set-var PERSALYS_HTML_PATH $PREFIX/share/doc/persalys/html/
+  - set-var OTGUI_DIR $PREFIX
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/persalys
+  - add-to-var PV_PLUGIN_PATH $PREFIX/lib
+  - add-to-var PV_PLUGIN_PATH $(last-modified-directory $PREFIX/lib/paraview-*/plugins)
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DUSE_SALOME=ON
+    - -DAdaoCppLayer_INCLUDE_DIR=$ADAO_INTERFACE_ROOT_DIR/include
+    - -DAdaoCppLayer_ROOT_DIR=$ADAO_INTERFACE_ROOT_DIR
+    - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
+    - -DSalomeKERNEL_DIR=$SalomeKERNEL_DIR
+    - -DSalomeGUI_DIR=$SalomeGUI_DIR
+    - -DSalomeYACS_DIR=$SalomeYACS_DIR
+    - -DUSE_SPHINX=$(is-enabled no-doc OFF ON)
+  nodoc:
+    - -DUSE_SPHINX=OFF
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

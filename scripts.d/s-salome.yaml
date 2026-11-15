@@ -1,0 +1,355 @@
+plugin: s-salome
+
+functions:
+  copy-modules-salome:
+    run: |-
+      mkdir EDF
+      rm -f artifacts/source-refs.txt
+      #  Record source reference for QA
+      #  (nothing for aggregated modules, build dependencies and
+      #  meta-modules, except aggregates)
+      for M in $(all-modules):
+          if depends-kind($M) == default and not is-aggregated($M) and (is-aggregate($M) or not is-meta($M)):
+              SREF = $SCBI_BDIR/$M/source-ref
+              if is-file($SREF):
+                  awk '{ r = $5; for (i = 6; i <= NF; i++) r = r " " $i; printf "%-25s %-11s %-20s %-9s %s\n", $1, $2, $3, $4, r }' $SREF >> artifacts/source-refs.txt
+  setup-env-salome:
+    params:
+      - PREFIX
+      - TARGET
+      - VARIANT
+    run: |-
+      SBINDIR = EDF/s-salome-kernel
+      #  Patch env_launch.sh to be able to call the extra.env.d/*.sh from
+      #  env_launch.sh
+      append-raw env_launch.sh:
+          while read F; do
+              source $F
+          done < <(find $out_dir_Path/extra.env.d/ -type f -name "[0-9]*.sh" | sort -V)
+      #  The directory where the environment files are stored
+      mkdir -p extra.env.d
+      SVER = get-version
+      SVAR = $VARIANT
+      #  Override some possible values
+      write extra.env.d/0000_setup.py:
+          import os.path
+
+          def init(context, root_dir):
+             context.setVariable(r"ROOT_SALOME_INSTALL", root_dir, overwrite=True)
+             context.setVariable(r"SALOME_VERSION", "$SVER", overwrite=True)
+             context.setVariable(r"SALOME_VARIANT", "$SVAR", overwrite=True)
+             context.setVariable(r"PYTHON_VERSION", "$PYTHON_VERSION", overwrite=True)
+             context.setVariable(r"PYTHONIOENCODING", r"UTF_8", overwrite=True)
+             context.setVariable(r"SALOME_ON_DEMAND", r"HIDE", overwrite=True)
+      #  The functions used by the environment scripts of the modules
+      #  (extra.env.d/NNNN_<module>.sh, written by .env-shared.py)
+      write-raw extra.env.d/0000_setup.sh:
+            function is-in-list()
+            {
+                local -n LIST=$1
+                local VALUE=$2
+
+                printf -v SL "%s|" ${LIST[*]}
+                SL=${SL%?}
+
+                [[ $VALUE = @($SL) ]]
+            }
+            function remove-from-list()
+            {
+                local -n LIST=$1
+                local VALUE=$2
+
+                for i in ${!LIST[@]}; do
+                    [[ ${LIST[$i]} == $VALUE ]] && unset LIST[$i]
+                done
+
+                true
+            }
+            function prepend-to-list()
+            {
+                local -n _LIST=$1
+                local VALUE=$2
+
+                remove-from-list _LIST $VALUE
+                _LIST=( $VALUE ${_LIST[@]} )
+            }
+            function append-to-list()
+            {
+                local -n _LIST=$1
+                local VALUE=$2
+
+                remove-from-list _LIST $VALUE
+                _LIST+=( $VALUE )
+            }
+            function add-to-list()
+            {
+                local -n _LIST=$1
+                local VALUE=$2
+
+                ! is-in-list _LIST $VALUE &&
+                    _LIST=( $VALUE ${_LIST[@]} )
+
+                true
+            }
+            function remove-from-var-sep()
+            {
+                local -n _VAR=$1
+                local VALUE=$2
+                local SEP=$3
+
+                local p_LIST=( ${_VAR//$SEP/ } )
+                remove-from-list p_LIST $VALUE
+                printf -v _VAR "%s$SEP" ${p_LIST[@]}
+                _VAR=${_VAR%?}
+            }
+            function prepend-to-var-sep()
+            {
+                local -n _VAR=$1
+                local VALUE=$2
+                local SEP=$3
+
+                local p_LIST=( ${_VAR//$SEP/ } )
+                prepend-to-list p_LIST $VALUE
+                printf -v _VAR "%s$SEP" ${p_LIST[@]}
+                _VAR=${_VAR%?}
+            }
+            function append-to-var-sep()
+            {
+                local -n _VAR=$1
+                local VALUE=$2
+                local SEP=$3
+
+                local p_LIST=( ${_VAR//$SEP/ } )
+                append-to-list p_LIST $VALUE
+                printf -v _VAR "%s$SEP" ${p_LIST[@]}
+                _VAR=${_VAR%?}
+            }
+            function add-to-var-sep()
+            {
+                local -n _VAR=$1
+                local VALUE=$2
+                local SEP=$3
+
+                local p_LIST=( ${_VAR//$SEP/ } )
+                add-to-list p_LIST $VALUE
+                printf -v _VAR "%s$SEP" ${p_LIST[@]}
+                _VAR=${_VAR%?}
+            }
+      append extra.env.d/0000_setup.sh:
+          export ROOT_SALOME_INSTALL=\${out_dir_Path}
+          export SALOME_VERSION=$SVER
+          export SALOME_VARIANT=$SVAR
+          export PYTHON_VERSION=$PYTHON_VERSION
+          export SALOME_ON_DEMAND=HIDE
+          export PYTHONIOENCODING=UTF_8
+      #  The tests of the modules (ctest-dir hook)
+      CTESTFILE = $SBINDIR/bin/salome/test/CTestTestfile.cmake
+      #  (no environment for aggregated modules, build dependencies and
+      #  meta-modules, except aggregates)
+      for M in $(all-modules):
+          if depends-kind($M) == default and not is-aggregated($M) and (is-aggregate($M) or not is-meta($M)):
+              #  an aggregate module: the tests of its modules
+              MODS = $M
+              if is-aggregate($M):
+                  MODS = hook-output $M modules
+              for S in $MODS:
+                  DIR = hook-output $S ctest-dir EDF/$M
+                  if not empty($DIR):
+                      LINE = "SUBDIRS(../../../../../$DIR)"
+                      if not ok("grep -q -F -x \"$LINE\" $CTESTFILE"):
+                          echo $LINE >> $CTESTFILE
+
+external-env:
+  - A
+  - $(is-enabled application)
+  - I
+  - $(is-enabled installer)
+  - L
+  - $(is-enabled logger)
+  - Z
+  - $(is-enabled zip)
+  - X
+  - $(is-enabled xz)
+
+modules:
+  common:
+    - s-python-modules
+    - s-cmake
+    - s-salome-configuration
+    - s-salome-bootstrap
+  default:
+    - s-salome-kernel
+    - s-salome-gui
+    - s-salome-plugins
+    - s-shaper
+    - s-shaper-study
+    - s-geom
+    - s-smesh
+    - s-paravis
+    - s-fields
+    - s-yacs
+    - s-ydefx
+    - s-salome-eficas
+    - s-salome-jobmanager
+    - s-homard
+    - s-hexablock
+    - s-atomsolv
+    - s-calculator
+    - s-pycalculator
+    - s-genericsolver
+    - s-hello
+    - s-pyhello
+    - s-light
+    - s-pylight
+    - s-salome-openturns
+    - s-adao
+    - s-adao-interface
+    - s-samples
+    - s-omniorb
+    - s-eficas-tools
+    - s-occt
+    - s-yacsgen
+    - s-med-file
+    - s-med-coupling
+    - s-libbatch
+    - s-py2cpp
+    - s-planegcs
+    - s-ospray
+    - s-embree
+    - s-paraview
+    - s-gmsh
+    - s-paravisaddons-common
+    - s-persalys
+    - s-netgen
+    - s-openturns
+    - s-openturns-plugins
+    - s-uranie
+    - s-root
+    - s-homard-tool
+    - s-zeromq
+    - s-python3-nlopt
+    - s-rkcommon
+    - s-openvkl
+    - s-cgns
+    - s-ttk
+    - s-qt
+    - s-catalyst
+    - s-pyqt
+    - s-sip
+    - s-topiivol
+    - s-component
+    - s-cgal
+  cfd:
+    - s-coolprop
+    - s-libccmio
+    - s-saturne
+    - s-saturne-dbg
+    - s-cfd-study
+    - s-code-syrthes
+    - s-syrthes
+  custom:
+    - ${SCBI_SALOME_CUSTOM_MODULES}
+  hydro:
+    - s-libecw2
+    - s-mumps
+    - s-scalapack
+    - s-gotm
+    - s-aed2
+  mingw:
+    - s-paraview
+    - s-salome-kernel
+
+propagate-version: no
+
+wrapup: |-
+  TVDIR = $TARGET-$VARIANT
+  APPDIR = $TARGET-$VARIANT/app
+  #  Clean-up previous installation if any
+  rm -f $APPDIR/*
+  rm -fr $APPDIR/artifacts
+  mkdir -p $APPDIR
+  cd $APPDIR
+  if enabled(application) or enabled(installer):
+      echo salome prepare the application directory
+      #  Add some build artifacts for traceability
+      mkdir -p artifacts
+      copy ../logs/build-plan artifacts
+      date > artifacts/creation-time.txt
+      scbi --version > artifacts/scbi_versions.txt
+      if not empty($CI_JOB_NAME):
+          echo CI_JOB_NAME $CI_JOB_NAME >> artifacts/gitlab-ci.data
+      if not empty($CI_PIPELINE_ID):
+          echo CI_PIPELINE_ID $CI_PIPELINE_ID >> artifacts/gitlab-ci.data
+      #  Copy EDF's modules into sub-directory EDF
+      copy-modules-salome
+      echo salome setup application environment
+      setup-env-salome $PREFIX $TARGET $VARIANT
+      #  install some support scripts & patch version
+      copy $SCBI_PLUGINS/support/icon.png .
+      copy $SCBI_PLUGINS/support/salome_template.desktop .
+      copy $SCBI_PLUGINS/support/env_launch.sh .
+      copy EDF/s-salome-kernel/bin/salome/appli/.bashrc EDF/s-salome-kernel
+      KERNEL_PYTHON = EDF/s-salome-kernel/lib/python$PYTHON_VERSION
+      if is-dir($KERNEL_PYTHON/site-packages/salome/salome/kernel):
+          copy $SCBI_PLUGINS/support/salome-new-python-layout salome
+      else:
+          copy $SCBI_PLUGINS/support/salome .
+      chmod a+x salome env_launch.sh
+      #  is the installer to be created?
+      if enabled(installer) or enabled(zip):
+          if enabled(zip):
+              echo salome generate zip archive, may take some time ...
+              ZIP = command-path zip
+              if empty($ZIP):
+                  echo salome required tool zip missing
+                  return 1
+          else:
+              echo salome generate self installer, may take some time ...
+              MAKESELF = command-path makeself
+              if empty($MAKESELF):
+                  echo salome required tool makeself missing
+                  return 1
+          #  create the .run auto-installer to be distributed
+          sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" $SCBI_PLUGINS/support/install-setup > setup
+          copy $SCBI_PLUGINS/support/install-setup-common .
+          chmod a+x setup
+          copy $SCBI_PLUGINS/support/servers.pvsc .
+          #  Startup Windows script to fix Python path to get access to
+          #  PyQt needed by the logger start script.
+          if $SCBI_IS_WINDOWS == yes:
+              copy $SCBI_PLUGINS/support/setup_windows.bat $SCBI_PLUGINS/support/run_mesa_salome.bat $SCBI_PLUGINS/support/run_paraview.bat $SCBI_PLUGINS/support/run_persalys.bat $SCBI_PLUGINS/support/run_salome.bat $SCBI_PLUGINS/support/run_salome_shell.bat .
+          cd $SCBI_BDIR/s-salome
+          REF = get-version
+          SCRIPT_NAME = salome-$TARGET-$VARIANT
+          if kind == DEV:
+              SCRIPT_NAME = $SCRIPT_NAME-DEV
+          elif kind == BRANCH or kind == VERSION:
+              SCRIPT_NAME = $SCRIPT_NAME-$REF
+          #  -xz compress 40% more but is slow to compress
+          if enabled(xz):
+              O_COMPRESS = --xz
+          else:
+              O_COMPRESS = --bzip2
+          #  We do not fix path here as currently this is done in
+          #  s-salome-tar for the binary release. For the current build on
+          #  Debian >= 10 we use a native Python & HDF5 so no patch is
+          #  needed.
+          if enabled(zip):
+              rm -f $SCRIPT_NAME.zip salome-$REF
+              if $SCBI_IS_WINDOWS == yes:
+                  ln -s $APPDIR salome-$REF
+                  zip -9r $SCRIPT_NAME.zip salome-$REF
+                  rm -f salome-$REF
+              else:
+                  zip -9r $SCRIPT_NAME.zip $APPDIR
+          else:
+              #  Use the GNU tar format to ensure that filenames with more
+              #  than 100 characters are properly handled. Note that this
+              #  option was the default up to Debian-11 and as been switched
+              #  to ustar POSIX standard in Debian-12 for compatibility
+              #  reasons. But the ustar format has restriction on filename
+              #  length.
+              MS_OPTS = $O_COMPRESS --tar-quietly
+              if $SCBI_OS_MAJOR_VERSION >= 12:
+                  MS_OPTS = $MS_OPTS --tar-format gnu
+              makeself $MS_OPTS $APPDIR $SCRIPT_NAME.run "SALOME Application" ./setup

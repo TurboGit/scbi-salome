@@ -1,0 +1,59 @@
+plugin: s-gmsh
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://gitlab.onelab.info/gmsh/gmsh.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: gmsh-$VERSION-source.tgz
+
+patches:
+  - if ref =~ 4.10:
+      - if ${OCCTV//_/} =~ 780: gmsh-4.10.3-occt780.patch
+      - if ${OCCTV//_/} =~ 790: gmsh-4.10.3-occt780.patch
+
+depends:
+  - s-occt
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var GMSH_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+  - -DENABLE_BUILD_SHARED=ON
+  - -DENABLE_ACIS=OFF
+  - -DENABLE_FLTK=OFF
+  - -DENABLE_MED=ON
+  - -DENABLE_ONELAB_METAMODEL=OFF
+  - -DENABLE_PARSER=ON
+  - -DENABLE_PETSC=OFF
+  - -DENABLE_PRIVATE_API=ON
+  - -DENABLE_CGNS=OFF
+  - -DENABLE_OPENMP=ON
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

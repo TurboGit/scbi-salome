@@ -1,0 +1,53 @@
+plugin: s-openturns-mixmod
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/openturns/otmixmod.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: openturns-${VERSION%|*}.tar.gz
+  dir: otmixmod-${VERSION#*|}
+
+depends:
+  - os@-python3
+  - s-openturns
+  - s-mixmod
+
+build-depends:
+  - os@-python3-sphinx
+  - s-cmake
+  - s-swig
+
+env:
+  - set-var OTMIXMOD_HOME $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+
+config-options:
+  - -DBUILD_DOC=OFF
+  - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+  - -DCMAKE_FIND_ROOT_PATH=ON
+  - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
+  - -DSWIG_DIR:FILEPATH=$(output swig -swiglib)
+  - -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DMIXMOD_LIBRARY=$MIXMOD_LIBRARY
+  - -DMIXMOD_INCLUDE_DIR=$MIXMOD_INCLUDE_DIR
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,80 @@
+plugin: s-root
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/root-project/root.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: root-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 6-22-02: root-6.22.02.patch
+  - if ref =~ 6-22-06: root-6.22.06.patch
+  - if not (ref =~ 6.28.10):
+      - root-6.22-python-11.patch
+      - root-include_limits.patch
+
+depends:
+  - os@-afterimage-dev
+  - os@-cfitsio-dev
+  - os@-fftw3-dev
+  - os@-ftgl-dev
+  - os@-glew-dev
+  - os@-glu1-mesa-dev
+  - os@-graphviz-dev
+  - os@-jpeg-dev
+  - os@-pcre2-dev
+  - os@-png-dev
+  - os@-ssl-dev
+  - os@-uuid-dev
+  - os@-x11-dev
+  - os@-xext-dev
+  - os@-xft-dev
+  - os@-xml2-dev
+  - os@-xpm-dev
+  - os@-xxhash-dev
+
+build-depends:
+  - s-cmake
+  - dpkg-dev
+
+env:
+  - set-var CLING_STANDARD_PCH none
+  - set-var ROOTSYS $PREFIX
+  - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib
+  - add-to-var PATH $PREFIX/bin
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DPYTHON_EXECUTABLE=$(command-path python3)
+  - -Dgminimal:BOOL=ON
+  - -Dmathmore:BOOL=ON
+  - -Ddataframe:BOOL=ON
+  - -Dmlp:BOOL=ON
+  - -Dfftw3:BOOL=ON
+  - -Dminuit2:BOOL=ON
+  - -Dxml:BOOL=ON
+  - -Dasimage:BOOL=ON
+  - -Dpyroot:BOOL=ON
+  - -Dsoversion:BOOL=ON
+  - -Ddataframe:BOOL=ON
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,54 @@
+plugin: s-netgen-plugin
+
+functions:
+  s-netgen-plugin-salome-module:
+    run: echo NETGENPLUGIN
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/netgenplugin
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - s-smesh
+    - s-netgen
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - os@-graphviz-dev
+    - os@-graphviz
+    - os@-doxygen
+    - os@-python3-docutils
+    - os@-sphinx-common
+    - os@-sphinx-intl
+    - os@-python3-sphinx
+    - os@-python3-sphinx-rtd-theme
+    - s-swig
+    - s-qt
+    - s-salome-bootstrap
+
+env:
+  - set-var NETGENPLUGIN_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SMESH_MeshersList NETGENPlugin
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/netgenplugin
+
+config: |-
+  CDEBUG = is-enabled cmake-debug
+  DISDOC = is-enabled no-doc
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ${DISDOC:+-DSALOME_BUILD_DOC=OFF} -DSALOME_CXX_STANDARD:STRING=17 ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

@@ -1,0 +1,94 @@
+plugin: s-netgen
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/NGSolve/netgen.git
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: netgen-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 5.3:
+      - netgen-53-for-salome.patch
+      - OCCTV = replace $(get-version s-occt) _. ""
+      - if $OCCTV =~ 780: netgen-53-OCCT780-linux.patch
+      - if $OCCTV =~ 790: netgen-53-OCCT780-linux.patch
+  - if ref =~ 6.2: netgen-62-for-salome.patch
+
+depends:
+  - s-occt
+  - os@-tcl-dev
+  - os@-tk-dev
+
+build-depends:
+  autotools:
+    - os@-autoconf
+    - os@-automake
+    - os@-autotools-dev
+    - os@-libtool
+  cmake:
+    - s-cmake
+
+env:
+  - set-var NETGEN_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var C_INCLUDE_PATH $PREFIX/include
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+
+out-of-tree:
+  autotools: false
+  cmake: true
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DUSE_SUPERBUILD=OFF
+  - -DUSE_PYTHON=OFF
+  - -DUSE_GUI=OFF
+  - -DUSE_MPI=OFF
+  - -DUSE_OCC=ON
+  - -DUSE_INTERNAL_TCL=OFF
+  - -DBUILD_STUB_FILES=OFF
+  - -DOCC_INCLUDE_DIR=$OPENCASCADE_ROOT_DIR/include/opencascade
+  - -DOCC_LIBRARY_DIR=$OPENCASCADE_ROOT_DIR/lib
+  - -DCMAKE_CXX_STANDARD=17
+  - -DUSE_NATIVE_ARCH=OFF
+
+pre-config:
+  autotools: |-
+    libtoolize --force --copy --automake
+    aclocal -I m4
+    autoheader
+    autoconf
+    automake --add-missing --copy --gnu
+
+config:
+  autotools: ./configure --prefix=$PREFIX --with-occ=${CASROOT} --disable-openmp CXXFLAGS="${CXXFLAGS} -O2 -m64 -std=c++0x"
+  cmake: |-
+    OPTIONS = config-options
+    cmake $OPTIONS ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install:
+  autotools: |-
+    for DIR in csg general geom2d gprim interface linalg meshing stlgeom visualization:
+        cp -af ./libsrc/${DIR}/*.hpp $PREFIX/include
+    cp -af ./libsrc/include/mystdlib.h $PREFIX/include
+    cp -af ./libsrc/include/mydefs.hpp $PREFIX/include
+    cp -af ./libsrc/occ/occgeom.hpp $PREFIX/include
+    cp -af ./libsrc/occ/occmeshsurf.hpp $PREFIX/include
+    cp -af ./libsrc/general/gzstream.h $PREFIX/include
+    if is-file(./config.h):
+        cp -af ./config.h $PREFIX/include
+
+prefix: NONE

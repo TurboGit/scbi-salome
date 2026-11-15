@@ -1,0 +1,30 @@
+plugin: s-qmake
+
+inherit:
+  - from: s-qt
+
+depends:
+  - zlib1g-dev
+
+env:
+  - add-to-var PATH $PREFIX/bin
+
+config-options:
+  - --prefix=$PREFIX
+  - -opensource
+  - -confirm-license
+  - -no-rpath
+  - -nomake examples
+  - -nomake tests
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  ../src/qtbase/configure $OPTIONS
+
+build: make qmake_all -j$SCBI_JOBS
+
+install: |-
+  make install_mkspecs
+  mkdir $PREFIX/bin
+  copy bin/qmake* $PREFIX/bin

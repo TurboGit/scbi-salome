@@ -1,0 +1,91 @@
+plugin: s-omniorb-core
+
+inherit:
+  - from: s-python-post-install-dist-packages
+
+with-variants:
+  native:
+    packages:
+      - os@-omniorb:[v]
+      - os@-omniorb-dev:[v]
+      - os@-omniorb-idl:[v]
+      - os@-omniidl:[v]
+      - os@-cos4-dev:[v]
+      - os@-omniorb-nameserver:[v]
+    env:
+      - set-var OMNIORB_ROOT_DIR /usr
+      - add-to-var LD_LIBRARY_PATH /usr/lib
+
+vcs:
+  proxy: default
+  options: none
+  protocol: svn
+  url: https://svn.code.sf.net/p/omniorb/svn
+  dir: omniORB
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: omniORB-$VERSION.tar.gz
+
+patches:
+  _:
+    - omniorb-configure.patch
+  mingw:
+    - omniorb-4.2.6-msys2.patch
+
+depends:
+  - os@-python3-dev
+  - os@-python3-distutils-extra
+
+env:
+  _:
+    - set-var OMNIORB_ROOT_DIR $PREFIX
+    - add-to-var C_INCLUDE_PATH $PREFIX/include
+    - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+    - add-to-var PATH $PREFIX/bin
+    - local LDIR $PREFIX/lib/python$PYTHON_VERSION
+    - add-to-var PYTHONPATH $LDIR/site-packages
+    - add-to-var PYTHONPATH $LDIR/site-packages/omniidl_be
+  mingw:
+    - set-var OMNIORB_ROOT_DIR $PREFIX
+    - set-var OMNIORB_ROOT $PREFIX
+    - add-to-var PATH ${OMNIORB_ROOT_DIR}/bin/x86_win32
+    - add-to-var PATH ${OMNIORB_ROOT_DIR}/lib/x86_win32
+    - add-to-var PYTHONPATH ${OMNIORB_ROOT_DIR}/lib/python
+    - add-to-var PYTHONPATH ${OMNIORB_ROOT_DIR}/lib/x86_win32
+    - set-var OMNIORB_LIB_DIR ${OMNIORB_ROOT_DIR}/lib/x86_win32
+    - set-var OMNIORB_BIN_DIR ${OMNIORB_ROOT_DIR}/bin/x86_win32
+    - add-to-var LD_LIBRARY_PATH ${OMNIORB_ROOT_DIR}/lib
+    - set-var OMNIORB_USER_PATH ${APPDATA}
+
+out-of-tree:
+  mingw: false
+
+config:
+  _: |-
+    _S1 = command-path python3
+    ../src/configure PYTHON=$_S1 --prefix=$PREFIX
+  mingw: true
+
+build:
+  _: make -j$SCBI_JOBS
+  mingw: |-
+    cd src/tool/omkdepend
+    make -j$SCBI_JOBS export
+    cd ../../
+    make -j$SCBI_JOBS export
+    cd ../..
+
+install:
+  _: make install
+  mingw: |-
+    mkdir -p $PREFIX
+    copy bin $PREFIX
+    copy lib $PREFIX
+    copy include $PREFIX
+
+prefix: NONE

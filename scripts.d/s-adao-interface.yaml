@@ -1,0 +1,35 @@
+plugin: s-adao-interface
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/adao_interface
+
+depends:
+  - s-salome-configuration
+  - s-adao
+
+build-depends:
+  - s-cmake
+  - s-py2cpp
+
+env:
+  - set-var ADAO_INTERFACE_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+
+build-env:
+  - set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
+  - set-var SPHINX_ROOT_DIR /usr
+
+config: |-
+  _S1 = command-path python$PYTHON_VERSION
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DPY2CPP_ROOT_DIR=$PY2CPP_ROOT_DIR -DPYTHON_EXECUTABLE=$_S1 ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

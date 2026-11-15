@@ -1,0 +1,25 @@
+plugin: s-gotm
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/gotm-model/code.git
+
+build-depends:
+  common:
+    - s-cmake
+
+env:
+  - set-var GOTMDIR $PREFIX
+  - set-var GOTM_ROOT_DIR $PREFIX
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+  - add-to-var PATH $PREFIX/bin
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DGOTM_USE_NetCDF=off -DBUILD_SHARED_LIBS=TRUE ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE

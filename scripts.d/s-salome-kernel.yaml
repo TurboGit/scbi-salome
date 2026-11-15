@@ -1,0 +1,129 @@
+plugin: s-salome-kernel
+
+functions:
+  s-kernel-ctest-dir:
+    params:
+      - PREFIX
+    run: echo $PREFIX/bin/salome/test/kernel
+  s-salome-kernel-salome-module:
+    run: echo KERNEL
+
+vcs:
+  proxy: default
+  options: none
+  protocol: git
+  url: https://github.com/SalomePlatform/kernel
+
+patches:
+  mingw:
+    - kernel.msys2.patch
+
+depends:
+  common:
+    - s-salome-configuration
+  default:
+    - os@-cppunit-dev
+    - os@-graphviz-dev
+    - os@-xml2-dev
+    - os@-graphviz-dev
+    - os@-python3-numpy
+    - os@-python3-psutil
+    - s-salome-bootstrap
+    - s-hdf5
+    - s-libbatch
+    - s-omniorb
+    - s-boost
+  mingw:
+    - s-hdf5
+    - s-libbatch
+    - s-omniorb
+    - s-boost
+  mpi:
+    - os@-boost-regex-dev
+    - os@-python3-mpi4py
+    - s-openmpi
+
+build-depends:
+  common:
+    - s-cmake
+  default:
+    - if not enabled(no-doc): os@-sphinx-common
+    - if not enabled(no-doc): os@-sphinx-intl
+    - os@-doxygen
+    - os@-graphviz
+    - os@-cppunit-dev
+    - os@-chrpath
+    - s-swig
+  mingw:
+    - if not enabled(no-doc): os@-sphinx-common
+    - os@-doxygen
+    - os@-graphviz
+    - os@-cppunit-dev
+    - s-swig
+
+env:
+  - set-var KERNEL_ROOT_DIR $PREFIX
+  - set-var KERNEL_INSTALL_DIR $PREFIX
+  - set-var SalomeKERNEL_DIR $PREFIX/salome_adm/cmake_files
+  - add-to-var PATH $PREFIX/bin/salome
+  - add-to-var CMAKE_PREFIX_PATH $SalomeKERNEL_DIR
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
+  - add-to-var C_INCLUDE_PATH $PREFIX/include/salome
+  - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/salome
+  - add-to-var PYTHONPATH $PREFIX/bin/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/salome
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+
+config-options:
+  common:
+    - -DCMAKE_INSTALL_PREFIX=$PREFIX
+    - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+    - -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
+    - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
+    - -DSALOME_USE_LIBBATCH=ON
+    - -DSALOME_USE_64BIT_IDS=ON
+    - -DSALOME_BUILD_TESTS=ON
+    - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
+    - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+  mingw:
+    - -GNinja
+    - -DCMAKE_CXX_FLAGS= -fpermissive
+    - -DPYTHON_ROOT_DIR=${MINGW_PREFIX}
+    - -DCPPUNIT_ROOT_DIR=${MINGW_PREFIX}
+    - -DBOOST_ROOT_DIR=${BOOST_ROOT_DIR}
+    - -DDOXYGEN_ROOT_DIR=${MINGW_PREFIX}
+    - -DGRAPHVIZ_ROOT_DIR=${MINGW_PREFIX}
+    - -DLIBXML2_ROOT_DIR=${MINGW_PREFIX}
+    - -DSPHINX_INTL_EXECUTABLE=${SPHINXINTL_ROOT_DIR}/bin/sphinx-intl
+    - -DPTHREAD_LIBRARIES=${MINGW_PREFIX}/lib/libpthread.dll.a
+    - -DCPPUNIT_LIBRARIES=${MINGW_PREFIX}/lib/libcppunit.dll.a
+    - -DOMNIORB_LIBRARY_omniORB4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libomniORB426_rt.a
+    - -DOMNIORB_LIBRARY_omnithread=${OMNIORB_ROOT_DIR}/lib/x86_win32/libomnithread41_rt.a
+    - -DOMNIORB_LIBRARY_omniDynamic4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libomniDynamic426_rt.a
+    - -DOMNIORB_LIBRARY_COS4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libCOS426_rt.a
+    - -DOMNIORB_LIBRARY_COSDynamic4=${OMNIORB_ROOT_DIR}/lib/x86_win32/libCOSDynamic426_rt.a
+    - -DSALOME_CMAKE_DEBUG=ON
+    - -DSALOME_BUILD_DOC=OFF
+  mpi:
+    - -DSALOME_USE_MPI=ON
+  permissive:
+    - -DCMAKE_C_FLAGS=-Wno-incompatible-pointer-types -Wno-implicit-function-declaration
+    - -DCMAKE_CXX_FLAGS=-Wno-incompatible-pointer-types -Wno-implicit-function-declaration
+
+config: |-
+  OPTIONS =
+  OPTIONS = config-options
+  cmake $OPTIONS ../src
+
+build:
+  _: make -j$SCBI_JOBS
+  mingw: cmake --build . -j$SCBI_JOBS
+
+install:
+  _: make install
+  mingw: cmake --install .
+
+prefix: NONE

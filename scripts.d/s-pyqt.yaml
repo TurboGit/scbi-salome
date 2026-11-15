@@ -1,0 +1,46 @@
+plugin: s-pyqt
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-pyqt5:[v]
+      - os@-pyqt5-dev:[v]
+      - os@-pyqt5-dev-tools
+    env:
+      - set-var PYQT5_ROOT_DIR /usr
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: PyQt-$VERSION.tar.gz
+
+patches:
+  - if ref =~ 5.15: qpycore-init-pyqtparaview.patch
+  - if ref =~ 5.15.3: pyqt-5.15.3-sip5-py313.patch
+
+depends:
+  - s-qt
+  - s-sip
+
+env:
+  - set-var PYQT5_ROOT_DIR $PREFIX
+  - set-var PYQT_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+
+out-of-tree: true
+
+config: python3 ../src/configure.py --confirm-license --no-designer-plugin --verbose --bindir=$PREFIX/bin --destdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages --stubsdir=$PREFIX/lib/python$PYTHON_VERSION/site-packages --sipdir=${SIP_ROOT_DIR} --disable=QtNetwork --disable=QtWebSockets --qml-plugindir=$PREFIX/lib
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+post-install: |-
+  if not empty($SIP_ROOT_DIR):
+      mkdir -p $PREFIX/sip
+      copy $SIP_ROOT_DIR/* $PREFIX/sip
+
+prefix: NONE

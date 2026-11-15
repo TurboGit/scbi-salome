@@ -1,0 +1,24 @@
+plugin: s-zeromq
+
+archive:
+  proxy: default
+  options: none
+  protocol: ftp
+  url: ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+  file: zeromq-$VERSION.tar.gz
+
+build-depends:
+  - s-cmake
+
+env:
+  - set-var ZEROMQ_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var LD_LIBRARY_PATH $PREFIX/lib
+
+config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install ../src
+
+build: make -j$SCBI_JOBS
+
+install: make install
+
+prefix: NONE
