@@ -201,6 +201,9 @@ function s-paraview-env()
 	add-to-var LD_LIBRARY_PATH  $PLIB
 	add-to-var PYTHONPATH       \
 		   $PLIB/python$PYTHON_VERSION/site-packages
+	add-to-var PYTHONPATH       \
+		   $PLIB/python$PYTHON_VERSION/site-packages/salome
+	add-to-var PYTHONPATH       $PLIB/salome
     done
 }
 
