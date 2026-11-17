@@ -25,7 +25,7 @@ function s-salome-adao-common-depends()
     echo s-salome-configuration
 }
 
-function s-salome-adao-default-depends()
+function s-salome-adao-depends()
 {
     echo os@-python3-docutils
 
