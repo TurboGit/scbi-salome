@@ -19,6 +19,8 @@ variants:
     - gitpython
     - pytidylib
     - smmap
+    - pyperclip # for PyCD (? Add only when Carmel Study is built)
+    - numexpr   # for PyCD
 
 out-of-tree: false
 
@@ -49,6 +51,10 @@ modules:
     - s-python3-numpy
   pyaml:
     - s-python3-yaml
+  pyperclip:
+    - s-python3-pyperclip
+  numexpr:
+    - s-python3-numexpr
   pyproj:
     - s-python3-proj
   pytidylib:
