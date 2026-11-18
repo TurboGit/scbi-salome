@@ -1,0 +1,12 @@
+plugin: s-python3-numexpr
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-numexpr:[v]
+
+config-options:
+  - numexpr==$(get-version)
