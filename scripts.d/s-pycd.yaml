@@ -1,0 +1,16 @@
+plugin: s-pycd
+
+vcs:
+  proxy: none
+  options: none
+  protocol: git
+  url: https://gitlab.univ-lille.fr/frederic.guyomarch/pycd.git
+
+depends:
+  - s-python-modules
+
+out-of-tree: false
+
+install: |-
+  mkdir -p ../install
+  copy src/* ../install
