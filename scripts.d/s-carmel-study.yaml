@@ -1,0 +1,39 @@
+plugin: s-carmel-study
+
+functions:
+  s-carmel-study-salome-module:
+    run: echo CARMELSTUDY
+
+vcs:
+  proxy: none
+  options: none
+  protocol: git
+  url: https://gitlab.univ-lille.fr/loic.chevallier/carmelstudy.git
+
+depends:
+  - s-qt
+  - s-med-file
+  - s-med-coupling
+  - s-pycd
+  - s-python-modules
+
+env:
+  - set-var CARMELSTUDY_ROOT_DIR $PREFIX
+  - add-to-var PATH $PREFIX/bin
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
+  - add-to-var SALOME_MODULES CARMELSTUDY
+  - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/carmelstudy
+
+config-options:
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DENABLE_DOCUMENTATION=ON
+  - -DENABLE_TESTING=OFF
+
+config: cmake $(config-options) ../src
+
+build: make -j$SCBI_HALF_JOBS
+
+install: make install
+
+prefix: NONE
