@@ -28,6 +28,7 @@ os@-python3-netcdf4                 python3-netcdf4
 os@-python3-nlopt                   python3-nlopt
 os@-python3-numpy                   python3-numpy
 os@-python3-pip                     python3-pip
+os@-python3-pyperclip               python3-pyperclip
 os@-python3-pytidylib               python3-tidylib
 os@-python3-rich                    python3-rich
 os@-python3-scipy                   python3-scipy

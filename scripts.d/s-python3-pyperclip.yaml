@@ -1,0 +1,12 @@
+plugin: s-python3-pyperclip
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-pyperclip:[v]
+
+config-options:
+  - pyperclip==$(get-version)
