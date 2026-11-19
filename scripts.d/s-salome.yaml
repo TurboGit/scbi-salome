@@ -270,7 +270,7 @@ wrapup: |-
   mkdir -p $APPDIR
   cd $APPDIR
   if enabled(application) or enabled(installer):
-      echo salome prepare the application directory
+      log 1 salome prepare the application directory
       #  Add some build artifacts for traceability
       mkdir -p artifacts
       copy ../logs/build-plan artifacts
@@ -282,7 +282,7 @@ wrapup: |-
           echo CI_PIPELINE_ID $CI_PIPELINE_ID >> artifacts/gitlab-ci.data
       #  Copy EDF's modules into sub-directory EDF
       copy-modules-salome
-      echo salome setup application environment
+      log 1 salome setup application environment
       setup-env-salome $PREFIX $TARGET $VARIANT
       #  install some support scripts & patch version
       copy $SCBI_PLUGINS/support/icon.png .
@@ -298,16 +298,16 @@ wrapup: |-
       #  is the installer to be created?
       if enabled(installer) or enabled(zip):
           if enabled(zip):
-              echo salome generate zip archive, may take some time ...
+              log 1 salome generate zip archive, may take some time ...
               ZIP = command-path zip
               if empty($ZIP):
-                  echo salome required tool zip missing
+                  log 1 salome required tool zip missing
                   return 1
           else:
-              echo salome generate self installer, may take some time ...
+              log 1 salome generate self installer, may take some time ...
               MAKESELF = command-path makeself
               if empty($MAKESELF):
-                  echo salome required tool makeself missing
+                  log 1 salome required tool makeself missing
                   return 1
           #  create the .run auto-installer to be distributed
           sed "s,__SALOMEVERSION__,$SALOME_PREREQUIS_VERSION,g" $SCBI_PLUGINS/support/install-setup > setup
@@ -330,10 +330,6 @@ wrapup: |-
               O_COMPRESS = --xz
           else:
               O_COMPRESS = --bzip2
-          #  We do not fix path here as currently this is done in
-          #  s-salome-tar for the binary release. For the current build on
-          #  Debian >= 10 we use a native Python & HDF5 so no patch is
-          #  needed.
           if enabled(zip):
               rm -f $SCRIPT_NAME.zip salome-$REF
               if $SCBI_IS_WINDOWS == yes:
