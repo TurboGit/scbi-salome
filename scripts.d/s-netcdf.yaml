@@ -44,10 +44,7 @@ config-options:
     - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     - -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h
   default:
-    - -DHDF5_INCLUDE_DIR=$HDF5_C_INCLUDE_DIR
     - -DHDF5_LIBRARIES=$HDF5_LIBRARIES
-    - -DHDF5_C_LIBRARY=$HDF5_C_LIBRARY_hdf5
-    - -DHDF5_HL_LIBRARY=$HDF5_C_LIBRARY_hdf5_hl
     - -DHAVE_HDF5_H=$HDF5_ROOT_DIR/include/hdf5.h
   mingw:
     - -GMSYS Makefiles

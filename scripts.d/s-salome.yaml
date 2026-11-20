@@ -262,7 +262,6 @@ external-env:
   - $(is-enabled xz)
 
 wrapup: |-
-  TVDIR = $TARGET-$VARIANT
   APPDIR = $TARGET-$VARIANT/app
   #  Clean-up previous installation if any
   rm -f $APPDIR/*

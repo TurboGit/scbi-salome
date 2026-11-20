@@ -3,8 +3,6 @@ plugin: s-saturne-dbg
 inherit:
   - from: s-saturne
 
-env: []
-
 config-options:
   - FC=gfortran
   - --prefix=$PREFIX

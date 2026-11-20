@@ -67,7 +67,7 @@ config-options:
     - -DMEDCOUPLING_MICROMED=OFF
     - -DMEDCOUPLING_ENABLE_SHAPERECOGN=ON
     - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
-    - ${DISDOC:+-DMEDCOUPLING_BUILD_DOC=OFF}
+    - if enabled(no-doc): -DMEDCOUPLING_BUILD_DOC=OFF
   mpi:
     - -DMEDCOUPLING_USE_MPI=ON
     - -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)

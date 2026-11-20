@@ -70,6 +70,4 @@ modules:
 
 aggregate: recursive
 
-out-of-tree: false
-
 prefix: NONE
