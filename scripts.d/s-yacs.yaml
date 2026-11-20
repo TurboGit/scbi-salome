@@ -52,8 +52,8 @@ config-options:
   - -DSALOME_BUILD_TESTS=ON
   - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
   - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
-  - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
-  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+  - if enabled(no-doc): -DSALOME_BUILD_DOC=OFF
+  - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
 
 config: |-
   OPTIONS = config-options

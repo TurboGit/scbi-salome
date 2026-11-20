@@ -35,7 +35,7 @@ env:
 config-options:
   - -DCMAKE_INSTALL_PREFIX=$PREFIX
   - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
-  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+  - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
   - -DENABLE_BUILD_SHARED=ON
   - -DENABLE_ACIS=OFF
   - -DENABLE_FLTK=OFF

@@ -61,8 +61,8 @@ config-options:
     - -DCMAKE_INSTALL_PREFIX=$PREFIX
     - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     - -DSALOME_SMESH_USE_CGNS=ON
-    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
-    - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+    - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
+    - if enabled(no-doc): -DSALOME_BUILD_DOC=OFF
   mpi:
     - -DSALOME_USE_MPI=ON
     - -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)

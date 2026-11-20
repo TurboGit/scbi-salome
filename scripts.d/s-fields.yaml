@@ -44,8 +44,8 @@ config-options:
   - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
   - -DMEDCOUPLING_USE_64BIT_IDS=ON
   - -DMEDCOUPLING_USE_64BIT_IDS=ON
-  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
-  - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+  - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
+  - if enabled(no-doc): -DSALOME_BUILD_DOC=OFF
 
 config: |-
   OPTIONS = config-options

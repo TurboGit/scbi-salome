@@ -43,9 +43,12 @@ env:
   - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/openturns/
   - add-to-var SALOME_MODULES OPENTURNS
 
-config: |-
-  CDEBUG = is-enabled cmake-debug
-  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ../src
+config-options:
+  - if enabled(cmake-debug) -DSALOME_CMAKE_DEBUG=ON
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+config: cmake $(config-options) ../src
 
 build: make -j$SCBI_JOBS
 

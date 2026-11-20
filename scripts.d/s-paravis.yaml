@@ -52,8 +52,8 @@ config-options:
     - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
     - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     - -DVTK_DIR=$(last-modified-directory "$PARAVIEW_INSTALL_DIR/lib/cmake/paraview-*")
-    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
-    - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+    - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
+    - if enabled(no-doc): -DSALOME_BUILD_DOC=OFF
     - -DSALOME_PARAVIS_USE_GEOM_SOURCE=ON
     - -DSALOME_PARAVIS_USE_SMESH_SOURCE=ON
   headless:

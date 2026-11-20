@@ -36,8 +36,8 @@ env:
 config-options:
   - -DCMAKE_INSTALL_PREFIX=$PREFIX
   - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
-  - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
-  - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
+  - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
+  - if enabled(no-doc): -DSALOME_BUILD_DOC=OFF
 
 config: |-
   OPTIONS = config-options

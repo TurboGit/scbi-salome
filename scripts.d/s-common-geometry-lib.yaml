@@ -27,7 +27,7 @@ env:
 config-options:
   common:
     - -DCMAKE_INSTALL_PREFIX=$PREFIX
-    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
     - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 
 config: |-

@@ -86,8 +86,8 @@ config-options:
     - -DSALOME_USE_64BIT_IDS=ON
     - -DSALOME_BUILD_TESTS=ON
     - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
-    - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
-    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - if enabled(no-doc): -DSALOME_BUILD_DOC=OFF
+    - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
   mingw:
     - -GNinja
     - -DCMAKE_CXX_FLAGS= -fpermissive

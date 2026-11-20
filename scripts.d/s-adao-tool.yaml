@@ -34,11 +34,16 @@ env:
 build-env:
   - set-var CURRENT_SOFTWARE_INSTALL_DIR $PREFIX
 
-config: |-
-  CDEBUG = is-enabled cmake-debug
-  DISDOC = is-enabled no-doc
-  _S1 = command-path python$PYTHON_VERSION
-  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) -DPYTHON_EXECUTABLE=$_S1 -DADAO_SALOME_MODULE=OFF ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ${DISDOC:+-DADAO_BUILD_DOC=OFF} ../src
+config-options:
+  - PyPATH = $(command-path python$PYTHON_VERSION)
+  - if enabled(no-doc) -DADAO_BUILD_DOC=OFF
+  - if enabled(cmake-debug) -DSALOME_CMAKE_DEBUG=ON
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DPYTHON_EXECUTABLE=$PyPATH
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DADAO_SALOME_MODULE=OFF
+
+config: cmake $(config-options) ../src
 
 build: make -j$SCBI_JOBS
 

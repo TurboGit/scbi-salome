@@ -38,9 +38,14 @@ env:
   - add-to-var SMESH_MeshersList HEXABLOCKPlugin
   - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/hexablock
 
-config: |-
-  CDEBUG = is-enabled cmake-debug
-  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DSALOME_BUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ../src
+config-options:
+  - if enabled(cmake-debug) -DSALOME_CMAKE_DEBUG=ON
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  - -DSALOME_BUILD_TESTS=OFF
+  - -DCMAKE_PREFIX_PATH=$PREFIX/lib/cmake
+
+config: cmake $(config-options) ../src
 
 build: make -j$SCBI_JOBS
 

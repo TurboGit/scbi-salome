@@ -58,8 +58,8 @@ config-options:
     - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
     - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
     - -DSWIG_EXECUTABLE=$SWIG_ROOT_DIR/bin/swig
-    - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
-    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - if enabled(no-doc): -DSALOME_BUILD_DOC=OFF
+    - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
   default:
     - -DSALOME_USE_MPI=OFF
   mpi:

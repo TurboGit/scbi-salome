@@ -37,7 +37,7 @@ config-options:
     - -DCMAKE_INSTALL_PREFIX=$PREFIX
     - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
     - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
-    - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
+    - if enabled(cmake-debug): -DSALOME_CMAKE_DEBUG=ON
     - -DMEDCOUPLING_USE_64BIT_IDS=ON
     - -DHDF5_LIBRARIES=$HDF5_LIBRARIES
     - -DHDF5_INCLUDE_DIRS=$HDF5_INCLUDE_DIRS

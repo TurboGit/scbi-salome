@@ -38,10 +38,13 @@ env:
   - add-to-var SMESH_MeshersList HYBRIDPlugin
   - add-to-var SalomeAppConfig $PREFIX/share/salome/resources/hybridplugin
 
-config: |-
-  CDEBUG = is-enabled cmake-debug
-  DISDOC = is-enabled no-doc
-  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON} ${DISDOC:+-DSALOME_BUILD_DOC=OFF} ../src
+config-options:
+  - if enabled(no-doc) -DADAO_BUILD_DOC=OFF
+  - if enabled(cmake-debug) -DSALOME_CMAKE_DEBUG=ON
+  - -DCMAKE_INSTALL_PREFIX=$PREFIX
+  - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+
+config: cmake $(config-options) ../src
 
 build: make -j$SCBI_JOBS
 
