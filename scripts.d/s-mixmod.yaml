@@ -37,7 +37,6 @@ config-options:
   - -DMIXMOD_ENABLE_OPENMP=ON
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

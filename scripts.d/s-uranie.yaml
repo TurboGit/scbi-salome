@@ -29,7 +29,6 @@ config-options:
   - -DPython3_EXECUTABLE=$(command-path python$PYTHON_VERSION)
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

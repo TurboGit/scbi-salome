@@ -58,7 +58,6 @@ config-options:
   - -DWITH_GSTREAMER:BOOL=OFF
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

@@ -62,7 +62,6 @@ config-options:
     - -DPARAVIEW_PLUGIN_ENABLE_ZJFilterPlugin=YES
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

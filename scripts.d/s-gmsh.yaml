@@ -48,7 +48,6 @@ config-options:
   - -DENABLE_OPENMP=ON
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

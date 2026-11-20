@@ -86,7 +86,6 @@ config-options:
     - if not empty($SCOTCH_LIBRARIES): -DSCOTCH_LIBRARIES=$SCOTCH_LIBRARIES
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

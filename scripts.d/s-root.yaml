@@ -69,7 +69,6 @@ config-options:
   - -Ddataframe:BOOL=ON
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

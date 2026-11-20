@@ -26,7 +26,6 @@ config-options:
   - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

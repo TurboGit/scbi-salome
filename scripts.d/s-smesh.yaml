@@ -68,7 +68,6 @@ config-options:
     - -DCMAKE_CXX_COMPILER=$(get-os-bin mpicxx)
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

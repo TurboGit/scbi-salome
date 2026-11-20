@@ -48,7 +48,6 @@ config-options:
   - ${DISDOC:+-DSALOME_BUILD_DOC=OFF}
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

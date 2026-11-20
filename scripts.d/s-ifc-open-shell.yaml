@@ -53,7 +53,6 @@ config-options:
     - -DSWIG_EXECUTABLE:PATH=$(command-path swig)
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src/cmake
 

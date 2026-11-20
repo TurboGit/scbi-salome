@@ -35,7 +35,6 @@ config-options:
   - -DBUILD_IGL=ON
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

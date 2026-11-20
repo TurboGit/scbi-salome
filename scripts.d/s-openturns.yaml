@@ -99,11 +99,9 @@ config-options:
 
 config:
   _: |-
-    OPTIONS =
     OPTIONS = config-options
     cmake $OPTIONS ../src
   mingw: |-
-    OPTIONS =
     OPTIONS = config-options
     CFLAGS="$CFLAGS -Wall -Wextra -Wpedantic -Wshadow -D_GLIBCXX_ASSERTIONS -Wno-deprecated-declarations -Wno-calloc-transposed-args" cmake $OPTIONS ../src
 

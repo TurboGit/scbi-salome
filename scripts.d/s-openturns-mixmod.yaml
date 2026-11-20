@@ -42,7 +42,6 @@ config-options:
   - -DMIXMOD_INCLUDE_DIR=$MIXMOD_INCLUDE_DIR
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

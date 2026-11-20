@@ -56,7 +56,6 @@ config-options:
   - -DBOOST_ROOT=$BOOSTDIR
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

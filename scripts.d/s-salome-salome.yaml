@@ -30,7 +30,6 @@ config-options:
     - -DCMAKE_PREFIX_PATH=$SCBI_BDIR/install
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

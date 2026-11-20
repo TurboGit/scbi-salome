@@ -65,7 +65,6 @@ config-options:
     - -Dtbb_LIBRARY_RELEASE:FILEPATH=${TBBLIB}
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

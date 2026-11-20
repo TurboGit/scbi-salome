@@ -43,7 +43,6 @@ config-options:
   - -DCMAKE_CXX_COMPILER=clang++
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

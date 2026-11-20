@@ -266,11 +266,9 @@ config-options:
 
 config:
   _: |-
-    OPTIONS =
     OPTIONS = config-options
     cmake $OPTIONS ../src
   mingw: |-
-    OPTIONS =
     OPTIONS = config-options
     CXXFLAGS="$CXXFLAGS -w -Wno-register" cmake $OPTIONS ../src
 

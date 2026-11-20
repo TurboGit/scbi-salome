@@ -52,7 +52,6 @@ config-options:
   - -DADAO_SALOME_MODULE=ON
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

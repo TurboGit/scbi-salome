@@ -121,11 +121,9 @@ config-options:
 
 config:
   _: |-
-    OPTIONS =
     OPTIONS = config-options
     cmake $OPTIONS ../src
   mingw: |-
-    OPTIONS =
     OPTIONS = config-options
     cmake -G "MSYS Makefiles" $OPTIONS ../src
 

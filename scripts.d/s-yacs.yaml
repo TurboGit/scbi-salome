@@ -56,7 +56,6 @@ config-options:
   - ${CDEBUG:+-DSALOME_CMAKE_DEBUG=ON}
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

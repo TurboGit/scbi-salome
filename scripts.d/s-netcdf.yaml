@@ -63,7 +63,6 @@ config-options:
     - -DHDF5_INCLUDE_DIR=${HDF5_ROOT_DIR}/include
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

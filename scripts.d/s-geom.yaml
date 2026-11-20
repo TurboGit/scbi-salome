@@ -63,7 +63,6 @@ config-options:
     - -DSALOME_GEOM_USE_OPENCV=ON
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

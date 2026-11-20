@@ -114,7 +114,6 @@ config-options:
     - -DCMAKE_CXX_FLAGS=-Wno-incompatible-pointer-types -Wno-implicit-function-declaration
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

@@ -160,7 +160,6 @@ config-options:
   - -DVTK_MODULE_ENABLE_ttkTableDistanceMatrix:STRING=YES
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

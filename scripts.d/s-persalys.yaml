@@ -76,7 +76,6 @@ config-options:
     - -DUSE_SPHINX=OFF
 
 config: |-
-  OPTIONS =
   OPTIONS = config-options
   cmake $OPTIONS ../src
 

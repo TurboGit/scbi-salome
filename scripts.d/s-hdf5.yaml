@@ -136,11 +136,9 @@ config-options:
 
 config:
   _: |-
-    OPTIONS =
     OPTIONS = config-options
     cmake $OPTIONS ../src
   mingw: |-
-    OPTIONS =
     OPTIONS = config-options
     CFLAGS="$CFLAGS -Wno-implicit-function-declaration" cmake $OPTIONS ../src
 
