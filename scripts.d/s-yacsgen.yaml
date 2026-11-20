@@ -21,5 +21,3 @@ install: |-
   copy ../src/script/* bin/
   copy ../src/Examples share/
   copy ../src/module_generator lib/python$PYTHON_VERSION/site-packages
-
-post-install: sed -i "s#__YACSGEN_INSTALL_PATH__#${BDIR/install}#" $PREFIX/share/Examples/exec.sh
