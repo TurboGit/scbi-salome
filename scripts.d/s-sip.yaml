@@ -1,9 +1,9 @@
 plugin: s-sip
 
-prefix: NONE
-
 modules:
   - s-sip-tools
   - s-pyqt-sip
 
 aggregate: direct
+
+prefix: NONE

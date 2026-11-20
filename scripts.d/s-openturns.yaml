@@ -80,8 +80,6 @@ env:
     - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 
 config-options:
-  _:
-    - -DSWIG_EXECUTABLE=$SWIG_ROOT/bin/swig
   common:
     - -DCMAKE_INSTALL_PREFIX=$PREFIX
     - -DPython_EXECUTABLE=$(command-path python$PYTHON_VERSION)
@@ -89,6 +87,8 @@ config-options:
     - -DUSE_SPHINX=OFF
     - -DUSE_DOXYGEN=OFF
     - -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+  _:
+    - -DSWIG_EXECUTABLE=$SWIG_ROOT/bin/swig
   mingw:
     - -Wno-dev
     - -DPython_EXECUTABLE=${MINGW_PREFIX}/bin/python

@@ -29,14 +29,14 @@ depends:
     - s-scotch
 
 build-depends:
+  common:
+    - s-cmake
   _:
     - if not enabled(no-doc): os@-sphinx-common
     - if not enabled(no-doc): os@-sphinx-intl
     - os@-python3-sphinx-rtd-theme
     - os@-cppunit-dev
     - s-swig
-  common:
-    - s-cmake
 
 env:
   - set-var MEDCOUPLING_ROOT_DIR $PREFIX

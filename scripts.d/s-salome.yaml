@@ -159,18 +159,6 @@ functions:
                       if not ok("grep -q -F -x \"$LINE\" $CTESTFILE"):
                           echo $LINE >> $CTESTFILE
 
-external-env:
-  - A
-  - $(is-enabled application)
-  - I
-  - $(is-enabled installer)
-  - L
-  - $(is-enabled logger)
-  - Z
-  - $(is-enabled zip)
-  - X
-  - $(is-enabled xz)
-
 modules:
   common:
     - s-python-modules
@@ -260,6 +248,18 @@ modules:
     - s-salome-kernel
 
 propagate-version: no
+
+external-env:
+  - A
+  - $(is-enabled application)
+  - I
+  - $(is-enabled installer)
+  - L
+  - $(is-enabled logger)
+  - Z
+  - $(is-enabled zip)
+  - X
+  - $(is-enabled xz)
 
 wrapup: |-
   TVDIR = $TARGET-$VARIANT

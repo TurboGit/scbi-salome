@@ -20,13 +20,13 @@ depends:
     - s-med-coupling
 
 build-depends:
+  common:
+    - s-cmake
   _:
     - os@-autoconf
     - os@-automake
     - os@-autotools-dev
     - os@-libtool
-  common:
-    - s-cmake
   default:
     - os@-python3-setuptools
 

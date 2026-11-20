@@ -24,12 +24,12 @@ depends:
     - s-salome-gui
 
 build-depends:
+  common:
+    - s-cmake
   _:
     - if not enabled(no-doc): os@-python3-sphinx
     - if not enabled(no-doc): os@-sphinx-intl
     - s-python-modules
-  common:
-    - s-cmake
 
 env:
   - set-var ATOMIC_ROOT_DIR $PREFIX

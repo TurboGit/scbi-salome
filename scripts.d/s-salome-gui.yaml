@@ -27,15 +27,15 @@ depends:
     - s-openmpi
 
 build-depends:
+  common:
+    - s-cmake
+    - s-python-modules
   _:
     - os@-sphinx-common
     - if not enabled(no-doc): os@-sphinx-intl
     - s-sip
     - s-swig
     - s-salome-bootstrap
-  common:
-    - s-cmake
-    - s-python-modules
 
 env:
   - set-var GUI_ROOT_DIR $PREFIX

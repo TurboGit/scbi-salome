@@ -13,17 +13,17 @@ patches:
     - configuration.msys2.patch
 
 env:
+  common:
+    - set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
+    - set-var SALOME_ACTOR_DELEGATE_TO_VTK 1
+    - set-var ORBgiopMaxMsgSize 2147483648
+    - set-var SALOME_MODULES_ORDER SHAPER:SHAPERSTUDY:GEOM:SMESH
   _:
     - set-var CONFIGURATION_ROOT_DIR $PREFIX
     - set-var CONFIGURATION_CMAKE_DIR $PREFIX/cmake
     - add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR
     - add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
     - set-var PYQT5_NOT_MASTER 1
-  common:
-    - set-var SALOME_ALPHA_BUFFER_SIZE_VALUE 1
-    - set-var SALOME_ACTOR_DELEGATE_TO_VTK 1
-    - set-var ORBgiopMaxMsgSize 2147483648
-    - set-var SALOME_MODULES_ORDER SHAPER:SHAPERSTUDY:GEOM:SMESH
   ngwin:
     - local WPREFIX $(output cygpath -w "$PREFIX")
     - set-var CONFIGURATION_ROOT_DIR $WPREFIX

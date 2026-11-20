@@ -28,13 +28,13 @@ depends:
     - s-opencv
 
 build-depends:
+  common:
+    - s-cmake
   _:
     - os@-sphinx-common
     - os@-python3-psutil
     - s-swig
     - s-salome-bootstrap
-  common:
-    - s-cmake
 
 env:
   - set-var GEOM_ROOT_DIR $PREFIX
