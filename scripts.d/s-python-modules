@@ -103,6 +103,16 @@ function s-python-modules-smmap-modules()
     echo s-python3-smmap
 }
 
+function s-python-modules-matplotlib-modules()
+{
+    echo s-python3-matplotlib
+}
+
+function s-python-modules-statsmodels-modules()
+{
+    echo s-python3-statsmodels
+}
+
 function s-python-modules-core-modules()
 {
     #  All the core python modules for SALOME
@@ -115,6 +125,8 @@ function s-python-modules-core-modules()
     s-python-modules-numpy-modules
     s-python-modules-scipy-modules
     s-python-modules-nlopt-modules
+    s-python-modules-matplotlib-modules
+    s-python-modules-statsmodels-modules
 
     s-python-modules-fmpy-modules
     s-python-modules-buildingspy-modules

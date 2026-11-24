@@ -1,0 +1,8 @@
+inherit-plugin s-install-python-module
+
+with-variant native os@-python3-statsmodels:[v]
+
+function s-python3-statsmodels-config-options()
+{
+    echo statsmodels==$(get-version)
+}

@@ -78,8 +78,8 @@ function s-openturns-default-depends()
     echo os@-python3
     echo os@-python3-dev
     echo os@-bz2-dev
-    echo os@-python3-matplotlib
-    echo os@-python3-numpy
+    echo s-python3-matplotlib
+    echo s-python3-numpy
     echo s-python3-nlopt
     # since 1.13
     echo os@-cminpack-dev
@@ -92,8 +92,8 @@ function s-openturns-mingw-depends()
     echo os@-blas-dev
     echo os@-python3-dev
     echo os@-bz2-dev
-    echo os@-python3-matplotlib
-    echo os@-python3-numpy
+    echo s-python3-matplotlib
+    echo s-python3-numpy
     echo s-python3-nlopt
     echo s-eigen
     echo s-hdf5

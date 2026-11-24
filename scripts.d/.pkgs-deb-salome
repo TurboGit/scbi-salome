@@ -5,6 +5,8 @@ os@-boost-chrono-dev                libboost-chrono-dev
 os@-boost-date-time-dev             libboost-date-time-dev
 os@-boost-filestsystem-dev          libboost-filesystem-dev
 os@-boost-serialization-dev         libboost-serialization-dev
+os@-chrpath                         chrpath
+os@-gdal-dev                        libgdal-dev
 os@-meshio-tools                    meshio-tools
 os@-nlohmann-json3-dev              nlohmann-json3-dev
 os@-nlopt                           libnlopt0
@@ -32,6 +34,7 @@ os@-python3-pytidylib               python3-tidylib
 os@-python3-rich                    python3-rich
 os@-python3-scipy                   python3-scipy
 os@-python3-smmap                   python3-smmap
+os@-python3-statsmodels             python3-statsmodels
 os@-python3-toml                    python3-toml
 os@-python3-typing-extensions       python3-typing-extensions
 os@-python3-wand                    python3-wand
@@ -41,5 +44,3 @@ os@-rapidjson-dev                   rapidjson-dev
 os@-texlive                         texlive
 os@-texlive-latex-extra             texlive-latex-extra
 os@-xxhash-dev                      libxxhash-dev
-os@-chrpath                         chrpath
-os@-gdal-dev                        libgdal-dev

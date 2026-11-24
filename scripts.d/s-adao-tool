@@ -24,9 +24,9 @@ function s-adao-tool-common-depends()
 function s-adao-tool-default-depends()
 {
     echo os@-python3-sphinx-rtd-theme
-    echo os@-python3-matplotlib
+    echo s-python3-matplotlib
     echo s-python3-nlopt
-    echo os@-python3-scipy
+    echo s-python3-scipy
 }
 
 function s-adao-tool-env()
