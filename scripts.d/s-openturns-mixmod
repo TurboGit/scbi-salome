@@ -47,7 +47,7 @@ function s-openturns-mixmod-env()
 
     add-to-var LD_LIBRARY_PATH $PREFIX/lib
     add-to-var PYTHONPATH      \
-               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages
 }
 
 function s-openturns-mixmod-config-options()
