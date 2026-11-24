@@ -13,4 +13,4 @@ config-options:
 post-install: |-
   handle-post-inst-post-install $PREFIX $TARGET
   sitepkg = $PREFIX/lib/python$PYTHON_VERSION/site-packages
-  rm -fr $sitepkg/fmpy/remoting/win32 $sitepkg/fmpy/remoting/win64
+  delete-tree $sitepkg/fmpy/remoting/win32 $sitepkg/fmpy/remoting/win64

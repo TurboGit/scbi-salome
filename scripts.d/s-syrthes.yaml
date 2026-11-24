@@ -40,7 +40,7 @@ pre-config: |-
   cd ../src
   _S1 = command-path python$PYTHON_VERSION
   $_S1 components.py
-  rm -rf doc idl resources src
+  delete-tree doc idl resources src
   mv SYRTHES_SRC/* .
   cp -f CMakeLists.txt.tmp src/SYRTHES/CMakeLists.txt
 

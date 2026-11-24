@@ -5,7 +5,7 @@ with-variants:
     packages:
       - s-windows-kit
     env:
-      - local SCBI_W_VC $(output cygpath -w -s "$SCBI_WINDOWS_VC")
+      - SCBI_W_VC = $(output cygpath -w -s "$SCBI_WINDOWS_VC")
       - add-to-var PATH $SCBI_W_VC/bin/Hostx64/x64
       - add-to-var INCLUDE $SCBI_W_VC/include
       - add-to-var LIB $SCBI_W_VC/lib/x64

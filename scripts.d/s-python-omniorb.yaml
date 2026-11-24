@@ -33,7 +33,7 @@ env:
   _:
     - set-var OMNIORBPY_ROOT_DIR $PREFIX
     - set-var OMNIORBPY_INCLUDE_DIR $PREFIX/include
-    - local LDIR $PREFIX/lib/python$PYTHON_VERSION
+    - LDIR = $PREFIX/lib/python$PYTHON_VERSION
     - add-to-var PYTHONPATH $LDIR/site-packages
     - add-to-var PYTHONPATH $LDIR/site-packages/omniidl_be
     - add-to-var PYTHONPATH $(dirname $(get-os-bin $LDIR/site-packages/_omnipy*so))

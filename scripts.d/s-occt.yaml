@@ -42,7 +42,7 @@ env:
     - add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/opencascade
     - add-to-var CMAKE_MODULE_PATH $PREFIX/lib/cmake
     - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake/opencascade
-    - local CASRES $PREFIX/share/opencascade/resources
+    - CASRES = $PREFIX/share/opencascade/resources
     - set-var CSF_ShadersDirectory $CASRES/Shaders
     - set-var CSF_UnitsLexicon $CASRES/UnitsAPI/Lexi_Expr.dat
     - set-var CSF_UnitsDefinition $CASRES/UnitsAPI/Units.dat

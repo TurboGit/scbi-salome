@@ -4,7 +4,7 @@ functions:
   copy-modules-salome:
     run: |-
       mkdir EDF
-      rm -f artifacts/source-refs.txt
+      delete artifacts/source-refs.txt
       #  Record source reference for QA
       #  (nothing for aggregated modules, build dependencies and
       #  meta-modules, except aggregates)
@@ -264,8 +264,8 @@ external-env:
 wrapup: |-
   APPDIR = $TARGET-$VARIANT/app
   #  Clean-up previous installation if any
-  rm -f $APPDIR/*
-  rm -fr $APPDIR/artifacts
+  delete $APPDIR/*
+  delete-tree $APPDIR/artifacts
   mkdir -p $APPDIR
   cd $APPDIR
   if enabled(application) or enabled(installer):
@@ -330,11 +330,11 @@ wrapup: |-
           else:
               O_COMPRESS = --bzip2
           if enabled(zip):
-              rm -f $SCRIPT_NAME.zip salome-$REF
+              delete $SCRIPT_NAME.zip salome-$REF
               if $SCBI_IS_WINDOWS == yes:
                   ln -s $APPDIR salome-$REF
                   zip -9r $SCRIPT_NAME.zip salome-$REF
-                  rm -f salome-$REF
+                  delete salome-$REF
               else:
                   zip -9r $SCRIPT_NAME.zip $APPDIR
           else:

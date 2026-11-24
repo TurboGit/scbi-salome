@@ -99,7 +99,7 @@ build-depends:
     - os@-gl2ps-dev
 
 env:
-  - local CMAKE_PV $(last-modified-directory "$PREFIX/lib*/cmake/paraview-*")
+  - CMAKE_PV = $(last-modified-directory "$PREFIX/lib*/cmake/paraview-*")
   - set-var PARAVIEW_ROOT_DIR $PREFIX
   - set-var PARAVIEW_INSTALL_DIR $PREFIX
   - add-to-var CMAKE_PREFIX_PATH ${CMAKE_PV}

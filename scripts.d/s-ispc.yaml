@@ -42,7 +42,7 @@ build:
 install:
   _: make install
   bin: |-
-    rm -fr ../install
+    delete-tree ../install
     ln -s src ../install
 
 prefix:

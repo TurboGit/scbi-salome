@@ -25,7 +25,7 @@ env:
     - add-to-var CMAKE_PREFIX_PATH $CONFIGURATION_CMAKE_DIR
     - set-var PYQT5_NOT_MASTER 1
   ngwin:
-    - local WPREFIX $(output cygpath -w "$PREFIX")
+    - WPREFIX = $(output cygpath -w "$PREFIX")
     - set-var CONFIGURATION_ROOT_DIR $WPREFIX
     - set-var CONFIGURATION_CMAKE_DIR $WPREFIX/cmake
     - add-to-var CMAKE_MODULE_PATH $CONFIGURATION_CMAKE_DIR

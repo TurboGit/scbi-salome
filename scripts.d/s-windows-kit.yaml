@@ -4,12 +4,12 @@ with-variants:
   native:
     packages: []
     env:
-      - local SCBI_W_KIT $(output cygpath -w -s "$SCBI_WINDOWS_KIT")
+      - SCBI_W_KIT = $(output cygpath -w -s "$SCBI_WINDOWS_KIT")
       #  Cygwin compatible path with short names (for last-modified-directory)
-      - local SCBI_C_KIT $(output cygpath -ms "$SCBI_WINDOWS_KIT")
-      - local SCBI_C_KIT ${SCBI_C_KIT/C:/\/cygdrive\/c}
-      - local SCBI_WINDOWS_KIT_FULL_VERSION $(last-modified-directory "$SCBI_C_KIT/Lib/${SCBI_WINDOWS_KIT_VERSION}*")
-      - local SCBI_WINDOWS_KIT_FULL_VERSION $(basename "$SCBI_WINDOWS_KIT_FULL_VERSION")
+      - SCBI_C_KIT = $(output cygpath -ms "$SCBI_WINDOWS_KIT")
+      - SCBI_C_KIT = ${SCBI_C_KIT/C:/\/cygdrive\/c}
+      - SCBI_WINDOWS_KIT_FULL_VERSION = $(last-modified-directory "$SCBI_C_KIT/Lib/${SCBI_WINDOWS_KIT_VERSION}*")
+      - SCBI_WINDOWS_KIT_FULL_VERSION = $(basename "$SCBI_WINDOWS_KIT_FULL_VERSION")
       - add-to-var LIB $SCBI_W_KIT/Lib/$SCBI_WINDOWS_KIT_FULL_VERSION/um/x64
       - add-to-var LIB $SCBI_W_KIT/Lib/$SCBI_WINDOWS_KIT_FULL_VERSION/ucrt/x64
       - add-to-var INCLUDE $SCBI_W_KIT/Include/$SCBI_WINDOWS_KIT_FULL_VERSION/shared
