@@ -39,8 +39,8 @@ depends:
     - os@-python3
     - os@-python3-dev
     - os@-bz2-dev
-    - os@-python3-matplotlib
-    - os@-python3-numpy
+    - s-python3-matplotlib
+    - s-python3-numpy
     - s-python3-nlopt
     - os@-cminpack-dev
     - s-eigen
@@ -49,8 +49,8 @@ depends:
     - os@-blas-dev
     - os@-python3-dev
     - os@-bz2-dev
-    - os@-python3-matplotlib
-    - os@-python3-numpy
+    - s-python3-matplotlib
+    - s-python3-numpy
     - s-python3-nlopt
     - s-eigen
     - s-hdf5

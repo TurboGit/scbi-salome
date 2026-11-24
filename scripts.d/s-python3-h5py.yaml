@@ -8,5 +8,8 @@ with-variants:
     packages:
       - os@-python3-h5py:[v]
 
+depends:
+  - s-python3-numpy
+
 config-options:
   - h5py==$(get-version)

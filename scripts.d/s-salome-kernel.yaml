@@ -26,8 +26,8 @@ depends:
     - os@-graphviz-dev
     - os@-xml2-dev
     - os@-graphviz-dev
-    - os@-python3-numpy
     - os@-python3-psutil
+    - s-python3-numpy
     - s-salome-bootstrap
     - s-hdf5
     - s-libbatch

@@ -8,6 +8,7 @@ variants:
     - metadata
     - xlutils
     - lxml
+    - matplotlib
     - numpy
     - scipy
     - nlopt
@@ -19,8 +20,9 @@ variants:
     - gitpython
     - pytidylib
     - smmap
-    - pyperclip  # for PyCD (? Add only when Carmel Study is built)
-    - numexpr  # for PyCD
+    - statsmodels
+    - pyperclip # for PyCD (? Add only when Carmel Study is built)
+    - numexpr # for PyCD
 
 modules:
   buildingspy:
@@ -35,6 +37,8 @@ modules:
     - s-python3-lark
   lxml:
     - s-python3-lxml
+  matplotlib:
+    - s-python3-matplotlib
   meshio:
     - s-python3-meshio
   metadata:
@@ -59,6 +63,8 @@ modules:
     - s-python3-scipy
   smmap:
     - s-python3-smmap
+  statsmodels:
+    - s-python3-statsmodels
   telemac:
     - s-python3-telemac
   toml:

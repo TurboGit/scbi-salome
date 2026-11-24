@@ -79,6 +79,8 @@ s-python3-proj/auto:3.2.1
 s-python3-pyperclip/auto:1.11.0
 s-python3-zipp/auto:1.0
 s-python3-importlib-metadata/auto:1.6
+s-python3-matplotlib/auto:3.3.4
+s-python3-statsmodels/auto:0.12.2
 s-python3-meshio/auto:5.3.5
 s-python3-xlutils:2.0.0
 s-python3-numexpr:2.10

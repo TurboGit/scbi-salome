@@ -1,0 +1,15 @@
+plugin: s-python3-matplotlib
+
+inherit:
+  - from: s-install-python-module
+
+with-variants:
+  native:
+    packages:
+      - os@-python3-matplotlib:[v]
+
+depends:
+  - s-python3-numpy
+
+config-options:
+  - matplotlib==$(get-version)

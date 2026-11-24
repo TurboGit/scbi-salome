@@ -17,9 +17,9 @@ depends:
     - s-salome-configuration
   default:
     - os@-python3-sphinx-rtd-theme
-    - os@-python3-matplotlib
+    - s-python3-matplotlib
     - s-python3-nlopt
-    - os@-python3-scipy
+    - s-python3-scipy
 
 build-depends:
   - s-cmake

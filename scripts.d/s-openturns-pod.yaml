@@ -23,11 +23,11 @@ patches:
 depends:
   - s-openturns
   - os@-python3
-  - python3-statsmodels
   - python3-decorator
-  - python3-matplotlib
-  - python3-numpy
-  - python3-scipy
+  - s-python3-statsmodels
+  - s-python3-matplotlib
+  - s-python3-numpy
+  - s-python3-scipy
 
 build-depends:
   - os@-python3-setuptools
