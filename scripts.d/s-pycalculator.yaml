@@ -27,7 +27,7 @@ env:
   - set-var PYCALCULATOR_ROOT_DIR $PREFIX
   - add-to-var LD_LIBRARY_PATH $PREFIX/lib/salome
   - add-to-var PYTHONPATH $PREFIX/bin/salome
-  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/salome
 
 config: cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) ../src
 
