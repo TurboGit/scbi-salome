@@ -27,7 +27,7 @@ build-depends:
 env:
   - set-var OTMIXMOD_HOME $PREFIX
   - add-to-var LD_LIBRARY_PATH $PREFIX/lib
-  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
 config-options:
   - -DBUILD_DOC=OFF

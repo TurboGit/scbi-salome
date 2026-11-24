@@ -35,10 +35,10 @@ build-depends:
 env:
   - set-var OTpod_HOME $PREFIX
   - add-to-var LD_LIBRARY_PATH $PREFIX/lib
-  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
 build-env:
-  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
 out-of-tree: false
 

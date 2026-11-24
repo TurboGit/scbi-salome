@@ -18,7 +18,7 @@ build-depends:
 env:
   - set-var OTPMML_HOME $PREFIX
   - add-to-var LD_LIBRARY_PATH $PREFIX/lib
-  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+  - add-to-var PYTHONPATH $PREFIX/lib/python$PYTHON_VERSION/site-packages
 
 config: |-
   _S1 = command-path python$PYTHON_VERSION
