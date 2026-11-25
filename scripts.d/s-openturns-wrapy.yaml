@@ -18,12 +18,12 @@ archive:
   dir: otwrapy-${VERSION#*|}
 
 depends:
-  - s-openturns
   - os@-python3
+  - s-openturns
 
 build-depends:
-  - os@-python3-setuptools
   - os@-python3-pytest-runner
+  - os@-python3-setuptools
 
 env:
   - set-var OTWRAPY_HOME $PREFIX

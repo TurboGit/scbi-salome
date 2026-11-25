@@ -18,8 +18,8 @@ depends:
   common:
     - s-salome-configuration
   default:
-    - os@-graphviz-dev
     - os@-graphviz
+    - os@-graphviz-dev
     - os@-sphinx-common
     - os@-sphinx-intl
     - s-salome-kernel

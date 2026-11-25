@@ -24,8 +24,8 @@ patches:
     - netcdf-4.7.4.msys2.patch
 
 depends:
-  - s-hdf5
   - os@-curl4-gnutls-dev
+  - s-hdf5
 
 build-depends:
   - s-cmake

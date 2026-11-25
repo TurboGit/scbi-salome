@@ -29,11 +29,11 @@ depends:
     - s-salome-configuration
     - s-boost
   default:
-    - os@-boost-thread-dev
     - os@-boost-system-dev
+    - os@-boost-thread-dev
+    - os@-gcc
     - os@-program-options-dev
     - os@-zlib1g-dev
-    - os@-gcc
     - s-tbb
 
 build-depends:

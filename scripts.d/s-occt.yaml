@@ -15,12 +15,12 @@ archive:
 
 depends:
   common:
-    - os@-tcl-dev
-    - os@-tk-dev
-    - os@-freetype-dev
     - os@-freeimage-dev
+    - os@-freetype-dev
     - os@-gl2ps-dev
     - os@-rapidjson-dev
+    - os@-tcl-dev
+    - os@-tk-dev
   default:
     - os@-xi-dev
     - os@-xmu-dev

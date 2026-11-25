@@ -6,8 +6,8 @@ depends:
     - s-coolprop
     - s-scotch
   default:
-    - os@-python3-setuptools
     - os@-metis-dev
+    - os@-python3-setuptools
     - s-hdf5
     - s-cgns
     - s-med-file

@@ -24,9 +24,9 @@ depends:
 
 build-depends:
   common:
+    - os@-sphinx-common
     - s-salome-configuration
     - s-cmake
-    - os@-sphinx-common
 
 env:
   - set-var HYBRIDPLUGIN_ROOT_DIR $PREFIX

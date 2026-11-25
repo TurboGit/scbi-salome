@@ -35,20 +35,20 @@ patches:
 depends:
   default:
     - os@-blas-dev
+    - os@-bz2-dev
+    - os@-cminpack-dev
     - os@-lapack-dev
     - os@-python3
     - os@-python3-dev
-    - os@-bz2-dev
     - s-python3-matplotlib
     - s-python3-numpy
     - s-python3-nlopt
-    - os@-cminpack-dev
     - s-eigen
     - s-hdf5
   mingw:
     - os@-blas-dev
-    - os@-python3-dev
     - os@-bz2-dev
+    - os@-python3-dev
     - s-python3-matplotlib
     - s-python3-numpy
     - s-python3-nlopt

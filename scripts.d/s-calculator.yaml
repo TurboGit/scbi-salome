@@ -15,14 +15,14 @@ depends:
   - s-fields
 
 build-depends:
-  - os@-sphinx-common
-  - os@-sphinx-intl
+  - os@-doxygen
+  - os@-graphviz
+  - os@-graphviz-dev
+  - os@-python3-docutils
   - os@-python3-sphinx
   - os@-python3-sphinx-rtd-theme
-  - os@-graphviz-dev
-  - os@-graphviz
-  - os@-doxygen
-  - os@-python3-docutils
+  - os@-sphinx-common
+  - os@-sphinx-intl
   - s-cmake
   - s-swig
   - s-salome-configuration

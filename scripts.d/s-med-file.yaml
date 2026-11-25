@@ -15,9 +15,9 @@ patches:
 
 depends:
   _:
+    - os@-gfortran
     - os@-python3
     - os@-python3-dev
-    - os@-gfortran
     - s-hdf5
     - s-salome-configuration
   mpi:

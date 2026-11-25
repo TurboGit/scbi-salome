@@ -22,10 +22,10 @@ build-depends:
     - s-salome-configuration
     - s-cmake
   default:
-    - os@-python3-sphinx
-    - os@-graphviz-dev
     - os@-doxygen
+    - os@-graphviz-dev
     - os@-python3-docutils
+    - os@-python3-sphinx
     - s-swig
     - s-salome-bootstrap
 

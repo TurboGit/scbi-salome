@@ -15,8 +15,8 @@ archive:
 
 build-depends:
   _:
-    - os@-zlib1g-dev
     - os@-ncurses-dev
+    - os@-zlib1g-dev
     - s-cmake
     - s-clang
     - flex

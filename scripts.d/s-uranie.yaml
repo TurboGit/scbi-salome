@@ -8,14 +8,14 @@ archive:
   file: URANIE-$VERSION-Source.tar.gz
 
 depends:
-  - s-root
+  - os@-boost-dev
   - os@-python3
   - os@-python3-dev
-  - os@-boost-dev
+  - s-root
 
 build-depends:
-  - s-cmake
   - os@-xml2-utils
+  - s-cmake
 
 env:
   - add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake

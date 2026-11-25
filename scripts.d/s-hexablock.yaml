@@ -18,11 +18,11 @@ depends:
   - s-geom
 
 build-depends:
+  - os@-doxygen
+  - os@-graphviz-dev
+  - os@-python3-docutils
   - os@-python3-sphinx
   - os@-python3-sphinx-rtd-theme
-  - os@-graphviz-dev
-  - os@-doxygen
-  - os@-python3-docutils
   - s-cmake
   - s-swig
   - s-salome-configuration

@@ -14,8 +14,8 @@ vcs:
   url: https://github.com/OSGeo/PROJ.git
 
 build-depends:
-  - s-cmake
   - os@-sqlite3
+  - s-cmake
 
 env:
   - set-var PROJ_ROOT_DIR $PREFIX

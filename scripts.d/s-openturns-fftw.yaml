@@ -15,8 +15,8 @@ archive:
   dir: otfftw-${VERSION#*|}
 
 depends:
-  - os@-python3
   - os@-fftw3-dev
+  - os@-python3
   - s-openturns
 
 build-depends:

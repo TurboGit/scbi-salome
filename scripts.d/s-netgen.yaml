@@ -22,9 +22,9 @@ patches:
   - if ref =~ 6.2: netgen-62-for-salome.patch
 
 depends:
-  - s-occt
   - os@-tcl-dev
   - os@-tk-dev
+  - s-occt
 
 build-depends:
   autotools:

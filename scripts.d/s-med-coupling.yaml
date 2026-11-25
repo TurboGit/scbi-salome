@@ -32,10 +32,10 @@ build-depends:
   common:
     - s-cmake
   _:
+    - os@-cppunit-dev
+    - os@-python3-sphinx-rtd-theme
     - if not enabled(no-doc): os@-sphinx-common
     - if not enabled(no-doc): os@-sphinx-intl
-    - os@-python3-sphinx-rtd-theme
-    - os@-cppunit-dev
     - s-swig
 
 env:

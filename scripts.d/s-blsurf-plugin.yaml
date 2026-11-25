@@ -26,8 +26,8 @@ depends:
 
 build-depends:
   common:
-    - s-cmake
     - os@-sphinx-common
+    - s-cmake
   default:
     - s-salome-bootstrap
 

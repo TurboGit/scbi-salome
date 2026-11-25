@@ -31,10 +31,10 @@ patches:
 
 depends:
   common:
-    - os@-geos-dev
-    - os@-json-c-dev
     - os@-cfitsio-dev
     - os@-freexl-dev
+    - os@-geos-dev
+    - os@-json-c-dev
     - os@-postgresql
     - s-proj
     - s-netcdf

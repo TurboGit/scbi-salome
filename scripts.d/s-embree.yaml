@@ -19,8 +19,8 @@ patches:
 
 depends:
   - os@-c6-dev
-  - os@-tbb-dev
   - os@-glfw3-dev
+  - os@-tbb-dev
   - s-rkcommon
 
 build-depends:

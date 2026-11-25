@@ -18,10 +18,10 @@ archive:
   dir: otfmi-${VERSION#*|}
 
 depends:
+  - os@-python3
   - s-openturns
   - s-fmil
   - s-pyfmi
-  - os@-python3
 
 build-depends:
   - os@-python3-setuptools

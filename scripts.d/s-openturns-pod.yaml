@@ -21,8 +21,8 @@ patches:
   - otpod-dep.patch
 
 depends:
-  - s-openturns
   - os@-python3
+  - s-openturns
   - python3-decorator
   - s-python3-statsmodels
   - s-python3-matplotlib

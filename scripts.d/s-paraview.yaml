@@ -42,10 +42,10 @@ patches:
 
 depends:
   default:
+    - os@-pugixml
     - os@-python3-dev
     - os@-x11-dev
     - os@-xt-dev
-    - os@-pugixml
     - s-qt
     - s-hdf5
     - s-openturns
@@ -60,14 +60,14 @@ depends:
   mesa:
     - os@-osmesa-dev
   mingw:
-    - os@-python3-dev
-    - os@-pugixml-dev
     - os@-cli11
     - os@-glew-dev
-    - os@-ogg-dev
-    - os@-theora-dev
     - os@-haru-dev
+    - os@-ogg-dev
     - os@-protobuf-dev
+    - os@-pugixml-dev
+    - os@-python3-dev
+    - os@-theora-dev
     - s-boost
     - s-qt
     - s-hdf5
@@ -88,15 +88,15 @@ build-depends:
   common:
     - s-cmake
   default:
-    - os@-qtxmlpatterns5-dev-tools
     - os@-fmt-dev
     - os@-gl2ps-dev
+    - os@-qtxmlpatterns5-dev-tools
     - git-lfs
   mingw:
-    - os@-qtxmlpatterns5-dev-tools
-    - os@-utf8cpp
     - os@-fmt-dev
     - os@-gl2ps-dev
+    - os@-qtxmlpatterns5-dev-tools
+    - os@-utf8cpp
 
 env:
   - CMAKE_PV = $(last-modified-directory "$PREFIX/lib*/cmake/paraview-*")

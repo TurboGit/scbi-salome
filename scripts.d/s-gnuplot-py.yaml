@@ -2,9 +2,9 @@ plugin: s-gnuplot-py
 
 depends:
   common:
-    - gnuplot
-    - os@-python3-numpy
     - os@-python3
+    - os@-python3-numpy
+    - gnuplot
 
 build-depends:
   common:

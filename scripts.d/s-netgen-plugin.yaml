@@ -21,14 +21,14 @@ build-depends:
   common:
     - s-cmake
   default:
-    - os@-graphviz-dev
-    - os@-graphviz
     - os@-doxygen
+    - os@-graphviz
+    - os@-graphviz-dev
     - os@-python3-docutils
-    - os@-sphinx-common
-    - os@-sphinx-intl
     - os@-python3-sphinx
     - os@-python3-sphinx-rtd-theme
+    - os@-sphinx-common
+    - os@-sphinx-intl
     - s-swig
     - s-qt
     - s-salome-bootstrap

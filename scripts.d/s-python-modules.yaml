@@ -21,8 +21,8 @@ variants:
     - pytidylib
     - smmap
     - statsmodels
-    - pyperclip # for PyCD (? Add only when Carmel Study is built)
-    - numexpr # for PyCD
+    - pyperclip  # for PyCD (? Add only when Carmel Study is built)
+    - numexpr  # for PyCD
 
 modules:
   buildingspy:

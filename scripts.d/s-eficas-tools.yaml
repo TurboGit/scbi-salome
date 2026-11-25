@@ -15,8 +15,8 @@ depends:
 
 build-depends:
   common:
-    - s-cmake
     - os@-sphinx-common
+    - s-cmake
 
 env:
   - set-var EFICAS_ROOT $PREFIX

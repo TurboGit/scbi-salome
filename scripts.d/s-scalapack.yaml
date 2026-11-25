@@ -6,8 +6,8 @@ with-variants:
       - libscalapack-openmpi-dev:[v]
 
 build-depends:
-  - s-cmake
   - os@-gfortran
+  - s-cmake
 
 env:
   - set-var SCALAPACKDIR $PREFIX

@@ -24,9 +24,9 @@ depends:
   default:
     - os@-cppunit-dev
     - os@-graphviz-dev
-    - os@-xml2-dev
     - os@-graphviz-dev
     - os@-python3-psutil
+    - os@-xml2-dev
     - s-python3-numpy
     - s-salome-bootstrap
     - s-hdf5
@@ -47,18 +47,18 @@ build-depends:
   common:
     - s-cmake
   default:
+    - os@-chrpath
+    - os@-cppunit-dev
+    - os@-doxygen
+    - os@-graphviz
     - if not enabled(no-doc): os@-sphinx-common
     - if not enabled(no-doc): os@-sphinx-intl
-    - os@-doxygen
-    - os@-graphviz
-    - os@-cppunit-dev
-    - os@-chrpath
     - s-swig
   mingw:
-    - if not enabled(no-doc): os@-sphinx-common
+    - os@-cppunit-dev
     - os@-doxygen
     - os@-graphviz
-    - os@-cppunit-dev
+    - if not enabled(no-doc): os@-sphinx-common
     - s-swig
 
 env:

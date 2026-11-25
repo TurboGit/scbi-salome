@@ -6,9 +6,9 @@ with-variants:
       - libmumps-dev:[v]
 
 depends:
-  - s-scalapack
-  - os@-gfortran
   - os@-blas-dev
+  - os@-gfortran
+  - s-scalapack
 
 env:
   - set-var MUMPSDIR $PREFIX

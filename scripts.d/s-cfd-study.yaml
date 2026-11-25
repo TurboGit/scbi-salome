@@ -19,11 +19,11 @@ depends:
 
 build-depends:
   common:
-    - s-cmake
     - os@-autoconf
     - os@-automake
     - os@-autotools-dev
     - os@-libtool
+    - s-cmake
   default:
     - os@-python3-setuptools
 

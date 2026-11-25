@@ -31,8 +31,8 @@ build-depends:
   common:
     - s-cmake
   _:
-    - os@-sphinx-common
     - os@-python3-psutil
+    - os@-sphinx-common
     - s-swig
     - s-salome-bootstrap
 

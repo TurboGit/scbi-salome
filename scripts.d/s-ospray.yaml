@@ -14,9 +14,9 @@ archive:
   file: ospray-$VERSION.tar.gz
 
 depends:
-  - os@-xrandr-dev
-  - os@-xinerama-dev
   - os@-xcursor-dev
+  - os@-xinerama-dev
+  - os@-xrandr-dev
   - s-embree
   - s-rkcommon
   - s-openvkl

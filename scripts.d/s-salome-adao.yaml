@@ -24,8 +24,8 @@ depends:
     - s-python3-nlopt
 
 build-depends:
-  - s-cmake
   - os@-sphinx-common
+  - s-cmake
   - s-adao-tool
 
 env:

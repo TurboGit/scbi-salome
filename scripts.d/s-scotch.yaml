@@ -22,8 +22,8 @@ archive:
   file: scotch-$VERSION.tar.gz
 
 depends:
-  - os@-flex
   - os@-bison
+  - os@-flex
 
 env:
   - set-var SCOTCH_ROOT_DIR $PREFIX

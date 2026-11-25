@@ -14,8 +14,8 @@ with-variants:
       - add-to-var PTSCOTCH_ERR_LIBRARIES $(get-os-lib libptscotcherr.so)
 
 depends:
-  - os@-flex
   - os@-bison
+  - os@-flex
   - s-openmpi
 
 env:

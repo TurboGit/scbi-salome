@@ -14,8 +14,8 @@ archive:
   file: FMILibrary-$VERSION.tar.gz
 
 build-depends:
-  - s-cmake
   - os@-doxygen
+  - s-cmake
 
 env:
   - set-var FMIL_HOME $PREFIX

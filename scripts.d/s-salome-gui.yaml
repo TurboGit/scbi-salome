@@ -14,8 +14,8 @@ depends:
   common:
     - s-salome-configuration
   default:
-    - os@-qwt-qt5-dev
     - os@-glu1-mesa-dev
+    - os@-qwt-qt5-dev
     - s-qt
     - s-pyqt
     - s-paraview
