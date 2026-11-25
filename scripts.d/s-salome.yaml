@@ -250,16 +250,10 @@ modules:
 propagate-version: no
 
 external-env:
-  - A
-  - $(is-enabled application)
-  - I
-  - $(is-enabled installer)
-  - L
-  - $(is-enabled logger)
-  - Z
-  - $(is-enabled zip)
-  - X
-  - $(is-enabled xz)
+  - A $(is-enabled application)
+  - I $(is-enabled installer)
+  - Z $(is-enabled zip)
+  - X $(is-enabled xz)
 
 wrapup: |-
   APPDIR = $TARGET-$VARIANT/app
@@ -314,7 +308,7 @@ wrapup: |-
           chmod a+x setup
           copy $SCBI_PLUGINS/support/servers.pvsc .
           #  Startup Windows script to fix Python path to get access to
-          #  PyQt needed by the logger start script.
+          #  PyQt if needed by a startup script.
           if $SCBI_IS_WINDOWS == yes:
               copy $SCBI_PLUGINS/support/setup_windows.bat $SCBI_PLUGINS/support/run_mesa_salome.bat $SCBI_PLUGINS/support/run_paraview.bat $SCBI_PLUGINS/support/run_persalys.bat $SCBI_PLUGINS/support/run_salome.bat $SCBI_PLUGINS/support/run_salome_shell.bat .
           cd $SCBI_BDIR/s-salome
