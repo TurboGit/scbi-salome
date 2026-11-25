@@ -69,7 +69,7 @@ s-python3-wand/auto:0.4.4
 s-python3-toml/auto:0.10.0
 s-python3-yaml/auto:5.3
 s-python3-lxml/auto:4.3.2
-s-python3-h5py/auto:2.8.0
+s-python3-h5py/auto:3.9.0
 s-python3-cftime/auto:1.0.3
 s-python3-netcdf4/auto:1.5.5
 s-python3-scipy/auto:1.6
@@ -221,7 +221,6 @@ s-coolprop:#6.4.3
         s-pyfmi:#2.6
 
         s-python3-cftime/auto:1.6.2
-        s-python3-h5py/auto:3.7.0
         s-python3-importlib-metadata/auto:4.12.0
         s-python3-lxml/auto:4.9.2
         s-python3-netcdf4/auto:1.6.2
@@ -248,7 +247,6 @@ s-coolprop:#6.4.3
         s-pyqt:#5.15.3
 
         s-python3-cftime/auto:1.6.2
-        s-python3-h5py/auto:3.7.0
         s-python3-importlib-metadata/auto:4.12.0
         s-python3-lxml/auto:4.9.2
         s-python3-netcdf4/auto:1.7.2
