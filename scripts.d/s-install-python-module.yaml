@@ -49,7 +49,7 @@ install: |-
 post-install: |-
   for site_file in /usr/lib/*/*/*/site-patch.py:
       if is-file($site_file):
-          copy $site_file $PREFIX/lib/python$PYTHON_VERSION/site-packages/site.py
+          cp $site_file $PREFIX/lib/python$PYTHON_VERSION/site-packages/site.py
   handle-dist-post-install $PREFIX $TARGET
   if not exists($PREFIX/bin/python):
       mkdir -p $PREFIX/bin
