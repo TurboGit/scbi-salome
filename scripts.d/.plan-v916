@@ -225,7 +225,6 @@ s-coolprop:#6.4.3
 
         s-python3-cftime/auto:1.6.2
         s-python3-importlib-metadata/auto:4.12.0
-        s-python3-lxml/auto:4.9.2
         s-python3-netcdf4/auto:1.6.2
         s-python3-nlopt/auto:2.7.1
         s-python3-numpy/auto:1.24.2
@@ -251,7 +250,6 @@ s-coolprop:#6.4.3
 
         s-python3-cftime/auto:1.6.2
         s-python3-importlib-metadata/auto:4.12.0
-        s-python3-lxml/auto:4.9.2
         s-python3-netcdf4/auto:1.7.2
         s-python3-nlopt/auto:2.7.1
         s-python3-numpy/auto:1.24.2
